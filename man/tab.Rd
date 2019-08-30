@@ -6,14 +6,14 @@
 \alias{tab_size}
 \title{Tabulate data by intervals}
 \usage{
-tab(...)
+tab(..., drop = FALSE)
 
-tab_width(...)
+tab_width(..., drop = FALSE)
 
-tab_size(...)
+tab_size(..., drop = FALSE)
 }
 \arguments{
-\item{...}{Passed to \code{chop}}
+\item{drop, ...}{Passed to \code{chop}}
 }
 \value{
 A \code{\link[=table]{table()}}.
