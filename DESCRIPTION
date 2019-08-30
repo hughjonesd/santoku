@@ -23,3 +23,5 @@ LinkingTo:
     Rcpp
 Imports: 
     Rcpp
+URL: https://github.com/hughjonesd/santoku
+BugReports: https://github.com/hughjonesd/santoku/issues
