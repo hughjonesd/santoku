@@ -108,8 +108,8 @@ chop_quantiles <- function(x, quantiles, labels = lbl_quantiles(quantiles), ...)
 #'
 #' @examples
 #' chop_equal(rnorm(10), 5)
-chop_equal <- function(x, n, ...) {
-  chop_quantiles(x, seq(1, n - 1)/n, ...)
+chop_equal <- function(x, n, labels = lbl_intervals(), ...) {
+  chop_quantiles(x, seq(1, n - 1)/n, labels = labels, ...)
 }
 
 

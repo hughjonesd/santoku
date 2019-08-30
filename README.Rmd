@@ -18,7 +18,8 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 ![santoku logo](man/figures/santoku-logo.png)
-santoku is a precision cutting tool for R. It provides `chop()`, a replacement
+
+santoku is a versatile cutting tool for R. It provides `chop()`, a replacement
 for `base::cut()`.
 
 ## Installation
@@ -30,12 +31,49 @@ You can install the development version from [GitHub](https://github.com/) with:
 devtools::install_github("hughjonesd/santoku")
 ```
 
-## Example
+## Basic usage
 
-```{r example}
+Use `chop()` like `cut()` to cut your data up:
+
+```{r}
 library(santoku)
-x <- runif(10)
-chopped <- chop(x, 0:10/10)
+x <- runif(10, 0, 10)
+chopped <- chop(x, breaks = 0:10)
 data.frame(x, chopped)
+```
+
+`chop()` returns a factor.
+
+If data is beyond the limits of `breaks`, they will be extended automatically:
+
+```{r}
+chop(x, breaks = 3:7)
+```
+
+To chop a single number into a separate category, put the number twice in
+`breaks`:
+
+```{r}
+x_fives <- c(x, rep(5, 5))
+chop(x_fives, c(2, 5, 5, 8))
+```
+
+To chop data up by quantiles, use `chop_quantiles()`:
+
+```{r}
+chop_quantiles(x, c(0.25, 0.5, 0.75))
+```
+
+To chop into `n` equal sized groups use `chop_equal()`:
+
+```{r}
+chop_equal(x, 3)
+```
+
+To chop into fixed-width intervals, starting at the minimum value, use
+`chop_width()`:
+
+```{r}
+chop_width(x, 2)
 ```
 
