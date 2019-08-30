@@ -1,0 +1,25 @@
+Package: santoku
+Type: Package
+Title: Precision Cutting for R
+Version: 0.1.0
+Authors@R:
+    person(given = "David",
+           family = "Hugh-Jones",
+           role = c("aut", "cre"),
+           email = "davidhughjones@gmail.com")
+Author: David Hugh-Jones [aut, cre]
+Maintainer: David Hugh-Jones <davidhughjones@gmail.com>
+Description: A tool for cutting data into intervals. Allows singleton intervals.
+  Always includes the whole range of data by default. Flexible labelling. 
+  Convenience functions for cutting by quantiles etc.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat (>= 2.1.0)
+LinkingTo: 
+    Rcpp
+Imports: 
+    Rcpp

@@ -1,0 +1,57 @@
+
+test_that("sequential labels", {
+  brk <- brk_manual(1:3, rep(TRUE, 3))
+  expect_equivalent(lbl_numerals()(brk), as.character(1:2))
+  expect_equivalent(lbl_roman()(brk), tolower(as.roman(1:2)))
+  expect_equivalent(lbl_ROMAN()(brk), as.character(as.roman(1:2)))
+  expect_equivalent(lbl_letters()(brk), letters[1:2])
+  expect_equivalent(lbl_LETTERS()(brk), LETTERS[1:2])
+
+  expect_equivalent(lbl_numerals("(%s)")(brk), sprintf("(%s)", 1:2))
+})
+
+
+test_that("lbl_dash", {
+  brk <- brk_manual(1:3, rep(TRUE, 3))
+  expect_equivalent(lbl_dash()(brk), c("1 - 2", "2 - 3"))
+})
+
+
+test_that("lbl_format", {
+  brk <- brk_manual(1:3, rep(TRUE, 3))
+  expect_equivalent(lbl_format("<%d to %d>")(brk), c("<1 to 2>", "<2 to 3>"))
+  brk <- brk_left(c(1, 2, 2, 3))
+  expect_equivalent(lbl_format("<%d to %d>", "|%d|")(brk),
+        c("<1 to 2>", "|2|", "<2 to 3>"))
+})
+
+
+test_that("lbl_quantiles", {
+  expect_equivalent(lbl_quantiles(0.5), c("0-50%", "50-100%"))
+})
+
+
+test_that("lbl_intervals", {
+  lbrk <- brk_manual(1:3, rep(TRUE, 3))
+  rbrk <- brk_manual(1:3, rep(FALSE, 3))
+  expect_equivalent(lbl_intervals()(lbrk), c("[1, 2)", "[2, 3)"))
+  expect_equivalent(lbl_intervals()(rbrk), c("(1, 2]", "(2, 3]"))
+
+  lbrk <- brk_left(1:3)
+  expect_equivalent(lbl_intervals()(lbrk), c("[1, 2)", "[2, 3]"))
+  rbrk <- brk_right(1:3)
+  expect_equivalent(lbl_intervals()(rbrk), c("[1, 2]", "(2, 3]"))
+
+  sbrk <- brk_left(c(1, 2, 2, 3))
+  expect_equivalent(lbl_intervals()(sbrk), c("[1, 2)", "{2}", "(2, 3]"))
+
+  mbrk <- brk_manual(1:4, c(FALSE, TRUE, FALSE, TRUE))
+  expect_equivalent(lbl_intervals()(mbrk), c("(1, 2)", "[2, 3]", "(3, 4)"))
+
+  expect_equivalent(lbl_intervals("%.2f")(mbrk),
+        c("(1.00, 2.00)", "[2.00, 3.00]", "(3.00, 4.00)"))
+})
+
+
+
+
