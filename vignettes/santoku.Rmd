@@ -1,0 +1,394 @@
+---
+title: "Introduction to santoku"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Introduction to santoku}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+santoku is a versatile cutting tool for R. It provides `chop()`, a replacement
+for `base::cut()`.
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("hughjonesd/santoku")
+```
+
+## Basic usage
+
+Use `chop()` like `cut()` to cut your data up:
+
+```{r}
+library(santoku)
+x <- runif(10, 0, 10)
+(chopped <- chop(x, breaks = 0:10))
+data.frame(x, chopped)
+```
+
+`chop()` returns a factor.
+
+If data is beyond the limits of `breaks`, they will be extended automatically:
+
+```{r}
+chopped <- chop(x, breaks = 3:7)
+data.frame(x, chopped)
+```
+
+To chop a single number into a separate category, put the number twice in
+`breaks`:
+
+```{r}
+x_fives <- x
+x_fives[1:5] <- 5
+chopped <- chop(x_fives, c(2, 5, 5, 8))
+data.frame(x_fives, chopped)
+```
+
+
+To quickly produce a table of chopped data, use `tab()`:
+
+```{r}
+tab(x, c(2, 5, 8))
+```
+
+## More ways to chop
+
+To chop into fixed-width intervals, starting at the minimum value, use
+`chop_width()`:
+
+```{r}
+chopped <- chop_width(x, 2)
+data.frame(x, chopped)
+```
+
+To chop into groups with a fixed *size* (i.e. number of members), use `chop_size()`:
+
+```{r}
+chopped <- chop_size(x, 4)
+table(chopped)
+```
+
+
+To chop into `n` equal sized groups use `chop_equal()`:
+
+```{r}
+chopped <- chop_equal(x, 3)
+table(chopped)
+```
+
+
+To chop data up by quantiles, use `chop_quantiles()`:
+
+```{r}
+chopped <- chop_quantiles(x, c(0.25, 0.5, 0.75))
+data.frame(x, chopped)
+```
+
+
+`tab_size()` and `tab_width()` do the same as `tab()`:
+
+```{r}
+tab_width(x, 2)
+tab_size(x, 4)
+```
+
+# Advanced usage
+
+You can change factor labels with the `labels` argument:
+
+```{r}
+chopped <- chop(x, c(2, 5, 8), labels = c("Lowest", "Low", "Higher", "Highest"))
+data.frame(x, chopped)
+```
+
+You need one more label than there are breaks.
+
+To label intervals with a dash, use `lbl_dash()`:
+
+```{r}
+chopped <- chop(x, c(2, 5, 8), lbl_dash())
+data.frame(x, chopped)
+```
+
+For arbitrary formatting use `lbl_format()` and `sprintf`-style format strings:
+
+```{r}
+chopped <- chop(x, c(2, 5, 8), lbl_format("%s to %s"))
+data.frame(x, chopped)
+```
+
+To number intervals in order use `lbl_numerals()`:
+
+```{r}
+chopped <- chop(x, c(2, 5, 8), lbl_numerals())
+data.frame(x, chopped)
+```
+
+You can use letters or even roman numerals:
+
+```{r}
+chop(x, c(2, 5, 8), lbl_letters())
+chop(x, c(2, 5, 8), lbl_roman())
+```
+
+By default, `chop()` extends `breaks` if necessary. If you don't want
+that, set `extend = FALSE`:
+
+```{r}
+chopped <- chop(x, c(3, 5, 7), extend = FALSE)
+data.frame(x, chopped)
+```
+
+Data outside the range of `breaks` will become `NA`.
+
+By default, intervals are closed on the left, i.e. they include their left
+endpoints. If you want right-closed intervals, use `brk_right()`:
+
+```{r}
+y <- 1:10
+data.frame(
+        y = y, 
+        left_closed = chop(y, 2:8), 
+        right_closed = chop(y, brk_right(2:8))
+      )
+```
+
+The last finite interval is right-closed (or if you use `brk_right`, the first finite interval is left-closed). If you don't want that, use `brk_left()` explicitly and set `close_end = FALSE`:
+
+```{r}
+z <- 1:5
+data.frame(
+  z = z,
+  rightmost_closed = chop(1:5, brk_left(1:5)),
+  rightmost_open   = chop(1:5, brk_left(1:5, close_end = FALSE))
+)
+
+```
+
+
+If you want to chop repeatedly with the same arguments, create your own
+`knife`:
+
+```{r}
+chop_by_quartiles <- knife(
+        breaks = brk_quantiles(c(0.25, 0.5, 0.75)), 
+        labels = lbl_dash()
+      )
+
+chop_by_quartiles(x)
+table(chop_by_quartiles(rnorm(50)))
+
+```
+
+## Speed
+
+The core of santoku is written in C++. It is reasonably fast:
+
+```{r}
+microbenchmark::microbenchmark(
+        chop(rnorm(1e5), -2:2),
+         cut(rnorm(1e5), -2:2)
+      )
+```
+
+santoku is a versatile cutting tool for R. It provides `chop()`, a replacement
+for `base::cut()`.
+
+## Installation
+
+You can install the development version from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("hughjonesd/santoku")
+```
+
+## Basic usage
+
+Use `chop()` like `cut()` to cut your data up:
+
+```{r}
+library(santoku)
+x <- runif(10, 0, 10)
+(chopped <- chop(x, breaks = 0:10))
+data.frame(x, chopped)
+```
+
+`chop()` returns a factor.
+
+If data is beyond the limits of `breaks`, they will be extended automatically:
+
+```{r}
+chopped <- chop(x, breaks = 3:7)
+data.frame(x, chopped)
+```
+
+To chop a single number into a separate category, put the number twice in
+`breaks`:
+
+```{r}
+x_fives <- x
+x_fives[1:5] <- 5
+chopped <- chop(x_fives, c(2, 5, 5, 8))
+data.frame(x_fives, chopped)
+```
+
+
+To quickly produce a table of chopped data, use `tab()`:
+
+```{r}
+tab(x, c(2, 5, 8))
+```
+
+## More ways to chop
+
+To chop into fixed-width intervals, starting at the minimum value, use
+`chop_width()`:
+
+```{r}
+chopped <- chop_width(x, 2)
+data.frame(x, chopped)
+```
+
+To chop into groups with a fixed *size* (i.e. number of members), use `chop_size()`:
+
+```{r}
+chopped <- chop_size(x, 4)
+table(chopped)
+```
+
+
+To chop into `n` equal sized groups use `chop_equal()`:
+
+```{r}
+chopped <- chop_equal(x, 3)
+table(chopped)
+```
+
+
+To chop data up by quantiles, use `chop_quantiles()`:
+
+```{r}
+chopped <- chop_quantiles(x, c(0.25, 0.5, 0.75))
+data.frame(x, chopped)
+```
+
+
+`tab_size()` and `tab_width()` do the same as `tab()`:
+
+```{r}
+tab_width(x, 2)
+tab_size(x, 4)
+```
+
+# Advanced usage
+
+You can change factor labels with the `labels` argument:
+
+```{r}
+chopped <- chop(x, c(2, 5, 8), labels = c("Lowest", "Low", "Higher", "Highest"))
+data.frame(x, chopped)
+```
+
+You need one more label than there are breaks.
+
+To label intervals with a dash, use `lbl_dash()`:
+
+```{r}
+chopped <- chop(x, c(2, 5, 8), lbl_dash())
+data.frame(x, chopped)
+```
+
+For arbitrary formatting use `lbl_format()` and `sprintf`-style format strings:
+
+```{r}
+chopped <- chop(x, c(2, 5, 8), lbl_format("%s to %s"))
+data.frame(x, chopped)
+```
+
+To number intervals in order use `lbl_numerals()`:
+
+```{r}
+chopped <- chop(x, c(2, 5, 8), lbl_numerals())
+data.frame(x, chopped)
+```
+
+You can use letters or even roman numerals:
+
+```{r}
+chop(x, c(2, 5, 8), lbl_letters())
+chop(x, c(2, 5, 8), lbl_roman())
+```
+
+By default, `chop()` extends `breaks` if necessary. If you don't want
+that, set `extend = FALSE`:
+
+```{r}
+chopped <- chop(x, c(3, 5, 7), extend = FALSE)
+data.frame(x, chopped)
+```
+
+Data outside the range of `breaks` will become `NA`.
+
+By default, intervals are closed on the left, i.e. they include their left
+endpoints. If you want right-closed intervals, use `brk_right()`:
+
+```{r}
+y <- 1:10
+data.frame(
+        y = y, 
+        left_closed = chop(y, 2:8), 
+        right_closed = chop(y, brk_right(2:8))
+      )
+```
+
+The last finite interval is right-closed (or if you use `brk_right`, the first finite interval is left-closed). If you don't want that, use `brk_left()` explicitly and set `close_end = FALSE`:
+
+```{r}
+z <- 1:5
+data.frame(
+  z = z,
+  rightmost_closed = chop(1:5, brk_left(1:5)),
+  rightmost_open   = chop(1:5, brk_left(1:5, close_end = FALSE))
+)
+
+```
+
+
+If you want to chop repeatedly with the same arguments, create your own
+`knife`:
+
+```{r}
+chop_by_quartiles <- knife(
+        breaks = brk_quantiles(c(0.25, 0.5, 0.75)), 
+        labels = lbl_dash()
+      )
+
+chop_by_quartiles(x)
+table(chop_by_quartiles(rnorm(50)))
+
+```
+
+## Speed
+
+The core of santoku is written in C++. It is reasonably fast:
+
+```{r}
+microbenchmark::microbenchmark(
+        chop(rnorm(1e5), -2:2),
+         cut(rnorm(1e5), -2:2)
+      )
+```

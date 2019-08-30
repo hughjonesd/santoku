@@ -18,10 +18,13 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 Suggests: 
-    testthat (>= 2.1.0)
+    testthat (>= 2.1.0),
+    knitr,
+    rmarkdown
 LinkingTo: 
     Rcpp
 Imports: 
     Rcpp
 URL: https://github.com/hughjonesd/santoku
 BugReports: https://github.com/hughjonesd/santoku/issues
+VignetteBuilder: knitr
