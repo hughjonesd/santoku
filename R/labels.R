@@ -21,6 +21,7 @@ lbl_intervals <- function (fmt = "%.2g") {
     stopifnot(is.breaks(breaks))
     left <- attr(breaks, "left")
     len_b <- length(breaks)
+    if (len_b < 1L) return(character(0))
 
     intervals <- character(len_b - 1)
     len_i <- length(intervals)
