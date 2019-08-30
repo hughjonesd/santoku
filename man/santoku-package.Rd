@@ -29,6 +29,14 @@ intervals or equal-sized groups.
 These advantages make santoku especially useful for exploratory analysis,
 where you may not know the range of your data in advance.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/hughjonesd/santoku}
+  \item Report bugs at \url{https://github.com/hughjonesd/santoku/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: David Hugh-Jones \email{davidhughjones@gmail.com}
 

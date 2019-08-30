@@ -7,7 +7,7 @@
 \usage{
 chop_quantiles(x, quantiles, labels = lbl_quantiles(quantiles), ...)
 
-chop_equal(x, n, ...)
+chop_equal(x, n, labels = lbl_intervals(), ...)
 }
 \arguments{
 \item{x}{A numeric vector.}
