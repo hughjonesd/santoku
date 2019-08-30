@@ -42,8 +42,9 @@ brk_width <- function (width, start) {
   stopifnot(width > 0)
   sm <- missing(start)
   function (x) {
-    if (sm) start <- min(x[is.finite(x)])
-    max_x <- max(x[is.finite(x)]) # finite if x has any non-NA finite elements
+    if (sm) start <- suppressWarnings(min(x[is.finite(x)]))
+    # finite if x has any non-NA finite elements:
+    max_x <- suppressWarnings(max(x[is.finite(x)]))
     breaks <- if (is.finite(start) && is.finite(max_x)) {
       seq(start, max_x, width)
     } else {
