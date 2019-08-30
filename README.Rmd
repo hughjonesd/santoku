@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-Santoku is a precision cutting tool for R. It provides `chop()`, a replacement
+![santoku logo](man/figures/santoku-logo.png)
+santoku is a precision cutting tool for R. It provides `chop()`, a replacement
 for `base::cut()`.
 
 ## Installation
@@ -30,7 +31,6 @@ devtools::install_github("hughjonesd/santoku")
 ```
 
 ## Example
-
 
 ```{r example}
 library(santoku)
