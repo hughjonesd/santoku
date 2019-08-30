@@ -54,9 +54,19 @@ To chop a single number into a separate category, put the number twice in
 `breaks`:
 
 ```{r}
-x_fives <- c(x, rep(5, 5))
+x_fives <- x
+x_fives[1:5] <- 5
 chop(x_fives, c(2, 5, 5, 8))
 ```
+
+
+To quickly produce a table of chopped data, use `tab()`:
+
+```{r}
+tab(x, c(2, 5, 8))
+```
+
+## More ways to chop
 
 To chop data up by quantiles, use `chop_quantiles()`:
 
@@ -77,3 +87,83 @@ To chop into fixed-width intervals, starting at the minimum value, use
 chop_width(x, 2)
 ```
 
+To chop into groups with a fixed *size* (i.e. number of members), use `chop_size()`:
+
+```{r}
+chop_size(x, 4)
+```
+
+`tab_size()` and `tab_width()` do the same as `tab()`:
+
+```{r}
+tab_width(x, 2)
+tab_size(x, 4)
+```
+
+# Advanced usage
+
+You can change factor labels with the `labels` argument:
+
+```{r}
+chop(x, c(2, 5, 8), labels = c("Lowest", "Low", "Higher", "Highest"))
+```
+
+You need one more label than there are breaks.
+
+To label intervals with a dash, use `lbl_dash()`:
+
+```{r}
+chop(x, c(2, 5, 8), lbl_dash())
+```
+
+For arbitrary formatting use `lbl_format()` and `sprintf`-style format strings:
+
+```{r}
+chop(x, c(2, 5, 8), lbl_format("%s to %s"))
+```
+
+To number intervals in order use `lbl_numerals()`:
+
+```{r}
+chop(x, c(2, 5, 8), lbl_numerals())
+```
+
+You can use letters or even roman numerals:
+
+```{r}
+chop(x, c(2, 5, 8), lbl_letters())
+chop(x, c(2, 5, 8), lbl_roman())
+```
+
+By default, `chop()` extends `breaks` if necessary. If you don't want
+that, set `extend = FALSE`:
+
+```{r}
+chop(x, c(3, 5, 7), extend = FALSE)
+```
+
+Data outside the range of `breaks` will become `NA`.
+
+By default, intervals are closed on the left, i.e. they include their left
+endpoints. If you want right-closed intervals, use `brk_right()`:
+
+```{r}
+y <- 1:10
+data.frame(
+        y = y, 
+        left_closed = chop(y, 2:8), 
+        right_closed = chop(y, brk_right(2:8))
+      )
+```
+
+The last finite interval is right-closed (or if you use `brk_right`, the first finite interval is left-closed). If you don't want that, use `brk_left()` explicitly and set `close_end = FALSE`:
+
+```{r}
+z <- 1:5
+data.frame(
+  z = z,
+  rightmost_closed = chop(1:5, brk_left(1:5)),
+  rightmost_open   = chop(1:5, brk_left(1:5, close_end = FALSE))
+)
+
+```
