@@ -29,19 +29,22 @@ Use `chop()` like `cut()` to cut your data up:
 ``` r
 library(santoku)
 x <- runif(10, 0, 10)
-chopped <- chop(x, breaks = 0:10)
+(chopped <- chop(x, breaks = 0:10))
+#>  [1] [3, 4)  [1, 2)  [2, 3)  [9, 10] [5, 6)  [3, 4)  [4, 5)  [3, 4) 
+#>  [9] [6, 7)  [3, 4) 
+#> Levels: [1, 2) [2, 3) [3, 4) [4, 5) [5, 6) [6, 7) [9, 10]
 data.frame(x, chopped)
-#>            x chopped
-#> 1  0.6265701  [0, 1)
-#> 2  2.7263255  [2, 3)
-#> 3  0.4049512  [0, 1)
-#> 4  9.9720659 [9, 10]
-#> 5  8.1095773  [8, 9)
-#> 6  3.4927747  [3, 4)
-#> 7  9.4063044 [9, 10]
-#> 8  7.1975784  [7, 8)
-#> 9  6.2607050  [6, 7)
-#> 10 2.6999828  [2, 3)
+#>           x chopped
+#> 1  3.254577  [3, 4)
+#> 2  1.811796  [1, 2)
+#> 3  2.524595  [2, 3)
+#> 4  9.842434 [9, 10]
+#> 5  5.080918  [5, 6)
+#> 6  3.890088  [3, 4)
+#> 7  4.869093  [4, 5)
+#> 8  3.555330  [3, 4)
+#> 9  6.223220  [6, 7)
+#> 10 3.906678  [3, 4)
 ```
 
 `chop()` returns a factor.
@@ -50,10 +53,19 @@ If data is beyond the limits of `breaks`, they will be extended
 automatically:
 
 ``` r
-chop(x, breaks = 3:7)
-#>  [1] [-Inf, 3) [-Inf, 3) [-Inf, 3) (7, Inf]  (7, Inf]  [3, 4)    (7, Inf] 
-#>  [8] (7, Inf]  [6, 7]    [-Inf, 3)
-#> Levels: [-Inf, 3) [3, 4) [6, 7] (7, Inf]
+chopped <- chop(x, breaks = 3:7)
+data.frame(x, chopped)
+#>           x   chopped
+#> 1  3.254577    [3, 4)
+#> 2  1.811796 [-Inf, 3)
+#> 3  2.524595 [-Inf, 3)
+#> 4  9.842434  (7, Inf]
+#> 5  5.080918    [5, 6)
+#> 6  3.890088    [3, 4)
+#> 7  4.869093    [4, 5)
+#> 8  3.555330    [3, 4)
+#> 9  6.223220    [6, 7]
+#> 10 3.906678    [3, 4)
 ```
 
 To chop a single number into a separate category, put the number twice
@@ -62,10 +74,19 @@ in `breaks`:
 ``` r
 x_fives <- x
 x_fives[1:5] <- 5
-chop(x_fives, c(2, 5, 5, 8))
-#>  [1] {5}      {5}      {5}      {5}      {5}      [2, 5)   (8, Inf]
-#>  [8] (5, 8]   (5, 8]   [2, 5)  
-#> Levels: [2, 5) {5} (5, 8] (8, Inf]
+chopped <- chop(x_fives, c(2, 5, 5, 8))
+data.frame(x_fives, chopped)
+#>     x_fives chopped
+#> 1  5.000000     {5}
+#> 2  5.000000     {5}
+#> 3  5.000000     {5}
+#> 4  5.000000     {5}
+#> 5  5.000000     {5}
+#> 6  3.890088  [2, 5)
+#> 7  4.869093  [2, 5)
+#> 8  3.555330  [2, 5)
+#> 9  6.223220  (5, 8]
+#> 10 3.906678  [2, 5)
 ```
 
 To quickly produce a table of chopped data, use `tab()`:
@@ -74,47 +95,67 @@ To quickly produce a table of chopped data, use `tab()`:
 tab(x, c(2, 5, 8))
 #> x
 #> [-Inf, 2)    [2, 5)    [5, 8]  (8, Inf] 
-#>         2         3         2         3
+#>         1         6         2         1
 ```
 
 ## More ways to chop
-
-To chop data up by quantiles, use `chop_quantiles()`:
-
-``` r
-chop_quantiles(x, c(0.25, 0.5, 0.75))
-#>  [1] 0-25%   25-50%  0-25%   75-100% 75-100% 25-50%  75-100% 50-75% 
-#>  [9] 50-75%  0-25%  
-#> Levels: 0-25% 25-50% 50-75% 75-100%
-```
-
-To chop into `n` equal sized groups use `chop_equal()`:
-
-``` r
-chop_equal(x, 3)
-#>  [1] [-Inf, 2.7) [2.7, 7.2]  [-Inf, 2.7) (7.2, Inf]  (7.2, Inf] 
-#>  [6] [2.7, 7.2]  (7.2, Inf]  [2.7, 7.2]  [2.7, 7.2]  [-Inf, 2.7)
-#> Levels: [-Inf, 2.7) [2.7, 7.2] (7.2, Inf]
-```
 
 To chop into fixed-width intervals, starting at the minimum value, use
 `chop_width()`:
 
 ``` r
-chop_width(x, 2)
-#>  [1] [0.4, 2.4) [2.4, 4.4) [0.4, 2.4) (8.4, Inf] [6.4, 8.4] [2.4, 4.4)
-#>  [7] (8.4, Inf] [6.4, 8.4] [4.4, 6.4) [2.4, 4.4)
-#> Levels: [0.4, 2.4) [2.4, 4.4) [4.4, 6.4) [6.4, 8.4] (8.4, Inf]
+chopped <- chop_width(x, 2)
+data.frame(x, chopped)
+#>           x    chopped
+#> 1  3.254577 [1.8, 3.8)
+#> 2  1.811796 [1.8, 3.8)
+#> 3  2.524595 [1.8, 3.8)
+#> 4  9.842434 (9.8, Inf]
+#> 5  5.080918 [3.8, 5.8)
+#> 6  3.890088 [3.8, 5.8)
+#> 7  4.869093 [3.8, 5.8)
+#> 8  3.555330 [1.8, 3.8)
+#> 9  6.223220 [5.8, 7.8)
+#> 10 3.906678 [3.8, 5.8)
 ```
 
 To chop into groups with a fixed *size* (i.e. number of members), use
 `chop_size()`:
 
 ``` r
-chop_size(x, 4)
-#>  [1] [0.4, 3.5) [0.4, 3.5) [0.4, 3.5) [9.4, Inf] [3.5, 9.4) [3.5, 9.4)
-#>  [7] [9.4, Inf] [3.5, 9.4) [3.5, 9.4) [0.4, 3.5)
-#> Levels: [0.4, 3.5) [3.5, 9.4) [9.4, Inf]
+chopped <- chop_size(x, 4)
+table(chopped)
+#> chopped
+#> [1.8, 3.9) [3.9, 6.2) [6.2, Inf] 
+#>          4          4          2
+```
+
+To chop into `n` equal sized groups use `chop_equal()`:
+
+``` r
+chopped <- chop_equal(x, 3)
+table(chopped)
+#> chopped
+#> [-Inf, 3.6)  [3.6, 4.9]  (4.9, Inf] 
+#>           3           4           3
+```
+
+To chop data up by quantiles, use `chop_quantiles()`:
+
+``` r
+chopped <- chop_quantiles(x, c(0.25, 0.5, 0.75))
+data.frame(x, chopped)
+#>           x chopped
+#> 1  3.254577   0-25%
+#> 2  1.811796   0-25%
+#> 3  2.524595   0-25%
+#> 4  9.842434 75-100%
+#> 5  5.080918 75-100%
+#> 6  3.890088  25-50%
+#> 7  4.869093  50-75%
+#> 8  3.555330  25-50%
+#> 9  6.223220 75-100%
+#> 10 3.906678  50-75%
 ```
 
 `tab_size()` and `tab_width()` do the same as `tab()`:
@@ -122,23 +163,33 @@ chop_size(x, 4)
 ``` r
 tab_width(x, 2)
 #> x
-#> [-Inf, 0.4)  [0.4, 2.4)  [2.4, 4.4)  [4.4, 6.4)  [6.4, 8.4]  (8.4, Inf] 
-#>           0           2           3           1           2           2
+#> [-Inf, 1.8)  [1.8, 3.8)  [3.8, 5.8)  [5.8, 7.8)  [7.8, 9.8]  (9.8, Inf] 
+#>           0           4           4           1           0           1
 tab_size(x, 4)
 #> x
-#> [-Inf, 0.4)  [0.4, 3.5)  [3.5, 9.4)  [9.4, Inf] 
+#> [-Inf, 1.8)  [1.8, 3.9)  [3.9, 6.2)  [6.2, Inf] 
 #>           0           4           4           2
 ```
 
 # Advanced usage
 
-You can change factor labels with the `labels` argument:
+You can change factor labels with the `labels`
+argument:
 
 ``` r
-chop(x, c(2, 5, 8), labels = c("Lowest", "Low", "Higher", "Highest"))
-#>  [1] Lowest  Low     Lowest  Highest Highest Low     Highest Higher 
-#>  [9] Higher  Low    
-#> Levels: Lowest Low Higher Highest
+chopped <- chop(x, c(2, 5, 8), labels = c("Lowest", "Low", "Higher", "Highest"))
+data.frame(x, chopped)
+#>           x chopped
+#> 1  3.254577     Low
+#> 2  1.811796  Lowest
+#> 3  2.524595     Low
+#> 4  9.842434 Highest
+#> 5  5.080918  Higher
+#> 6  3.890088     Low
+#> 7  4.869093     Low
+#> 8  3.555330     Low
+#> 9  6.223220  Higher
+#> 10 3.906678     Low
 ```
 
 You need one more label than there are breaks.
@@ -146,38 +197,66 @@ You need one more label than there are breaks.
 To label intervals with a dash, use `lbl_dash()`:
 
 ``` r
-chop(x, c(2, 5, 8), lbl_dash())
-#>  [1] -Inf - 2 2 - 5    -Inf - 2 8 - Inf  8 - Inf  2 - 5    8 - Inf 
-#>  [8] 5 - 8    5 - 8    2 - 5   
-#> Levels: -Inf - 2 2 - 5 5 - 8 8 - Inf
+chopped <- chop(x, c(2, 5, 8), lbl_dash())
+data.frame(x, chopped)
+#>           x  chopped
+#> 1  3.254577    2 - 5
+#> 2  1.811796 -Inf - 2
+#> 3  2.524595    2 - 5
+#> 4  9.842434  8 - Inf
+#> 5  5.080918    5 - 8
+#> 6  3.890088    2 - 5
+#> 7  4.869093    2 - 5
+#> 8  3.555330    2 - 5
+#> 9  6.223220    5 - 8
+#> 10 3.906678    2 - 5
 ```
 
 For arbitrary formatting use `lbl_format()` and `sprintf`-style format
 strings:
 
 ``` r
-chop(x, c(2, 5, 8), lbl_format("%s to %s"))
-#>  [1] -Inf to 2 2 to 5    -Inf to 2 8 to Inf  8 to Inf  2 to 5    8 to Inf 
-#>  [8] 5 to 8    5 to 8    2 to 5   
-#> Levels: -Inf to 2 2 to 5 5 to 8 8 to Inf
+chopped <- chop(x, c(2, 5, 8), lbl_format("%s to %s"))
+data.frame(x, chopped)
+#>           x   chopped
+#> 1  3.254577    2 to 5
+#> 2  1.811796 -Inf to 2
+#> 3  2.524595    2 to 5
+#> 4  9.842434  8 to Inf
+#> 5  5.080918    5 to 8
+#> 6  3.890088    2 to 5
+#> 7  4.869093    2 to 5
+#> 8  3.555330    2 to 5
+#> 9  6.223220    5 to 8
+#> 10 3.906678    2 to 5
 ```
 
 To number intervals in order use `lbl_numerals()`:
 
 ``` r
-chop(x, c(2, 5, 8), lbl_numerals())
-#>  [1] 1 2 1 4 4 2 4 3 3 2
-#> Levels: 1 2 3 4
+chopped <- chop(x, c(2, 5, 8), lbl_numerals())
+data.frame(x, chopped)
+#>           x chopped
+#> 1  3.254577       2
+#> 2  1.811796       1
+#> 3  2.524595       2
+#> 4  9.842434       4
+#> 5  5.080918       3
+#> 6  3.890088       2
+#> 7  4.869093       2
+#> 8  3.555330       2
+#> 9  6.223220       3
+#> 10 3.906678       2
 ```
 
 You can use letters or even roman numerals:
 
 ``` r
 chop(x, c(2, 5, 8), lbl_letters())
-#>  [1] a b a d d b d c c b
+#>  [1] b a b d c b b b c b
 #> Levels: a b c d
 chop(x, c(2, 5, 8), lbl_roman())
-#>  [1] i   ii  i   iv  iv  ii  iv  iii iii ii 
+#>  [1] ii  i   ii  iv  iii ii  ii  ii  iii ii 
 #> Levels: i ii iii iv
 ```
 
@@ -185,9 +264,19 @@ By default, `chop()` extends `breaks` if necessary. If you don’t want
 that, set `extend = FALSE`:
 
 ``` r
-chop(x, c(3, 5, 7), extend = FALSE)
-#>  [1] <NA>   <NA>   <NA>   <NA>   <NA>   [3, 5) <NA>   <NA>   [5, 7] <NA>  
-#> Levels: [3, 5) [5, 7]
+chopped <- chop(x, c(3, 5, 7), extend = FALSE)
+data.frame(x, chopped)
+#>           x chopped
+#> 1  3.254577  [3, 5)
+#> 2  1.811796    <NA>
+#> 3  2.524595    <NA>
+#> 4  9.842434    <NA>
+#> 5  5.080918  [5, 7]
+#> 6  3.890088  [3, 5)
+#> 7  4.869093  [3, 5)
+#> 8  3.555330  [3, 5)
+#> 9  6.223220  [5, 7]
+#> 10 3.906678  [3, 5)
 ```
 
 Data outside the range of `breaks` will become `NA`.
@@ -232,4 +321,41 @@ data.frame(
 #> 3 3           [3, 4)         [3, 4)
 #> 4 4           [4, 5]         [4, 5)
 #> 5 5           [4, 5]       [5, Inf]
+```
+
+If you want to chop repeatedly with the same arguments, create your own
+`knife`:
+
+``` r
+chop_by_quartiles <- knife(
+        breaks = brk_quantiles(c(0.25, 0.5, 0.75)), 
+        labels = lbl_dash()
+      )
+
+chop_by_quartiles(x)
+#>  [1] -Inf - 3.33 -Inf - 3.33 -Inf - 3.33 5.03 - Inf  5.03 - Inf 
+#>  [6] 3.33 - 3.9  3.9 - 5.03  3.33 - 3.9  5.03 - Inf  3.9 - 5.03 
+#> Levels: -Inf - 3.33 3.33 - 3.9 3.9 - 5.03 5.03 - Inf
+table(chop_by_quartiles(rnorm(50)))
+#> 
+#>   -Inf - -0.551 -0.551 - 0.0643  0.0643 - 0.776     0.776 - Inf 
+#>              13              12              12              13
+```
+
+## Speed
+
+The core of santoku is written in C++. It is reasonably fast:
+
+``` r
+microbenchmark::microbenchmark(
+        chop(rnorm(1e6), -2:2),
+         cut(rnorm(1e6), -2:2)
+      )
+#> Unit: milliseconds
+#>                      expr      min       lq     mean   median       uq
+#>  chop(rnorm(1e+06), -2:2) 310.9976 325.8276 345.4975 335.7518 354.1544
+#>   cut(rnorm(1e+06), -2:2) 274.8432 279.6780 299.5998 290.4864 304.0389
+#>       max neval cld
+#>  490.1177   100   b
+#>  439.4383   100  a
 ```
