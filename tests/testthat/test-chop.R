@@ -29,9 +29,9 @@ test_that("NA, NaN and Inf", {
   expect_equivalent(r, factor(c("a", "b", "c"), levels = letters[1:3]))
 
   x <- c(-Inf, 1, Inf)
-  r <- chop(x, brk_right(-Inf, close_leftmost = FALSE), labels = "a")
+  r <- chop(x, brk_right(-Inf, close_end = FALSE), labels = "a")
   expect_equivalent(r, factor(c(NA, "a", "a"), levels = "a"))
-  r <- chop(x, brk_left(Inf, close_rightmost = FALSE), labels = "a")
+  r <- chop(x, brk_left(Inf, close_end = FALSE), labels = "a")
   expect_equivalent(r, factor(c("a", "a", NA), levels = "a"))
 
 })

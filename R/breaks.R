@@ -72,14 +72,15 @@ brk_size <- function (size) {
   function (x) {
     x <- sort(x) # remove NAs
     breaks <- if (length(x) < 1L) numeric(0) else x[seq(1L, length(x), size)]
-    brk_left(breaks, close_rightmost = FALSE)
+    brk_left(breaks, close_end = FALSE)
   }
 }
 
 #' Left- or right-closed breaks
 #'
 #' @param breaks A numeric vector which must be sorted.
-#' @param close_leftmost,close_rightmost Logical: close the left/rightmost endpoint?
+#' @param close_end Logical: close the rightmost endpoint (`brk_left()`)
+#'   / leftmost endpoint (`brk_right()`)?
 #'
 #' @inherit breaks-doc return
 #'
@@ -93,13 +94,13 @@ NULL
 
 #' @rdname brk-left-right
 #' @export
-brk_right <- function (breaks, close_leftmost = TRUE) {
+brk_right <- function (breaks, close_end = TRUE) {
   left <- rep(FALSE, length(breaks))
 
   s <- singletons(breaks)
   left[s] <- TRUE
 
-  if (close_leftmost) left[1] <- TRUE
+  if (close_end) left[1] <- TRUE
 
   brk_manual(breaks, left)
 }
@@ -107,13 +108,13 @@ brk_right <- function (breaks, close_leftmost = TRUE) {
 
 #' @rdname brk-left-right
 #' @export
-brk_left <- function (breaks, close_rightmost = TRUE) {
+brk_left <- function (breaks, close_end = TRUE) {
   left <- rep(TRUE, length(breaks))
 
   st <- singletons(breaks)
   left[which(st) + 1] <- FALSE
 
-  if (close_rightmost) left[length(left)] <- FALSE
+  if (close_end) left[length(left)] <- FALSE
 
   brk_manual(breaks, left)
 }

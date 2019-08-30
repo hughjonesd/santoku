@@ -6,14 +6,15 @@
 \alias{brk_left}
 \title{Left- or right-closed breaks}
 \usage{
-brk_right(breaks, close_leftmost = TRUE)
+brk_right(breaks, close_end = TRUE)
 
-brk_left(breaks, close_rightmost = TRUE)
+brk_left(breaks, close_end = TRUE)
 }
 \arguments{
 \item{breaks}{A numeric vector which must be sorted.}
 
-\item{close_leftmost, close_rightmost}{Logical: close the left/rightmost endpoint?}
+\item{close_end}{Logical: close the rightmost endpoint (\code{brk_left()})
+/ leftmost endpoint (\code{brk_right()})?}
 }
 \value{
 A (function returning an) object of class \code{breaks}.
