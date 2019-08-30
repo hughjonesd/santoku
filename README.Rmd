@@ -19,6 +19,6 @@ knitr::opts_chunk$set(
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/hughjonesd/santoku?branch=master&svg=true)](https://ci.appveyor.com/project/hughjonesd/santoku)
 <!-- badges: end -->
 
-![santoku logo](man/figures/santoku-logo.png)
+![santoku logo](man/figures/logo.png)
 
 ```{r, child = 'vignettes/santoku.Rmd'}
