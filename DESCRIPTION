@@ -1,6 +1,6 @@
 Package: santoku
 Type: Package
-Title: Precision Cutting for R
+Title: A Versatile Cutting Tool for R
 Version: 0.1.0
 Authors@R:
     person(given = "David",
@@ -20,12 +20,12 @@ RoxygenNote: 6.1.1
 Suggests: 
     testthat (>= 2.1.0),
     knitr,
-    rmarkdown,
-    microbenchmark
+    microbenchmark,
+    rmarkdown
 LinkingTo: 
     Rcpp
 Imports: 
     Rcpp
-URL: https://github.com/hughjonesd/santoku
+URL: https://github.com/hughjonesd/santoku, https://hughjonesd.github.io/santoku/
 BugReports: https://github.com/hughjonesd/santoku/issues
 VignetteBuilder: knitr

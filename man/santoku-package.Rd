@@ -33,6 +33,7 @@ where you may not know the range of your data in advance.
 Useful links:
 \itemize{
   \item \url{https://github.com/hughjonesd/santoku}
+  \item \url{https://hughjonesd.github.io/santoku/}
   \item Report bugs at \url{https://github.com/hughjonesd/santoku/issues}
 }
 
