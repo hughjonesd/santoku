@@ -79,14 +79,16 @@ lbl_format <- function(fmt, fmt1 = "%.3g") {
 
 #' Interval labels like 1 - 3, 4 - 5, ...
 #'
+#' @param symbol String: symbol to use for the dash.
 #' @inherit label-doc params return
 #'
 #' @export
 #'
 #' @examples
 #' tab(0:20, c(0, 5, 5, 10), lbl_dash())
-lbl_dash <- function () {
-  lbl_format("%.3g - %.3g", "%.3g")
+lbl_dash <- function (symbol = " - ") {
+  fmt <- paste0("%.3g", symbol, "%.3g")
+  lbl_format(fmt, "%.3g")
 }
 
 

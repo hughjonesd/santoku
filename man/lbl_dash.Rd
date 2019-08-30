@@ -4,7 +4,10 @@
 \alias{lbl_dash}
 \title{Interval labels like 1 - 3, 4 - 5, ...}
 \usage{
-lbl_dash()
+lbl_dash(symbol = " - ")
+}
+\arguments{
+\item{symbol}{String: symbol to use for the dash.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
