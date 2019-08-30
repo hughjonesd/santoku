@@ -3,7 +3,7 @@
 # TODO
 
 * tests
-* README
+* Convert README to vignette (child document)?
 
 # Questions
 

@@ -203,7 +203,7 @@ The core of santoku is written in C++. It is reasonably fast:
 
 ```{r}
 microbenchmark::microbenchmark(
-        chop(rnorm(1e6), -2:2),
-         cut(rnorm(1e6), -2:2)
+        chop(rnorm(1e5), -2:2),
+         cut(rnorm(1e5), -2:2)
       )
 ```
