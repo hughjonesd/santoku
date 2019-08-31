@@ -13,22 +13,22 @@
 #'
 #' @examples
 #' tab(rnorm(100), -2:2)
-tab <- function (..., drop = FALSE) {
-  default_table(chop(..., drop = drop))
+tab <- function (...) {
+  default_table(chop(...))
 }
 
 
 #' @rdname tab
 #' @export
-tab_width <- function (..., drop = FALSE) {
-  default_table(chop_width(..., drop = drop))
+tab_width <- function (...) {
+  default_table(chop_width(...))
 }
 
 
 #' @rdname tab
 #' @export
-tab_size <- function (..., drop = FALSE) {
-  default_table(chop_size(..., drop = drop))
+tab_size <- function (...) {
+  default_table(chop_size(...))
 }
 
 
