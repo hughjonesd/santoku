@@ -3,6 +3,8 @@
 ^LICENSE\.md$
 ^TODO\.md$
 ^README\.Rmd$
+^index\.Rmd$
+^advantages\.Rmd$
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^_pkgdown\.yml$

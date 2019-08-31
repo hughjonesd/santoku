@@ -15,9 +15,6 @@ knitr::opts_chunk$set(
 ```
 
 
-santoku is a versatile cutting tool for R. It provides `chop()`, a replacement
-for `base::cut()`.
-
 ## Installation
 
 You can install the development version from [GitHub](https://github.com/) with:

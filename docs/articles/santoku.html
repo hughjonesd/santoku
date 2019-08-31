@@ -85,7 +85,6 @@
 
     
     
-<p>santoku is a versatile cutting tool for R. It provides <code><a href="../reference/chop.html">chop()</a></code>, a replacement for <code><a href="https://www.rdocumentation.org/packages/base/topics/cut">base::cut()</a></code>.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -100,56 +99,57 @@
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(santoku)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2">x &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dv">10</span>, <span class="dv">0</span>, <span class="dv">10</span>)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3">(chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="dt">breaks =</span> <span class="dv">0</span><span class="op">:</span><span class="dv">10</span>))</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;  [1] [0, 1) [5, 6) [8, 9) [2, 3) [8, 9) [4, 5) [3, 4) [2, 3) [5, 6) [6, 7)</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt; Levels: [0, 1) [2, 3) [3, 4) [4, 5) [5, 6) [6, 7) [8, 9)</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="co">#&gt;            x chopped</span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt; 1  0.4289271  [0, 1)</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; 2  5.3973356  [5, 6)</span></a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; 3  8.5758613  [8, 9)</span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; 4  2.5865942  [2, 3)</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; 5  8.5394386  [8, 9)</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; 6  4.6877126  [4, 5)</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 7  3.2763458  [3, 4)</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 8  2.1626905  [2, 3)</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 9  5.1779603  [5, 6)</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; 10 6.2090952  [6, 7)</span></a></code></pre></div>
+<a class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">#&gt;  [1] [7, 8)  [8, 9)  [0, 1)  [4, 5)  [8, 9)  [9, 10] [1, 2)  [2, 3) </span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">#&gt;  [9] [7, 8)  [8, 9) </span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="co">#&gt; Levels: [0, 1) [1, 2) [2, 3) [4, 5) [7, 8) [8, 9) [9, 10]</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>
+<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="co">#&gt;            x chopped</span></a>
+<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="co">#&gt; 1  7.0801300  [7, 8)</span></a>
+<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; 2  8.4678953  [8, 9)</span></a>
+<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; 3  0.3584456  [0, 1)</span></a>
+<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; 4  4.1766402  [4, 5)</span></a>
+<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="co">#&gt; 5  8.9444022  [8, 9)</span></a>
+<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="co">#&gt; 6  9.7976842 [9, 10]</span></a>
+<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co">#&gt; 7  1.5667794  [1, 2)</span></a>
+<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="co">#&gt; 8  2.8288181  [2, 3)</span></a>
+<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="co">#&gt; 9  7.2773078  [7, 8)</span></a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">#&gt; 10 8.8741456  [8, 9)</span></a></code></pre></div>
 <p><code><a href="../reference/chop.html">chop()</a></code> returns a factor.</p>
 <p>If data is beyond the limits of <code>breaks</code>, they will be extended automatically:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="dt">breaks =</span> <span class="dv">3</span><span class="op">:</span><span class="dv">7</span>)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"><span class="co">#&gt;            x   chopped</span></a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; 1  0.4289271 [-Inf, 3)</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; 2  5.3973356    [5, 6)</span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; 3  8.5758613  (7, Inf]</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; 4  2.5865942 [-Inf, 3)</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; 5  8.5394386  (7, Inf]</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; 6  4.6877126    [4, 5)</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 7  3.2763458    [3, 4)</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 8  2.1626905 [-Inf, 3)</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 9  5.1779603    [5, 6)</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 10 6.2090952    [6, 7]</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; 1  7.0801300  (7, Inf]</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; 2  8.4678953  (7, Inf]</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt; 3  0.3584456 [-Inf, 3)</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt; 4  4.1766402    [4, 5)</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt; 5  8.9444022  (7, Inf]</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt; 6  9.7976842  (7, Inf]</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; 7  1.5667794 [-Inf, 3)</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; 8  2.8288181 [-Inf, 3)</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; 9  7.2773078  (7, Inf]</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt; 10 8.8741456  (7, Inf]</span></a></code></pre></div>
 <p>To chop a single number into a separate category, put the number twice in <code>breaks</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">x_fives &lt;-<span class="st"> </span>x</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2">x_fives[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="dv">5</span></a>
 <a class="sourceLine" id="cb4-3" data-line-number="3">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop.html">chop</a></span>(x_fives, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">8</span>))</a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x_fives, chopped)</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;     x_fives chopped</span></a>
-<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 1  5.000000     {5}</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 2  5.000000     {5}</span></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 3  5.000000     {5}</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 4  5.000000     {5}</span></a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 5  5.000000     {5}</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 6  4.687713  [2, 5)</span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 7  3.276346  [2, 5)</span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 8  2.162691  [2, 5)</span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 9  5.177960  (5, 8]</span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 10 6.209095  (5, 8]</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">#&gt;     x_fives   chopped</span></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6"><span class="co">#&gt; 1  5.000000       {5}</span></a>
+<a class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">#&gt; 2  5.000000       {5}</span></a>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co">#&gt; 3  5.000000       {5}</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9"><span class="co">#&gt; 4  5.000000       {5}</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; 5  5.000000       {5}</span></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt; 6  9.797684  (8, Inf]</span></a>
+<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt; 7  1.566779 [-Inf, 2)</span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt; 8  2.828818    [2, 5)</span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt; 9  7.277308    (5, 8]</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt; 10 8.874146  (8, Inf]</span></a></code></pre></div>
 <p>To quickly produce a table of chopped data, use <code><a href="../reference/tab.html">tab()</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/tab.html">tab</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>))</a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="co">#&gt; x</span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; [-Inf, 2)    [2, 5)    [5, 8]  (8, Inf] </span></a>
-<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;         1         4         3         2</span></a></code></pre></div>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="co">#&gt;         2         2         2         4</span></a></code></pre></div>
 </div>
 <div id="more-ways-to-chop" class="section level2">
 <h2 class="hasAnchor">
@@ -158,52 +158,52 @@
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop_width.html">chop_width</a></span>(x, <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="co">#&gt;            x     chopped</span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; 1  0.4289271 [0.43, 2.4)</span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; 2  5.3973356  [4.4, 6.4)</span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; 3  8.5758613  (8.4, Inf]</span></a>
-<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; 4  2.5865942  [2.4, 4.4)</span></a>
-<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; 5  8.5394386  (8.4, Inf]</span></a>
-<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 6  4.6877126  [4.4, 6.4)</span></a>
-<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 7  3.2763458  [2.4, 4.4)</span></a>
-<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 8  2.1626905 [0.43, 2.4)</span></a>
-<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 9  5.1779603  [4.4, 6.4)</span></a>
-<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 10 6.2090952  [4.4, 6.4)</span></a></code></pre></div>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="co">#&gt; 1  7.0801300  [6.4, 8.4]</span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">#&gt; 2  8.4678953  (8.4, Inf]</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="co">#&gt; 3  0.3584456 [0.36, 2.4)</span></a>
+<a class="sourceLine" id="cb6-7" data-line-number="7"><span class="co">#&gt; 4  4.1766402  [2.4, 4.4)</span></a>
+<a class="sourceLine" id="cb6-8" data-line-number="8"><span class="co">#&gt; 5  8.9444022  (8.4, Inf]</span></a>
+<a class="sourceLine" id="cb6-9" data-line-number="9"><span class="co">#&gt; 6  9.7976842  (8.4, Inf]</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10"><span class="co">#&gt; 7  1.5667794 [0.36, 2.4)</span></a>
+<a class="sourceLine" id="cb6-11" data-line-number="11"><span class="co">#&gt; 8  2.8288181  [2.4, 4.4)</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12"><span class="co">#&gt; 9  7.2773078  [6.4, 8.4]</span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="co">#&gt; 10 8.8741456  (8.4, Inf]</span></a></code></pre></div>
 <p>To chop into groups with a fixed <em>size</em> (i.e. number of members), use <code><a href="../reference/chop_size.html">chop_size()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop_size.html">chop_size</a></span>(x, <span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(chopped)</a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt; chopped</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; [0.43, 4.7)  [4.7, 8.5)  [8.5, Inf] </span></a>
+<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; [0.36, 7.1)  [7.1, 8.9)  [8.9, Inf] </span></a>
 <a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt;           4           4           2</span></a></code></pre></div>
 <p>To chop into <code>n</code> equal sized groups use <code><a href="../reference/chop_quantiles.html">chop_equal()</a></code>:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop_quantiles.html">chop_equal</a></span>(x, <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(chopped)</a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="co">#&gt; chopped</span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; [-Inf, 3.3)  [3.3, 5.4]  (5.4, Inf] </span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="co">#&gt; [-Inf, 4.2)  [4.2, 8.5]  (8.5, Inf] </span></a>
 <a class="sourceLine" id="cb8-5" data-line-number="5"><span class="co">#&gt;           3           4           3</span></a></code></pre></div>
 <p>To chop data up by quantiles, use <code><a href="../reference/chop_quantiles.html">chop_quantiles()</a></code>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop_quantiles.html">chop_quantiles</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>
 <a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;            x chopped</span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; 1  0.4289271   0-25%</span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; 2  5.3973356  50-75%</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; 3  8.5758613 75-100%</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; 4  2.5865942   0-25%</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; 5  8.5394386 75-100%</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; 6  4.6877126  25-50%</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; 7  3.2763458  25-50%</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; 8  2.1626905   0-25%</span></a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; 9  5.1779603  50-75%</span></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; 10 6.2090952 75-100%</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt; 1  7.0801300  25-50%</span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; 2  8.4678953  50-75%</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; 3  0.3584456   0-25%</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; 4  4.1766402  25-50%</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; 5  8.9444022 75-100%</span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; 6  9.7976842 75-100%</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; 7  1.5667794   0-25%</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; 8  2.8288181   0-25%</span></a>
+<a class="sourceLine" id="cb9-12" data-line-number="12"><span class="co">#&gt; 9  7.2773078  50-75%</span></a>
+<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">#&gt; 10 8.8741456 75-100%</span></a></code></pre></div>
 <p><code><a href="../reference/tab.html">tab_size()</a></code> and <code><a href="../reference/tab.html">tab_width()</a></code> do the same as <code><a href="../reference/tab.html">tab()</a></code>:</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw"><a href="../reference/tab.html">tab_width</a></span>(x, <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt; x</span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; [-Inf, 0.43)  [0.43, 2.4)   [2.4, 4.4)   [4.4, 6.4)   [6.4, 8.4] </span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;            0            2            2            4            0 </span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt; [-Inf, 0.36)  [0.36, 2.4)   [2.4, 4.4)   [4.4, 6.4)   [6.4, 8.4] </span></a>
+<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;            0            2            2            0            2 </span></a>
 <a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;   (8.4, Inf] </span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;            2</span></a>
+<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;            4</span></a>
 <a class="sourceLine" id="cb10-7" data-line-number="7"><span class="kw"><a href="../reference/tab.html">tab_size</a></span>(x, <span class="dv">4</span>)</a>
 <a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt; x</span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; [-Inf, 0.43)  [0.43, 4.7)   [4.7, 8.5)   [8.5, Inf] </span></a>
+<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt; [-Inf, 0.36)  [0.36, 7.1)   [7.1, 8.9)   [8.9, Inf] </span></a>
 <a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt;            0            4            4            2</span></a></code></pre></div>
 </div>
 <div id="advanced-usage" class="section level1">
@@ -213,80 +213,80 @@
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"Lowest"</span>, <span class="st">"Low"</span>, <span class="st">"Higher"</span>, <span class="st">"Highest"</span>))</a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>
 <a class="sourceLine" id="cb11-3" data-line-number="3"><span class="co">#&gt;            x chopped</span></a>
-<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; 1  0.4289271  Lowest</span></a>
-<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; 2  5.3973356  Higher</span></a>
-<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; 3  8.5758613 Highest</span></a>
-<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; 4  2.5865942     Low</span></a>
-<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; 5  8.5394386 Highest</span></a>
-<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; 6  4.6877126     Low</span></a>
-<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt; 7  3.2763458     Low</span></a>
-<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; 8  2.1626905     Low</span></a>
-<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="co">#&gt; 9  5.1779603  Higher</span></a>
-<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#&gt; 10 6.2090952  Higher</span></a></code></pre></div>
+<a class="sourceLine" id="cb11-4" data-line-number="4"><span class="co">#&gt; 1  7.0801300  Higher</span></a>
+<a class="sourceLine" id="cb11-5" data-line-number="5"><span class="co">#&gt; 2  8.4678953 Highest</span></a>
+<a class="sourceLine" id="cb11-6" data-line-number="6"><span class="co">#&gt; 3  0.3584456  Lowest</span></a>
+<a class="sourceLine" id="cb11-7" data-line-number="7"><span class="co">#&gt; 4  4.1766402     Low</span></a>
+<a class="sourceLine" id="cb11-8" data-line-number="8"><span class="co">#&gt; 5  8.9444022 Highest</span></a>
+<a class="sourceLine" id="cb11-9" data-line-number="9"><span class="co">#&gt; 6  9.7976842 Highest</span></a>
+<a class="sourceLine" id="cb11-10" data-line-number="10"><span class="co">#&gt; 7  1.5667794  Lowest</span></a>
+<a class="sourceLine" id="cb11-11" data-line-number="11"><span class="co">#&gt; 8  2.8288181     Low</span></a>
+<a class="sourceLine" id="cb11-12" data-line-number="12"><span class="co">#&gt; 9  7.2773078  Higher</span></a>
+<a class="sourceLine" id="cb11-13" data-line-number="13"><span class="co">#&gt; 10 8.8741456 Highest</span></a></code></pre></div>
 <p>You need one more label than there are breaks.</p>
 <p>To label intervals with a dash, use <code><a href="../reference/lbl_dash.html">lbl_dash()</a></code>:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="kw"><a href="../reference/lbl_dash.html">lbl_dash</a></span>())</a>
 <a class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>
 <a class="sourceLine" id="cb12-3" data-line-number="3"><span class="co">#&gt;            x  chopped</span></a>
-<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; 1  0.4289271 -Inf - 2</span></a>
-<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; 2  5.3973356    5 - 8</span></a>
-<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; 3  8.5758613  8 - Inf</span></a>
-<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt; 4  2.5865942    2 - 5</span></a>
-<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt; 5  8.5394386  8 - Inf</span></a>
-<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; 6  4.6877126    2 - 5</span></a>
-<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; 7  3.2763458    2 - 5</span></a>
-<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; 8  2.1626905    2 - 5</span></a>
-<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt; 9  5.1779603    5 - 8</span></a>
-<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt; 10 6.2090952    5 - 8</span></a></code></pre></div>
+<a class="sourceLine" id="cb12-4" data-line-number="4"><span class="co">#&gt; 1  7.0801300    5 - 8</span></a>
+<a class="sourceLine" id="cb12-5" data-line-number="5"><span class="co">#&gt; 2  8.4678953  8 - Inf</span></a>
+<a class="sourceLine" id="cb12-6" data-line-number="6"><span class="co">#&gt; 3  0.3584456 -Inf - 2</span></a>
+<a class="sourceLine" id="cb12-7" data-line-number="7"><span class="co">#&gt; 4  4.1766402    2 - 5</span></a>
+<a class="sourceLine" id="cb12-8" data-line-number="8"><span class="co">#&gt; 5  8.9444022  8 - Inf</span></a>
+<a class="sourceLine" id="cb12-9" data-line-number="9"><span class="co">#&gt; 6  9.7976842  8 - Inf</span></a>
+<a class="sourceLine" id="cb12-10" data-line-number="10"><span class="co">#&gt; 7  1.5667794 -Inf - 2</span></a>
+<a class="sourceLine" id="cb12-11" data-line-number="11"><span class="co">#&gt; 8  2.8288181    2 - 5</span></a>
+<a class="sourceLine" id="cb12-12" data-line-number="12"><span class="co">#&gt; 9  7.2773078    5 - 8</span></a>
+<a class="sourceLine" id="cb12-13" data-line-number="13"><span class="co">#&gt; 10 8.8741456  8 - Inf</span></a></code></pre></div>
 <p>For arbitrary formatting use <code><a href="../reference/lbl_format.html">lbl_format()</a></code> and <code>sprintf</code>-style format strings:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="kw"><a href="../reference/lbl_format.html">lbl_format</a></span>(<span class="st">"%s to %s"</span>))</a>
 <a class="sourceLine" id="cb13-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>
 <a class="sourceLine" id="cb13-3" data-line-number="3"><span class="co">#&gt;            x   chopped</span></a>
-<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; 1  0.4289271 -Inf to 2</span></a>
-<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; 2  5.3973356    5 to 8</span></a>
-<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; 3  8.5758613  8 to Inf</span></a>
-<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; 4  2.5865942    2 to 5</span></a>
-<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; 5  8.5394386  8 to Inf</span></a>
-<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; 6  4.6877126    2 to 5</span></a>
-<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; 7  3.2763458    2 to 5</span></a>
-<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">#&gt; 8  2.1626905    2 to 5</span></a>
-<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#&gt; 9  5.1779603    5 to 8</span></a>
-<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; 10 6.2090952    5 to 8</span></a></code></pre></div>
+<a class="sourceLine" id="cb13-4" data-line-number="4"><span class="co">#&gt; 1  7.0801300    5 to 8</span></a>
+<a class="sourceLine" id="cb13-5" data-line-number="5"><span class="co">#&gt; 2  8.4678953  8 to Inf</span></a>
+<a class="sourceLine" id="cb13-6" data-line-number="6"><span class="co">#&gt; 3  0.3584456 -Inf to 2</span></a>
+<a class="sourceLine" id="cb13-7" data-line-number="7"><span class="co">#&gt; 4  4.1766402    2 to 5</span></a>
+<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; 5  8.9444022  8 to Inf</span></a>
+<a class="sourceLine" id="cb13-9" data-line-number="9"><span class="co">#&gt; 6  9.7976842  8 to Inf</span></a>
+<a class="sourceLine" id="cb13-10" data-line-number="10"><span class="co">#&gt; 7  1.5667794 -Inf to 2</span></a>
+<a class="sourceLine" id="cb13-11" data-line-number="11"><span class="co">#&gt; 8  2.8288181    2 to 5</span></a>
+<a class="sourceLine" id="cb13-12" data-line-number="12"><span class="co">#&gt; 9  7.2773078    5 to 8</span></a>
+<a class="sourceLine" id="cb13-13" data-line-number="13"><span class="co">#&gt; 10 8.8741456  8 to Inf</span></a></code></pre></div>
 <p>To number intervals in order use <code><a href="../reference/sequence-labels.html">lbl_numerals()</a></code>:</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="kw"><a href="../reference/sequence-labels.html">lbl_numerals</a></span>())</a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="co">#&gt;            x chopped</span></a>
-<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; 1  0.4289271       1</span></a>
-<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; 2  5.3973356       3</span></a>
-<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; 3  8.5758613       4</span></a>
-<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; 4  2.5865942       2</span></a>
-<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; 5  8.5394386       4</span></a>
-<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; 6  4.6877126       2</span></a>
-<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">#&gt; 7  3.2763458       2</span></a>
-<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co">#&gt; 8  2.1626905       2</span></a>
-<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#&gt; 9  5.1779603       3</span></a>
-<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#&gt; 10 6.2090952       3</span></a></code></pre></div>
+<a class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">#&gt; 1  7.0801300       3</span></a>
+<a class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">#&gt; 2  8.4678953       4</span></a>
+<a class="sourceLine" id="cb14-6" data-line-number="6"><span class="co">#&gt; 3  0.3584456       1</span></a>
+<a class="sourceLine" id="cb14-7" data-line-number="7"><span class="co">#&gt; 4  4.1766402       2</span></a>
+<a class="sourceLine" id="cb14-8" data-line-number="8"><span class="co">#&gt; 5  8.9444022       4</span></a>
+<a class="sourceLine" id="cb14-9" data-line-number="9"><span class="co">#&gt; 6  9.7976842       4</span></a>
+<a class="sourceLine" id="cb14-10" data-line-number="10"><span class="co">#&gt; 7  1.5667794       1</span></a>
+<a class="sourceLine" id="cb14-11" data-line-number="11"><span class="co">#&gt; 8  2.8288181       2</span></a>
+<a class="sourceLine" id="cb14-12" data-line-number="12"><span class="co">#&gt; 9  7.2773078       3</span></a>
+<a class="sourceLine" id="cb14-13" data-line-number="13"><span class="co">#&gt; 10 8.8741456       4</span></a></code></pre></div>
 <p>You can use letters or even roman numerals:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="kw"><a href="../reference/sequence-labels.html">lbl_letters</a></span>())</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt;  [1] a c d b d b b b c c</span></a>
+<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">#&gt;  [1] c d a b d d a b c d</span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">#&gt; Levels: a b c d</span></a>
 <a class="sourceLine" id="cb15-4" data-line-number="4"><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="kw"><a href="../reference/sequence-labels.html">lbl_roman</a></span>())</a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt;  [1] i   iii iv  ii  iv  ii  ii  ii  iii iii</span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="co">#&gt;  [1] iii iv  i   ii  iv  iv  i   ii  iii iv </span></a>
 <a class="sourceLine" id="cb15-6" data-line-number="6"><span class="co">#&gt; Levels: i ii iii iv</span></a></code></pre></div>
 <p>By default, <code><a href="../reference/chop.html">chop()</a></code> extends <code>breaks</code> if necessary. If you don’t want that, set <code>extend = FALSE</code>:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">extend =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co">#&gt;            x chopped</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt; 1  0.4289271    &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">#&gt; 2  5.3973356  [5, 7]</span></a>
-<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co">#&gt; 3  8.5758613    &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#&gt; 4  2.5865942    &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">#&gt; 5  8.5394386    &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="co">#&gt; 6  4.6877126  [3, 5)</span></a>
-<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co">#&gt; 7  3.2763458  [3, 5)</span></a>
-<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="co">#&gt; 8  2.1626905    &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="co">#&gt; 9  5.1779603  [5, 7]</span></a>
-<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="co">#&gt; 10 6.2090952  [5, 7]</span></a></code></pre></div>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt; 1  7.0801300    &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">#&gt; 2  8.4678953    &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co">#&gt; 3  0.3584456    &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#&gt; 4  4.1766402  [3, 5)</span></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">#&gt; 5  8.9444022    &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="co">#&gt; 6  9.7976842    &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co">#&gt; 7  1.5667794    &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="co">#&gt; 8  2.8288181    &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="co">#&gt; 9  7.2773078    &lt;NA&gt;</span></a>
+<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="co">#&gt; 10 8.8741456    &lt;NA&gt;</span></a></code></pre></div>
 <p>Data outside the range of <code>breaks</code> will become <code>NA</code>.</p>
 <p>By default, intervals are closed on the left, i.e. they include their left endpoints. If you want right-closed intervals, use <code><a href="../reference/brk-left-right.html">brk_right()</a></code>:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">y &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
@@ -326,13 +326,13 @@
 <a class="sourceLine" id="cb19-4" data-line-number="4">      )</a>
 <a class="sourceLine" id="cb19-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb19-6" data-line-number="6"><span class="kw">chop_by_quartiles</span>(x)</a>
-<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">#&gt;  [1] -Inf - 2.76 4.93 - 6.01 6.01 - Inf  -Inf - 2.76 6.01 - Inf </span></a>
-<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt;  [6] 2.76 - 4.93 2.76 - 4.93 -Inf - 2.76 4.93 - 6.01 6.01 - Inf </span></a>
-<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt; Levels: -Inf - 2.76 2.76 - 4.93 4.93 - 6.01 6.01 - Inf</span></a>
+<a class="sourceLine" id="cb19-7" data-line-number="7"><span class="co">#&gt;  [1] 3.17 - 7.18 7.18 - 8.77 -Inf - 3.17 3.17 - 7.18 8.77 - Inf </span></a>
+<a class="sourceLine" id="cb19-8" data-line-number="8"><span class="co">#&gt;  [6] 8.77 - Inf  -Inf - 3.17 -Inf - 3.17 7.18 - 8.77 8.77 - Inf </span></a>
+<a class="sourceLine" id="cb19-9" data-line-number="9"><span class="co">#&gt; Levels: -Inf - 3.17 3.17 - 7.18 7.18 - 8.77 8.77 - Inf</span></a>
 <a class="sourceLine" id="cb19-10" data-line-number="10"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>(<span class="kw">chop_by_quartiles</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">50</span>)))</a>
 <a class="sourceLine" id="cb19-11" data-line-number="11"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb19-12" data-line-number="12"><span class="co">#&gt;   -Inf - -0.787 -0.787 - -0.127  -0.127 - 0.585     0.585 - Inf </span></a>
-<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co">#&gt;              13              12              12              13</span></a></code></pre></div>
+<a class="sourceLine" id="cb19-12" data-line-number="12"><span class="co">#&gt;    -Inf - -0.583 -0.583 - 0.00907  0.00907 - 0.687      0.687 - Inf </span></a>
+<a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co">#&gt;               13               12               12               13</span></a></code></pre></div>
 <div id="speed" class="section level2">
 <h2 class="hasAnchor">
 <a href="#speed" class="anchor"></a>Speed</h2>
@@ -343,11 +343,11 @@
 <a class="sourceLine" id="cb20-4" data-line-number="4">      )</a>
 <a class="sourceLine" id="cb20-5" data-line-number="5"><span class="co">#&gt; Unit: milliseconds</span></a>
 <a class="sourceLine" id="cb20-6" data-line-number="6"><span class="co">#&gt;                      expr      min       lq     mean   median       uq</span></a>
-<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co">#&gt;  chop(rnorm(1e+05), -2:2) 14.53688 16.56758 18.59605 17.16211 20.25371</span></a>
-<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co">#&gt;   cut(rnorm(1e+05), -2:2) 10.51429 11.89339 13.14377 12.22662 13.43643</span></a>
+<a class="sourceLine" id="cb20-7" data-line-number="7"><span class="co">#&gt;  chop(rnorm(1e+05), -2:2) 14.65729 16.72611 17.75494 16.87100 18.21177</span></a>
+<a class="sourceLine" id="cb20-8" data-line-number="8"><span class="co">#&gt;   cut(rnorm(1e+05), -2:2) 11.68518 12.90011 13.48406 13.01037 13.27303</span></a>
 <a class="sourceLine" id="cb20-9" data-line-number="9"><span class="co">#&gt;       max neval cld</span></a>
-<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="co">#&gt;  40.22795   100   b</span></a>
-<a class="sourceLine" id="cb20-11" data-line-number="11"><span class="co">#&gt;  26.31283   100  a</span></a></code></pre></div>
+<a class="sourceLine" id="cb20-10" data-line-number="10"><span class="co">#&gt;  26.60916   100   b</span></a>
+<a class="sourceLine" id="cb20-11" data-line-number="11"><span class="co">#&gt;  29.27065   100  a</span></a></code></pre></div>
 </div>
 </div>
   </div>
