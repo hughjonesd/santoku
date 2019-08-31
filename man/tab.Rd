@@ -4,6 +4,7 @@
 \alias{tab}
 \alias{tab_width}
 \alias{tab_size}
+\alias{tab_mean_sd}
 \title{Tabulate data by intervals}
 \usage{
 tab(...)
@@ -11,6 +12,8 @@ tab(...)
 tab_width(...)
 
 tab_size(...)
+
+tab_mean_sd(...)
 }
 \arguments{
 \item{...}{Passed to \code{chop}}

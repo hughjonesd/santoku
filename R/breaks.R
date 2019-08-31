@@ -24,6 +24,34 @@ brk_quantiles <- function (quantiles, ...) {
 }
 
 
+#' Title
+#'
+#' @param sd How many standard deviations to include on each side of the mean
+#' @inherit breaks-doc params return
+#'
+#' @export
+#'
+#' @examples
+#' tab(rnorm(20), brk_mean_sd())
+brk_mean_sd <- function (sd = 3) {
+  force(sd)
+  function (x) {
+    x_m <- mean(x, na.rm = TRUE)
+    x_sd <- sd(x, na.rm = TRUE)
+
+    breaks <- if (is.na(x_m) || x_sd == 0) {
+      numeric(0)
+    } else {
+      s1 <- seq(x_m, x_m - sd * x_sd, - x_sd)
+      s2 <- seq(x_m, x_m + sd * x_sd, x_sd)
+      c(sort(s1), s2[-1])
+    }
+
+    brk_left(breaks)
+  }
+}
+
+
 #' Equal-width breaks
 #'
 #' `brk_width()` creates breaks of equal width.
@@ -76,6 +104,7 @@ brk_size <- function (size) {
     brk_left(breaks, close_end = FALSE)
   }
 }
+
 
 #' Left- or right-closed breaks
 #'

@@ -110,8 +110,22 @@ chop_quantiles <- function(x, quantiles, labels = lbl_quantiles(quantiles), ...)
 #'
 #' @examples
 #' chop_equal(rnorm(10), 5)
-chop_equal <- function(x, n, labels = lbl_intervals(), ...) {
+chop_equal <- function (x, n, labels = lbl_intervals(), ...) {
   chop_quantiles(x, seq(1, n - 1)/n, labels = labels, ...)
+}
+
+
+#' Chop by standard deviations
+#'
+#' @inherit brk_mean_sd params
+#' @inherit chop-doc params return
+#'
+#' @export
+#'
+#' @examples
+#' chop_mean_sd(rnorm(20))
+chop_mean_sd <- function (x, sd = 3, ...) {
+  chop(x, brk_mean_sd(sd), ...)
 }
 
 

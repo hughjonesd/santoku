@@ -32,4 +32,11 @@ tab_size <- function (...) {
 }
 
 
+#' @rdname tab
+#' @export
+tab_mean_sd <- function (...) {
+  default_table(chop_mean_sd(...))
+}
+
+
 default_table <- function (x) table(x, useNA = "ifany")
