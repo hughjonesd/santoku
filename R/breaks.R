@@ -93,9 +93,32 @@ brk_size <- function (size) {
 #' chop(1:3, brk_left(1:3, FALSE))
 NULL
 
+
 #' @rdname brk-left-right
 #' @export
-brk_right <- function (breaks, close_end = TRUE) {
+brk_left <- function (breaks, close_end = TRUE) UseMethod("brk_left")
+
+
+#' @rdname brk-left-right
+#' @export
+brk_right <- function (breaks, close_end = TRUE) UseMethod("brk_right")
+
+
+#' @export
+brk_left.default <- function (breaks, close_end = TRUE) {
+  left <- rep(TRUE, length(breaks))
+
+  st <- singletons(breaks)
+  left[which(st) + 1] <- FALSE
+
+  if (close_end) left[length(left)] <- FALSE
+
+  brk_manual(breaks, left)
+}
+
+
+#' @export
+brk_right.default <- function (breaks, close_end = TRUE) {
   left <- rep(FALSE, length(breaks))
 
   s <- singletons(breaks)
@@ -107,17 +130,15 @@ brk_right <- function (breaks, close_end = TRUE) {
 }
 
 
-#' @rdname brk-left-right
 #' @export
-brk_left <- function (breaks, close_end = TRUE) {
-  left <- rep(TRUE, length(breaks))
+brk_left.function <- function (breaks, close_end = TRUE) {
+  function(...) brk_left(breaks(...), close_end = close_end)
+}
 
-  st <- singletons(breaks)
-  left[which(st) + 1] <- FALSE
 
-  if (close_end) left[length(left)] <- FALSE
-
-  brk_manual(breaks, left)
+#' @export
+brk_right.function <- function (breaks, close_end = TRUE) {
+  function(...) brk_right(breaks(...), close_end = close_end)
 }
 
 

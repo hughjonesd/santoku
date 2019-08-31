@@ -2,13 +2,13 @@
 % Please edit documentation in R/breaks.R
 \name{brk-left-right}
 \alias{brk-left-right}
-\alias{brk_right}
 \alias{brk_left}
+\alias{brk_right}
 \title{Left- or right-closed breaks}
 \usage{
-brk_right(breaks, close_end = TRUE)
-
 brk_left(breaks, close_end = TRUE)
+
+brk_right(breaks, close_end = TRUE)
 }
 \arguments{
 \item{breaks}{A numeric vector which must be sorted.}

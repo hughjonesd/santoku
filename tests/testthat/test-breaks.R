@@ -37,6 +37,42 @@ test_that("brk_left, brk_right", {
 })
 
 
+test_that("brk_left/right wrappers", {
+  expect_identical(
+    brk_right(brk_manual(1:3, left = rep(TRUE, 3))),
+    brk_right(1:3)
+  )
+  expect_identical(
+    brk_left(brk_manual(1:3, left = rep(FALSE, 3))),
+    brk_left(1:3)
+  )
+  expect_identical(
+    brk_right(brk_manual(1:3, left = rep(TRUE, 3)), FALSE),
+    brk_right(1:3, FALSE)
+  )
+  expect_identical(
+    brk_left(brk_manual(1:3, left = rep(FALSE, 3)), FALSE),
+    brk_left(1:3, FALSE)
+  )
+  expect_identical(
+    brk_left(brk_quantiles(1:3/3))(1:10),
+    brk_quantiles(1:3/3)(1:10)
+  )
+  expect_identical(
+    brk_right(brk_quantiles(1:3/3))(1:10),
+    brk_right(brk_quantiles(1:3/3)(1:10))
+  )
+  expect_identical(
+    brk_left(brk_quantiles(1:3/3), FALSE)(1:10),
+    brk_left(brk_quantiles(1:3/3)(1:10), FALSE)
+  )
+  expect_identical(
+    brk_right(brk_quantiles(1:3/3), FALSE)(1:10),
+    brk_right(brk_quantiles(1:3/3)(1:10), FALSE)
+  )
+})
+
+
 test_that("brk_size", {
   for (i in 1:10) {
     x <- rnorm(sample(10:20, 1L))
