@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_quantiles}
 \alias{lbl_quantiles}
-\title{Labels suitable for quantiles.}
+\title{Labels suitable for quantiles}
 \usage{
 lbl_quantiles(quantiles)
 }
@@ -13,7 +13,7 @@ lbl_quantiles(quantiles)
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-Labels suitable for quantiles.
+Labels suitable for quantiles
 }
 \examples{
 lbl_quantiles(c(0.25, 0.5, 0.75))

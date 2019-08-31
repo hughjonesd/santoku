@@ -175,7 +175,7 @@ brk_manual <- function (vec, left) {
 }
 
 
-#' Class representing a set of intervals.
+#' Class representing a set of intervals
 #'
 #' @param x A breaks object
 #' @param ... Unused

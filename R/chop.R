@@ -9,7 +9,7 @@ NULL
 #' Cut numeric data into intervals
 #'
 #' `chop` cuts `x` into intervals. It returns a factor of the same
-#' length as `x`, representing which interval contains each elements of `x`.
+#' length as `x`, representing which interval contains each element of `x`.
 #'
 #'
 #' @param x A numeric vector.
@@ -20,27 +20,29 @@ NULL
 #'
 #' @details
 #' `breaks` may be a numeric vector, an object of class [breaks][breaks-class],
-#' or a function. If it is a vector, `breaks`
-#' gives the break endpoints. Repeated values create singleton intervals.
-#' For example `breaks = c(1, 3, 3, 5)` creates 3 intervals: `[1, 3)`, `{3}`
-#' and `(3, 5]`. Default breaks are left-closed except the end; for right-closed
-#' breaks see [brk_right()].
+#' or a function.
+#'
+#' If it is a vector, `breaks` gives the break endpoints.Repeated values create
+#' singleton intervals. For example `breaks = c(1, 3, 3, 5)` creates 3
+#' intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}. Default breaks are
+#' left-closed except the end; for right-closed breaks see [brk_right()].
 #'
 #' If `breaks` is a function it is called with a single argument, `x`, and
-#' returns the break endpoints.
+#' returns an object of class `breaks`.
 #'
 #' `labels` may be a character vector or a function. If it is a character
 #' vector it should have the same length as the number of intervals - i.e.
 #' one more than `length(breaks)` if `extend` is `TRUE`, one less otherwise.
 #'
 #' If `labels` is a function it should take an object of class `breaks` and
-#' return an appropriate character vector. If `labels` is `NULL` a simple
-#' vector of integers is returned.
+#' return an appropriate character vector.
 #'
-#' If `extend` is `TRUE`, intervals will be extended to `-Inf, min(breaks))` and
-#'     `(max(breaks), Inf`, unless those endpoints are already infinite.
+#' If `extend` is `TRUE`, intervals will be extended to \code{[-Inf,
+#' min(breaks))} and \code{(max(breaks), Inf]}, unless those endpoints are
+#' already infinite.
 #'
-#' `NA` values in `x`, and values which are outside the endpoints, return `NA`.
+#' `NA` values in `x`, and values which are outside the (extendeD) endpoints,
+#' return `NA`.
 #'
 #' @return
 #' A [factor], or an integer if `labels` is `NULL`, of the same length as `x`,

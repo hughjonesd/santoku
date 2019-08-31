@@ -23,34 +23,33 @@ representing the intervals containing the value of \code{x}.
 }
 \description{
 \code{chop} cuts \code{x} into intervals. It returns a factor of the same
-length as \code{x}, representing which interval contains each elements of \code{x}.
+length as \code{x}, representing which interval contains each element of \code{x}.
 }
 \details{
 \code{breaks} may be a numeric vector, an object of class \link[=breaks-class]{breaks},
-or a function. If it is a vector, \code{breaks}
-gives the break endpoints. Repeated values create singleton intervals.
-For example \code{breaks = c(1, 3, 3, 5)} creates 3 intervals: \code{[1, 3)}, \code{{3}}
-and \code{(3, 5]}. Default breaks are left-closed except the end; for right-closed
-breaks see [brk_right()].
+or a function.
+
+If it is a vector, \code{breaks} gives the break endpoints.Repeated values create
+singleton intervals. For example \code{breaks = c(1, 3, 3, 5)} creates 3
+intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}. Default breaks are
+left-closed except the end; for right-closed breaks see \code{\link[=brk_right]{brk_right()}}.
 
 If \code{breaks} is a function it is called with a single argument, \code{x}, and
-returns the break endpoints.
+returns an object of class \code{breaks}.
 
 \code{labels} may be a character vector or a function. If it is a character
 vector it should have the same length as the number of intervals - i.e.
 one more than \code{length(breaks)} if \code{extend} is \code{TRUE}, one less otherwise.
 
 If \code{labels} is a function it should take an object of class \code{breaks} and
-return an appropriate character vector. If \code{labels} is \code{NULL} a simple
-vector of integers is returned.
+return an appropriate character vector.
 
-If \code{extend} is \code{TRUE}, intervals will be extended to \code{-Inf, min(breaks))} and
-\code{(max(breaks), Inf}, unless those endpoints are already infinite.
+If \code{extend} is \code{TRUE}, intervals will be extended to \code{[-Inf,
+min(breaks))} and \code{(max(breaks), Inf]}, unless those endpoints are
+already infinite.
 
-\code{NA} values in \code{x}, and values which are outside the endpoints, return \code{NA}.
-
-[1, 3)\code{, }{3}\code{and}(3, 5]: R:1,%203)%60,%20%60%7B3%7D%60%0Aand%20%60(3,%205
-[brk_right()]: R:brk_right()
+\code{NA} values in \code{x}, and values which are outside the (extendeD) endpoints,
+return \code{NA}.
 }
 \examples{
 chop(1:3, 2)

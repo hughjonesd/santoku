@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_dash}
 \alias{lbl_dash}
-\title{Interval labels like 1 - 3, 4 - 5, ...}
+\title{Labels like 1 - 3, 4 - 5, ...}
 \usage{
 lbl_dash(symbol = " - ")
 }
@@ -13,7 +13,7 @@ lbl_dash(symbol = " - ")
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-Interval labels like 1 - 3, 4 - 5, ...
+Labels like 1 - 3, 4 - 5, ...
 }
 \examples{
 tab(0:20, c(0, 5, 5, 10), lbl_dash())

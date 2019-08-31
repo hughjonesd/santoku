@@ -4,7 +4,7 @@
 #' @return A vector of labels for `chop`, or a function that creates labels.
 NULL
 
-#' Interval labels using set notation
+#' Labels using set notation
 #'
 #' @inherit label-doc params return
 #'
@@ -78,7 +78,7 @@ lbl_format <- function(fmt, fmt1 = "%.3g") {
 }
 
 
-#' Interval labels like 1 - 3, 4 - 5, ...
+#' Labels like 1 - 3, 4 - 5, ...
 #'
 #' @param symbol String: symbol to use for the dash.
 #' @inherit label-doc params return
@@ -93,7 +93,7 @@ lbl_dash <- function (symbol = " - ") {
 }
 
 
-#' Labels suitable for quantiles.
+#' Labels suitable for quantiles
 #'
 #' @param quantiles A vector of quantiles.
 #' @inherit label-doc params return

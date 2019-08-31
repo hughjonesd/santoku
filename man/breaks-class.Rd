@@ -5,7 +5,7 @@
 \alias{format.breaks}
 \alias{print.breaks}
 \alias{is.breaks}
-\title{Class representing a set of intervals.}
+\title{Class representing a set of intervals}
 \usage{
 \method{format}{breaks}(x, ...)
 
@@ -19,5 +19,5 @@ is.breaks(x, ...)
 \item{...}{Unused}
 }
 \description{
-Class representing a set of intervals.
+Class representing a set of intervals
 }

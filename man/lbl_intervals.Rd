@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_intervals}
 \alias{lbl_intervals}
-\title{Interval labels using set notation}
+\title{Labels using set notation}
 \usage{
 lbl_intervals(fmt = "\%.2g")
 }
@@ -13,7 +13,7 @@ lbl_intervals(fmt = "\%.2g")
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-Interval labels using set notation
+Labels using set notation
 }
 \details{
 \code{fmt} is applied to interval endpoints.
