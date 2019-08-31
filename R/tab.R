@@ -5,7 +5,7 @@
 #' These functions call [chop()] and friends, and call [table()]
 #' on the result.
 #'
-#' @param drop,... Passed to `chop`
+#' @param ... Passed to `chop`
 #'
 #' @return A [table()].
 #'

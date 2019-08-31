@@ -13,7 +13,7 @@ tab_width(...)
 tab_size(...)
 }
 \arguments{
-\item{drop, ...}{Passed to \code{chop}}
+\item{...}{Passed to \code{chop}}
 }
 \value{
 A \code{\link[=table]{table()}}.
