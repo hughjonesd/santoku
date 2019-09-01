@@ -11,6 +11,8 @@ chop_mean_sd(x, sd = 3, labels = lbl_mean_sd(sd), ...)
 
 \item{sd}{How many standard deviations to include on each side of the mean}
 
+\item{labels}{Passed to \code{chop}.}
+
 \item{...}{Passed to \code{chop}.}
 }
 \description{
