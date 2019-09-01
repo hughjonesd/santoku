@@ -24,6 +24,8 @@ lbl_sequence(sequence, fmt = "\%s")
 }
 \arguments{
 \item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format.}
+
+\item{sequence}{A character vector.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.

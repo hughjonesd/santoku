@@ -195,6 +195,7 @@ lbl_LETTERS <- function (fmt = "%s") {
 
 
 #' @rdname sequence-labels
+#' @param sequence A character vector.
 #' @export
 lbl_sequence <- function (sequence, fmt = "%s") {
   function (breaks, extend) {
