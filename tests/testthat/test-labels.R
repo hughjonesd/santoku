@@ -27,7 +27,14 @@ test_that("lbl_format", {
 
 
 test_that("lbl_quantiles", {
-  expect_equivalent(lbl_quantiles(0.5), c("0-50%", "50-100%"))
+  expect_equivalent(
+          lbl_quantiles(0.5)(1:2, TRUE),
+          c("0-50%", "50-100%")
+        )
+  expect_equivalent(
+          lbl_quantiles(c(0.25, 0.75))(1:2, FALSE),
+          "25-75%"
+        )
 })
 
 

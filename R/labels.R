@@ -16,8 +16,8 @@ NULL
 #' @examples
 #' tab(rnorm(100), c(-3, 0, 0, 3), labels = lbl_intervals())
 #' tab(rnorm(100), c(-3, 0, 0, 3), labels = lbl_intervals("%.2f"))
-lbl_intervals <- function (fmt = "%.2g") {
-  function (breaks) {
+lbl_intervals <- function (fmt = "%.3g") {
+  function (breaks, extend) {
     stopifnot(is.breaks(breaks))
     left <- attr(breaks, "left")
     len_b <- length(breaks)
@@ -46,7 +46,7 @@ lbl_intervals <- function (fmt = "%.2g") {
 }
 
 
-#' Format labels using sprintf
+#' Labels using breaks, with arbitrary formatting
 #'
 #' @param fmt1 Format for breaks consisting of a single value.
 #'
@@ -58,7 +58,7 @@ lbl_intervals <- function (fmt = "%.2g") {
 #' tab(1:10, c(1,3, 3, 7), label = lbl_format("%.3g to %.3g"))
 #' tab(1:10, c(1,3, 3, 7), label = lbl_format("%.3g to %.3g", "Exactly %.3g"))
 lbl_format <- function(fmt, fmt1 = "%.3g") {
-  function (breaks) {
+  function (breaks, extend) {
     stopifnot(is.breaks(breaks))
     len_b <- length(breaks)
 
@@ -102,22 +102,34 @@ lbl_dash <- function (symbol = " - ") {
 #' @examples
 #' lbl_quantiles(c(0.25, 0.5, 0.75))
 lbl_quantiles <- function (quantiles) {
-  lqs <- c(0, quantiles)
-  rqs <- c(quantiles, 1)
+  function (breaks, extend) {
+    if (extend) quantiles <- c(0, quantiles, 1)
+    lqs <- quantiles[-length(quantiles)]
+    rqs <- quantiles[-1]
 
-  lqs <- sprintf("%.3g", lqs * 100)
-  rqs <- sprintf("%.3g%%", rqs * 100)
+    lqs <- sprintf("%.3g", lqs * 100)
+    rqs <- sprintf("%.3g%%", rqs * 100)
 
-  paste0(lqs, "-", rqs)
+    paste0(lqs, "-", rqs)
+  }
 }
 
 
 #' Label in sequence
 #'
 #' These functions label intervals sequentially from lowest to highest.
-#' `lbl_numerals()` uses arabic numerals. `lbl_letters()` and `lbl_LETTERS()`
-#' uses lower-case and upper-case letters respectively. `lbl_roman()` and
+#'
+#' `lbl_numerals()` uses arabic numerals.
+#'
+#' `lbl_letters()` and `lbl_LETTERS()`
+#' uses lower-case and upper-case letters respectively.
+#'
+#' `lbl_roman()` and
 #' `lbl_ROMAN()` use lower-case and upper-case Roman numerals respectively.
+#'
+#' `lbl_sequence()` uses an arbitrary sequence. If the sequence is shorter than
+#' the number of breaks, it will be pasted with itself and repeated
+#' as necessary.
 #'
 #' @name sequence-labels
 #'
@@ -130,13 +142,14 @@ lbl_quantiles <- function (quantiles) {
 #' tab(1:10, c(3, 4), lbl_LETTERS())
 #' tab(1:10, c(3, 4), lbl_roman())
 #' tab(1:10, c(3, 4), lbl_ROMAN())
+#' tab(1:10, c(3, 4), lbl_sequence(c("x", "y", "z")))
 NULL
 
 
 #' @rdname sequence-labels
 #' @export
 lbl_numerals <- function (fmt = "%s") {
-  function (breaks) {
+  function (breaks, extend) {
     sprintf(fmt, seq(1L, length(breaks) - 1))
   }
 }
@@ -145,7 +158,7 @@ lbl_numerals <- function (fmt = "%s") {
 #' @rdname sequence-labels
 #' @export
 lbl_roman <- function (fmt = "%s") {
-  function (breaks) {
+  function (breaks, extend) {
     sprintf(fmt, tolower(utils::as.roman(seq(1L, length(breaks) - 1))))
   }
 }
@@ -154,7 +167,7 @@ lbl_roman <- function (fmt = "%s") {
 #' @rdname sequence-labels
 #' @export
 lbl_ROMAN <- function (fmt = "%s") {
-  function (breaks) {
+  function (breaks, extend) {
     sprintf(fmt, utils::as.roman(seq(1L, length(breaks) - 1)))
   }
 }
@@ -163,19 +176,21 @@ lbl_ROMAN <- function (fmt = "%s") {
 #' @rdname sequence-labels
 #' @export
 lbl_letters <- function (fmt = "%s") {
-  sequence_labels(letters, fmt)
+  lbl_sequence(letters, fmt)
 }
 
 
 #' @rdname sequence-labels
 #' @export
 lbl_LETTERS <- function (fmt = "%s") {
-  sequence_labels(LETTERS, fmt)
+  lbl_sequence(LETTERS, fmt)
 }
 
 
-sequence_labels <- function (sequence, fmt) {
-  function (breaks) {
+#' @rdname sequence-labels
+#' @export
+lbl_sequence <- function (sequence, fmt = "%s") {
+  function (breaks, extend) {
     ls <- sequence
     latest <- ls
     while (length(breaks) - 1 > length(ls)) {

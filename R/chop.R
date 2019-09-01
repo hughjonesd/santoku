@@ -30,12 +30,11 @@ NULL
 #' If `breaks` is a function it is called with a single argument, `x`, and
 #' returns an object of class `breaks`.
 #'
-#' `labels` may be a character vector or a function. If it is a character
-#' vector it should have the same length as the number of intervals - i.e.
-#' one more than `length(breaks)` if `extend` is `TRUE`, one less otherwise.
+#' `labels` may be a character vector. It should have the same length as the
+#'  number of intervals - i.e., one more than `length(breaks)` (or one less
+#'  if `extend` is `FALSE`). Alternatively, use a `lbl_` function such as
+#'  [lbl_numerals()].
 #'
-#' If `labels` is a function it should take an object of class `breaks` and
-#' return an appropriate character vector.
 #'
 #' If `extend` is `TRUE`, intervals will be extended to \code{[-Inf,
 #' min(breaks))} and \code{(max(breaks), Inf]}, unless those endpoints are
@@ -72,8 +71,10 @@ chop <- function (x, breaks,
   }
   if (extend) breaks <- extend_breaks(breaks)
 
-  if (is.function(labels)) labels <- labels(breaks)
+  if (is.function(labels)) labels <- labels(breaks, extend)
   stopifnot(length(labels) == length(breaks) - 1)
+  if (anyDuplicated(labels)) stop("Duplicate labels found: ",
+        paste(labels, collapse = ", "))
 
   codes <- categorize(x, breaks)
   result <- factor(codes, levels = seq.int(length(breaks) - 1L),
