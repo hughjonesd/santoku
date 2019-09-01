@@ -15,7 +15,6 @@ test_that("basic functionality", {
   x <- seq(0.5, 2.5, 0.5)
   r <- chop(x, 1:2, labels = letters[1:3])
   expect_equivalent(r, factor(c("a", "b", "b", "b", "c"), levels = letters[1:3]))
-
 })
 
 
@@ -33,6 +32,13 @@ test_that("NA, NaN and Inf", {
   expect_equivalent(r, factor(c(NA, "a", "a"), levels = "a"))
   r <- chop(x, brk_left(Inf, close_end = FALSE), labels = "a")
   expect_equivalent(r, factor(c("a", "a", NA), levels = "a"))
+})
+
+
+test_that("labels", {
+  expect_error(chop(1:10, 3:4, labels = c("a", "a", "a")))
+  expect_error(chop(1:10, 3:4, labels = c("a", "b")))
+  expect_error(chop(1:10, 3:4, labels = c("a", "b", "c", "d")))
 })
 
 
