@@ -54,9 +54,6 @@ test_that("lbl_intervals", {
 
   mbrk <- brk_manual(1:4, c(FALSE, TRUE, FALSE, TRUE))
   expect_equivalent(lbl_intervals()(mbrk), c("(1, 2)", "[2, 3]", "(3, 4)"))
-
-  expect_equivalent(lbl_intervals("%.2f")(mbrk),
-        c("(1.00, 2.00)", "[2.00, 3.00]", "(3.00, 4.00)"))
 })
 
 
