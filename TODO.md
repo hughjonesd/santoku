@@ -13,6 +13,8 @@
 # Questions
 
 * How to prevent duplicated labels?
+  - Attempted by using %s for formats
+  
 
 * Should we allow vector `labels` to be longer than necessary?
   + lets people do e.g. `chop(rnorm(100), -2:2, LETTERS)`

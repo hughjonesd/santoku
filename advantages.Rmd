@@ -14,7 +14,7 @@ for `base::cut()`.
  intervals. For example, `chop(x, breaks = c(1, 2, 2, 3))` will create a
  separate factor level for values exactly equal to 2.
 
- * santoku has flexible labelling, including easy ways to label intervals by
+ * Flexible labelling, including easy ways to label intervals by
    numerals or letters.
 
  * Convenience functions for creating quantile intervals, evenly-spaced
