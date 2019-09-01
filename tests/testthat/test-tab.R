@@ -33,3 +33,7 @@ test_that("tab_width", {
   )
 })
 
+test_that("tab_mean_sd", {
+  expect_silent(tb <- tab_mean_sd(rnorm(100), sd = 3, drop = FALSE))
+  expect_equivalent(length(tb), 8)
+})
