@@ -77,6 +77,24 @@ test_that("chop_quantiles", {
 })
 
 
+test_that("chop_equal", {
+  x <- 1:6
+  expect_equivalent(
+    chop_equal(x, 2),
+    as.factor(rep(c("0-50%", "50-100%"), each = 3))
+  )
+})
+
+
+test_that("chop_deciles", {
+  x <- rnorm(100)
+  expect_identical(
+    chop_quantiles(x, 1:9/10),
+    chop_deciles(x)
+  )
+})
+
+
 test_that("chop_size", {
   expect_silent(res <- chop_size(rnorm(100), 10))
   expect_equivalent(as.vector(table(res)), rep(10, 10))

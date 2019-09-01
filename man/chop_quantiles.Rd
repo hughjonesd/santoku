@@ -2,10 +2,13 @@
 % Please edit documentation in R/chop.R
 \name{chop_quantiles}
 \alias{chop_quantiles}
+\alias{chop_deciles}
 \alias{chop_equal}
 \title{Chop by quantiles.}
 \usage{
 chop_quantiles(x, quantiles, labels = lbl_quantiles(quantiles), ...)
+
+chop_deciles(x, ...)
 
 chop_equal(x, n, ...)
 }
@@ -22,7 +25,8 @@ chop_equal(x, n, ...)
 }
 \description{
 \code{chop_quantiles} chops data by quantiles. \code{chop_equal} chops
-data into equal-sized groups.
+data into equal-sized groups. \code{chop_deciles} is a convenience shortcut and
+chops into deciles.
 }
 \examples{
 chop_quantiles(rnorm(10), c(1/3, 2/3))

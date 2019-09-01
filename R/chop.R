@@ -88,7 +88,8 @@ chop <- function (x, breaks,
 #' Chop by quantiles.
 #'
 #' `chop_quantiles` chops data by quantiles. `chop_equal` chops
-#' data into equal-sized groups.
+#' data into equal-sized groups. `chop_deciles` is a convenience shortcut and
+#' chops into deciles.
 #'
 #' @param quantiles A vector of quantiles. You don't need to include 0 or 1.
 #' @inherit chop-doc params return
@@ -99,6 +100,13 @@ chop <- function (x, breaks,
 #' chop_quantiles(rnorm(10), c(1/3, 2/3))
 chop_quantiles <- function(x, quantiles, labels = lbl_quantiles(quantiles), ...) {
   chop(x, brk_quantiles(quantiles), labels = labels, ...)
+}
+
+
+#' @rdname chop_quantiles
+#' @export
+chop_deciles <- function(x, ...) {
+  chop_quantiles(x, 1:9/10, ...)
 }
 
 
