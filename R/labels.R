@@ -9,6 +9,15 @@ NULL
 #' @inherit label-doc params return
 #'
 #' @details
+#'
+#' Mathematical set notation is as follows:
+#'
+#' * `[a, b]`: all numbers `x` where `a <= x <= b`;
+#' * `(a, b)`: all numbers where `a < x < b`;
+#' * `[a, b)`: all numbers where `a <= x < b`;
+#' * `(a, b]`: all numbers where `a < x <= b`;
+#' * `{a}`: just the number `a`.
+#'
 #' `fmt` is applied to interval endpoints.
 #'
 #' @export
@@ -16,7 +25,7 @@ NULL
 #' @examples
 #' tab(rnorm(100), c(-3, 0, 0, 3), labels = lbl_intervals())
 #' tab(rnorm(100), c(-3, 0, 0, 3), labels = lbl_intervals("%.2f"))
-lbl_intervals <- function (fmt = "%.3g") {
+lbl_intervals <- function (fmt = "%s") {
   function (breaks, extend) {
     stopifnot(is.breaks(breaks))
     left <- attr(breaks, "left")
@@ -55,9 +64,9 @@ lbl_intervals <- function (fmt = "%.3g") {
 #' @export
 #'
 #' @examples
-#' tab(1:10, c(1,3, 3, 7), label = lbl_format("%.3g to %.3g"))
-#' tab(1:10, c(1,3, 3, 7), label = lbl_format("%.3g to %.3g", "Exactly %.3g"))
-lbl_format <- function(fmt, fmt1 = "%.3g") {
+#' tab(1:10, c(1,3, 3, 7), label = lbl_format("%s to %s"))
+#' tab(1:10, c(1,3, 3, 7), label = lbl_format("%s to %s", "Exactly %s"))
+lbl_format <- function(fmt, fmt1 = "%s") {
   function (breaks, extend) {
     stopifnot(is.breaks(breaks))
     len_b <- length(breaks)
@@ -203,5 +212,5 @@ lbl_sequence <- function (sequence, fmt = "%s") {
 
 
 percent <- function (x) {
-  sprintf("%.3g%%", x * 100)
+  sprintf("%s%%", x * 100)
 }

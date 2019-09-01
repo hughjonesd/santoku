@@ -60,5 +60,11 @@ test_that("lbl_intervals", {
 })
 
 
+test_that("breaks labels don't produce duplicates", {
+  lbls <- lbl_intervals()(brk_left(c(1.333335, 1.333336, 1.333337, 5)), FALSE)
+  expect_true(anyDuplicated(lbls) == 0)
+})
+
+
 
 
