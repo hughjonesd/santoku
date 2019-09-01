@@ -4,7 +4,7 @@
 \alias{lbl_intervals}
 \title{Labels using set notation}
 \usage{
-lbl_intervals(fmt = "\%.2g")
+lbl_intervals(fmt = "\%s")
 }
 \arguments{
 \item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format.}
@@ -16,7 +16,21 @@ A vector of labels for \code{chop}, or a function that creates labels.
 Labels using set notation
 }
 \details{
+Mathematical set notation is as follows:
+\itemize{
+\item \code{[a, b]}: all numbers \code{x} where \code{a <= x <= b};
+\item \code{(a, b)}: all numbers where \code{a < x < b};
+\item \code{[a, b)}: all numbers where \code{a <= x < b};
+\item \code{(a, b]}: all numbers where \code{a < x <= b};
+\item \code{{a}}: just the number \code{a}.
+}
+
 \code{fmt} is applied to interval endpoints.
+
+[a, b)\code{: all numbers where }a <= x < b`;
+\itemize{
+\item `(a, b]: R:a,%20b)%60:%20all%20numbers%20where%20%60a%20%3C=%20x%20%3C%20b%60;%0A*%20%60(a,%20b
+}
 }
 \examples{
 tab(rnorm(100), c(-3, 0, 0, 3), labels = lbl_intervals())

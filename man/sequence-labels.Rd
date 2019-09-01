@@ -7,6 +7,7 @@
 \alias{lbl_ROMAN}
 \alias{lbl_letters}
 \alias{lbl_LETTERS}
+\alias{lbl_sequence}
 \title{Label in sequence}
 \usage{
 lbl_numerals(fmt = "\%s")
@@ -18,6 +19,8 @@ lbl_ROMAN(fmt = "\%s")
 lbl_letters(fmt = "\%s")
 
 lbl_LETTERS(fmt = "\%s")
+
+lbl_sequence(sequence, fmt = "\%s")
 }
 \arguments{
 \item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format.}
@@ -27,9 +30,19 @@ A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
 These functions label intervals sequentially from lowest to highest.
-\code{lbl_numerals()} uses arabic numerals. \code{lbl_letters()} and \code{lbl_LETTERS()}
-uses lower-case and upper-case letters respectively. \code{lbl_roman()} and
+}
+\details{
+\code{lbl_numerals()} uses arabic numerals.
+
+\code{lbl_letters()} and \code{lbl_LETTERS()}
+uses lower-case and upper-case letters respectively.
+
+\code{lbl_roman()} and
 \code{lbl_ROMAN()} use lower-case and upper-case Roman numerals respectively.
+
+\code{lbl_sequence()} uses an arbitrary sequence. If the sequence is shorter than
+the number of breaks, it will be pasted with itself and repeated
+as necessary.
 }
 \examples{
 tab(1:10, c(3, 4), lbl_numerals())
@@ -38,4 +51,5 @@ tab(1:10, c(3, 4), lbl_letters())
 tab(1:10, c(3, 4), lbl_LETTERS())
 tab(1:10, c(3, 4), lbl_roman())
 tab(1:10, c(3, 4), lbl_ROMAN())
+tab(1:10, c(3, 4), lbl_sequence(c("x", "y", "z")))
 }

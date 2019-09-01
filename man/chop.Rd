@@ -37,12 +37,10 @@ left-closed except the end; for right-closed breaks see \code{\link[=brk_right]{
 If \code{breaks} is a function it is called with a single argument, \code{x}, and
 returns an object of class \code{breaks}.
 
-\code{labels} may be a character vector or a function. If it is a character
-vector it should have the same length as the number of intervals - i.e.
-one more than \code{length(breaks)} if \code{extend} is \code{TRUE}, one less otherwise.
-
-If \code{labels} is a function it should take an object of class \code{breaks} and
-return an appropriate character vector.
+\code{labels} may be a character vector. It should have the same length as the
+number of intervals - i.e., one more than \code{length(breaks)} (or one less
+if \code{extend} is \code{FALSE}). Alternatively, use a \code{lbl_} function such as
+\code{\link[=lbl_numerals]{lbl_numerals()}}.
 
 If \code{extend} is \code{TRUE}, intervals will be extended to \code{[-Inf,
 min(breaks))} and \code{(max(breaks), Inf]}, unless those endpoints are

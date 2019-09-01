@@ -2,9 +2,9 @@
 % Please edit documentation in R/labels.R
 \name{lbl_format}
 \alias{lbl_format}
-\title{Format labels using sprintf}
+\title{Labels using breaks, with arbitrary formatting}
 \usage{
-lbl_format(fmt, fmt1 = "\%.3g")
+lbl_format(fmt, fmt1 = "\%s")
 }
 \arguments{
 \item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format.}
@@ -15,9 +15,9 @@ lbl_format(fmt, fmt1 = "\%.3g")
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-Format labels using sprintf
+Labels using breaks, with arbitrary formatting
 }
 \examples{
-tab(1:10, c(1,3, 3, 7), label = lbl_format("\%.3g to \%.3g"))
-tab(1:10, c(1,3, 3, 7), label = lbl_format("\%.3g to \%.3g", "Exactly \%.3g"))
+tab(1:10, c(1,3, 3, 7), label = lbl_format("\%s to \%s"))
+tab(1:10, c(1,3, 3, 7), label = lbl_format("\%s to \%s", "Exactly \%s"))
 }
