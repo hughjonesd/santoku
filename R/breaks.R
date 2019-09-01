@@ -26,7 +26,8 @@ brk_quantiles <- function (quantiles, ...) {
 
 #' Title
 #'
-#' @param sd How many standard deviations to include on each side of the mean
+#' @param sd Whole number: include `sd` standard deviations on each side of
+#'   the mean.
 #' @inherit breaks-doc params return
 #'
 #' @export
@@ -35,7 +36,7 @@ brk_quantiles <- function (quantiles, ...) {
 #' tab(rnorm(20), brk_mean_sd())
 brk_mean_sd <- function (sd = 3) {
   force(sd)
-  stopifnot(sd > 0)
+  stopifnot(sd >= 0)
   if (sd != round(sd)) stop("`sd` must be a whole number")
   function (x) {
     x_m <- mean(x, na.rm = TRUE)
@@ -243,6 +244,7 @@ NULL
 #' @rdname breaks-class
 #' @export
 format.breaks <- function (x, ...) {
+  if (length(x) < 2) return("Breaks object with no complete intervals")
   paste(lbl_intervals()(x), collapse = " ")
 }
 

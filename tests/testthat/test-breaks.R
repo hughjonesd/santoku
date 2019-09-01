@@ -124,4 +124,6 @@ test_that("printing", {
   b <- brk_left(1:3)
   expect_output(print(b))
   expect_silent(format(b))
+  b_empty <- brk_left(1)
+  expect_output(print(b_empty))
 })
