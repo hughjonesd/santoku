@@ -18,14 +18,12 @@ NULL
 #' * `(a, b]`: all numbers where `a < x <= b`;
 #' * `{a}`: just the number `a`.
 #'
-#' `fmt` is applied to interval endpoints.
 #'
 #' @export
 #'
 #' @examples
 #' tab(rnorm(100), c(-3, 0, 0, 3), labels = lbl_intervals())
-#' tab(rnorm(100), c(-3, 0, 0, 3), labels = lbl_intervals("%.2f"))
-lbl_intervals <- function (fmt = "%s") {
+lbl_intervals <- function () {
   function (breaks, extend) {
     stopifnot(is.breaks(breaks))
     left <- attr(breaks, "left")
@@ -36,8 +34,8 @@ lbl_intervals <- function (fmt = "%s") {
     len_i <- length(intervals)
     singletons <- singletons(breaks)
 
-    lb <- sprintf(fmt, breaks[-len_b])
-    rb <- sprintf(fmt, breaks[-1])
+    lb <- breaks[-len_b]
+    rb <- breaks[-1]
     l_closed <- left[-len_b]
     r_closed <- ! left[-1]
 
@@ -97,8 +95,8 @@ lbl_format <- function(fmt, fmt1 = "%s") {
 #' @examples
 #' tab(0:20, c(0, 5, 5, 10), lbl_dash())
 lbl_dash <- function (symbol = " - ") {
-  fmt <- paste0("%.3g", symbol, "%.3g")
-  lbl_format(fmt, "%.3g")
+  fmt <- paste0("%s", symbol, "%s")
+  lbl_format(fmt, "%s")
 }
 
 
@@ -116,8 +114,8 @@ lbl_quantiles <- function (quantiles) {
     lqs <- quantiles[-length(quantiles)]
     rqs <- quantiles[-1]
 
-    lqs <- sprintf("%.3g", lqs * 100)
-    rqs <- sprintf("%.3g%%", rqs * 100)
+    lqs <- sprintf("%s", lqs * 100)
+    rqs <- sprintf("%s%%", rqs * 100)
 
     paste0(lqs, "-", rqs)
   }
