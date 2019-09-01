@@ -4,7 +4,7 @@
 \alias{chop_mean_sd}
 \title{Chop by standard deviations}
 \usage{
-chop_mean_sd(x, sd = 3, ...)
+chop_mean_sd(x, sd = 3, labels = lbl_mean_sd(sd), ...)
 }
 \arguments{
 \item{x}{A numeric vector.}

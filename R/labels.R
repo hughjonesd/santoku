@@ -27,28 +27,7 @@ lbl_intervals <- function () {
   function (breaks, extend) {
     stopifnot(is.breaks(breaks))
     left <- attr(breaks, "left")
-    len_b <- length(breaks)
-    if (len_b < 1L) return(character(0))
-
-    intervals <- character(len_b - 1)
-    len_i <- length(intervals)
-    singletons <- singletons(breaks)
-
-    lb <- breaks[-len_b]
-    rb <- breaks[-1]
-    l_closed <- left[-len_b]
-    r_closed <- ! left[-1]
-
-    left_symbol <- rep("(", len_i)
-    left_symbol[l_closed] <- "["
-
-    right_symbol <- rep(")", len_i)
-    right_symbol[r_closed] <- "]"
-
-    intervals <- sprintf("%s%s, %s%s", left_symbol, lb, rb, right_symbol)
-    intervals[singletons] <- sprintf("{%s}", lb[singletons])
-
-    return(intervals)
+    make_interval_labels(as.numeric(breaks), left)
   }
 }
 
@@ -118,6 +97,25 @@ lbl_quantiles <- function (quantiles) {
     rqs <- sprintf("%s%%", rqs * 100)
 
     paste0(lqs, "-", rqs)
+  }
+}
+
+
+#' Label standard deviations
+#'
+#' @param sd Number of standard deviations
+#' @inherit label-doc params return
+#'
+#' @export
+#'
+lbl_mean_sd <- function (sd) {
+  function (breaks, extend) {
+    sds <- seq(-sd, sd, 1)
+    labels <- make_interval_labels(sds, attr(breaks, "left"))
+    if (extend) {
+      labels <- c(sprintf("< %s", -sd), labels, sprintf("> %s", sd))
+    }
+    return(labels)
   }
 }
 
@@ -207,6 +205,32 @@ lbl_sequence <- function (sequence, fmt = "%s") {
     }
     sprintf(fmt, ls[seq(1L, length(breaks) - 1)])
   }
+}
+
+
+make_interval_labels <- function (num, left) {
+  len_b <- length(num)
+  if (len_b < 1L) return(character(0))
+
+  intervals <- character(len_b - 1)
+  len_i <- length(intervals)
+  singletons <- singletons(num)
+
+  lb <- num[-len_b]
+  rb <- num[-1]
+  l_closed <- left[-len_b]
+  r_closed <- ! left[-1]
+
+  left_symbol <- rep("(", len_i)
+  left_symbol[l_closed] <- "["
+
+  right_symbol <- rep(")", len_i)
+  right_symbol[r_closed] <- "]"
+
+  intervals <- sprintf("%s%s, %s%s", left_symbol, lb, rb, right_symbol)
+  intervals[singletons] <- sprintf("{%s}", lb[singletons])
+
+  return(intervals)
 }
 
 
