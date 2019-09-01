@@ -75,3 +75,17 @@ test_that("chop_quantiles", {
           as.factor(c("0-25%", "0-25%", "25-50%", "50-75%", "75-100%", "75-100%"))
         )
 })
+
+
+test_that("chop_size", {
+  expect_silent(res <- chop_size(rnorm(100), 10))
+  expect_equivalent(as.vector(table(res)), rep(10, 10))
+})
+
+
+test_that("chop_mean_sd", {
+  x <- -1:1 # mean 0, sd 1
+  expect_silent(chop_mean_sd(x))
+  expect_silent(chop_mean_sd(x, sd = 2))
+  expect_error(chop_mean_sd(x, sd = 1.5), "whole number")
+})

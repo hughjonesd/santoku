@@ -35,6 +35,8 @@ brk_quantiles <- function (quantiles, ...) {
 #' tab(rnorm(20), brk_mean_sd())
 brk_mean_sd <- function (sd = 3) {
   force(sd)
+  stopifnot(sd > 0)
+  if (sd != round(sd)) stop("`sd` must be a whole number")
   function (x) {
     x_m <- mean(x, na.rm = TRUE)
     x_sd <- sd(x, na.rm = TRUE)
