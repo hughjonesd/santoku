@@ -2,7 +2,7 @@
 
 #' @name chop-doc
 #' @param x A numeric vector.
-#' @param breaks,...  Passed to `chop`.
+#' @param breaks,labels,...  Passed to `chop`.
 NULL
 
 
@@ -91,7 +91,6 @@ chop <- function (x, breaks,
 #' data into equal-sized groups.
 #'
 #' @param quantiles A vector of quantiles. You don't need to include 0 or 1.
-#' @param labels See [chop()].
 #' @inherit chop-doc params return
 #'
 #' @export
@@ -111,8 +110,8 @@ chop_quantiles <- function(x, quantiles, labels = lbl_quantiles(quantiles), ...)
 #'
 #' @examples
 #' chop_equal(rnorm(10), 5)
-chop_equal <- function (x, n, labels = lbl_intervals(), ...) {
-  chop_quantiles(x, seq(1, n - 1)/n, labels = labels, ...)
+chop_equal <- function (x, n, ...) {
+  chop_quantiles(x, seq(1, n - 1)/n, ...)
 }
 
 

@@ -7,14 +7,14 @@
 \usage{
 chop_quantiles(x, quantiles, labels = lbl_quantiles(quantiles), ...)
 
-chop_equal(x, n, labels = lbl_intervals(), ...)
+chop_equal(x, n, ...)
 }
 \arguments{
 \item{x}{A numeric vector.}
 
 \item{quantiles}{A vector of quantiles. You don't need to include 0 or 1.}
 
-\item{labels}{See \code{\link[=chop]{chop()}}.}
+\item{labels}{Passed to \code{chop}.}
 
 \item{...}{Passed to \code{chop}.}
 
