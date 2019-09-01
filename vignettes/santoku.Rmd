@@ -2,7 +2,7 @@
 title: "Introduction to santoku"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to santoku}
+  %\VignetteIndexEntry{santoku}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -94,12 +94,20 @@ chopped <- chop_quantiles(x, c(0.25, 0.5, 0.75))
 data.frame(x, chopped)
 ```
 
+To chop data by standard deviations around the mean, use `chop_mean_sd()`:
 
-`tab_size()` and `tab_width()` do the same as `tab()`:
+```{r}
+chopped <- chop_mean_sd(x)
+data.frame(x, chopped)
+```
+
+`tab_size()`, `tab_width()` and `tab_mean_sd()` act similarly to `tab()`,
+calling the related `chop_` function and then `table()`.
 
 ```{r}
 tab_width(x, 2)
 tab_size(x, 4)
+tab_mean_sd(x)
 ```
 
 # Advanced usage
