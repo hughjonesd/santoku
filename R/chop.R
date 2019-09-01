@@ -125,7 +125,7 @@ chop_equal <- function (x, n, ...) {
 #' @examples
 #' chop_mean_sd(rnorm(20))
 chop_mean_sd <- function (x, sd = 3, labels = lbl_mean_sd(sd), ...) {
-  chop(x, brk_mean_sd(sd), ...)
+  chop(x, brk_mean_sd(sd), labels = labels, ...)
 }
 
 

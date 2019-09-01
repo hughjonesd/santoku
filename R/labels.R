@@ -111,7 +111,9 @@ lbl_quantiles <- function (quantiles) {
 lbl_mean_sd <- function (sd) {
   function (breaks, extend) {
     sds <- seq(-sd, sd, 1)
-    labels <- make_interval_labels(sds, attr(breaks, "left"))
+    left <- attr(breaks, "left")
+    if (extend) left <- left[c(-1, -length(left))]
+    labels <- make_interval_labels(sds, left)
     if (extend) {
       labels <- c(sprintf("< %s", -sd), labels, sprintf("> %s", sd))
     }
