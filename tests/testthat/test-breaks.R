@@ -108,3 +108,20 @@ test_that("brk_width", {
   b <- brk_width(1)(c(NA, 2, 4, NA))
   expect_equal(diff(as.vector(b))[1], 1)
 })
+
+
+test_that("brk_mean_sd", {
+  x <- rnorm(10)
+  expect_silent(b <- brk_mean_sd(3)(x))
+  m <- mean(x)
+  sd <- sd(x)
+  sd_ints <- seq(m - 3 * sd, m + 3 * sd, sd)
+  expect_equal(as.numeric(b), sd_ints)
+})
+
+
+test_that("printing", {
+  b <- brk_left(1:3)
+  expect_output(print(b))
+  expect_silent(format(b))
+})
