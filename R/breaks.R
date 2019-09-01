@@ -216,6 +216,10 @@ brk_manual <- function (vec, left) {
   stopifnot(length(left) == length(vec))
 
   singletons <- singletons(vec)
+  if (any(singletons[-1] & singletons[-length(singletons)])) {
+    stop("`x` contained more than two consecutive equal values")
+  }
+
   l_singletons <- c(singletons, FALSE)
   r_singletons <- c(FALSE, singletons)
   stopifnot(all(left[l_singletons]))

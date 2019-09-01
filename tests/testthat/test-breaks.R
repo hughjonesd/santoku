@@ -14,6 +14,12 @@ test_that("brk_manual", {
   expect_error(brk_manual(1:2, c(TRUE)))
   expect_error(brk_manual("a", TRUE))
   expect_error(brk_manual(1, "c"))
+
+  expect_error(brk_manual(c(1, NA), c(TRUE, TRUE)))
+  expect_error(brk_manual(2:1, c(TRUE, TRUE)))
+
+  expect_error(brk_manual(c(1, 2, 2, 2, 3), rep(TRUE, 5)),
+        regexp = "equal")
 })
 
 
