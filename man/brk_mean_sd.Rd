@@ -7,7 +7,8 @@
 brk_mean_sd(sd = 3)
 }
 \arguments{
-\item{sd}{How many standard deviations to include on each side of the mean}
+\item{sd}{Whole number: include \code{sd} standard deviations on each side of
+the mean.}
 }
 \value{
 A (function returning an) object of class \code{breaks}.

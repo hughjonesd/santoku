@@ -9,7 +9,8 @@ chop_mean_sd(x, sd = 3, labels = lbl_mean_sd(sd), ...)
 \arguments{
 \item{x}{A numeric vector.}
 
-\item{sd}{How many standard deviations to include on each side of the mean}
+\item{sd}{Whole number: include \code{sd} standard deviations on each side of
+the mean.}
 
 \item{labels}{Passed to \code{chop}.}
 

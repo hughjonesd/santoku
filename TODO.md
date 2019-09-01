@@ -7,13 +7,16 @@
   - weird input
   - weird breaks (1 or 0 length, 3 repeats...)
 * chop_deciles etc?
+* cut e.g. Dates
+  - what else?
 
 
 
 # Questions
 
 * How to prevent duplicated labels?
-  - Attempted by using %s for formats
+  - Attempted by using %s for formats. But this leads to looong strings
+  
   
 
 * Should we allow vector `labels` to be longer than necessary?
@@ -21,6 +24,8 @@
   - but might hide errors
   - overall I'm against
   
+# Questions with an attempted answer
+
 * Is the label interface right? Problem exposed by `brk_mean_sd`: if 
   we aren't sure whether data gets extended, then how do we know what
   the labels should be?
@@ -29,10 +34,9 @@
   - or could the breaks object know how to extend its labels?
   - current solution: labels get `extend`
 
-* can we cut e.g. Dates?
-
 * Should we automatically sort breaks, or throw an error if they're unsorted?
   - or a warning?
+  - currently an error
 
 * What if `breaks = c(1, 2, 2, 2, 3)`?
 

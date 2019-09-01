@@ -10,9 +10,9 @@ for `base::cut()`.
  * By default, `chop()` always covers the whole range of the data, so you
  won't get unexpected `NA` values.
 
- * Unlike `cut()` or `cut2()`, `chop()` can handle single values as well as
- intervals. For example, `chop(x, breaks = c(1, 2, 2, 3))` will create a
- separate factor level for values exactly equal to 2.
+ * `chop()` can handle single values as well as intervals. For example, 
+   `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor level for
+   values exactly equal to 2.
 
  * Flexible labelling, including easy ways to label intervals by
    numerals or letters.
