@@ -32,3 +32,4 @@ test_that("tab_width", {
       "[8, 10]"))
   )
 })
+
