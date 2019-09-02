@@ -29,6 +29,7 @@ extend_breaks <- function (breaks) {
 #' @export
 #'
 #' @examples
+#' tab(1:5, exactly(3))
 exactly <- function (x) rep(x, each = 2)
 
 
