@@ -17,7 +17,15 @@
 * How to prevent duplicated labels?
   - Attempted by using %s for formats. But this leads to looong strings
   
-  
+* What to do with data-dependent breaks when there's an unexpected number
+  of breaks? 
+  - E.g. `chop_deciles(rep(NA, 5))`
+  - Or indeed what if some quantiles are the same? e.g.
+  `quantile(c(1, rep(2, 10), 3), c(.3, .6))`
+  - answer is that corresponding label functions should deal with arbitrary 
+    numbers of labels
+  - the label function is the prob at the moment
+    
 
 * Should we allow vector `labels` to be longer than necessary?
   + lets people do e.g. `chop(rnorm(100), -2:2, LETTERS)`
@@ -39,6 +47,7 @@
   - currently an error
 
 * What if `breaks = c(1, 2, 2, 2, 3)`?
+  - throw an error
 
 * For some cases e.g. `brk_quantiles`, `brk_width`, the data may not work
   well e.g. if it is all NA. What is an empty set of breaks?

@@ -55,7 +55,6 @@ lbl_format <- function(fmt, fmt1 = "%s") {
     l <- breaks[-len_b]
     r <- breaks[-1]
 
-
     labels <- sprintf(fmt, l, r)
     labels[singletons] <- sprintf(fmt1, l[singletons])
 
@@ -198,6 +197,7 @@ lbl_LETTERS <- function (fmt = "%s") {
 #' @param sequence A character vector.
 #' @export
 lbl_sequence <- function (sequence, fmt = "%s") {
+  if (anyDuplicated(sequence) > 0L) stop("`sequence` contains duplicate items")
   function (breaks, extend) {
     ls <- sequence
     latest <- ls
@@ -218,6 +218,7 @@ make_interval_labels <- function (num, left) {
   len_i <- length(intervals)
   singletons <- singletons(num)
 
+  num <- unique_truncation(num)
   lb <- num[-len_b]
   rb <- num[-1]
   l_closed <- left[-len_b]
@@ -236,6 +237,19 @@ make_interval_labels <- function (num, left) {
 }
 
 
-percent <- function (x) {
-  sprintf("%s%%", x * 100)
+unique_truncation <- function (num) {
+  want_unique <- ! duplicated(num) # real duplicates can stay as they are!
+                                   # we keep the first of each duplicate set.
+  res <- as.character(num)
+  if (! anyDuplicated(res[want_unique])) return(res)
+
+  min_digits <- min(getOption("digits", 7), 21)
+  for (digits in seq(min_digits, 22L)) {
+    res <- formatC(num, digits = digits, width = -1)
+    if (anyDuplicated(res[want_unique]) == 0L) break
+  }
+  if (anyDuplicated(res[want_unique]) > 0L) stop(
+        "Could not format breaks to avoid duplicates")
+
+  return(res)
 }
