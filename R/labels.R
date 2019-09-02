@@ -240,7 +240,7 @@ make_interval_labels <- function (num, left) {
 unique_truncation <- function (num) {
   want_unique <- ! duplicated(num) # real duplicates can stay as they are!
                                    # we keep the first of each duplicate set.
-  res <- format(num)
+  res <- format(num, trim = TRUE)
   if (! anyDuplicated(res[want_unique])) return(res)
 
   min_digits <- min(getOption("digits", 7), 21)
