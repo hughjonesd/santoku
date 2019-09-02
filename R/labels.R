@@ -12,11 +12,11 @@ NULL
 #'
 #' Mathematical set notation is as follows:
 #'
-#' * `[a, b]`: all numbers `x` where `a <= x <= b`;
-#' * `(a, b)`: all numbers where `a < x < b`;
-#' * `[a, b)`: all numbers where `a <= x < b`;
-#' * `(a, b]`: all numbers where `a < x <= b`;
-#' * `{a}`: just the number `a`.
+#' * \code{[a, b]}: all numbers `x` where `a <= x <= b`;
+#' * \code{(a, b)}: all numbers where `a < x < b`;
+#' * \code{[a, b)}: all numbers where `a <= x < b`;
+#' * \code{(a, b]}: all numbers where `a < x <= b`;
+#' * \code{{a}}: just the number `a`.
 #'
 #'
 #' @export
@@ -143,6 +143,7 @@ lbl_mean_sd <- function (sd) {
 #' @inherit label-doc params return
 #'
 #' @examples
+#'
 #' tab(1:10, c(3, 4), lbl_numerals())
 #' tab(1:10, c(3, 4), lbl_numerals("(%s)"))
 #' tab(1:10, c(3, 4), lbl_letters())
@@ -150,6 +151,9 @@ lbl_mean_sd <- function (sd) {
 #' tab(1:10, c(3, 4), lbl_roman())
 #' tab(1:10, c(3, 4), lbl_ROMAN())
 #' tab(1:10, c(3, 4), lbl_sequence(c("x", "y", "z")))
+#'
+#' # if labels need repeating:
+#' tab(1:10, 1:10, lbl_sequence(c("x", "y", "z")))
 NULL
 
 
