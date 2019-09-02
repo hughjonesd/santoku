@@ -37,3 +37,6 @@ singletons <- function (breaks) {
   dv <- diff(breaks)
   dv == 0L | is.nan(dv) # is.nan could be from Inf, Inf
 }
+
+
+`%||%` <- function (x, y) if (is.null(x)) y else x
