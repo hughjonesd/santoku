@@ -5,7 +5,7 @@ NULL
 
 #' Breaks using quantiles
 #'
-#' @param quantiles Vector of quantiles
+#' @param probs Vector of probabilities for quantiles
 #' @param ... Arguments passed to [quantile()]
 #'
 #' @inherit breaks-doc return
@@ -14,12 +14,15 @@ NULL
 #'
 #' @examples
 #' chop(c(1, 1, 2, 2, 3, 4), brk_quantiles(1:3/4))
-brk_quantiles <- function (quantiles, ...) {
-  force(quantiles)
+brk_quantiles <- function (probs, ...) {
+  force(probs)
   function (x) {
-    qs <- stats::quantile(x, quantiles, na.rm = TRUE, ...)
+    qs <- stats::quantile(x, probs, na.rm = TRUE, ...)
     qs <- sort(qs)
-    brk_left(qs)
+    breaks <- brk_left(qs)
+    labels <- lbl_quantiles(probs)
+    attr(breaks, "labels") <- labels
+    breaks
   }
 }
 

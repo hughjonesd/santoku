@@ -4,10 +4,10 @@
 \alias{brk_quantiles}
 \title{Breaks using quantiles}
 \usage{
-brk_quantiles(quantiles, ...)
+brk_quantiles(probs, ...)
 }
 \arguments{
-\item{quantiles}{Vector of quantiles}
+\item{probs}{Vector of probabilities for quantiles}
 
 \item{...}{Arguments passed to \code{\link[=quantile]{quantile()}}}
 }

@@ -4,15 +4,13 @@
 \alias{chop_mean_sd}
 \title{Chop by standard deviations}
 \usage{
-chop_mean_sd(x, sd = 3, labels = lbl_mean_sd(sd), ...)
+chop_mean_sd(x, sd = 3, ...)
 }
 \arguments{
 \item{x}{A numeric vector.}
 
 \item{sd}{Whole number: include \code{sd} standard deviations on each side of
 the mean.}
-
-\item{labels}{Passed to \code{chop}.}
 
 \item{...}{Passed to \code{chop}.}
 }

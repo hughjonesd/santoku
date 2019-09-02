@@ -101,15 +101,15 @@ chop <- function (x, breaks, labels,
 #' data into equal-sized groups. `chop_deciles` is a convenience shortcut and
 #' chops into deciles.
 #'
-#' @param quantiles A vector of quantiles. You don't need to include 0 or 1.
+#' @param probs A vector of probabilities for the quantiles.
 #' @inherit chop-doc params return
 #'
 #' @export
 #'
 #' @examples
 #' chop_quantiles(rnorm(10), c(1/3, 2/3))
-chop_quantiles <- function(x, quantiles, labels = lbl_quantiles(quantiles), ...) {
-  chop(x, brk_quantiles(quantiles), labels = labels, ...)
+chop_quantiles <- function(x, probs, ...) {
+  chop(x, brk_quantiles(probs), ...)
 }
 
 
@@ -142,8 +142,8 @@ chop_equal <- function (x, n, ...) {
 #'
 #' @examples
 #' chop_mean_sd(rnorm(20))
-chop_mean_sd <- function (x, sd = 3, labels = lbl_mean_sd(sd), ...) {
-  chop(x, brk_mean_sd(sd), labels = labels, ...)
+chop_mean_sd <- function (x, sd = 3, ...) {
+  chop(x, brk_mean_sd(sd), ...)
 }
 
 

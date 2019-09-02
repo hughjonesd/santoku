@@ -6,7 +6,7 @@
 \alias{chop_equal}
 \title{Chop by quantiles.}
 \usage{
-chop_quantiles(x, quantiles, labels = lbl_quantiles(quantiles), ...)
+chop_quantiles(x, probs, ...)
 
 chop_deciles(x, ...)
 
@@ -15,9 +15,7 @@ chop_equal(x, n, ...)
 \arguments{
 \item{x}{A numeric vector.}
 
-\item{quantiles}{A vector of quantiles. You don't need to include 0 or 1.}
-
-\item{labels}{Passed to \code{chop}.}
+\item{probs}{A vector of probabilities for the quantiles.}
 
 \item{...}{Passed to \code{chop}.}
 
