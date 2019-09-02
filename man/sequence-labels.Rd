@@ -47,6 +47,7 @@ the number of breaks, it will be pasted with itself and repeated
 as necessary.
 }
 \examples{
+
 tab(1:10, c(3, 4), lbl_numerals())
 tab(1:10, c(3, 4), lbl_numerals("(\%s)"))
 tab(1:10, c(3, 4), lbl_letters())
@@ -54,4 +55,7 @@ tab(1:10, c(3, 4), lbl_LETTERS())
 tab(1:10, c(3, 4), lbl_roman())
 tab(1:10, c(3, 4), lbl_ROMAN())
 tab(1:10, c(3, 4), lbl_sequence(c("x", "y", "z")))
+
+# if labels need repeating:
+tab(1:10, 1:10, lbl_sequence(c("x", "y", "z")))
 }

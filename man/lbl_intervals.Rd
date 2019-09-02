@@ -21,11 +21,6 @@ Mathematical set notation is as follows:
 \item \code{(a, b]}: all numbers where \code{a < x <= b};
 \item \code{{a}}: just the number \code{a}.
 }
-
-[a, b)\code{: all numbers where }a <= x < b`;
-\itemize{
-\item `(a, b]: R:a,%20b)%60:%20all%20numbers%20where%20%60a%20%3C=%20x%20%3C%20b%60;%0A*%20%60(a,%20b
-}
 }
 \examples{
 tab(rnorm(100), c(-3, 0, 0, 3), labels = lbl_intervals())

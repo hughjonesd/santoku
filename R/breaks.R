@@ -247,7 +247,8 @@ NULL
 #' @export
 format.breaks <- function (x, ...) {
   if (length(x) < 2) return("Breaks object with no complete intervals")
-  paste(lbl_intervals()(x), collapse = " ")
+  lbl <- attr(x, "labels") %||% lbl_intervals()(x)
+  paste(lbl, collapse = " ")
 }
 
 

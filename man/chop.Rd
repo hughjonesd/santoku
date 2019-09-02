@@ -4,7 +4,7 @@
 \alias{chop}
 \title{Cut numeric data into intervals}
 \usage{
-chop(x, breaks, labels = lbl_intervals(), extend = NULL, drop = TRUE)
+chop(x, breaks, labels, extend = NULL, drop = TRUE)
 }
 \arguments{
 \item{x}{A numeric vector.}
@@ -18,8 +18,8 @@ chop(x, breaks, labels = lbl_intervals(), extend = NULL, drop = TRUE)
 \item{drop}{Logical. Drop unused levels from the result?}
 }
 \value{
-A \link{factor}, or an integer if \code{labels} is \code{NULL}, of the same length as \code{x},
-representing the intervals containing the value of \code{x}.
+A \link{factor} of the same length as \code{x}, representing the intervals containing
+the value of \code{x}.
 }
 \description{
 \code{chop} cuts \code{x} into intervals. It returns a factor of the same
@@ -38,8 +38,7 @@ If \code{breaks} is a function it is called with a single argument, \code{x}, an
 returns an object of class \code{breaks}.
 
 \code{labels} may be a character vector. It should have the same length as the
-number of intervals - i.e., one more than \code{length(breaks)} (or one less
-if \code{extend} is \code{FALSE}). Alternatively, use a \code{lbl_} function such as
+number of intervals. Alternatively, use a \code{lbl_} function such as
 \code{\link[=lbl_numerals]{lbl_numerals()}}.
 
 If \code{extend} is \code{TRUE}, intervals will be extended to \code{[-Inf,

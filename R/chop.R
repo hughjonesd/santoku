@@ -31,8 +31,7 @@ NULL
 #' returns an object of class `breaks`.
 #'
 #' `labels` may be a character vector. It should have the same length as the
-#'  number of intervals - i.e., one more than `length(breaks)` (or one less
-#'  if `extend` is `FALSE`). Alternatively, use a `lbl_` function such as
+#'  number of intervals. Alternatively, use a `lbl_` function such as
 #'  [lbl_numerals()].
 #'
 #'
@@ -45,8 +44,8 @@ NULL
 #' return `NA`.
 #'
 #' @return
-#' A [factor], or an integer if `labels` is `NULL`, of the same length as `x`,
-#' representing the intervals containing the value of `x`.
+#' A [factor] of the same length as `x`, representing the intervals containing
+#' the value of `x`.
 #'
 #' @export
 #'
@@ -58,12 +57,10 @@ NULL
 #' chop(rnorm(10), -2:2, extend = FALSE)
 #' chop(rnorm(10), brk_quantiles(c(0.25, 0.75)))
 #' chop(rnorm(10), -2:2, labels = lbl_dash())
-chop <- function (x, breaks,
-        labels = lbl_intervals(),
+chop <- function (x, breaks, labels,
         extend = NULL,
         drop   = TRUE
       ) {
-
   if (is.function(breaks))  {
     breaks <- breaks(x)
   }
@@ -71,6 +68,7 @@ chop <- function (x, breaks,
     breaks <- brk_left(breaks)
   }
   stopifnot(is.breaks(breaks))
+  stopifnot(length(breaks) >= 2L)
 
   if (is.null(extend)) {
     extend <- suppressWarnings(
@@ -80,7 +78,10 @@ chop <- function (x, breaks,
   }
   if (extend) breaks <- extend_breaks(breaks)
 
+  if (missing(labels)) labels <- NULL
+  labels <- labels %||% attr(breaks, "labels") %||% lbl_intervals()
   if (is.function(labels)) labels <- labels(breaks, extend)
+
   stopifnot(length(labels) == length(breaks) - 1)
   if (anyDuplicated(labels)) stop("Duplicate labels found: ",
         paste(labels, collapse = ", "))
