@@ -6,7 +6,6 @@
   - brk_mean_se and friends
   - weird input
   - weird breaks (1 or 0 length, 3 repeats...)
-* chop_deciles etc?
 * cut e.g. Dates
   - what else?
 
@@ -15,7 +14,11 @@
 # Questions
 
 * How to prevent duplicated labels?
-  - Attempted by using %s for formats. But this leads to looong strings
+  - Right now, first tries `format`, then tries increasing numbers of digits
+  - I think when you manually specify breaks, you'd want to see them as you
+    entered them.
+  - When they are created by e.g. `chop_size`, we could be more relaxed about
+    trimming them to fewer digits (so skip the use of `format`)....
   
 * What to do with data-dependent breaks when there's an unexpected number
   of breaks? 
@@ -25,8 +28,18 @@
   - answer is that corresponding label functions should deal with arbitrary 
     numbers of labels
   - the label function is the prob at the moment
-    
 
+* When to extend?
+  - I think default should be "if necessary" (`extend = NULL`); should always
+    extend to Inf, -Inf so that these break labels are not data-dependent
+  - Tension between wanting something predictable in your new data, vs. something
+    readable in `tab_*`. E.g.
+    ```r
+    tab_size(1:9, 3, lbl_letters()) 
+    ```
+    should surely return labels a, b, c. But this means we aren't always
+    extending.
+    
 * Should we allow vector `labels` to be longer than necessary?
   + lets people do e.g. `chop(rnorm(100), -2:2, LETTERS)`
   - but might hide errors
@@ -41,7 +54,15 @@
   - or should they be informed if breaks got extended?
   - or could the breaks object know how to extend its labels?
   - current solution: labels get `extend`
-
+  - I think better: `breaks` objects include suggested labels which
+    the user can override. That way they always have the info necessary.
+  - We could also divide labelling into two parts:
+    1. choosing the break numbers (these may not be the actual values, e.g
+      they could be quantiles or std errs from 0)
+    2. formatting these numbers, and with dashes, set notation etc
+  - So maybe `brk_*` functions always return break numbers;
+    then labels decide how to format them?
+  
 * Should we automatically sort breaks, or throw an error if they're unsorted?
   - or a warning?
   - currently an error
@@ -61,6 +82,7 @@
 # Other ideas
 
 - Speedup categorize by only checking left intervals, add 1 if its past
-  each interval;
+  each interval [NO: actually no fewer checks in the end...]
+- Speedup by using pointers? hmm, magic...
 
 
