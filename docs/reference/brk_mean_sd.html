@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Labels suitable for quantiles — lbl_quantiles • santoku</title>
+<title>Title — brk_mean_sd • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,9 +37,9 @@
 
 
 
-<meta property="og:title" content="Labels suitable for quantiles — lbl_quantiles" />
+<meta property="og:title" content="Title — brk_mean_sd" />
 
-<meta property="og:description" content="Labels suitable for quantiles" />
+<meta property="og:description" content="Title" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -111,45 +111,42 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Labels suitable for quantiles</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/labels.R'><code>R/labels.R</code></a></small>
-    <div class="hidden name"><code>lbl_quantiles.Rd</code></div>
+    <h1>Title</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/breaks.R'><code>R/breaks.R</code></a></small>
+    <div class="hidden name"><code>brk_mean_sd.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Labels suitable for quantiles</p>
+    <p>Title</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>lbl_quantiles</span>(<span class='no'>quantiles</span>)</pre>
+    <pre class="usage"><span class='fu'>brk_mean_sd</span>(<span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>3</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>quantiles</th>
-      <td><p>A vector of quantiles.</p></td>
+      <th>sd</th>
+      <td><p>Whole number: include <code>sd</code> standard deviations on each side of
+the mean.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A vector of labels for <code>chop</code>, or a function that creates labels.</p>
+    <p>A (function returning an) object of class <code>breaks</code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>lbl_quantiles</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>))</div><div class='output co'>#&gt; function (breaks, extend) {
-#&gt;     if (extend) quantiles &lt;- c(0, quantiles, 1)
-#&gt;     lqs &lt;- quantiles[-length(quantiles)]
-#&gt;     rqs &lt;- quantiles[-1]
-#&gt; 
-#&gt;     lqs &lt;- sprintf("%s", lqs * 100)
-#&gt;     rqs &lt;- sprintf("%s%%", rqs * 100)
-#&gt; 
-#&gt;     paste0(lqs, "-", rqs)
-#&gt;   }
-#&gt; &lt;environment: 0x7fdc05ef3b08&gt;</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>20</span>), <span class='fu'>brk_mean_sd</span>())</div><div class='output co'>#&gt; x
+#&gt;  [-2.55941992682543, -1.43472507218607) [-1.43472507218607, -0.310030217546714) 
+#&gt;                                       4                                       4 
+#&gt; [-0.310030217546714, 0.814664637092644)     [0.814664637092644, 1.939359491732) 
+#&gt;                                      10                                       1 
+#&gt;      [1.939359491732, 3.06405434637136] 
+#&gt;                                       1 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

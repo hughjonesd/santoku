@@ -122,37 +122,34 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>lbl_intervals</span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%.2g"</span>)</pre>
-    
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>fmt</th>
-      <td><p>A <code><a href='https://www.rdocumentation.org/packages/base/topics/sprintf'>sprintf()</a></code>-style format.</p></td>
-    </tr>
-    </table>
-    
+    <pre class="usage"><span class='fu'>lbl_intervals</span>()</pre>
+        
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A vector of labels for <code>chop</code>, or a function that creates labels.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>fmt</code> is applied to interval endpoints.</p>
+    <p>Mathematical set notation is as follows:</p><ul>
+<li><p><code>[a, b]</code>: all numbers <code>x</code> where <code>a &lt;= x &lt;= b</code>;</p></li>
+<li><p><code>(a, b)</code>: all numbers where <code>a &lt; x &lt; b</code>;</p></li>
+<li><p><code>[a, b)</code>: all numbers where <code>a &lt;= x &lt; b</code>;</p></li>
+<li><p><code>(a, b]</code>: all numbers where <code>a &lt; x &lt;= b</code>;</p></li>
+<li><p><code>{a}</code>: just the number <code>a</code>.</p></li>
+</ul>
+    <p>[a, b)<code>: all numbers where </code>a &lt;= x &lt; b`;</p><ul>
+<li><p>`(a, b]: R:a,<!-- %20b)%60:%20all%20numbers%20where%20%60a%20%3C=%20x%20%3C%20b%60;%0A*%20%60(a,%20b --></p></li>
+</ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>3</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>lbl_intervals</span>())</div><div class='output co'>#&gt; x
 #&gt; [-3, 0)  (0, 3] 
-#&gt;      44      56 </div><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>3</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>lbl_intervals</span>(<span class='st'>"%.2f"</span>))</div><div class='output co'>#&gt; x
-#&gt; [-3.00, 0.00)  (0.00, 3.00] 
-#&gt;            49            51 </div></pre>
+#&gt;      46      54 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
 

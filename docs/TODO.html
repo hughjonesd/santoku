@@ -116,27 +116,75 @@
 <div id="todo" class="section level1">
 
 <ul>
-<li>tests</li>
-<li>Convert README to vignette (child document)?</li>
+<li>tests
+<ul>
+<li>brk_mean_se and friends</li>
+<li>weird input</li>
+<li>weird breaks (1 or 0 length, 3 repeats…)</li>
+</ul>
+</li>
+<li>chop_deciles etc?</li>
+<li>cut e.g. Dates
+<ul>
+<li>what else?</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="questions" class="section level1">
 <h1 class="hasAnchor">
 <a href="#questions" class="anchor"></a>Questions</h1>
 <ul>
-<li>what about NAs? NaN?
+<li>How to prevent duplicated labels?
 <ul>
-<li>presumably they become NA</li>
-<li>NA category</li>
+<li>Attempted by using %s for formats. But this leads to looong strings</li>
 </ul>
 </li>
-<li><p>can we cut e.g. Dates?</p></li>
+<li>What to do with data-dependent breaks when there’s an unexpected number of breaks?
+<ul>
+<li>E.g. <code><a href="reference/chop_quantiles.html">chop_deciles(rep(NA, 5))</a></code>
+</li>
+<li>Or indeed what if some quantiles are the same? e.g. <code><a href="https://www.rdocumentation.org/packages/stats/topics/quantile">quantile(c(1, rep(2, 10), 3), c(.3, .6))</a></code>
+</li>
+<li>answer is that corresponding label functions should deal with arbitrary numbers of labels</li>
+<li>the label function is the prob at the moment</li>
+</ul>
+</li>
+<li>Should we allow vector <code>labels</code> to be longer than necessary?
+<ul>
+<li>lets people do e.g. <code><a href="reference/chop.html">chop(rnorm(100), -2:2, LETTERS)</a></code>
+</li>
+<li>but might hide errors</li>
+<li>overall I’m against</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="questions-with-an-attempted-answer" class="section level1">
+<h1 class="hasAnchor">
+<a href="#questions-with-an-attempted-answer" class="anchor"></a>Questions with an attempted answer</h1>
+<ul>
+<li>Is the label interface right? Problem exposed by <code>brk_mean_sd</code>: if we aren’t sure whether data gets extended, then how do we know what the labels should be?
+<ul>
+<li>maybe label functions should have access to <code>x</code>?</li>
+<li>or should they be informed if breaks got extended?</li>
+<li>or could the breaks object know how to extend its labels?</li>
+<li>current solution: labels get <code>extend</code>
+</li>
+</ul>
+</li>
 <li>Should we automatically sort breaks, or throw an error if they’re unsorted?
 <ul>
 <li>or a warning?</li>
+<li>currently an error</li>
 </ul>
 </li>
-<li><p>For some cases e.g. <code>brk_quantiles</code>, <code>brk_width</code>, the data may not work well e.g. if it is all NA. What is an empty set of breaks?</p></li>
+<li>What if <code>breaks = c(1, 2, 2, 2, 3)</code>?
+<ul>
+<li>throw an error</li>
+</ul>
+</li>
+<li>For some cases e.g. <code>brk_quantiles</code>, <code>brk_width</code>, the data may not work well e.g. if it is all NA. What is an empty set of breaks?</li>
 </ul>
 </div>
 <div id="possible-interfaces" class="section level1">
