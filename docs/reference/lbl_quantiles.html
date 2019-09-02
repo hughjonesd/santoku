@@ -141,15 +141,16 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>lbl_quantiles</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>))</div><div class='output co'>#&gt; function (breaks, extend) {
 #&gt;     if (extend) quantiles &lt;- c(0, quantiles, 1)
+#&gt;     quantiles &lt;- unique_truncation(quantiles * 100)
 #&gt;     lqs &lt;- quantiles[-length(quantiles)]
 #&gt;     rqs &lt;- quantiles[-1]
 #&gt; 
-#&gt;     lqs &lt;- sprintf("%s", lqs * 100)
-#&gt;     rqs &lt;- sprintf("%s%%", rqs * 100)
+#&gt;     lqs &lt;- sprintf("%s", lqs)
+#&gt;     rqs &lt;- sprintf("%s%%", rqs)
 #&gt; 
 #&gt;     paste0(lqs, "-", rqs)
 #&gt;   }
-#&gt; &lt;environment: 0x7fdc05ef3b08&gt;</div></pre>
+#&gt; &lt;environment: 0x7fd88d377800&gt;</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

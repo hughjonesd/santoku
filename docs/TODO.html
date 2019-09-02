@@ -123,7 +123,6 @@
 <li>weird breaks (1 or 0 length, 3 repeats…)</li>
 </ul>
 </li>
-<li>chop_deciles etc?</li>
 <li>cut e.g. Dates
 <ul>
 <li>what else?</li>
@@ -137,7 +136,9 @@
 <ul>
 <li>How to prevent duplicated labels?
 <ul>
-<li>Attempted by using %s for formats. But this leads to looong strings</li>
+<li>Right now, first tries <code>format</code>, then tries increasing numbers of digits</li>
+<li>I think when you manually specify breaks, you’d want to see them as you entered them.</li>
+<li>When they are created by e.g. <code>chop_size</code>, we could be more relaxed about trimming them to fewer digits (so skip the use of <code>format</code>)….</li>
 </ul>
 </li>
 <li>What to do with data-dependent breaks when there’s an unexpected number of breaks?
@@ -148,6 +149,16 @@
 </li>
 <li>answer is that corresponding label functions should deal with arbitrary numbers of labels</li>
 <li>the label function is the prob at the moment</li>
+</ul>
+</li>
+<li>When to extend?
+<ul>
+<li>I think default should be “if necessary” (<code>extend = NULL</code>); should always extend to Inf, -Inf so that these break labels are not data-dependent</li>
+<li>
+<p>Tension between wanting something predictable in your new data, vs. something readable in <code>tab_*</code>. E.g.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="reference/tab.html">tab_size</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="kw"><a href="reference/sequence-labels.html">lbl_letters</a></span>()) </a></code></pre></div>
+<p>should surely return labels a, b, c. But this means we aren’t always extending.</p>
+</li>
 </ul>
 </li>
 <li>Should we allow vector <code>labels</code> to be longer than necessary?
@@ -171,6 +182,14 @@
 <li>or could the breaks object know how to extend its labels?</li>
 <li>current solution: labels get <code>extend</code>
 </li>
+<li>I think better: <code>breaks</code> objects include suggested labels which the user can override. That way they always have the info necessary.</li>
+<li>We could also divide labelling into two parts:
+<ol>
+<li>choosing the break numbers (these may not be the actual values, e.g they could be quantiles or std errs from 0)</li>
+<li>formatting these numbers, and with dashes, set notation etc</li>
+</ol>
+</li>
+<li>So maybe <code>brk_*</code> functions always return break numbers; then labels decide how to format them?</li>
 </ul>
 </li>
 <li>Should we automatically sort breaks, or throw an error if they’re unsorted?
@@ -201,7 +220,8 @@
 <h1 class="hasAnchor">
 <a href="#other-ideas" class="anchor"></a>Other ideas</h1>
 <ul>
-<li>Speedup categorize by only checking left intervals, add 1 if its past each interval;</li>
+<li>Speedup categorize by only checking left intervals, add 1 if its past each interval [NO: actually no fewer checks in the end…]</li>
+<li>Speedup by using pointers? hmm, magic…</li>
 </ul>
 </div>
 
