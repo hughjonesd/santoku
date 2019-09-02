@@ -89,11 +89,12 @@ lbl_dash <- function (symbol = " - ") {
 lbl_quantiles <- function (quantiles) {
   function (breaks, extend) {
     if (extend) quantiles <- c(0, quantiles, 1)
+    quantiles <- unique_truncation(quantiles * 100)
     lqs <- quantiles[-length(quantiles)]
     rqs <- quantiles[-1]
 
-    lqs <- sprintf("%s", lqs * 100)
-    rqs <- sprintf("%s%%", rqs * 100)
+    lqs <- sprintf("%s", lqs)
+    rqs <- sprintf("%s%%", rqs)
 
     paste0(lqs, "-", rqs)
   }
