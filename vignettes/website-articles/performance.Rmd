@@ -1,0 +1,28 @@
+---
+title: "Performance"
+author: "David Hugh-Jones"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  cache_extra = packageVersion("santoku")
+)
+```
+
+
+## Speed
+
+The core of santoku is written in C++. It is reasonably fast:
+
+```{r, cache = TRUE}
+packageVersion("santoku")
+microbenchmark::microbenchmark(
+        santoku::chop(rnorm(1e5), -2:2),
+                  cut(rnorm(1e5), -2:2),
+          Hmisc::cut2(rnorm(1e5), -2:2)
+      )
+```

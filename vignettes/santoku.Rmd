@@ -197,14 +197,3 @@ chop_by_quartiles(x)
 table(chop_by_quartiles(rnorm(50)))
 
 ```
-
-## Speed
-
-The core of santoku is written in C++. It is reasonably fast:
-
-```{r}
-microbenchmark::microbenchmark(
-        chop(rnorm(1e5), -2:2),
-         cut(rnorm(1e5), -2:2)
-      )
-```
