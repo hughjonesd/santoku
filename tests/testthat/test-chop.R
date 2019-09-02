@@ -12,9 +12,7 @@ test_that("basic functionality", {
   expect_equivalent(chop(x, rc_brks, lbl_numerals(), extend = FALSE),
         factor(c(1, 2, 2)))
 
-  x <- seq(0.5, 2.5, 0.5)
-  r <- chop(x, 1:2, labels = letters[1:3])
-  expect_equivalent(r, factor(c("a", "b", "b", "b", "c"), levels = letters[1:3]))
+
 })
 
 
@@ -32,10 +30,21 @@ test_that("NA, NaN and Inf", {
   expect_equivalent(r, factor(c(NA, "a", "a"), levels = "a"))
   r <- chop(x, brk_left(Inf, close_end = FALSE), labels = "a")
   expect_equivalent(r, factor(c("a", "a", NA), levels = "a"))
+
+  all_na <- rep(NA, 5)
+  expect_silent(chop(all_na, 1:2))
+  expect_silent(chop_quantiles(all_na, c(.25, .75)))
+  all_na[1] <- NaN
+  expect_silent(chop(all_na, 1:2))
 })
 
 
 test_that("labels", {
+  x <- seq(0.5, 2.5, 0.5)
+  expect_equivalent(
+          chop(x, 1:2, labels = letters[1:3]),
+          factor(c("a", "b", "b", "b", "c"), levels = letters[1:3])
+        )
   expect_error(chop(1:10, 3:4, labels = c("a", "a", "a")))
   expect_error(chop(1:10, 3:4, labels = c("a", "b")))
   expect_error(chop(1:10, 3:4, labels = c("a", "b", "c", "d")))
@@ -58,11 +67,13 @@ test_that("extend", {
 test_that("drop", {
   x <- c(1, 3)
   expect_equivalent(
-          levels(chop(x, 1:3, labels = lbl_numerals(), drop = TRUE)),
+          levels(chop(x, 1:3, labels = lbl_numerals(), extend = TRUE,
+            drop = TRUE)),
           as.character(2:3)
         )
   expect_equivalent(
-          levels(chop(x, 1:3, labels = lbl_numerals(), drop = FALSE)),
+          levels(chop(x, 1:3, labels = lbl_numerals(), extend = TRUE,
+            drop = FALSE)),
           as.character(1:4)
         )
 })

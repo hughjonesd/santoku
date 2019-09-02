@@ -13,7 +13,7 @@ test_that("tab", {
 test_that("tab_size", {
   skip("Not working yet")
   expect_identical(
-    tab_size(1:9, 3, lbl_letters(), drop = TRUE),
+    tab_size(1:9, 3, lbl_letters()),
     table(x = rep(c("a", "b", "c"), 3), useNA = "ifany")
   )
 })
@@ -21,7 +21,7 @@ test_that("tab_size", {
 
 test_that("tab_width", {
   expect_identical(
-    tab_width(0:10, 2, drop = TRUE),
+    tab_width(0:10, 2),
     table(x = c(rep(c("[0, 2)", "[2, 4)", "[4, 6)", "[6, 8)", "[8, 10]"), 2),
           "[8, 10]"))
   )
@@ -34,6 +34,8 @@ test_that("tab_width", {
 })
 
 test_that("tab_mean_sd", {
-  expect_silent(tb <- tab_mean_sd(rnorm(100), sd = 3, drop = FALSE))
+  expect_silent(
+          tb <- tab_mean_sd(rnorm(100), sd = 3, extend = TRUE, drop = FALSE)
+        )
   expect_equivalent(length(tb), 8)
 })

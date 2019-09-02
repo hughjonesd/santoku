@@ -38,7 +38,8 @@ NULL
 #'
 #' If `extend` is `TRUE`, intervals will be extended to \code{[-Inf,
 #' min(breaks))} and \code{(max(breaks), Inf]}, unless those endpoints are
-#' already infinite.
+#' already infinite. If `extend` is `NULL` (the default), intervals will
+#' be extended only if the data is outside their range.
 #'
 #' `NA` values in `x`, and values which are outside the (extendeD) endpoints,
 #' return `NA`.
@@ -59,15 +60,23 @@ NULL
 #' chop(rnorm(10), -2:2, labels = lbl_dash())
 chop <- function (x, breaks,
         labels = lbl_intervals(),
-        extend = TRUE,
+        extend = NULL,
         drop   = TRUE
       ) {
 
   if (is.function(breaks))  {
     breaks <- breaks(x)
-    stopifnot(is.breaks(breaks))
-  } else if (! is.breaks(breaks)) {
+  }
+  if (! is.breaks(breaks)) {
     breaks <- brk_left(breaks)
+  }
+  stopifnot(is.breaks(breaks))
+
+  if (is.null(extend)) {
+    extend <- suppressWarnings(
+            min(x, na.rm = TRUE) < min(breaks) ||
+            max(x, na.rm = TRUE) > max(breaks)
+          )
   }
   if (extend) breaks <- extend_breaks(breaks)
 

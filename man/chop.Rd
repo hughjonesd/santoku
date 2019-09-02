@@ -4,7 +4,7 @@
 \alias{chop}
 \title{Cut numeric data into intervals}
 \usage{
-chop(x, breaks, labels = lbl_intervals(), extend = TRUE, drop = TRUE)
+chop(x, breaks, labels = lbl_intervals(), extend = NULL, drop = TRUE)
 }
 \arguments{
 \item{x}{A numeric vector.}
@@ -44,7 +44,8 @@ if \code{extend} is \code{FALSE}). Alternatively, use a \code{lbl_} function suc
 
 If \code{extend} is \code{TRUE}, intervals will be extended to \code{[-Inf,
 min(breaks))} and \code{(max(breaks), Inf]}, unless those endpoints are
-already infinite.
+already infinite. If \code{extend} is \code{NULL} (the default), intervals will
+be extended only if the data is outside their range.
 
 \code{NA} values in \code{x}, and values which are outside the (extendeD) endpoints,
 return \code{NA}.
