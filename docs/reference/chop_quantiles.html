@@ -39,7 +39,7 @@
 
 <meta property="og:title" content="Chop by quantiles. — chop_quantiles" />
 
-<meta property="og:description" content="chop_quantiles chops data by quantiles. chop_equal chops
+<meta property="og:description" content="chop_quantiles chops data by quantiles. chop_equally chops
 data into equal-sized groups. chop_deciles is a convenience shortcut and
 chops into deciles." />
 
@@ -132,7 +132,7 @@ chops into deciles." />
 
     <div class="ref-description">
     
-    <p><code>chop_quantiles</code> chops data by quantiles. <code>chop_equal</code> chops
+    <p><code>chop_quantiles</code> chops data by quantiles. <code>chop_equally</code> chops
 data into equal-sized groups. <code>chop_deciles</code> is a convenience shortcut and
 chops into deciles.</p>
     
@@ -142,7 +142,7 @@ chops into deciles.</p>
 
 <span class='fu'>chop_deciles</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'>chop_equal</span>(<span class='no'>x</span>, <span class='no'>groups</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>chop_equally</span>(<span class='no'>x</span>, <span class='no'>groups</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,7 +170,7 @@ chops into deciles.</p>
     <pre class="examples"><div class='input'><span class='fu'>chop_quantiles</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>/<span class='fl'>3</span>, <span class='fl'>2</span>/<span class='fl'>3</span>))</div><div class='output co'>#&gt;  [1] [33.33%, 66.67%) [66.67%, 100%]   [66.67%, 100%]   [0%, 33.33%)    
 #&gt;  [5] [33.33%, 66.67%) [66.67%, 100%]   [0%, 33.33%)     [33.33%, 66.67%)
 #&gt;  [9] [66.67%, 100%]   [0%, 33.33%)    
-#&gt; Levels: [0%, 33.33%) [33.33%, 66.67%) [66.67%, 100%]</div><div class='input'><span class='fu'>chop_equal</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fl'>5</span>)</div><div class='output co'>#&gt;  [1] [60%, 80%)  [20%, 40%)  [0%, 20%)   [20%, 40%)  [0%, 20%)   [40%, 60%) 
+#&gt; Levels: [0%, 33.33%) [33.33%, 66.67%) [66.67%, 100%]</div><div class='input'><span class='fu'>chop_equally</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fl'>5</span>)</div><div class='output co'>#&gt;  [1] [60%, 80%)  [20%, 40%)  [0%, 20%)   [20%, 40%)  [0%, 20%)   [40%, 60%) 
 #&gt;  [7] [40%, 60%)  [60%, 80%)  [80%, 100%] [80%, 100%]
 #&gt; Levels: [0%, 20%) [20%, 40%) [40%, 60%) [60%, 80%) [80%, 100%]</div></pre>
   </div>

@@ -39,7 +39,8 @@
 
 <meta property="og:title" content="Equal-width breaks — brk_width" />
 
-<meta property="og:description" content="brk_width() creates breaks of equal width." />
+<meta property="og:description" content="brk_width() creates intervals of width width. brk_evenly() creates
+groups intervals of equal width." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -130,11 +131,14 @@
 
     <div class="ref-description">
     
-    <p><code>brk_width()</code> creates breaks of equal width.</p>
+    <p><code>brk_width()</code> creates intervals of width <code>width</code>. <code>brk_evenly()</code> creates
+<code>groups</code> intervals of equal width.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>brk_width</span>(<span class='no'>width</span>, <span class='no'>start</span>)</pre>
+    <pre class="usage"><span class='fu'>brk_width</span>(<span class='no'>width</span>, <span class='no'>start</span>)
+
+<span class='fu'>brk_evenly</span>(<span class='no'>groups</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,6 +150,10 @@
     <tr>
       <th>start</th>
       <td><p>Leftpoint of first interval. By default the lowest finite <code>x</code>.</p></td>
+    </tr>
+    <tr>
+      <th>groups</th>
+      <td><p>Integer: number of intervals to create.</p></td>
     </tr>
     </table>
     
