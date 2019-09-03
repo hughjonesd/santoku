@@ -126,10 +126,13 @@ brk_width <- function (width, start) {
 brk_n <- function (n) {
   force(n)
   function (x, extend) {
-    x <- sort(x) # remove NAs
-    breaks <- if (length(x) < 1L) numeric(0) else x[seq(1L, length(x), n)]
-    # `close_end = FALSE` is necessary, or one group gets bigger:
-    breaks <- create_left_breaks(breaks, close_end = FALSE)
+    xs <- sort(x) # remove NAs
+    breaks <- if (length(xs) < 1L) {
+      numeric(0)
+    } else {
+      xs[c(seq(1L, length(xs), n), length(xs))]
+    }
+    breaks <- create_left_breaks(breaks, close_end = TRUE)
     breaks <- maybe_extend(breaks, x, extend)
 
     breaks
