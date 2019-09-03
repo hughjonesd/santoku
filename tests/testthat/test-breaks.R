@@ -106,6 +106,10 @@ test_that("brk_mean_sd", {
   sd <- sd(x)
   sd_ints <- seq(m - 3 * sd, m + 3 * sd, sd)
   expect_equal(as.numeric(b), sd_ints)
+
+  expect_silent(brk_mean_sd(3)(rep(NA, 2), FALSE))
+  expect_silent(brk_mean_sd(3)(rep(1, 3), FALSE))
+  expect_silent(brk_mean_sd(3)(1, FALSE))
 })
 
 
