@@ -3,6 +3,7 @@
 \name{tab}
 \alias{tab}
 \alias{tab_width}
+\alias{tab_evenly}
 \alias{tab_n}
 \alias{tab_mean_sd}
 \title{Tabulate data by intervals}
@@ -10,6 +11,8 @@
 tab(...)
 
 tab_width(...)
+
+tab_evenly(...)
 
 tab_n(...)
 
@@ -22,7 +25,7 @@ tab_mean_sd(...)
 A \code{\link[=table]{table()}}.
 }
 \description{
-These functions call \code{\link[=chop]{chop()}} and friends, and call \code{\link[=table]{table()}}
+These functions call their related \code{chop_xxx} function, and call \code{\link[=table]{table()}}
 on the result.
 }
 \examples{

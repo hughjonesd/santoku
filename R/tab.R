@@ -2,7 +2,7 @@
 
 #' Tabulate data by intervals
 #'
-#' These functions call [chop()] and friends, and call [table()]
+#' These functions call their related `chop_xxx` function, and call [table()]
 #' on the result.
 #'
 #' @param ... Passed to `chop`
@@ -22,6 +22,13 @@ tab <- function (...) {
 #' @export
 tab_width <- function (...) {
   default_table(chop_width(...))
+}
+
+
+#' @rdname tab
+#' @export
+tab_evenly <- function (...) {
+  default_table(chop_evenly(...))
 }
 
 
