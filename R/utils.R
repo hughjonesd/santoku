@@ -12,7 +12,10 @@
 #' @export
 #'
 #' @examples
+#' tab(1:5, 3)
 #' tab(1:5, exactly(3))
+#' # same:
+#' tab(1:5, c(3, 3))
 exactly <- function (x) rep(x, each = 2)
 
 

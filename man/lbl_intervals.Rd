@@ -27,5 +27,5 @@ Mathematical set notation is as follows:
 }
 }
 \examples{
-tab(rnorm(100), c(-3, 0, 0, 3), labels = lbl_intervals())
+tab(-10:10, c(-3, 0, 0, 3), labels = lbl_intervals())
 }

@@ -18,5 +18,8 @@ is the same as \code{chop(x, c(1, 2, 2, 3))} but conveys your intent more
 clearly.
 }
 \examples{
+tab(1:5, 3)
 tab(1:5, exactly(3))
+# same:
+tab(1:5, c(3, 3))
 }
