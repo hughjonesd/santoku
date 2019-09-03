@@ -9,36 +9,8 @@
 * cut e.g. Dates
   - what else?
 
-## New labels plan
-
-* breaks *may* return their own labels
-* these are overridden if labels are provided explicitly
-* if not, and if they don't return labels, use the default `lbl_intervals`
-* internal functions to style break-names
-* make sure that non-standard intervals are always clear e.g.
-  do `-1 s.d. - 0 .s.d` for `brk_mean_se`.
-  
-* note that breaks which can be nested must deal with existing labels.
-  - e.g. what if you do `brk_right(brk_quantiles())`
-  - then again, does anyone actually want to do quantiles-with-right-breaks?
-
-* Problem: currently, breaks get extended in `chop`. This now means that
-  labels must be extended....
-  - Solution: different kinds of breaks are subclasses, have their own 
-  `labels` method? This then gets called after the breaks are extended. Heavy...
-  - `breaks` functions all call a common function to see if they need to extend
-    themselves? 
-    
-    then gets called
 
 # Questions
-
-* How to prevent duplicated labels?
-  - Right now, first tries `format`, then tries increasing numbers of digits
-  - I think when you manually specify breaks, you'd want to see them as you
-    entered them.
-  - When they are created by e.g. `chop_size`, we could be more relaxed about
-    trimming them to fewer digits (so skip the use of `format`)....
   
 * What to do with data-dependent breaks when there's an unexpected number
   of breaks? 
