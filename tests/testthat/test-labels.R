@@ -49,6 +49,10 @@ test_that("breaks labels don't produce duplicates", {
   brk <- brk_left(c(1.333335, 1.333336, 1.333337, 5))(1, FALSE)
   lbls <- lbl_intervals()(brk)
   expect_true(anyDuplicated(lbls) == 0)
+
+  brk <- brk_left(c(1.333333335, 1.333333336, 1.333333337, 5))(1, FALSE)
+  lbls <- lbl_intervals()(brk)
+  expect_true(anyDuplicated(lbls) == 0)
 })
 
 
