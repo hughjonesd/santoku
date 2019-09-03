@@ -1,7 +1,7 @@
-#' Precision cutting for R
+#' A versatile cutting tool for R
 #'
 #' santoku is a tool for cutting numeric data into intervals. It provides
-#' the function [chop()] which is similar to base R's [cut()] or [Hmisc::cut2()].
+#' the function [chop()], which is similar to base R's [cut()] or `Hmisc::cut2()`.
 #' `chop(x, breaks)` takes a numeric vector `x` and returns a factor of the
 #' same length, coding which interval each element of `x` falls into.
 #'
@@ -14,7 +14,7 @@
 #' intervals. For example, `chop(x, breaks = c(1, 2, 2, 3))` will create a
 #' separate factor level for values exactly equal to 2.
 #'
-#' * santoku has flexible labelling, including easy ways to label intervals by
+#' * Flexible labelling, including easy ways to label intervals by
 #'   numerals or letters.
 #'
 #' * Convenience functions for creating quantile intervals, evenly-spaced
@@ -24,6 +24,12 @@
 #'
 #' These advantages make santoku especially useful for exploratory analysis,
 #' where you may not know the range of your data in advance.
+#'
+#' To get started, read the vignette:
+#'
+#' ```
+#' vignette("santoku")
+#' ```
 #'
 #' @keywords internal
 "_PACKAGE"

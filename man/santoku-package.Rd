@@ -4,10 +4,10 @@
 \name{santoku-package}
 \alias{santoku}
 \alias{santoku-package}
-\title{Precision cutting for R}
+\title{A versatile cutting tool for R}
 \description{
 santoku is a tool for cutting numeric data into intervals. It provides
-the function \code{\link[=chop]{chop()}} which is similar to base R's \code{\link[=cut]{cut()}} or \code{\link[Hmisc:cut2]{Hmisc::cut2()}}.
+the function \code{\link[=chop]{chop()}}, which is similar to base R's \code{\link[=cut]{cut()}} or \code{Hmisc::cut2()}.
 \code{chop(x, breaks)} takes a numeric vector \code{x} and returns a factor of the
 same length, coding which interval each element of \code{x} falls into.
 }
@@ -19,7 +19,7 @@ won't get unexpected \code{NA} values.
 \item Unlike \code{cut()} or \code{cut2()}, \code{chop()} can handle single values as well as
 intervals. For example, \code{chop(x, breaks = c(1, 2, 2, 3))} will create a
 separate factor level for values exactly equal to 2.
-\item santoku has flexible labelling, including easy ways to label intervals by
+\item Flexible labelling, including easy ways to label intervals by
 numerals or letters.
 \item Convenience functions for creating quantile intervals, evenly-spaced
 intervals or equal-sized groups.
@@ -28,6 +28,9 @@ intervals or equal-sized groups.
 
 These advantages make santoku especially useful for exploratory analysis,
 where you may not know the range of your data in advance.
+
+To get started, read the vignette:\preformatted{vignette("santoku")
+}
 }
 \seealso{
 Useful links:
