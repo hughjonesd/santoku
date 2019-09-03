@@ -71,6 +71,13 @@ chopped <- chop_width(x, 2)
 data.frame(x, chopped)
 ```
 
+To chop into exactly `groups` fixed-with intervals, use `chop_evenly()`:
+
+```{r}
+chopped <- chop_evenly(x, groups = 3)
+data.frame(x, chopped)
+```
+
 To chop into groups with a fixed number of members, use `chop_n()`:
 
 ```{r}
@@ -79,10 +86,10 @@ table(chopped)
 ```
 
 
-To chop into a fixed number of equal-sized groups, use `chop_equal()`:
+To chop into a fixed number of equal-sized groups, use `chop_equally()`:
 
 ```{r}
-chopped <- chop_equal(x, groups = 5)
+chopped <- chop_equally(x, groups = 5)
 table(chopped)
 ```
 
@@ -101,12 +108,13 @@ chopped <- chop_mean_sd(x)
 data.frame(x, chopped)
 ```
 
-`tab_n()`, `tab_width()` and `tab_mean_sd()` act similarly to `tab()`,
-calling the related `chop_` function and then `table()`.
+`tab_n()`, `tab_width()`, `tab_evenly()` and `tab_mean_sd()` act similarly to
+`tab()`, calling the related `chop_` function and then `table()`.
 
 ```{r}
-tab_width(x, 2)
 tab_n(x, 4)
+tab_width(x, 2)
+tab_evenly(x, 5)
 tab_mean_sd(x)
 ```
 
