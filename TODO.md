@@ -6,8 +6,18 @@
   - brk_mean_se and friends
   - weird input
   - weird breaks (1 or 0 length, 3 repeats...)
+  
 * cut e.g. Dates
   - what else?
+  
+* nice visual tutorial with e.g. a fish being split up
+
+* `chop_cleanly` - set `drop = FALSE`, `extend = FALSE/TRUE`? 
+  - TRUE extend ensures no NAs from non-NA input
+  - FALSE extend guarantees the number of levels (even if the breaks
+    specified were infinite); not important if breaks are manually specified,
+    but perhaps if e.g. `brk_mean_se` is called?
+  
 
 
 # Questions
@@ -20,6 +30,16 @@
   - answer is that corresponding label functions should deal with arbitrary 
     numbers of labels
   - the label function is the prob at the moment
+
+* Do we need `drop`?
+
+* Should we have a flag to return characters?
+  - I'm skeptical, `forcats()` exists suggesting that factors aren't yet
+    seen as worthless!
+
+
+  
+# Questions with a (provisional) answer
 
 * When to extend?
   - I think default should be "if necessary" (`extend = NULL`); should always
@@ -37,8 +57,6 @@
   - but might hide errors
   - overall I'm against
   
-# Questions with an attempted answer
-
 * Is the label interface right? Problem exposed by `brk_mean_sd`: if 
   we aren't sure whether data gets extended, then how do we know what
   the labels should be?
