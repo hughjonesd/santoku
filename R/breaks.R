@@ -103,9 +103,10 @@ brk_width <- function (width, start) {
       numeric(0)
     }
 
+    breaks <- create_left_breaks(breaks)
     breaks <- maybe_extend(breaks, x, extend)
 
-    create_left_breaks(breaks)
+    breaks
   }
 }
 
