@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' chop_six <- knife(breaks = -2:2, labels = letters[1:6])
+#' chop_six <- knife(breaks = -2:2, labels = lbl_LETTERS())
 #' chop_six(rnorm(10))
 #' chop_six(rnorm(10))
 knife <- function (...) {
