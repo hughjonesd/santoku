@@ -59,7 +59,7 @@ brk_mean_sd <- function (sd = 3) {
       c(sort(s1), s2[-1])
     }
 
-    extended <-
+    breaks <- create_left_breaks(breaks)
     breaks <- maybe_extend(breaks, x, extend)
 
     break_labels <- seq(-sd, sd, 1)
@@ -69,7 +69,7 @@ brk_mean_sd <- function (sd = 3) {
     }
     attr(breaks, "break_labels") <- break_labels
 
-    brk_left(breaks)(x, extend) # temporary - replace with implementation fn
+    breaks
   }
 }
 
