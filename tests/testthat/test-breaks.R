@@ -99,6 +99,14 @@ test_that("brk_width", {
 })
 
 
+test_that("brk_evenly", {
+  expect_identical(
+          brk_evenly(5)(0:10, FALSE),
+          brk_width(2)(0:10, FALSE)
+        )
+})
+
+
 test_that("brk_mean_sd", {
   x <- rnorm(10)
   expect_silent(b <- brk_mean_sd(3)(x, FALSE))
