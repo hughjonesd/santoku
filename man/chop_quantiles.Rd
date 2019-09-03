@@ -4,7 +4,7 @@
 \alias{chop_quantiles}
 \alias{chop_deciles}
 \alias{chop_equally}
-\title{Chop by quantiles.}
+\title{Chop by quantiles}
 \usage{
 chop_quantiles(x, probs, ...)
 
