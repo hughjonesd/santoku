@@ -80,6 +80,19 @@ test_that("drop", {
 })
 
 
+test_that("chop_width", {
+  x <- 1:10
+  expect_equivalent(
+    chop_width(x, 2, labels = lbl_numerals()),
+    factor(rep(1:5, each = 2))
+  )
+  expect_equivalent(
+    chop_width(x, 2, 0, labels = lbl_numerals()),
+    factor(c(1, rep(2:4, each = 2), 5, 5, 5))
+  )
+})
+
+
 test_that("chop_quantiles", {
   x <- 1:6
   expect_equivalent(
