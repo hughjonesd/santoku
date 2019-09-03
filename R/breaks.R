@@ -20,7 +20,7 @@ brk_quantiles <- function (probs, ...) {
     qs <- stats::quantile(x, probs, na.rm = TRUE, ...)
     qs <- sort(qs)
     breaks <- brk_left(qs)
-    labels <- lbl_quantiles(probs)
+    labels <- lbl_quantiles(probs)(breaks, FALSE)
     attr(breaks, "labels") <- labels
     breaks
   }
