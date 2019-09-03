@@ -3,14 +3,14 @@
 \name{chop_quantiles}
 \alias{chop_quantiles}
 \alias{chop_deciles}
-\alias{chop_equal}
+\alias{chop_equally}
 \title{Chop by quantiles.}
 \usage{
 chop_quantiles(x, probs, ...)
 
 chop_deciles(x, ...)
 
-chop_equal(x, groups, ...)
+chop_equally(x, groups, ...)
 }
 \arguments{
 \item{x}{A numeric vector.}
@@ -22,11 +22,11 @@ chop_equal(x, groups, ...)
 \item{groups}{Number of groups}
 }
 \description{
-\code{chop_quantiles} chops data by quantiles. \code{chop_equal} chops
+\code{chop_quantiles} chops data by quantiles. \code{chop_equally} chops
 data into equal-sized groups. \code{chop_deciles} is a convenience shortcut and
 chops into deciles.
 }
 \examples{
 chop_quantiles(rnorm(10), c(1/3, 2/3))
-chop_equal(rnorm(10), 5)
+chop_equally(rnorm(10), 5)
 }

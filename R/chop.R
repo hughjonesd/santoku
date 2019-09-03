@@ -89,7 +89,7 @@ chop <- function (x, breaks, labels,
 
 #' Chop by quantiles.
 #'
-#' `chop_quantiles` chops data by quantiles. `chop_equal` chops
+#' `chop_quantiles` chops data by quantiles. `chop_equally` chops
 #' data into equal-sized groups. `chop_deciles` is a convenience shortcut and
 #' chops into deciles.
 #'
@@ -119,8 +119,8 @@ chop_deciles <- function(x, ...) {
 #' @export
 #'
 #' @examples
-#' chop_equal(rnorm(10), 5)
-chop_equal <- function (x, groups, ...) {
+#' chop_equally(rnorm(10), 5)
+chop_equally <- function (x, groups, ...) {
   chop_quantiles(x, seq(1, groups - 1)/groups, ...)
 }
 

@@ -103,10 +103,10 @@ test_that("chop_quantiles", {
 })
 
 
-test_that("chop_equal", {
+test_that("chop_equally", {
   x <- 1:6
   expect_equivalent(
-    chop_equal(x, 2),
+    chop_equally(x, 2),
     as.factor(rep(c("[0%, 50%)", "[50%, 100%]"), each = 3))
   )
 })
