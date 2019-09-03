@@ -24,7 +24,7 @@ NULL
 #' @export
 #'
 #' @examples
-#' tab(rnorm(100), c(-3, 0, 0, 3), labels = lbl_intervals())
+#' tab(-10:10, c(-3, 0, 0, 3), labels = lbl_intervals())
 lbl_intervals <- function (raw = FALSE) {
   function (breaks) {
     stopifnot(is.breaks(breaks))
@@ -80,8 +80,8 @@ lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
     singletons <- singletons(breaks)
 
     break_labels <- choose_break_labels(breaks, raw)
-    l <- breaks[-len_b]
-    r <- breaks[-1]
+    l <- break_labels[-len_b]
+    r <- break_labels[-1]
 
     labels <- sprintf(fmt, l, r)
     labels[singletons] <- sprintf(fmt1, l[singletons])
