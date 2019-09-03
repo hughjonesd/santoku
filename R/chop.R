@@ -141,7 +141,8 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 
 #' Chop into equal-width intervals
 #'
-#' `chop_width()` chops `x` into intervals of equal width.
+#' `chop_width()` chops `x` into intervals of width `width`. `chop_evenly`
+#' chops `x` into `groups` intervals of equal width.
 #'
 #' @inherit chop-doc params return
 #' @inherit brk_width params
@@ -149,11 +150,19 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' @export
 #'
 #' @examples
-#' x <- sort(rnorm(10))
+#' x <- 1:10
 #' chop_width(x, 2)
 #' chop_width(x, 2, start = 0)
+#' chop_evenly(x, 5)
 chop_width <- function (x, width, start, ...) {
   chop(x, brk_width(width, start), ...)
+}
+
+
+#' @rdname chop_width
+#' @export
+chop_evenly <- function (x, groups, ...) {
+  chop(x, brk_evenly(groups), ...)
 }
 
 

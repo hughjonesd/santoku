@@ -76,7 +76,8 @@ brk_mean_sd <- function (sd = 3) {
 
 #' Equal-width breaks
 #'
-#' `brk_width()` creates breaks of equal width.
+#' `brk_width()` creates intervals of width `width`. `brk_evenly()` creates
+#' `groups` intervals of equal width.
 #'
 #' @param width Width of intervals.
 #' @param start Leftpoint of first interval. By default the lowest finite `x`.
@@ -107,6 +108,23 @@ brk_width <- function (width, start) {
     breaks <- maybe_extend(breaks, x, extend)
 
     breaks
+  }
+}
+
+
+#' @rdname brk_width
+#'
+#' @param groups Integer: number of intervals to create.
+#'
+#' @export
+brk_evenly <- function(groups) {
+  stopifnot(is.numeric(groups))
+  if(! (groups == round(groups))) stop("`groups` must be a whole number")
+  force(groups)
+  function (x, breaks) {
+    total_width <- suppressWarnings(max(x[is.finite(x)]) - min(x[is.finite(x)]))
+    if (total_width < 0) stop("No finite elements in `x`")
+    brk_width(total_width/groups)(x, breaks)
   }
 }
 

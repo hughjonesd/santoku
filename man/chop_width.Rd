@@ -2,9 +2,12 @@
 % Please edit documentation in R/chop.R
 \name{chop_width}
 \alias{chop_width}
+\alias{chop_evenly}
 \title{Chop into equal-width intervals}
 \usage{
 chop_width(x, width, start, ...)
+
+chop_evenly(x, groups, ...)
 }
 \arguments{
 \item{x}{A numeric vector.}
@@ -14,12 +17,16 @@ chop_width(x, width, start, ...)
 \item{start}{Leftpoint of first interval. By default the lowest finite \code{x}.}
 
 \item{...}{Passed to \code{chop}.}
+
+\item{groups}{Integer: number of intervals to create.}
 }
 \description{
-\code{chop_width()} chops \code{x} into intervals of equal width.
+\code{chop_width()} chops \code{x} into intervals of width \code{width}. \code{chop_evenly}
+chops \code{x} into \code{groups} intervals of equal width.
 }
 \examples{
-x <- sort(rnorm(10))
+x <- 1:10
 chop_width(x, 2)
 chop_width(x, 2, start = 0)
+chop_evenly(x, 5)
 }
