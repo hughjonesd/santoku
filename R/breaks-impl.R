@@ -34,7 +34,7 @@ create_breaks <- function (obj, left) {
 }
 
 
-create_left_breaks <- function (obj, close_end = FALSE) {
+create_left_breaks <- function (obj, close_end = TRUE) {
   left <- rep(TRUE, length(obj))
 
   st <- singletons(obj)
@@ -46,7 +46,7 @@ create_left_breaks <- function (obj, close_end = FALSE) {
 }
 
 
-create_right_breaks <- function (obj, close_end = FALSE) {
+create_right_breaks <- function (obj, close_end = TRUE) {
   left <- rep(FALSE, length(obj))
 
   st <- singletons(obj)
