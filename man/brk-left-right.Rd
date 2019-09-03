@@ -23,7 +23,7 @@ A (function which returns an) object of class \code{breaks}.
 Left- or right-closed breaks
 }
 \examples{
-chop(1:3, brk_left(1:3))
-chop(1:3, brk_right(1:3))
-chop(1:3, brk_left(1:3, FALSE))
+chop(5:7, brk_left(5:7))
+chop(5:7, brk_right(5:7))
+chop(5:7, brk_left(5:7, FALSE))
 }

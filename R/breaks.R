@@ -148,9 +148,9 @@ brk_n <- function (n) {
 #' @name brk-left-right
 #'
 #' @examples
-#' chop(1:3, brk_left(1:3))
-#' chop(1:3, brk_right(1:3))
-#' chop(1:3, brk_left(1:3, FALSE))
+#' chop(5:7, brk_left(5:7))
+#' chop(5:7, brk_right(5:7))
+#' chop(5:7, brk_left(5:7, FALSE))
 NULL
 
 
