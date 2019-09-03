@@ -66,10 +66,6 @@ test_that("brk_left/right wrappers", {
     brk_left(brk_quantiles(1:3/3))(1:10, FALSE),
     brk_quantiles(1:3/3)(1:10, FALSE)
   )
-  expect_identical(
-    brk_right(brk_quantiles(1:3/3))(1:10, FALSE),
-    brk_right(brk_quantiles(1:3/3)(1:10, FALSE))
-  )
 })
 
 
@@ -84,29 +80,29 @@ test_that("brk_n", {
 
 
 test_that("brk_width", {
-  b <- brk_width(1)(0.5:1.5)
+  b <- brk_width(1)(0.5:1.5, FALSE)
   expect_equal(diff(as.vector(b)), 1)
 
   width <- runif(1)
-  b <- brk_width(width)(0.5:1.5)
+  b <- brk_width(width)(0.5:1.5, FALSE)
   bvec <- as.vector(b)
   expect_equal(diff(bvec)[1], width)
   expect_equal(bvec[1], 0.5)
 
-  b <- brk_width(1)(rep(NA, 2))
+  b <- brk_width(1)(rep(NA, 2), FALSE)
   expect_identical(as.vector(b), numeric(0))
 
-  b <- brk_width(1)(c(Inf, -Inf, NA))
+  b <- brk_width(1)(c(Inf, -Inf, NA), FALSE)
   expect_identical(as.vector(b), numeric(0))
 
-  b <- brk_width(1)(c(NA, 2, 4, NA))
+  b <- brk_width(1)(c(NA, 2, 4, NA), FALSE)
   expect_equal(diff(as.vector(b))[1], 1)
 })
 
 
 test_that("brk_mean_sd", {
   x <- rnorm(10)
-  expect_silent(b <- brk_mean_sd(3)(x))
+  expect_silent(b <- brk_mean_sd(3)(x, FALSE))
   m <- mean(x)
   sd <- sd(x)
   sd_ints <- seq(m - 3 * sd, m + 3 * sd, sd)
