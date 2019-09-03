@@ -79,7 +79,7 @@ table(chopped)
 ```
 
 
-To chop into equal sized groups use `chop_equal()`:
+To chop into a fixed number of equal-sized groups, use `chop_equal()`:
 
 ```{r}
 chopped <- chop_equal(x, groups = 5)
@@ -119,7 +119,9 @@ chopped <- chop(x, c(2, 5, 8), labels = c("Lowest", "Low", "Higher", "Highest"))
 data.frame(x, chopped)
 ```
 
-You need one more label than there are breaks.
+You need as many labels as there are intervals - one fewer than `length(breaks)`
+if your data doesn't extend beyond `breaks`, one more than `length(breaks)` if
+it does.
 
 To label intervals with a dash, use `lbl_dash()`:
 

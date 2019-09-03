@@ -88,6 +88,18 @@
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="articles/website-articles/performance.html">Performance</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -134,13 +146,6 @@
 <h1 class="hasAnchor">
 <a href="#questions" class="anchor"></a>Questions</h1>
 <ul>
-<li>How to prevent duplicated labels?
-<ul>
-<li>Right now, first tries <code>format</code>, then tries increasing numbers of digits</li>
-<li>I think when you manually specify breaks, you’d want to see them as you entered them.</li>
-<li>When they are created by e.g. <code>chop_size</code>, we could be more relaxed about trimming them to fewer digits (so skip the use of <code>format</code>)….</li>
-</ul>
-</li>
 <li>What to do with data-dependent breaks when there’s an unexpected number of breaks?
 <ul>
 <li>E.g. <code><a href="reference/chop_quantiles.html">chop_deciles(rep(NA, 5))</a></code>
@@ -156,7 +161,7 @@
 <li>I think default should be “if necessary” (<code>extend = NULL</code>); should always extend to Inf, -Inf so that these break labels are not data-dependent</li>
 <li>
 <p>Tension between wanting something predictable in your new data, vs. something readable in <code>tab_*</code>. E.g.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="reference/tab.html">tab_size</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="kw"><a href="reference/sequence-labels.html">lbl_letters</a></span>()) </a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">tab_size</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="kw"><a href="reference/sequence-labels.html">lbl_letters</a></span>()) </a></code></pre></div>
 <p>should surely return labels a, b, c. But this means we aren’t always extending.</p>
 </li>
 </ul>
@@ -214,6 +219,8 @@
 <code>hist_xxx</code> functions for histograms/barplots? (how to treat singletons?)</li>
 <li>
 <code>grp_xxx</code> for group_by? Hmmm…</li>
+<li>New label interface to replace <code>lbl_sequence</code>: <code>lbl_style("1."), lbl_style("(i)"), lbl_style("A")</code> etc.?</li>
+<li>Still wonder, could we drop <code>extend</code> which adds complexity and just have <code>only()</code> or <code>extend()</code> as new breaks functions?</li>
 </ul>
 </div>
 <div id="other-ideas" class="section level1">

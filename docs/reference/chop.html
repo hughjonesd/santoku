@@ -91,6 +91,18 @@ length as x, representing which interval contains each element of x." />
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/website-articles/performance.html">Performance</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -124,7 +136,7 @@ length as <code>x</code>, representing which interval contains each element of <
     
     </div>
 
-    <pre class="usage"><span class='fu'>chop</span>(<span class='no'>x</span>, <span class='no'>breaks</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='lbl_intervals.html'>lbl_intervals</a></span>(), <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>chop</span>(<span class='no'>x</span>, <span class='no'>breaks</span>, <span class='no'>labels</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,8 +165,8 @@ length as <code>x</code>, representing which interval contains each element of <
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A <a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a>, or an integer if <code>labels</code> is <code>NULL</code>, of the same length as <code>x</code>,
-representing the intervals containing the value of <code>x</code>.</p>
+    <p>A <a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a> of the same length as <code>x</code>, representing the intervals containing
+the value of <code>x</code>.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
@@ -167,8 +179,7 @@ left-closed except the end; for right-closed breaks see <code><a href='brk-left-
 <p>If <code>breaks</code> is a function it is called with a single argument, <code>x</code>, and
 returns an object of class <code>breaks</code>.</p>
 <p><code>labels</code> may be a character vector. It should have the same length as the
-number of intervals - i.e., one more than <code><a href='https://www.rdocumentation.org/packages/base/topics/length'>length(breaks)</a></code> (or one less
-if <code>extend</code> is <code>FALSE</code>). Alternatively, use a <code>lbl_</code> function such as
+number of intervals. Alternatively, use a <code>lbl_</code> function such as
 <code><a href='sequence-labels.html'>lbl_numerals()</a></code>.</p>
 <p>If <code>extend</code> is <code>TRUE</code>, intervals will be extended to <code>[-Inf,
 min(breaks))</code> and <code>(max(breaks), Inf]</code>, unless those endpoints are
@@ -188,11 +199,9 @@ return <code>NA</code>.</p>
 #&gt;  [9] [-1, 0)  [1, 2]  
 #&gt; Levels: [-2, -1) [-1, 0) [0, 1) [1, 2]</div><div class='input'><span class='fu'>chop</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), -<span class='fl'>2</span>:<span class='fl'>2</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] [0, 1)   [-1, 0)  [-1, 0)  [-1, 0)  [0, 1)   &lt;NA&gt;     [0, 1)   [0, 1)  
 #&gt;  [9] [0, 1)   [-2, -1)
-#&gt; Levels: [-2, -1) [-1, 0) [0, 1)</div><div class='input'><span class='fu'>chop</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fu'><a href='brk_quantiles.html'>brk_quantiles</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>)))</div><div class='output co'>#&gt;  [1] (0.4657096, Inf]        [-Inf, -0.2339494)      [-0.2339494, 0.4657096]
-#&gt;  [4] [-0.2339494, 0.4657096] [-0.2339494, 0.4657096] (0.4657096, Inf]       
-#&gt;  [7] [-Inf, -0.2339494)      (0.4657096, Inf]        [-Inf, -0.2339494)     
-#&gt; [10] [-0.2339494, 0.4657096]
-#&gt; Levels: [-Inf, -0.2339494) [-0.2339494, 0.4657096] (0.4657096, Inf]</div><div class='input'><span class='fu'>chop</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), -<span class='fl'>2</span>:<span class='fl'>2</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='lbl_dash.html'>lbl_dash</a></span>())</div><div class='output co'>#&gt;  [1] 1 - 2   -1 - 0  1 - 2   -1 - 0  -2 - -1 -1 - 0  1 - 2   0 - 1   0 - 1  
+#&gt; Levels: [-2, -1) [-1, 0) [0, 1)</div><div class='input'><span class='fu'>chop</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fu'><a href='brk_quantiles.html'>brk_quantiles</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>)))</div><div class='output co'>#&gt;  [1] [75%, 100%] [0%, 25%)   [25%, 75%)  [25%, 75%)  [25%, 75%)  [75%, 100%]
+#&gt;  [7] [0%, 25%)   [75%, 100%] [0%, 25%)   [25%, 75%) 
+#&gt; Levels: [0%, 25%) [25%, 75%) [75%, 100%]</div><div class='input'><span class='fu'>chop</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), -<span class='fl'>2</span>:<span class='fl'>2</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='lbl_dash.html'>lbl_dash</a></span>())</div><div class='output co'>#&gt;  [1] 1 - 2   -1 - 0  1 - 2   -1 - 0  -2 - -1 -1 - 0  1 - 2   0 - 1   0 - 1  
 #&gt; [10] -2 - -1
 #&gt; Levels: -2 - -1 -1 - 0 0 - 1 1 - 2</div></pre>
   </div>
