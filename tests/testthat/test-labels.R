@@ -10,7 +10,7 @@ test_that("sequential labels", {
   expect_equivalent(lbl_numerals("(%s)")(brk), sprintf("(%s)", 1:2))
 
   expect_error(lbl_sequence(c("a", "a")))
-  expect_equivalent(lbl_sequence(letters[1:2])(brk), c("a", "b", "aa"))
+  expect_equivalent(lbl_sequence(letters[1])(brk), c("a", "aa"))
 })
 
 
