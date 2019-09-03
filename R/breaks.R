@@ -51,7 +51,7 @@ brk_mean_sd <- function (sd = 3) {
     x_m <- mean(x, na.rm = TRUE)
     x_sd <- sd(x, na.rm = TRUE)
 
-    breaks <- if (is.na(x_m) || x_sd == 0) {
+    breaks <- if (is.na(x_m) || is.na(x_sd) || x_sd == 0) {
       numeric(0)
     } else {
       s1 <- seq(x_m, x_m - sd * x_sd, - x_sd)
