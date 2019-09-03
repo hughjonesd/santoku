@@ -63,6 +63,7 @@ brk_mean_sd <- function (sd = 3) {
     breaks <- maybe_extend(breaks, x, extend)
 
     break_labels <- seq(-sd, sd, 1)
+    break_labels <- paste0(break_labels, " sd")
     if (extend %||% needs_extend(breaks, x)) {
       break_labels <- c(-Inf, break_labels, Inf)
     }
@@ -126,7 +127,8 @@ brk_n <- function (n) {
   function (x, extend) {
     x <- sort(x) # remove NAs
     breaks <- if (length(x) < 1L) numeric(0) else x[seq(1L, length(x), n)]
-    breaks <- create_left_breaks(breaks)
+    # `close_end = FALSE` is necessary, or one group gets bigger:
+    breaks <- create_left_breaks(breaks, close_end = FALSE)
     breaks <- maybe_extend(breaks, x, extend)
 
     breaks

@@ -4,18 +4,26 @@
 \alias{lbl_format}
 \title{Labels using breaks, with arbitrary formatting}
 \usage{
-lbl_format(fmt, fmt1 = "\%s")
+lbl_format(fmt, fmt1 = "\%s", raw = FALSE)
 }
 \arguments{
 \item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format.}
 
 \item{fmt1}{Format for breaks consisting of a single value.}
+
+\item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
+or standard deviations?}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
 Labels using breaks, with arbitrary formatting
+}
+\details{
+If \code{raw = FALSE}, breaks will be preformatted as strings
+before being passed to \code{\link[=sprintf]{sprintf()}}, so only \code{"\%s"} should be used in
+format strings.
 }
 \examples{
 tab(1:10, c(1,3, 3, 7), label = lbl_format("\%s to \%s"))

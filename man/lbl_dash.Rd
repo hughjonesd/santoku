@@ -8,6 +8,9 @@ lbl_dash(symbol = " - ", raw = FALSE)
 }
 \arguments{
 \item{symbol}{String: symbol to use for the dash.}
+
+\item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
+or standard deviations?}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.

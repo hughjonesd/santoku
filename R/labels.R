@@ -1,6 +1,8 @@
 
 #' @name label-doc
 #' @param fmt A [sprintf()]-style format.
+#' @param raw Logical. Always use raw `breaks` in labels, rather than e.g. quantiles
+#'   or standard deviations?
 #' @return A vector of labels for `chop`, or a function that creates labels.
 NULL
 
@@ -56,15 +58,19 @@ lbl_intervals <- function (raw = FALSE) {
 #' Labels using breaks, with arbitrary formatting
 #'
 #' @param fmt1 Format for breaks consisting of a single value.
-#'
 #' @inherit label-doc params return
+#'
+#' @details
+#' If `raw = FALSE`, breaks will be preformatted as strings
+#' before being passed to [sprintf()], so only `"%s"` should be used in
+#' format strings.
 #'
 #' @export
 #'
 #' @examples
 #' tab(1:10, c(1,3, 3, 7), label = lbl_format("%s to %s"))
 #' tab(1:10, c(1,3, 3, 7), label = lbl_format("%s to %s", "Exactly %s"))
-lbl_format <- function(fmt, fmt1 = "%s") {
+lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
   function (breaks) {
     stopifnot(is.breaks(breaks))
     len_b <- length(breaks)
@@ -73,6 +79,7 @@ lbl_format <- function(fmt, fmt1 = "%s") {
     len_i <- length(labels)
     singletons <- singletons(breaks)
 
+    break_labels <- choose_break_labels(breaks, raw)
     l <- breaks[-len_b]
     r <- breaks[-1]
 
