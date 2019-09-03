@@ -17,5 +17,6 @@ chop_n(x, n, ...)
 Chop into fixed-sized groups
 }
 \examples{
-chop_n(1:10, 6)
+table(chop_n(1:10, 5))
+table(chop_n(1:10, 4))
 }

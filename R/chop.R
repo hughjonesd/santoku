@@ -165,7 +165,8 @@ chop_width <- function (x, width, start, ...) {
 #' @export
 #'
 #' @examples
-#' chop_n(1:10, 6)
+#' table(chop_n(1:10, 5))
+#' table(chop_n(1:10, 4))
 chop_n <- function (x, n, ...) {
   chop(x, brk_n(n), ...)
 }
