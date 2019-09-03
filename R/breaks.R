@@ -25,7 +25,7 @@ brk_quantiles <- function (probs, ...) {
 
     breaks <- create_left_breaks(qs)
 
-    break_labels <- formatC(qs * 100, format = "fg")
+    break_labels <- paste0(formatC(probs * 100, format = "fg"), "%")
     attr(breaks, "break_labels") <- break_labels
 
     breaks
@@ -33,7 +33,7 @@ brk_quantiles <- function (probs, ...) {
 }
 
 
-#' Title
+#' Break into standard deviations around the mean
 #'
 #' @param sd Whole number: include `sd` standard deviations on each side of
 #'   the mean.
