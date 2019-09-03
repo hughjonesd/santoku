@@ -149,8 +149,9 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' @export
 #'
 #' @examples
-#' chop_width(rnorm(10), 2)
-#' chop_width(0:10, 2)
+#' x <- sort(rnorm(10))
+#' chop_width(x, 2)
+#' chop_width(x, 2, start = 0)
 chop_width <- function (x, width, start, ...) {
   chop(x, brk_width(width, start), ...)
 }

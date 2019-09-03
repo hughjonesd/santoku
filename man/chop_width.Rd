@@ -19,6 +19,7 @@ chop_width(x, width, start, ...)
 \code{chop_width()} chops \code{x} into intervals of equal width.
 }
 \examples{
-chop_width(rnorm(10), 2)
-chop_width(0:10, 2)
+x <- sort(rnorm(10))
+chop_width(x, 2)
+chop_width(x, 2, start = 0)
 }
