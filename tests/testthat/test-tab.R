@@ -31,6 +31,16 @@ test_that("tab_width", {
   )
 })
 
+
+test_that("tab_evenly", {
+  expect_identical(
+    tab_evenly(0:10, 5),
+    table(x = c(rep(c("[0, 2)", "[2, 4)", "[4, 6)", "[6, 8)", "[8, 10]"), 2),
+      "[8, 10]"))
+  )
+})
+
+
 test_that("tab_mean_sd", {
   expect_silent(
           tb <- tab_mean_sd(rnorm(100), sd = 3, extend = TRUE, drop = FALSE)
