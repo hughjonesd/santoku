@@ -2,7 +2,7 @@
 % Please edit documentation in R/breaks.R
 \name{brk_mean_sd}
 \alias{brk_mean_sd}
-\title{Title}
+\title{Break into standard deviations around the mean}
 \usage{
 brk_mean_sd(sd = 3)
 }
@@ -14,7 +14,7 @@ the mean.}
 A (function which returns an) object of class \code{breaks}.
 }
 \description{
-Title
+Break into standard deviations around the mean
 }
 \examples{
 tab(rnorm(20), brk_mean_sd())

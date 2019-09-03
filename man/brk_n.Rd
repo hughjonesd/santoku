@@ -7,7 +7,7 @@
 brk_n(n)
 }
 \arguments{
-\item{n}{Integer size of breaks}
+\item{n}{Integer: number of elements in each interval.}
 }
 \value{
 A (function which returns an) object of class \code{breaks}.
@@ -17,5 +17,5 @@ A (function which returns an) object of class \code{breaks}.
 interval may have fewer elements.
 }
 \examples{
-chop(runif(10), brk_n(2))
+tab(runif(10), brk_n(2))
 }

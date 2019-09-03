@@ -114,13 +114,13 @@ brk_width <- function (width, start) {
 #' `brk_n()` creates intervals containing a fixed number of elements. One
 #' interval may have fewer elements.
 #'
-#' @param n Integer size of breaks
+#' @param n Integer: number of elements in each interval.
 #' @inherit breaks-doc return
 #'
 #' @export
 #'
 #' @examples
-#' chop(runif(10), brk_n(2))
+#' tab(runif(10), brk_n(2))
 brk_n <- function (n) {
   force(n)
   function (x, extend) {
