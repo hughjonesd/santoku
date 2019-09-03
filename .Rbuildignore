@@ -12,3 +12,5 @@
 ^pkgdown$
 ^codecov\.yml$
 website-articles
+^doc$
+^Meta$
