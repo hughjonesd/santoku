@@ -4,7 +4,7 @@
 \alias{lbl_intervals}
 \title{Labels using set notation}
 \usage{
-lbl_intervals()
+lbl_intervals(raw = FALSE)
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.

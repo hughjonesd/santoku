@@ -4,15 +4,16 @@
 \alias{brk_manual}
 \title{Create a \code{breaks} object manually}
 \usage{
-brk_manual(vec, left)
+brk_manual(breaks, left)
 }
 \arguments{
-\item{vec}{A numeric vector which must be sorted.}
+\item{breaks}{A numeric vector which must be sorted.}
 
-\item{left}{A logical vector, the same length as \code{vec}. Is break left-closed?}
+\item{left}{A logical vector, the same length as \code{breaks}.
+Is break left-closed?}
 }
 \value{
-A (function returning an) object of class \code{breaks}.
+A (function which returns an) object of class \code{breaks}.
 }
 \description{
 Create a \code{breaks} object manually
@@ -21,14 +22,13 @@ Create a \code{breaks} object manually
 All breaks must be closed on exactly one side, like \code{..., x) [x, ...}
 (left-closed) or \code{..., x) [x, ...} (right-closed).
 
-For example, if \code{vec = 1:3} and \code{left = c(TRUE, FALSE, TRUE)}, then the
-resulting intervals are
-\preformatted{
+For example, if \code{breaks = 1:3} and \code{left = c(TRUE, FALSE, TRUE)}, then the
+resulting intervals are \preformatted{
 T        F       T
 [ 1,  2 ] ( 2, 3 )
 }
 
-Singleton breaks are created by repeating a number in \code{vec}.
+Singleton breaks are created by repeating a number in \code{breaks}.
 Singletons must be closed on both sides, so if there is a repeated number
 at indices \code{i}, \code{i+1}, \code{left[i]} must be \code{TRUE} and \code{left[i+1]} must be
 \code{FALSE}.

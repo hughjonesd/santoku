@@ -62,25 +62,17 @@ chop <- function (x, breaks, labels,
         drop   = TRUE
       ) {
   if (is.function(breaks))  {
-    breaks <- breaks(x)
+    breaks <- breaks(x, extend)
   }
   if (! is.breaks(breaks)) {
-    breaks <- brk_left(breaks)
+    breaks <- brk_left(breaks)(x, extend)
   }
   stopifnot(is.breaks(breaks))
   stopifnot(length(breaks) >= 2L)
 
-  if (is.null(extend)) {
-    extend <- suppressWarnings(
-            min(x, na.rm = TRUE) < min(breaks) ||
-            max(x, na.rm = TRUE) > max(breaks)
-          )
-  }
-  if (extend) breaks <- extend_breaks(breaks)
-
   if (missing(labels)) labels <- NULL
-  labels <- labels %||% attr(breaks, "labels") %||% lbl_intervals()
-  if (is.function(labels)) labels <- labels(breaks, extend)
+  labels <- labels %||% lbl_intervals()
+  if (is.function(labels)) labels <- labels(breaks)
 
   stopifnot(length(labels) == length(breaks) - 1)
   if (anyDuplicated(labels)) stop("Duplicate labels found: ",
@@ -122,14 +114,14 @@ chop_deciles <- function(x, ...) {
 
 #' @rdname chop_quantiles
 #'
-#' @param n Number of groups
+#' @param groups Number of groups
 #'
 #' @export
 #'
 #' @examples
 #' chop_equal(rnorm(10), 5)
-chop_equal <- function (x, n, ...) {
-  chop_quantiles(x, seq(1, n - 1)/n, ...)
+chop_equal <- function (x, groups, ...) {
+  chop_quantiles(x, seq(1, groups - 1)/groups, ...)
 }
 
 
@@ -166,13 +158,13 @@ chop_width <- function (x, width, start, ...) {
 
 #' Chop into fixed-sized groups
 #'
-#' @param size Size of groups to return.
+#' @param n Size of groups to return.
 #' @inherit chop-doc params return
 #'
 #' @export
 #'
 #' @examples
-#' chop_size(1:10, 6)
-chop_size <- function (x, size, ...) {
-  chop(x, brk_size(size), ...)
+#' chop_n(1:10, 6)
+chop_n <- function (x, n, ...) {
+  chop(x, brk_n(n), ...)
 }

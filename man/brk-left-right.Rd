@@ -17,7 +17,7 @@ brk_right(breaks, close_end = TRUE)
 / leftmost endpoint (\code{brk_right()})?}
 }
 \value{
-A (function returning an) object of class \code{breaks}.
+A (function which returns an) object of class \code{breaks}.
 }
 \description{
 Left- or right-closed breaks

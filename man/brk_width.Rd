@@ -12,7 +12,7 @@ brk_width(width, start)
 \item{start}{Leftpoint of first interval. By default the lowest finite \code{x}.}
 }
 \value{
-A (function returning an) object of class \code{breaks}.
+A (function which returns an) object of class \code{breaks}.
 }
 \description{
 \code{brk_width()} creates breaks of equal width.

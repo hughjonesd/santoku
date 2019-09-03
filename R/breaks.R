@@ -1,7 +1,8 @@
 
 #' @name breaks-doc
-#' @return A (function returning an) object of class `breaks`.
+#' @return A (function which returns an) object of class `breaks`.
 NULL
+
 
 #' Breaks using quantiles
 #'
@@ -16,12 +17,17 @@ NULL
 #' chop(c(1, 1, 2, 2, 3, 4), brk_quantiles(1:3/4))
 brk_quantiles <- function (probs, ...) {
   force(probs)
-  function (x) {
+  function (x, extend) {
+    extend <- extend %||% needs_extend(probs, c(0, 1)) # hacky
+    if (extend) probs <- c(0, probs, 1)
     qs <- stats::quantile(x, probs, na.rm = TRUE, ...)
     qs <- sort(qs)
-    breaks <- brk_left(qs)
-    labels <- lbl_quantiles(probs)(breaks, FALSE)
-    attr(breaks, "labels") <- labels
+
+    breaks <- create_left_breaks(qs)
+
+    break_labels <- formatC(qs * 100, format = "fg")
+    attr(breaks, "break_labels") <- break_labels
+
     breaks
   }
 }
@@ -41,7 +47,7 @@ brk_mean_sd <- function (sd = 3) {
   force(sd)
   stopifnot(sd >= 0)
   if (sd != round(sd)) stop("`sd` must be a whole number")
-  function (x) {
+  function (x, extend) {
     x_m <- mean(x, na.rm = TRUE)
     x_sd <- sd(x, na.rm = TRUE)
 
@@ -53,7 +59,16 @@ brk_mean_sd <- function (sd = 3) {
       c(sort(s1), s2[-1])
     }
 
-    brk_left(breaks)
+    extended <-
+    breaks <- maybe_extend(breaks, x, extend)
+
+    break_labels <- seq(-sd, sd, 1)
+    if (extend %||% needs_extend(breaks, x)) {
+      break_labels <- c(-Inf, break_labels, Inf)
+    }
+    attr(breaks, "break_labels") <- break_labels
+
+    brk_left(breaks)(x, extend) # temporary - replace with implementation fn
   }
 }
 
@@ -75,7 +90,7 @@ brk_width <- function (width, start) {
   stopifnot(is.numeric(width))
   stopifnot(width > 0)
   sm <- missing(start)
-  function (x) {
+  function (x, extend) {
     if (sm) start <- suppressWarnings(min(x[is.finite(x)]))
     # finite if x has any non-NA finite elements:
     max_x <- suppressWarnings(max(x[is.finite(x)]))
@@ -87,29 +102,34 @@ brk_width <- function (width, start) {
       numeric(0)
     }
 
-    brk_left(breaks)
+    breaks <- maybe_extend(breaks, x, extend)
+
+    create_left_breaks(breaks)
   }
 }
 
 
-#' Fixed-size breaks
+#' Breaks with a fixed number of elements
 #'
-#' `brk_size()` creates intervals containing a fixed number of (non-NA)
-#' elements. One interval may have fewer elements.
+#' `brk_n()` creates intervals containing a fixed number of elements. One
+#' interval may have fewer elements.
 #'
-#' @param size Integer size of breaks
+#' @param n Integer size of breaks
 #' @inherit breaks-doc return
 #'
 #' @export
 #'
 #' @examples
-#' chop(runif(10), brk_size(2))
-brk_size <- function (size) {
-  force(size)
-  function (x) {
+#' chop(runif(10), brk_n(2))
+brk_n <- function (n) {
+  force(n)
+  function (x, extend) {
     x <- sort(x) # remove NAs
-    breaks <- if (length(x) < 1L) numeric(0) else x[seq(1L, length(x), size)]
-    brk_left(breaks, close_end = FALSE)
+    breaks <- if (length(x) < 1L) numeric(0) else x[seq(1L, length(x), n)]
+    breaks <- create_left_breaks(breaks)
+    breaks <- maybe_extend(breaks, x, extend)
+
+    breaks
   }
 }
 
@@ -143,46 +163,47 @@ brk_right <- function (breaks, close_end = TRUE) UseMethod("brk_right")
 
 #' @export
 brk_left.default <- function (breaks, close_end = TRUE) {
-  left <- rep(TRUE, length(breaks))
-
-  st <- singletons(breaks)
-  left[which(st) + 1] <- FALSE
-
-  if (close_end) left[length(left)] <- FALSE
-
-  brk_manual(breaks, left)
+  function(x, extend) {
+    breaks <- create_left_breaks(breaks, close_end)
+    breaks <- maybe_extend(breaks, x, extend)
+    breaks
+  }
 }
 
 
 #' @export
 brk_right.default <- function (breaks, close_end = TRUE) {
-  left <- rep(FALSE, length(breaks))
-
-  s <- singletons(breaks)
-  left[s] <- TRUE
-
-  if (close_end) left[1] <- TRUE
-
-  brk_manual(breaks, left)
+  function (x, extend) {
+    breaks <- create_right_breaks(breaks, close_end)
+    breaks <- maybe_extend(breaks, x, extend)
+    breaks
+  }
 }
 
 
 #' @export
 brk_left.function <- function (breaks, close_end = TRUE) {
-  function(...) brk_left(breaks(...), close_end = close_end)
+  function(x, extend) {
+    breaks <- breaks(x, extend) # already contains left/labels and is extended
+    create_left_breaks(breaks, close_end)
+  }
 }
 
 
 #' @export
 brk_right.function <- function (breaks, close_end = TRUE) {
-  function(...) brk_right(breaks(...), close_end = close_end)
+  function(x, extend) {
+    breaks <- breaks(x, extend)
+    create_right_breaks(breaks, close_end)
+  }
 }
 
 
 #' Create a `breaks` object manually
 #'
-#' @param vec A numeric vector which must be sorted.
-#' @param left A logical vector, the same length as `vec`. Is break left-closed?
+#' @param breaks A numeric vector which must be sorted.
+#' @param left A logical vector, the same length as `breaks`.
+#'   Is break left-closed?
 #'
 #' @inherit breaks-doc return
 #'
@@ -191,14 +212,13 @@ brk_right.function <- function (breaks, close_end = TRUE) {
 #' All breaks must be closed on exactly one side, like `..., x) [x, ...`
 #' (left-closed) or `..., x) [x, ...` (right-closed).
 #'
-#' For example, if `vec = 1:3` and `left = c(TRUE, FALSE, TRUE)`, then the
-#' resulting intervals are
-#' \preformatted{
+#' For example, if `breaks = 1:3` and `left = c(TRUE, FALSE, TRUE)`, then the
+#' resulting intervals are \preformatted{
 #' T        F       T
 #' [ 1,  2 ] ( 2, 3 )
 #' }
 #'
-#' Singleton breaks are created by repeating a number in `vec`.
+#' Singleton breaks are created by repeating a number in `breaks`.
 #' Singletons must be closed on both sides, so if there is a repeated number
 #' at indices `i`, `i+1`, `left[i]` must be `TRUE` and `left[i+1]` must be
 #' `FALSE`.
@@ -216,24 +236,14 @@ brk_right.function <- function (breaks, close_end = TRUE) {
 #'       c(TRUE, TRUE, FALSE, TRUE))
 #'
 #' chop(1:3, brks_singleton, extend = FALSE)
-brk_manual <- function (vec, left) {
-  if (anyNA(vec)) stop("`x` contained NAs")
-  stopifnot(is.numeric(vec))
-  stopifnot(all(vec == sort(vec)))
-  stopifnot(is.logical(left))
-  stopifnot(length(left) == length(vec))
+brk_manual <- function (breaks, left) {
+  function (x, extend) {
+    breaks <- create_breaks(breaks, left)
 
-  singletons <- singletons(vec)
-  if (any(singletons[-1] & singletons[-length(singletons)])) {
-    stop("`x` contained more than two consecutive equal values")
+    breaks <- maybe_extend(breaks, x, extend)
+
+    breaks
   }
-
-  l_singletons <- c(singletons, FALSE)
-  r_singletons <- c(FALSE, singletons)
-  stopifnot(all(left[l_singletons]))
-  stopifnot(all(! left[r_singletons]))
-
-  structure(vec, left = left, class = "breaks")
 }
 
 
@@ -250,8 +260,7 @@ NULL
 #' @export
 format.breaks <- function (x, ...) {
   if (length(x) < 2) return("Breaks object with no complete intervals")
-  lbl <- attr(x, "labels") %||% lbl_intervals()(x)
-  paste(lbl, collapse = " ")
+  paste(lbl_intervals()(x), collapse = " ")
 }
 
 

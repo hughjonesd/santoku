@@ -12,7 +12,7 @@ brk_quantiles(probs, ...)
 \item{...}{Arguments passed to \code{\link[=quantile]{quantile()}}}
 }
 \value{
-A (function returning an) object of class \code{breaks}.
+A (function which returns an) object of class \code{breaks}.
 }
 \description{
 Breaks using quantiles

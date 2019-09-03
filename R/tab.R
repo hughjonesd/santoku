@@ -27,8 +27,8 @@ tab_width <- function (...) {
 
 #' @rdname tab
 #' @export
-tab_size <- function (...) {
-  default_table(chop_size(...))
+tab_n <- function (...) {
+  default_table(chop_n(...))
 }
 
 

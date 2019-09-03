@@ -4,7 +4,7 @@
 \alias{lbl_dash}
 \title{Labels like 1 - 3, 4 - 5, ...}
 \usage{
-lbl_dash(symbol = " - ")
+lbl_dash(symbol = " - ", raw = FALSE)
 }
 \arguments{
 \item{symbol}{String: symbol to use for the dash.}
@@ -17,4 +17,5 @@ Labels like 1 - 3, 4 - 5, ...
 }
 \examples{
 tab(0:20, c(0, 5, 5, 10), lbl_dash())
+tab(0:20, c(0, 5, 5, 10), lbl_dash(" to "))
 }

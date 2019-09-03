@@ -58,7 +58,7 @@ data.frame(x_fives, chopped)
 To quickly produce a table of chopped data, use `tab()`:
 
 ```{r}
-tab(x, c(2, 5, 8))
+tab(1:10, c(2, 5, 8))
 ```
 
 ## More ways to chop
@@ -71,18 +71,18 @@ chopped <- chop_width(x, 2)
 data.frame(x, chopped)
 ```
 
-To chop into groups with a fixed *size* (i.e. number of members), use `chop_size()`:
+To chop into groups with a fixed number of members, use `chop_n()`:
 
 ```{r}
-chopped <- chop_size(x, 4)
+chopped <- chop_n(x, 4)
 table(chopped)
 ```
 
 
-To chop into `n` equal sized groups use `chop_equal()`:
+To chop into equal sized groups use `chop_equal()`:
 
 ```{r}
-chopped <- chop_equal(x, 3)
+chopped <- chop_equal(x, groups = 5)
 table(chopped)
 ```
 
@@ -101,12 +101,12 @@ chopped <- chop_mean_sd(x)
 data.frame(x, chopped)
 ```
 
-`tab_size()`, `tab_width()` and `tab_mean_sd()` act similarly to `tab()`,
+`tab_n()`, `tab_width()` and `tab_mean_sd()` act similarly to `tab()`,
 calling the related `chop_` function and then `table()`.
 
 ```{r}
 tab_width(x, 2)
-tab_size(x, 4)
+tab_n(x, 4)
 tab_mean_sd(x)
 ```
 

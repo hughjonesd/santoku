@@ -10,7 +10,7 @@ chop_quantiles(x, probs, ...)
 
 chop_deciles(x, ...)
 
-chop_equal(x, n, ...)
+chop_equal(x, groups, ...)
 }
 \arguments{
 \item{x}{A numeric vector.}
@@ -19,7 +19,7 @@ chop_equal(x, n, ...)
 
 \item{...}{Passed to \code{chop}.}
 
-\item{n}{Number of groups}
+\item{groups}{Number of groups}
 }
 \description{
 \code{chop_quantiles} chops data by quantiles. \code{chop_equal} chops

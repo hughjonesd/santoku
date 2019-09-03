@@ -11,7 +11,7 @@ brk_mean_sd(sd = 3)
 the mean.}
 }
 \value{
-A (function returning an) object of class \code{breaks}.
+A (function which returns an) object of class \code{breaks}.
 }
 \description{
 Title

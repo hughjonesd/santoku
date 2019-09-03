@@ -23,11 +23,32 @@ NULL
 #'
 #' @examples
 #' tab(rnorm(100), c(-3, 0, 0, 3), labels = lbl_intervals())
-lbl_intervals <- function () {
-  function (breaks, extend) {
+lbl_intervals <- function (raw = FALSE) {
+  function (breaks) {
     stopifnot(is.breaks(breaks))
     left <- attr(breaks, "left")
-    make_interval_labels(as.numeric(breaks), left)
+    break_labels <- choose_break_labels(breaks, raw)
+
+    len_b <- length(breaks)
+    if (len_b < 1L) return(character(0))
+
+    lb <- break_labels[-len_b]
+    rb <- break_labels[-1]
+    l_closed <- left[-len_b]
+    r_closed <- ! left[-1]
+
+    len_i <- len_b - 1
+    singletons <- singletons(breaks)
+    left_symbol <- rep("(", len_i)
+    left_symbol[l_closed] <- "["
+
+    right_symbol <- rep(")", len_i)
+    right_symbol[r_closed] <- "]"
+
+    sets <- paste0(left_symbol, lb, ", ", rb, right_symbol)
+    sets[singletons] <- sprintf("{%s}", lb[singletons])
+
+    return(sets)
   }
 }
 
@@ -44,7 +65,7 @@ lbl_intervals <- function () {
 #' tab(1:10, c(1,3, 3, 7), label = lbl_format("%s to %s"))
 #' tab(1:10, c(1,3, 3, 7), label = lbl_format("%s to %s", "Exactly %s"))
 lbl_format <- function(fmt, fmt1 = "%s") {
-  function (breaks, extend) {
+  function (breaks) {
     stopifnot(is.breaks(breaks))
     len_b <- length(breaks)
 
@@ -72,51 +93,20 @@ lbl_format <- function(fmt, fmt1 = "%s") {
 #'
 #' @examples
 #' tab(0:20, c(0, 5, 5, 10), lbl_dash())
-lbl_dash <- function (symbol = " - ") {
-  fmt <- paste0("%s", symbol, "%s")
-  lbl_format(fmt, "%s")
-}
+#' tab(0:20, c(0, 5, 5, 10), lbl_dash(" to "))
+lbl_dash <- function (symbol = " - ", raw = FALSE) {
+  function (breaks) {
+    break_labels <- choose_break_labels(breaks, raw)
 
+    len_b <- length(breaks)
+    singletons <- singletons(breaks)
 
-#' Labels suitable for quantiles
-#'
-#' @param quantiles A vector of quantiles.
-#' @inherit label-doc params return
-#' @export
-#'
-#' @examples
-#' lbl_quantiles(c(0.25, 0.5, 0.75))
-lbl_quantiles <- function (quantiles) {
-  function (breaks, extend) {
-    if (extend) quantiles <- c(0, quantiles, 1)
-    quantiles <- unique_truncation(quantiles * 100)
-    lqs <- quantiles[-length(quantiles)]
-    rqs <- quantiles[-1]
+    l <- break_labels[-len_b]
+    r <- break_labels[-1]
 
-    lqs <- sprintf("%s", lqs)
-    rqs <- sprintf("%s%%", rqs)
+    labels <- paste0(l, symbol, r)
+    labels[singletons] <- l[singletons]
 
-    paste0(lqs, "-", rqs)
-  }
-}
-
-
-#' Label standard deviations
-#'
-#' @param sd Number of standard deviations
-#' @inherit label-doc params return
-#'
-#' @export
-#'
-lbl_mean_sd <- function (sd) {
-  function (breaks, extend) {
-    sds <- seq(-sd, sd, 1)
-    left <- attr(breaks, "left")
-    if (extend) left <- left[c(-1, -length(left))]
-    labels <- make_interval_labels(sds, left)
-    if (extend) {
-      labels <- c(sprintf("< %s", -sd), labels, sprintf("> %s", sd))
-    }
     return(labels)
   }
 }
@@ -160,7 +150,7 @@ NULL
 #' @rdname sequence-labels
 #' @export
 lbl_numerals <- function (fmt = "%s") {
-  function (breaks, extend) {
+  function (breaks) {
     sprintf(fmt, seq(1L, length(breaks) - 1))
   }
 }
@@ -169,7 +159,7 @@ lbl_numerals <- function (fmt = "%s") {
 #' @rdname sequence-labels
 #' @export
 lbl_roman <- function (fmt = "%s") {
-  function (breaks, extend) {
+  function (breaks) {
     sprintf(fmt, tolower(utils::as.roman(seq(1L, length(breaks) - 1))))
   }
 }
@@ -178,7 +168,7 @@ lbl_roman <- function (fmt = "%s") {
 #' @rdname sequence-labels
 #' @export
 lbl_ROMAN <- function (fmt = "%s") {
-  function (breaks, extend) {
+  function (breaks) {
     sprintf(fmt, utils::as.roman(seq(1L, length(breaks) - 1)))
   }
 }
@@ -203,7 +193,7 @@ lbl_LETTERS <- function (fmt = "%s") {
 #' @export
 lbl_sequence <- function (sequence, fmt = "%s") {
   if (anyDuplicated(sequence) > 0L) stop("`sequence` contains duplicate items")
-  function (breaks, extend) {
+  function (breaks) {
     ls <- sequence
     latest <- ls
     while (length(breaks) - 1 > length(ls)) {
@@ -215,46 +205,11 @@ lbl_sequence <- function (sequence, fmt = "%s") {
 }
 
 
-make_interval_labels <- function (num, left) {
-  len_b <- length(num)
-  if (len_b < 1L) return(character(0))
-
-  intervals <- character(len_b - 1)
-  len_i <- length(intervals)
-  singletons <- singletons(num)
-
-  num <- unique_truncation(num)
-  lb <- num[-len_b]
-  rb <- num[-1]
-  l_closed <- left[-len_b]
-  r_closed <- ! left[-1]
-
-  left_symbol <- rep("(", len_i)
-  left_symbol[l_closed] <- "["
-
-  right_symbol <- rep(")", len_i)
-  right_symbol[r_closed] <- "]"
-
-  intervals <- sprintf("%s%s, %s%s", left_symbol, lb, rb, right_symbol)
-  intervals[singletons] <- sprintf("{%s}", lb[singletons])
-
-  return(intervals)
-}
-
-
-unique_truncation <- function (num) {
-  want_unique <- ! duplicated(num) # real duplicates can stay as they are!
-                                   # we keep the first of each duplicate set.
-  res <- format(num, trim = TRUE)
-  if (! anyDuplicated(res[want_unique])) return(res)
-
-  min_digits <- min(getOption("digits", 7), 21)
-  for (digits in seq(min_digits, 22L)) {
-    res <- formatC(num, digits = digits, width = -1)
-    if (anyDuplicated(res[want_unique]) == 0L) break
+choose_break_labels <- function (breaks, raw) {
+  bl <- attr(breaks, "break_labels")
+  if (raw || is.null(bl)) {
+    return(unique_truncation(breaks))
+  } else {
+    return(bl)
   }
-  if (anyDuplicated(res[want_unique]) > 0L) stop(
-        "Could not format breaks to avoid duplicates")
-
-  return(res)
 }

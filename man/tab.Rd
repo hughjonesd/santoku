@@ -3,7 +3,7 @@
 \name{tab}
 \alias{tab}
 \alias{tab_width}
-\alias{tab_size}
+\alias{tab_n}
 \alias{tab_mean_sd}
 \title{Tabulate data by intervals}
 \usage{
@@ -11,7 +11,7 @@ tab(...)
 
 tab_width(...)
 
-tab_size(...)
+tab_n(...)
 
 tab_mean_sd(...)
 }
