@@ -10,8 +10,6 @@
 * cut e.g. Dates
   - what else?
   
-* nice visual tutorial with e.g. a fish being split up
-
 * `chop_cleanly` - set `drop = FALSE`, `extend = FALSE/TRUE`? 
   - TRUE extend ensures no NAs from non-NA input
   - FALSE extend guarantees the number of levels (even if the breaks
