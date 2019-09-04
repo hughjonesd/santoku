@@ -7,4 +7,8 @@ hostUrl: rpubs.com
 appId: https://api.rpubs.com/api/v1/document/524972/4358130cc0594724b5a1e67641b2d30e
 bundleId: https://api.rpubs.com/api/v1/document/524972/4358130cc0594724b5a1e67641b2d30e
 url: http://rpubs.com/dash2/524972
+<<<<<<< HEAD
 when: 1567609881.87213
+=======
+when: 1567609742.60495
+>>>>>>> 1076cd437de7a4afd95e6b51a393a9141be60f5f
