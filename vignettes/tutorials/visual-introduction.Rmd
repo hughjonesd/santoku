@@ -28,6 +28,7 @@ requireNamespace("plotrix", quietly = TRUE)
 fish <- png::readPNG(here::here("man", "figures", "fish.png"))
 fish <- fish[150:800, , ]
 fish_alpha <- fish[, , 4]
+fish_red   <- fish[, , 1]
 fish_raster <- as.raster(fish)
 fish_x <- ncol(fish)
 fish_y <- nrow(fish)
@@ -44,21 +45,22 @@ fish_bottom <- fish_y - fish_bottom
 
 pts <- cbind(
         sample(nrow(fish), 1000, replace = TRUE),
-        sample(ncol(fish), 1000, replace = TRUE)
+        round(rbeta(1000, 1, .5) * ncol(fish))
       )
-pts <- pts[fish_alpha[pts] > 0.9,] # matrix subsetting; points within the fish!
+pts <- pts[fish_alpha[pts] > 0.9 & fish_red[pts] > 0.7,] # matrix subsetting; points within the fish!
 pts <- as.data.frame(pts)
 names(pts) <- c("y", "x")
 pts <- pts[, c("x", "y")]
 pts$y <- fish_y - pts$y
 
 pts <- rbind(pts, data.frame(x = 500, y = seq(200, 350, 10)))
-
+pts <- rbind(pts, data.frame(x = 70, y = 250))
+x <- pts$x # done later, for show
 
 palette(c("coral4", "darkgreen", "darkred", "darkgoldenrod3", "bisque4",
       "darkorange3", "darkkhaki", "salmon4"))
 NA_col <- "grey"
-
+line_col <- "black"
 
 plot_the_fish <- function (cols = "peachpuff4") {
   par(mar = c(2, 0, 0, 0))
@@ -73,7 +75,8 @@ plot_the_fish <- function (cols = "peachpuff4") {
 
 
 demo_chop <- function (breaks, labels = lbl_intervals(), extend = NULL, ...,
-      lines = TRUE, swoosh = FALSE, lty = 1, show_labels = TRUE, cex_labels = 0.7) {
+      lines = TRUE, swoosh = FALSE, lty = 1, cex_labels = 0.7,
+      skip_lines = numeric(0)) {
   chopped <- chop(pts$x, breaks, labels, extend, ...)
   if (is.numeric(breaks)) breaks <- brk_left(breaks)
   breaks <- breaks(pts$x, extend)
@@ -85,25 +88,29 @@ demo_chop <- function (breaks, labels = lbl_intervals(), extend = NULL, ...,
   chopped_cols[is.na(chopped)] <- NA_col
   plot_the_fish(cols = chopped_cols)
   
-  if (show_labels) {
-    if (is.function(labels)) labels <- labels(breaks)
-    label_breaks <- c(breaks)
-    label_breaks[label_breaks == -Inf] <- 0
-    label_breaks[label_breaks == Inf] <- fish_x
-    midpoints <- (label_breaks[-1] + label_breaks[-length(label_breaks)])/2
-    y <- if (any(diff(midpoints) < 150)) 20 else 50
-    plotrix::boxed.labels(midpoints, rep_len(c(50, y), length(midpoints)), 
-          labels, cex = cex_labels, bg = "white", border = FALSE, xpad = 1.1, ypad = 1.5)
-  }
-  
+  if (is.function(labels)) labels <- labels(breaks)
+  label_breaks <- c(breaks)
+  label_breaks[label_breaks == -Inf] <- 0
+  label_breaks[label_breaks == Inf] <- fish_x
+  midpoints <- (label_breaks[-1] + label_breaks[-length(label_breaks)])/2
+  y <- if (any(diff(midpoints) < 150)) 20 else 50
+  plotrix::boxed.labels(midpoints, rep_len(c(50, y), length(midpoints)), 
+        labels, cex = cex_labels, bg = "white", border = FALSE, xpad = 1.1, ypad = 1.5)
+
+  breaks_r <- setdiff(breaks_r, skip_lines)
   if (lines) {
     segments(
           x0 = breaks_r,
-          y0 = fish_bottom[breaks_r] - 30, 
-          y1 = fish_top[breaks_r] + 30, 
-          lwd = 1, lty = 1, col = "black"
+          y0 = fish_bottom[breaks_r], 
+          y1 = fish_top[breaks_r], 
+          lwd = 1, lty = 1, col = if (swoosh) "black" else line_col
         )
-    
+    segments(
+          x0 = breaks_r,
+          y0 = 65, 
+          y1 = 800, 
+          lwd = 1, lty = 2, col = if (swoosh) "black" else line_col
+        )
     if (swoosh) {
       left <- attr(breaks, "left")
       left <- left[is.finite(c(breaks)) & breaks > 0 & breaks <= fish_x]
@@ -148,6 +155,7 @@ x <- pts$x
 
 ## Some data
 
+
 ```{r, echo = TRUE}
 plot_the_fish()
 ```
@@ -185,8 +193,12 @@ chop(x, c(300, 500, 500, 800))
 ```
 
 ```{r}
-demo_chop(c(300, 500, 500, 800))
-arrows(x0 = 500, y0 =600, y1 = fish_top[500] + 40, lwd = 2, length = 0.1)
+demo_chop(c(300, 500, 500, 800), skip_lines = 500)
+#arrows(x0 = 500, y0 =600, y1 = fish_top[500] + 40, lwd = 2, length = 0.1)
+segments(x0 = c(495, 505), y0 = 65, y1 = 800, 
+      lty = 2, col = line_col)
+segments(x0 = c(495, 505), y0 = fish_bottom[500], y1 = fish_top[500], 
+      lty = 1, col = line_col)
 ```
 
 ## `chop_width()`
@@ -230,6 +242,8 @@ demo_chop(brk_quantiles(1:4/5))
 
 Chops intervals with a *fixed* number of elements
 
+* The last group may have fewer elements
+
 ```{r, echo = TRUE, eval = FALSE}
 chop_n(x, 100)
 ```
@@ -250,11 +264,11 @@ Fixed no. of groups | `chop_equally()`   | `chop_evenly()`
 
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_quantiles(x, c(0.025, 0.05, 0.25, 0.5, 0.75, 0.95, 0.975)
+chop_quantiles(x, c(0.05, 0.25, 0.5, 0.75, 0.95)
 ```
 
 ```{r}
-demo_chop(brk_quantiles(c(0.025, 0.05, 0.25, 0.5, 0.75, 0.95, 0.975)))
+demo_chop(brk_quantiles(c(0.05, 0.25, 0.5, 0.75, 0.95)))
 ```
 
 ## `chop_mean_sd()`
@@ -301,7 +315,7 @@ chop_width(x, 200, labels = lbl_LETTERS())
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_LETTERS(), show_labels = TRUE, cex_labels = 1)
+demo_chop(brk_width(200), labels = lbl_LETTERS(), cex_labels = 1)
 ```
 
 ## Changing labels
@@ -316,7 +330,7 @@ chop_width(x, 200, labels = lbl_roman("(%s)"))
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_roman("(%s)"), show_labels = TRUE, cex_labels = 1)
+demo_chop(brk_width(200), labels = lbl_roman("(%s)"), cex_labels = 1)
 ```
 
 ## Changing labels
@@ -331,7 +345,7 @@ chop_width(x, 200, labels = lbl_dash())
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_dash(), show_labels = TRUE, cex_labels = 0.8)
+demo_chop(brk_width(200), labels = lbl_dash(), cex_labels = 0.8)
 ```
 
 ## Left-closed and right-closed
