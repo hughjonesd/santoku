@@ -1,1 +1,6 @@
 destination: docs
+
+tutorials:
+- name: 00-visualintroduction
+  title: A visual introduction to Santoku
+  url: https://rpubs.com/dash2/santoku

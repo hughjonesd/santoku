@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Precision cutting for R — santoku-package • santoku</title>
+<title>A versatile cutting tool for R — santoku-package • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,10 +37,10 @@
 
 
 
-<meta property="og:title" content="Precision cutting for R — santoku-package" />
+<meta property="og:title" content="A versatile cutting tool for R — santoku-package" />
 
 <meta property="og:description" content="santoku is a tool for cutting numeric data into intervals. It provides
-the function chop() which is similar to base R's cut() or Hmisc::cut2().
+the function chop(), which is similar to base R's cut() or Hmisc::cut2().
 chop(x, breaks) takes a numeric vector x and returns a factor of the
 same length, coding which interval each element of x falls into." />
 
@@ -105,6 +105,18 @@ same length, coding which interval each element of x falls into." />
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../tutorials/00-visualintroduction.html">A visual introduction to Santoku</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -126,7 +138,7 @@ same length, coding which interval each element of x falls into." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Precision cutting for R</h1>
+    <h1>A versatile cutting tool for R</h1>
     <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/santoku-package.R'><code>R/santoku-package.R</code></a></small>
     <div class="hidden name"><code>santoku-package.Rd</code></div>
     </div>
@@ -134,7 +146,7 @@ same length, coding which interval each element of x falls into." />
     <div class="ref-description">
     
     <p>santoku is a tool for cutting numeric data into intervals. It provides
-the function <code><a href='chop.html'>chop()</a></code> which is similar to base R's <code><a href='https://www.rdocumentation.org/packages/base/topics/cut'>cut()</a></code> or <code><a href='https://www.rdocumentation.org/packages/Hmisc/topics/cut2'>Hmisc::cut2()</a></code>.
+the function <code><a href='chop.html'>chop()</a></code>, which is similar to base R's <code><a href='https://www.rdocumentation.org/packages/base/topics/cut'>cut()</a></code> or <code><a href='https://www.rdocumentation.org/packages/Hmisc/topics/cut2'>Hmisc::cut2()</a></code>.
 <code><a href='chop.html'>chop(x, breaks)</a></code> takes a numeric vector <code>x</code> and returns a factor of the
 same length, coding which interval each element of <code>x</code> falls into.</p>
     
@@ -149,7 +161,7 @@ won't get unexpected <code>NA</code> values.</p></li>
 <li><p>Unlike <code><a href='https://www.rdocumentation.org/packages/base/topics/cut'>cut()</a></code> or <code>cut2()</code>, <code><a href='chop.html'>chop()</a></code> can handle single values as well as
 intervals. For example, <code><a href='chop.html'>chop(x, breaks = c(1, 2, 2, 3))</a></code> will create a
 separate factor level for values exactly equal to 2.</p></li>
-<li><p>santoku has flexible labelling, including easy ways to label intervals by
+<li><p>Flexible labelling, including easy ways to label intervals by
 numerals or letters.</p></li>
 <li><p>Convenience functions for creating quantile intervals, evenly-spaced
 intervals or equal-sized groups.</p></li>
@@ -157,6 +169,8 @@ intervals or equal-sized groups.</p></li>
 </ul>
     <p>These advantages make santoku especially useful for exploratory analysis,
 where you may not know the range of your data in advance.</p>
+<p>To get started, read the vignette:</p><pre>vignette("santoku")
+</pre>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

@@ -100,6 +100,18 @@
     </li>
   </ul>
 </li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Tutorials
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="tutorials/00-visualintroduction.html">A visual introduction to Santoku</a>
+    </li>
+  </ul>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -140,7 +152,14 @@
 <li>what else?</li>
 </ul>
 </li>
-<li>nice visual tutorial with e.g. a fish being split up</li>
+<li><p>nice visual tutorial with e.g. a fish being split up</p></li>
+<li>
+<code>chop_cleanly</code> - set <code>drop = FALSE</code>, <code>extend = FALSE/TRUE</code>?
+<ul>
+<li>TRUE extend ensures no NAs from non-NA input</li>
+<li>FALSE extend guarantees the number of levels (even if the breaks specified were infinite); not important if breaks are manually specified, but perhaps if e.g. <code>brk_mean_se</code> is called?</li>
+</ul>
+</li>
 </ul>
 </div>
 <div id="questions" class="section level1">
@@ -157,6 +176,18 @@
 <li>the label function is the prob at the moment</li>
 </ul>
 </li>
+<li><p>Do we need <code>drop</code>?</p></li>
+<li>Should we have a flag to return characters?
+<ul>
+<li>I’m skeptical, <code>forcats()</code> exists suggesting that factors aren’t yet seen as worthless!</li>
+</ul>
+</li>
+</ul>
+</div>
+<div id="questions-with-a-provisional-answer" class="section level1">
+<h1 class="hasAnchor">
+<a href="#questions-with-a-provisional-answer" class="anchor"></a>Questions with a (provisional) answer</h1>
+<ul>
 <li>When to extend?
 <ul>
 <li>I think default should be “if necessary” (<code>extend = NULL</code>); should always extend to Inf, -Inf so that these break labels are not data-dependent</li>
@@ -175,12 +206,6 @@
 <li>overall I’m against</li>
 </ul>
 </li>
-</ul>
-</div>
-<div id="questions-with-an-attempted-answer" class="section level1">
-<h1 class="hasAnchor">
-<a href="#questions-with-an-attempted-answer" class="anchor"></a>Questions with an attempted answer</h1>
-<ul>
 <li>Is the label interface right? Problem exposed by <code>brk_mean_sd</code>: if we aren’t sure whether data gets extended, then how do we know what the labels should be?
 <ul>
 <li>maybe label functions should have access to <code>x</code>?</li>
