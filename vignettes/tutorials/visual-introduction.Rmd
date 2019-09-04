@@ -319,6 +319,21 @@ chop_width(x, 200, labels = lbl_roman("(%s)"))
 demo_chop(brk_width(200), labels = lbl_roman("(%s)"), show_labels = TRUE, cex_labels = 1)
 ```
 
+## Changing labels
+
+Not sure how many intervals you will have? 
+
+Use a `lbl_*` function.
+
+```{r, echo = TRUE, eval = FALSE}
+chop_width(x, 200, labels = lbl_dash())
+```
+
+
+```{r}
+demo_chop(brk_width(200), labels = lbl_dash(), show_labels = TRUE, cex_labels = 0.8)
+```
+
 ## Left-closed and right-closed
 
 Breaks are closed on the left by default.
@@ -345,5 +360,11 @@ demo_chop(brk_right(c(200, 500, 800)), swoosh = TRUE)
 ```
 
 ## Happy chopping!
+
+https://hughjonesd.github.io/santoku
+
+```{r, echo = TRUE, eval = FALSE}
+devtools::install_github("hughjonesd/santoku")
+```
 
 ![Chopping](https://media.giphy.com/media/ceQ6oQNVCVbgY/giphy.gif)
