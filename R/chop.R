@@ -67,8 +67,7 @@ chop <- function (x, breaks, labels,
   if (! is.breaks(breaks)) {
     breaks <- brk_left(breaks)(x, extend)
   }
-  stopifnot(is.breaks(breaks))
-  stopifnot(length(breaks) >= 2L)
+  assert_that(is.breaks(breaks), length(breaks) >= 2L)
 
   if (missing(labels)) labels <- NULL
   labels <- labels %||% lbl_intervals()

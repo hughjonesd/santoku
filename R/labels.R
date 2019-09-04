@@ -26,6 +26,8 @@ NULL
 #' @examples
 #' tab(-10:10, c(-3, 0, 0, 3), labels = lbl_intervals())
 lbl_intervals <- function (raw = FALSE) {
+  assert_that(is.flag(raw))
+
   function (breaks) {
     stopifnot(is.breaks(breaks))
     left <- attr(breaks, "left")
@@ -71,6 +73,8 @@ lbl_intervals <- function (raw = FALSE) {
 #' tab(1:10, c(1,3, 3, 7), label = lbl_format("%s to %s"))
 #' tab(1:10, c(1,3, 3, 7), label = lbl_format("%s to %s", "Exactly %s"))
 lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
+  assert_that(is.string(fmt), is.string(fmt1), is.flag(raw))
+
   function (breaks) {
     stopifnot(is.breaks(breaks))
     len_b <- length(breaks)
@@ -102,6 +106,8 @@ lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
 #' tab(0:20, c(0, 5, 5, 10), lbl_dash())
 #' tab(0:20, c(0, 5, 5, 10), lbl_dash(" to "))
 lbl_dash <- function (symbol = " - ", raw = FALSE) {
+  assert_that(is.string(symbol), is.flag(raw))
+
   function (breaks) {
     break_labels <- choose_break_labels(breaks, raw)
 
@@ -157,6 +163,8 @@ NULL
 #' @rdname sequence-labels
 #' @export
 lbl_numerals <- function (fmt = "%s") {
+  assert_that(is.string(fmt))
+
   function (breaks) {
     sprintf(fmt, seq(1L, length(breaks) - 1))
   }
@@ -166,6 +174,8 @@ lbl_numerals <- function (fmt = "%s") {
 #' @rdname sequence-labels
 #' @export
 lbl_roman <- function (fmt = "%s") {
+  assert_that(is.string(fmt))
+
   function (breaks) {
     sprintf(fmt, tolower(utils::as.roman(seq(1L, length(breaks) - 1))))
   }
@@ -175,6 +185,8 @@ lbl_roman <- function (fmt = "%s") {
 #' @rdname sequence-labels
 #' @export
 lbl_ROMAN <- function (fmt = "%s") {
+  assert_that(is.string(fmt))
+
   function (breaks) {
     sprintf(fmt, utils::as.roman(seq(1L, length(breaks) - 1)))
   }
@@ -199,6 +211,8 @@ lbl_LETTERS <- function (fmt = "%s") {
 #' @param sequence A character vector.
 #' @export
 lbl_sequence <- function (sequence, fmt = "%s") {
+  assert_that(is.string(fmt))
+
   if (anyDuplicated(sequence) > 0L) stop("`sequence` contains duplicate items")
   function (breaks) {
     ls <- sequence

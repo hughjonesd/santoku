@@ -1,3 +1,7 @@
+
+#' @import assertthat
+NULL
+
 #' A versatile cutting tool for R
 #'
 #' santoku is a tool for cutting numeric data into intervals. It provides

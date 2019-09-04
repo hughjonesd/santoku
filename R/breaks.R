@@ -16,7 +16,8 @@ NULL
 #' @examples
 #' chop(c(1, 1, 2, 2, 3, 4), brk_quantiles(1:3/4))
 brk_quantiles <- function (probs, ...) {
-  force(probs)
+  assert_that(is.numeric(probs), noNA(probs), all(probs >= 0), all(probs <= 1))
+
   function (x, extend) {
     extend <- extend %||% needs_extend(probs, c(0, 1)) # hacky
     if (extend) probs <- c(0, probs, 1)
@@ -44,9 +45,8 @@ brk_quantiles <- function (probs, ...) {
 #' @examples
 #' tab(rnorm(20), brk_mean_sd())
 brk_mean_sd <- function (sd = 3) {
-  force(sd)
-  stopifnot(sd >= 0)
-  if (sd != round(sd)) stop("`sd` must be a whole number")
+  assert_that(is.count(sd))
+
   function (x, extend) {
     x_m <- mean(x, na.rm = TRUE)
     x_sd <- sd(x, na.rm = TRUE)
@@ -89,9 +89,11 @@ brk_mean_sd <- function (sd = 3) {
 #' @examples
 #' chop(runif(10), brk_width(0.2, 0))
 brk_width <- function (width, start) {
-  stopifnot(is.numeric(width))
-  stopifnot(width > 0)
+  assert_that(is.number(width), width > 0)
+
   sm <- missing(start)
+  if (! sm) assert_that(is.number(start))
+
   function (x, extend) {
     if (sm) start <- suppressWarnings(min(x[is.finite(x)]))
     # finite if x has any non-NA finite elements:
@@ -118,9 +120,8 @@ brk_width <- function (width, start) {
 #'
 #' @export
 brk_evenly <- function(groups) {
-  stopifnot(is.numeric(groups))
-  if(! (groups == round(groups))) stop("`groups` must be a whole number")
-  force(groups)
+  assert_that(is.count(groups))
+
   function (x, breaks) {
     total_width <- suppressWarnings(max(x[is.finite(x)]) - min(x[is.finite(x)]))
     if (total_width < 0) stop("No finite elements in `x`")
@@ -142,7 +143,8 @@ brk_evenly <- function(groups) {
 #' @examples
 #' tab(runif(10), brk_n(2))
 brk_n <- function (n) {
-  force(n)
+  assert_that(is.count(n))
+
   function (x, extend) {
     xs <- sort(x) # remove NAs
     breaks <- if (length(xs) < 1L) {
@@ -177,16 +179,21 @@ NULL
 
 #' @rdname brk-left-right
 #' @export
-brk_left <- function (breaks, close_end = TRUE) UseMethod("brk_left")
-
+brk_left <- function (breaks, close_end = TRUE) {
+  UseMethod("brk_left")
+}
 
 #' @rdname brk-left-right
 #' @export
-brk_right <- function (breaks, close_end = TRUE) UseMethod("brk_right")
+brk_right <- function (breaks, close_end = TRUE) {
+  UseMethod("brk_right")
+}
 
 
 #' @export
 brk_left.default <- function (breaks, close_end = TRUE) {
+  assert_that(is.numeric(breaks), noNA(breaks), is.flag(close_end))
+
   function(x, extend) {
     breaks <- create_left_breaks(breaks, close_end)
     breaks <- maybe_extend(breaks, x, extend)
@@ -197,6 +204,8 @@ brk_left.default <- function (breaks, close_end = TRUE) {
 
 #' @export
 brk_right.default <- function (breaks, close_end = TRUE) {
+  assert_that(is.numeric(breaks), noNA(breaks), is.flag(close_end))
+
   function (x, extend) {
     breaks <- create_right_breaks(breaks, close_end)
     breaks <- maybe_extend(breaks, x, extend)
@@ -207,6 +216,8 @@ brk_right.default <- function (breaks, close_end = TRUE) {
 
 #' @export
 brk_left.function <- function (breaks, close_end = TRUE) {
+  assert_that(is.flag(close_end))
+
   function(x, extend) {
     breaks <- breaks(x, extend) # already contains left/labels and is extended
     create_left_breaks(breaks, close_end)
@@ -216,6 +227,8 @@ brk_left.function <- function (breaks, close_end = TRUE) {
 
 #' @export
 brk_right.function <- function (breaks, close_end = TRUE) {
+  assert_that(is.flag(close_end))
+
   function(x, extend) {
     breaks <- breaks(x, extend)
     create_right_breaks(breaks, close_end)
@@ -261,6 +274,9 @@ brk_right.function <- function (breaks, close_end = TRUE) {
 #'
 #' chop(1:3, brks_singleton, extend = FALSE)
 brk_manual <- function (breaks, left) {
+  assert_that(is.numeric(breaks), noNA(breaks), is.logical(left), noNA(left),
+        length(left) == length(breaks))
+
   function (x, extend) {
     breaks <- create_breaks(breaks, left)
 
@@ -283,8 +299,8 @@ NULL
 #' @rdname breaks-class
 #' @export
 format.breaks <- function (x, ...) {
-  if (length(x) < 2) return("Breaks object with no complete intervals")
-  paste(lbl_intervals()(x), collapse = " ")
+  if (length(x) < 2) return("Breaks object: no complete intervals")
+  paste0("Breaks object: ", paste(lbl_intervals()(x), collapse = " "))
 }
 
 

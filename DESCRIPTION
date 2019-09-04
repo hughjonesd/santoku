@@ -26,7 +26,8 @@ Suggests:
 LinkingTo: 
     Rcpp
 Imports: 
-    Rcpp
+    Rcpp,
+    assertthat
 URL: https://github.com/hughjonesd/santoku, https://hughjonesd.github.io/santoku/
 BugReports: https://github.com/hughjonesd/santoku/issues
 VignetteBuilder: knitr
