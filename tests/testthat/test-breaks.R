@@ -89,10 +89,10 @@ test_that("brk_width", {
   expect_equal(bvec[1], 0.5)
 
   b <- brk_width(1)(rep(NA, 2), FALSE)
-  expect_identical(as.vector(b), numeric(0))
+  expect_identical(as.vector(b), c(-Inf, Inf))
 
   b <- brk_width(1)(c(Inf, -Inf, NA), FALSE)
-  expect_identical(as.vector(b), numeric(0))
+  expect_identical(as.vector(b), c(-Inf, Inf))
 
   b <- brk_width(1)(c(NA, 2, 4, NA), FALSE)
   expect_equal(diff(as.vector(b))[1], 1)
