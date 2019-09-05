@@ -4,17 +4,11 @@
 NULL
 
 
-#' Breaks using quantiles
+#' @rdname chop_quantiles
 #'
-#' @param probs Vector of probabilities for quantiles
-#' @param ... Arguments passed to [quantile()]
-#'
-#' @inherit breaks-doc return
+#' @param ... Arguments passed to [quantile()].
 #'
 #' @export
-#'
-#' @examples
-#' chop(c(1, 1, 2, 2, 3, 4), brk_quantiles(1:3/4))
 brk_quantiles <- function (probs, ...) {
   assert_that(is.numeric(probs), noNA(probs), all(probs >= 0), all(probs <= 1))
 
@@ -43,16 +37,8 @@ brk_quantiles <- function (probs, ...) {
 }
 
 
-#' Break into standard deviations around the mean
-#'
-#' @param sd Whole number: include `sd` standard deviations on each side of
-#'   the mean.
-#' @inherit breaks-doc params return
-#'
+#' @rdname chop_mean_sd
 #' @export
-#'
-#' @examples
-#' tab(rnorm(20), brk_mean_sd())
 brk_mean_sd <- function (sd = 3) {
   assert_that(is.count(sd))
 
@@ -83,20 +69,9 @@ brk_mean_sd <- function (sd = 3) {
 }
 
 
-#' Equal-width breaks
-#'
-#' `brk_width()` creates intervals of width `width`. `brk_evenly()` creates
-#' `groups` intervals of equal width.
-#'
-#' @param width Width of intervals.
-#' @param start Leftpoint of first interval. By default the lowest finite `x`.
-#'
-#' @inherit breaks-doc return
-#'
+
+#' @rdname chop_width
 #' @export
-#'
-#' @examples
-#' chop(runif(10), brk_width(0.2, 0))
 brk_width <- function (width, start) {
   assert_that(is.number(width), width > 0)
 
@@ -126,10 +101,7 @@ brk_width <- function (width, start) {
 }
 
 
-#' @rdname brk_width
-#'
-#' @param groups Integer: number of intervals to create.
-#'
+#' @rdname chop_width
 #' @export
 brk_evenly <- function(groups) {
   assert_that(is.count(groups))
@@ -142,18 +114,8 @@ brk_evenly <- function(groups) {
 }
 
 
-#' Breaks with a fixed number of elements
-#'
-#' `brk_n()` creates intervals containing a fixed number of elements. One
-#' interval may have fewer elements.
-#'
-#' @param n Integer: number of elements in each interval.
-#' @inherit breaks-doc return
-#'
+#' @rdname chop_n
 #' @export
-#'
-#' @examples
-#' tab(runif(10), brk_n(2))
 brk_n <- function (n) {
   assert_that(is.count(n))
 

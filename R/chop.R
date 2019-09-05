@@ -99,7 +99,8 @@ chop <- function (x, breaks, labels,
 #' @export
 #'
 #' @examples
-#' chop_quantiles(rnorm(10), c(1/3, 2/3))
+#' chop_quantiles(rnorm(10), 1:3/4)
+#' chop(rnorm(10), brk_quantiles(1:3/4))
 chop_quantiles <- function(x, probs, ...) {
   chop(x, brk_quantiles(probs), ...)
 }
@@ -127,13 +128,15 @@ chop_equally <- function (x, groups, ...) {
 
 #' Chop by standard deviations
 #'
-#' @inherit brk_mean_sd params
+#' @param sd Whole number: include `sd` standard deviations on each side of
+#'   the mean.
 #' @inherit chop-doc params return
 #'
 #' @export
 #'
 #' @examples
-#' chop_mean_sd(rnorm(20))
+#' chop_mean_sd(rnorm(10))
+#' chop(rnorm(10), brk_mean_sd())
 chop_mean_sd <- function (x, sd = 3, ...) {
   chop(x, brk_mean_sd(sd), ...)
 }
@@ -144,8 +147,9 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' `chop_width()` chops `x` into intervals of width `width`. `chop_evenly`
 #' chops `x` into `groups` intervals of equal width.
 #'
+#' @param width Width of intervals.
+#' @param start Leftpoint of first interval. By default the lowest finite `x`.
 #' @inherit chop-doc params return
-#' @inherit brk_width params
 #'
 #' @export
 #'
@@ -153,6 +157,7 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' x <- 1:10
 #' chop_width(x, 2)
 #' chop_width(x, 2, start = 0)
+#' chop(x, brk_width(2, 0))
 #' chop_evenly(x, 5)
 chop_width <- function (x, width, start, ...) {
   chop(x, brk_width(width, start), ...)
@@ -160,6 +165,9 @@ chop_width <- function (x, width, start, ...) {
 
 
 #' @rdname chop_width
+#'
+#' @param groups Integer: number of intervals to create.
+#'
 #' @export
 chop_evenly <- function (x, groups, ...) {
   chop(x, brk_evenly(groups), ...)
@@ -168,7 +176,10 @@ chop_evenly <- function (x, groups, ...) {
 
 #' Chop into fixed-sized groups
 #'
-#' @param n Size of groups to return.
+#' `chop_n()` creates intervals containing a fixed number of elements. One
+#' interval may have fewer elements.
+#'
+#' @param n Integer: number of elements in each interval.
 #' @inherit chop-doc params return
 #'
 #' @export
