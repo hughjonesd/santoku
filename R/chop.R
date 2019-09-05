@@ -121,7 +121,7 @@ chop_deciles <- function(x, ...) {
 #' @examples
 #' chop_equally(rnorm(10), 5)
 chop_equally <- function (x, groups, ...) {
-  chop_quantiles(x, seq(1, groups - 1)/groups, ...)
+  chop_quantiles(x, seq(0, groups)/groups, ...)
 }
 
 
