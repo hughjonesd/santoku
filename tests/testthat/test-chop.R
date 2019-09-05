@@ -200,7 +200,7 @@ test_that("systematic tests", {
 
   # some things should fail
   ef <- function (cond) test_df$expect_fail[cond] <<- TRUE
-  ef(names(test_df$x)== "char")
+  ef(names(test_df$x) == "char")
   ef(names(test_df$x) == "complex")
   ef(
           names(test_df$x) %in% c("same", "one") &

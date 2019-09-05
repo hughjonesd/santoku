@@ -19,12 +19,19 @@ brk_quantiles <- function (probs, ...) {
   assert_that(is.numeric(probs), noNA(probs), all(probs >= 0), all(probs <= 1))
 
   function (x, extend) {
-    extend <- extend %||% needs_extend(probs, c(0, 1)) # hacky
-    if (extend) probs <- c(0, probs, 1)
+    probs <- sort(probs)
     qs <- stats::quantile(x, probs, na.rm = TRUE, ...)
-    qs <- sort(qs)
+    if (anyNA(qs)) return(empty_breaks()) # data was all NA
+    non_dupes <- ! duplicated(qs)
+    qs <- qs[non_dupes]
+    probs <- probs[non_dupes]
 
     breaks <- create_left_breaks(qs)
+    if (extend %||% needs_extend(breaks, x)) {
+      if (qs[1] > -Inf) probs <- c(0, probs)
+      if (qs[length(qs)] < Inf) probs <- c(probs, 1)
+    }
+    breaks <- maybe_extend(breaks, x, extend)
 
     break_labels <- paste0(formatC(probs * 100, format = "fg"), "%")
     attr(breaks, "break_labels") <- break_labels
