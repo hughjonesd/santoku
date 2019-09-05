@@ -373,6 +373,29 @@ chop(x, brk_right(c(200, 500, 800)))
 demo_chop(brk_right(c(200, 500, 800)), swoosh = TRUE)
 ```
 
+## Errors
+
+![chopping fail](https://media.giphy.com/media/2zom27Xqp7PVe/giphy.gif)
+
+## Errors {.smallfont}
+
+<small>Sometimes it's impossible to create the breaks you want.</small>
+
+```{r, echo = TRUE}
+chop_quantiles(c(-Inf, Inf), c(0.25, 0.75))
+```
+
+<small>When the problem comes from the data (`x`), santoku will try to carry on
+(e.g. by returning a single interval).</small>
+
+<small>When the problem comes from other parameters, e.g. `breaks` or `extend`,
+santoku will give an error.</small>
+
+```{r, echo = TRUE, error = TRUE}
+chop_quantiles(1:5, c(0.25, NA))
+```
+
+
 ## Happy chopping!
 
 https://hughjonesd.github.io/santoku

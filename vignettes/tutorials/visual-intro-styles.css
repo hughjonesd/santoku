@@ -1,5 +1,9 @@
 .reveal section img {
-  background:none;
-  border:none;
-  box-shadow:none;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.smallfont section p{
+   font-size: 0.4em;
 }
