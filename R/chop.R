@@ -61,6 +61,7 @@ chop <- function (x, breaks, labels,
         extend = NULL,
         drop   = TRUE
       ) {
+  assert_that(is.numeric(x))
   if (is.function(breaks))  {
     breaks <- breaks(x, extend)
   }
