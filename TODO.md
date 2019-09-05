@@ -17,8 +17,23 @@
     but perhaps if e.g. `brk_mean_se` is called?
   
 
+# Thoughts on errors
+
+* On the whole, we don't want to error out if `x` is weird. `x` is data. But
+  if e.g. `breaks` are weird, we can error out.
+  - Exception: `x` is the wrong class or type.
+  
+* In some cases we want to guarantee the set of breaks.
+  - e.g. `brk_left()`, `brk_manual()` with `extend` set.
+
+* In other cases, e.g. `brk_evenly()` we don't need to make such a guarantee.
+
+
 
 # Questions
+
+* Should `brk_` documentation be merged with `chop_` documentation?
+  - Yes. Otherwise you put details twice.
   
 * What to do with data-dependent breaks when there's an unexpected number
   of breaks? 
