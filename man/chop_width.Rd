@@ -26,6 +26,9 @@ chop_evenly(x, groups, ...)
 
 \item{...}{Passed to \code{chop}.}
 }
+\value{
+For  \code{chop_*} functions, a factor of the same length as \code{x}.
+}
 \description{
 \code{chop_width()} chops \code{x} into intervals of width \code{width}. \code{chop_evenly}
 chops \code{x} into \code{groups} intervals of equal width.

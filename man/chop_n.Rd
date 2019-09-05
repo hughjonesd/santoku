@@ -16,6 +16,9 @@ chop_n(x, n, ...)
 
 \item{...}{Passed to \code{chop}.}
 }
+\value{
+For  \code{chop_*} functions, a factor of the same length as \code{x}.
+}
 \description{
 \code{chop_n()} creates intervals containing a fixed number of elements. One
 interval may have fewer elements.

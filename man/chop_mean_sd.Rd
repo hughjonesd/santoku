@@ -17,6 +17,9 @@ the mean.}
 
 \item{...}{Passed to \code{chop}.}
 }
+\value{
+For  \code{chop_*} functions, a factor of the same length as \code{x}.
+}
 \description{
 Chop by standard deviations
 }

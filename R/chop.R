@@ -3,6 +3,8 @@
 #' @name chop-doc
 #' @param x A numeric vector.
 #' @param breaks,labels,...  Passed to `chop`.
+#' @return
+#' For  `chop_*` functions, a factor of the same length as `x`.
 NULL
 
 
@@ -115,7 +117,7 @@ chop_deciles <- function(x, ...) {
 
 #' @rdname chop_quantiles
 #'
-#' @param groups Number of groups
+#' @param groups Number of groups.
 #'
 #' @export
 #'

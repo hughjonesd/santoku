@@ -145,7 +145,6 @@ lbl_dash <- function (symbol = " - ", raw = FALSE) {
 #' @inherit label-doc params return
 #'
 #' @examples
-#'
 #' tab(1:10, c(3, 4), lbl_numerals())
 #' tab(1:10, c(3, 4), lbl_numerals("(%s)"))
 #' tab(1:10, c(3, 4), lbl_letters())

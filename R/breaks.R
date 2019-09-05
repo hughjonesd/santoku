@@ -1,8 +1,4 @@
 
-#' @name breaks-doc
-#' @return A (function which returns an) object of class `breaks`.
-NULL
-
 
 #' @rdname chop_quantiles
 #'
@@ -130,6 +126,11 @@ brk_n <- function (n) {
     breaks
   }
 }
+
+
+#' @name breaks-doc
+#' @return A (function which returns an) object of class `breaks`.
+NULL
 
 
 #' Left- or right-closed breaks

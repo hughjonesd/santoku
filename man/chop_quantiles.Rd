@@ -22,7 +22,10 @@ chop_equally(x, groups, ...)
 
 \item{x}{A numeric vector.}
 
-\item{groups}{Number of groups}
+\item{groups}{Number of groups.}
+}
+\value{
+For  \code{chop_*} functions, a factor of the same length as \code{x}.
 }
 \description{
 \code{chop_quantiles} chops data by quantiles. \code{chop_equally} chops
