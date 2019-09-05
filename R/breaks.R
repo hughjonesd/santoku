@@ -51,13 +51,13 @@ brk_mean_sd <- function (sd = 3) {
     x_m <- mean(x, na.rm = TRUE)
     x_sd <- sd(x, na.rm = TRUE)
 
-    breaks <- if (is.na(x_m) || is.na(x_sd) || x_sd == 0) {
-      numeric(0)
-    } else {
-      s1 <- seq(x_m, x_m - sd * x_sd, - x_sd)
-      s2 <- seq(x_m, x_m + sd * x_sd, x_sd)
-      c(sort(s1), s2[-1])
+    if (is.na(x_m) || is.na(x_sd) || x_sd == 0) {
+      return(empty_breaks())
     }
+
+    s1 <- seq(x_m, x_m - sd * x_sd, - x_sd)
+    s2 <- seq(x_m, x_m + sd * x_sd, x_sd)
+    breaks <- c(sort(s1), s2[-1])
 
     breaks <- create_left_breaks(breaks)
     breaks <- maybe_extend(breaks, x, extend)
@@ -98,12 +98,15 @@ brk_width <- function (width, start) {
     if (sm) start <- suppressWarnings(min(x[is.finite(x)]))
     # finite if x has any non-NA finite elements:
     max_x <- suppressWarnings(max(x[is.finite(x)]))
-    breaks <- if (is.finite(start) && is.finite(max_x)) {
+
+    if (is.finite(start) && is.finite(max_x)) {
       seq_end <- max_x
-      if ((max_x - start) %% width != 0) seq_end <- seq_end + width
-      seq(start, seq_end, width)
+      if ((max_x - start) %% width != 0 || max_x == start) {
+        seq_end <- seq_end + width
+      }
+      breaks <- seq(start, seq_end, width)
     } else {
-      numeric(0)
+      return(empty_breaks())
     }
 
     breaks <- create_left_breaks(breaks)
@@ -122,10 +125,10 @@ brk_width <- function (width, start) {
 brk_evenly <- function(groups) {
   assert_that(is.count(groups))
 
-  function (x, breaks) {
+  function (x, extend) {
     total_width <- suppressWarnings(max(x[is.finite(x)]) - min(x[is.finite(x)]))
-    if (total_width < 0) stop("No finite elements in `x`")
-    brk_width(total_width/groups)(x, breaks)
+    if (total_width <= 0) return(empty_breaks())
+    brk_width(total_width/groups)(x, extend)
   }
 }
 
@@ -147,11 +150,9 @@ brk_n <- function (n) {
 
   function (x, extend) {
     xs <- sort(x) # remove NAs
-    breaks <- if (length(xs) < 1L) {
-      numeric(0)
-    } else {
-      xs[c(seq(1L, length(xs), n), length(xs))]
-    }
+    if (length(xs) < 1L) return(empty_breaks())
+
+    breaks <-  xs[c(seq(1L, length(xs), n), length(xs))]
     breaks <- create_left_breaks(breaks, close_end = TRUE)
     breaks <- maybe_extend(breaks, x, extend)
 

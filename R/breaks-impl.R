@@ -28,7 +28,8 @@ create_breaks <- function (obj, left) {
   stopifnot(all(left[l_singletons]))
   stopifnot(all(! left[r_singletons]))
 
-  break_labels <- attr(obj, "break_labels") %||% unique_truncation(obj)
+  break_labels <- attr(obj, "break_labels") %||%
+        unique_truncation(as.numeric(obj))
 
   structure(obj, left = left, break_labels = break_labels, class = "breaks")
 }
@@ -58,8 +59,13 @@ create_right_breaks <- function (obj, close_end = TRUE) {
 }
 
 
+empty_breaks <- function () {
+  create_breaks(c(-Inf, Inf), c(TRUE, FALSE))
+}
+
 needs_extend <- function (breaks, x) {
   suppressWarnings(
+          length(breaks) < 2L ||
           min(x, na.rm = TRUE) < min(breaks) ||
           max(x, na.rm = TRUE) > max(breaks)
         )
