@@ -22,10 +22,12 @@ brk_quantiles <- function (probs, ...) {
     probs <- sort(probs)
     qs <- stats::quantile(x, probs, na.rm = TRUE, ...)
     if (anyNA(qs)) return(empty_breaks()) # data was all NA
+
     non_dupes <- ! duplicated(qs)
     qs <- qs[non_dupes]
     probs <- probs[non_dupes]
 
+    # order matters in the stanza below:
     breaks <- create_left_breaks(qs)
     if (extend %||% needs_extend(breaks, x)) {
       if (qs[1] > -Inf) probs <- c(0, probs)
