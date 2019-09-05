@@ -80,7 +80,6 @@ lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
     len_b <- length(breaks)
 
     labels <- character(len_b - 1)
-    len_i <- length(labels)
     singletons <- singletons(breaks)
 
     break_labels <- choose_break_labels(breaks, raw)
@@ -229,7 +228,7 @@ lbl_sequence <- function (sequence, fmt = "%s") {
 choose_break_labels <- function (breaks, raw) {
   bl <- attr(breaks, "break_labels")
   if (raw || is.null(bl)) {
-    return(unique_truncation(breaks))
+    return(unique_truncation(as.numeric(breaks)))
   } else {
     return(bl)
   }
