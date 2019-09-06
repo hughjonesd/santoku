@@ -12,7 +12,9 @@
 #' @export
 #'
 #' @examples
-#' tab(rnorm(100), -2:2)
+#' tab(1:10, c(2, 5, 8))
+#'
+#' tab_mean_sd(1:10)
 tab <- function (...) {
   default_table(chop(...))
 }
