@@ -120,6 +120,8 @@ chop <- function (x, breaks, labels,
 #'
 #' chop_deciles(1:10)
 #'
+#' chop_equally(1:10, 5)
+#'
 #' # to label by the quantiles themselves:
 #' chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
 #'
@@ -140,9 +142,6 @@ chop_deciles <- function(x, ...) {
 #' @param groups Number of groups.
 #'
 #' @export
-#'
-#' @examples
-#' chop_equally(1:10, 5)
 chop_equally <- function (x, groups, ...) {
   chop_quantiles(x, seq(0, groups)/groups, ...)
 }

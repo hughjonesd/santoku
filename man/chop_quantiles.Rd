@@ -39,10 +39,11 @@ chop(1:10, brk_quantiles(1:3/4))
 
 chop_deciles(1:10)
 
+chop_equally(1:10, 5)
+
 # to label by the quantiles themselves:
 chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
 
-chop_equally(1:10, 5)
 }
 \seealso{
 Other chopping functions: \code{\link{brk_mean_sd}},
