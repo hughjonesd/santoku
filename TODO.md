@@ -3,12 +3,19 @@
 # TODO
 
 * tests
-  - brk_mean_se and friends
-  - weird input
-  - weird breaks (1 or 0 length, 3 repeats...)
+  - systematic tests for `brk_*` functions
   
-* cut e.g. Dates
-  - what else?
+* `brk_equally` for symmetry
+
+* cut e.g. Dates, posixct, DateT
+  - what else? ts, xts, zoo, lubridate classes
+  - this is one for 0.2.0 I think
+  - probably call it something like `chop_dates` rather than trying to
+    do OO
+  - `brk_days()`, `brk_weeks()` etc.? Equivalent to all lubridate's `days()` etc.
+    classes? 
+  - the basic `chop` function, with appropriate breaks, might already 
+  "almost work" b/c it just uses arithmetic comparisons
   
 * `chop_cleanly` - set `drop = FALSE`, `extend = FALSE/TRUE`? 
   - TRUE extend ensures no NAs from non-NA input
@@ -32,25 +39,11 @@
 
 # Questions
 
-* Should `brk_` documentation be merged with `chop_` documentation?
-  - Yes. Otherwise you put details twice.
-  
-* What to do with data-dependent breaks when there's an unexpected number
-  of breaks? 
-  - E.g. `chop_deciles(rep(NA, 5))`
-  - Or indeed what if some quantiles are the same? e.g.
-  `quantile(c(1, rep(2, 10), 3), c(.3, .6))`
-  - answer is that corresponding label functions should deal with arbitrary 
-    numbers of labels
-  - the label function is the prob at the moment
-
 * Do we need `drop`?
 
 * Should we have a flag to return characters?
   - I'm skeptical, `forcats()` exists suggesting that factors aren't yet
     seen as worthless!
-
-
   
 # Questions with a (provisional) answer
 

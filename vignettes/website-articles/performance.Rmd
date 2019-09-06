@@ -19,10 +19,16 @@ knitr::opts_chunk$set(
 The core of santoku is written in C++. It is reasonably fast:
 
 ```{r, cache = TRUE}
+
 packageVersion("santoku")
-microbenchmark::microbenchmark(
+mb <- microbenchmark::microbenchmark(
         santoku::chop(rnorm(1e5), -2:2),
                   cut(rnorm(1e5), -2:2),
           Hmisc::cut2(rnorm(1e5), -2:2)
       )
+mb
+```
+
+```{r, fig.width = 6}
+ggplot2::autoplot(mb) + ggplot2::theme_light()
 ```
