@@ -37,3 +37,9 @@ chop_quantiles(rnorm(10), 1:3/4)
 chop(rnorm(10), brk_quantiles(1:3/4))
 chop_equally(rnorm(10), 5)
 }
+\seealso{
+Other chopping functions: \code{\link{brk_mean_sd}},
+  \code{\link{brk_n}}, \code{\link{brk_width}},
+  \code{\link{chop}}
+}
+\concept{chopping functions}

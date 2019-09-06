@@ -19,6 +19,14 @@ A vector of labels for \code{chop}, or a function that creates labels.
 Labels like 1 - 3, 4 - 5, ...
 }
 \examples{
-tab(0:20, c(0, 5, 5, 10), lbl_dash())
-tab(0:20, c(0, 5, 5, 10), lbl_dash(" to "))
+chop(1:10, c(2, 5, 8), lbl_dash())
+
+chop(1:10, c(2, 5, 8), lbl_dash(" to "))
+
 }
+\seealso{
+Other labelling functions: \code{\link{lbl_format}},
+  \code{\link{lbl_intervals}},
+  \code{\link{sequence-labels}}
+}
+\concept{labelling functions}

@@ -10,6 +10,8 @@ NULL
 #'
 #' @inherit label-doc params return
 #'
+#' @family labelling functions
+#'
 #' @details
 #'
 #' Mathematical set notation is as follows:
@@ -62,6 +64,8 @@ lbl_intervals <- function (raw = FALSE) {
 #' @param fmt1 Format for breaks consisting of a single value.
 #' @inherit label-doc params return
 #'
+#' @family labelling functions
+#'
 #' @details
 #' If `raw = FALSE`, breaks will be preformatted as strings
 #' before being passed to [sprintf()], so only `"%s"` should be used in
@@ -99,11 +103,15 @@ lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
 #' @param symbol String: symbol to use for the dash.
 #' @inherit label-doc params return
 #'
+#' @family labelling functions
+#'
 #' @export
 #'
 #' @examples
-#' tab(0:20, c(0, 5, 5, 10), lbl_dash())
-#' tab(0:20, c(0, 5, 5, 10), lbl_dash(" to "))
+#' chop(1:10, c(2, 5, 8), lbl_dash())
+#'
+#' chop(1:10, c(2, 5, 8), lbl_dash(" to "))
+#'
 lbl_dash <- function (symbol = " - ", raw = FALSE) {
   assert_that(is.string(symbol), is.flag(raw))
 
@@ -144,17 +152,25 @@ lbl_dash <- function (symbol = " - ", raw = FALSE) {
 #'
 #' @inherit label-doc params return
 #'
+#' @family labelling functions
+#'
 #' @examples
-#' tab(1:10, c(3, 4), lbl_numerals())
-#' tab(1:10, c(3, 4), lbl_numerals("(%s)"))
-#' tab(1:10, c(3, 4), lbl_letters())
-#' tab(1:10, c(3, 4), lbl_LETTERS())
-#' tab(1:10, c(3, 4), lbl_roman())
-#' tab(1:10, c(3, 4), lbl_ROMAN())
-#' tab(1:10, c(3, 4), lbl_sequence(c("x", "y", "z")))
+#' chop(1:10, c(2, 5, 8), lbl_numerals())
+#'
+#' chop(1:10, c(2, 5, 8), lbl_numerals("(%s)"))
+#'
+#' chop(1:10, c(2, 5, 8), lbl_letters())
+#'
+#' chop(1:10, c(2, 5, 8), lbl_LETTERS())
+#'
+#' chop(1:10, c(2, 5, 8), lbl_roman())
+#'
+#' chop(1:10, c(2, 5, 8), lbl_ROMAN())
+#'
+#' chop(1:10, c(2, 5, 8), lbl_sequence(c("w", "x", "y", "z")))
 #'
 #' # if labels need repeating:
-#' tab(1:10, 1:10, lbl_sequence(c("x", "y", "z")))
+#' chop(1:10, 1:10, lbl_sequence(c("x", "y", "z")))
 NULL
 
 

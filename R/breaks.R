@@ -238,6 +238,7 @@ brk_right.function <- function (breaks, close_end = TRUE) {
 #' @examples
 #' lbrks <- brk_manual(1:3, rep(TRUE, 3))
 #' chop(1:3, lbrks, extend = FALSE)
+#'
 #' rbrks <- brk_manual(1:3, rep(FALSE, 3))
 #' chop(1:3, rbrks, extend = FALSE)
 #'

@@ -29,3 +29,8 @@ Mathematical set notation is as follows:
 \examples{
 tab(-10:10, c(-3, 0, 0, 3), labels = lbl_intervals())
 }
+\seealso{
+Other labelling functions: \code{\link{lbl_dash}},
+  \code{\link{lbl_format}}, \code{\link{sequence-labels}}
+}
+\concept{labelling functions}

@@ -51,14 +51,23 @@ NULL
 #'
 #' @export
 #'
+#' @family chopping functions
+#'
 #' @seealso cut
 #'
 #' @examples
 #' chop(1:3, 2)
-#' chop(rnorm(10), -2:2)
-#' chop(rnorm(10), -2:2, extend = FALSE)
-#' chop(rnorm(10), brk_quantiles(c(0.25, 0.75)))
-#' chop(rnorm(10), -2:2, labels = lbl_dash())
+#'
+#' chop(1:10, c(2, 5, 8))
+#'
+#' chop(1:10, c(2, 5, 8), extend = FALSE)
+#'
+#' chop(1:10, c(2, 5, 5, 8))
+#'
+#' chop(1:10, brk_quantiles(c(0.25, 0.75)))
+#'
+#' chop(1:10, c(2, 5, 8), labels = lbl_dash())
+#'
 chop <- function (x, breaks, labels,
         extend = NULL,
         drop   = TRUE
@@ -98,6 +107,8 @@ chop <- function (x, breaks, labels,
 #' @param probs A vector of probabilities for the quantiles.
 #' @inherit chop-doc params return
 #'
+#' @family chopping functions
+#'
 #' @export
 #'
 #' @examples
@@ -134,11 +145,15 @@ chop_equally <- function (x, groups, ...) {
 #'   the mean.
 #' @inherit chop-doc params return
 #'
+#' @family chopping functions
+#'
 #' @export
 #'
 #' @examples
-#' chop_mean_sd(rnorm(10))
-#' chop(rnorm(10), brk_mean_sd())
+#' chop_mean_sd(1:10)
+#'
+#' chop(1:10, brk_mean_sd())
+#'
 chop_mean_sd <- function (x, sd = 3, ...) {
   chop(x, brk_mean_sd(sd), ...)
 }
@@ -153,14 +168,19 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' @param start Leftpoint of first interval. By default the lowest finite `x`.
 #' @inherit chop-doc params return
 #'
+#' @family chopping functions
+#'
 #' @export
 #'
 #' @examples
-#' x <- 1:10
-#' chop_width(x, 2)
-#' chop_width(x, 2, start = 0)
-#' chop(x, brk_width(2, 0))
-#' chop_evenly(x, 5)
+#' chop_width(1:10, 2)
+#'
+#' chop_width(1:10, 2, start = 0)
+#'
+#' chop(1:10, brk_width(2, 0))
+#'
+#' chop_evenly(1:10, 5)
+#'
 chop_width <- function (x, width, start, ...) {
   chop(x, brk_width(width, start), ...)
 }
@@ -186,9 +206,13 @@ chop_evenly <- function (x, groups, ...) {
 #'
 #' @export
 #'
+#' @family chopping functions
+#'
 #' @examples
 #' table(chop_n(1:10, 5))
+#'
 #' table(chop_n(1:10, 4))
+#'
 chop_n <- function (x, n, ...) {
   chop(x, brk_n(n), ...)
 }

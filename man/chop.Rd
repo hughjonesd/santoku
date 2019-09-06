@@ -51,11 +51,23 @@ return \code{NA}.
 }
 \examples{
 chop(1:3, 2)
-chop(rnorm(10), -2:2)
-chop(rnorm(10), -2:2, extend = FALSE)
-chop(rnorm(10), brk_quantiles(c(0.25, 0.75)))
-chop(rnorm(10), -2:2, labels = lbl_dash())
+
+chop(1:10, c(2, 5, 8))
+
+chop(1:10, c(2, 5, 8), extend = FALSE)
+
+chop(1:10, c(2, 5, 5, 8))
+
+chop(1:10, brk_quantiles(c(0.25, 0.75)))
+
+chop(1:10, c(2, 5, 8), labels = lbl_dash())
+
 }
 \seealso{
 cut
+
+Other chopping functions: \code{\link{brk_mean_sd}},
+  \code{\link{brk_n}}, \code{\link{brk_quantiles}},
+  \code{\link{brk_width}}
 }
+\concept{chopping functions}

@@ -34,9 +34,18 @@ For  \code{chop_*} functions, a factor of the same length as \code{x}.
 chops \code{x} into \code{groups} intervals of equal width.
 }
 \examples{
-x <- 1:10
-chop_width(x, 2)
-chop_width(x, 2, start = 0)
-chop(x, brk_width(2, 0))
-chop_evenly(x, 5)
+chop_width(1:10, 2)
+
+chop_width(1:10, 2, start = 0)
+
+chop(1:10, brk_width(2, 0))
+
+chop_evenly(1:10, 5)
+
 }
+\seealso{
+Other chopping functions: \code{\link{brk_mean_sd}},
+  \code{\link{brk_n}}, \code{\link{brk_quantiles}},
+  \code{\link{chop}}
+}
+\concept{chopping functions}

@@ -24,6 +24,14 @@ For  \code{chop_*} functions, a factor of the same length as \code{x}.
 Chop by standard deviations
 }
 \examples{
-chop_mean_sd(rnorm(10))
-chop(rnorm(10), brk_mean_sd())
+chop_mean_sd(1:10)
+
+chop(1:10, brk_mean_sd())
+
 }
+\seealso{
+Other chopping functions: \code{\link{brk_n}},
+  \code{\link{brk_quantiles}}, \code{\link{brk_width}},
+  \code{\link{chop}}
+}
+\concept{chopping functions}
