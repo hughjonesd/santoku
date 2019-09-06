@@ -146,9 +146,15 @@
 </ul>
 </li>
 <li><p><code>brk_equally</code> for symmetry</p></li>
-<li>cut e.g. Dates
+<li><p>maybe <code>tab_equally</code>, <code>tab_n</code> (!) and <code>tab_quantiles</code> for the same reason</p></li>
+<li>cut e.g. Dates, posixct, DateT
 <ul>
-<li>what else?</li>
+<li>what else? ts, xts, zoo, lubridate classes</li>
+<li>this is one for 0.2.0 I think</li>
+<li>probably call it something like <code>chop_dates</code> rather than trying to do OO</li>
+<li>
+<code>brk_days()</code>, <code>brk_weeks()</code> etc.? Equivalent to all lubridate’s <code>days()</code> etc. classes?</li>
+<li>the basic <code>chop</code> function, with appropriate breaks, might already “almost work” b/c it just uses arithmetic comparisons</li>
 </ul>
 </li>
 <li>
@@ -185,6 +191,8 @@
 <li>Should we have a flag to return characters?
 <ul>
 <li>I’m skeptical, <code>forcats()</code> exists suggesting that factors aren’t yet seen as worthless!</li>
+<li>Maybe have an <code>output = c("factor", "character", "numeric")</code> switch</li>
+<li>If so, then <code>drop</code> should probably work even for numeric i.e. integer data by moving it down to start at 1</li>
 </ul>
 </li>
 </ul>

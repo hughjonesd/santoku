@@ -11,6 +11,8 @@ knitr::opts_chunk$set(
   comment = "#>",
   cache_extra = packageVersion("santoku")
 )
+requireNamespace("microbenchmark", quietly = TRUE)
+requireNamespace("ggplot2", quietly = TRUE)
 ```
 
 

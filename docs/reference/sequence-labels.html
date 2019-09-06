@@ -186,27 +186,30 @@ uses lower-case and upper-case letters respectively.</p>
 the number of breaks, it will be pasted with itself and repeated
 as necessary.</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other labelling functions: <code><a href='lbl_dash.html'>lbl_dash</a></code>,
+  <code><a href='lbl_format.html'>lbl_format</a></code>, <code><a href='lbl_intervals.html'>lbl_intervals</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='fu'>lbl_numerals</span>())</div><div class='output co'>#&gt; x
-#&gt; 1 2 3 
-#&gt; 2 2 6 </div><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='fu'>lbl_numerals</span>(<span class='st'>"(%s)"</span>))</div><div class='output co'>#&gt; x
-#&gt; (1) (2) (3) 
-#&gt;   2   2   6 </div><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='fu'>lbl_letters</span>())</div><div class='output co'>#&gt; x
-#&gt; a b c 
-#&gt; 2 2 6 </div><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='fu'>lbl_LETTERS</span>())</div><div class='output co'>#&gt; x
-#&gt; A B C 
-#&gt; 2 2 6 </div><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='fu'>lbl_roman</span>())</div><div class='output co'>#&gt; x
-#&gt;   i  ii iii 
-#&gt;   2   2   6 </div><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='fu'>lbl_ROMAN</span>())</div><div class='output co'>#&gt; x
-#&gt;   I  II III 
-#&gt;   2   2   6 </div><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>4</span>), <span class='fu'>lbl_sequence</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>)))</div><div class='output co'>#&gt; x
-#&gt; x y z 
-#&gt; 2 2 6 </div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_numerals</span>())</div><div class='output co'>#&gt;  [1] 1 2 2 2 3 3 3 3 4 4
+#&gt; Levels: 1 2 3 4</div><div class='input'>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_numerals</span>(<span class='st'>"(%s)"</span>))</div><div class='output co'>#&gt;  [1] (1) (2) (2) (2) (3) (3) (3) (3) (4) (4)
+#&gt; Levels: (1) (2) (3) (4)</div><div class='input'>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_letters</span>())</div><div class='output co'>#&gt;  [1] a b b b c c c c d d
+#&gt; Levels: a b c d</div><div class='input'>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_LETTERS</span>())</div><div class='output co'>#&gt;  [1] A B B B C C C C D D
+#&gt; Levels: A B C D</div><div class='input'>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_roman</span>())</div><div class='output co'>#&gt;  [1] i   ii  ii  ii  iii iii iii iii iv  iv 
+#&gt; Levels: i ii iii iv</div><div class='input'>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_ROMAN</span>())</div><div class='output co'>#&gt;  [1] I   II  II  II  III III III III IV  IV 
+#&gt; Levels: I II III IV</div><div class='input'>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_sequence</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"w"</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>)))</div><div class='output co'>#&gt;  [1] w x x x y y y y z z
+#&gt; Levels: w x y z</div><div class='input'>
 <span class='co'># if labels need repeating:</span>
-<span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>lbl_sequence</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>)))</div><div class='output co'>#&gt; x
-#&gt;   x   y   z  xx  yy  zz xxx yyy zzz 
-#&gt;   1   1   1   1   1   1   1   1   2 </div></pre>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>lbl_sequence</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>)))</div><div class='output co'>#&gt;  [1] x   y   z   xx  yy  zz  xxx yyy zzz zzz
+#&gt; Levels: x y z xx yy zz xxx yyy zzz</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -216,6 +219,8 @@ as necessary.</p>
       <li><a href="#value">Value</a></li>
 
       <li><a href="#details">Details</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

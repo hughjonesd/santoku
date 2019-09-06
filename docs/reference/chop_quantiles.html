@@ -183,14 +183,20 @@ chops into deciles.</p>
 
     <p>For  <code>chop_*</code> functions, a factor of the same length as <code>x</code>.</p>
     
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other chopping functions: <code><a href='chop_mean_sd.html'>brk_mean_sd</a></code>,
+  <code><a href='chop_n.html'>brk_n</a></code>, <code><a href='chop_width.html'>brk_width</a></code>,
+  <code><a href='chop.html'>chop</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chop_quantiles</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>)</div><div class='output co'>#&gt;  [1] (75%, 100%] [25%, 50%)  (75%, 100%] [25%, 50%)  [0%, 25%)   [0%, 25%)  
-#&gt;  [7] (75%, 100%] [50%, 75%]  [50%, 75%]  [0%, 25%)  
-#&gt; Levels: [0%, 25%) [25%, 50%) [50%, 75%] (75%, 100%]</div><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fu'>brk_quantiles</span>(<span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>))</div><div class='output co'>#&gt;  [1] [0%, 25%)   [50%, 75%]  (75%, 100%] [25%, 50%)  (75%, 100%] [50%, 75%] 
-#&gt;  [7] (75%, 100%] [0%, 25%)   [25%, 50%)  [0%, 25%)  
-#&gt; Levels: [0%, 25%) [25%, 50%) [50%, 75%] (75%, 100%]</div><div class='input'><span class='fu'>chop_equally</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fl'>5</span>)</div><div class='output co'>#&gt;  [1] [80%, 100%] [80%, 100%] [60%, 80%)  [40%, 60%)  [0%, 20%)   [60%, 80%) 
-#&gt;  [7] [0%, 20%)   [20%, 40%)  [40%, 60%)  [20%, 40%) 
+    <pre class="examples"><div class='input'><span class='fu'>chop_quantiles</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>)</div><div class='output co'>#&gt;  [1] [0%, 25%)   (75%, 100%] [0%, 25%)   [50%, 75%]  (75%, 100%] (75%, 100%]
+#&gt;  [7] [0%, 25%)   [25%, 50%)  [50%, 75%]  [25%, 50%) 
+#&gt; Levels: [0%, 25%) [25%, 50%) [50%, 75%] (75%, 100%]</div><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fu'>brk_quantiles</span>(<span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>))</div><div class='output co'>#&gt;  [1] [25%, 50%)  (75%, 100%] (75%, 100%] [0%, 25%)   [50%, 75%]  [0%, 25%)  
+#&gt;  [7] [25%, 50%)  [50%, 75%]  (75%, 100%] [0%, 25%)  
+#&gt; Levels: [0%, 25%) [25%, 50%) [50%, 75%] (75%, 100%]</div><div class='input'><span class='fu'>chop_equally</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fl'>5</span>)</div><div class='output co'>#&gt;  [1] [60%, 80%)  [60%, 80%)  [0%, 20%)   [80%, 100%] [80%, 100%] [40%, 60%) 
+#&gt;  [7] [20%, 40%)  [40%, 60%)  [20%, 40%)  [0%, 20%)  
 #&gt; Levels: [0%, 20%) [20%, 40%) [40%, 60%) [60%, 80%) [80%, 100%]</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -199,6 +205,8 @@ chops into deciles.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>
