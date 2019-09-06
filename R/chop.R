@@ -114,8 +114,15 @@ chop <- function (x, breaks, labels,
 #' @export
 #'
 #' @examples
-#' chop_quantiles(rnorm(10), 1:3/4)
-#' chop(rnorm(10), brk_quantiles(1:3/4))
+#' chop_quantiles(1:10, 1:3/4)
+#'
+#' chop(1:10, brk_quantiles(1:3/4))
+#'
+#' chop_deciles(1:10)
+#'
+#' # to label by the quantiles themselves:
+#' chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
+#'
 chop_quantiles <- function(x, probs, ...) {
   chop(x, brk_quantiles(probs), ...)
 }
@@ -135,7 +142,7 @@ chop_deciles <- function(x, ...) {
 #' @export
 #'
 #' @examples
-#' chop_equally(rnorm(10), 5)
+#' chop_equally(1:10, 5)
 chop_equally <- function (x, groups, ...) {
   chop_quantiles(x, seq(0, groups)/groups, ...)
 }
