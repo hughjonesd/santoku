@@ -7,6 +7,8 @@
   
 * `brk_equally` for symmetry
 
+* maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for the same reason
+
 * cut e.g. Dates, posixct, DateT
   - what else? ts, xts, zoo, lubridate classes
   - this is one for 0.2.0 I think
@@ -44,6 +46,9 @@
 * Should we have a flag to return characters?
   - I'm skeptical, `forcats()` exists suggesting that factors aren't yet
     seen as worthless!
+  - Maybe have an `output = c("factor", "character", "numeric")` switch
+  - If so, then `drop` should probably work even for numeric i.e. integer data
+    by moving it down to start at 1
   
 # Questions with a (provisional) answer
 
