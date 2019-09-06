@@ -26,9 +26,18 @@ test_that("NA, NaN and Inf", {
   expect_equivalent(r, factor(c("a", "b", "c"), levels = letters[1:3]))
 
   x <- c(-Inf, 1, Inf)
+  # if extend is NULL, we should ensure even Inf is included
   r <- chop(x, brk_right(-Inf, close_end = FALSE), labels = "a")
-  expect_equivalent(r, factor(c(NA, "a", "a"), levels = "a"))
+  expect_equivalent(r, factor(c("a", "a", "a"), levels = "a"))
   r <- chop(x, brk_left(Inf, close_end = FALSE), labels = "a")
+  expect_equivalent(r, factor(c("a", "a", "a"), levels = "a"))
+
+  # otherwise, we respect close_end = FALSE
+  r <- chop(x, brk_right(c(-Inf, Inf), close_end = FALSE), labels = "a",
+        extend = FALSE)
+  expect_equivalent(r, factor(c(NA, "a", "a"), levels = "a"))
+  r <- chop(x, brk_left(c(-Inf, Inf), close_end = FALSE), labels = "a",
+        extend = FALSE)
   expect_equivalent(r, factor(c("a", "a", NA), levels = "a"))
 
   all_na <- rep(NA_real_, 5)

@@ -86,12 +86,15 @@ extend_breaks <- function (breaks) {
     breaks <- c(-Inf, breaks) # deletes attributes inc class
     breaks <- create_breaks(breaks, c(TRUE, left))
   }
+  attr(breaks, "left")[1] <- TRUE
 
   if (breaks[length(breaks)] < Inf) {
     left <- attr(breaks, "left")
     breaks <- c(breaks, Inf) # deletes attributes inc class
     breaks <- create_breaks(breaks, c(left, FALSE))
   }
+  left <- attr(breaks, "left")
+  attr(breaks, "left")[length(left)] <- FALSE
 
   return(breaks)
 }
