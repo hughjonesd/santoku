@@ -72,11 +72,13 @@ chop <- function (x, breaks, labels,
         extend = NULL,
         drop   = TRUE
       ) {
-  assert_that(is.numeric(x))
+  assert_that(is.numeric(x), is.function(breaks) || is.breaks(breaks) ||
+        is.numeric(breaks))
   if (is.function(breaks))  {
     breaks <- breaks(x, extend)
   }
   if (! is.breaks(breaks)) {
+    breaks <- sort(breaks)
     breaks <- brk_left(breaks)(x, extend)
   }
   assert_that(is.breaks(breaks), length(breaks) >= 2L)

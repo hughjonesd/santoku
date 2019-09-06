@@ -164,8 +164,8 @@ brk_right <- function (breaks, close_end = TRUE) {
 
 
 #' @export
-brk_left.default <- function (breaks, close_end = TRUE) {
-  assert_that(is.numeric(breaks), noNA(breaks), is.flag(close_end))
+brk_left.numeric <- function (breaks, close_end = TRUE) {
+  assert_that(noNA(breaks), is.flag(close_end))
 
   function(x, extend) {
     breaks <- create_left_breaks(breaks, close_end)
@@ -176,8 +176,8 @@ brk_left.default <- function (breaks, close_end = TRUE) {
 
 
 #' @export
-brk_right.default <- function (breaks, close_end = TRUE) {
-  assert_that(is.numeric(breaks), noNA(breaks), is.flag(close_end))
+brk_right.numeric <- function (breaks, close_end = TRUE) {
+  assert_that(noNA(breaks), is.flag(close_end))
 
   function (x, extend) {
     breaks <- create_right_breaks(breaks, close_end)
