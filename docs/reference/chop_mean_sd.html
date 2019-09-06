@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Chop by standard deviations — chop_mean_sd • santoku</title>
+<title>Chop by standard deviations — brk_mean_sd • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,7 +37,7 @@
 
 
 
-<meta property="og:title" content="Chop by standard deviations — chop_mean_sd" />
+<meta property="og:title" content="Chop by standard deviations — brk_mean_sd" />
 
 <meta property="og:description" content="Chop by standard deviations" />
 
@@ -136,7 +136,7 @@
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Chop by standard deviations</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/chop.R'><code>R/chop.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/breaks.R'><code>R/breaks.R</code></a>, <a href='https://github.com/hughjonesd/santoku/blob/master/R/chop.R'><code>R/chop.R</code></a></small>
     <div class="hidden name"><code>chop_mean_sd.Rd</code></div>
     </div>
 
@@ -146,19 +146,21 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>chop_mean_sd</span>(<span class='no'>x</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>brk_mean_sd</span>(<span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+
+<span class='fu'>chop_mean_sd</span>(<span class='no'>x</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A numeric vector.</p></td>
-    </tr>
-    <tr>
       <th>sd</th>
       <td><p>Whole number: include <code>sd</code> standard deviations on each side of
 the mean.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>A numeric vector.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -166,19 +168,25 @@ the mean.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>For  <code>chop_*</code> functions, a factor of the same length as <code>x</code>.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chop_mean_sd</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>20</span>))</div><div class='output co'>#&gt;  [1] [-2 sd, -1 sd) [0 sd, 1 sd)   [1 sd, 2 sd)   [-1 sd, 0 sd)  [1 sd, 2 sd)  
-#&gt;  [6] [0 sd, 1 sd)   [0 sd, 1 sd)   [-1 sd, 0 sd)  [-1 sd, 0 sd)  [-1 sd, 0 sd) 
-#&gt; [11] [1 sd, 2 sd)   [1 sd, 2 sd)   [0 sd, 1 sd)   [0 sd, 1 sd)   [-1 sd, 0 sd) 
-#&gt; [16] [0 sd, 1 sd)   [-3 sd, -2 sd) [-1 sd, 0 sd)  [0 sd, 1 sd)   [-1 sd, 0 sd) 
-#&gt; 5 Levels: [-3 sd, -2 sd) [-2 sd, -1 sd) [-1 sd, 0 sd) ... [1 sd, 2 sd)</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>chop_mean_sd</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>))</div><div class='output co'>#&gt;  [1] [-1 sd, 0 sd)  [-1 sd, 0 sd)  [-1 sd, 0 sd)  [-1 sd, 0 sd)  [0 sd, 1 sd)  
+#&gt;  [6] [2 sd, 3 sd]   [-1 sd, 0 sd)  [0 sd, 1 sd)   [0 sd, 1 sd)   [-2 sd, -1 sd)
+#&gt; Levels: [-2 sd, -1 sd) [-1 sd, 0 sd) [0 sd, 1 sd) [2 sd, 3 sd]</div><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fu'>brk_mean_sd</span>())</div><div class='output co'>#&gt;  [1] [0 sd, 1 sd)   [-1 sd, 0 sd)  [-1 sd, 0 sd)  [-1 sd, 0 sd)  [-1 sd, 0 sd) 
+#&gt;  [6] [0 sd, 1 sd)   [-2 sd, -1 sd) [2 sd, 3 sd]   [-1 sd, 0 sd)  [0 sd, 1 sd)  
+#&gt; Levels: [-2 sd, -1 sd) [-1 sd, 0 sd) [0 sd, 1 sd) [2 sd, 3 sd]</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

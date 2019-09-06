@@ -142,17 +142,15 @@
 <ul>
 <li>tests
 <ul>
-<li>brk_mean_se and friends</li>
-<li>weird input</li>
-<li>weird breaks (1 or 0 length, 3 repeats…)</li>
+<li>systematic tests for <code>brk_*</code> functions</li>
 </ul>
 </li>
+<li><p><code>brk_equally</code> for symmetry</p></li>
 <li>cut e.g. Dates
 <ul>
 <li>what else?</li>
 </ul>
 </li>
-<li><p>nice visual tutorial with e.g. a fish being split up</p></li>
 <li>
 <code>chop_cleanly</code> - set <code>drop = FALSE</code>, <code>extend = FALSE/TRUE</code>?
 <ul>
@@ -162,20 +160,27 @@
 </li>
 </ul>
 </div>
+<div id="thoughts-on-errors" class="section level1">
+<h1 class="hasAnchor">
+<a href="#thoughts-on-errors" class="anchor"></a>Thoughts on errors</h1>
+<ul>
+<li>On the whole, we don’t want to error out if <code>x</code> is weird. <code>x</code> is data. But if e.g. <code>breaks</code> are weird, we can error out.
+<ul>
+<li>Exception: <code>x</code> is the wrong class or type.</li>
+</ul>
+</li>
+<li>In some cases we want to guarantee the set of breaks.
+<ul>
+<li>e.g. <code><a href="reference/brk-left-right.html">brk_left()</a></code>, <code><a href="reference/brk_manual.html">brk_manual()</a></code> with <code>extend</code> set.</li>
+</ul>
+</li>
+<li>In other cases, e.g. <code><a href="reference/chop_width.html">brk_evenly()</a></code> we don’t need to make such a guarantee.</li>
+</ul>
+</div>
 <div id="questions" class="section level1">
 <h1 class="hasAnchor">
 <a href="#questions" class="anchor"></a>Questions</h1>
 <ul>
-<li>What to do with data-dependent breaks when there’s an unexpected number of breaks?
-<ul>
-<li>E.g. <code><a href="reference/chop_quantiles.html">chop_deciles(rep(NA, 5))</a></code>
-</li>
-<li>Or indeed what if some quantiles are the same? e.g. <code><a href="https://www.rdocumentation.org/packages/stats/topics/quantile">quantile(c(1, rep(2, 10), 3), c(.3, .6))</a></code>
-</li>
-<li>answer is that corresponding label functions should deal with arbitrary numbers of labels</li>
-<li>the label function is the prob at the moment</li>
-</ul>
-</li>
 <li><p>Do we need <code>drop</code>?</p></li>
 <li>Should we have a flag to return characters?
 <ul>

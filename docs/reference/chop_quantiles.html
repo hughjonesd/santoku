@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Chop by quantiles — chop_quantiles • santoku</title>
+<title>Chop by quantiles — brk_quantiles • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,7 +37,7 @@
 
 
 
-<meta property="og:title" content="Chop by quantiles — chop_quantiles" />
+<meta property="og:title" content="Chop by quantiles — brk_quantiles" />
 
 <meta property="og:description" content="chop_quantiles chops data by quantiles. chop_equally chops
 data into equal-sized groups. chop_deciles is a convenience shortcut and
@@ -138,7 +138,7 @@ chops into deciles." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Chop by quantiles</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/chop.R'><code>R/chop.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/breaks.R'><code>R/breaks.R</code></a>, <a href='https://github.com/hughjonesd/santoku/blob/master/R/chop.R'><code>R/chop.R</code></a></small>
     <div class="hidden name"><code>chop_quantiles.Rd</code></div>
     </div>
 
@@ -150,7 +150,9 @@ chops into deciles.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>chop_quantiles</span>(<span class='no'>x</span>, <span class='no'>probs</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>brk_quantiles</span>(<span class='no'>probs</span>, <span class='no'>...</span>)
+
+<span class='fu'>chop_quantiles</span>(<span class='no'>x</span>, <span class='no'>probs</span>, <span class='no'>...</span>)
 
 <span class='fu'>chop_deciles</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
@@ -160,37 +162,44 @@ chops into deciles.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>A numeric vector.</p></td>
-    </tr>
-    <tr>
       <th>probs</th>
       <td><p>A vector of probabilities for the quantiles.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Passed to <code>chop</code>.</p></td>
+      <td><p>Arguments passed to <code><a href='https://www.rdocumentation.org/packages/stats/topics/quantile'>quantile()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>A numeric vector.</p></td>
     </tr>
     <tr>
       <th>groups</th>
-      <td><p>Number of groups</p></td>
+      <td><p>Number of groups.</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>For  <code>chop_*</code> functions, a factor of the same length as <code>x</code>.</p>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chop_quantiles</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>/<span class='fl'>3</span>, <span class='fl'>2</span>/<span class='fl'>3</span>))</div><div class='output co'>#&gt;  [1] [33.33%, 66.67%) [66.67%, 100%]   [66.67%, 100%]   [0%, 33.33%)    
-#&gt;  [5] [33.33%, 66.67%) [66.67%, 100%]   [0%, 33.33%)     [33.33%, 66.67%)
-#&gt;  [9] [66.67%, 100%]   [0%, 33.33%)    
-#&gt; Levels: [0%, 33.33%) [33.33%, 66.67%) [66.67%, 100%]</div><div class='input'><span class='fu'>chop_equally</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fl'>5</span>)</div><div class='output co'>#&gt;  [1] [60%, 80%)  [20%, 40%)  [0%, 20%)   [20%, 40%)  [0%, 20%)   [40%, 60%) 
-#&gt;  [7] [40%, 60%)  [60%, 80%)  [80%, 100%] [80%, 100%]
+    <pre class="examples"><div class='input'><span class='fu'>chop_quantiles</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>)</div><div class='output co'>#&gt;  [1] (75%, 100%] [25%, 50%)  (75%, 100%] [25%, 50%)  [0%, 25%)   [0%, 25%)  
+#&gt;  [7] (75%, 100%] [50%, 75%]  [50%, 75%]  [0%, 25%)  
+#&gt; Levels: [0%, 25%) [25%, 50%) [50%, 75%] (75%, 100%]</div><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fu'>brk_quantiles</span>(<span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>))</div><div class='output co'>#&gt;  [1] [0%, 25%)   [50%, 75%]  (75%, 100%] [25%, 50%)  (75%, 100%] [50%, 75%] 
+#&gt;  [7] (75%, 100%] [0%, 25%)   [25%, 50%)  [0%, 25%)  
+#&gt; Levels: [0%, 25%) [25%, 50%) [50%, 75%] (75%, 100%]</div><div class='input'><span class='fu'>chop_equally</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>), <span class='fl'>5</span>)</div><div class='output co'>#&gt;  [1] [80%, 100%] [80%, 100%] [60%, 80%)  [40%, 60%)  [0%, 20%)   [60%, 80%) 
+#&gt;  [7] [0%, 20%)   [20%, 40%)  [40%, 60%)  [20%, 40%) 
 #&gt; Levels: [0%, 20%) [20%, 40%) [40%, 60%) [60%, 80%) [80%, 100%]</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
+      
+      <li><a href="#value">Value</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
