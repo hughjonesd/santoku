@@ -78,7 +78,6 @@ chop <- function (x, breaks, labels,
     breaks <- breaks(x, extend)
   }
   if (! is.breaks(breaks)) {
-    breaks <- sort(breaks)
     breaks <- brk_left(breaks)(x, extend)
   }
   assert_that(is.breaks(breaks), length(breaks) >= 2L)

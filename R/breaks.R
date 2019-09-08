@@ -7,9 +7,9 @@
 #' @export
 brk_quantiles <- function (probs, ...) {
   assert_that(is.numeric(probs), noNA(probs), all(probs >= 0), all(probs <= 1))
+  probs <- sort(probs)
 
   function (x, extend) {
-    probs <- sort(probs)
     qs <- stats::quantile(x, probs, na.rm = TRUE, ...)
     if (anyNA(qs)) return(empty_breaks()) # data was all NA
 
@@ -175,11 +175,11 @@ brk_right <- function (breaks, close_end = TRUE) {
 #' @export
 brk_left.numeric <- function (breaks, close_end = TRUE) {
   assert_that(noNA(breaks), is.flag(close_end))
+  breaks <- sort(breaks)
+  breaks <- create_left_breaks(breaks, close_end)
 
   function(x, extend) {
-    breaks <- create_left_breaks(breaks, close_end)
-    breaks <- maybe_extend(breaks, x, extend)
-    breaks
+    maybe_extend(breaks, x, extend)
   }
 }
 
@@ -187,11 +187,11 @@ brk_left.numeric <- function (breaks, close_end = TRUE) {
 #' @export
 brk_right.numeric <- function (breaks, close_end = TRUE) {
   assert_that(noNA(breaks), is.flag(close_end))
+  breaks <- sort(breaks)
+  breaks <- create_right_breaks(breaks, close_end)
 
   function (x, extend) {
-    breaks <- create_right_breaks(breaks, close_end)
-    breaks <- maybe_extend(breaks, x, extend)
-    breaks
+    maybe_extend(breaks, x, extend)
   }
 }
 
@@ -260,13 +260,10 @@ brk_right.function <- function (breaks, close_end = TRUE) {
 brk_manual <- function (breaks, left) {
   assert_that(is.numeric(breaks), noNA(breaks), is.logical(left), noNA(left),
         length(left) == length(breaks))
+  breaks <- create_breaks(breaks, left)
 
   function (x, extend) {
-    breaks <- create_breaks(breaks, left)
-
-    breaks <- maybe_extend(breaks, x, extend)
-
-    breaks
+    maybe_extend(breaks, x, extend)
   }
 }
 

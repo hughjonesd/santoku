@@ -32,7 +32,8 @@ or a function.
 If it is a vector, \code{breaks} gives the break endpoints.Repeated values create
 singleton intervals. For example \code{breaks = c(1, 3, 3, 5)} creates 3
 intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}. Default breaks are
-left-closed except the end; for right-closed breaks see \code{\link[=brk_right]{brk_right()}}.
+left-closed except for the last interval; for right-closed breaks see
+\code{\link[=brk_right]{brk_right()}}.
 
 If \code{breaks} is a function it is called with a single argument, \code{x}, and
 returns an object of class \code{breaks}.
