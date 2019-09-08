@@ -135,18 +135,27 @@ NULL
 
 #' Left- or right-closed breaks
 #'
-#' @param breaks A numeric vector which must be sorted.
+#' @param breaks A numeric vector or a function.
 #' @param close_end Logical: close the rightmost endpoint (`brk_left()`)
 #'   / leftmost endpoint (`brk_right()`)?
 #'
 #' @inherit breaks-doc return
 #'
+#' @details
+#' `brk_left` and `brk_right` can be used to wrap another `brk_*` function.
+#'
 #' @name brk-left-right
 #'
 #' @examples
 #' chop(5:7, brk_left(5:7))
+#'
 #' chop(5:7, brk_right(5:7))
+#'
 #' chop(5:7, brk_left(5:7, FALSE))
+#'
+#' # wrapping another `brk_*` function:
+#' chop(1:10, brk_right(brk_quantiles(1:3/4)))
+#'
 NULL
 
 
@@ -247,6 +256,7 @@ brk_right.function <- function (breaks, close_end = TRUE) {
 #'       c(TRUE, TRUE, FALSE, TRUE))
 #'
 #' chop(1:3, brks_singleton, extend = FALSE)
+#'
 brk_manual <- function (breaks, left) {
   assert_that(is.numeric(breaks), noNA(breaks), is.logical(left), noNA(left),
         length(left) == length(breaks))

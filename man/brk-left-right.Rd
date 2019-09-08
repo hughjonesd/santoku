@@ -11,7 +11,7 @@ brk_left(breaks, close_end = TRUE)
 brk_right(breaks, close_end = TRUE)
 }
 \arguments{
-\item{breaks}{A numeric vector which must be sorted.}
+\item{breaks}{A numeric vector or a function.}
 
 \item{close_end}{Logical: close the rightmost endpoint (\code{brk_left()})
 / leftmost endpoint (\code{brk_right()})?}
@@ -22,8 +22,17 @@ A (function which returns an) object of class \code{breaks}.
 \description{
 Left- or right-closed breaks
 }
+\details{
+\code{brk_left} and \code{brk_right} can be used to wrap another \code{brk_*} function.
+}
 \examples{
 chop(5:7, brk_left(5:7))
+
 chop(5:7, brk_right(5:7))
+
 chop(5:7, brk_left(5:7, FALSE))
+
+# wrapping another `brk_*` function:
+chop(1:10, brk_right(brk_quantiles(1:3/4)))
+
 }

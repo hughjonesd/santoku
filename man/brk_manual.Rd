@@ -45,4 +45,5 @@ brks_singleton <- brk_manual(
       c(TRUE, TRUE, FALSE, TRUE))
 
 chop(1:3, brks_singleton, extend = FALSE)
+
 }

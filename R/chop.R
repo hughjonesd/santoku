@@ -27,7 +27,8 @@ NULL
 #' If it is a vector, `breaks` gives the break endpoints.Repeated values create
 #' singleton intervals. For example `breaks = c(1, 3, 3, 5)` creates 3
 #' intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}. Default breaks are
-#' left-closed except the end; for right-closed breaks see [brk_right()].
+#' left-closed except for the last interval; for right-closed breaks see
+#' [brk_right()].
 #'
 #' If `breaks` is a function it is called with a single argument, `x`, and
 #' returns an object of class `breaks`.
@@ -35,7 +36,6 @@ NULL
 #' `labels` may be a character vector. It should have the same length as the
 #'  number of intervals. Alternatively, use a `lbl_` function such as
 #'  [lbl_numerals()].
-#'
 #'
 #' If `extend` is `TRUE`, intervals will be extended to \code{[-Inf,
 #' min(breaks))} and \code{(max(breaks), Inf]}, unless those endpoints are
