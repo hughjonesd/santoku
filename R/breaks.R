@@ -20,8 +20,8 @@ brk_quantiles <- function (probs, ...) {
     # order matters in the stanza below:
     breaks <- create_left_breaks(qs)
     if (extend %||% needs_extend(breaks, x)) {
-      if (qs[1] > -Inf) probs <- c(0, probs)
-      if (qs[length(qs)] < Inf) probs <- c(probs, 1)
+      if (length(qs) == 0 || qs[1] > -Inf) probs <- c(0, probs)
+      if (length(qs) == 0 ||qs[length(qs)] < Inf) probs <- c(probs, 1)
     }
     breaks <- maybe_extend(breaks, x, extend)
 
