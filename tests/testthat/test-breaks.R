@@ -121,10 +121,33 @@ test_that("brk_mean_sd", {
 })
 
 
+test_that("brk_quantiles", {
+  expect_silent(brk_res(brk_quantiles(1:3/4)))
+
+  x <- 1:10
+  brks <- brk_quantiles(1:3/4)(x, FALSE)
+  expect_equivalent(c(brks), quantile(x, 1:3/4))
+
+  expect_silent(brks <- brk_quantiles(numeric(0))(x, TRUE))
+  expect_equivalent(c(brks), c(-Inf, Inf))
+
+  x <- rep(1, 5)
+  brks <- brk_quantiles(1:3/4)(x, FALSE)
+  expect_equivalent(c(brks), unique(quantile(x, 1:3/4)))
+})
+
+
 test_that("printing", {
   b <- brk_left(1:3)
   expect_output(print(b))
   expect_silent(format(b))
   b_empty <- brk_left(1)
   expect_output(print(b_empty))
+})
+
+
+test_that("systematic tests", {
+  # input of normal; unsorted; with NA; with +-Inf; only 1 break;
+  # non-numeric; length 0
+
 })
