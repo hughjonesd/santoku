@@ -49,6 +49,10 @@ be extended only if the data is outside their range.
 
 \code{NA} values in \code{x}, and values which are outside the (extendeD) endpoints,
 return \code{NA}.
+
+Note that \code{chop}, like all of R, uses binary arithmetic. Thus, numbers may
+not be exactly equal to what you think they should be. There is an example
+below.
 }
 \examples{
 chop(1:3, 2)
@@ -62,6 +66,9 @@ chop(1:10, c(2, 5, 5, 8))
 chop(1:10, brk_quantiles(c(0.25, 0.75)))
 
 chop(1:10, c(2, 5, 8), labels = lbl_dash())
+
+# floating point inaccuracy:
+chop(0.3/3, c(0, 0.1, 0.1, 1))
 
 }
 \seealso{

@@ -45,6 +45,10 @@ NULL
 #' `NA` values in `x`, and values which are outside the (extendeD) endpoints,
 #' return `NA`.
 #'
+#' Note that `chop`, like all of R, uses binary arithmetic. Thus, numbers may
+#' not be exactly equal to what you think they should be. There is an example
+#' below.
+#'
 #' @return
 #' A [factor] of the same length as `x`, representing the intervals containing
 #' the value of `x`.
@@ -67,6 +71,9 @@ NULL
 #' chop(1:10, brk_quantiles(c(0.25, 0.75)))
 #'
 #' chop(1:10, c(2, 5, 8), labels = lbl_dash())
+#'
+#' # floating point inaccuracy:
+#' chop(0.3/3, c(0, 0.1, 0.1, 1))
 #'
 chop <- function (x, breaks, labels,
         extend = NULL,
