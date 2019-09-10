@@ -15,11 +15,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -37,12 +39,12 @@
 
 
 
+
 <meta property="og:title" content="Left- or right-closed breaks — brk-left-right" />
-
 <meta property="og:description" content="Left- or right-closed breaks" />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -115,7 +117,6 @@
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hughjonesd/santoku">
@@ -141,21 +142,19 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Left- or right-closed breaks</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>brk_left</span>(<span class='no'>breaks</span>, <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>brk_right</span>(<span class='no'>breaks</span>, <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>breaks</th>
-      <td><p>A numeric vector which must be sorted.</p></td>
+      <td><p>A numeric vector or a function.</p></td>
     </tr>
     <tr>
       <th>close_end</th>
@@ -163,25 +162,33 @@
 / leftmost endpoint (<code>brk_right()</code>)?</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A (function which returns an) object of class <code>breaks</code>.</p>
-    
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>brk_left</code> and <code>brk_right</code> can be used to wrap another <code>brk_*</code> function.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fu'>brk_left</span>(<span class='fl'>5</span>:<span class='fl'>7</span>))</div><div class='output co'>#&gt; [1] [5, 6) [6, 7] [6, 7]
-#&gt; Levels: [5, 6) [6, 7]</div><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fu'>brk_right</span>(<span class='fl'>5</span>:<span class='fl'>7</span>))</div><div class='output co'>#&gt; [1] [5, 6] [5, 6] (6, 7]
-#&gt; Levels: [5, 6] (6, 7]</div><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fu'>brk_left</span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; [1] [5, 6) [6, 7) &lt;NA&gt;  
-#&gt; Levels: [5, 6) [6, 7)</div></pre>
+#&gt; Levels: [5, 6) [6, 7]</div><div class='input'>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fu'>brk_right</span>(<span class='fl'>5</span>:<span class='fl'>7</span>))</div><div class='output co'>#&gt; [1] [5, 6] [5, 6] (6, 7]
+#&gt; Levels: [5, 6] (6, 7]</div><div class='input'>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fu'>brk_left</span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; [1] [5, 6) [6, 7) &lt;NA&gt;  
+#&gt; Levels: [5, 6) [6, 7)</div><div class='input'>
+<span class='co'># wrapping another `brk_*` function:</span>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>brk_right</span>(<span class='fu'><a href='chop_quantiles.html'>brk_quantiles</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>)))</div><div class='output co'>#&gt;  [1] [0%, 25%]   [0%, 25%]   [0%, 25%]   (25%, 50%]  (25%, 50%]  (50%, 75%] 
+#&gt;  [7] (50%, 75%]  (75%, 100%] (75%, 100%] (75%, 100%]
+#&gt; Levels: [0%, 25%] (25%, 50%] (50%, 75%] (75%, 100%]</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
+      <li><a href="#details">Details</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
