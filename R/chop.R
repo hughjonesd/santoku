@@ -38,11 +38,12 @@ NULL
 #'  [lbl_numerals()].
 #'
 #' If `extend` is `TRUE`, intervals will be extended to \code{[-Inf,
-#' min(breaks))} and \code{(max(breaks), Inf]}, unless those endpoints are
-#' already infinite. If `extend` is `NULL` (the default), intervals will
-#' be extended only if the data is outside their range.
+#' min(breaks))} and \code{(max(breaks), Inf]} (unless the first and last
+#' endpoints are already `[-Inf` and `Inf]` respectively). If `extend` is `NULL`
+#' (the default), intervals will be extended only if the data is outside their
+#' range.
 #'
-#' `NA` values in `x`, and values which are outside the (extendeD) endpoints,
+#' `NA` values in `x`, and values which are outside the (extended) endpoints,
 #' return `NA`.
 #'
 #' Note that `chop`, like all of R, uses binary arithmetic. Thus, numbers may

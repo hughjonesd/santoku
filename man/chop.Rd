@@ -43,11 +43,12 @@ number of intervals. Alternatively, use a \code{lbl_} function such as
 \code{\link[=lbl_numerals]{lbl_numerals()}}.
 
 If \code{extend} is \code{TRUE}, intervals will be extended to \code{[-Inf,
-min(breaks))} and \code{(max(breaks), Inf]}, unless those endpoints are
-already infinite. If \code{extend} is \code{NULL} (the default), intervals will
-be extended only if the data is outside their range.
+min(breaks))} and \code{(max(breaks), Inf]} (unless the first and last
+endpoints are already \code{[-Inf} and \code{Inf]} respectively). If \code{extend} is \code{NULL}
+(the default), intervals will be extended only if the data is outside their
+range.
 
-\code{NA} values in \code{x}, and values which are outside the (extendeD) endpoints,
+\code{NA} values in \code{x}, and values which are outside the (extended) endpoints,
 return \code{NA}.
 
 Note that \code{chop}, like all of R, uses binary arithmetic. Thus, numbers may

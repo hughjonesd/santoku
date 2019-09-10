@@ -81,20 +81,19 @@ maybe_extend <- function (breaks, x, extend) {
 
 
 extend_breaks <- function (breaks) {
-  if (length(breaks) == 0 || breaks[1] > -Inf) {
-    left <- attr(breaks, "left")
+  left <- attr(breaks, "left")
+  # we add a break if the first break is above -Inf *or* if it is (-Inf. ...
+  if (length(breaks) == 0 || breaks[1] > -Inf || ! left[1]) {
     breaks <- c(-Inf, breaks) # deletes attributes inc class
     breaks <- create_breaks(breaks, c(TRUE, left))
   }
-  attr(breaks, "left")[1] <- TRUE
 
-  if (breaks[length(breaks)] < Inf) {
-    left <- attr(breaks, "left")
+  left <- attr(breaks, "left")
+  # add a break if the last break is finite, or if it is ..., +Inf)
+  if (breaks[length(breaks)] < Inf || left[length(left)]) {
     breaks <- c(breaks, Inf) # deletes attributes inc class
     breaks <- create_breaks(breaks, c(left, FALSE))
   }
-  left <- attr(breaks, "left")
-  attr(breaks, "left")[length(left)] <- FALSE
 
   return(breaks)
 }
