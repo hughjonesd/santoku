@@ -28,7 +28,7 @@ lbl_sequence(sequence, fmt = "\%s")
 \item{sequence}{A character vector.}
 }
 \value{
-A vector of labels for \code{chop}, or a function that creates labels.
+A vector of labels for \code{kut}, or a function that creates labels.
 }
 \description{
 These functions label intervals sequentially from lowest to highest.
@@ -47,22 +47,22 @@ the number of breaks, it will be pasted with itself and repeated
 as necessary.
 }
 \examples{
-chop(1:10, c(2, 5, 8), lbl_numerals())
+kut(1:10, c(2, 5, 8), lbl_numerals())
 
-chop(1:10, c(2, 5, 8), lbl_numerals("(\%s)"))
+kut(1:10, c(2, 5, 8), lbl_numerals("(\%s)"))
 
-chop(1:10, c(2, 5, 8), lbl_letters())
+kut(1:10, c(2, 5, 8), lbl_letters())
 
-chop(1:10, c(2, 5, 8), lbl_LETTERS())
+kut(1:10, c(2, 5, 8), lbl_LETTERS())
 
-chop(1:10, c(2, 5, 8), lbl_roman())
+kut(1:10, c(2, 5, 8), lbl_roman())
 
-chop(1:10, c(2, 5, 8), lbl_ROMAN())
+kut(1:10, c(2, 5, 8), lbl_ROMAN())
 
-chop(1:10, c(2, 5, 8), lbl_sequence(c("w", "x", "y", "z")))
+kut(1:10, c(2, 5, 8), lbl_sequence(c("w", "x", "y", "z")))
 
 # if labels need repeating:
-chop(1:10, 1:10, lbl_sequence(c("x", "y", "z")))
+kut(1:10, 1:10, lbl_sequence(c("x", "y", "z")))
 }
 \seealso{
 Other labelling functions: \code{\link{lbl_dash}},

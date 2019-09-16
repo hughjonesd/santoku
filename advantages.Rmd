@@ -1,17 +1,17 @@
 
 
-santoku is a versatile cutting tool for R. It provides `chop()`, a replacement
+santoku is a versatile cutting tool for R. It provides `kut()`, a replacement
 for `base::cut()`.
 
 ## Advantages
 
  Here are some advantages of santoku:
 
- * By default, `chop()` always covers the whole range of the data, so you
+ * By default, `kut()` always covers the whole range of the data, so you
  won't get unexpected `NA` values.
 
- * `chop()` can handle single values as well as intervals. For example, 
-   `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor level for
+ * `kut()` can handle single values as well as intervals. For example, 
+   `kut(x, breaks = c(1, 2, 2, 3))` will create a separate factor level for
    values exactly equal to 2.
 
  * Flexible labelling, including easy ways to label intervals by
@@ -20,7 +20,7 @@ for `base::cut()`.
  * Convenience functions for creating quantile intervals, evenly-spaced
   intervals or equal-sized groups.
 
- * Convenience functions for quickly tabulating chopped data.
+ * Convenience functions for quickly tabulating kutped data.
 
  These advantages make santoku especially useful for exploratory analysis,
  where you may not know the range of your data in advance.

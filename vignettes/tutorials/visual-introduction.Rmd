@@ -74,19 +74,19 @@ plot_the_fish <- function (cols = "peachpuff4") {
 }
 
 
-demo_chop <- function (breaks, labels = lbl_intervals(), extend = NULL, ...,
+demo_kut <- function (breaks, labels = lbl_intervals(), extend = NULL, ...,
       lines = TRUE, swoosh = FALSE, lty = 1, cex_labels = 0.7,
       skip_lines = numeric(0)) {
-  chopped <- chop(pts$x, breaks, labels, extend, ...)
+  kut_vec <- kut(pts$x, breaks, labels, extend, ...)
   if (is.numeric(breaks)) breaks <- brk_left(breaks)
   breaks <- breaks(pts$x, extend)
   
   breaks_r <- round(c(breaks[is.finite(breaks)]))
   breaks_r <- breaks_r[breaks_r > 0 & breaks_r <= fish_x]
   
-  chopped_cols <- palette()[chopped]
-  chopped_cols[is.na(chopped)] <- NA_col
-  plot_the_fish(cols = chopped_cols)
+  kut_cols <- palette()[kut_vec]
+  kut_cols[is.na(kut_vec)] <- NA_col
+  plot_the_fish(cols = kut_cols)
   
   if (is.function(labels)) labels <- labels(breaks)
   label_breaks <- c(breaks)
@@ -114,7 +114,7 @@ demo_chop <- function (breaks, labels = lbl_intervals(), extend = NULL, ...,
     if (swoosh) {
       left <- attr(breaks, "left")
       left <- left[is.finite(c(breaks)) & breaks > 0 & breaks <= fish_x]
-      cols <- palette()[seq_len(nlevels(chopped))]
+      cols <- palette()[seq_len(nlevels(kut_vec))]
       if (! is.null(extend) && ! extend) cols <- c(NA_col, cols, NA_col)
       col <- ifelse(left, cols[-1], cols[-length(cols)])
   
@@ -160,40 +160,40 @@ x <- pts$x
 plot_the_fish()
 ```
 
-## `chop()`
+## `kut()`
 
-`chop()` is a replacement for base R's `cut()` function.
+`kut()` is a replacement for base R's `cut()` function.
 
-## `chop()`
+## `kut()`
 
 ```{r, echo = TRUE, eval = FALSE}
-chop(x, c(300, 600, 900))
+kut(x, c(300, 600, 900))
 ```
 
 ```{r}
-demo_chop(c(300, 600, 900))
+demo_kut(c(300, 600, 900))
 ```
 
 ## `extend = FALSE`
 
 ```{r, echo = TRUE, eval = FALSE}
-chop(x, c(300, 600, 900), extend = FALSE)
+kut(x, c(300, 600, 900), extend = FALSE)
 ```
 
 ```{r}
-demo_chop(c(300, 600, 900), extend = FALSE)
+demo_kut(c(300, 600, 900), extend = FALSE)
 legend("bottomright", "NA", col = NA_col, pch = 19, bty = "n")
 ```
 
-## Chopping by a single value
+## Cutting by a single value
 
 
 ```{r, echo = TRUE, eval = FALSE}
-chop(x, c(300, 500, 500, 800))
+kut(x, c(300, 500, 500, 800))
 ```
 
 ```{r}
-demo_chop(c(300, 500, 500, 800), skip_lines = 500)
+demo_kut(c(300, 500, 500, 800), skip_lines = 500)
 #arrows(x0 = 500, y0 =600, y1 = fish_top[500] + 40, lwd = 2, length = 0.1)
 segments(x0 = c(495, 505), y0 = 65, y1 = 800, 
       lty = 2, col = line_col)
@@ -201,84 +201,84 @@ segments(x0 = c(495, 505), y0 = fish_bottom[500], y1 = fish_top[500],
       lty = 1, col = line_col)
 ```
 
-## `chop_width()`
+## `kut_width()`
 
-Chops fixed-width intervals
+Cuts fixed-width intervals
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_width(x, width = 200)
+kut_width(x, width = 200)
 ```
 
 ```{r}
-demo_chop(brk_width(width = 200))
+demo_kut(brk_width(width = 200))
 ```
 
-## `chop_evenly()`
+## `kut_evenly()`
 
-Chops `groups` equal-width intervals
+Cuts `groups` equal-width intervals
 
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_evenly(x, groups = 5)
+kut_evenly(x, groups = 5)
 ```
 
 ```{r}
-demo_chop(brk_evenly(groups = 5))
+demo_kut(brk_evenly(groups = 5))
 ```
 
-## `chop_equally()`
+## `kut_equally()`
 
-Chops intervals with an equal *number of elements*
+Cuts intervals with an equal *number of elements*
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_equally(x, groups = 5)
+kut_equally(x, groups = 5)
 ```
 
 ```{r}
-demo_chop(brk_quantiles(1:4/5))
+demo_kut(brk_quantiles(1:4/5))
 ```
 
-## `chop_n()`
+## `kut_n()`
 
-Chops intervals with a *fixed* number of elements
+Cuts intervals with a *fixed* number of elements
 
 * The last group may have fewer elements
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_n(x, 100)
+kut_n(x, 100)
 ```
 
 ```{r}
-demo_chop(brk_n(100))
+demo_kut(brk_n(100))
 ```
 
 
 ## Summary
 
-Chop by:            | number of elements | width
+Cut by:            | number of elements | width
 --------------------|--------------------|-------------
-Fixed size          | `chop_n()`         | `chop_width()`
-Fixed no. of groups | `chop_equally()`   | `chop_evenly()`
+Fixed size          | `kut_n()`         | `kut_width()`
+Fixed no. of groups | `kut_equally()`   | `kut_evenly()`
 
-## `chop_quantiles()`
+## `kut_quantiles()`
 
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_quantiles(x, c(0.05, 0.25, 0.5, 0.75, 0.95)
+kut_quantiles(x, c(0.05, 0.25, 0.5, 0.75, 0.95)
 ```
 
 ```{r}
-demo_chop(brk_quantiles(c(0.05, 0.25, 0.5, 0.75, 0.95)))
+demo_kut(brk_quantiles(c(0.05, 0.25, 0.5, 0.75, 0.95)))
 ```
 
-## `chop_mean_sd()`
+## `kut_mean_sd()`
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_mean_sd(x)
+kut_mean_sd(x)
 ```
 
 ```{r}
-demo_chop(brk_mean_sd())
+demo_kut(brk_mean_sd())
 ```
 
 
@@ -295,11 +295,11 @@ tab_mean_sd(x)
 You need one more labels than breaks:
 
 ```{r, echo = TRUE, eval = FALSE}
-chop(x, c(300, 600, 900), labels = LETTERS[1:4])
+kut(x, c(300, 600, 900), labels = LETTERS[1:4])
 ```
 
 ```{r}
-demo_chop(c(300, 600, 900), labels = LETTERS[1:4], cex_labels = 1)
+demo_kut(c(300, 600, 900), labels = LETTERS[1:4], cex_labels = 1)
 ```
 
 
@@ -310,12 +310,12 @@ Not sure how many intervals you will have?
 Use a `lbl_*` function.
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_width(x, 200, labels = lbl_LETTERS())
+kut_width(x, 200, labels = lbl_LETTERS())
 ```
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_LETTERS(), cex_labels = 1)
+demo_kut(brk_width(200), labels = lbl_LETTERS(), cex_labels = 1)
 ```
 
 ## Changing labels
@@ -325,12 +325,12 @@ Not sure how many intervals you will have?
 Use a `lbl_*` function.
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_width(x, 200, labels = lbl_roman("(%s)"))
+kut_width(x, 200, labels = lbl_roman("(%s)"))
 ```
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_roman("(%s)"), cex_labels = 1)
+demo_kut(brk_width(200), labels = lbl_roman("(%s)"), cex_labels = 1)
 ```
 
 ## Changing labels
@@ -340,12 +340,12 @@ Not sure how many intervals you will have?
 Use a `lbl_*` function.
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_width(x, 200, labels = lbl_dash())
+kut_width(x, 200, labels = lbl_dash())
 ```
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_dash(), cex_labels = 0.8)
+demo_kut(brk_width(200), labels = lbl_dash(), cex_labels = 0.8)
 ```
 
 ## Left-closed and right-closed
@@ -353,11 +353,11 @@ demo_chop(brk_width(200), labels = lbl_dash(), cex_labels = 0.8)
 Breaks are closed on the left by default.
 
 ```{r, echo = TRUE, eval = FALSE}
-chop(x, c(200, 500, 800))
+kut(x, c(200, 500, 800))
 ```
 
 ```{r}
-demo_chop(c(200, 500, 800), swoosh = TRUE)
+demo_kut(c(200, 500, 800), swoosh = TRUE)
 ```
 
 
@@ -366,23 +366,23 @@ demo_chop(c(200, 500, 800), swoosh = TRUE)
 For right-closed breaks use `brk_right()`:
 
 ```{r, echo = TRUE, eval = FALSE}
-chop(x, brk_right(c(200, 500, 800)))
+kut(x, brk_right(c(200, 500, 800)))
 ```
 
 ```{r}
-demo_chop(brk_right(c(200, 500, 800)), swoosh = TRUE)
+demo_kut(brk_right(c(200, 500, 800)), swoosh = TRUE)
 ```
 
 ## Errors
 
-![chopping fail](https://media.giphy.com/media/2zom27Xqp7PVe/giphy.gif)
+![Cutting fail](https://media.giphy.com/media/2zom27Xqp7PVe/giphy.gif)
 
 ## Errors {.smallfont}
 
 <small>Sometimes it's impossible to create the breaks you want.</small>
 
 ```{r, echo = TRUE}
-chop_quantiles(c(-Inf, Inf), c(0.25, 0.75))
+kut_quantiles(c(-Inf, Inf), c(0.25, 0.75))
 ```
 
 <small>When the problem comes from the data (`x`), santoku will try to carry on
@@ -392,11 +392,11 @@ chop_quantiles(c(-Inf, Inf), c(0.25, 0.75))
 santoku will give an error.</small>
 
 ```{r, echo = TRUE, error = TRUE}
-chop_quantiles(1:5, c(0.25, NA))
+kut_quantiles(1:5, c(0.25, NA))
 ```
 
 
-## Happy chopping!
+## Happy cutting!
 
 https://hughjonesd.github.io/santoku
 
@@ -404,4 +404,4 @@ https://hughjonesd.github.io/santoku
 devtools::install_github("hughjonesd/santoku")
 ```
 
-![Chopping](https://media.giphy.com/media/ceQ6oQNVCVbgY/giphy.gif)
+![Chopping bottles](https://media.giphy.com/media/ceQ6oQNVCVbgY/giphy.gif)

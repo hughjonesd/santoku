@@ -3,7 +3,7 @@
 #' @param fmt A [sprintf()]-style format.
 #' @param raw Logical. Always use raw `breaks` in labels, rather than e.g. quantiles
 #'   or standard deviations?
-#' @return A vector of labels for `chop`, or a function that creates labels.
+#' @return A vector of labels for `kut`, or a function that creates labels.
 NULL
 
 #' Labels using set notation
@@ -108,9 +108,9 @@ lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
 #' @export
 #'
 #' @examples
-#' chop(1:10, c(2, 5, 8), lbl_dash())
+#' kut(1:10, c(2, 5, 8), lbl_dash())
 #'
-#' chop(1:10, c(2, 5, 8), lbl_dash(" to "))
+#' kut(1:10, c(2, 5, 8), lbl_dash(" to "))
 #'
 lbl_dash <- function (symbol = " - ", raw = FALSE) {
   assert_that(is.string(symbol), is.flag(raw))
@@ -155,22 +155,22 @@ lbl_dash <- function (symbol = " - ", raw = FALSE) {
 #' @family labelling functions
 #'
 #' @examples
-#' chop(1:10, c(2, 5, 8), lbl_numerals())
+#' kut(1:10, c(2, 5, 8), lbl_numerals())
 #'
-#' chop(1:10, c(2, 5, 8), lbl_numerals("(%s)"))
+#' kut(1:10, c(2, 5, 8), lbl_numerals("(%s)"))
 #'
-#' chop(1:10, c(2, 5, 8), lbl_letters())
+#' kut(1:10, c(2, 5, 8), lbl_letters())
 #'
-#' chop(1:10, c(2, 5, 8), lbl_LETTERS())
+#' kut(1:10, c(2, 5, 8), lbl_LETTERS())
 #'
-#' chop(1:10, c(2, 5, 8), lbl_roman())
+#' kut(1:10, c(2, 5, 8), lbl_roman())
 #'
-#' chop(1:10, c(2, 5, 8), lbl_ROMAN())
+#' kut(1:10, c(2, 5, 8), lbl_ROMAN())
 #'
-#' chop(1:10, c(2, 5, 8), lbl_sequence(c("w", "x", "y", "z")))
+#' kut(1:10, c(2, 5, 8), lbl_sequence(c("w", "x", "y", "z")))
 #'
 #' # if labels need repeating:
-#' chop(1:10, 1:10, lbl_sequence(c("x", "y", "z")))
+#' kut(1:10, 1:10, lbl_sequence(c("x", "y", "z")))
 NULL
 
 

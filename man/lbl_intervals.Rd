@@ -11,7 +11,7 @@ lbl_intervals(raw = FALSE)
 or standard deviations?}
 }
 \value{
-A vector of labels for \code{chop}, or a function that creates labels.
+A vector of labels for \code{kut}, or a function that creates labels.
 }
 \description{
 Labels using set notation

@@ -7,23 +7,23 @@
 \title{A versatile cutting tool for R}
 \description{
 santoku is a tool for cutting numeric data into intervals. It provides
-the function \code{\link[=chop]{chop()}}, which is similar to base R's \code{\link[=cut]{cut()}} or \code{Hmisc::cut2()}.
-\code{chop(x, breaks)} takes a numeric vector \code{x} and returns a factor of the
+the function \code{\link[=kut]{kut()}}, which is similar to base R's \code{\link[=cut]{cut()}} or \code{Hmisc::cut2()}.
+\code{kut(x, breaks)} takes a numeric vector \code{x} and returns a factor of the
 same length, coding which interval each element of \code{x} falls into.
 }
 \details{
 Here are some advantages of santoku:
 \itemize{
-\item By default, \code{chop()} always covers the whole range of the data, so you
+\item By default, \code{kut()} always covers the whole range of the data, so you
 won't get unexpected \code{NA} values.
-\item Unlike \code{cut()} or \code{cut2()}, \code{chop()} can handle single values as well as
-intervals. For example, \code{chop(x, breaks = c(1, 2, 2, 3))} will create a
+\item Unlike \code{cut()} or \code{cut2()}, \code{kut()} can handle single values as well as
+intervals. For example, \code{kut(x, breaks = c(1, 2, 2, 3))} will create a
 separate factor level for values exactly equal to 2.
 \item Flexible labelling, including easy ways to label intervals by
 numerals or letters.
 \item Convenience functions for creating quantile intervals, evenly-spaced
 intervals or equal-sized groups.
-\item Convenience functions for quickly tabulating chopped data.
+\item Convenience functions for quickly tabulating cut data.
 }
 
 These advantages make santoku especially useful for exploratory analysis,

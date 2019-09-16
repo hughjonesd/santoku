@@ -2,8 +2,8 @@
 
 #' Syntactic sugar
 #'
-#' `exactly` lets you write `chop(x, c(1, exactly(2), 3))`. This
-#' is the same as `chop(x, c(1, 2, 2, 3))` but conveys your intent more
+#' `exactly` lets you write `kut(x, c(1, exactly(2), 3))`. This
+#' is the same as `kut(x, c(1, 2, 2, 3))` but conveys your intent more
 #' clearly.
 #'
 #' @param x A numeric vector.
@@ -12,10 +12,10 @@
 #' @export
 #'
 #' @examples
-#' chop(1:10, c(2, exactly(5), 8))
+#' kut(1:10, c(2, exactly(5), 8))
 #'
 #' # same:
-#' chop(1:10, c(2, 5, 5, 8))
+#' kut(1:10, c(2, 5, 5, 8))
 exactly <- function (x) rep(x, each = 2)
 
 

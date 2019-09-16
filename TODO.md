@@ -12,18 +12,17 @@
 * cut e.g. Dates, posixct, DateT
   - what else? ts, xts, zoo, lubridate classes
   - this is one for 0.2.0 I think
-  - probably call it something like `chop_dates` rather than trying to
+  - probably call it something like `kut_dates` rather than trying to
     do OO
   - `brk_days()`, `brk_weeks()` etc.? Equivalent to all lubridate's `days()` etc.
     classes? 
-  - the basic `chop` function, with appropriate breaks, might already 
+  - the basic `kut` function, with appropriate breaks, might already 
   "almost work" b/c it just uses arithmetic comparisons
+  - ah, but "modulo" `kut` has to extract e.g. `ydays(x)` for chopping on
   
-* `chop_cleanly` - set `drop = FALSE`, `extend = FALSE/TRUE`? 
-  - TRUE extend ensures no NAs from non-NA input
-  - FALSE extend guarantees the number of levels (even if the breaks
-    specified were infinite); not important if breaks are manually specified,
-    but perhaps if e.g. `brk_mean_se` is called?
+* `kut_cleanly` - set `drop = FALSE`, `extend = FALSE`? 
+  - TRUE extend ensures no NAs from non-NA input.
+  - but `FALSE` allows more control and is more explicit.
   
 
 # Thoughts on errors
@@ -62,9 +61,13 @@
     ```
     should surely return labels a, b, c. But this means we aren't always
     extending.
-    
+
+* Should `extend = NULL` extend to `min(x), max(x)`? It increases data
+  dependence but that is already there in this case; and it may be
+  more informative data labels.
+
 * Should we allow vector `labels` to be longer than necessary?
-  + lets people do e.g. `chop(rnorm(100), -2:2, LETTERS)`
+  + lets people do e.g. `kut(rnorm(100), -2:2, LETTERS)`
   - but might hide errors
   - overall I'm against
   

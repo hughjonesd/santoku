@@ -15,7 +15,7 @@ lbl_format(fmt, fmt1 = "\%s", raw = FALSE)
 or standard deviations?}
 }
 \value{
-A vector of labels for \code{chop}, or a function that creates labels.
+A vector of labels for \code{kut}, or a function that creates labels.
 }
 \description{
 Labels using breaks, with arbitrary formatting

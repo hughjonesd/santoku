@@ -5,7 +5,7 @@ test_that("tab", {
   )
   expect_identical(
     tab(1:5, c(2, 4), letters[1:3]),
-    table(x = chop(1:5, c(2, 4), letters[1:3], drop = FALSE), useNA = "ifany")
+    table(x = kut(1:5, c(2, 4), letters[1:3], drop = FALSE), useNA = "ifany")
   )
 })
 

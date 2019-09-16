@@ -26,13 +26,13 @@ Left- or right-closed breaks
 \code{brk_left} and \code{brk_right} can be used to wrap another \code{brk_*} function.
 }
 \examples{
-chop(5:7, brk_left(5:7))
+kut(5:7, brk_left(5:7))
 
-chop(5:7, brk_right(5:7))
+kut(5:7, brk_right(5:7))
 
-chop(5:7, brk_left(5:7, FALSE))
+kut(5:7, brk_left(5:7, FALSE))
 
 # wrapping another `brk_*` function:
-chop(1:10, brk_right(brk_quantiles(1:3/4)))
+kut(1:10, brk_right(brk_quantiles(1:3/4)))
 
 }

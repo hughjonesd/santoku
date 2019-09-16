@@ -13,15 +13,15 @@ lbl_dash(symbol = " - ", raw = FALSE)
 or standard deviations?}
 }
 \value{
-A vector of labels for \code{chop}, or a function that creates labels.
+A vector of labels for \code{kut}, or a function that creates labels.
 }
 \description{
 Labels like 1 - 3, 4 - 5, ...
 }
 \examples{
-chop(1:10, c(2, 5, 8), lbl_dash())
+kut(1:10, c(2, 5, 8), lbl_dash())
 
-chop(1:10, c(2, 5, 8), lbl_dash(" to "))
+kut(1:10, c(2, 5, 8), lbl_dash(" to "))
 
 }
 \seealso{

@@ -26,90 +26,90 @@ devtools::install_github("hughjonesd/santoku")
 
 ## Basic usage
 
-Use `chop()` like `cut()` to cut your data up:
+Use `kut()` like `cut()` to cut your data up:
 
 ```{r}
 library(santoku)
 x <- runif(10, 0, 10)
-(chopped <- chop(x, breaks = 0:10))
-data.frame(x, chopped)
+(x_cut <- kut(x, breaks = 0:10))
+data.frame(x, x_cut)
 ```
 
-`chop()` returns a factor.
+`kut()` returns a factor.
 
 If data is beyond the limits of `breaks`, they will be extended automatically:
 
 ```{r}
-chopped <- chop(x, breaks = 3:7)
-data.frame(x, chopped)
+x_cut <- kut(x, breaks = 3:7)
+data.frame(x, x_cut)
 ```
 
-To chop a single number into a separate category, put the number twice in
+To cut a single number into a separate category, put the number twice in
 `breaks`:
 
 ```{r}
 x_fives <- x
 x_fives[1:5] <- 5
-chopped <- chop(x_fives, c(2, 5, 5, 8))
-data.frame(x_fives, chopped)
+x_cut <- kut(x_fives, c(2, 5, 5, 8))
+data.frame(x_fives, x_cut)
 ```
 
 
-To quickly produce a table of chopped data, use `tab()`:
+To quickly produce a table of x_cut data, use `tab()`:
 
 ```{r}
 tab(1:10, c(2, 5, 8))
 ```
 
-## More ways to chop
+## More ways to cut
 
-To chop into fixed-width intervals, starting at the minimum value, use
-`chop_width()`:
+To cut into fixed-width intervals, starting at the minimum value, use
+`kut_width()`:
 
 ```{r}
-chopped <- chop_width(x, 2)
-data.frame(x, chopped)
+x_cut <- kut_width(x, 2)
+data.frame(x, x_cut)
 ```
 
-To chop into exactly `groups` fixed-with intervals, use `chop_evenly()`:
+To cut into exactly `groups` fixed-with intervals, use `kut_evenly()`:
 
 ```{r}
-chopped <- chop_evenly(x, groups = 3)
-data.frame(x, chopped)
+x_cut <- kut_evenly(x, groups = 3)
+data.frame(x, x_cut)
 ```
 
-To chop into groups with a fixed number of members, use `chop_n()`:
+To cut into groups with a fixed number of members, use `kut_n()`:
 
 ```{r}
-chopped <- chop_n(x, 4)
-table(chopped)
-```
-
-
-To chop into a fixed number of equal-sized groups, use `chop_equally()`:
-
-```{r}
-chopped <- chop_equally(x, groups = 5)
-table(chopped)
+x_cut <- kut_n(x, 4)
+table(x_cut)
 ```
 
 
-To chop data up by quantiles, use `chop_quantiles()`:
+To cut into a fixed number of equal-sized groups, use `kut_equally()`:
 
 ```{r}
-chopped <- chop_quantiles(x, c(0.25, 0.5, 0.75))
-data.frame(x, chopped)
+x_cut <- kut_equally(x, groups = 5)
+table(x_cut)
 ```
 
-To chop data by standard deviations around the mean, use `chop_mean_sd()`:
+
+To cut data up by quantiles, use `kut_quantiles()`:
 
 ```{r}
-chopped <- chop_mean_sd(x)
-data.frame(x, chopped)
+x_cut <- kut_quantiles(x, c(0.25, 0.5, 0.75))
+data.frame(x, x_cut)
+```
+
+To cut data by standard deviations around the mean, use `kut_mean_sd()`:
+
+```{r}
+x_cut <- kut_mean_sd(x)
+data.frame(x, x_cut)
 ```
 
 `tab_n()`, `tab_width()`, `tab_evenly()` and `tab_mean_sd()` act similarly to
-`tab()`, calling the related `chop_` function and then `table()`.
+`tab()`, calling the related `kut_` function and then `table()`.
 
 ```{r}
 tab_n(x, 4)
@@ -123,8 +123,8 @@ tab_mean_sd(x)
 You can change factor labels with the `labels` argument:
 
 ```{r}
-chopped <- chop(x, c(2, 5, 8), labels = c("Lowest", "Low", "Higher", "Highest"))
-data.frame(x, chopped)
+x_cut <- kut(x, c(2, 5, 8), labels = c("Lowest", "Low", "Higher", "Highest"))
+data.frame(x, x_cut)
 ```
 
 You need as many labels as there are intervals - one fewer than `length(breaks)`
@@ -134,37 +134,37 @@ it does.
 To label intervals with a dash, use `lbl_dash()`:
 
 ```{r}
-chopped <- chop(x, c(2, 5, 8), lbl_dash())
-data.frame(x, chopped)
+x_cut <- kut(x, c(2, 5, 8), lbl_dash())
+data.frame(x, x_cut)
 ```
 
 For arbitrary formatting use `lbl_format()` and `sprintf`-style format strings:
 
 ```{r}
-chopped <- chop(x, c(2, 5, 8), lbl_format("%s to %s"))
-data.frame(x, chopped)
+x_cut <- kut(x, c(2, 5, 8), lbl_format("%s to %s"))
+data.frame(x, x_cut)
 ```
 
 To number intervals in order use `lbl_numerals()`:
 
 ```{r}
-chopped <- chop(x, c(2, 5, 8), lbl_numerals())
-data.frame(x, chopped)
+x_cut <- kut(x, c(2, 5, 8), lbl_numerals())
+data.frame(x, x_cut)
 ```
 
 You can use letters or even roman numerals:
 
 ```{r}
-chop(x, c(2, 5, 8), lbl_letters())
-chop(x, c(2, 5, 8), lbl_roman())
+kut(x, c(2, 5, 8), lbl_letters())
+kut(x, c(2, 5, 8), lbl_roman())
 ```
 
-By default, `chop()` extends `breaks` if necessary. If you don't want
+By default, `kut()` extends `breaks` if necessary. If you don't want
 that, set `extend = FALSE`:
 
 ```{r}
-chopped <- chop(x, c(3, 5, 7), extend = FALSE)
-data.frame(x, chopped)
+x_cut <- kut(x, c(3, 5, 7), extend = FALSE)
+data.frame(x, x_cut)
 ```
 
 Data outside the range of `breaks` will become `NA`.
@@ -176,8 +176,8 @@ endpoints. If you want right-closed intervals, use `brk_right()`:
 y <- 1:10
 data.frame(
         y = y, 
-        left_closed = chop(y, 2:8), 
-        right_closed = chop(y, brk_right(2:8))
+        left_closed = kut(y, 2:8), 
+        right_closed = kut(y, brk_right(2:8))
       )
 ```
 
@@ -187,23 +187,23 @@ The last finite interval is right-closed (or if you use `brk_right`, the first f
 z <- 1:5
 data.frame(
   z = z,
-  rightmost_closed = chop(1:5, brk_left(1:5)),
-  rightmost_open   = chop(1:5, brk_left(1:5, close_end = FALSE))
+  rightmost_closed = kut(1:5, brk_left(1:5)),
+  rightmost_open   = kut(1:5, brk_left(1:5, close_end = FALSE))
 )
 
 ```
 
 
-If you want to chop repeatedly with the same arguments, create your own
+If you want to cut repeatedly with the same arguments, create your own
 `knife`:
 
 ```{r}
-chop_by_quartiles <- knife(
+kut_by_quartiles <- knife(
         breaks = brk_quantiles(c(0.25, 0.5, 0.75)), 
         labels = lbl_dash()
       )
 
-chop_by_quartiles(x)
-table(chop_by_quartiles(rnorm(50)))
+kut_by_quartiles(x)
+table(kut_by_quartiles(rnorm(50)))
 
 ```

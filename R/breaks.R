@@ -1,6 +1,6 @@
 
 
-#' @rdname chop_quantiles
+#' @rdname kut_quantiles
 #'
 #' @param ... Arguments passed to [quantile()].
 #'
@@ -33,7 +33,7 @@ brk_quantiles <- function (probs, ...) {
 }
 
 
-#' @rdname chop_mean_sd
+#' @rdname kut_mean_sd
 #' @export
 brk_mean_sd <- function (sd = 3) {
   assert_that(is.count(sd))
@@ -66,7 +66,7 @@ brk_mean_sd <- function (sd = 3) {
 
 
 
-#' @rdname chop_width
+#' @rdname kut_width
 #' @export
 brk_width <- function (width, start) {
   assert_that(is.number(width), width > 0)
@@ -97,7 +97,7 @@ brk_width <- function (width, start) {
 }
 
 
-#' @rdname chop_width
+#' @rdname kut_width
 #' @export
 brk_evenly <- function(groups) {
   assert_that(is.count(groups))
@@ -110,7 +110,7 @@ brk_evenly <- function(groups) {
 }
 
 
-#' @rdname chop_n
+#' @rdname kut_n
 #' @export
 brk_n <- function (n) {
   assert_that(is.count(n))
@@ -147,14 +147,14 @@ NULL
 #' @name brk-left-right
 #'
 #' @examples
-#' chop(5:7, brk_left(5:7))
+#' kut(5:7, brk_left(5:7))
 #'
-#' chop(5:7, brk_right(5:7))
+#' kut(5:7, brk_right(5:7))
 #'
-#' chop(5:7, brk_left(5:7, FALSE))
+#' kut(5:7, brk_left(5:7, FALSE))
 #'
 #' # wrapping another `brk_*` function:
-#' chop(1:10, brk_right(brk_quantiles(1:3/4)))
+#' kut(1:10, brk_right(brk_quantiles(1:3/4)))
 #'
 NULL
 
@@ -246,16 +246,16 @@ brk_right.function <- function (breaks, close_end = TRUE) {
 #'
 #' @examples
 #' lbrks <- brk_manual(1:3, rep(TRUE, 3))
-#' chop(1:3, lbrks, extend = FALSE)
+#' kut(1:3, lbrks, extend = FALSE)
 #'
 #' rbrks <- brk_manual(1:3, rep(FALSE, 3))
-#' chop(1:3, rbrks, extend = FALSE)
+#' kut(1:3, rbrks, extend = FALSE)
 #'
 #' brks_singleton <- brk_manual(
 #'       c(1,    2,    2,     3),
 #'       c(TRUE, TRUE, FALSE, TRUE))
 #'
-#' chop(1:3, brks_singleton, extend = FALSE)
+#' kut(1:3, brks_singleton, extend = FALSE)
 #'
 brk_manual <- function (breaks, left) {
   assert_that(is.numeric(breaks), noNA(breaks), is.logical(left), noNA(left),

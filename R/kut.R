@@ -1,16 +1,16 @@
 
 
-#' @name chop-doc
+#' @name kut-doc
 #' @param x A numeric vector.
-#' @param breaks,labels,...  Passed to `chop`.
+#' @param breaks,labels,...  Passed to `kut`.
 #' @return
-#' For  `chop_*` functions, a factor of the same length as `x`.
+#' For  `kut_*` functions, a factor of the same length as `x`.
 NULL
 
 
 #' Cut numeric data into intervals
 #'
-#' `chop` cuts `x` into intervals. It returns a factor of the same
+#' `kut` cuts `x` into intervals. It returns a factor of the same
 #' length as `x`, representing which interval contains each element of `x`.
 #'
 #'
@@ -46,7 +46,7 @@ NULL
 #' `NA` values in `x`, and values which are outside the (extended) endpoints,
 #' return `NA`.
 #'
-#' Note that `chop`, like all of R, uses binary arithmetic. Thus, numbers may
+#' Note that `kut`, like all of R, uses binary arithmetic. Thus, numbers may
 #' not be exactly equal to what you think they should be. There is an example
 #' below.
 #'
@@ -56,27 +56,27 @@ NULL
 #'
 #' @export
 #'
-#' @family chopping functions
+#' @family cutting functions
 #'
 #' @seealso cut
 #'
 #' @examples
-#' chop(1:3, 2)
+#' kut(1:3, 2)
 #'
-#' chop(1:10, c(2, 5, 8))
+#' kut(1:10, c(2, 5, 8))
 #'
-#' chop(1:10, c(2, 5, 8), extend = FALSE)
+#' kut(1:10, c(2, 5, 8), extend = FALSE)
 #'
-#' chop(1:10, c(2, 5, 5, 8))
+#' kut(1:10, c(2, 5, 5, 8))
 #'
-#' chop(1:10, brk_quantiles(c(0.25, 0.75)))
+#' kut(1:10, brk_quantiles(c(0.25, 0.75)))
 #'
-#' chop(1:10, c(2, 5, 8), labels = lbl_dash())
+#' kut(1:10, c(2, 5, 8), labels = lbl_dash())
 #'
 #' # floating point inaccuracy:
-#' chop(0.3/3, c(0, 0.1, 0.1, 1))
+#' kut(0.3/3, c(0, 0.1, 0.1, 1))
 #'
-chop <- function (x, breaks, labels,
+kut <- function (x, breaks, labels,
         extend = NULL,
         drop   = TRUE
       ) {
@@ -107,127 +107,127 @@ chop <- function (x, breaks, labels,
 }
 
 
-#' Chop by quantiles
+#' Cut by quantiles
 #'
-#' `chop_quantiles` chops data by quantiles. `chop_equally` chops
-#' data into equal-sized groups. `chop_deciles` is a convenience shortcut and
-#' chops into deciles.
+#' `kut_quantiles` cuts data by quantiles. `kut_equally` cuts
+#' data into equal-sized groups. `kut_deciles` is a convenience shortcut and
+#' cuts into deciles.
 #'
 #' @param probs A vector of probabilities for the quantiles.
-#' @inherit chop-doc params return
+#' @inherit kut-doc params return
 #'
-#' @family chopping functions
+#' @family cutting functions
 #'
 #' @export
 #'
 #' @examples
-#' chop_quantiles(1:10, 1:3/4)
+#' kut_quantiles(1:10, 1:3/4)
 #'
-#' chop(1:10, brk_quantiles(1:3/4))
+#' kut(1:10, brk_quantiles(1:3/4))
 #'
-#' chop_deciles(1:10)
+#' kut_deciles(1:10)
 #'
-#' chop_equally(1:10, 5)
+#' kut_equally(1:10, 5)
 #'
 #' # to label by the quantiles themselves:
-#' chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
+#' kut_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
 #'
-chop_quantiles <- function(x, probs, ...) {
-  chop(x, brk_quantiles(probs), ...)
+kut_quantiles <- function(x, probs, ...) {
+  kut(x, brk_quantiles(probs), ...)
 }
 
 
-#' @rdname chop_quantiles
+#' @rdname kut_quantiles
 #' @export
-chop_deciles <- function(x, ...) {
-  chop_quantiles(x, 1:9/10, ...)
+kut_deciles <- function(x, ...) {
+  kut_quantiles(x, 1:9/10, ...)
 }
 
 
-#' @rdname chop_quantiles
+#' @rdname kut_quantiles
 #'
 #' @param groups Number of groups.
 #'
 #' @export
-chop_equally <- function (x, groups, ...) {
-  chop_quantiles(x, seq(0, groups)/groups, ...)
+kut_equally <- function (x, groups, ...) {
+  kut_quantiles(x, seq(0, groups)/groups, ...)
 }
 
 
-#' Chop by standard deviations
+#' Cut by standard deviations
 #'
 #' @param sd Whole number: include `sd` standard deviations on each side of
 #'   the mean.
-#' @inherit chop-doc params return
+#' @inherit kut-doc params return
 #'
-#' @family chopping functions
+#' @family cutting functions
 #'
 #' @export
 #'
 #' @examples
-#' chop_mean_sd(1:10)
+#' kut_mean_sd(1:10)
 #'
-#' chop(1:10, brk_mean_sd())
+#' kut(1:10, brk_mean_sd())
 #'
-chop_mean_sd <- function (x, sd = 3, ...) {
-  chop(x, brk_mean_sd(sd), ...)
+kut_mean_sd <- function (x, sd = 3, ...) {
+  kut(x, brk_mean_sd(sd), ...)
 }
 
 
-#' Chop into equal-width intervals
+#' Cut into equal-width intervals
 #'
-#' `chop_width()` chops `x` into intervals of width `width`. `chop_evenly`
-#' chops `x` into `groups` intervals of equal width.
+#' `kut_width()` cuts `x` into intervals of width `width`. `kut_evenly`
+#' cuts `x` into `groups` intervals of equal width.
 #'
 #' @param width Width of intervals.
 #' @param start Leftpoint of first interval. By default the lowest finite `x`.
-#' @inherit chop-doc params return
+#' @inherit kut-doc params return
 #'
-#' @family chopping functions
+#' @family cutting functions
 #'
 #' @export
 #'
 #' @examples
-#' chop_width(1:10, 2)
+#' kut_width(1:10, 2)
 #'
-#' chop_width(1:10, 2, start = 0)
+#' kut_width(1:10, 2, start = 0)
 #'
-#' chop(1:10, brk_width(2, 0))
+#' kut(1:10, brk_width(2, 0))
 #'
-#' chop_evenly(1:10, 5)
+#' kut_evenly(1:10, 5)
 #'
-chop_width <- function (x, width, start, ...) {
-  chop(x, brk_width(width, start), ...)
+kut_width <- function (x, width, start, ...) {
+  kut(x, brk_width(width, start), ...)
 }
 
 
-#' @rdname chop_width
+#' @rdname kut_width
 #'
 #' @param groups Integer: number of intervals to create.
 #'
 #' @export
-chop_evenly <- function (x, groups, ...) {
-  chop(x, brk_evenly(groups), ...)
+kut_evenly <- function (x, groups, ...) {
+  kut(x, brk_evenly(groups), ...)
 }
 
 
-#' Chop into fixed-sized groups
+#' Cut into fixed-sized groups
 #'
-#' `chop_n()` creates intervals containing a fixed number of elements. One
+#' `kut_n()` creates intervals containing a fixed number of elements. One
 #' interval may have fewer elements.
 #'
 #' @param n Integer: number of elements in each interval.
-#' @inherit chop-doc params return
+#' @inherit kut-doc params return
 #'
 #' @export
 #'
-#' @family chopping functions
+#' @family cutting functions
 #'
 #' @examples
-#' table(chop_n(1:10, 5))
+#' table(kut_n(1:10, 5))
 #'
-#' table(chop_n(1:10, 4))
+#' table(kut_n(1:10, 4))
 #'
-chop_n <- function (x, n, ...) {
-  chop(x, brk_n(n), ...)
+kut_n <- function (x, n, ...) {
+  kut(x, brk_n(n), ...)
 }

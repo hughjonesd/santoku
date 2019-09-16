@@ -13,13 +13,13 @@ exactly(x)
 \code{rep(x, each = 2)}.
 }
 \description{
-\code{exactly} lets you write \code{chop(x, c(1, exactly(2), 3))}. This
-is the same as \code{chop(x, c(1, 2, 2, 3))} but conveys your intent more
+\code{exactly} lets you write \code{kut(x, c(1, exactly(2), 3))}. This
+is the same as \code{kut(x, c(1, 2, 2, 3))} but conveys your intent more
 clearly.
 }
 \examples{
-chop(1:10, c(2, exactly(5), 8))
+kut(1:10, c(2, exactly(5), 8))
 
 # same:
-chop(1:10, c(2, 5, 5, 8))
+kut(1:10, c(2, 5, 5, 8))
 }

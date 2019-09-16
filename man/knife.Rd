@@ -2,18 +2,18 @@
 % Please edit documentation in R/knife.R
 \name{knife}
 \alias{knife}
-\title{Create a chopping function}
+\title{Create a cutting function}
 \usage{
 knife(...)
 }
 \arguments{
-\item{...}{Parameters for \code{\link[=chop]{chop()}}.}
+\item{...}{Parameters for \code{\link[=kut]{kut()}}.}
 }
 \description{
-\code{knife()} returns a one-argument function for chopping data.
+\code{knife()} returns a one-argument function for cutting data.
 }
 \examples{
-chop_six <- knife(breaks = -2:2, labels = lbl_LETTERS())
-chop_six(rnorm(10))
-chop_six(rnorm(10))
+kut_six <- knife(breaks = -2:2, labels = lbl_LETTERS())
+kut_six(rnorm(10))
+kut_six(rnorm(10))
 }

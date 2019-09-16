@@ -35,15 +35,15 @@ at indices \code{i}, \code{i+1}, \code{left[i]} must be \code{TRUE} and \code{le
 }
 \examples{
 lbrks <- brk_manual(1:3, rep(TRUE, 3))
-chop(1:3, lbrks, extend = FALSE)
+kut(1:3, lbrks, extend = FALSE)
 
 rbrks <- brk_manual(1:3, rep(FALSE, 3))
-chop(1:3, rbrks, extend = FALSE)
+kut(1:3, rbrks, extend = FALSE)
 
 brks_singleton <- brk_manual(
       c(1,    2,    2,     3),
       c(TRUE, TRUE, FALSE, TRUE))
 
-chop(1:3, brks_singleton, extend = FALSE)
+kut(1:3, brks_singleton, extend = FALSE)
 
 }

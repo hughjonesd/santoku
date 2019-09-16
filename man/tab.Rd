@@ -19,13 +19,13 @@ tab_n(...)
 tab_mean_sd(...)
 }
 \arguments{
-\item{...}{Passed to \code{chop}}
+\item{...}{Passed to \code{kut}}
 }
 \value{
 A \code{\link[=table]{table()}}.
 }
 \description{
-These functions call their related \code{chop_xxx} function, and call \code{\link[=table]{table()}}
+These functions call their related \code{kut_xxx} function, and call \code{\link[=table]{table()}}
 on the result.
 }
 \examples{

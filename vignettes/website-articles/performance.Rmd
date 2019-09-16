@@ -24,7 +24,7 @@ The core of santoku is written in C++. It is reasonably fast:
 
 packageVersion("santoku")
 mb <- microbenchmark::microbenchmark(
-        santoku::chop(rnorm(1e5), -2:2),
+        santoku::kut(rnorm(1e5), -2:2),
                   cut(rnorm(1e5), -2:2),
           Hmisc::cut2(rnorm(1e5), -2:2)
       )
