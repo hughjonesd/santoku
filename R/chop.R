@@ -107,6 +107,13 @@ chop <- function (x, breaks, labels,
 }
 
 
+#' @rdname chop
+#' @export
+#' @details
+#' `kut` is a synonym for `chop`. If you load `tidyr`, you can use it to avoid
+#'  confusion with [tidyr::chop()].
+kut <- chop
+
 #' Chop by quantiles
 #'
 #' `chop_quantiles` chops data by quantiles. `chop_equally` chops

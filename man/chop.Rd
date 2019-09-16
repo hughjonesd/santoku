@@ -2,9 +2,12 @@
 % Please edit documentation in R/chop.R
 \name{chop}
 \alias{chop}
+\alias{kut}
 \title{Cut numeric data into intervals}
 \usage{
 chop(x, breaks, labels, extend = NULL, drop = TRUE)
+
+kut(x, breaks, labels, extend = NULL, drop = TRUE)
 }
 \arguments{
 \item{x}{A numeric vector.}
@@ -54,6 +57,9 @@ return \code{NA}.
 Note that \code{chop}, like all of R, uses binary arithmetic. Thus, numbers may
 not be exactly equal to what you think they should be. There is an example
 below.
+
+\code{kut} is a synonym for \code{chop}. If you load \code{tidyr}, you can use it to avoid
+confusion with \code{\link[tidyr:chop]{tidyr::chop()}}.
 }
 \examples{
 chop(1:3, 2)
