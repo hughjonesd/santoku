@@ -46,6 +46,6 @@ chop_evenly(1:10, 5)
 \seealso{
 Other chopping functions: \code{\link{brk_mean_sd}},
   \code{\link{brk_n}}, \code{\link{brk_quantiles}},
-  \code{\link{chop}}
+  \code{\link{chop}}, \code{\link{fillet}}
 }
 \concept{chopping functions}

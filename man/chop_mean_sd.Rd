@@ -32,6 +32,6 @@ chop(1:10, brk_mean_sd())
 \seealso{
 Other chopping functions: \code{\link{brk_n}},
   \code{\link{brk_quantiles}}, \code{\link{brk_width}},
-  \code{\link{chop}}
+  \code{\link{chop}}, \code{\link{fillet}}
 }
 \concept{chopping functions}

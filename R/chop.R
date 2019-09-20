@@ -113,6 +113,26 @@ chop <- function (x, breaks, labels,
 #'  confusion with [tidyr::chop()].
 kut <- chop
 
+
+#' Chop data precisely (for programmers)
+#'
+#' @inherit chop params return
+#'
+#' @details
+#' `fillet()` calls [chop()] with `extend = FALSE` and `drop = FALSE`. This
+#' ensures that you get only the `breaks` and `labels` you ask for. When
+#' programming, consider using `fillet()` instead of `chop()`.
+#'
+#' @family chopping functions
+#'
+#' @export
+#'
+#' @examples
+#' fillet(1:10, c(2, 5, 8))
+fillet <- function (x, breaks, labels) chop(x, breaks, labels, extend = FALSE,
+      drop = FALSE)
+
+
 #' Chop by quantiles
 #'
 #' `chop_quantiles` chops data by quantiles. `chop_equally` chops

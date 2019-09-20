@@ -84,6 +84,6 @@ cut
 
 Other chopping functions: \code{\link{brk_mean_sd}},
   \code{\link{brk_n}}, \code{\link{brk_quantiles}},
-  \code{\link{brk_width}}
+  \code{\link{brk_width}}, \code{\link{fillet}}
 }
 \concept{chopping functions}

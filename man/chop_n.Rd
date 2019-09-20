@@ -32,6 +32,6 @@ table(chop_n(1:10, 4))
 \seealso{
 Other chopping functions: \code{\link{brk_mean_sd}},
   \code{\link{brk_quantiles}}, \code{\link{brk_width}},
-  \code{\link{chop}}
+  \code{\link{chop}}, \code{\link{fillet}}
 }
 \concept{chopping functions}

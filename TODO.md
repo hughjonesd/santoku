@@ -19,13 +19,6 @@
   - the basic `chop` function, with appropriate breaks, might already 
   "almost work" b/c it just uses arithmetic comparisons
   
-* `chop_cleanly` - set `drop = FALSE`, `extend = FALSE/TRUE`? 
-  - TRUE extend ensures no NAs from non-NA input
-  - FALSE extend guarantees the number of levels (even if the breaks
-    specified were infinite); not important if breaks are manually specified,
-    but perhaps if e.g. `brk_mean_se` is called?
-  - I think `FALSE` is more precise for programming
-  
 
 # Thoughts on errors
 

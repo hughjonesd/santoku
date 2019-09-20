@@ -144,6 +144,13 @@ test_that("chop_mean_sd", {
 })
 
 
+test_that("fillet", {
+  x <- -2:2
+  expect_silent(sole <- fillet(x, -1:1))
+  expect_identical(sole, chop(x, -1:1, extend = FALSE, drop = FALSE))
+})
+
+
 test_that("systematic tests", {
   x_vals <- list(
           ordinary = 4:1,

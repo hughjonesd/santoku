@@ -48,6 +48,6 @@ chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
 \seealso{
 Other chopping functions: \code{\link{brk_mean_sd}},
   \code{\link{brk_n}}, \code{\link{brk_width}},
-  \code{\link{chop}}
+  \code{\link{chop}}, \code{\link{fillet}}
 }
 \concept{chopping functions}
