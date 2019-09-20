@@ -51,11 +51,12 @@ brk_mean_sd <- function (sd = 3) {
     breaks <- c(sort(s1), s2[-1])
 
     breaks <- create_left_breaks(breaks)
+    was_extended <- extend %||% needs_extend(breaks, x)
     breaks <- maybe_extend(breaks, x, extend)
 
     break_labels <- seq(-sd, sd, 1)
     break_labels <- paste0(break_labels, " sd")
-    if (extend %||% needs_extend(breaks, x)) {
+    if (was_extended) {
       break_labels <- c(-Inf, break_labels, Inf)
     }
     attr(breaks, "break_labels") <- break_labels

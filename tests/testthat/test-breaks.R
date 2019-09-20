@@ -108,12 +108,18 @@ test_that("brk_evenly", {
 
 
 test_that("brk_mean_sd", {
-  x <- rnorm(10)
+  x <- rnorm(100)
   expect_silent(b <- brk_mean_sd(3)(x, FALSE))
   m <- mean(x)
   sd <- sd(x)
   sd_ints <- seq(m - 3 * sd, m + 3 * sd, sd)
   expect_equal(as.numeric(b), sd_ints)
+
+  b <- brk_mean_sd(1)(x, NULL)
+  expect_equal(
+          attr(b, "break_labels"),
+          c("-Inf", "-1 sd", "0 sd", "1 sd", "Inf")
+        )
 
   expect_silent(brk_mean_sd(3)(rep(NA, 2), FALSE))
   expect_silent(brk_mean_sd(3)(rep(1, 3), FALSE))
