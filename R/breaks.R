@@ -19,8 +19,11 @@ brk_quantiles <- function (probs, ...) {
 
     # order matters in the stanza below:
     breaks <- create_left_breaks(qs)
-    if (extend %||% needs_extend(breaks, x)) {
+    needs <- needs_extend(breaks, x)
+    if (extend %||% (needs & LEFT) > 0) {
       if (length(qs) == 0 || qs[1] > -Inf) probs <- c(0, probs)
+    }
+    if (extend %||% (needs & RIGHT) > 0) {
       if (length(qs) == 0 ||qs[length(qs)] < Inf) probs <- c(probs, 1)
     }
     breaks <- maybe_extend(breaks, x, extend)
@@ -51,13 +54,16 @@ brk_mean_sd <- function (sd = 3) {
     breaks <- c(sort(s1), s2[-1])
 
     breaks <- create_left_breaks(breaks)
-    was_extended <- extend %||% needs_extend(breaks, x)
+    needs <- needs_extend(breaks, x)
     breaks <- maybe_extend(breaks, x, extend)
 
     break_labels <- seq(-sd, sd, 1)
     break_labels <- paste0(break_labels, " sd")
-    if (was_extended) {
-      break_labels <- c(-Inf, break_labels, Inf)
+    if (extend %||% (needs & LEFT) > 0) {
+      break_labels <- c(-Inf, break_labels)
+    }
+    if (extend %||% (needs & RIGHT) > 0) {
+      break_labels <- c(break_labels, Inf)
     }
     attr(breaks, "break_labels") <- break_labels
 

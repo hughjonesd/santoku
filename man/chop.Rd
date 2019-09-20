@@ -29,8 +29,7 @@ the value of \code{x}.
 length as \code{x}, representing which interval contains each element of \code{x}.
 }
 \details{
-\code{breaks} may be a numeric vector, an object of class \link[=breaks-class]{breaks},
-or a function.
+\code{breaks} may be a numeric vector or a function.
 
 If it is a vector, \code{breaks} gives the break endpoints.Repeated values create
 singleton intervals. For example \code{breaks = c(1, 3, 3, 5)} creates 3
@@ -46,10 +45,12 @@ number of intervals. Alternatively, use a \code{lbl_} function such as
 \code{\link[=lbl_numerals]{lbl_numerals()}}.
 
 If \code{extend} is \code{TRUE}, intervals will be extended to \code{[-Inf,
-min(breaks))} and \code{(max(breaks), Inf]} (unless the first and last
-endpoints are already \code{[-Inf} and \code{Inf]} respectively). If \code{extend} is \code{NULL}
-(the default), intervals will be extended only if the data is outside their
-range.
+min(breaks))} and \code{(max(breaks), Inf]} (unless the first/last
+endpoints are already \code{[-Inf} or \code{Inf]} respectively).
+
+If \code{extend} is \code{NULL} (the default), intervals will be extended on each side
+only if necessary, i.e. if \code{x} extends beyond \code{min(breaks)} or \code{max(breaks)}
+respectively.
 
 \code{NA} values in \code{x}, and values which are outside the (extended) endpoints,
 return \code{NA}.

@@ -63,36 +63,45 @@ empty_breaks <- function () {
   create_breaks(c(-Inf, Inf), c(TRUE, FALSE))
 }
 
+
+NEITHER <- as.raw(0)
+LEFT    <- as.raw(1)
+RIGHT   <- as.raw(2)
+BOTH <- LEFT | RIGHT
+
 needs_extend <- function (breaks, x) {
-  suppressWarnings(
-          length(breaks) < 2L ||
-          min(x, na.rm = TRUE) < min(breaks) ||
-          max(x, na.rm = TRUE) > max(breaks)
-        )
+  if (length(breaks) < 2L) return(BOTH)
+  needs <- NEITHER
+  suppressWarnings({
+          if (min(x, na.rm = TRUE) < min(breaks)) needs <- needs | LEFT
+          if (max(x, na.rm = TRUE) > max(breaks)) needs <- needs | RIGHT
+        })
+
+  return(needs)
 }
 
 
 maybe_extend <- function (breaks, x, extend) {
-  extend <- extend %||% needs_extend(breaks, x)
-  if (extend) breaks <- extend_breaks(breaks)
+  extend <- if (is.null(extend)) {
+    needs_extend(breaks, x)
+  } else if (extend) BOTH else NEITHER
 
-  return(breaks)
-}
-
-
-extend_breaks <- function (breaks) {
-  left <- attr(breaks, "left")
-  # we add a break if the first break is above -Inf *or* if it is (-Inf. ...
-  if (length(breaks) == 0 || breaks[1] > -Inf || ! left[1]) {
-    breaks <- c(-Inf, breaks) # deletes attributes inc class
-    breaks <- create_breaks(breaks, c(TRUE, left))
+  if ((extend & LEFT) > 0) {
+    left <- attr(breaks, "left")
+    # we add a break if the first break is above -Inf *or* if it is (-Inf. ...
+    if (length(breaks) == 0 || breaks[1] > -Inf || ! left[1]) {
+      breaks <- c(-Inf, breaks) # deletes attributes inc class
+      breaks <- create_breaks(breaks, c(TRUE, left))
+    }
   }
 
-  left <- attr(breaks, "left")
-  # add a break if the last break is finite, or if it is ..., +Inf)
-  if (breaks[length(breaks)] < Inf || left[length(left)]) {
-    breaks <- c(breaks, Inf) # deletes attributes inc class
-    breaks <- create_breaks(breaks, c(left, FALSE))
+  if ((extend & RIGHT) > 0) {
+    left <- attr(breaks, "left")
+    # add a break if the last break is finite, or if it is ..., +Inf)
+    if (breaks[length(breaks)] < Inf || left[length(left)]) {
+      breaks <- c(breaks, Inf) # deletes attributes inc class
+      breaks <- create_breaks(breaks, c(left, FALSE))
+    }
   }
 
   return(breaks)

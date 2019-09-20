@@ -21,8 +21,7 @@ NULL
 #' @param drop Logical. Drop unused levels from the result?
 #'
 #' @details
-#' `breaks` may be a numeric vector, an object of class [breaks][breaks-class],
-#' or a function.
+#' `breaks` may be a numeric vector or a function.
 #'
 #' If it is a vector, `breaks` gives the break endpoints.Repeated values create
 #' singleton intervals. For example `breaks = c(1, 3, 3, 5)` creates 3
@@ -38,10 +37,12 @@ NULL
 #'  [lbl_numerals()].
 #'
 #' If `extend` is `TRUE`, intervals will be extended to \code{[-Inf,
-#' min(breaks))} and \code{(max(breaks), Inf]} (unless the first and last
-#' endpoints are already `[-Inf` and `Inf]` respectively). If `extend` is `NULL`
-#' (the default), intervals will be extended only if the data is outside their
-#' range.
+#' min(breaks))} and \code{(max(breaks), Inf]} (unless the first/last
+#' endpoints are already `[-Inf` or `Inf]` respectively).
+#'
+#' If `extend` is `NULL` (the default), intervals will be extended on each side
+#' only if necessary, i.e. if `x` extends beyond `min(breaks)` or `max(breaks)`
+#' respectively.
 #'
 #' `NA` values in `x`, and values which are outside the (extended) endpoints,
 #' return `NA`.
@@ -80,13 +81,11 @@ chop <- function (x, breaks, labels,
         extend = NULL,
         drop   = TRUE
       ) {
-  assert_that(is.numeric(x), is.function(breaks) || is.breaks(breaks) ||
-        is.numeric(breaks))
-  if (is.function(breaks))  {
-    breaks <- breaks(x, extend)
-  }
-  if (! is.breaks(breaks)) {
-    breaks <- brk_left(breaks)(x, extend)
+  assert_that(is.numeric(x), is.function(breaks) || is.numeric(breaks))
+  breaks <- if (is.function(breaks))  {
+    breaks(x, extend)
+  } else {
+    brk_left(breaks)(x, extend)
   }
   assert_that(is.breaks(breaks), length(breaks) >= 2L)
 
