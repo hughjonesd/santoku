@@ -5,14 +5,14 @@
 #' Create a breaks object
 #'
 #' @param obj A sorted vector or a `breaks` object.
-#' @param left A logical vector, same length as `vec`.
+#' @param left A logical vector, same length as `obj`.
 #'
 #' @return A breaks object
 #'
 #' @noRd
 #'
 create_breaks <- function (obj, left) {
-  if (anyNA(obj)) stop("`vec` contained NAs")
+  if (anyNA(obj)) stop("`x` contained NAs")
   stopifnot(is.numeric(obj))
   stopifnot(all(obj == sort(obj)))
   stopifnot(is.logical(left))
