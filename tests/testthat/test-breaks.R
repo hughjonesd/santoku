@@ -41,6 +41,10 @@ test_that("brk_left, brk_right", {
           brk_res(brk_right(1:3, close_end = FALSE)),
           santoku:::create_breaks(1:3, c(FALSE, FALSE, FALSE))
         )
+
+  expect_false(
+    anyNA(chop(1:5, brk_left(1:5, FALSE)))
+  )
 })
 
 
@@ -64,10 +68,6 @@ test_that("brk_left/right wrappers", {
   expect_identical(
     brk_res(brk_left(brk_quantiles(1:3/3))),
     brk_res(brk_quantiles(1:3/3))
-  )
-
-  expect_false(
-    anyNA(chop(1:5, brk_left(1:5, FALSE)))
   )
 })
 

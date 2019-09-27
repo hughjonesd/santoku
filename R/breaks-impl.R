@@ -74,9 +74,15 @@ needs_extend <- function (breaks, x) {
   if (length(breaks) < 2L) return(BOTH)
   needs <- NEITHER
 
-  if (quiet_min(x) < min(breaks)) needs <- needs | LEFT
-  if (quiet_max(x) > max(breaks)) needs <- needs | RIGHT
-
+  left <- attr(breaks, "left")
+  min_x <- quiet_min(x)
+  max_x <- quiet_max(x)
+  if (min_x < min(breaks) || (! left[1] && min_x == min(breaks))) {
+    needs <- needs | LEFT
+  }
+  if (max_x > max(breaks) || (left[length(left)] && max_x == max(breaks))) {
+    needs <- needs | RIGHT
+  }
 
   return(needs)
 }
