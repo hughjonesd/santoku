@@ -82,9 +82,9 @@ brk_width <- function (width, start) {
   if (! sm) assert_that(is.number(start))
 
   function (x, extend) {
-    if (sm) start <- suppressWarnings(min(x[is.finite(x)]))
+    if (sm) start <- quiet_min(x[is.finite(x)])
     # finite if x has any non-NA finite elements:
-    max_x <- suppressWarnings(max(x[is.finite(x)]))
+    max_x <- quiet_max(x[is.finite(x)])
 
     if (is.finite(start) && is.finite(max_x)) {
       seq_end <- max_x
@@ -110,7 +110,7 @@ brk_evenly <- function(groups) {
   assert_that(is.count(groups))
 
   function (x, extend) {
-    total_width <- suppressWarnings(max(x[is.finite(x)]) - min(x[is.finite(x)]))
+    total_width <- quiet_max(x[is.finite(x)]) - quiet_min(x[is.finite(x)])
     if (total_width <= 0) return(empty_breaks())
     brk_width(total_width/groups)(x, extend)
   }

@@ -26,3 +26,9 @@ singletons <- function (breaks) {
 
 
 `%||%` <- function (x, y) if (is.null(x)) y else x
+
+
+quiet_min <- function (x) suppressWarnings(min(x, na.rm = TRUE))
+
+
+quiet_max <- function (x) suppressWarnings(max(x, na.rm = TRUE))

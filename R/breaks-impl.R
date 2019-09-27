@@ -69,13 +69,14 @@ LEFT    <- as.raw(1)
 RIGHT   <- as.raw(2)
 BOTH <- LEFT | RIGHT
 
+
 needs_extend <- function (breaks, x) {
   if (length(breaks) < 2L) return(BOTH)
   needs <- NEITHER
-  suppressWarnings({
-          if (min(x, na.rm = TRUE) < min(breaks)) needs <- needs | LEFT
-          if (max(x, na.rm = TRUE) > max(breaks)) needs <- needs | RIGHT
-        })
+
+  if (quiet_min(x) < min(breaks)) needs <- needs | LEFT
+  if (quiet_max(x) > max(breaks)) needs <- needs | RIGHT
+
 
   return(needs)
 }
@@ -133,4 +134,3 @@ unique_truncation <- function (num) {
   }
 
   return(res)
-}
