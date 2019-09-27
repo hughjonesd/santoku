@@ -1,7 +1,7 @@
 Package: santoku
 Type: Package
 Title: A Versatile Cutting Tool for R
-Version: 0.1.0
+Version: 0.2.0
 Authors@R:
     person(given = "David",
            family = "Hugh-Jones",
