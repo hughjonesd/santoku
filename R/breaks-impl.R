@@ -83,24 +83,33 @@ needs_extend <- function (breaks, x) {
 
 
 maybe_extend <- function (breaks, x, extend) {
-  extend <- if (is.null(extend)) {
+  extend_flags <- if (is.null(extend)) {
     needs_extend(breaks, x)
   } else if (extend) BOTH else NEITHER
 
-  if ((extend & LEFT) > 0) {
+  # chooses either min(x) or -Inf
+  choose_endpoint <- function (x, alt, extend, fn) {
+    if (! is.null(extend)) return(alt)
+    ep <- fn(x)
+    if (is.finite(ep)) return(ep) else return(alt)
+  }
+
+  if ((extend_flags & LEFT) > 0) {
     left <- attr(breaks, "left")
     # we add a break if the first break is above -Inf *or* if it is (-Inf. ...
     if (length(breaks) == 0 || breaks[1] > -Inf || ! left[1]) {
-      breaks <- c(-Inf, breaks) # deletes attributes inc class
+      leftmost_break <- choose_endpoint(x, -Inf, extend, fn = quiet_min)
+      breaks <- c(leftmost_break, breaks) # deletes attributes inc class
       breaks <- create_breaks(breaks, c(TRUE, left))
     }
   }
 
-  if ((extend & RIGHT) > 0) {
+  if ((extend_flags & RIGHT) > 0) {
     left <- attr(breaks, "left")
     # add a break if the last break is finite, or if it is ..., +Inf)
     if (breaks[length(breaks)] < Inf || left[length(left)]) {
-      breaks <- c(breaks, Inf) # deletes attributes inc class
+      rightmost_break <- choose_endpoint(x, Inf, extend, fn = quiet_max)
+      breaks <- c(breaks, rightmost_break) # deletes attributes inc class
       breaks <- create_breaks(breaks, c(left, FALSE))
     }
   }
@@ -120,11 +129,8 @@ maybe_extend <- function (breaks, x, extend) {
 unique_truncation <- function (num) {
   want_unique <- ! duplicated(num) # "real" duplicates are allowed!
   # we keep the first of each duplicate set.
-  res <- format(num, trim = TRUE)
-  if (! anyDuplicated(res[want_unique])) return(res)
 
-  min_digits <- min(getOption("digits", 7), 21)
-  for (digits in seq(min_digits, 22L)) {
+  for (digits in seq(4L, 22L)) {
     res <- formatC(num, digits = digits, width = -1)
     if (anyDuplicated(res[want_unique]) == 0L) break
   }
@@ -134,3 +140,4 @@ unique_truncation <- function (num) {
   }
 
   return(res)
+}

@@ -45,11 +45,11 @@ number of intervals. Alternatively, use a \code{lbl_} function such as
 \code{\link[=lbl_numerals]{lbl_numerals()}}.
 
 If \code{extend} is \code{TRUE}, intervals will be extended to \code{[-Inf,
-min(breaks))} and \code{(max(breaks), Inf]} (unless the first/last
-endpoints are already \code{[-Inf} or \code{Inf]} respectively).
+min(breaks))} and \code{(max(breaks), Inf]}.
 
-If \code{extend} is \code{NULL} (the default), intervals will be extended on each side
-only if necessary, i.e. if \code{x} extends beyond \code{min(breaks)} or \code{max(breaks)}
+If \code{extend} is \code{NULL} (the default), intervals will be extended to
+\code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, \emph{only} if
+necessary -- i.e. if \code{min(x) < min(breaks)} and \code{max(x) > max(breaks)}
 respectively.
 
 \code{NA} values in \code{x}, and values which are outside the (extended) endpoints,

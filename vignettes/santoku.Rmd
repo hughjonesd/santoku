@@ -174,11 +174,11 @@ By default, intervals are closed on the left, i.e. they include their left
 endpoints. If you want right-closed intervals, use `brk_right()`:
 
 ```{r}
-y <- 1:10
+y <- 1:5
 data.frame(
         y = y, 
-        left_closed = chop(y, 2:8), 
-        right_closed = chop(y, brk_right(2:8))
+        left_closed = chop(y, 1:5), 
+        right_closed = chop(y, brk_right(1:5))
       )
 ```
 

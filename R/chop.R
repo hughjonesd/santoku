@@ -37,11 +37,11 @@ NULL
 #'  [lbl_numerals()].
 #'
 #' If `extend` is `TRUE`, intervals will be extended to \code{[-Inf,
-#' min(breaks))} and \code{(max(breaks), Inf]} (unless the first/last
-#' endpoints are already `[-Inf` or `Inf]` respectively).
+#' min(breaks))} and \code{(max(breaks), Inf]}.
 #'
-#' If `extend` is `NULL` (the default), intervals will be extended on each side
-#' only if necessary, i.e. if `x` extends beyond `min(breaks)` or `max(breaks)`
+#' If `extend` is `NULL` (the default), intervals will be extended to
+#' \code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, *only* if
+#' necessary -- i.e. if `min(x) < min(breaks)` and `max(x) > max(breaks)`
 #' respectively.
 #'
 #' `NA` values in `x`, and values which are outside the (extended) endpoints,
