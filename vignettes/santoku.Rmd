@@ -8,6 +8,7 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+set.seed(23479)
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
