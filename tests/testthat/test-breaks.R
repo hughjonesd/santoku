@@ -65,6 +65,10 @@ test_that("brk_left/right wrappers", {
     brk_res(brk_left(brk_quantiles(1:3/3))),
     brk_res(brk_quantiles(1:3/3))
   )
+
+  expect_false(
+    anyNA(chop(1:5, brk_right(1:5, FALSE)))
+  )
 })
 
 
