@@ -109,9 +109,9 @@ chop <- function (x, breaks, labels,
 #' @rdname chop
 #' @export
 #' @details
-#' `kut` is a synonym for `chop`. If you load `tidyr`, you can use it to avoid
+#' `kiru` is a synonym for `chop`. If you load `tidyr`, you can use it to avoid
 #'  confusion with [tidyr::chop()].
-kut <- chop
+kiru <- chop
 
 
 #' Chop data precisely (for programmers)
