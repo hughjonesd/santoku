@@ -75,7 +75,7 @@ on the result." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -116,6 +116,9 @@ on the result." />
       <a href="../tutorials/00-visualintroduction.html">A visual introduction to Santoku</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -172,8 +175,8 @@ on the result.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>tab</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt; x
-#&gt; [-Inf, 2)    [2, 5)    [5, 8]  (8, Inf] 
-#&gt;         1         3         4         2 </div><div class='input'>
+#&gt;  [1, 2)  [2, 5)  [5, 8] (8, 10] 
+#&gt;       1       3       4       2 </div><div class='input'>
 <span class='fu'>tab_mean_sd</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)</div><div class='output co'>#&gt; x
 #&gt; [-2 sd, -1 sd)  [-1 sd, 0 sd)   [0 sd, 1 sd)   [1 sd, 2 sd) 
 #&gt;              2              3              3              2 </div></pre>

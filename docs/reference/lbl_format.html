@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -115,6 +115,9 @@
       <a href="../tutorials/00-visualintroduction.html">A visual introduction to Santoku</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -181,9 +184,9 @@ format strings.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>7</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>lbl_format</span>(<span class='st'>"%s to %s"</span>))</div><div class='output co'>#&gt; x
-#&gt;   1 to 3        3   3 to 7 7 to Inf 
-#&gt;        2        1        4        3 </div><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>7</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>lbl_format</span>(<span class='st'>"%s to %s"</span>, <span class='st'>"Exactly %s"</span>))</div><div class='output co'>#&gt; x
-#&gt;    1 to 3 Exactly 3    3 to 7  7 to Inf 
+#&gt;  1 to 3       3  3 to 7 7 to 10 
+#&gt;       2       1       4       3 </div><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>7</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>lbl_format</span>(<span class='st'>"%s to %s"</span>, <span class='st'>"Exactly %s"</span>))</div><div class='output co'>#&gt; x
+#&gt;    1 to 3 Exactly 3    3 to 7   7 to 10 
 #&gt;         2         1         4         3 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

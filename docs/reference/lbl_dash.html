@@ -74,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -115,6 +115,9 @@
       <a href="../tutorials/00-visualintroduction.html">A visual introduction to Santoku</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -171,12 +174,11 @@ or standard deviations?</p></td>
   <code><a href='sequence-labels.html'>sequence-labels</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_dash</span>())</div><div class='output co'>#&gt;  [1] -Inf - 2 2 - 5    2 - 5    2 - 5    5 - 8    5 - 8    5 - 8    5 - 8   
-#&gt;  [9] 8 - Inf  8 - Inf 
-#&gt; Levels: -Inf - 2 2 - 5 5 - 8 8 - Inf</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_dash</span>(<span class='st'>" to "</span>))</div><div class='output co'>#&gt;  [1] -Inf to 2 2 to 5    2 to 5    2 to 5    5 to 8    5 to 8    5 to 8   
-#&gt;  [8] 5 to 8    8 to Inf  8 to Inf 
-#&gt; Levels: -Inf to 2 2 to 5 5 to 8 8 to Inf</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_dash</span>())</div><div class='output co'>#&gt;  [1] 1 - 2  2 - 5  2 - 5  2 - 5  5 - 8  5 - 8  5 - 8  5 - 8  8 - 10 8 - 10
+#&gt; Levels: 1 - 2 2 - 5 5 - 8 8 - 10</div><div class='input'>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_dash</span>(<span class='st'>" to "</span>))</div><div class='output co'>#&gt;  [1] 1 to 2  2 to 5  2 to 5  2 to 5  5 to 8  5 to 8  5 to 8  5 to 8  8 to 10
+#&gt; [10] 8 to 10
+#&gt; Levels: 1 to 2 2 to 5 5 to 8 8 to 10</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

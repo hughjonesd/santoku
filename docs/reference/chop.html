@@ -75,7 +75,7 @@ length as x, representing which interval contains each element of x." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -117,6 +117,9 @@ length as x, representing which interval contains each element of x." />
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -149,7 +152,7 @@ length as <code>x</code>, representing which interval contains each element of <
 
     <pre class="usage"><span class='fu'>chop</span>(<span class='no'>x</span>, <span class='no'>breaks</span>, <span class='no'>labels</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
-<span class='fu'>kut</span>(<span class='no'>x</span>, <span class='no'>breaks</span>, <span class='no'>labels</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>kiru</span>(<span class='no'>x</span>, <span class='no'>breaks</span>, <span class='no'>labels</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -194,45 +197,44 @@ returns an object of class <code>breaks</code>.</p>
 number of intervals. Alternatively, use a <code>lbl_</code> function such as
 <code><a href='sequence-labels.html'>lbl_numerals()</a></code>.</p>
 <p>If <code>extend</code> is <code>TRUE</code>, intervals will be extended to <code>[-Inf,
-min(breaks))</code> and <code>(max(breaks), Inf]</code> (unless the first/last
-endpoints are already <code>[-Inf</code> or <code>Inf]</code> respectively).</p>
-<p>If <code>extend</code> is <code>NULL</code> (the default), intervals will be extended on each side
-only if necessary, i.e. if <code>x</code> extends beyond <code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>min(breaks)</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/Extremes'>max(breaks)</a></code>
+min(breaks))</code> and <code>(max(breaks), Inf]</code>.</p>
+<p>If <code>extend</code> is <code>NULL</code> (the default), intervals will be extended to
+<code>[min(x), min(breaks))</code> and <code>(max(breaks), max(x)]</code>, <em>only</em> if
+necessary -- i.e. if <code>min(x) &lt; min(breaks)</code> and <code>max(x) &gt; max(breaks)</code>
 respectively.</p>
 <p><code>NA</code> values in <code>x</code>, and values which are outside the (extended) endpoints,
 return <code>NA</code>.</p>
 <p>Note that <code>chop</code>, like all of R, uses binary arithmetic. Thus, numbers may
 not be exactly equal to what you think they should be. There is an example
 below.</p>
-<p><code>kut</code> is a synonym for <code>chop</code>. If you load <code>tidyr</code>, you can use it to avoid
+<p><code>kiru</code> is a synonym for <code>chop</code>. If you load <code>tidyr</code>, you can use it to avoid
 confusion with <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>tidyr::chop()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>cut</p>
 <p>Other chopping functions: <code><a href='chop_mean_sd.html'>brk_mean_sd</a></code>,
   <code><a href='chop_n.html'>brk_n</a></code>, <code><a href='chop_quantiles.html'>brk_quantiles</a></code>,
-  <code><a href='chop_width.html'>brk_width</a></code></p></div>
+  <code><a href='chop_width.html'>brk_width</a></code>, <code><a href='fillet.html'>fillet</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] [-Inf, 2] [-Inf, 2] (2, Inf] 
-#&gt; Levels: [-Inf, 2] (2, Inf]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [-Inf, 2) [2, 5)    [2, 5)    [2, 5)    [5, 8]    [5, 8]    [5, 8]   
-#&gt;  [8] [5, 8]    (8, Inf]  (8, Inf] 
-#&gt; Levels: [-Inf, 2) [2, 5) [5, 8] (8, Inf]</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] [1, 2] [1, 2] (2, 3]
+#&gt; Levels: [1, 2] (2, 3]</div><div class='input'>
+<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  [5, 8]  [5, 8]  [5, 8]  [5, 8]  (8, 10]
+#&gt; [10] (8, 10]
+#&gt; Levels: [1, 2) [2, 5) [5, 8] (8, 10]</div><div class='input'>
 <span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>extend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] &lt;NA&gt;   [2, 5) [2, 5) [2, 5) [5, 8] [5, 8] [5, 8] [5, 8] &lt;NA&gt;   &lt;NA&gt;  
 #&gt; Levels: [2, 5) [5, 8]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [-Inf, 2) [2, 5)    [2, 5)    [2, 5)    {5}       (5, 8]    (5, 8]   
-#&gt;  [8] (5, 8]    (8, Inf]  (8, Inf] 
-#&gt; Levels: [-Inf, 2) [2, 5) {5} (5, 8] (8, Inf]</div><div class='input'>
+<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  {5}     (5, 8]  (5, 8]  (5, 8]  (8, 10]
+#&gt; [10] (8, 10]
+#&gt; Levels: [1, 2) [2, 5) {5} (5, 8] (8, 10]</div><div class='input'>
 <span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='chop_quantiles.html'>brk_quantiles</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>)))</div><div class='output co'>#&gt;  [1] [0%, 25%)   [0%, 25%)   [0%, 25%)   [25%, 75%]  [25%, 75%]  [25%, 75%] 
 #&gt;  [7] [25%, 75%]  (75%, 100%] (75%, 100%] (75%, 100%]
 #&gt; Levels: [0%, 25%) [25%, 75%] (75%, 100%]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='lbl_dash.html'>lbl_dash</a></span>())</div><div class='output co'>#&gt;  [1] -Inf - 2 2 - 5    2 - 5    2 - 5    5 - 8    5 - 8    5 - 8    5 - 8   
-#&gt;  [9] 8 - Inf  8 - Inf 
-#&gt; Levels: -Inf - 2 2 - 5 5 - 8 8 - Inf</div><div class='input'>
+<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='lbl_dash.html'>lbl_dash</a></span>())</div><div class='output co'>#&gt;  [1] 1 - 2  2 - 5  2 - 5  2 - 5  5 - 8  5 - 8  5 - 8  5 - 8  8 - 10 8 - 10
+#&gt; Levels: 1 - 2 2 - 5 5 - 8 8 - 10</div><div class='input'>
 <span class='co'># floating point inaccuracy:</span>
-<span class='fu'>chop</span>(<span class='fl'>0.3</span>/<span class='fl'>3</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>0.1</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] [0.0, 0.1)
-#&gt; Levels: [0.0, 0.1)</div><div class='input'>
+<span class='fu'>chop</span>(<span class='fl'>0.3</span>/<span class='fl'>3</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>0.1</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] [0, 0.1)
+#&gt; Levels: [0, 0.1)</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

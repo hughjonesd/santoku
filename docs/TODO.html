@@ -73,7 +73,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -115,6 +115,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="news/index.html">Changelog</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
@@ -149,15 +152,6 @@
 </li>
 <li><p><code>brk_equally</code> for symmetry</p></li>
 <li><p>maybe <code>tab_equally</code>, <code>tab_n</code> (!) and <code>tab_quantiles</code> for the same reason</p></li>
-<li>consider removing the ability to pass <code>breaks</code> objects directly into <code><a href="reference/chop.html">chop()</a></code>
-<ul>
-<li>The problem is this:</li>
-</ul>
-</li>
-</ul>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">b &lt;-<span class="st"> </span><span class="kw"><a href="reference/brk-left-right.html">brk_left</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>)(<span class="dv">1</span>, <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="reference/chop.html">chop</a></span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, b, <span class="dt">extend =</span> <span class="ot">TRUE</span>) <span class="co"># doesn't extend</span></a></code></pre></div>
-<ul>
 <li>cut e.g. Dates, posixct, DateT
 <ul>
 <li>what else? ts, xts, zoo, lubridate classes</li>
@@ -166,14 +160,6 @@
 <li>
 <code>brk_days()</code>, <code>brk_weeks()</code> etc.? Equivalent to all lubridate’s <code>days()</code> etc. classes?</li>
 <li>the basic <code>chop</code> function, with appropriate breaks, might already “almost work” b/c it just uses arithmetic comparisons</li>
-</ul>
-</li>
-<li>
-<code>chop_cleanly</code> - set <code>drop = FALSE</code>, <code>extend = FALSE/TRUE</code>?
-<ul>
-<li>TRUE extend ensures no NAs from non-NA input</li>
-<li>FALSE extend guarantees the number of levels (even if the breaks specified were infinite); not important if breaks are manually specified, but perhaps if e.g. <code>brk_mean_se</code> is called?</li>
-<li>I think <code>FALSE</code> is more precise for programming</li>
 </ul>
 </li>
 </ul>
@@ -213,10 +199,10 @@
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="reference/tab.html">tab</a></span>(x, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="co"># looks as if there are 3 levels</span></a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="reference/tab.html">tab</a></span>(x, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">labels =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]) <span class="co"># errors because extend got called,</span></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">                                   <span class="co"># requiring 2 extra levels!</span></a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">x &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">10</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="reference/tab.html">tab</a></span>(x, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) <span class="co"># looks as if there are 3 levels</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="reference/tab.html">tab</a></span>(x, <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, <span class="dt">labels =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>]) <span class="co"># errors because extend got called,</span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">                                   <span class="co"># requiring 2 extra levels!</span></a></code></pre></div>
 </div>
 <div id="questions-with-a-provisional-answer" class="section level1">
 <h1 class="hasAnchor">
@@ -225,7 +211,7 @@
 <li>What to do about <code><a href="https://tidyr.tidyverse.org/reference/chop.html">tidyr::chop()</a></code>
 <ul>
 <li>Current answer: fuck ’em. (NB: just kidding. I am a huge tidyverse fan.)</li>
-<li>We provide <code><a href="reference/chop.html">kut()</a></code>. So on the REPL, people can just use <code><a href="reference/chop.html">kut()</a></code> if they load santoku first. If they load santoku second, they’ll have to use <code><a href="https://tidyr.tidyverse.org/reference/chop.html">tidyr::chop()</a></code>, but reading the documentation, I suspect this will be rare.</li>
+<li>We provide <code>kut()</code>. So on the REPL, people can just use <code>kut()</code> if they load santoku first. If they load santoku second, they’ll have to use <code><a href="https://tidyr.tidyverse.org/reference/chop.html">tidyr::chop()</a></code>, but reading the documentation, I suspect this will be rare.</li>
 <li>For programming, people should probably used the fully qualified name anyway.</li>
 </ul>
 </li>
@@ -234,7 +220,7 @@
 <li>I think default should be “if necessary” (<code>extend = NULL</code>); should always extend to Inf, -Inf so that these break labels are not data-dependent</li>
 <li>
 <p>Tension between wanting something predictable in your new data, vs. something readable in <code>tab_*</code>. E.g.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">tab_size</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="kw"><a href="reference/sequence-labels.html">lbl_letters</a></span>()) </a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">tab_size</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="kw"><a href="reference/sequence-labels.html">lbl_letters</a></span>()) </a></code></pre></div>
 <p>should surely return labels a, b, c. But this means we aren’t always extending.</p>
 </li>
 </ul>

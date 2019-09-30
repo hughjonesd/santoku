@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Left- or right-closed breaks — brk-left-right • santoku</title>
+<title>Chop data precisely (for programmers) — fillet • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -40,8 +40,8 @@
 
 
 
-<meta property="og:title" content="Left- or right-closed breaks — brk-left-right" />
-<meta property="og:description" content="Left- or right-closed breaks" />
+<meta property="og:title" content="Chop data precisely (for programmers) — fillet" />
+<meta property="og:description" content="Chop data precisely (for programmers)" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -139,52 +139,52 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Left- or right-closed breaks</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/breaks.R'><code>R/breaks.R</code></a></small>
-    <div class="hidden name"><code>brk-left-right.Rd</code></div>
+    <h1>Chop data precisely (for programmers)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/chop.R'><code>R/chop.R</code></a></small>
+    <div class="hidden name"><code>fillet.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Left- or right-closed breaks</p>
+    <p>Chop data precisely (for programmers)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>brk_left</span>(<span class='no'>breaks</span>, <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-
-<span class='fu'>brk_right</span>(<span class='no'>breaks</span>, <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>fillet</span>(<span class='no'>x</span>, <span class='no'>breaks</span>, <span class='no'>labels</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>breaks</th>
-      <td><p>A numeric vector or a function.</p></td>
+      <th>x</th>
+      <td><p>A numeric vector.</p></td>
     </tr>
     <tr>
-      <th>close_end</th>
-      <td><p>Logical: close the rightmost endpoint (<code>brk_left()</code>)
-/ leftmost endpoint (<code>brk_right()</code>)?</p></td>
+      <th>breaks</th>
+      <td><p>See below.</p></td>
+    </tr>
+    <tr>
+      <th>labels</th>
+      <td><p>See below.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A (function which returns an) object of class <code>breaks</code>.</p>
+    <p>A <a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a> of the same length as <code>x</code>, representing the intervals containing
+the value of <code>x</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>brk_left</code> and <code>brk_right</code> can be used to wrap another <code>brk_*</code> function.</p>
+    <p><code>fillet()</code> calls <code><a href='chop.html'>chop()</a></code> with <code>extend = FALSE</code> and <code>drop = FALSE</code>. This
+ensures that you get only the <code>breaks</code> and <code>labels</code> you ask for. When
+programming, consider using <code>fillet()</code> instead of <code><a href='chop.html'>chop()</a></code>.</p>
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p>Other chopping functions: <code><a href='chop_mean_sd.html'>brk_mean_sd</a></code>,
+  <code><a href='chop_n.html'>brk_n</a></code>, <code><a href='chop_quantiles.html'>brk_quantiles</a></code>,
+  <code><a href='chop_width.html'>brk_width</a></code>, <code><a href='chop.html'>chop</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fu'>brk_left</span>(<span class='fl'>5</span>:<span class='fl'>7</span>))</div><div class='output co'>#&gt; [1] [5, 6) [6, 7] [6, 7]
-#&gt; Levels: [5, 6) [6, 7]</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fu'>brk_right</span>(<span class='fl'>5</span>:<span class='fl'>7</span>))</div><div class='output co'>#&gt; [1] [5, 6] [5, 6] (6, 7]
-#&gt; Levels: [5, 6] (6, 7]</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fu'>brk_left</span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt; [1] [5, 6) [6, 7) {7}   
-#&gt; Levels: [5, 6) [6, 7) {7}</div><div class='input'>
-<span class='co'># wrapping another `brk_*` function:</span>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>brk_right</span>(<span class='fu'><a href='chop_quantiles.html'>brk_quantiles</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>)))</div><div class='output co'>#&gt;  [1] [0%, 25%]   [0%, 25%]   [0%, 25%]   (25%, 50%]  (25%, 50%]  (50%, 75%] 
-#&gt;  [7] (50%, 75%]  (75%, 100%] (75%, 100%] (75%, 100%]
-#&gt; Levels: [0%, 25%] (25%, 50%] (50%, 75%] (75%, 100%]</div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>fillet</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] &lt;NA&gt;   [2, 5) [2, 5) [2, 5) [5, 8] [5, 8] [5, 8] [5, 8] &lt;NA&gt;   &lt;NA&gt;  
+#&gt; Levels: [2, 5) [5, 8]</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -192,6 +192,7 @@
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
