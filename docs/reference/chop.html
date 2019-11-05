@@ -15,13 +15,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -39,13 +37,13 @@
 
 
 
-
 <meta property="og:title" content="Cut numeric data into intervals — chop" />
+
 <meta property="og:description" content="chop cuts x into intervals. It returns a factor of the same
 length as x, representing which interval contains each element of x." />
+
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -75,7 +73,7 @@ length as x, representing which interval contains each element of x." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -121,6 +119,7 @@ length as x, representing which interval contains each element of x." />
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hughjonesd/santoku">
@@ -146,14 +145,16 @@ length as x, representing which interval contains each element of x." />
     </div>
 
     <div class="ref-description">
+    
     <p><code>chop</code> cuts <code>x</code> into intervals. It returns a factor of the same
 length as <code>x</code>, representing which interval contains each element of <code>x</code>.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>chop</span>(<span class='no'>x</span>, <span class='no'>breaks</span>, <span class='no'>labels</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>kiru</span>(<span class='no'>x</span>, <span class='no'>breaks</span>, <span class='no'>labels</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -178,11 +179,12 @@ length as <code>x</code>, representing which interval contains each element of <
       <td><p>Logical. Drop unused levels from the result?</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A <a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a> of the same length as <code>x</code>, representing the intervals containing
 the value of <code>x</code>.</p>
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>breaks</code> may be a numeric vector or a function.</p>
@@ -195,7 +197,7 @@ left-closed except for the last interval; for right-closed breaks see
 returns an object of class <code>breaks</code>.</p>
 <p><code>labels</code> may be a character vector. It should have the same length as the
 number of intervals. Alternatively, use a <code>lbl_</code> function such as
-<code>lbl_numerals()</code>.</p>
+<code><a href='lbl_seq.html'>lbl_seq()</a></code>.</p>
 <p>If <code>extend</code> is <code>TRUE</code>, intervals will be extended to <code>[-Inf,
 min(breaks))</code> and <code>(max(breaks), Inf]</code>.</p>
 <p>If <code>extend</code> is <code>NULL</code> (the default), intervals will be extended to
@@ -208,13 +210,15 @@ return <code>NA</code>.</p>
 not be exactly equal to what you think they should be. There is an example
 below.</p>
 <p><code>kiru</code> is a synonym for <code>chop</code>. If you load <code>tidyr</code>, you can use it to avoid
-confusion with <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>tidyr::chop()</a></code>.</p>
+confusion with <code>tidyr::chop()</code>.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>cut</p>
 <p>Other chopping functions: <code><a href='chop_mean_sd.html'>brk_mean_sd</a></code>,
   <code><a href='chop_n.html'>brk_n</a></code>, <code><a href='chop_quantiles.html'>brk_quantiles</a></code>,
   <code><a href='chop_width.html'>brk_width</a></code>, <code><a href='fillet.html'>fillet</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] [1, 2] [1, 2] (2, 3]
@@ -241,9 +245,13 @@ confusion with <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>t
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#value">Value</a></li>
+
       <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

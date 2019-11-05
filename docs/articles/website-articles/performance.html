@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -120,7 +120,7 @@
 <p>The core of santoku is written in C++. It is reasonably fast:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/packageDescription">packageVersion</a></span>(<span class="st">"santoku"</span>)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; [1] '0.2.0.9000'</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="co">#&gt; [1] '0.3.0'</span></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4">mb &lt;-<span class="st"> </span>microbenchmark<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/microbenchmark/topics/microbenchmark">microbenchmark</a></span>(</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">        santoku<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/santoku/topics/chop">chop</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="fl">1e5</span>), <span class="dv">-2</span><span class="op">:</span><span class="dv">2</span>),</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6">                  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cut">cut</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="fl">1e5</span>), <span class="dv">-2</span><span class="op">:</span><span class="dv">2</span>),</a>
@@ -128,14 +128,14 @@
 <a class="sourceLine" id="cb1-8" data-line-number="8">      )</a>
 <a class="sourceLine" id="cb1-9" data-line-number="9">mb</a>
 <a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co">#&gt; Unit: milliseconds</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt;                               expr       min       lq     mean   median</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt;  santoku::chop(rnorm(1e+05), -2:2) 13.867523 15.71019 18.23577 16.90256</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt;            cut(rnorm(1e+05), -2:2)  9.768294 10.48309 12.96411 10.97590</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt;    Hmisc::cut2(rnorm(1e+05), -2:2) 28.857706 32.34993 51.04221 34.39732</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;        uq        max neval cld</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;  19.14839   71.19223   100  a </span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;  11.58972  120.55026   100  a </span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;  39.52319 1135.36846   100   b</span></a></code></pre></div>
+<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co">#&gt;                               expr      min       lq     mean   median</span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="co">#&gt;  santoku::chop(rnorm(1e+05), -2:2) 21.23658 25.23920 30.51699 27.03325</span></a>
+<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="co">#&gt;            cut(rnorm(1e+05), -2:2) 15.94301 17.29848 21.11795 18.21829</span></a>
+<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co">#&gt;    Hmisc::cut2(rnorm(1e+05), -2:2) 46.78041 57.62231 88.90057 61.55399</span></a>
+<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="co">#&gt;        uq       max neval cld</span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="co">#&gt;  30.57363  211.1336   100  a </span></a>
+<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="co">#&gt;  20.46903  179.8708   100  a </span></a>
+<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="co">#&gt;  66.00567 2567.6359   100   b</span></a></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(mb) <span class="op">+</span><span class="st"> </span>ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span>()</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></a></code></pre></div>
 <p><img src="performance_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
@@ -143,7 +143,6 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>

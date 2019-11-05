@@ -15,13 +15,11 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
-
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -39,12 +37,12 @@
 
 
 
-
 <meta property="og:title" content="Label sequentially — lbl_seq" />
+
 <meta property="og:description" content="lbl_seq labels intervals sequentially, using numbers or letters." />
+
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
-
 
 
 
@@ -74,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -120,6 +118,7 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
+      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hughjonesd/santoku">
@@ -145,11 +144,13 @@
     </div>
 
     <div class="ref-description">
+    
     <p><code>lbl_seq</code> labels intervals sequentially, using numbers or letters.</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>lbl_seq</span>(<span class='kw'>like</span> <span class='kw'>=</span> <span class='st'>"a"</span>)</pre>
-
+    
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -158,7 +159,7 @@
       <td><p>String. A template for the sequence. See below.</p></td>
     </tr>
     </table>
-
+    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>like</code> shows the first element of the sequence. It must contain exactly <em>one</em>
@@ -170,11 +171,13 @@ character out of the set "a", "A", "i", "I" or "1". For later elements:</p><ul>
 <li><p>"1" will be replaced by numbers "1", "2", "3", ...</p></li>
 </ul>
     <p>Other characters will be retained as-is.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other labelling functions: <code><a href='lbl_dash.html'>lbl_dash</a></code>,
   <code><a href='lbl_format.html'>lbl_format</a></code>, <code><a href='lbl_intervals.html'>lbl_intervals</a></code>,
   <code><a href='lbl_manual.html'>lbl_manual</a></code></p></div>
+    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_seq</span>())</div><div class='output co'>#&gt;  [1] a b b b c c c c d d
@@ -187,8 +190,11 @@ character out of the set "a", "A", "i", "I" or "1". For later elements:</p><ul>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      
       <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
+      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
