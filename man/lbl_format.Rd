@@ -12,7 +12,7 @@ lbl_format(fmt, fmt1 = "\%s", raw = FALSE)
 \item{fmt1}{Format for breaks consisting of a single value.}
 
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
-or standard deviations?}
+or standard deviations.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.

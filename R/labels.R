@@ -2,7 +2,7 @@
 #' @name label-doc
 #' @param fmt A [sprintf()]-style format.
 #' @param raw Logical. Always use raw `breaks` in labels, rather than e.g. quantiles
-#'   or standard deviations?
+#'   or standard deviations.
 #' @return A vector of labels for `chop`, or a function that creates labels.
 NULL
 
@@ -193,9 +193,12 @@ lbl_seq <- function(like = "a") {
 #' intervals. If the sequence is too short, it will be pasted with itself and
 #' repeated.
 #'
+#' @param sequence A character vector of labels.
 #' @inherit label-doc params return
 #'
 #' @family labelling functions
+#'
+#' @export
 #'
 #' @examples
 #' chop(1:10, c(2, 5, 8), lbl_manual(c("w", "x", "y", "z")))

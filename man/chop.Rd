@@ -42,7 +42,7 @@ returns an object of class \code{breaks}.
 
 \code{labels} may be a character vector. It should have the same length as the
 number of intervals. Alternatively, use a \code{lbl_} function such as
-\code{\link[=lbl_numerals]{lbl_numerals()}}.
+\code{\link[=lbl_seq]{lbl_seq()}}.
 
 If \code{extend} is \code{TRUE}, intervals will be extended to \code{[-Inf,
 min(breaks))} and \code{(max(breaks), Inf]}.
@@ -60,7 +60,7 @@ not be exactly equal to what you think they should be. There is an example
 below.
 
 \code{kiru} is a synonym for \code{chop}. If you load \code{tidyr}, you can use it to avoid
-confusion with \code{\link[tidyr:chop]{tidyr::chop()}}.
+confusion with \code{tidyr::chop()}.
 }
 \examples{
 chop(1:3, 2)

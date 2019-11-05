@@ -8,7 +8,7 @@ lbl_intervals(raw = FALSE)
 }
 \arguments{
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
-or standard deviations?}
+or standard deviations.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.

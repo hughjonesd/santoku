@@ -34,7 +34,7 @@ NULL
 #'
 #' `labels` may be a character vector. It should have the same length as the
 #'  number of intervals. Alternatively, use a `lbl_` function such as
-#'  [lbl_numerals()].
+#'  [lbl_seq()].
 #'
 #' If `extend` is `TRUE`, intervals will be extended to \code{[-Inf,
 #' min(breaks))} and \code{(max(breaks), Inf]}.
@@ -110,7 +110,7 @@ chop <- function (x, breaks, labels,
 #' @export
 #' @details
 #' `kiru` is a synonym for `chop`. If you load `tidyr`, you can use it to avoid
-#'  confusion with [tidyr::chop()].
+#'  confusion with `tidyr::chop()`.
 kiru <- chop
 
 

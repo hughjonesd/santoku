@@ -7,6 +7,8 @@
 lbl_manual(sequence, fmt = "\%s")
 }
 \arguments{
+\item{sequence}{A character vector of labels.}
+
 \item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format.}
 }
 \value{
