@@ -310,12 +310,12 @@ Not sure how many intervals you will have?
 Use a `lbl_*` function.
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_width(x, 200, labels = lbl_LETTERS())
+chop_width(x, 200, labels = lbl_seq())
 ```
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_LETTERS(), cex_labels = 1)
+demo_chop(brk_width(200), labels = lbl_seq(), cex_labels = 1)
 ```
 
 ## Changing labels
@@ -325,12 +325,12 @@ Not sure how many intervals you will have?
 Use a `lbl_*` function.
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_width(x, 200, labels = lbl_roman("(%s)"))
+chop_width(x, 200, labels = lbl_seq("(i)"))
 ```
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_roman("(%s)"), cex_labels = 1)
+demo_chop(brk_width(200), labels = lbl_seq("(i)"), cex_labels = 1)
 ```
 
 ## Changing labels

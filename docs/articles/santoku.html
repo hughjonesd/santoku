@@ -313,27 +313,27 @@
 <a class="sourceLine" id="cb15-11" data-line-number="11"><span class="co">#&gt; 8  8.376589 8 to 9.708</span></a>
 <a class="sourceLine" id="cb15-12" data-line-number="12"><span class="co">#&gt; 9  1.086165 1.086 to 2</span></a>
 <a class="sourceLine" id="cb15-13" data-line-number="13"><span class="co">#&gt; 10 4.495479     2 to 5</span></a></code></pre></div>
-<p>To number intervals in order use <code><a href="../reference/sequence-labels.html">lbl_numerals()</a></code>:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="kw"><a href="../reference/sequence-labels.html">lbl_numerals</a></span>())</a>
+<p>To label intervals in order use <code><a href="../reference/lbl_seq.html">lbl_seq()</a></code>:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="kw"><a href="../reference/lbl_seq.html">lbl_seq</a></span>())</a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>
 <a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co">#&gt;           x chopped</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt; 1  4.978305       2</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">#&gt; 2  8.969989       4</span></a>
-<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co">#&gt; 3  3.391823       2</span></a>
-<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#&gt; 4  4.676785       2</span></a>
-<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">#&gt; 5  7.057042       3</span></a>
-<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="co">#&gt; 6  9.707687       4</span></a>
-<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co">#&gt; 7  6.713807       3</span></a>
-<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="co">#&gt; 8  8.376589       4</span></a>
-<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="co">#&gt; 9  1.086165       1</span></a>
-<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="co">#&gt; 10 4.495479       2</span></a></code></pre></div>
-<p>You can use letters or even roman numerals:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="kw"><a href="../reference/sequence-labels.html">lbl_letters</a></span>())</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="co">#&gt;  [1] b d b b c d c d a b</span></a>
-<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt; Levels: a b c d</span></a>
-<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="kw"><a href="../reference/sequence-labels.html">lbl_roman</a></span>())</a>
-<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt;  [1] ii  iv  ii  ii  iii iv  iii iv  i   ii </span></a>
-<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="co">#&gt; Levels: i ii iii iv</span></a></code></pre></div>
+<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt; 1  4.978305       b</span></a>
+<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">#&gt; 2  8.969989       d</span></a>
+<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co">#&gt; 3  3.391823       b</span></a>
+<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#&gt; 4  4.676785       b</span></a>
+<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">#&gt; 5  7.057042       c</span></a>
+<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="co">#&gt; 6  9.707687       d</span></a>
+<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co">#&gt; 7  6.713807       c</span></a>
+<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="co">#&gt; 8  8.376589       d</span></a>
+<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="co">#&gt; 9  1.086165       a</span></a>
+<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="co">#&gt; 10 4.495479       b</span></a></code></pre></div>
+<p>You can use numerals or even roman numerals:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="kw"><a href="../reference/lbl_seq.html">lbl_seq</a></span>(<span class="st">"(1)"</span>))</a>
+<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="co">#&gt;  [1] (2) (4) (2) (2) (3) (4) (3) (4) (1) (2)</span></a>
+<a class="sourceLine" id="cb17-3" data-line-number="3"><span class="co">#&gt; Levels: (1) (2) (3) (4)</span></a>
+<a class="sourceLine" id="cb17-4" data-line-number="4"><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">8</span>), <span class="kw"><a href="../reference/lbl_seq.html">lbl_seq</a></span>(<span class="st">"i."</span>))</a>
+<a class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">#&gt;  [1] ii.  iv.  ii.  ii.  iii. iv.  iii. iv.  i.   ii. </span></a>
+<a class="sourceLine" id="cb17-6" data-line-number="6"><span class="co">#&gt; Levels: i. ii. iii. iv.</span></a></code></pre></div>
 <p>By default, <code><a href="../reference/chop.html">chop()</a></code> extends <code>breaks</code> if necessary. If you don’t want that, set <code>extend = FALSE</code>:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">chopped &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chop.html">chop</a></span>(x, <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">7</span>), <span class="dt">extend =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb18-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(x, chopped)</a>

@@ -31,7 +31,7 @@ tab(1:10, c(1,3, 3, 7), label = lbl_format("\%s to \%s", "Exactly \%s"))
 }
 \seealso{
 Other labelling functions: \code{\link{lbl_dash}},
-  \code{\link{lbl_intervals}},
-  \code{\link{sequence-labels}}
+  \code{\link{lbl_intervals}}, \code{\link{lbl_manual}},
+  \code{\link{lbl_seq}}
 }
 \concept{labelling functions}

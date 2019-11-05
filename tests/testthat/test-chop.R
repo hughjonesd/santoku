@@ -5,11 +5,11 @@ test_that("basic functionality", {
   rbrks <- brk_manual(1:3, rep(FALSE, 3))
   rc_brks <- brk_manual(1:3, c(TRUE, TRUE, FALSE))
 
-  expect_equivalent(chop(x, lbrks, lbl_numerals(), extend = FALSE),
+  expect_equivalent(chop(x, lbrks, lbl_seq("1"), extend = FALSE),
         factor(c(1, 2, NA)))
-  expect_equivalent(chop(x, rbrks, lbl_numerals(), extend = FALSE),
+  expect_equivalent(chop(x, rbrks, lbl_seq("1"), extend = FALSE),
         factor(c(NA, 1, 2)))
-  expect_equivalent(chop(x, rc_brks, lbl_numerals(), extend = FALSE),
+  expect_equivalent(chop(x, rc_brks, lbl_seq("1"), extend = FALSE),
         factor(c(1, 2, 2)))
 
 
@@ -18,7 +18,7 @@ test_that("basic functionality", {
 
 test_that("NA, NaN and Inf", {
   y <- c(1:3, NA, NaN)
-  expect_equivalent(chop(y, 1:3, lbl_numerals(), extend = FALSE),
+  expect_equivalent(chop(y, 1:3, lbl_seq("1"), extend = FALSE),
         factor(c(1, 2, 2, NA, NA)))
 
   x <- c(-Inf, 1, Inf)
@@ -64,11 +64,11 @@ test_that("labels", {
 test_that("extend", {
   x <- c(1, 4)
   expect_equivalent(
-          chop(x, 2:3, labels = lbl_numerals(), extend = TRUE),
+          chop(x, 2:3, labels = lbl_seq("1"), extend = TRUE),
           factor(c(1, 3))
         )
   expect_equivalent(
-          chop(x, 2:3, labels = lbl_numerals(), extend = FALSE),
+          chop(x, 2:3, labels = lbl_seq("1"), extend = FALSE),
           factor(c(NA, NA))
         )
 })
@@ -77,12 +77,12 @@ test_that("extend", {
 test_that("drop", {
   x <- c(1, 3)
   expect_equivalent(
-          levels(chop(x, 1:3, labels = lbl_numerals(), extend = TRUE,
+          levels(chop(x, 1:3, labels = lbl_seq("1"), extend = TRUE,
             drop = TRUE)),
           as.character(2:3)
         )
   expect_equivalent(
-          levels(chop(x, 1:3, labels = lbl_numerals(), extend = TRUE,
+          levels(chop(x, 1:3, labels = lbl_seq("1"), extend = TRUE,
             drop = FALSE)),
           as.character(1:4)
         )
@@ -92,11 +92,11 @@ test_that("drop", {
 test_that("chop_width", {
   x <- 1:10
   expect_equivalent(
-    chop_width(x, 2, labels = lbl_numerals()),
+    chop_width(x, 2, labels = lbl_seq("1")),
     factor(rep(1:5, each = 2))
   )
   expect_equivalent(
-    chop_width(x, 2, 0, labels = lbl_numerals()),
+    chop_width(x, 2, 0, labels = lbl_seq("1")),
     factor(c(1, rep(2:4, each = 2), 5, 5, 5))
   )
 })
@@ -190,18 +190,10 @@ test_that("systematic tests", {
     lbl_format_raw    = lbl_format("%s to %s", raw = TRUE),
     lbl_intervals     = lbl_intervals(),
     lbl_intervals_raw = lbl_intervals(raw = TRUE),
-    lbl_letters       = lbl_letters(),
-    lbl_letters2      = lbl_letters("%s)"),
-    lbl_LETTERS       = lbl_LETTERS(),
-    lbl_LETTERS2      = lbl_LETTERS("%s)"),
-    lbl_numerals      = lbl_numerals(),
-    lbl_numerals2     = lbl_numerals("%s)"),
-    lbl_roman         = lbl_roman(),
-    lbl_roman2        = lbl_roman("%s)"),
-    lbl_ROMAN         = lbl_ROMAN(),
-    lbl_ROMAN2        = lbl_ROMAN("%s)"),
-    lbl_sequence      = lbl_sequence(letters[1:2]),
-    lbl_sequence2     = lbl_sequence(letters[1:2], "%s)")
+    lbl_seq           = lbl_seq(like = "a"),
+    lbl_seq2          = lbl_seq(like = "(i)"),
+    lbl_manual        = lbl_manual(letters[1:2]),
+    lbl_manual2       = lbl_manual(letters[1:2], "%s)")
   )
 
   test_df <- expand.grid(

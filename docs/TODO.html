@@ -220,7 +220,7 @@
 <li>I think default should be “if necessary” (<code>extend = NULL</code>); should always extend to Inf, -Inf so that these break labels are not data-dependent</li>
 <li>
 <p>Tension between wanting something predictable in your new data, vs. something readable in <code>tab_*</code>. E.g.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">tab_size</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="kw"><a href="reference/sequence-labels.html">lbl_letters</a></span>()) </a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">tab_size</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dv">3</span>, <span class="kw"><a href="reference/lbl_seq.html">lbl_seq</a></span>()) </a></code></pre></div>
 <p>should surely return labels a, b, c. But this means we aren’t always extending.</p>
 </li>
 </ul>

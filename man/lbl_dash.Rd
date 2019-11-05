@@ -26,7 +26,7 @@ chop(1:10, c(2, 5, 8), lbl_dash(" to "))
 }
 \seealso{
 Other labelling functions: \code{\link{lbl_format}},
-  \code{\link{lbl_intervals}},
-  \code{\link{sequence-labels}}
+  \code{\link{lbl_intervals}}, \code{\link{lbl_manual}},
+  \code{\link{lbl_seq}}
 }
 \concept{labelling functions}

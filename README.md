@@ -307,33 +307,33 @@ data.frame(x, chopped)
 #> 10 4.495479     2 to 5
 ```
 
-To number intervals in order use `lbl_numerals()`:
+To label intervals in order use `lbl_seq()`:
 
 ``` r
-chopped <- chop(x, c(2, 5, 8), lbl_numerals())
+chopped <- chop(x, c(2, 5, 8), lbl_seq())
 data.frame(x, chopped)
 #>           x chopped
-#> 1  4.978305       2
-#> 2  8.969989       4
-#> 3  3.391823       2
-#> 4  4.676785       2
-#> 5  7.057042       3
-#> 6  9.707687       4
-#> 7  6.713807       3
-#> 8  8.376589       4
-#> 9  1.086165       1
-#> 10 4.495479       2
+#> 1  4.978305       b
+#> 2  8.969989       d
+#> 3  3.391823       b
+#> 4  4.676785       b
+#> 5  7.057042       c
+#> 6  9.707687       d
+#> 7  6.713807       c
+#> 8  8.376589       d
+#> 9  1.086165       a
+#> 10 4.495479       b
 ```
 
-You can use letters or even roman numerals:
+You can use numerals or even roman numerals:
 
 ``` r
-chop(x, c(2, 5, 8), lbl_letters())
-#>  [1] b d b b c d c d a b
-#> Levels: a b c d
-chop(x, c(2, 5, 8), lbl_roman())
-#>  [1] ii  iv  ii  ii  iii iv  iii iv  i   ii 
-#> Levels: i ii iii iv
+chop(x, c(2, 5, 8), lbl_seq("(1)"))
+#>  [1] (2) (4) (2) (2) (3) (4) (3) (4) (1) (2)
+#> Levels: (1) (2) (3) (4)
+chop(x, c(2, 5, 8), lbl_seq("i."))
+#>  [1] ii.  iv.  ii.  ii.  iii. iv.  iii. iv.  i.   ii. 
+#> Levels: i. ii. iii. iv.
 ```
 
 By default, `chop()` extends `breaks` if necessary. If you don’t want

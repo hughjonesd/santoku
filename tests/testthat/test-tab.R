@@ -12,7 +12,7 @@ test_that("tab", {
 
 test_that("tab_size", {
   expect_identical(
-    tab_n(1:9, 3, lbl_letters()),
+    tab_n(1:9, 3, lbl_seq()),
     table(x = rep(c("a", "b", "c"), 3), useNA = "ifany")
   )
 })

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Label in sequence — sequence-labels • santoku</title>
+<title>Label manually in sequence — sequence-labels • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -40,8 +40,10 @@
 
 
 
-<meta property="og:title" content="Label in sequence — sequence-labels" />
-<meta property="og:description" content="These functions label intervals sequentially from lowest to highest." />
+<meta property="og:title" content="Label manually in sequence — sequence-labels" />
+<meta property="og:description" content="lbl_manual() uses an arbitrary sequence to label
+intervals. If the sequence is too short, it will be pasted with itself and
+repeated." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -139,26 +141,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Label in sequence</h1>
+    <h1>Label manually in sequence</h1>
     <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/labels.R'><code>R/labels.R</code></a></small>
     <div class="hidden name"><code>sequence-labels.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These functions label intervals sequentially from lowest to highest.</p>
+    <p><code>lbl_manual()</code> uses an arbitrary sequence to label
+intervals. If the sequence is too short, it will be pasted with itself and
+repeated.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>lbl_numerals</span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%s"</span>)
-
-<span class='fu'>lbl_roman</span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%s"</span>)
-
-<span class='fu'>lbl_ROMAN</span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%s"</span>)
-
-<span class='fu'>lbl_letters</span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%s"</span>)
-
-<span class='fu'>lbl_LETTERS</span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%s"</span>)
-
-<span class='fu'>lbl_sequence</span>(<span class='no'>sequence</span>, <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%s"</span>)</pre>
+    <pre class="usage"><span class='fu'>lbl_manual</span>(<span class='no'>sequence</span>, <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%s"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,55 +161,27 @@
       <th>fmt</th>
       <td><p>A <code><a href='https://www.rdocumentation.org/packages/base/topics/sprintf'>sprintf()</a></code>-style format.</p></td>
     </tr>
-    <tr>
-      <th>sequence</th>
-      <td><p>A character vector.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A vector of labels for <code>chop</code>, or a function that creates labels.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p><code>lbl_numerals()</code> uses arabic numerals.</p>
-<p><code>lbl_letters()</code> and <code>lbl_LETTERS()</code>
-uses lower-case and upper-case letters respectively.</p>
-<p><code>lbl_roman()</code> and
-<code>lbl_ROMAN()</code> use lower-case and upper-case Roman numerals respectively.</p>
-<p><code>lbl_sequence()</code> uses an arbitrary sequence. If the sequence is shorter than
-the number of breaks, it will be pasted with itself and repeated
-as necessary.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other labelling functions: <code><a href='lbl_dash.html'>lbl_dash</a></code>,
-  <code><a href='lbl_format.html'>lbl_format</a></code>, <code><a href='lbl_intervals.html'>lbl_intervals</a></code></p></div>
+  <code><a href='lbl_format.html'>lbl_format</a></code>, <code><a href='lbl_intervals.html'>lbl_intervals</a></code>,
+  <code><a href='lbl_seq.html'>lbl_seq</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_numerals</span>())</div><div class='output co'>#&gt;  [1] 1 2 2 2 3 3 3 3 4 4
-#&gt; Levels: 1 2 3 4</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_numerals</span>(<span class='st'>"(%s)"</span>))</div><div class='output co'>#&gt;  [1] (1) (2) (2) (2) (3) (3) (3) (3) (4) (4)
-#&gt; Levels: (1) (2) (3) (4)</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_letters</span>())</div><div class='output co'>#&gt;  [1] a b b b c c c c d d
-#&gt; Levels: a b c d</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_LETTERS</span>())</div><div class='output co'>#&gt;  [1] A B B B C C C C D D
-#&gt; Levels: A B C D</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_roman</span>())</div><div class='output co'>#&gt;  [1] i   ii  ii  ii  iii iii iii iii iv  iv 
-#&gt; Levels: i ii iii iv</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_ROMAN</span>())</div><div class='output co'>#&gt;  [1] I   II  II  II  III III III III IV  IV 
-#&gt; Levels: I II III IV</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_sequence</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"w"</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>)))</div><div class='output co'>#&gt;  [1] w x x x y y y y z z
-#&gt; Levels: w x y z</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_manual</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"w"</span>, <span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in lbl_manual(c("w", "x", "y", "z")): could not find function "lbl_manual"</span></div><div class='input'>
 <span class='co'># if labels need repeating:</span>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>lbl_sequence</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>)))</div><div class='output co'>#&gt;  [1] x   y   z   xx  yy  zz  xxx yyy zzz zzz
-#&gt; Levels: x y z xx yy zz xxx yyy zzz</div></pre>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>lbl_manual</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span>)))</div><div class='output co'>#&gt; <span class='error'>Error in lbl_manual(c("x", "y", "z")): could not find function "lbl_manual"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>

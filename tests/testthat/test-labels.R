@@ -1,16 +1,9 @@
 
 test_that("sequential labels", {
   brk <- brk_manual(1:3, rep(TRUE, 3))(1, FALSE)
-  expect_equivalent(lbl_numerals()(brk), as.character(1:2))
-  expect_equivalent(lbl_roman()(brk), tolower(as.roman(1:2)))
-  expect_equivalent(lbl_ROMAN()(brk), as.character(as.roman(1:2)))
-  expect_equivalent(lbl_letters()(brk), letters[1:2])
-  expect_equivalent(lbl_LETTERS()(brk), LETTERS[1:2])
 
-  expect_equivalent(lbl_numerals("(%s)")(brk), sprintf("(%s)", 1:2))
-
-  expect_error(lbl_sequence(c("a", "a")))
-  expect_equivalent(lbl_sequence(letters[1])(brk), c("a", "aa"))
+  expect_error(lbl_manual(c("a", "a")))
+  expect_equivalent(lbl_manual(letters[1])(brk), c("a", "aa"))
 })
 
 

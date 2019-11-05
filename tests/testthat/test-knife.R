@@ -10,9 +10,9 @@ test_that("basic functionality", {
   expect_equivalent(k(y), chop(y, breaks = brk_quantiles(0.5)))
 
 
-  k2 <- knife(breaks = 1:3, labels = lbl_numerals())
+  k2 <- knife(breaks = 1:3, labels = lbl_seq())
   x <- 0.5 + 1:3
-  expect_equivalent(k2(x), chop(x, breaks = 1:3, labels = lbl_numerals()))
+  expect_equivalent(k2(x), chop(x, breaks = 1:3, labels = lbl_seq()))
 })
 
 

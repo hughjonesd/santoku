@@ -132,99 +132,77 @@ lbl_dash <- function (symbol = " - ", raw = FALSE) {
 }
 
 
-#' Label in sequence
+#' Label sequentially
 #'
-#' These functions label intervals sequentially from lowest to highest.
+#' `lbl_seq` labels intervals sequentially, using numbers or letters.
 #'
-#' `lbl_numerals()` uses arabic numerals.
+#' @param like String. A template for the sequence. See below.
 #'
-#' `lbl_letters()` and `lbl_LETTERS()`
-#' uses lower-case and upper-case letters respectively.
+#' @details
+#'`like` shows the first element of the sequence. It must contain exactly *one*
+#' character out of the set "a", "A", "i", "I" or "1". For later elements:
 #'
-#' `lbl_roman()` and
-#' `lbl_ROMAN()` use lower-case and upper-case Roman numerals respectively.
+#' * "a" will be replaced by "a", "b", "c", ...
+#' * "A" will be replaced by "A", "B", "C", ...
+#' * "i" will be replaced by lower-case Roman numerals "i", "ii", "iii", ...
+#' * "I" will be replaced by upper-case Roman numerals "I", "II", "III", ...
+#' * "1" will be replaced by numbers "1", "2", "3", ...
 #'
-#' `lbl_sequence()` uses an arbitrary sequence. If the sequence is shorter than
-#' the number of breaks, it will be pasted with itself and repeated
-#' as necessary.
+#' Other characters will be retained as-is.
 #'
-#' @name sequence-labels
+#' @family labelling functions
+#'
+#' @export
+#'
+#' @examples
+#' chop(1:10, c(2, 5, 8), lbl_seq())
+#'
+#' chop(1:10, c(2, 5, 8), lbl_seq("i."))
+#'
+lbl_seq <- function(like = "a") {
+  assert_that(is.string(like))
+  # check like contains just one of a, A, i, I, 1
+  match <- gregexpr("(a|A|i|I|1)", like)[[1]]
+  if (length(match) > 1) stop("More than one a/A/i/I/1 found in `like`: ", like)
+  if (match == -1) stop("No a/A/i/I/1 found in `like`: ", like)
+  # replace that with the format-string and call lbl_manual appropriately
+  key <- substr(like, match, match)
+  fmt <- sub("(a|A|i|I|1)", "%s", like)
+
+  res <- switch(key,
+    "a" = lbl_manual(letters, fmt),
+    "A" = lbl_manual(LETTERS, fmt),
+    "i" = function (breaks) {
+           sprintf(fmt, tolower(utils::as.roman(seq(1L, length(breaks) - 1))))
+         },
+    "I" = function (breaks) {
+           sprintf(fmt, utils::as.roman(seq(1L, length(breaks) - 1)))
+         },
+    "1" = function (breaks) {
+            sprintf(fmt, seq(1L, length(breaks) - 1))
+          }
+    )
+
+  return(res)
+}
+
+
+#' Label manually in sequence
+#'
+#' `lbl_manual()` uses an arbitrary sequence to label
+#' intervals. If the sequence is too short, it will be pasted with itself and
+#' repeated.
 #'
 #' @inherit label-doc params return
 #'
 #' @family labelling functions
 #'
 #' @examples
-#' chop(1:10, c(2, 5, 8), lbl_numerals())
-#'
-#' chop(1:10, c(2, 5, 8), lbl_numerals("(%s)"))
-#'
-#' chop(1:10, c(2, 5, 8), lbl_letters())
-#'
-#' chop(1:10, c(2, 5, 8), lbl_LETTERS())
-#'
-#' chop(1:10, c(2, 5, 8), lbl_roman())
-#'
-#' chop(1:10, c(2, 5, 8), lbl_ROMAN())
-#'
-#' chop(1:10, c(2, 5, 8), lbl_sequence(c("w", "x", "y", "z")))
+#' chop(1:10, c(2, 5, 8), lbl_manual(c("w", "x", "y", "z")))
 #'
 #' # if labels need repeating:
-#' chop(1:10, 1:10, lbl_sequence(c("x", "y", "z")))
-NULL
-
-
-#' @rdname sequence-labels
-#' @export
-lbl_numerals <- function (fmt = "%s") {
-  assert_that(is.string(fmt))
-
-  function (breaks) {
-    sprintf(fmt, seq(1L, length(breaks) - 1))
-  }
-}
-
-
-#' @rdname sequence-labels
-#' @export
-lbl_roman <- function (fmt = "%s") {
-  assert_that(is.string(fmt))
-
-  function (breaks) {
-    sprintf(fmt, tolower(utils::as.roman(seq(1L, length(breaks) - 1))))
-  }
-}
-
-
-#' @rdname sequence-labels
-#' @export
-lbl_ROMAN <- function (fmt = "%s") {
-  assert_that(is.string(fmt))
-
-  function (breaks) {
-    sprintf(fmt, utils::as.roman(seq(1L, length(breaks) - 1)))
-  }
-}
-
-
-#' @rdname sequence-labels
-#' @export
-lbl_letters <- function (fmt = "%s") {
-  lbl_sequence(letters, fmt)
-}
-
-
-#' @rdname sequence-labels
-#' @export
-lbl_LETTERS <- function (fmt = "%s") {
-  lbl_sequence(LETTERS, fmt)
-}
-
-
-#' @rdname sequence-labels
-#' @param sequence A character vector.
-#' @export
-lbl_sequence <- function (sequence, fmt = "%s") {
+#' chop(1:10, 1:10, lbl_manual(c("x", "y", "z")))
+lbl_manual <- function (sequence, fmt = "%s") {
   assert_that(is.string(fmt))
 
   if (anyDuplicated(sequence) > 0L) stop("`sequence` contains duplicate items")

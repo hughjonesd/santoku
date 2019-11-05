@@ -9,6 +9,7 @@ vignette: >
 
 ```{r, include = FALSE}
 set.seed(23479)
+
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -146,18 +147,18 @@ chopped <- chop(x, c(2, 5, 8), lbl_format("%s to %s"))
 data.frame(x, chopped)
 ```
 
-To number intervals in order use `lbl_numerals()`:
+To label intervals in order use `lbl_seq()`:
 
 ```{r}
-chopped <- chop(x, c(2, 5, 8), lbl_numerals())
+chopped <- chop(x, c(2, 5, 8), lbl_seq())
 data.frame(x, chopped)
 ```
 
-You can use letters or even roman numerals:
+You can use numerals or even roman numerals:
 
 ```{r}
-chop(x, c(2, 5, 8), lbl_letters())
-chop(x, c(2, 5, 8), lbl_roman())
+chop(x, c(2, 5, 8), lbl_seq("(1)"))
+chop(x, c(2, 5, 8), lbl_seq("i."))
 ```
 
 By default, `chop()` extends `breaks` if necessary. If you don't want

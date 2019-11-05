@@ -1,8 +1,15 @@
 
-# santoku (development version)
+# santoku 0.3.0
 
 * Changed `kut()` to `kiru()`. `kiru()` is an alternative spelling for `chop()`, 
   for use when the tidyr package is loaded.
+* `lbl_sequence()` has become `lbl_manual()`.
+* `lbl_letters()` and friends have been replaced by `lbl_seq()`:
+  - to replace `lbl_letters()` use `lbl_seq()`
+  - to replace `lbl_LETTERS()` use `lbl_seq("A")`
+  - to replace `lbl_roman()` use `lbl_seq("i")`
+  - to replace `lbl_ROMAN()` use `lbl_seq("I")`
+  - to replace `lbl_numerals()` use `lbl_seq("1")`
 
 # santoku 0.2.0
 

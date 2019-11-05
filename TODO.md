@@ -72,7 +72,7 @@ tab(x, 1:3, labels = letters[1:3]) # errors because extend got called,
   - Tension between wanting something predictable in your new data, vs. something
     readable in `tab_*`. E.g.
     ```r
-    tab_size(1:9, 3, lbl_letters()) 
+    tab_size(1:9, 3, lbl_seq()) 
     ```
     should surely return labels a, b, c. But this means we aren't always
     extending.
