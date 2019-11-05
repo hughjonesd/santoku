@@ -1,5 +1,3 @@
-# santoku 0.3.0
-
 
 # santoku 0.3.0
 
