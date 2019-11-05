@@ -4,16 +4,16 @@
 \alias{lbl_seq}
 \title{Label sequentially}
 \usage{
-lbl_seq(like = "a")
+lbl_seq(start = "a")
 }
 \arguments{
-\item{like}{String. A template for the sequence. See below.}
+\item{start}{String. A template for the sequence. See below.}
 }
 \description{
 \code{lbl_seq} labels intervals sequentially, using numbers or letters.
 }
 \details{
-\code{like} shows the first element of the sequence. It must contain exactly \emph{one}
+\code{start} shows the first element of the sequence. It must contain exactly \emph{one}
 character out of the set "a", "A", "i", "I" or "1". For later elements:
 \itemize{
 \item "a" will be replaced by "a", "b", "c", ...

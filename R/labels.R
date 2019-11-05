@@ -136,10 +136,10 @@ lbl_dash <- function (symbol = " - ", raw = FALSE) {
 #'
 #' `lbl_seq` labels intervals sequentially, using numbers or letters.
 #'
-#' @param like String. A template for the sequence. See below.
+#' @param start String. A template for the sequence. See below.
 #'
 #' @details
-#'`like` shows the first element of the sequence. It must contain exactly *one*
+#'`start` shows the first element of the sequence. It must contain exactly *one*
 #' character out of the set "a", "A", "i", "I" or "1". For later elements:
 #'
 #' * "a" will be replaced by "a", "b", "c", ...
@@ -159,15 +159,15 @@ lbl_dash <- function (symbol = " - ", raw = FALSE) {
 #'
 #' chop(1:10, c(2, 5, 8), lbl_seq("i."))
 #'
-lbl_seq <- function(like = "a") {
-  assert_that(is.string(like))
+lbl_seq <- function(start = "a") {
+  assert_that(is.string(start))
   # check like contains just one of a, A, i, I, 1
-  match <- gregexpr("(a|A|i|I|1)", like)[[1]]
-  if (length(match) > 1) stop("More than one a/A/i/I/1 found in `like`: ", like)
-  if (match == -1) stop("No a/A/i/I/1 found in `like`: ", like)
+  match <- gregexpr("(a|A|i|I|1)", start)[[1]]
+  if (length(match) > 1) stop("More than one a/A/i/I/1 found in `like`: ", start)
+  if (match == -1) stop("No a/A/i/I/1 found in `like`: ", start)
   # replace that with the format-string and call lbl_manual appropriately
-  key <- substr(like, match, match)
-  fmt <- sub("(a|A|i|I|1)", "%s", like)
+  key <- substr(start, match, match)
+  fmt <- sub("(a|A|i|I|1)", "%s", start)
 
   res <- switch(key,
     "a" = lbl_manual(letters, fmt),
