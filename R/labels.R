@@ -159,6 +159,7 @@ lbl_dash <- function (symbol = " - ", raw = FALSE) {
 #'
 #' chop(1:10, c(2, 5, 8), lbl_seq("i."))
 #'
+#' chop(1:10, c(2, 5, 8), lbl_seq("(A)"))
 lbl_seq <- function(start = "a") {
   assert_that(is.string(start))
   # check like contains just one of a, A, i, I, 1

@@ -30,6 +30,7 @@ chop(1:10, c(2, 5, 8), lbl_seq())
 
 chop(1:10, c(2, 5, 8), lbl_seq("i."))
 
+chop(1:10, c(2, 5, 8), lbl_seq("(A)"))
 }
 \seealso{
 Other labelling functions: \code{\link{lbl_dash}},
