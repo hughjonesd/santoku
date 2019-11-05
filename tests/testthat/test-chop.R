@@ -190,8 +190,8 @@ test_that("systematic tests", {
     lbl_format_raw    = lbl_format("%s to %s", raw = TRUE),
     lbl_intervals     = lbl_intervals(),
     lbl_intervals_raw = lbl_intervals(raw = TRUE),
-    lbl_seq           = lbl_seq(like = "a"),
-    lbl_seq2          = lbl_seq(like = "(i)"),
+    lbl_seq           = lbl_seq("a"),
+    lbl_seq2          = lbl_seq("(i)"),
     lbl_manual        = lbl_manual(letters[1:2]),
     lbl_manual2       = lbl_manual(letters[1:2], "%s)")
   )

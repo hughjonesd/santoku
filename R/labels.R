@@ -163,8 +163,8 @@ lbl_seq <- function(start = "a") {
   assert_that(is.string(start))
   # check like contains just one of a, A, i, I, 1
   match <- gregexpr("(a|A|i|I|1)", start)[[1]]
-  if (length(match) > 1) stop("More than one a/A/i/I/1 found in `like`: ", start)
-  if (match == -1) stop("No a/A/i/I/1 found in `like`: ", start)
+  if (length(match) > 1) stop("More than one a/A/i/I/1 found in `start`: ", start)
+  if (match == -1) stop("No a/A/i/I/1 found in `start`: ", start)
   # replace that with the format-string and call lbl_manual appropriately
   key <- substr(start, match, match)
   fmt <- sub("(a|A|i|I|1)", "%s", start)
