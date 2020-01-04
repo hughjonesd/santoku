@@ -16,7 +16,7 @@ kiru(x, breaks, labels, extend = NULL, drop = TRUE)
 
 \item{labels}{See below.}
 
-\item{extend}{Logical. Extend breaks to \code{+/-Inf}?}
+\item{extend}{Logical. Extend breaks to \verb{+/-Inf}?}
 
 \item{drop}{Logical. Drop unused levels from the result?}
 }
@@ -82,8 +82,11 @@ chop(0.3/3, c(0, 0.1, 0.1, 1))
 \seealso{
 cut
 
-Other chopping functions: \code{\link{brk_mean_sd}},
-  \code{\link{brk_n}}, \code{\link{brk_quantiles}},
-  \code{\link{brk_width}}, \code{\link{fillet}}
+Other chopping functions: 
+\code{\link{brk_mean_sd}()},
+\code{\link{brk_n}()},
+\code{\link{brk_quantiles}()},
+\code{\link{brk_width}()},
+\code{\link{fillet}()}
 }
 \concept{chopping functions}

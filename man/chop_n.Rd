@@ -17,7 +17,7 @@ chop_n(x, n, ...)
 \item{...}{Passed to \code{chop}.}
 }
 \value{
-For  \code{chop_*} functions, a factor of the same length as \code{x}.
+For  \verb{chop_*} functions, a factor of the same length as \code{x}.
 }
 \description{
 \code{chop_n()} creates intervals containing a fixed number of elements. One
@@ -30,8 +30,11 @@ table(chop_n(1:10, 4))
 
 }
 \seealso{
-Other chopping functions: \code{\link{brk_mean_sd}},
-  \code{\link{brk_quantiles}}, \code{\link{brk_width}},
-  \code{\link{chop}}, \code{\link{fillet}}
+Other chopping functions: 
+\code{\link{brk_mean_sd}()},
+\code{\link{brk_quantiles}()},
+\code{\link{brk_width}()},
+\code{\link{chop}()},
+\code{\link{fillet}()}
 }
 \concept{chopping functions}

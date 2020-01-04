@@ -18,7 +18,7 @@ the mean.}
 \item{...}{Passed to \code{chop}.}
 }
 \value{
-For  \code{chop_*} functions, a factor of the same length as \code{x}.
+For  \verb{chop_*} functions, a factor of the same length as \code{x}.
 }
 \description{
 Chop by standard deviations
@@ -30,8 +30,11 @@ chop(1:10, brk_mean_sd())
 
 }
 \seealso{
-Other chopping functions: \code{\link{brk_n}},
-  \code{\link{brk_quantiles}}, \code{\link{brk_width}},
-  \code{\link{chop}}, \code{\link{fillet}}
+Other chopping functions: 
+\code{\link{brk_n}()},
+\code{\link{brk_quantiles}()},
+\code{\link{brk_width}()},
+\code{\link{chop}()},
+\code{\link{fillet}()}
 }
 \concept{chopping functions}

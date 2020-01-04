@@ -23,7 +23,7 @@ A (function which returns an) object of class \code{breaks}.
 Left- or right-closed breaks
 }
 \details{
-\code{brk_left} and \code{brk_right} can be used to wrap another \code{brk_*} function.
+\code{brk_left} and \code{brk_right} can be used to wrap another \verb{brk_*} function.
 }
 \examples{
 chop(5:7, brk_left(5:7))

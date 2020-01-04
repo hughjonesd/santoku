@@ -19,8 +19,8 @@ A (function which returns an) object of class \code{breaks}.
 Create a \code{breaks} object manually
 }
 \details{
-All breaks must be closed on exactly one side, like \code{..., x) [x, ...}
-(left-closed) or \code{..., x) [x, ...} (right-closed).
+All breaks must be closed on exactly one side, like \verb{..., x) [x, ...}
+(left-closed) or \verb{..., x) [x, ...} (right-closed).
 
 For example, if \code{breaks = 1:3} and \code{left = c(TRUE, FALSE, TRUE)}, then the
 resulting intervals are \preformatted{

@@ -19,10 +19,10 @@ Labels using set notation
 \details{
 Mathematical set notation is as follows:
 \itemize{
-\item \code{[a, b]}: all numbers \code{x} where \code{a <= x <= b};
-\item \code{(a, b)}: all numbers where \code{a < x < b};
-\item \code{[a, b)}: all numbers where \code{a <= x < b};
-\item \code{(a, b]}: all numbers where \code{a < x <= b};
+\item \code{[a, b]}: all numbers \code{x} where \verb{a <= x <= b};
+\item \code{(a, b)}: all numbers where \verb{a < x < b};
+\item \code{[a, b)}: all numbers where \verb{a <= x < b};
+\item \code{(a, b]}: all numbers where \verb{a < x <= b};
 \item \code{{a}}: just the number \code{a}.
 }
 }
@@ -30,8 +30,10 @@ Mathematical set notation is as follows:
 tab(-10:10, c(-3, 0, 0, 3), labels = lbl_intervals())
 }
 \seealso{
-Other labelling functions: \code{\link{lbl_dash}},
-  \code{\link{lbl_format}}, \code{\link{lbl_manual}},
-  \code{\link{lbl_seq}}
+Other labelling functions: 
+\code{\link{lbl_dash}()},
+\code{\link{lbl_format}()},
+\code{\link{lbl_manual}()},
+\code{\link{lbl_seq}()}
 }
 \concept{labelling functions}

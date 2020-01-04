@@ -25,7 +25,7 @@ chop_equally(x, groups, ...)
 \item{groups}{Number of groups.}
 }
 \value{
-For  \code{chop_*} functions, a factor of the same length as \code{x}.
+For  \verb{chop_*} functions, a factor of the same length as \code{x}.
 }
 \description{
 \code{chop_quantiles} chops data by quantiles. \code{chop_equally} chops
@@ -46,8 +46,11 @@ chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
 
 }
 \seealso{
-Other chopping functions: \code{\link{brk_mean_sd}},
-  \code{\link{brk_n}}, \code{\link{brk_width}},
-  \code{\link{chop}}, \code{\link{fillet}}
+Other chopping functions: 
+\code{\link{brk_mean_sd}()},
+\code{\link{brk_n}()},
+\code{\link{brk_width}()},
+\code{\link{chop}()},
+\code{\link{fillet}()}
 }
 \concept{chopping functions}

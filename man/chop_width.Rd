@@ -27,7 +27,7 @@ chop_evenly(x, groups, ...)
 \item{...}{Passed to \code{chop}.}
 }
 \value{
-For  \code{chop_*} functions, a factor of the same length as \code{x}.
+For  \verb{chop_*} functions, a factor of the same length as \code{x}.
 }
 \description{
 \code{chop_width()} chops \code{x} into intervals of width \code{width}. \code{chop_evenly}
@@ -44,8 +44,11 @@ chop_evenly(1:10, 5)
 
 }
 \seealso{
-Other chopping functions: \code{\link{brk_mean_sd}},
-  \code{\link{brk_n}}, \code{\link{brk_quantiles}},
-  \code{\link{chop}}, \code{\link{fillet}}
+Other chopping functions: 
+\code{\link{brk_mean_sd}()},
+\code{\link{brk_n}()},
+\code{\link{brk_quantiles}()},
+\code{\link{chop}()},
+\code{\link{fillet}()}
 }
 \concept{chopping functions}
