@@ -13,6 +13,8 @@ status](https://ci.appveyor.com/api/projects/status/github/hughjonesd/santoku?br
 coverage](https://codecov.io/gh/hughjonesd/santoku/branch/master/graph/badge.svg)](https://codecov.io/gh/hughjonesd/santoku?branch=master)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/santoku)](https://CRAN.R-project.org/package=santoku)
 <!-- badges: end -->
 
 santoku is a versatile cutting tool for R. It provides `chop()`, a
@@ -58,8 +60,8 @@ Use `chop()` like `cut()` to cut your data up:
 library(santoku)
 x <- runif(10, 0, 10)
 (chopped <- chop(x, breaks = 0:10))
-#>  [1] [4, 5)  [8, 9)  [3, 4)  [4, 5)  [7, 8)  [9, 10] [6, 7)  [8, 9) 
-#>  [9] [1, 2)  [4, 5) 
+#>  [1] [4, 5)  [8, 9)  [3, 4)  [4, 5)  [7, 8)  [9, 10] [6, 7)  [8, 9)  [1, 2) 
+#> [10] [4, 5) 
 #> Levels: [1, 2) [3, 4) [4, 5) [6, 7) [7, 8) [8, 9) [9, 10]
 data.frame(x, chopped)
 #>           x chopped
@@ -154,13 +156,13 @@ chopped <- chop_evenly(x, groups = 3)
 data.frame(x, chopped)
 #>           x        chopped
 #> 1  4.978305  [3.96, 6.834)
-#> 2  8.969989 [6.834, 9.708]
+#> 2  8.969989 [6.834, 9.708)
 #> 3  3.391823  [1.086, 3.96)
 #> 4  4.676785  [3.96, 6.834)
-#> 5  7.057042 [6.834, 9.708]
-#> 6  9.707687 [6.834, 9.708]
+#> 5  7.057042 [6.834, 9.708)
+#> 6  9.707687 [9.708, 12.58]
 #> 7  6.713807  [3.96, 6.834)
-#> 8  8.376589 [6.834, 9.708]
+#> 8  8.376589 [6.834, 9.708)
 #> 9  1.086165  [1.086, 3.96)
 #> 10 4.495479  [3.96, 6.834)
 ```
