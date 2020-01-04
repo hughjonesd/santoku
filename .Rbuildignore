@@ -5,6 +5,7 @@
 ^README\.Rmd$
 ^index\.Rmd$
 ^advantages\.Rmd$
+^release-process\.R$
 ^\.travis\.yml$
 ^appveyor\.yml$
 ^_pkgdown\.yml$
