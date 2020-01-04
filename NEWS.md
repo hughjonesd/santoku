@@ -1,6 +1,7 @@
 
 # santoku 0.3.0
 
+* First CRAN release.
 * Changed `kut()` to `kiru()`. `kiru()` is an alternative spelling for `chop()`, 
   for use when the tidyr package is loaded.
 * `lbl_sequence()` has become `lbl_manual()`.
