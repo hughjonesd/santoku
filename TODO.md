@@ -8,6 +8,7 @@
 * `brk_equally` for symmetry
 
 * maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for the same reason
+  - `tab_quantiles` needs raw labels by default, to be useful
 
 * cut e.g. Dates, posixct, DateT
   - what else? ts, xts, zoo, lubridate classes
@@ -44,23 +45,13 @@
   - If so, then `drop` should probably work even for numeric i.e. integer data
     by moving it down to start at 1
 
-* What should `extend = NULL` do exactly?
-  - May be more natural to extend on either side as needed.
-  For example:
 
-```r
-x <- 1:10
-tab(x, 1:3) # looks as if there are 3 levels
-tab(x, 1:3, labels = letters[1:3]) # errors because extend got called,
-                                   # requiring 2 extra levels!
-
-```
   
 # Questions with a (provisional) answer
 
 * What to do about `tidyr::chop()`
   - Current answer: fuck 'em. (NB: just kidding. I am a huge tidyverse fan.) 
-  - We provide `kut()`. So on the REPL, people can just use `kut()` if they
+  - We provide `kiru()`. So on the REPL, people can just use `kiru()` if they
     load santoku first. If they load santoku second, they'll have to use
     `tidyr::chop()`, but reading the documentation, I suspect this will be rare.
   - For programming, people should probably used the fully qualified name 

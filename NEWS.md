@@ -11,6 +11,7 @@
   - to replace `lbl_roman()` use `lbl_seq("i")`
   - to replace `lbl_ROMAN()` use `lbl_seq("I")`
   - to replace `lbl_numerals()` use `lbl_seq("1")`
+  - for more complex formatting use e.g. `lbl_seq("A:")`, `lbl_seq("(i)")`
 
 # santoku 0.2.0
 
