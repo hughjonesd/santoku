@@ -19,7 +19,8 @@
     classes? 
   - the basic `chop` function, with appropriate breaks, might already 
   "almost work" b/c it just uses arithmetic comparisons
-  
+
+* Deprecate `knife()` in favour of `purrr::partial()`
 
 # Thoughts on errors
 
