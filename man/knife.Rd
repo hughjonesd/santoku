@@ -9,6 +9,9 @@ knife(...)
 \arguments{
 \item{...}{Parameters for \code{\link[=chop]{chop()}}.}
 }
+\value{
+A function.
+}
 \description{
 \code{knife()} returns a one-argument function for chopping data.
 }
