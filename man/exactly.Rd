@@ -10,7 +10,7 @@ exactly(x)
 \item{x}{A numeric vector.}
 }
 \value{
-\code{rep(x, each = 2)}.
+The same as \code{rep(x, each = 2)}.
 }
 \description{
 \code{exactly} lets you write \code{chop(x, c(1, exactly(2), 3))}. This

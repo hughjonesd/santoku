@@ -6,6 +6,8 @@
 #'
 #' @param ... Parameters for [chop()].
 #'
+#' @return A function.
+#'
 #' @export
 #'
 #' @examples

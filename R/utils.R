@@ -8,7 +8,7 @@
 #'
 #' @param x A numeric vector.
 #'
-#' @return `rep(x, each = 2)`.
+#' @return The same as `rep(x, each = 2)`.
 #' @export
 #'
 #' @examples
