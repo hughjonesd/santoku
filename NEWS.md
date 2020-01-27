@@ -1,5 +1,6 @@
 # santoku (development version)
 
+* Minor tweaks to `chop_deciles()`.
 
 # santoku 0.3.0
 

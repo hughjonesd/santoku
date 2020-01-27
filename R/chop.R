@@ -166,7 +166,7 @@ chop_quantiles <- function(x, probs, ...) {
 #' @rdname chop_quantiles
 #' @export
 chop_deciles <- function(x, ...) {
-  chop_quantiles(x, 1:9/10, ...)
+  chop_quantiles(x, 0:10/10, ...)
 }
 
 

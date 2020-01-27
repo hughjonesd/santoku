@@ -124,7 +124,7 @@ test_that("chop_equally", {
 test_that("chop_deciles", {
   x <- rnorm(100)
   expect_identical(
-    chop_quantiles(x, 1:9/10),
+    chop_quantiles(x, 0:10/10),
     chop_deciles(x)
   )
 })
