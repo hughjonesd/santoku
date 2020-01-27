@@ -23,11 +23,13 @@ NULL
 #' @details
 #' `breaks` may be a numeric vector or a function.
 #'
-#' If it is a vector, `breaks` gives the break endpoints.Repeated values create
+#' If it is a vector, `breaks` gives the break endpoints. Repeated values create
 #' singleton intervals. For example `breaks = c(1, 3, 3, 5)` creates 3
-#' intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}. Default breaks are
-#' left-closed except for the last interval; for right-closed breaks see
-#' [brk_right()].
+#' intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
+#'
+#' By default, left-closed intervals are created, except for the final interval
+#' which will be closed on both sides. To change these defaults, see
+#' [brk_left()].
 #'
 #' If `breaks` is a function it is called with a single argument, `x`, and
 #' returns an object of class `breaks`.
@@ -43,6 +45,9 @@ NULL
 #' \code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, *only* if
 #' necessary -- i.e. if `min(x) < min(breaks)` and `max(x) > max(breaks)`
 #' respectively.
+#'
+#' Extending intervals, either by `extend = NULL` or `extend = FALSE`,
+#' always leaves the central, non-extended intervals unchanged.
 #'
 #' `NA` values in `x`, and values which are outside the (extended) endpoints,
 #' return `NA`.

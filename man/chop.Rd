@@ -31,11 +31,13 @@ length as \code{x}, representing which interval contains each element of \code{x
 \details{
 \code{breaks} may be a numeric vector or a function.
 
-If it is a vector, \code{breaks} gives the break endpoints.Repeated values create
+If it is a vector, \code{breaks} gives the break endpoints. Repeated values create
 singleton intervals. For example \code{breaks = c(1, 3, 3, 5)} creates 3
-intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}. Default breaks are
-left-closed except for the last interval; for right-closed breaks see
-\code{\link[=brk_right]{brk_right()}}.
+intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
+
+By default, left-closed intervals are created, except for the final interval
+which will be closed on both sides. To change these defaults, see
+\code{\link[=brk_left]{brk_left()}}.
 
 If \code{breaks} is a function it is called with a single argument, \code{x}, and
 returns an object of class \code{breaks}.
@@ -51,6 +53,9 @@ If \code{extend} is \code{NULL} (the default), intervals will be extended to
 \code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, \emph{only} if
 necessary -- i.e. if \code{min(x) < min(breaks)} and \code{max(x) > max(breaks)}
 respectively.
+
+Extending intervals, either by \code{extend = NULL} or \code{extend = FALSE},
+always leaves the central, non-extended intervals unchanged.
 
 \code{NA} values in \code{x}, and values which are outside the (extended) endpoints,
 return \code{NA}.
