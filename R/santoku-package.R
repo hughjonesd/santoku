@@ -34,8 +34,7 @@ NULL
 #' ```
 #' vignette("santoku")
 #' ```
-#'
-#' @keywords internal
+#' For more details, start with the documentation for [chop()].
 "_PACKAGE"
 
 # The following block is used by usethis to automatically manage

@@ -31,6 +31,8 @@ where you may not know the range of your data in advance.
 
 To get started, read the vignette:\preformatted{vignette("santoku")
 }
+
+For more details, start with the documentation for \code{\link[=chop]{chop()}}.
 }
 \seealso{
 Useful links:
@@ -45,4 +47,3 @@ Useful links:
 \strong{Maintainer}: David Hugh-Jones \email{davidhughjones@gmail.com}
 
 }
-\keyword{internal}
