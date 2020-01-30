@@ -31,8 +31,9 @@ NULL
 #' which will be closed on both sides. To change these defaults, see
 #' [brk_left()].
 #'
-#' If `breaks` is a function it is called with a single argument, `x`, and
-#' returns an object of class `breaks`.
+#' If `breaks` is a function it is called with the `x` and `extend` arguments,
+#' and should return an object of class `breaks`. Use `brk_` functions
+#' in this context, to create a variety of data-dependent breaks.
 #'
 #' `labels` may be a character vector. It should have the same length as the
 #'  number of intervals. Alternatively, use a `lbl_` function such as

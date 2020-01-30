@@ -39,8 +39,9 @@ By default, left-closed intervals are created, except for the final interval
 which will be closed on both sides. To change these defaults, see
 \code{\link[=brk_left]{brk_left()}}.
 
-If \code{breaks} is a function it is called with a single argument, \code{x}, and
-returns an object of class \code{breaks}.
+If \code{breaks} is a function it is called with the \code{x} and \code{extend} arguments,
+and should return an object of class \code{breaks}. Use \code{brk_} functions
+in this context, to create a variety of data-dependent breaks.
 
 \code{labels} may be a character vector. It should have the same length as the
 number of intervals. Alternatively, use a \code{lbl_} function such as
