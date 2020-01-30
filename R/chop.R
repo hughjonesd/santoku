@@ -2,7 +2,7 @@
 
 #' @name chop-doc
 #' @param x A numeric vector.
-#' @param breaks,labels,...  Passed to `chop`.
+#' @param breaks,labels,...  Passed to [chop()].
 #' @return
 #' For  `chop_*` functions, a factor of the same length as `x`.
 NULL
@@ -122,7 +122,7 @@ kiru <- chop
 
 #' Chop data precisely (for programmers)
 #'
-#' @inherit chop params return
+#' @inherit chop-doc params return
 #'
 #' @details
 #' `fillet()` calls [chop()] with `extend = FALSE` and `drop = FALSE`. This
@@ -145,12 +145,14 @@ fillet <- function (x, breaks, labels) chop(x, breaks, labels, extend = FALSE,
 #' data into equal-sized groups. `chop_deciles` is a convenience shortcut and
 #' chops into deciles.
 #'
+#'
 #' @param probs A vector of probabilities for the quantiles.
 #' @inherit chop-doc params return
 #'
 #' @family chopping functions
 #'
 #' @export
+#' @order 1
 #'
 #' @examples
 #' chop_quantiles(1:10, 1:3/4)
@@ -171,6 +173,7 @@ chop_quantiles <- function(x, probs, ...) {
 
 #' @rdname chop_quantiles
 #' @export
+#' @order 1
 chop_deciles <- function(x, ...) {
   chop_quantiles(x, 0:10/10, ...)
 }
@@ -181,6 +184,7 @@ chop_deciles <- function(x, ...) {
 #' @param groups Number of groups.
 #'
 #' @export
+#' @order 1
 chop_equally <- function (x, groups, ...) {
   chop_quantiles(x, seq(0, groups)/groups, ...)
 }
@@ -195,6 +199,7 @@ chop_equally <- function (x, groups, ...) {
 #' @family chopping functions
 #'
 #' @export
+#' @order 1
 #'
 #' @examples
 #' chop_mean_sd(1:10)
@@ -218,6 +223,7 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' @family chopping functions
 #'
 #' @export
+#' @order 1
 #'
 #' @examples
 #' chop_width(1:10, 2)
@@ -238,6 +244,7 @@ chop_width <- function (x, width, start, ...) {
 #' @param groups Integer: number of intervals to create.
 #'
 #' @export
+#' @order 1
 chop_evenly <- function (x, groups, ...) {
   chop(x, brk_evenly(groups), ...)
 }
@@ -252,6 +259,7 @@ chop_evenly <- function (x, groups, ...) {
 #' @inherit chop-doc params return
 #'
 #' @export
+#' @order 1
 #'
 #' @family chopping functions
 #'

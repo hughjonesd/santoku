@@ -5,6 +5,7 @@
 #' @param ... Arguments passed to [quantile()].
 #'
 #' @export
+#' @order 2
 brk_quantiles <- function (probs, ...) {
   assert_that(is.numeric(probs), noNA(probs), all(probs >= 0), all(probs <= 1))
   probs <- sort(probs)
@@ -38,6 +39,7 @@ brk_quantiles <- function (probs, ...) {
 
 #' @rdname chop_mean_sd
 #' @export
+#' @order 2
 brk_mean_sd <- function (sd = 3) {
   assert_that(is.count(sd))
 
@@ -75,6 +77,7 @@ brk_mean_sd <- function (sd = 3) {
 
 #' @rdname chop_width
 #' @export
+#' @order 2
 brk_width <- function (width, start) {
   assert_that(is.number(width), width > 0)
 
@@ -106,6 +109,7 @@ brk_width <- function (width, start) {
 
 #' @rdname chop_width
 #' @export
+#' @order 2
 brk_evenly <- function(groups) {
   assert_that(is.count(groups))
 
@@ -119,6 +123,7 @@ brk_evenly <- function(groups) {
 
 #' @rdname chop_n
 #' @export
+#' @order 2
 brk_n <- function (n) {
   assert_that(is.count(n))
 

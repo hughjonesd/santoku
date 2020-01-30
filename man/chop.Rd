@@ -89,10 +89,10 @@ chop(0.3/3, c(0, 0.1, 0.1, 1))
 cut
 
 Other chopping functions: 
-\code{\link{brk_mean_sd}()},
-\code{\link{brk_n}()},
-\code{\link{brk_quantiles}()},
-\code{\link{brk_width}()},
+\code{\link{chop_mean_sd}()},
+\code{\link{chop_n}()},
+\code{\link{chop_quantiles}()},
+\code{\link{chop_width}()},
 \code{\link{fillet}()}
 }
 \concept{chopping functions}

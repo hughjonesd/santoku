@@ -9,13 +9,12 @@ fillet(x, breaks, labels)
 \arguments{
 \item{x}{A numeric vector.}
 
-\item{breaks}{See below.}
+\item{breaks}{Passed to \code{\link[=chop]{chop()}}.}
 
-\item{labels}{See below.}
+\item{labels}{Passed to \code{\link[=chop]{chop()}}.}
 }
 \value{
-A \link{factor} of the same length as \code{x}, representing the intervals containing
-the value of \code{x}.
+For  \verb{chop_*} functions, a factor of the same length as \code{x}.
 }
 \description{
 Chop data precisely (for programmers)
@@ -30,10 +29,10 @@ fillet(1:10, c(2, 5, 8))
 }
 \seealso{
 Other chopping functions: 
-\code{\link{brk_mean_sd}()},
-\code{\link{brk_n}()},
-\code{\link{brk_quantiles}()},
-\code{\link{brk_width}()},
+\code{\link{chop_mean_sd}()},
+\code{\link{chop_n}()},
+\code{\link{chop_quantiles}()},
+\code{\link{chop_width}()},
 \code{\link{chop}()}
 }
 \concept{chopping functions}
