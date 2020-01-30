@@ -44,12 +44,10 @@ analysis, where you may not know the range of your data in advance.
 
 ## Installation
 
-You can install the development version from
-[GitHub](https://github.com/) with:
+To install santoku, run:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("hughjonesd/santoku")
+install.packages("santoku")
 ```
 
 ## Basic usage
