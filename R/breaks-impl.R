@@ -123,6 +123,29 @@ maybe_extend <- function (breaks, x, extend) {
   return(breaks)
 }
 
+#' A hack for brk_left/right.function
+#'
+#' Ensures extended breaks aren't affected
+#'
+#' @param breaks Breaks object
+#' @param extend Passed in from chop
+#' @param needs_ex Calculated earlier: did breaks need extending
+#' @param orig_left Leftness before create_left/right_breaks was called
+#' @return Fixed breaks
+#'
+#' @noRd
+#'
+fix_extended_breaks <- function (breaks, extend, needs_ex, orig_left) {
+  will_ex_left  <- isTRUE(extend) || (is.null(extend) && (needs_ex & LEFT) > 0)
+  will_ex_right <- isTRUE(extend) || (is.null(extend) && (needs_ex & RIGHT) > 0)
+
+  if (will_ex_left) attr(breaks, "left")[2] <- orig_left[2]
+  penult <- length(breaks) - 1
+  if (will_ex_right) attr(breaks, "left")[penult] <- orig_left[penult]
+
+  breaks
+}
+
 
 #' Truncates `num` to look nice, while preserving uniqueness
 #'

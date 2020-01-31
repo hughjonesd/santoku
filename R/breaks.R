@@ -213,10 +213,16 @@ brk_left.function <- function (breaks, close_end = TRUE) {
   assert_that(is.flag(close_end))
 
   function(x, extend) {
+    ne <- needs_extend(breaks, x)
     breaks <- breaks(x, extend) # already contains left/labels and is extended
-    create_left_breaks(breaks, close_end)
+    orig_left <- attr(breaks, "left")
+    breaks <- create_left_breaks(breaks, close_end)
+    breaks <- fix_extended_breaks(breaks, extend, ne, orig_left)
+    breaks
   }
 }
+
+
 
 
 #' @export
@@ -224,8 +230,12 @@ brk_right.function <- function (breaks, close_end = TRUE) {
   assert_that(is.flag(close_end))
 
   function(x, extend) {
+    ne <- needs_extend(breaks, x)
     breaks <- breaks(x, extend)
-    create_right_breaks(breaks, close_end)
+    orig_left <- attr(breaks, "left")
+    breaks <- create_right_breaks(breaks, close_end)
+    breaks <- fix_extended_breaks(breaks, extend, ne, orig_left)
+    breaks
   }
 }
 
