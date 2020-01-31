@@ -72,6 +72,23 @@ test_that("brk_left/right wrappers", {
 })
 
 
+test_that("brk_left/right wrappers don't affect `extend`-ed breaks", {
+  x <- 0:100
+  for (f in list(brk_left, brk_right)) {
+    wrapped_brk <- f(brk_quantiles(1:3/4))
+    ext_FALSE <- wrapped_brk(x, extend = FALSE)
+    ext_TRUE  <- wrapped_brk(x, extend = TRUE)
+    ext_NULL  <- wrapped_brk(x, extend = NULL)
+    expect_identical(attr(ext_FALSE, "left")[1], attr(ext_TRUE, "left")[2])
+    expect_identical(attr(ext_FALSE, "left")[1], attr(ext_NULL, "left")[2])
+    lnF <- length(ext_FALSE)
+    lnT <- length(ext_TRUE)
+    expect_identical(attr(ext_FALSE, "left")[lnF], attr(ext_TRUE, "left")[lnT - 1])
+    expect_identical(attr(ext_FALSE, "left")[lnF], attr(ext_NULL, "left")[lnT - 1])
+  }
+})
+
+
 test_that("brk_n", {
   for (i in 1:10) {
     x <- rnorm(sample(10:20, 1L))
