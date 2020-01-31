@@ -1,6 +1,8 @@
 # santoku (development version)
 
 * Minor tweaks to `chop_deciles()`.
+* Bugfix: `brk_left/right()` only affect specified breaks, not results of
+  `extend`, when used as wrappers.
 
 # santoku 0.3.0
 
