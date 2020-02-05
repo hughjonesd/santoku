@@ -3,6 +3,7 @@
 * Minor tweaks to `chop_deciles()`.
 * Bugfix: `brk_left/right()` only affect specified breaks, not results of
   `extend`, when used as wrappers.
+* Bugfix: `lbl_format()` wasn't accepting numeric formats, even when `raw = TRUE`. Thanks to Sharla Gelfand.
 
 # santoku 0.3.0
 
