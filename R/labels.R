@@ -86,7 +86,9 @@ lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
     labels <- character(len_b - 1)
     singletons <- singletons(breaks)
 
-    break_labels <- choose_break_labels(breaks, raw)
+    break_labels <- if (raw) as.numeric(breaks) else
+          choose_break_labels(breaks, raw)
+
     l <- break_labels[-len_b]
     r <- break_labels[-1]
 

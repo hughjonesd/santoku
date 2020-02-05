@@ -43,6 +43,8 @@ test_that("lbl_format", {
   brk <- brk_left(c(1, 2, 2, 3))(1, FALSE)
   expect_equivalent(lbl_format("<%s to %s>", "|%s|")(brk),
         c("<1 to 2>", "|2|", "<2 to 3>"))
+  expect_equivalent(lbl_format("%.2f to %.2f", fmt1 = "%.2f", raw = TRUE)(brk),
+        c("1.00 to 2.00", "2.00", "2.00 to 3.00"))
 })
 
 
