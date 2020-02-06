@@ -2,8 +2,6 @@
 
 #' @rdname chop_quantiles
 #'
-#' @param ... Arguments passed to [quantile()].
-#'
 #' @export
 #' @order 2
 brk_quantiles <- function (probs, ...) {
@@ -34,6 +32,16 @@ brk_quantiles <- function (probs, ...) {
 
     breaks
   }
+}
+
+
+#' @rdname chop_quantiles
+#'
+#' @export
+#' @order 3
+brk_equally <- function (groups) {
+  assert_that(is.count(groups))
+  brk_quantiles(seq(0, groups)/groups)
 }
 
 

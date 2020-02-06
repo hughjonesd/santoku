@@ -1,5 +1,6 @@
 # santoku (development version)
 
+* Add `brk_equally()` for symmetry with `chop_equally()`.
 * Minor tweaks to `chop_deciles()`.
 * Bugfix: `brk_left/right()` only affect specified breaks, not results of
   `extend`, when used as wrappers.

@@ -2,11 +2,15 @@
 
 # TODO
 
+* rework labels and breaks?
+  - labels passed into breaks inner function, it decides what to do
+  - separate numeric formatting of breaks/break_labels from the surrounding string
+  - this will let sprintf formats work even when raw = FALSE
+  - hopefully get rid of break_labels ugliness
+
 * tests
   - systematic tests for `brk_*` functions
   
-* `brk_equally` for symmetry
-
 * maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for the same reason
   - `tab_quantiles` needs raw labels by default, to be useful
 

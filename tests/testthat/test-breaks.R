@@ -164,6 +164,15 @@ test_that("brk_quantiles", {
 })
 
 
+test_that("brk_equally", {
+  expect_silent(brk_res(brk_equally(5)))
+  expect_error(brk_equally(4.5))
+
+  brks <- brk_res(brk_equally(3))
+  expect_equivalent(brks, brk_res(brk_quantiles(0:3/3)))
+})
+
+
 test_that("printing", {
   b <- brk_left(1:3)
   expect_output(print(b))

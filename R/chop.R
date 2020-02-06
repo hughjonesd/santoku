@@ -147,6 +147,7 @@ fillet <- function (x, breaks, labels) chop(x, breaks, labels, extend = FALSE,
 #'
 #'
 #' @param probs A vector of probabilities for the quantiles.
+#' @param ... Passed to [chop()], or for `brk_quantiles` to [quantile()].
 #' @inherit chop-doc params return
 #'
 #' @family chopping functions
@@ -186,7 +187,7 @@ chop_deciles <- function(x, ...) {
 #' @export
 #' @order 1
 chop_equally <- function (x, groups, ...) {
-  chop_quantiles(x, seq(0, groups)/groups, ...)
+  chop(x, brk_equally(groups), ...)
 }
 
 

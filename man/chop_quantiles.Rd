@@ -5,6 +5,7 @@
 \alias{chop_deciles}
 \alias{chop_equally}
 \alias{brk_quantiles}
+\alias{brk_equally}
 \title{Chop by quantiles}
 \usage{
 chop_quantiles(x, probs, ...)
@@ -14,13 +15,15 @@ chop_deciles(x, ...)
 chop_equally(x, groups, ...)
 
 brk_quantiles(probs, ...)
+
+brk_equally(groups)
 }
 \arguments{
 \item{x}{A numeric vector.}
 
 \item{probs}{A vector of probabilities for the quantiles.}
 
-\item{...}{Arguments passed to \code{\link[=quantile]{quantile()}}.}
+\item{...}{Passed to \code{\link[=chop]{chop()}}, or for \code{brk_quantiles} to \code{\link[=quantile]{quantile()}}.}
 
 \item{groups}{Number of groups.}
 }
