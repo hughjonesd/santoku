@@ -134,7 +134,55 @@ lbl_dash <- function (symbol = " - ", raw = FALSE) {
 }
 
 
-#' Label sequentially
+#' Labels for integer data
+#'
+#' `lbl_integer` creates labels for integer data. For example, breaks
+#' `c(1, 3, 3, 5, 7)` become `"1 - 2", "3", "4 - 5", "6 - 7"`.
+#'
+#' @inherit label-doc params return
+#'
+#' @details
+#' No check is done that the data is integer-valued. If it isn't, then
+#' these labels may be misleading.
+#'
+#' @family labelling functions
+#'
+#' @export
+#'
+#' @examples
+#' tab(1:7, c(1, 3, 5), lbl_integer())
+#'
+#' # Misleading labels for non=integer data
+#' chop(2.5, c(1, 3, 5), lbl_integer())
+lbl_integer <- function (symbol = " - ") {
+  assert_that(is.string(symbol))
+
+  function (breaks) {
+    assert_that(all(ceiling(breaks) == floor(breaks)),
+          msg = "Non-integer breaks")
+
+    len_b <- length(breaks)
+    singletons <- singletons(breaks)
+    left <- attr(breaks, "left")
+
+    l <- breaks[-len_b]
+    r <- breaks[-1]
+    left_l <- left[-len_b]
+    left_r <- left[-1]
+    l[! left_l] <- l[! left_l] + 1
+    r[left_r] <- r[left_r] - 1
+    singletons <- singletons | r == l
+
+    labels <- paste0(l, symbol, r)
+    labels[singletons] <- l[singletons]
+    labels[r < l] <- "--"
+
+    return(labels)
+  }
+}
+
+
+#' Labels in sequence
 #'
 #' `lbl_seq` labels intervals sequentially, using numbers or letters.
 #'
