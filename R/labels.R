@@ -3,8 +3,10 @@
 #' @param fmt A [sprintf()]-style format.
 #' @param raw Logical. Always use raw `breaks` in labels, rather than e.g. quantiles
 #'   or standard deviations.
+#' @param symbol String: symbol to use for the dash.
 #' @return A vector of labels for `chop`, or a function that creates labels.
 NULL
+
 
 #' Labels using set notation
 #'
@@ -59,7 +61,7 @@ lbl_intervals <- function (raw = FALSE) {
 }
 
 
-#' Labels using breaks, with arbitrary formatting
+#' Labels with arbitrary formatting
 #'
 #' @param fmt1 Format for breaks consisting of a single value.
 #' @inherit label-doc params return
@@ -102,7 +104,6 @@ lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
 
 #' Labels like 1 - 3, 4 - 5, ...
 #'
-#' @param symbol String: symbol to use for the dash.
 #' @inherit label-doc params return
 #'
 #' @family labelling functions
@@ -238,7 +239,7 @@ lbl_seq <- function(start = "a") {
 }
 
 
-#' Label manually in sequence
+#' Labels in a user-defined sequence
 #'
 #' `lbl_manual()` uses an arbitrary sequence to label
 #' intervals. If the sequence is too short, it will be pasted with itself and

@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_format}
 \alias{lbl_format}
-\title{Labels using breaks, with arbitrary formatting}
+\title{Labels with arbitrary formatting}
 \usage{
 lbl_format(fmt, fmt1 = "\%s", raw = FALSE)
 }
@@ -18,7 +18,7 @@ or standard deviations.}
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-Labels using breaks, with arbitrary formatting
+Labels with arbitrary formatting
 }
 \details{
 If \code{raw = FALSE}, breaks will be preformatted as strings
@@ -32,6 +32,7 @@ tab(1:10, c(1,3, 3, 7), label = lbl_format("\%s to \%s", "Exactly \%s"))
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
+\code{\link{lbl_integer}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_manual}()},
 \code{\link{lbl_seq}()}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_manual}
 \alias{lbl_manual}
-\title{Label manually in sequence}
+\title{Labels in a user-defined sequence}
 \usage{
 lbl_manual(sequence, fmt = "\%s")
 }
@@ -29,6 +29,7 @@ chop(1:10, 1:10, lbl_manual(c("x", "y", "z")))
 Other labelling functions: 
 \code{\link{lbl_dash}()},
 \code{\link{lbl_format}()},
+\code{\link{lbl_integer}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_seq}()}
 }
