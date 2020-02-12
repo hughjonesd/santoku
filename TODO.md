@@ -7,6 +7,8 @@
   - separate numeric formatting of breaks/break_labels from the surrounding string
   - this will let sprintf formats work even when raw = FALSE
   - hopefully get rid of break_labels ugliness
+  - PROBLEM: brk_xxx() is already called by user. So, labels function has
+    to be passed into inner function.
 
 * tests
   - systematic tests for `brk_*` functions
@@ -16,15 +18,12 @@
 
 * cut e.g. Dates, posixct, DateT
   - what else? ts, xts, zoo, lubridate classes
-  - this is one for 0.2.0 I think
   - probably call it something like `chop_dates` rather than trying to
     do OO
   - `brk_days()`, `brk_weeks()` etc.? Equivalent to all lubridate's `days()` etc.
     classes? 
   - the basic `chop` function, with appropriate breaks, might already 
   "almost work" b/c it just uses arithmetic comparisons
-
-* Deprecate `knife()` in favour of `purrr::partial()`
 
 # Thoughts on errors
 

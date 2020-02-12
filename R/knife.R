@@ -1,20 +1,16 @@
 
 
-#' Create a chopping function
+#' Deprecated
 #'
-#' `knife()` returns a one-argument function for chopping data.
+#' `knife()` is deprecated in favour of [purrr::partial()].
 #'
 #' @param ... Parameters for [chop()].
 #'
 #' @return A function.
 #'
 #' @export
-#'
-#' @examples
-#' chop_six <- knife(breaks = -2:2, labels = lbl_seq("A."))
-#' chop_six(rnorm(10))
-#' chop_six(rnorm(10))
 knife <- function (...) {
+  .Deprecated("purrr::partial")
   list(...) # force evaluation
   function (x) chop(x, ...)
 }

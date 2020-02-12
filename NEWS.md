@@ -1,7 +1,9 @@
 # santoku (development version)
 
-* Add `brk_equally()` for symmetry with `chop_equally()`.
+* Interface change: `knife()` has been deprecated to keep the interface slim and
+  focused. Use `purrr::partial()` instead.
 * Experimental: `lbl_integer()` for integer data.
+* Add `brk_equally()` for symmetry with `chop_equally()`.
 * Minor tweaks to `chop_deciles()`.
 * Bugfix: `brk_left/right()` only affect specified breaks, not results of
   `extend`, when used as wrappers.
