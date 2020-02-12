@@ -177,6 +177,9 @@ lbl_integer <- function (symbol = " - ") {
     labels <- paste0(l, symbol, r)
     labels[singletons] <- l[singletons]
     labels[r < l] <- "--"
+    if (any(r < l)) {
+      warning("Some intervals in breaks contain no integers.")
+    }
 
     return(labels)
   }

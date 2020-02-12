@@ -34,6 +34,7 @@ test_that("lbl_seq", {
 test_that("lbl_dash", {
   brk <- brk_manual(1:3, rep(TRUE, 3))(1, FALSE)
   expect_equivalent(lbl_dash()(brk), c("1 - 2", "2 - 3"))
+  expect_equivalent(lbl_dash("/")(brk), c("1/2", "2/3"))
 })
 
 
@@ -66,6 +67,27 @@ test_that("lbl_intervals", {
   expect_equivalent(lbl_intervals()(mbrk), c("(1, 2)", "[2, 3]", "(3, 4)"))
 })
 
+
+test_that("lbl_integer", {
+  lbrk <- brk_manual(1:3, rep(TRUE, 3))(1, FALSE)
+  rbrk <- brk_manual(1:3, rep(FALSE, 3))(1, FALSE)
+
+  expect_equivalent(lbl_integer()(lbrk), c("1", "2"))
+  expect_equivalent(lbl_integer()(rbrk), c("2", "3"))
+
+  lbrk2 <- brk_manual(c(1, 3, 5), rep(TRUE, 3))(1, FALSE)
+  expect_equivalent(lbl_integer()(lbrk2), c("1 - 2", "3 - 4"))
+  expect_equivalent(lbl_integer(" to ")(lbrk2), c("1 to 2", "3 to 4"))
+
+  lbrk3 <- brk_left(c(1, 3, 3, 5))(1, FALSE)
+  expect_equivalent(lbl_integer()(lbrk3), c("1 - 2", "3", "4 - 5"))
+
+  # break containing (1,2) which has no integer in it:
+  open_brk <- brk_manual(1:3, c(FALSE, TRUE, FALSE))(1, FALSE)
+  expect_warning(lbl_integer()(open_brk))
+
+
+})
 
 test_that("breaks labels don't produce duplicates", {
   brk <- brk_left(c(1.333335, 1.333336, 1.333337, 5))(1, FALSE)
