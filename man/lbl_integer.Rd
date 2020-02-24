@@ -14,7 +14,7 @@ A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
 \code{lbl_integer} creates labels for integer data. For example, breaks
-\code{c(1, 3, 3, 5, 7)} become \verb{"1 - 2", "3", "4 - 5", "6 - 7"}.
+\code{c(1, 3, 4, 6, 7)} get labels \verb{"1 - 2", "3", "4 - 5", "6 - 7"}.
 }
 \details{
 No check is done that the data is integer-valued. If it isn't, then
