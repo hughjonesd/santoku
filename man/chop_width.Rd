@@ -4,6 +4,7 @@
 \alias{chop_width}
 \alias{chop_evenly}
 \alias{brk_width}
+\alias{brk_width.default}
 \alias{brk_evenly}
 \title{Chop into equal-width intervals}
 \usage{
@@ -13,10 +14,12 @@ chop_evenly(x, groups, ...)
 
 brk_width(width, start)
 
+\method{brk_width}{default}(width, start)
+
 brk_evenly(groups)
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{Vector of data to chop.}
 
 \item{width}{Width of intervals.}
 

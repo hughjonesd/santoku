@@ -10,7 +10,7 @@ chop_mean_sd(x, sd = 3, ...)
 brk_mean_sd(sd = 3)
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{Vector of data to chop.}
 
 \item{sd}{Whole number: include \code{sd} standard deviations on each side of
 the mean.}

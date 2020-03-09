@@ -10,7 +10,7 @@ chop_n(x, n, ...)
 brk_n(n)
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{Vector of data to chop.}
 
 \item{n}{Integer: number of elements in each interval.}
 

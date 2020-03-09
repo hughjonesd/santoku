@@ -3,6 +3,7 @@ test_that("deprecation warning", {
   expect_warning(knife(breaks = 1:3), "deprecated")
 })
 
+
 test_that("basic functionality", {
   k <- knife(breaks = 1:3)
   x <- 0.5 + 1:3

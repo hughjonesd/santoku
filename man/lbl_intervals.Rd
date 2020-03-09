@@ -32,6 +32,7 @@ tab(-10:10, c(-3, 0, 0, 3), labels = lbl_intervals())
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
+\code{\link{lbl_date}()},
 \code{\link{lbl_format}()},
 \code{\link{lbl_integer}()},
 \code{\link{lbl_manual}()},

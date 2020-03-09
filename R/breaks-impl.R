@@ -11,9 +11,24 @@
 #'
 #' @noRd
 #'
-create_breaks <- function (obj, left) {
+#'
+create_breaks <- function (obj, left) UseMethod("create_breaks")
+
+
+create_breaks.Date <- function (obj, left) {
+  obj <- as.POSIXct(obj)
+  create_breaks(obj, left)
+}
+
+
+create_breaks.POSIXct <- function (obj, left) {
+  obj <- as.numeric(obj)
+  create_breaks(obj, left)
+}
+
+
+create_breaks.default <- function (obj, left) {
   if (anyNA(obj)) stop("`x` contained NAs")
-  stopifnot(is.numeric(obj))
   stopifnot(all(obj == sort(obj)))
   stopifnot(is.logical(left))
   stopifnot(length(left) == length(obj))
@@ -28,8 +43,7 @@ create_breaks <- function (obj, left) {
   stopifnot(all(left[l_singletons]))
   stopifnot(all(! left[r_singletons]))
 
-  break_labels <- attr(obj, "break_labels") %||%
-        unique_truncation(as.numeric(obj))
+  break_labels <- attr(obj, "break_labels") %||% unique_truncation(obj)
 
   structure(obj, left = left, break_labels = break_labels, class = "breaks")
 }

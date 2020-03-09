@@ -1,7 +1,7 @@
 
 
 #' @name chop-doc
-#' @param x A numeric vector.
+#' @param x Vector of data to chop.
 #' @param breaks,labels,...  Passed to [chop()].
 #' @return
 #' For  `chop_*` functions, a factor of the same length as `x`.
@@ -19,6 +19,7 @@ NULL
 #' @param labels See below.
 #' @param extend Logical. Extend breaks to `+/-Inf`?
 #' @param drop Logical. Drop unused levels from the result?
+#' @param ... Passed to methods.
 #'
 #' @details
 #' `breaks` may be a numeric vector or a function.
@@ -83,11 +84,17 @@ NULL
 #' # floating point inaccuracy:
 #' chop(0.3/3, c(0, 0.1, 0.1, 1))
 #'
-chop <- function (x, breaks, labels,
+chop <- function (x, ...) UseMethod("chop")
+
+
+#' @export
+#' @rdname chop
+chop.default <- function (x, breaks, labels,
         extend = NULL,
-        drop   = TRUE
+        drop   = TRUE,
+        ...
       ) {
-  assert_that(is.numeric(x), is.function(breaks) || is.numeric(breaks))
+  assert_that(is.numeric(x))
   breaks <- if (is.function(breaks))  {
     breaks(x, extend)
   } else {
@@ -109,6 +116,32 @@ chop <- function (x, breaks, labels,
   if (drop) result <- droplevels(result)
 
   return(result)
+}
+
+
+#' Chop Date objects
+#'
+#' These functions chop Date and POSIXct objects. The default labels are given by
+#'  [lbl_date()]. `breaks` may be specified as [Date] or [POSIXt] objects, or
+#'  using any `brk_...` function.
+#'
+#' @inherit chop-doc params
+#' @inherit chop params return
+#'
+#' @export
+#'
+#' @examples
+chop.Date <- function (x, breaks, labels = lbl_date(), ...) {
+  x <- as.POSIXct(x)
+  chop(x, breaks, labels, ...)
+}
+
+
+#' @rdname chop.Date
+#' @export
+chop.POSIXt <- function (x, breaks, labels = lbl_date("%F %T"), ...) {
+ x <- as.numeric(x)
+ chop(x, breaks, labels, ...)
 }
 
 

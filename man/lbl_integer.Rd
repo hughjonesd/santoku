@@ -29,6 +29,7 @@ chop(2.5, c(1, 3, 5), lbl_integer())
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
+\code{\link{lbl_date}()},
 \code{\link{lbl_format}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_manual}()},

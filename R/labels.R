@@ -186,6 +186,40 @@ lbl_integer <- function (symbol = " - ") {
 }
 
 
+#' Labels for date or date-time objects
+#'
+#' @param fmt Format, to be passed to [format.POSIXct()].
+#' @param symbol String to place between dates.
+#'
+#' @inherit label-doc return
+#'
+#' @family labelling functions
+#'
+#' @export
+#'
+#' @examples
+lbl_date <- function (fmt = "%Y-%m-%d", symbol = " to ") {
+  assert_that(is.string(fmt), is.string(symbol))
+
+  function (breaks) {
+    breaks <- as.POSIXct(unclass(breaks), origin = "1970-01-01")
+    break_labels <- format(breaks, format = fmt)
+
+    # TODO: remove duplication with lbl_dash
+    len_b <- length(breaks)
+    singletons <- singletons(breaks)
+
+    l <- break_labels[-len_b]
+    r <- break_labels[-1]
+
+    labels <- paste0(l, symbol, r)
+    labels[singletons] <- l[singletons]
+
+    return(labels)
+  }
+}
+
+
 #' Labels in sequence
 #'
 #' `lbl_seq` labels intervals sequentially, using numbers or letters.
@@ -284,3 +318,6 @@ choose_break_labels <- function (breaks, raw) {
     return(bl)
   }
 }
+
+
+
