@@ -54,6 +54,7 @@ test_that("chop_width: difftime", {
 
 test_that("chop_width: Duration", {
   skip_if_not_installed("lubridate")
+  library(lubridate)
 
   duration_w1 <- ddays(5)
   duration_w2 <- dminutes(5)
@@ -65,6 +66,7 @@ test_that("chop_width: Duration", {
 
 test_that("chop_width: Period", {
   skip_if_not_installed("lubridate")
+  library(lubridate)
 
   period_w1 <- days(5)
   period_w2 <- minutes(5)
@@ -72,57 +74,4 @@ test_that("chop_width: Period", {
   expect_silent(chop_width(dt1, width = period_w2))
 
   # TODO: include tests that Period deals with quirks
-})
-
-
-test_that("brk_left, brk_right", {
-  expect_silent(brk_left(db1)(d1, FALSE))
-  expect_silent(brk_right(db1)(d1, FALSE))
-  expect_silent(brk_left(dtb1)(dt1, FALSE))
-  expect_silent(brk_right(dtb1)(dt1, FALSE))
-})
-
-
-test_that("brk_width: difftime objects", {
-  thirty_days <- as.difftime(30, units = "days")
-  expect_silent(brk_width(thirty_days)(d1, FALSE))
-  expect_silent(brk_width(thirty_days, as.Date("1975-11-01"))(d1, FALSE))
-
-  five_mins <- as.difftime(5, units = "mins")
-  expect_silent(brk_width(five_mins)(dt1, FALSE))
-  expect_silent(brk_width(five_mins, dt1[2])(dt1, FALSE))
-
-})
-
-
-test_that("brk_equally: Date objects", {
-  expect_silent(brk_equally(2)(d1, FALSE))
-  expect_silent(brk_equally(2)(d1, NULL))
-  expect_silent(brk_equally(2)(d1, TRUE))
-})
-
-
-test_that("brk_equally: POSIXct objects", {
-  expect_silent(brk_equally(2)(dt1, FALSE))
-  expect_silent(brk_equally(2)(dt1, NULL))
-  expect_silent(brk_equally(2)(dt1, TRUE))
-})
-
-
-test_that("brk_evenly: Date objects", {
-  expect_silent(brk_evenly(2)(d1, FALSE))
-  expect_silent(brk_evenly(2)(d1, NULL))
-  expect_silent(brk_evenly(2)(d1, TRUE))
-})
-
-
-test_that("brk_evenly: POSIXct objects", {
-  expect_silent(brk_evenly(2)(dt1, FALSE))
-  expect_silent(brk_evenly(2)(dt1, NULL))
-  expect_silent(brk_evenly(2)(dt1, TRUE))
-})
-
-
-test_that("chop: Date objects", {
-  expect_silent(chop(d1, db1))
 })

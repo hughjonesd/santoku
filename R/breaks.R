@@ -119,12 +119,15 @@ brk_width.difftime <- function (width, start) {
   NextMethod()
 }
 
+
 #' @rdname brk_width-for-datetime
 #' @export
 brk_width.Duration <- function (width, start) {
   width <- as.numeric(width)
+  if (! missing(start)) start <- as.numeric(as.POSIXct(start))
   NextMethod()
 }
+
 
 #' @rdname brk_width-for-datetime
 #' @export
