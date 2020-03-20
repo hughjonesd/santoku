@@ -16,6 +16,28 @@
 * maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for the same reason
   - `tab_quantiles` needs raw labels by default, to be useful
 
+* chop.Date implementation
+  - work with numbers internally whenever possible, then convert back to Dates 
+    for labelling
+    - `brk_evenly` should work -> `brk_width` should handle Dates
+      - currently, `brk_evenly` passes a `difftime` object into `brk_width`.
+      - non-obvious whether `start` should then become a `Date` or a 
+        `POSIXct` object. Can we guess from the `units()` of difftime?
+    - `brk_width` should accept difftime objects and Date starts
+      - maybe also lubridate classes?
+      We can work internally with anchored "Intervals". Doing this beats just
+      relying on e.g. `chop(months(x))` because we can start monthly intervals
+      on e.g. the 15th.
+      - Would be nice to autoconvert e.g. `brk_width(difftime_obj, "2001-01-01")`
+        so start becomes a Date. Or at least not to silently fail :-)
+      - Currently `x` is passed into inner function, and could be e.g. Date,
+        POSIXct. Unfortunately, this won't work with Date start.
+    - durations get converted into seconds; dates into days. So we can't
+      just put `as.numeric` everywhere.
+  - `lbl_date` should work much like `lbl_format`, but keep the interface
+    separate so the documentation can be clean.
+  
+
 * cut e.g. Dates, posixct, DateT
   - what else? ts, xts, zoo, lubridate classes
   - probably call it something like `chop_dates` rather than trying to

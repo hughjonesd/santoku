@@ -48,7 +48,7 @@ test_that("chop_width: difftime", {
   expect_silent(chop_width(dt1, width = difftime_w2))
 
   expect_silent(chop_width(d1, width = difftime_w1, start = "1975-11-01"))
-  expect_silent(chop_width(dt1, width = difftime_w2, start = ""))
+  expect_silent(chop_width(dt1, width = difftime_w2, start = "2000-01-01 15:05"))
 })
 
 

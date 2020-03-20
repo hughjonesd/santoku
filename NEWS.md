@@ -1,5 +1,6 @@
 # santoku (development version)
 
+* Date and datetime (`POSIXct`) objects can now be chopped. See `?chop.Date`.
 * Interface change: `knife()` has been deprecated to keep the interface slim and
   focused. Use `purrr::partial()` instead.
 * Experimental: `lbl_integer()` for integer data.
