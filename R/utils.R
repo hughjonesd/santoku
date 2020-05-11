@@ -20,6 +20,7 @@ exactly <- function (x) rep(x, each = 2)
 
 
 singletons <- function (breaks) {
+  # this also works for Date and POSIXct breaks
   dv <- diff(breaks)
   dv == 0L | is.nan(dv) # is.nan could be from Inf, Inf
 }

@@ -310,7 +310,10 @@ lbl_manual <- function (sequence, fmt = "%s") {
 }
 
 
-choose_break_labels <- function (breaks, raw) {
+choose_break_labels <- function (breaks, raw) UseMethod("choose_break_labels")
+
+
+choose_break_labels.numeric <- function (breaks, raw) {
   bl <- attr(breaks, "break_labels")
   if (raw || is.null(bl)) {
     return(unique_truncation(as.numeric(breaks)))
@@ -318,6 +321,17 @@ choose_break_labels <- function (breaks, raw) {
     return(bl)
   }
 }
+
+
+choose_break_labels.Date <- function (breaks, raw) {
+  bl <- attr(breaks, "break_labels")
+  if (raw || is.null(bl)) {
+    return(format.Date(breaks, "%y-%m-%d"))
+  } else {
+    return(bl)
+  }
+}
+
 
 
 

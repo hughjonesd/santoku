@@ -16,6 +16,13 @@ test_that("Basic chop", {
 })
 
 
+test_that("Basic breaks", {
+  expect_silent(brk_left(db1)(d1, FALSE))
+  expect_silent(brk_left(db1)(d1, NULL))
+  expect_silent(brk_left(db1)(d1, TRUE))
+})
+
+
 test_that("chop_equally", {
   expect_silent(chop_equally(d1, groups = 3))
   expect_silent(chop_equally(dt1, groups = 3))

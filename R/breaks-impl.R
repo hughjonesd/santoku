@@ -11,20 +11,19 @@
 #'
 #' @noRd
 #'
-#'
 create_breaks <- function (obj, left) UseMethod("create_breaks")
 
 
-create_breaks.Date <- function (obj, left) {
-  obj <- as.POSIXct(obj)
-  create_breaks(obj, left)
-}
-
-
-create_breaks.POSIXct <- function (obj, left) {
-  obj <- as.numeric(obj)
-  create_breaks(obj, left)
-}
+# create_breaks.Date <- function (obj, left) {
+#   obj <- as.POSIXct(obj)
+#   create_breaks(obj, left)
+# }
+#
+#
+# create_breaks.POSIXct <- function (obj, left) {
+#   obj <- as.numeric(obj)
+#   create_breaks(obj, left)
+# }
 
 
 create_breaks.default <- function (obj, left) {
@@ -43,9 +42,12 @@ create_breaks.default <- function (obj, left) {
   stopifnot(all(left[l_singletons]))
   stopifnot(all(! left[r_singletons]))
 
-  break_labels <- attr(obj, "break_labels") %||% unique_truncation(obj)
+  break_labels <- attr(obj, "break_labels") %||% create_break_labels(obj)
 
-  structure(obj, left = left, break_labels = break_labels, class = "breaks")
+  break_classes <- class(obj)
+  if (! inherits(obj, "breaks")) break_classes <- c("breaks", break_classes)
+
+  structure(obj, left = left, break_labels = break_labels, class = break_classes)
 }
 
 
@@ -161,6 +163,9 @@ fix_extended_breaks <- function (breaks, extend, needs_ex, orig_left) {
 }
 
 
+create_break_labels <- function (obj) UseMethod("create_break_labels")
+
+
 #' Truncates `num` to look nice, while preserving uniqueness
 #'
 #' @param num
@@ -169,12 +174,12 @@ fix_extended_breaks <- function (breaks, extend, needs_ex, orig_left) {
 #'
 #' @noRd
 #'
-unique_truncation <- function (num) {
-  want_unique <- ! duplicated(num) # "real" duplicates are allowed!
+create_break_labels.numeric <- function (obj) {
+  want_unique <- ! duplicated(obj) # "real" duplicates are allowed!
   # we keep the first of each duplicate set.
 
   for (digits in seq(4L, 22L)) {
-    res <- formatC(num, digits = digits, width = -1)
+    res <- formatC(obj, digits = digits, width = -1)
     if (anyDuplicated(res[want_unique]) == 0L) break
   }
 
@@ -183,4 +188,14 @@ unique_truncation <- function (num) {
   }
 
   return(res)
+}
+
+
+create_break_labels.Date <- function (obj) {
+  return(format.Date(obj, "%Y-%m-%d"))
+}
+
+
+create_break_labels.POSIXct <- function (obj) {
+  return(format.POSIXct(obj, "%Y-%m-%d %H:%M:%S"))
 }
