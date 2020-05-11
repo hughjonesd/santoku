@@ -5,3 +5,7 @@ categorize <- function(x, breaks) {
     .Call(`_santoku_categorize`, x, breaks)
 }
 
+old_categorize <- function(x, breaks) {
+    .Call(`_santoku_old_categorize`, x, breaks)
+}
+

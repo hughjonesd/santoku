@@ -17,9 +17,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// old_categorize
+IntegerVector old_categorize(NumericVector x, NumericVector breaks);
+RcppExport SEXP _santoku_old_categorize(SEXP xSEXP, SEXP breaksSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type breaks(breaksSEXP);
+    rcpp_result_gen = Rcpp::wrap(old_categorize(x, breaks));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_santoku_categorize", (DL_FUNC) &_santoku_categorize, 2},
+    {"_santoku_old_categorize", (DL_FUNC) &_santoku_old_categorize, 2},
     {NULL, NULL, 0}
 };
 
