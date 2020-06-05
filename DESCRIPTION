@@ -16,7 +16,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Suggests: 
     covr,
     testthat (>= 2.1.0),
@@ -27,7 +27,9 @@ LinkingTo:
     Rcpp
 Imports: 
     Rcpp,
-    assertthat
+    assertthat,
+    lifecycle
 URL: https://github.com/hughjonesd/santoku, https://hughjonesd.github.io/santoku/
 BugReports: https://github.com/hughjonesd/santoku/issues
 VignetteBuilder: knitr
+RdMacros: lifecycle

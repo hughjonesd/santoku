@@ -5,7 +5,7 @@
 \alias{brk_n}
 \title{Chop into fixed-sized groups}
 \usage{
-chop_n(x, n, ...)
+chop_n(x, n, ..., close_end = TRUE)
 
 brk_n(n)
 }
@@ -15,6 +15,8 @@ brk_n(n)
 \item{n}{Integer: number of elements in each interval.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
+
+\item{close_end}{Passed to \code{\link[=chop]{chop()}}.}
 }
 \value{
 For  \verb{chop_*} functions, a factor of the same length as \code{x}.
@@ -22,6 +24,9 @@ For  \verb{chop_*} functions, a factor of the same length as \code{x}.
 \description{
 \code{chop_n()} creates intervals containing a fixed number of elements. One
 interval may have fewer elements.
+}
+\details{
+Note that \code{chop_n()} sets \code{close_end = TRUE} by default.
 }
 \examples{
 table(chop_n(1:10, 5))

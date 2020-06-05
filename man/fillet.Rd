@@ -4,7 +4,7 @@
 \alias{fillet}
 \title{Chop data precisely (for programmers)}
 \usage{
-fillet(x, breaks, labels)
+fillet(x, breaks, labels, left = TRUE, close_end = FALSE)
 }
 \arguments{
 \item{x}{A numeric vector.}
@@ -12,6 +12,10 @@ fillet(x, breaks, labels)
 \item{breaks}{Passed to \code{\link[=chop]{chop()}}.}
 
 \item{labels}{Passed to \code{\link[=chop]{chop()}}.}
+
+\item{left}{Passed to \code{\link[=chop]{chop()}}.}
+
+\item{close_end}{Passed to \code{\link[=chop]{chop()}}.}
 }
 \value{
 For  \verb{chop_*} functions, a factor of the same length as \code{x}.

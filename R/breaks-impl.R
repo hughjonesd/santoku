@@ -35,27 +35,18 @@ create_breaks <- function (obj, left) {
 }
 
 
-create_left_breaks <- function (obj, close_end = TRUE) {
-  left <- rep(TRUE, length(obj))
+create_lr_breaks <- function (obj, left, close_end) {
+  assert_that(is.flag(left), is.flag(close_end))
+  left_vec <- rep(left, length(obj))
 
   st <- singletons(obj)
-  left[which(st) + 1] <- FALSE
+  left_vec[which(st)]     <- TRUE
+  left_vec[which(st) + 1] <- FALSE
 
-  if (close_end) left[length(left)] <- FALSE
+  if (left && close_end) left_vec[length(left_vec)] <- FALSE
+  if (! left && close_end) left_vec[1] <- TRUE
 
-  create_breaks(obj, left)
-}
-
-
-create_right_breaks <- function (obj, close_end = TRUE) {
-  left <- rep(FALSE, length(obj))
-
-  st <- singletons(obj)
-  left[which(st)] <- TRUE
-
-  if (close_end) left[1L] <- TRUE
-
-  create_breaks(obj, left)
+  create_breaks(obj, left_vec)
 }
 
 
@@ -111,6 +102,8 @@ maybe_extend <- function (breaks, x, extend) {
   }
 
   if ((extend_flags & RIGHT) > 0) {
+    # this needs to be repeated, because we may have added a break in the stanza
+    # above:
     left <- attr(breaks, "left")
     # add a break if the last break is finite, or if it is ..., +Inf)
     if (breaks[length(breaks)] < Inf || left[length(left)]) {
@@ -121,29 +114,6 @@ maybe_extend <- function (breaks, x, extend) {
   }
 
   return(breaks)
-}
-
-#' A hack for brk_left/right.function
-#'
-#' Ensures extended breaks aren't affected
-#'
-#' @param breaks Breaks object
-#' @param extend Passed in from chop
-#' @param needs_ex Calculated earlier: did breaks need extending
-#' @param orig_left Leftness before create_left/right_breaks was called
-#' @return Fixed breaks
-#'
-#' @noRd
-#'
-fix_extended_breaks <- function (breaks, extend, needs_ex, orig_left) {
-  will_ex_left  <- isTRUE(extend) || (is.null(extend) && (needs_ex & LEFT) > 0)
-  will_ex_right <- isTRUE(extend) || (is.null(extend) && (needs_ex & RIGHT) > 0)
-
-  if (will_ex_left) attr(breaks, "left")[2] <- orig_left[2]
-  penult <- length(breaks) - 1
-  if (will_ex_right) attr(breaks, "left")[penult] <- orig_left[penult]
-
-  breaks
 }
 
 

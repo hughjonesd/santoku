@@ -137,6 +137,8 @@ lbl_dash <- function (symbol = " - ", raw = FALSE) {
 
 #' Labels for integer data
 #'
+#' \lifecycle{experimental}
+#'
 #' `lbl_integer` creates labels for integer data. For example, breaks
 #' `c(1, 3, 4, 6, 7)` get labels `"1 - 2", "3", "4 - 5", "6 - 7"`.
 #'

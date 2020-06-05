@@ -1,6 +1,6 @@
 
 test_that("lbl_manual", {
-  brk <- brk_manual(1:3, rep(TRUE, 3))(1, FALSE)
+  brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
 
   expect_error(lbl_manual(c("a", "a")))
   expect_equivalent(lbl_manual(letters[1])(brk), c("a", "aa"))
@@ -8,7 +8,7 @@ test_that("lbl_manual", {
 
 
 test_that("lbl_seq", {
-  brk <- brk_manual(1:3, rep(TRUE, 3))(1, FALSE)
+  brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
 
   expect_error(lbl_seq("b"))
   expect_error(lbl_seq("a1"))
@@ -25,23 +25,23 @@ test_that("lbl_seq", {
   expect_equivalent(lbl_seq("I:")(brk), c("I:", "II:"))
   expect_equivalent(lbl_seq("1)")(brk), c("1)", "2)"))
 
-  brk_many <- brk_manual(1:28, rep(TRUE, 28))(1, FALSE)
+  brk_many <- brk_res(brk_manual(1:28, rep(TRUE, 28)))
   expect_equivalent(lbl_seq("a")(brk_many), c(letters, "aa"))
   expect_equivalent(lbl_seq("A)")(brk_many), paste0(c(LETTERS, "AA"), ")"))
 })
 
 
 test_that("lbl_dash", {
-  brk <- brk_manual(1:3, rep(TRUE, 3))(1, FALSE)
+  brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
   expect_equivalent(lbl_dash()(brk), c("1 - 2", "2 - 3"))
   expect_equivalent(lbl_dash("/")(brk), c("1/2", "2/3"))
 })
 
 
 test_that("lbl_format", {
-  brk <- brk_manual(1:3, rep(TRUE, 3))(1, FALSE)
+  brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
   expect_equivalent(lbl_format("<%s to %s>")(brk), c("<1 to 2>", "<2 to 3>"))
-  brk <- brk_left(c(1, 2, 2, 3))(1, FALSE)
+  brk <- brk_res(brk_left(c(1, 2, 2, 3)))
   expect_equivalent(lbl_format("<%s to %s>", "|%s|")(brk),
         c("<1 to 2>", "|2|", "<2 to 3>"))
   expect_equivalent(lbl_format("%.2f to %.2f", fmt1 = "%.2f", raw = TRUE)(brk),
@@ -50,51 +50,49 @@ test_that("lbl_format", {
 
 
 test_that("lbl_intervals", {
-  lbrk <- brk_manual(1:3, rep(TRUE, 3))(1, FALSE)
-  rbrk <- brk_manual(1:3, rep(FALSE, 3))(1, FALSE)
+  lbrk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
+  rbrk <- brk_res(brk_manual(1:3, rep(FALSE, 3)))
   expect_equivalent(lbl_intervals()(lbrk), c("[1, 2)", "[2, 3)"))
   expect_equivalent(lbl_intervals()(rbrk), c("(1, 2]", "(2, 3]"))
 
-  lbrk <- brk_left(1:3)(1, FALSE)
+  lbrk <- brk_res(brk_left(1:3), close_end = TRUE)
   expect_equivalent(lbl_intervals()(lbrk), c("[1, 2)", "[2, 3]"))
-  rbrk <- brk_right(1:3)(1, FALSE)
+  rbrk <- brk_res(brk_right(1:3), close_end = TRUE)
   expect_equivalent(lbl_intervals()(rbrk), c("[1, 2]", "(2, 3]"))
 
-  sbrk <- brk_left(c(1, 2, 2, 3))(1, FALSE)
-  expect_equivalent(lbl_intervals()(sbrk), c("[1, 2)", "{2}", "(2, 3]"))
+  sbrk <- brk_res(brk_left(c(1, 2, 2, 3)))
+  expect_equivalent(lbl_intervals()(sbrk), c("[1, 2)", "{2}", "(2, 3)"))
 
-  mbrk <- brk_manual(1:4, c(FALSE, TRUE, FALSE, TRUE))(1, FALSE)
+  mbrk <- brk_res(brk_manual(1:4, c(FALSE, TRUE, FALSE, TRUE)))
   expect_equivalent(lbl_intervals()(mbrk), c("(1, 2)", "[2, 3]", "(3, 4)"))
 })
 
 
 test_that("lbl_integer", {
-  lbrk <- brk_manual(1:3, rep(TRUE, 3))(1, FALSE)
-  rbrk <- brk_manual(1:3, rep(FALSE, 3))(1, FALSE)
+  lbrk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
+  rbrk <- brk_res(brk_manual(1:3, rep(FALSE, 3)))
 
   expect_equivalent(lbl_integer()(lbrk), c("1", "2"))
   expect_equivalent(lbl_integer()(rbrk), c("2", "3"))
 
-  lbrk2 <- brk_manual(c(1, 3, 5), rep(TRUE, 3))(1, FALSE)
+  lbrk2 <- brk_res(brk_manual(c(1, 3, 5), rep(TRUE, 3)))
   expect_equivalent(lbl_integer()(lbrk2), c("1 - 2", "3 - 4"))
   expect_equivalent(lbl_integer(" to ")(lbrk2), c("1 to 2", "3 to 4"))
 
-  lbrk3 <- brk_left(c(1, 3, 3, 5))(1, FALSE)
+  lbrk3 <- brk_res(brk_left(c(1, 3, 3, 5)), close_end = TRUE)
   expect_equivalent(lbl_integer()(lbrk3), c("1 - 2", "3", "4 - 5"))
 
   # break containing (1,2) which has no integer in it:
-  open_brk <- brk_manual(1:3, c(FALSE, TRUE, FALSE))(1, FALSE)
+  open_brk <- brk_res(brk_manual(1:3, c(FALSE, TRUE, FALSE)))
   expect_warning(lbl_integer()(open_brk))
-
-
 })
 
 test_that("breaks labels don't produce duplicates", {
-  brk <- brk_left(c(1.333335, 1.333336, 1.333337, 5))(1, FALSE)
+  brk <- brk_res(brk_left(c(1.333335, 1.333336, 1.333337, 5)))
   lbls <- lbl_intervals()(brk)
   expect_true(anyDuplicated(lbls) == 0)
 
-  brk <- brk_left(c(1.333333335, 1.333333336, 1.333333337, 5))(1, FALSE)
+  brk <- brk_res(brk_left(c(1.333333335, 1.333333336, 1.333333337, 5)))
   lbls <- lbl_intervals()(brk)
   expect_true(anyDuplicated(lbls) == 0)
 })

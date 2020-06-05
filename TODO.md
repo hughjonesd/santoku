@@ -2,11 +2,27 @@
 
 # TODO
 
-* Have close_end = FALSE by default, and add it as an argument to
-  chop - to be passed in to the `brk_` inner function?
+* Work on tests
+  - tests for `left` and `close_end` arguments
+  - tests for `brk_default`
+  - probably use `brk_default` more than `brk_left/right`
+
+* issue: width in `brk_width()` 
+  - when exactly do we add another break?
+  - use `all.equal` seems not to eliminate the problem?
+  - needs tests which match the guarantees in the documentation
+  - ditto for `brk_evenly()` which now uses its own implementation to
+    guarantee exactly `intervals` intervals
+
+* Should `close_end = TRUE` argument come before `...` in `chop_` variants?
+  - No. We don't want people to set it by position, so distinguish it from
+    the initial arguments.
+  
 * rework labels and breaks?
-  - make brk_labels a generic and have breaks with different subclasses
-  - don't create break_labels attr
+  - make `break_labels` a generic and have breaks with different subclasses
+  - `breaksQuantiles` and `breaksSD` should be subclasses
+  - maybe also `breaksInteger`?
+  - later, `breaksDate` and similar
   
   - labels passed into breaks inner function, it decides what to do
   - separate numeric formatting of breaks/break_labels from the surrounding string

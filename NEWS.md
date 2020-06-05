@@ -1,13 +1,44 @@
 # santoku (development version)
 
-* Interface change: `knife()` has been deprecated to keep the interface slim and
+## Interface changes
+
+The new version has some interface changes. These are based on user experience,
+and are designed to make using `chop()` more intuitive and predictable.
+
+* `chop()` has two new arguments, `left` and `close_end`.
+  - Using `left = FA:SE` is simpler and more intuitive than wrapping 
+    breaks in `brk_right()`. 
+  - `brk_left()` and `brk_right()` have been kept, but cannot be used to wrap
+    other break functions.
+  - Using the `close_end` argument is simpler than passing `close_end` into
+    `brk_left()` or `brk_right()` (which no longer accept this argument directly).
+    
+* `close_end` is now `FALSE` by default. 
+  - This prevents user surprises when e.g. `chop(3, 1:3)` puts `3` into a 
+    different category than `chop(3, 1:4)`.
+  - `close_end` is `TRUE` by default for `chop_quantiles()` and derived functions.
+    This ensures that e.g. `chop_quantiles(x, c(0, 1/3, 2/3, 1))` does what
+    you would expect.
+  - Similarly, `close_end` is `TRUE` by default for `chop_n()`.
+
+* The `groups` argument to `chop_evenly()` has been renamed from `groups` to
+  `intervals`. This should make it easier to remember the difference between
+  `chop_evenly()` and `chop_equally()`. (Chop evenly into `n` equal-sized 
+  *intervals*, or chop equally into `n` equal-sized *groups*.)
+
+* `knife()` has been deprecated to keep the interface slim and
   focused. Use `purrr::partial()` instead.
+  
+## Other changes
+
 * Experimental: `lbl_integer()` for integer data.
+
 * Add `brk_equally()` for symmetry with `chop_equally()`.
+
 * Minor tweaks to `chop_deciles()`.
-* Bugfix: `brk_left/right()` only affect specified breaks, not results of
-  `extend`, when used as wrappers.
-* Bugfix: `lbl_format()` wasn't accepting numeric formats, even when `raw = TRUE`. Thanks to Sharla Gelfand.
+
+* Bugfix: `lbl_format()` wasn't accepting numeric formats, even when 
+  `raw = TRUE`. Thanks to Sharla Gelfand.
 
 # santoku 0.3.0
 
