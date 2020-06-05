@@ -2,7 +2,12 @@
 
 # TODO
 
+* Have close_end = FALSE by default, and add it as an argument to
+  chop - to be passed in to the `brk_` inner function?
 * rework labels and breaks?
+  - make brk_labels a generic and have breaks with different subclasses
+  - don't create break_labels attr
+  
   - labels passed into breaks inner function, it decides what to do
   - separate numeric formatting of breaks/break_labels from the surrounding string
   - this will let sprintf formats work even when raw = FALSE
