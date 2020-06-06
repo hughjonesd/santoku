@@ -62,7 +62,7 @@ brk_equally <- function (groups) {
 #' @export
 #' @order 2
 brk_mean_sd <- function (sd = 3) {
-  assert_that(is.count(sd))
+  assert_that(is.number(sd), sd > 0)
 
   function (x, extend, left, close_end) {
     x_m <- mean(x, na.rm = TRUE)
@@ -72,16 +72,19 @@ brk_mean_sd <- function (sd = 3) {
       return(empty_breaks())
     }
 
-    s1 <- seq(x_m, x_m - sd * x_sd, - x_sd)
-    s2 <- seq(x_m, x_m + sd * x_sd, x_sd)
-    breaks <- c(sort(s1), s2[-1])
+    # work out the "sds" first, then scale them by mean and sd
+    sds_plus <- seq(0, sd, 1L)
+    if (! sd %in% sds_plus) sds_plus <- c(sds_plus, sd)
+    sds_minus <- -1 * sds_plus[-1]
+    sds_minus <- sort(sds_minus)
+    sds <- c(sds_minus, sds_plus)
 
+    breaks <- sds * x_sd + x_m
     breaks <- create_lr_breaks(breaks, left, close_end)
     needs <- needs_extend(breaks, x)
     breaks <- maybe_extend(breaks, x, extend)
 
-    break_labels <- seq(-sd, sd, 1)
-    break_labels <- paste0(break_labels, " sd")
+    break_labels <- paste0(sds, " sd")
     if (extend %||% (needs & LEFT) > 0) {
       break_labels <- c(-Inf, break_labels)
     }

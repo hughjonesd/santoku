@@ -139,7 +139,7 @@ test_that("chop_mean_sd", {
   x <- -1:1 # mean 0, sd 1
   expect_silent(chop_mean_sd(x))
   expect_silent(chop_mean_sd(x, sd = 2))
-  expect_error(chop_mean_sd(x, sd = 1.5), "integer")
+  expect_silent(chop_mean_sd(x, sd = 1.96))
 })
 
 

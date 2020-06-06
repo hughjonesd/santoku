@@ -235,8 +235,11 @@ chop_equally <- function (x, groups, ..., close_end = TRUE) {
 
 #' Chop by standard deviations
 #'
-#' @param sd Whole number: include `sd` standard deviations on each side of
-#'   the mean.
+#' Intervals of width 1 standard deviation are included on either side of the mean.
+#' The outermost pair of intervals will be shorter if `sd` is not a whole number.
+#'
+#'
+#' @param sd Positive number: include up to `sd` standard deviations.
 #' @inherit chop-doc params return
 #'
 #' @family chopping functions

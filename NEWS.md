@@ -33,6 +33,8 @@ and are designed to make using `chop()` more intuitive and predictable.
 
 * Experimental: `lbl_integer()` for integer data.
 
+* `brk_mean_sd()` now accepts non-integer positive numbers.
+
 * Add `brk_equally()` for symmetry with `chop_equally()`.
 
 * Minor tweaks to `chop_deciles()`.
