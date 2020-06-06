@@ -45,8 +45,8 @@ brk_quantiles <- function (probs, ...) {
     }
     breaks <- maybe_extend(breaks, x, extend)
 
-    break_labels <- paste0(formatC(probs * 100, format = "fg"), "%")
-    attr(breaks, "break_labels") <- break_labels
+    class(breaks) <- c("quantileBreaks", class(breaks))
+    attr(breaks, "scaled_endpoints") <- probs * 100
 
     breaks
   }
@@ -89,14 +89,15 @@ brk_mean_sd <- function (sd = 3) {
     needs <- needs_extend(breaks, x)
     breaks <- maybe_extend(breaks, x, extend)
 
-    break_labels <- paste0(sds, " sd")
     if (extend %||% (needs & LEFT) > 0) {
-      break_labels <- c(-Inf, break_labels)
+      sds <- c(-Inf, sds)
     }
     if (extend %||% (needs & RIGHT) > 0) {
-      break_labels <- c(break_labels, Inf)
+      sds <- c(sds, Inf)
     }
-    attr(breaks, "break_labels") <- break_labels
+
+    class(breaks) <- c("sdBreaks", class(breaks))
+    attr(breaks, "scaled_endpoints") <- sds
 
     breaks
   }

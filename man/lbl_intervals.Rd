@@ -4,11 +4,14 @@
 \alias{lbl_intervals}
 \title{Labels using set notation}
 \usage{
-lbl_intervals(raw = FALSE)
+lbl_intervals(raw = FALSE, fmt = NULL)
 }
 \arguments{
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
-or standard deviations.}
+or standard deviations?}
+
+\item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format. Default varies according to the
+type of breaks.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
