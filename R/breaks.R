@@ -5,7 +5,12 @@
 #' @export
 #' @order 2
 brk_quantiles <- function (probs, ...) {
-  assert_that(is.numeric(probs), noNA(probs), all(probs >= 0), all(probs <= 1))
+  assert_that(
+          is.numeric(probs),
+          noNA(probs),
+          all(probs >= 0),
+          all(probs <= 1)
+        )
   probs <- sort(probs)
 
   function (x, extend, left, close_end) {
@@ -177,7 +182,7 @@ NULL
 #'
 #' \lifecycle{questioning}
 #'
-#' These functions are "questioning" because they clash with the
+#' These functions are in the "questioning" stage because they clash with the
 #' `left` argument to [chop()] and friends.
 #'
 #' @inherit breaks-doc params return
@@ -218,6 +223,10 @@ brk_left <- function (breaks) {
 #' @export
 #' @rdname brk-left-right
 brk_right <- function (breaks) {
+  if (is.function(breaks)) {
+    lifecycle::deprecate_stop("0.4.0", "brk_right.function()",
+      details = "Please use the `left` argument to `chop()` instead.")
+  }
   assert_that(noNA(breaks))
   breaks <- sort(breaks)
 

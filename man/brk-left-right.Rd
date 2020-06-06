@@ -20,7 +20,7 @@ A (function which returns an) object of class \code{breaks}.
 \lifecycle{questioning}
 }
 \details{
-These functions are "questioning" because they clash with the
+These functions are in the "questioning" stage because they clash with the
 \code{left} argument to \code{\link[=chop]{chop()}} and friends.
 
 These functions override the \code{left} argument of \code{\link[=chop]{chop()}}.

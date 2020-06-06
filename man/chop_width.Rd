@@ -45,7 +45,7 @@ chop_width(1:10, 2, start = 0)
 
 chop(1:10, brk_width(2, 0))
 
-chop_evenly(1:10, 5)
+chop_evenly(0:10, 5)
 
 }
 \seealso{
