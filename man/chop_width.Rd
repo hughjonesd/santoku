@@ -9,7 +9,7 @@
 \usage{
 chop_width(x, width, start, ...)
 
-chop_evenly(x, intervals, ..., close_end = TRUE)
+chop_evenly(x, intervals, ..., groups, close_end = TRUE)
 
 brk_width(width, start)
 
@@ -25,6 +25,8 @@ brk_evenly(intervals)
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
 
 \item{intervals}{Integer: number of intervals to create.}
+
+\item{groups}{Do not use. \lifecycle{deprecated}}
 
 \item{close_end}{Passed to \code{\link[=chop]{chop()}}.}
 }

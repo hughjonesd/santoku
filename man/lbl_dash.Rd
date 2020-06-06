@@ -4,24 +4,28 @@
 \alias{lbl_dash}
 \title{Labels like 1 - 3, 4 - 5, ...}
 \usage{
-lbl_dash(symbol = " - ", raw = FALSE)
+lbl_dash(symbol = " - ", raw = FALSE, fmt = NULL)
 }
 \arguments{
 \item{symbol}{String: symbol to use for the dash.}
 
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
-or standard deviations.}
+or standard deviations?}
+
+\item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format. Default varies according to the
+type of breaks.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-Labels like 1 - 3, 4 - 5, ...
+This label style is user-friendly, but doesn't distinguish between
+left- and right-closed intervals.
 }
 \examples{
 chop(1:10, c(2, 5, 8), lbl_dash())
 
-chop(1:10, c(2, 5, 8), lbl_dash(" to "))
+chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "\%.1f"))
 
 }
 \seealso{

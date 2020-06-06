@@ -38,14 +38,44 @@ test_that("lbl_dash", {
 })
 
 
+test_that("lbl_dash arguments", {
+  brk <- brk_res(brk_default(1:3), 1:2)
+  expect_equivalent(lbl_dash(fmt = "%.2f")(brk), c("1.00 - 2.00", "2.00 - 3.00"))
+
+  qbrk <- brk_res(brk_quantiles(c(0, .5, 1)), x = 0:10)
+  expect_equivalent(lbl_dash()(qbrk), c("0% - 50%", "50% - 100%"))
+  expect_equivalent(lbl_dash(raw = TRUE)(qbrk), c("0 - 5", "5 - 10"))
+  expect_equivalent(
+    lbl_dash(raw = TRUE, fmt = "%.2f")(qbrk),
+    c("0.00 - 5.00", "5.00 - 10.00")
+  )
+  expect_equivalent(
+    lbl_dash(fmt = "%s per cent")(qbrk),
+    c("0 per cent - 50 per cent", "50 per cent - 100 per cent")
+  )
+})
+
+
 test_that("lbl_format", {
   brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
-  expect_equivalent(lbl_format("<%s to %s>")(brk), c("<1 to 2>", "<2 to 3>"))
+  expect_equivalent(
+    lbl_format("<%.1f to %.1f>")(brk),
+    c("<1.0 to 2.0>", "<2.0 to 3.0>")
+  )
   brk <- brk_res(brk_left(c(1, 2, 2, 3)))
-  expect_equivalent(lbl_format("<%s to %s>", "|%s|")(brk),
-        c("<1 to 2>", "|2|", "<2 to 3>"))
-  expect_equivalent(lbl_format("%.2f to %.2f", fmt1 = "%.2f", raw = TRUE)(brk),
-        c("1.00 to 2.00", "2.00", "2.00 to 3.00"))
+  expect_equivalent(
+    lbl_format("<%.1f to %.1f>", "|%.3f|")(brk),
+    c("<1.0 to 2.0>", "|2.000|", "<2.0 to 3.0>")
+  )
+})
+
+
+test_that("lbl_format arguments", {
+  qbrk <- brk_res(brk_quantiles(c(0, .5, 1)), x = 0:10)
+  expect_equivalent(
+    lbl_format("%s / %s", raw = TRUE)(qbrk),
+    c("0 / 5", "5 / 10")
+  )
 })
 
 
@@ -67,6 +97,38 @@ test_that("lbl_intervals", {
   expect_equivalent(lbl_intervals()(mbrk), c("(1, 2)", "[2, 3]", "(3, 4)"))
 })
 
+test_that("lbl_intervals arguments", {
+  lbrk <- brk_res(brk_left(c(1, 2, 2, 3) + 0.5))
+  expect_equivalent(
+    lbl_intervals(fmt = "%.2f")(lbrk),
+    c("[1.50, 2.50)", "{2.50}",  "(2.50, 3.50)")
+  )
+
+  lbrk <- brk_res(brk_left(1:3 * 10000))
+  expect_equivalent(
+    lbl_intervals(fmt = "%2g")(lbrk),
+    c("[10000, 20000)", "[20000, 30000)")
+  )
+
+  qbrk <- brk_res(brk_quantiles(c(0, 0.5, 1)), x = 0:10)
+  expect_equivalent(
+    lbl_intervals()(qbrk),
+    c("[0%, 50%)", "[50%, 100%)")
+  )
+  expect_equivalent(
+    lbl_intervals(raw = TRUE)(qbrk),
+    c("[0, 5)", "[5, 10)")
+  )
+  expect_equivalent(
+    lbl_intervals(raw = TRUE, fmt = "%.2f")(qbrk),
+    c("[0.00, 5.00)", "[5.00, 10.00)")
+  )
+  expect_equivalent(
+    lbl_intervals(fmt = "%.2f")(qbrk),
+    c("[0.00, 50.00)", "[50.00, 100.00)")
+  )
+})
+
 
 test_that("lbl_integer", {
   lbrk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
@@ -84,7 +146,17 @@ test_that("lbl_integer", {
 
   # break containing (1,2) which has no integer in it:
   open_brk <- brk_res(brk_manual(1:3, c(FALSE, TRUE, FALSE)))
-  expect_warning(lbl_integer()(open_brk))
+  expect_warning(l <- lbl_integer()(open_brk))
+  expect_equivalent(l[1], "--")
+})
+
+
+test_that("lbl_integer arguments", {
+  lbrk <- brk_res(brk_default(c(1, 3, 5)))
+  expect_equivalent(
+    lbl_integer(fmt = "(%s)")(lbrk),
+    c("(1) - (2)", "(3) - (4)")
+  )
 })
 
 test_that("breaks labels don't produce duplicates", {

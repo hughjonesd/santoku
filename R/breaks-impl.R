@@ -115,28 +115,3 @@ maybe_extend <- function (breaks, x, extend) {
 
   return(breaks)
 }
-
-
-#' Truncates `num` to look nice, while preserving uniqueness
-#'
-#' @param num
-#'
-#' @return A character vector
-#'
-#' @noRd
-#'
-unique_truncation <- function (num) {
-  want_unique <- ! duplicated(num) # "real" duplicates are allowed!
-  # we keep the first of each duplicate set.
-
-  for (digits in seq(4L, 22L)) {
-    res <- formatC(num, digits = digits, width = -1)
-    if (anyDuplicated(res[want_unique]) == 0L) break
-  }
-
-  if (anyDuplicated(res[want_unique]) > 0L) {
-    stop("Could not format breaks to avoid duplicates")
-  }
-
-  return(res)
-}

@@ -31,7 +31,7 @@ and are designed to make using `chop()` more intuitive and predictable.
 * Many labelling functions have a new `fmt` argument, to format break endpoints
   via `base::sprintf()`.
 
-  
+
 ## Other changes
 
 * Experimental: `lbl_integer()` for integer data.
