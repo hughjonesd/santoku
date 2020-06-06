@@ -18,12 +18,13 @@ brk_quantiles <- function (probs, ...) {
 
     # order matters in the stanza below:
     breaks <- create_lr_breaks(qs, left, close_end)
+    left_vec <- attr(breaks, "left")
     needs <- needs_extend(breaks, x)
     if (extend %||% (needs & LEFT) > 0) {
       if (
               length(qs) == 0 ||
               qs[1] > -Inf ||
-              (qs[1] == -Inf && ! left[1]))
+              (qs[1] == -Inf && ! left_vec[1]))
             {
         probs <- c(0, probs)
       }
@@ -32,7 +33,7 @@ brk_quantiles <- function (probs, ...) {
       if (
               length(qs) == 0 ||
               qs[length(qs)] < Inf ||
-              (qs[length(qs)] == Inf && left[length(left)])
+              (qs[length(qs)] == Inf && left_vec[length(left_vec)])
             ) {
         probs <- c(probs, 1)
       }
