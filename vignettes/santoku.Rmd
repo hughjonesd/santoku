@@ -72,10 +72,10 @@ chopped <- chop_width(x, 2)
 data.frame(x, chopped)
 ```
 
-To chop into exactly `groups` fixed-with intervals, use `chop_evenly()`:
+To chop into exactly `intervals` fixed-with intervals, use `chop_evenly()`:
 
 ```{r}
-chopped <- chop_evenly(x, groups = 3)
+chopped <- chop_evenly(x, intervals = 3)
 data.frame(x, chopped)
 ```
 
@@ -171,40 +171,26 @@ data.frame(x, chopped)
 Data outside the range of `breaks` will become `NA`.
 
 By default, intervals are closed on the left, i.e. they include their left
-endpoints. If you want right-closed intervals, use `brk_right()`:
+endpoints. If you want right-closed intervals, set `left = FALSE`:
 
 ```{r}
 y <- 1:5
 data.frame(
         y = y, 
         left_closed = chop(y, 1:5), 
-        right_closed = chop(y, brk_right(1:5))
+        right_closed = chop(y, 1:5, left = FALSE)
       )
 ```
 
-The last finite interval is right-closed (or if you use `brk_right`, the first finite interval is left-closed). If you don't want that, use `brk_left()` explicitly and set `close_end = FALSE`:
+If you want to close off the last interval, set `close_end = TRUE`:
 
 ```{r}
 z <- 1:5
 data.frame(
   z = z,
-  rightmost_closed = chop(1:5, brk_left(1:5)),
-  rightmost_open   = chop(1:5, brk_left(1:5, close_end = FALSE))
+  rightmost_open = chop(1:5, 1:5),
+  rightmost_closed   = chop(1:5, 1:5, close_end = TRUE)
 )
 
 ```
 
-
-If you want to chop repeatedly with the same arguments, create your own
-`knife`:
-
-```{r}
-chop_by_quartiles <- knife(
-        breaks = brk_quantiles(c(0.25, 0.5, 0.75)), 
-        labels = lbl_dash()
-      )
-
-chop_by_quartiles(x)
-table(chop_by_quartiles(rnorm(50)))
-
-```

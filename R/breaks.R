@@ -167,6 +167,7 @@ brk_n <- function (n) {
 }
 
 
+#' @param breaks A numeric vector.
 #' @name breaks-doc
 #' @return A (function which returns an) object of class `breaks`.
 NULL
@@ -179,9 +180,7 @@ NULL
 #' These functions are "questioning" because they clash with the
 #' `left` argument to [chop()] and friends.
 #'
-#' @param breaks A numeric vector.
-#'
-#' @inherit breaks-doc return
+#' @inherit breaks-doc params return
 #'
 #' @name brk-left-right
 #'
@@ -199,6 +198,7 @@ NULL
 
 
 #' @export
+#' @rdname brk-left-right
 brk_left <- function (breaks) {
   if (is.function(breaks)) {
     lifecycle::deprecate_stop("0.4.0", "brk_left.function()",
@@ -216,6 +216,7 @@ brk_left <- function (breaks) {
 
 
 #' @export
+#' @rdname brk-left-right
 brk_right <- function (breaks) {
   assert_that(noNA(breaks))
   breaks <- sort(breaks)
@@ -230,9 +231,7 @@ brk_right <- function (breaks) {
 
 #' Create a standard set of breaks
 #'
-#' @param breaks
-#'
-#' @inherit breaks-doc return
+#' @inherit breaks-doc params return
 #' @export
 #'
 #' @examples

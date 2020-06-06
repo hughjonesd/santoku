@@ -2,7 +2,14 @@
 % Please edit documentation in R/breaks.R
 \name{brk-left-right}
 \alias{brk-left-right}
+\alias{brk_left}
+\alias{brk_right}
 \title{Left- or right-closed breaks}
+\usage{
+brk_left(breaks)
+
+brk_right(breaks)
+}
 \arguments{
 \item{breaks}{A numeric vector.}
 }
