@@ -101,6 +101,17 @@ test_that("chop_width", {
 })
 
 
+test_that("chop_evenly", {
+  x <- 1:10
+  expect_equivalent(
+    chop_evenly(x, 2, labels = lbl_seq("1")),
+    factor(rep(1:2, each = 5))
+  )
+  expect_warning(r <- chop_evenly(x, groups = 2))
+  expect_identical(r, chop_evenly(x, intervals = 2))
+})
+
+
 test_that("chop_quantiles", {
   x <- 1:6
   expect_equivalent(

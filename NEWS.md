@@ -28,6 +28,9 @@ and are designed to make using `chop()` more intuitive and predictable.
 * `knife()` has been deprecated to keep the interface slim and
   focused. Use `purrr::partial()` instead.
   
+* Many labelling functions have a new `fmt` argument, to format break endpoints
+  via `base::sprintf()`.
+  
 ## Other changes
 
 * Experimental: `lbl_integer()` for integer data.
@@ -38,15 +41,21 @@ and are designed to make using `chop()` more intuitive and predictable.
 
 * Minor tweaks to `chop_deciles()`.
 
+* `lbl_format()` can now accept numeric sprintf formats (e.g. `"%.2f"`) 
+  when `raw = FALSE`.
+
 * Bugfix: `lbl_format()` wasn't accepting numeric formats, even when 
   `raw = TRUE`. Thanks to Sharla Gelfand.
 
 # santoku 0.3.0
 
 * First CRAN release.
+
 * Changed `kut()` to `kiru()`. `kiru()` is an alternative spelling for `chop()`, 
   for use when the tidyr package is loaded.
+  
 * `lbl_sequence()` has become `lbl_manual()`.
+
 * `lbl_letters()` and friends have been replaced by `lbl_seq()`:
   - to replace `lbl_letters()` use `lbl_seq()`
   - to replace `lbl_LETTERS()` use `lbl_seq("A")`
@@ -58,5 +67,6 @@ and are designed to make using `chop()` more intuitive and predictable.
 # santoku 0.2.0
 
 * Added a `NEWS.md` file to track changes to the package.
+
 * Default labels when `extend = NULL` have changed, from
   `[-Inf, ...` and `..., Inf]` to `[min(x), ...` and `..., max(x)]`.

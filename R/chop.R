@@ -291,10 +291,16 @@ chop_width <- function (x, width, start, ...) {
 #' @rdname chop_width
 #'
 #' @param intervals Integer: number of intervals to create.
+#' @param groups Do not use. \lifecycle{deprecated}
 #'
 #' @export
 #' @order 1
-chop_evenly <- function (x, intervals, ..., close_end = TRUE) {
+chop_evenly <- function (x, intervals, ..., groups, close_end = TRUE) {
+  if (! missing(groups)) {
+    lifecycle::deprecate_warn("0.4.0", "chop_evenly(groups = )",
+          with = "chop_evenly(intervals = )")
+    if (missing(intervals)) intervals <- groups
+  }
   chop(x, brk_evenly(intervals), ..., close_end = close_end)
 }
 

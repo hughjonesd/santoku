@@ -2,23 +2,6 @@
 
 # TODO
 
-
-* rework labels and breaks?
-  - current plan: `scaled_endpoints` is a generic which can return
-    endpoints on a different scale (mean/sd, quantiles etc.) and which
-    takes the `raw` option;
-  - `endpoint_labels` is a generic which (typically) calls `scaled_endpoints`
-    and applies some pretty formatting
-  - We have `quantileBreaks` and `sdBreaks`. Maybe later `dateBreaks` etc
-  - what to do when you have Date objects passed to `brk_quantiles()`?
-  - formatting is done by sprintf so you can both affect the number of decimal
-    places, and add text like "%" or "s.d.". It also follows the `lbl_format()`
-    convention.
-  - really, the class of the endpoints is different from the class of the
-    object as a whole. One carries information about the meaning of the
-    individual endpoint (e.g. is a date); one is about the meaning of the whole set
-    (e.g. represents certain quantiles).
-
 * Work on tests
   - tests for `left` and `close_end` arguments
   - tests for `brk_default`
