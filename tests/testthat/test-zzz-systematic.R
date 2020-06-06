@@ -16,15 +16,17 @@ test_that("systematic tests", {
     complex  = 1:3 + 1i
   )
   brk_funs <- list(
-    brk_evenly    = brk_evenly(intervals = 2),
+    brk_evenly    = brk_evenly(2),
     brk_left      = brk_left(1:3),
-    brk_left3     = brk_left(c(1, 2, 2, 3)),
+    brk_right     = brk_right(1:3),
     brk_manual    = brk_manual(1:3, rep(TRUE, 3)),
     brk_manual2   = brk_manual(1:3, c(FALSE, TRUE, FALSE)),
     brk_mean_sd   = brk_mean_sd(),
+    brk_mean_sd2  = brk_mean_sd(1.96),
     brk_n         = brk_n(5),
     brk_quantiles = brk_quantiles(1:3/4),
     brk_default   = brk_default(1:3),
+    brk_default2  = brk_default(c(1, 2, 2, 3)),
     brk_width     = brk_width(1),
     brk_width2    = brk_width(1, 0)
   )
@@ -43,14 +45,23 @@ test_that("systematic tests", {
   )
 
   test_df <- expand.grid(
-    x       = x_vals,
-    brk_fun = names(brk_funs),
-    lbl_fun = names(lbl_funs),
-    extend  = c(TRUE, FALSE),
-    drop    = c(TRUE, FALSE),
+    x         = x_vals,
+    brk_fun   = names(brk_funs),
+    lbl_fun   = names(lbl_funs),
+    extend    = c(TRUE, FALSE),
+    left      = c(TRUE, FALSE),
+    close_end = c(TRUE, FALSE),
+    drop      = c(TRUE, FALSE),
     stringsAsFactors = FALSE
   )
   test_df$expect_fail <- FALSE
+  # remove some pointless conditions:
+  test_df <- test_df[! (! test_df$left & test_df$brk_fun == "brk_manual"), ]
+  test_df <- test_df[! (! test_df$left & test_df$brk_fun == "brk_manual2"), ]
+  test_df <- test_df[! (test_df$close_end & test_df$brk_fun == "brk_manual"), ]
+  test_df <- test_df[! (test_df$close_end & test_df$brk_fun == "brk_manual2"), ]
+  test_df <- test_df[! (! test_df$left & test_df$brk_fun == "brk_left"), ]
+  test_df <- test_df[! (test_df$left & test_df$brk_fun == "brk_right"), ]
 
   # some things should fail
   ef <- function (cond) test_df$expect_fail[cond] <<- TRUE
@@ -68,16 +79,18 @@ test_that("systematic tests", {
     x <- tdata$x[[1]]
     # expect_silent doesn't handle !! for labeling nicely
     expect_error(chop(x,
-      breaks = brk_funs[[tdata$brk_fun]],
-      labels = lbl_funs[[tdata$lbl_fun]],
-      extend = tdata$extend,
-      drop   = tdata$drop
+      breaks    = brk_funs[[tdata$brk_fun]],
+      labels    = lbl_funs[[tdata$lbl_fun]],
+      extend    = tdata$extend,
+      left      = tdata$left,
+      close_end = tdata$close_end,
+      drop      = tdata$drop
     ),
       regexp = regexp,
       info   = sprintf(
-        "row: %s x: %s breaks: %s labels: %s extend %s drop: %s",
+        "row: %s x: %s breaks: %s labels: %s extend: %s left: %s close_end: %s drop: %s",
         r, names(tdata$x), tdata$brk_fun, tdata$lbl_fun, tdata$extend,
-        tdata$drop
+        tdata$left, tdata$close_end, tdata$drop
       ))
   }
 })
