@@ -8,7 +8,15 @@
 \usage{
 chop(x, ...)
 
-\method{chop}{default}(x, breaks, labels, extend = NULL, drop = TRUE, ...)
+\method{chop}{default}(
+  x,
+  breaks,
+  labels,
+  extend = NULL,
+  left = TRUE,
+  close_end = FALSE,
+  drop = TRUE
+)
 
 kiru(x, ...)
 }
@@ -22,6 +30,11 @@ kiru(x, ...)
 \item{labels}{See below.}
 
 \item{extend}{Logical. Extend breaks to \verb{+/-Inf}?}
+
+\item{left}{Logical. Left-closed breaks?}
+
+\item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
+close first break at left?)}
 
 \item{drop}{Logical. Drop unused levels from the result?}
 }
@@ -40,17 +53,31 @@ If it is a vector, \code{breaks} gives the break endpoints. Repeated values crea
 singleton intervals. For example \code{breaks = c(1, 3, 3, 5)} creates 3
 intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
 
-By default, left-closed intervals are created, except for the final interval
-which will be closed on both sides. To change these defaults, see
-\code{\link[=brk_left]{brk_left()}}.
+By default, left-closed intervals are created. If \code{left} is \code{FALSE}, right-
+closed intervals are created.
 
-If \code{breaks} is a function it is called with the \code{x} and \code{extend} arguments,
-and should return an object of class \code{breaks}. Use \code{brk_} functions
-in this context, to create a variety of data-dependent breaks.
+If \code{close_end} is \code{TRUE} the end break will be closed at both ends, ensuring
+that all values \code{y} with \verb{min(x) <= y <= max(x)} are included in the default
+intervals. That is:
+\itemize{
+\item If \code{left} is \code{TRUE} and \code{close_end} is \code{TRUE}, breaks will look like
+\verb{[x1, x2), [x2, x3) ... [x_n-1, x_n]}.
+\item If \code{left} is \code{FALSE} and \code{close_end} is \code{TRUE}, breaks will look like
+\verb{[x1, x2], (x2, x3] ... (x_n-1, x_n]}.
+\item If \code{left} is \code{TRUE} and \code{close_end} is \code{FALSE}, all breaks will look like
+\verb{...[x1, x2) ...}
+\item If \code{left} is \code{FALSE} and \code{close_end} is \code{FALSE}, all breaks will look like
+\verb{...(x1, x2] ...}
+}
+
+If \code{breaks} is a function it is called with the \code{x}, \code{extend}, \code{left} and
+\code{close_end} arguments, and should return an object of class \code{breaks}.
+Use \code{brk_} functions in this context, to create a variety of data-dependent
+breaks.
 
 \code{labels} may be a character vector. It should have the same length as the
 number of intervals. Alternatively, use a \code{lbl_} function such as
-\code{\link[=lbl_seq]{lbl_seq()}}.
+[lbl_seq()].
 
 If \code{extend} is \code{TRUE}, intervals will be extended to \code{[-Inf,
 min(breaks))} and \code{(max(breaks), Inf]}.
@@ -61,7 +88,16 @@ necessary -- i.e. if \code{min(x) < min(breaks)} and \code{max(x) > max(breaks)}
 respectively.
 
 Extending intervals, either by \code{extend = NULL} or \code{extend = FALSE},
-always leaves the central, non-extended intervals unchanged.
+\emph{always} leaves the central, non-extended intervals unchanged. In particular,
+\code{close_end} applies to the central intervals, not to the extended ones.
+For example, if \code{breaks = c(1, 3, 5)} and \code{close_end = TRUE}, the resulting
+breaks will be
+
+\verb{[1, 3), [3, 5]}
+
+and if they are extended on both ends the result will be e.g.
+
+\verb{[-Inf, 1), [1, 3), [3, 5], (5, Inf]}
 
 \code{NA} values in \code{x}, and values which are outside the (extended) endpoints,
 return \code{NA}.
@@ -69,6 +105,15 @@ return \code{NA}.
 Note that \code{chop}, like all of R, uses binary arithmetic. Thus, numbers may
 not be exactly equal to what you think they should be. There is an example
 below.
+
+[x1, x2) ...`
+\itemize{
+\item If \code{left} is \code{FALSE} and \code{close_end} is \code{FALSE}, all breaks will look like
+`...(x1, x2]: R:x1,\%20x2)\%20...\%60\%0A*\%20If\%20\%60left\%60\%20is\%20\%60FALSE\%60\%20and\%20\%60close_end\%60\%20is\%20\%60FALSE\%60,\%20all\%20breaks\%20will\%20look\%20like\%0A\%20\%20\%20\%60...(x1,\%20x2
+[lbl_seq()]: R:lbl_seq()
+[3, 5]: R:3,\%205
+[3, 5]: R:3,\%205
+}
 
 \code{kiru} is a synonym for \code{chop}. If you load \code{tidyr}, you can use it to avoid
 confusion with \code{tidyr::chop()}.
@@ -81,6 +126,10 @@ chop(1:10, c(2, 5, 8))
 chop(1:10, c(2, 5, 8), extend = FALSE)
 
 chop(1:10, c(2, 5, 5, 8))
+
+chop(1:10, c(2, 5, 8), left = FALSE)
+
+chop(1:10, c(2, 5, 8), close_end = TRUE)
 
 chop(1:10, brk_quantiles(c(0.25, 0.75)))
 

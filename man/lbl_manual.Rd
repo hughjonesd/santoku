@@ -9,7 +9,8 @@ lbl_manual(sequence, fmt = "\%s")
 \arguments{
 \item{sequence}{A character vector of labels.}
 
-\item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format.}
+\item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format. Default varies according to the
+type of breaks.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.

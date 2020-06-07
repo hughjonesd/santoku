@@ -10,7 +10,7 @@
 \method{chop}{POSIXt}(x, breaks, labels = lbl_date("\%F \%T"), ...)
 }
 \arguments{
-\item{x}{Vector of data to chop.}
+\item{x}{A numeric vector.}
 
 \item{breaks}{Passed to \code{\link[=chop]{chop()}}.}
 

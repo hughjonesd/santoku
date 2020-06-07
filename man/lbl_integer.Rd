@@ -4,19 +4,24 @@
 \alias{lbl_integer}
 \title{Labels for integer data}
 \usage{
-lbl_integer(symbol = " - ")
+lbl_integer(symbol = " - ", fmt = NULL)
 }
 \arguments{
 \item{symbol}{String: symbol to use for the dash.}
+
+\item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format. Default varies according to the
+type of breaks.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-\code{lbl_integer} creates labels for integer data. For example, breaks
-\code{c(1, 3, 4, 6, 7)} get labels \verb{"1 - 2", "3", "4 - 5", "6 - 7"}.
+\lifecycle{experimental}
 }
 \details{
+\code{lbl_integer} creates labels for integer data. For example, breaks
+\code{c(1, 3, 4, 6, 7)} are labelled: \verb{"1 - 2", "3", "4 - 5", "6 - 7"}.
+
 No check is done that the data is integer-valued. If it isn't, then
 these labels may be misleading.
 }

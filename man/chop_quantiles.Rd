@@ -8,22 +8,24 @@
 \alias{brk_equally}
 \title{Chop by quantiles}
 \usage{
-chop_quantiles(x, probs, ...)
+chop_quantiles(x, probs, ..., close_end = TRUE)
 
-chop_deciles(x, ...)
+chop_deciles(x, ..., close_end = TRUE)
 
-chop_equally(x, groups, ...)
+chop_equally(x, groups, ..., close_end = TRUE)
 
 brk_quantiles(probs, ...)
 
 brk_equally(groups)
 }
 \arguments{
-\item{x}{Vector of data to chop.}
+\item{x}{A numeric vector.}
 
 \item{probs}{A vector of probabilities for the quantiles.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}, or for \code{brk_quantiles} to \code{\link[=quantile]{quantile()}}.}
+
+\item{close_end}{Passed to \code{\link[=chop]{chop()}}.}
 
 \item{groups}{Number of groups.}
 }
@@ -34,6 +36,11 @@ For  \verb{chop_*} functions, a factor of the same length as \code{x}.
 \code{chop_quantiles} chops data by quantiles. \code{chop_equally} chops
 data into equal-sized groups. \code{chop_deciles} is a convenience shortcut and
 chops into deciles.
+}
+\details{
+Note that these functions set \code{close_end = TRUE} by default. This ensures
+that e.g. \verb{chop_quantiles(x, c(0, 1/3, 2/3, 1)} will split the data into
+three equal-sized groups.
 }
 \examples{
 chop_quantiles(1:10, 1:3/4)

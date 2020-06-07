@@ -1,16 +1,19 @@
 
 #' @name label-doc
-#' @param fmt A [sprintf()]-style format.
+#' @param fmt A [sprintf()]-style format. Default varies according to the
+#'   type of breaks.
 #' @param raw Logical. Always use raw `breaks` in labels, rather than e.g. quantiles
-#'   or standard deviations.
+#'   or standard deviations?
 #' @param symbol String: symbol to use for the dash.
+#' @param ... Arguments passed to format methods.
+#'
 #' @return A vector of labels for `chop`, or a function that creates labels.
 NULL
 
 
 #' Labels using set notation
 #'
-#' @inherit label-doc params return
+#' @inherit label-doc
 #'
 #' @family labelling functions
 #'
@@ -29,19 +32,24 @@ NULL
 #'
 #' @examples
 #' tab(-10:10, c(-3, 0, 0, 3), labels = lbl_intervals())
-lbl_intervals <- function (raw = FALSE) {
+lbl_intervals <- function (raw = FALSE, fmt = NULL) {
   assert_that(is.flag(raw))
 
   function (breaks) {
-    stopifnot(is.breaks(breaks))
+    assert_that(is.breaks(breaks))
     left <- attr(breaks, "left")
-    break_labels <- choose_break_labels(breaks, raw)
+    # less ugly than do.call:
+    elabels <-  if (is.null(fmt)) {
+                  endpoint_labels(breaks, raw = raw)
+                } else {
+                  endpoint_labels(breaks, raw = raw, fmt = fmt)
+                }
 
     len_b <- length(breaks)
     if (len_b < 1L) return(character(0))
 
-    lb <- break_labels[-len_b]
-    rb <- break_labels[-1]
+    lb <- elabels[-len_b]
+    rb <- elabels[-1]
     l_closed <- left[-len_b]
     r_closed <- ! left[-1]
 
@@ -63,22 +71,20 @@ lbl_intervals <- function (raw = FALSE) {
 
 #' Labels with arbitrary formatting
 #'
+#' These labels use [base::sprintf()] to format numeric breaks.
+#'
 #' @param fmt1 Format for breaks consisting of a single value.
 #' @inherit label-doc params return
 #'
 #' @family labelling functions
 #'
-#' @details
-#' If `raw = FALSE`, breaks will be preformatted as strings
-#' before being passed to [sprintf()], so only `"%s"` should be used in
-#' format strings.
-#'
 #' @export
 #'
 #' @examples
-#' tab(1:10, c(1,3, 3, 7), label = lbl_format("%s to %s"))
-#' tab(1:10, c(1,3, 3, 7), label = lbl_format("%s to %s", "Exactly %s"))
-lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
+#' tab(1:10, c(1,3, 3, 7), label = lbl_format("%.3g to %.3g"))
+#' tab(1:10, c(1,3, 3, 7), label = lbl_format("%.3g to %.3g", "Exactly %.3g"))
+#' tab(rnorm(10), seq(-2, 2, .5), label = lbl_format("%.2f to %.2f"))
+lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
   assert_that(is.string(fmt), is.string(fmt1), is.flag(raw))
 
   function (breaks) {
@@ -88,8 +94,8 @@ lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
     labels <- character(len_b - 1)
     singletons <- singletons(breaks)
 
-    break_labels <- if (raw) as.numeric(breaks) else
-          choose_break_labels(breaks, raw)
+    # no formatting: `lbl_format()` takes that over for itself.
+    break_labels <- scaled_endpoints(breaks, raw = raw)
 
     l <- break_labels[-len_b]
     r <- break_labels[-1]
@@ -104,7 +110,10 @@ lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
 
 #' Labels like 1 - 3, 4 - 5, ...
 #'
-#' @inherit label-doc params return
+#' This label style is user-friendly, but doesn't distinguish between
+#' left- and right-closed intervals.
+#'
+#' @inherit label-doc
 #'
 #' @family labelling functions
 #'
@@ -113,19 +122,23 @@ lbl_format <- function(fmt, fmt1 = "%s", raw = FALSE) {
 #' @examples
 #' chop(1:10, c(2, 5, 8), lbl_dash())
 #'
-#' chop(1:10, c(2, 5, 8), lbl_dash(" to "))
+#' chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "%.1f"))
 #'
-lbl_dash <- function (symbol = " - ", raw = FALSE) {
+lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL) {
   assert_that(is.string(symbol), is.flag(raw))
 
   function (breaks) {
-    break_labels <- choose_break_labels(breaks, raw)
+    elabels <-  if (is.null(fmt)) {
+                  endpoint_labels(breaks, raw = raw)
+                } else {
+                  endpoint_labels(breaks, raw = raw, fmt = fmt)
+                }
 
     len_b <- length(breaks)
     singletons <- singletons(breaks)
 
-    l <- break_labels[-len_b]
-    r <- break_labels[-1]
+    l <- elabels[-len_b]
+    r <- elabels[-1]
 
     labels <- paste0(l, symbol, r)
     labels[singletons] <- l[singletons]
@@ -137,10 +150,12 @@ lbl_dash <- function (symbol = " - ", raw = FALSE) {
 
 #' Labels for integer data
 #'
-#' `lbl_integer` creates labels for integer data. For example, breaks
-#' `c(1, 3, 4, 6, 7)` get labels `"1 - 2", "3", "4 - 5", "6 - 7"`.
+#' \lifecycle{experimental}
 #'
-#' @inherit label-doc params return
+#' `lbl_integer` creates labels for integer data. For example, breaks
+#' `c(1, 3, 4, 6, 7)` are labelled: `"1 - 2", "3", "4 - 5", "6 - 7"`.
+#'
+#' @inherit label-doc
 #'
 #' @details
 #' No check is done that the data is integer-valued. If it isn't, then
@@ -155,7 +170,7 @@ lbl_dash <- function (symbol = " - ", raw = FALSE) {
 #'
 #' # Misleading labels for non=integer data
 #' chop(2.5, c(1, 3, 5), lbl_integer())
-lbl_integer <- function (symbol = " - ") {
+lbl_integer <- function (symbol = " - ", fmt = NULL) {
   assert_that(is.string(symbol))
 
   function (breaks) {
@@ -173,13 +188,19 @@ lbl_integer <- function (symbol = " - ") {
     l[! left_l] <- l[! left_l] + 1
     r[left_r] <- r[left_r] - 1
     singletons <- singletons | r == l
+    no_integers <- r < l
+    if (any(no_integers)) {
+      warning("Intervals containing no integers are labelled as \"--\"")
+    }
+
+    if (! is.null(fmt)) {
+      l <- sprintf(fmt, l)
+      r <- sprintf(fmt, r)
+    }
 
     labels <- paste0(l, symbol, r)
     labels[singletons] <- l[singletons]
-    labels[r < l] <- "--"
-    if (any(r < l)) {
-      warning("Some intervals in breaks contain no integers.")
-    }
+    labels[no_integers] <- "--"
 
     return(labels)
   }
@@ -308,30 +329,3 @@ lbl_manual <- function (sequence, fmt = "%s") {
     sprintf(fmt, ls[seq(1L, length(breaks) - 1)])
   }
 }
-
-
-choose_break_labels <- function (breaks, raw) UseMethod("choose_break_labels")
-
-
-choose_break_labels.numeric <- function (breaks, raw) {
-  bl <- attr(breaks, "break_labels")
-  if (raw || is.null(bl)) {
-    return(unique_truncation(as.numeric(breaks)))
-  } else {
-    return(bl)
-  }
-}
-
-
-choose_break_labels.Date <- function (breaks, raw) {
-  bl <- attr(breaks, "break_labels")
-  if (raw || is.null(bl)) {
-    return(format.Date(breaks, "%y-%m-%d"))
-  } else {
-    return(bl)
-  }
-}
-
-
-
-

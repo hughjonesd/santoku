@@ -10,16 +10,16 @@
 \usage{
 chop_width(x, width, start, ...)
 
-chop_evenly(x, groups, ...)
+chop_evenly(x, intervals, ..., groups, close_end = TRUE)
 
 brk_width(width, start)
 
 \method{brk_width}{default}(width, start)
 
-brk_evenly(groups)
+brk_evenly(intervals)
 }
 \arguments{
-\item{x}{Vector of data to chop.}
+\item{x}{A numeric vector.}
 
 \item{width}{Width of intervals.}
 
@@ -27,14 +27,21 @@ brk_evenly(groups)
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
 
-\item{groups}{Integer: number of intervals to create.}
+\item{intervals}{Integer: number of intervals to create.}
+
+\item{groups}{Do not use. \lifecycle{deprecated}}
+
+\item{close_end}{Passed to \code{\link[=chop]{chop()}}.}
 }
 \value{
 For  \verb{chop_*} functions, a factor of the same length as \code{x}.
 }
 \description{
 \code{chop_width()} chops \code{x} into intervals of width \code{width}. \code{chop_evenly}
-chops \code{x} into \code{groups} intervals of equal width.
+chops \code{x} into \code{intervals} intervals of equal width.
+}
+\details{
+Note that \code{chop_evenly} sets \code{close_end = TRUE} by default.
 }
 \examples{
 chop_width(1:10, 2)
@@ -43,7 +50,7 @@ chop_width(1:10, 2, start = 0)
 
 chop(1:10, brk_width(2, 0))
 
-chop_evenly(1:10, 5)
+chop_evenly(0:10, 5)
 
 }
 \seealso{

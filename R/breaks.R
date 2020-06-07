@@ -5,11 +5,17 @@
 #' @export
 #' @order 2
 brk_quantiles <- function (probs, ...) {
-  assert_that(is.numeric(probs), noNA(probs), all(probs >= 0), all(probs <= 1))
+  assert_that(
+          is.numeric(probs),
+          noNA(probs),
+          all(probs >= 0),
+          all(probs <= 1)
+        )
   probs <- sort(probs)
 
-  function (x, extend) {
-    qs <- stats::quantile(as.numeric(x), probs, na.rm = TRUE, ...)
+  function (x, extend, left, close_end) {
+    qs <- stats::quantile(x, probs, na.rm = TRUE, ...)
+
     if (anyNA(qs)) return(empty_breaks()) # data was all NA
 
     non_dupes <- ! duplicated(qs)
@@ -17,18 +23,31 @@ brk_quantiles <- function (probs, ...) {
     probs <- probs[non_dupes]
 
     # order matters in the stanza below:
-    breaks <- create_left_breaks(qs)
+    breaks <- create_lr_breaks(qs, left, close_end)
+    left_vec <- attr(breaks, "left")
     needs <- needs_extend(breaks, x)
     if (extend %||% (needs & LEFT) > 0) {
-      if (length(qs) == 0 || qs[1] > -Inf) probs <- c(0, probs)
+      if (
+              length(qs) == 0 ||
+              qs[1] > -Inf ||
+              (qs[1] == -Inf && ! left_vec[1]))
+            {
+        probs <- c(0, probs)
+      }
     }
     if (extend %||% (needs & RIGHT) > 0) {
-      if (length(qs) == 0 ||qs[length(qs)] < Inf) probs <- c(probs, 1)
+      if (
+              length(qs) == 0 ||
+              qs[length(qs)] < Inf ||
+              (qs[length(qs)] == Inf && left_vec[length(left_vec)])
+            ) {
+        probs <- c(probs, 1)
+      }
     }
     breaks <- maybe_extend(breaks, x, extend)
 
-    break_labels <- paste0(formatC(probs * 100, format = "fg"), "%")
-    attr(breaks, "break_labels") <- break_labels
+    class(breaks) <- c("quantileBreaks", class(breaks))
+    attr(breaks, "scaled_endpoints") <- probs * 100
 
     breaks
   }
@@ -49,9 +68,9 @@ brk_equally <- function (groups) {
 #' @export
 #' @order 2
 brk_mean_sd <- function (sd = 3) {
-  assert_that(is.count(sd))
+  assert_that(is.number(sd), sd > 0)
 
-  function (x, extend) {
+  function (x, extend, left, close_end) {
     x_m <- mean(x, na.rm = TRUE)
     x_sd <- sd(x, na.rm = TRUE)
 
@@ -59,23 +78,27 @@ brk_mean_sd <- function (sd = 3) {
       return(empty_breaks())
     }
 
-    s1 <- seq(x_m, x_m - sd * x_sd, - x_sd)
-    s2 <- seq(x_m, x_m + sd * x_sd, x_sd)
-    breaks <- c(sort(s1), s2[-1])
+    # work out the "sds" first, then scale them by mean and sd
+    sds_plus <- seq(0, sd, 1L)
+    if (! sd %in% sds_plus) sds_plus <- c(sds_plus, sd)
+    sds_minus <- -1 * sds_plus[-1]
+    sds_minus <- sort(sds_minus)
+    sds <- c(sds_minus, sds_plus)
 
-    breaks <- create_left_breaks(breaks)
+    breaks <- sds * x_sd + x_m
+    breaks <- create_lr_breaks(breaks, left, close_end)
     needs <- needs_extend(breaks, x)
     breaks <- maybe_extend(breaks, x, extend)
 
-    break_labels <- seq(-sd, sd, 1)
-    break_labels <- paste0(break_labels, " sd")
     if (extend %||% (needs & LEFT) > 0) {
-      break_labels <- c(-Inf, break_labels)
+      sds <- c(-Inf, sds)
     }
     if (extend %||% (needs & RIGHT) > 0) {
-      break_labels <- c(break_labels, Inf)
+      sds <- c(sds, Inf)
     }
-    attr(breaks, "break_labels") <- break_labels
+
+    class(breaks) <- c("sdBreaks", class(breaks))
+    attr(breaks, "scaled_endpoints") <- sds
 
     breaks
   }
@@ -182,24 +205,21 @@ brk_width.default <- function (width, start) {
   sm <- missing(start)
   if (! sm) assert_that(is.scalar(start))
 
-  function (x, extend) {
+  function (x, extend, left, close_end) {
     if (sm) start <- quiet_min(x[is.finite(x)])
     # finite if x has any non-NA finite elements:
     max_x <- quiet_max(x[is.finite(x)])
-
     if (is.finite(start) && is.finite(max_x)) {
-      seq_end <- max_x
-      if (as.numeric(max_x - start) %% as.numeric(width) != 0 ||
-            max_x == start) {
-        # extend to cover all data / ensure at least one interval
-        seq_end <- seq_end + width
+      breaks <- seq(start, max_x, width)
+      # length(breaks) == 1L captures when start == max_x
+      if (breaks[length(breaks)] < max_x || length(breaks) == 1L) {
+        breaks <- c(breaks, breaks[length(breaks)] + width)
       }
-      breaks <- seq(start, seq_end, width)
     } else {
       return(empty_breaks())
     }
 
-    breaks <- create_left_breaks(breaks)
+    breaks <- create_lr_breaks(breaks, left, close_end)
     breaks <- maybe_extend(breaks, x, extend)
 
     breaks
@@ -210,13 +230,17 @@ brk_width.default <- function (width, start) {
 #' @rdname chop_width
 #' @export
 #' @order 2
-brk_evenly <- function(groups) {
-  assert_that(is.count(groups))
+brk_evenly <- function(intervals) {
+  assert_that(is.count(intervals))
 
-  function (x, extend) {
-    total_width <- quiet_max(x[is.finite(x)]) - quiet_min(x[is.finite(x)])
-    if (total_width <= 0) return(empty_breaks())
-    brk_width(total_width/groups)(x, extend)
+  function (x, extend, left, close_end) {
+    min_x <- quiet_min(x[is.finite(x)])
+    max_x <- quiet_max(x[is.finite(x)])
+    if (max_x - min_x <= 0) return(empty_breaks())
+
+    breaks <- seq(min_x, max_x, length.out = intervals + 1L)
+    breaks <- create_lr_breaks(breaks, left, close_end)
+    maybe_extend(breaks, x, extend)
   }
 }
 
@@ -227,12 +251,12 @@ brk_evenly <- function(groups) {
 brk_n <- function (n) {
   assert_that(is.count(n))
 
-  function (x, extend) {
+  function (x, extend, left, close_end) {
     xs <- sort(x) # remove NAs
     if (length(xs) < 1L) return(empty_breaks())
 
     breaks <-  xs[c(seq(1L, length(xs), n), length(xs))]
-    breaks <- create_left_breaks(breaks, close_end = TRUE)
+    breaks <- create_lr_breaks(breaks, left, close_end)
     breaks <- maybe_extend(breaks, x, extend)
 
     breaks
@@ -240,6 +264,7 @@ brk_n <- function (n) {
 }
 
 
+#' @param breaks A numeric vector.
 #' @name breaks-doc
 #' @return A (function which returns an) object of class `breaks`.
 NULL
@@ -247,95 +272,80 @@ NULL
 
 #' Left- or right-closed breaks
 #'
-#' @param breaks A numeric vector or a function.
-#' @param close_end Logical: close the rightmost endpoint (`brk_left()`)
-#'   / leftmost endpoint (`brk_right()`)?
+#' \lifecycle{questioning}
 #'
-#' @inherit breaks-doc return
+#' These functions are in the "questioning" stage because they clash with the
+#' `left` argument to [chop()] and friends.
 #'
-#' @details
-#' `brk_left` and `brk_right` can be used to wrap another `brk_*` function.
+#' @inherit breaks-doc params return
 #'
 #' @name brk-left-right
+#'
+#' @details
+#' These functions override the `left` argument of [chop()].
 #'
 #' @examples
 #' chop(5:7, brk_left(5:7))
 #'
 #' chop(5:7, brk_right(5:7))
 #'
-#' chop(5:7, brk_left(5:7, FALSE))
-#'
-#' # wrapping another `brk_*` function:
-#' chop(1:10, brk_right(brk_quantiles(1:3/4)))
+#' chop(5:7, brk_left(5:7))
 #'
 NULL
 
 
+#' @export
 #' @rdname brk-left-right
-#' @export
-brk_left <- function (breaks, close_end = TRUE) {
-  UseMethod("brk_left")
-}
-
-#' @rdname brk-left-right
-#' @export
-brk_right <- function (breaks, close_end = TRUE) {
-  UseMethod("brk_right")
-}
-
-
-#' @export
-brk_left.default <- function (breaks, close_end = TRUE) {
-  assert_that(noNA(breaks), is.flag(close_end))
+brk_left <- function (breaks) {
+  if (is.function(breaks)) {
+    lifecycle::deprecate_stop("0.4.0", "brk_left.function()",
+          details = "Please use the `left` argument to `chop()` instead.")
+  }
+  assert_that(noNA(breaks))
   breaks <- sort(breaks)
-  breaks <- create_left_breaks(breaks, close_end)
 
-  function(x, extend) {
+  function(x, extend, left, close_end) {
+    if (! left) warning("`left` argument to `brk_left()` ignored")
+    breaks <- create_lr_breaks(breaks, left = TRUE, close_end)
     maybe_extend(breaks, x, extend)
   }
 }
 
 
 #' @export
-brk_right.default <- function (breaks, close_end = TRUE) {
-  assert_that(noNA(breaks), is.flag(close_end))
+#' @rdname brk-left-right
+brk_right <- function (breaks) {
+  if (is.function(breaks)) {
+    lifecycle::deprecate_stop("0.4.0", "brk_right.function()",
+      details = "Please use the `left` argument to `chop()` instead.")
+  }
+  assert_that(noNA(breaks))
   breaks <- sort(breaks)
-  breaks <- create_right_breaks(breaks, close_end)
 
-  function (x, extend) {
+  function (x, extend, left, close_end) {
+    if (left) warning("`left` argument to `brk_right()` ignored")
+    breaks <- create_lr_breaks(breaks, left = FALSE, close_end)
     maybe_extend(breaks, x, extend)
   }
 }
 
 
+#' Create a standard set of breaks
+#'
+#' @inherit breaks-doc params return
 #' @export
-brk_left.function <- function (breaks, close_end = TRUE) {
-  assert_that(is.flag(close_end))
+#'
+#' @examples
+#'
+#' chop(1:10, c(2, 5, 8))
+#' chop(1:10, brk_default(c(2, 5, 8)))
+#'
+brk_default <- function (breaks) {
+  assert_that(noNA(breaks))
 
-  function(x, extend) {
-    ne <- needs_extend(breaks, x)
-    breaks <- breaks(x, extend) # already contains left/labels and is extended
-    orig_left <- attr(breaks, "left")
-    breaks <- create_left_breaks(breaks, close_end)
-    breaks <- fix_extended_breaks(breaks, extend, ne, orig_left)
-    breaks
-  }
-}
-
-
-
-
-#' @export
-brk_right.function <- function (breaks, close_end = TRUE) {
-  assert_that(is.flag(close_end))
-
-  function(x, extend) {
-    ne <- needs_extend(breaks, x)
-    breaks <- breaks(x, extend)
-    orig_left <- attr(breaks, "left")
-    breaks <- create_right_breaks(breaks, close_end)
-    breaks <- fix_extended_breaks(breaks, extend, ne, orig_left)
-    breaks
+  function (x, extend, left, close_end) {
+    breaks <- create_lr_breaks(breaks, left, close_end)
+    maybe_extend(breaks, x, extend)
   }
 }
 
@@ -343,8 +353,8 @@ brk_right.function <- function (breaks, close_end = TRUE) {
 #' Create a `breaks` object manually
 #'
 #' @param breaks A numeric vector which must be sorted.
-#' @param left A logical vector, the same length as `breaks`.
-#'   Is break left-closed?
+#' @param left_vec A logical vector, the same length as `breaks`.
+#'   Specifies whether each break is left-closed or right-closed.
 #'
 #' @inherit breaks-doc return
 #'
@@ -361,7 +371,7 @@ brk_right.function <- function (breaks, close_end = TRUE) {
 #'
 #' Singleton breaks are created by repeating a number in `breaks`.
 #' Singletons must be closed on both sides, so if there is a repeated number
-#' at indices `i`, `i+1`, `left[i]` must be `TRUE` and `left[i+1]` must be
+#' at indices `i`, `i+1`, `left[i]` *must* be `TRUE` and `left[i+1]` must be
 #' `FALSE`.
 #'
 #' @export
@@ -379,12 +389,19 @@ brk_right.function <- function (breaks, close_end = TRUE) {
 #'
 #' chop(1:3, brks_singleton, extend = FALSE)
 #'
-brk_manual <- function (breaks, left) {
-  assert_that(is.numeric(breaks), noNA(breaks), is.logical(left), noNA(left),
-        length(left) == length(breaks))
-  breaks <- create_breaks(breaks, left)
+brk_manual <- function (breaks, left_vec) {
+  assert_that(
+          is.numeric(breaks),
+          noNA(breaks),
+          is.logical(left_vec),
+          noNA(left_vec),
+          length(left_vec) == length(breaks)
+        )
+  breaks <- create_breaks(breaks, left_vec)
 
-  function (x, extend) {
+  function (x, extend, left, close_end) {
+    if (! left) warning("Ignoring `left` with `brk_manual()`")
+    if (close_end) warning("Ignoring `close_end` with `brk_manual()`")
     maybe_extend(breaks, x, extend)
   }
 }

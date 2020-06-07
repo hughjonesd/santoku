@@ -2,15 +2,13 @@
 
 # TODO
 
-* rework labels and breaks?
-  - labels passed into breaks inner function, it decides what to do
-  - separate numeric formatting of breaks/break_labels from the surrounding string
-  - this will let sprintf formats work even when raw = FALSE
-  - hopefully get rid of break_labels ugliness
-  - PROBLEM: brk_xxx() is already called by user. So, labels function has
-    to be passed into inner function.
-
-* tests
+* Work on tests
+  - tests for `left` and `close_end` arguments
+  - tests for `brk_default`
+  - probably use `brk_default` more than `brk_left/right`
+  - `brk_width()` needs tests which match the guarantees in the documentation
+  - ditto for `brk_evenly()` which now uses its own implementation to
+    guarantee exactly `intervals` intervals
   - systematic tests for `brk_*` functions
   
 * maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for the same reason
@@ -47,6 +45,7 @@
   - the basic `chop` function, with appropriate breaks, might already 
   "almost work" b/c it just uses arithmetic comparisons
 
+
 # Thoughts on errors
 
 * On the whole, we don't want to error out if `x` is weird. `x` is data. But
@@ -59,9 +58,9 @@
 * In other cases, e.g. `brk_evenly()` we don't need to make such a guarantee.
 
 
-
 # Questions
 
+  
 * Do we need `drop`?
 
 * Should we have a flag to return characters?
@@ -71,10 +70,18 @@
   - If so, then `drop` should probably work even for numeric i.e. integer data
     by moving it down to start at 1
 
-
   
 # Questions with a (provisional) answer
 
+
+* Should we put a `percent` argument into `brk_quantiles()` so it can store 
+  scaled endpoints as proportions rather than percentages (the current default)?
+  - My sense is, not unless someone asks.
+  
+* Should `close_end = TRUE` argument come before `...` in `chop_` variants?
+  - No. We don't want people to set it by position, so distinguish it from
+    the initial arguments.
+    
 * What to do about `tidyr::chop()`
   - Current answer: fuck 'em. (NB: just kidding. I am a huge tidyverse fan.) 
   - We provide `kiru()`. So on the REPL, people can just use `kiru()` if they

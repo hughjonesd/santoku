@@ -10,10 +10,9 @@ chop_mean_sd(x, sd = 3, ...)
 brk_mean_sd(sd = 3)
 }
 \arguments{
-\item{x}{Vector of data to chop.}
+\item{x}{A numeric vector.}
 
-\item{sd}{Whole number: include \code{sd} standard deviations on each side of
-the mean.}
+\item{sd}{Positive number: include up to \code{sd} standard deviations.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
 }
@@ -21,7 +20,8 @@ the mean.}
 For  \verb{chop_*} functions, a factor of the same length as \code{x}.
 }
 \description{
-Chop by standard deviations
+Intervals of width 1 standard deviation are included on either side of the mean.
+The outermost pair of intervals will be shorter if \code{sd} is not a whole number.
 }
 \examples{
 chop_mean_sd(1:10)
