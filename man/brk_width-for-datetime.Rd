@@ -2,19 +2,13 @@
 % Please edit documentation in R/breaks.R
 \name{brk_width-for-datetime}
 \alias{brk_width-for-datetime}
-\alias{brk_width.difftime}
-\alias{brk_width.Duration}
 \alias{brk_width.Period}
 \title{Equal-width intervals for dates or datetimes}
 \usage{
-\method{brk_width}{difftime}(width, start)
-
-\method{brk_width}{Duration}(width, start)
-
 \method{brk_width}{Period}(width, start)
 }
 \arguments{
-\item{width}{A \code{\link[=difftime]{difftime()}}, \link[lubridate:Period]{lubridate::Period} or \link[lubridate:Duration]{lubridate::Duration}
+\item{width}{A \code{\link[=difftime]{difftime()}}, \link[lubridate:period]{lubridate::period} or \link[lubridate:duration]{lubridate::duration}
 object}
 
 \item{start}{An object that can be converted by \code{\link[=as.POSIXct]{as.POSIXct()}}}
@@ -30,8 +24,9 @@ to calculate the widths. This can be useful for e.g. calendar months.
 \examples{
 
 if (requireNamespace("lubridate")) {
-  year2001 <- as.Date("2001-01-01") + days(0:364)
-  tab_width(year2001, months(1))
+  year2001 <- as.Date("2001-01-01") + 0:364
+  tab_width(year2001, months(1),
+        labels = lbl_discrete(" to ", fmt = "\%e \%b \%y"))
 }
 
 }

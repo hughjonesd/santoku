@@ -5,7 +5,7 @@ endpoint_labels <- function (breaks, raw, fmt, ...) {
 
 
 #' @export
-endpoint_labels.breaks <- function (breaks, raw, fmt = NULL, ...) {
+endpoint_labels.default <- function (breaks, raw, fmt = NULL, ...) {
   elabels <- scaled_endpoints(breaks, raw = raw)
 
   elabels <- if (! is.null(fmt)) {
@@ -15,6 +15,39 @@ endpoint_labels.breaks <- function (breaks, raw, fmt = NULL, ...) {
   }
 
   return(elabels)
+}
+
+
+#' @export
+endpoint_labels.Date <- function (breaks, raw, fmt = "%F") {
+  elabels <- scaled_endpoints(breaks, raw = raw)
+  # this could be a number. If so, a `fmt` for `sprintf`
+  # will work fine:
+  if (! inherits(elabels, "Date")) return(NextMethod())
+
+  elabels_chr <- format(elabels, fmt)
+  minus_inf <- is.infinite(elabels) & elabels < as.Date("1970-01-01")
+  plus_inf  <- is.infinite(elabels) & elabels > as.Date("1970-01-01")
+  elabels_chr[minus_inf] <- "-Inf"
+  elabels_chr[plus_inf]  <- "Inf"
+
+  elabels_chr
+}
+
+
+#' @export
+endpoint_labels.POSIXt <- function (breaks, raw, fmt = "%F %X") {
+  elabels <- scaled_endpoints(breaks, raw = raw)
+  # same comment as endpoint_labels.Date above:
+  if (! inherits(elabels, "POSIXt")) return(NextMethod())
+
+  elabels_chr <- format(elabels, fmt)
+  minus_inf <- is.infinite(elabels) & elabels < as.POSIXct("1970-01-01")
+  plus_inf  <- is.infinite(elabels) & elabels > as.POSIXct("1970-01-01")
+  elabels_chr[minus_inf] <- "-Inf"
+  elabels_chr[plus_inf]  <- "Inf"
+
+  elabels_chr
 }
 
 
@@ -48,9 +81,9 @@ scaled_endpoints <- function (breaks, raw) {
 #' @export
 scaled_endpoints.breaks <- function (breaks, raw) {
   if (raw) {
-    as.vector(breaks)
+    unclass_breaks(breaks)
   } else {
-    attr(breaks, "scaled_endpoints") %||% as.vector(breaks)
+    attr(breaks, "scaled_endpoints") %||% unclass_breaks(breaks)
   }
 }
 
@@ -83,5 +116,3 @@ unique_truncation <- function (num, ...) {
 
   return(res)
 }
-
-

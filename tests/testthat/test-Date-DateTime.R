@@ -10,7 +10,7 @@ dtb1 <- dt1[c(5, 15)]
 test_that("Basic chop", {
   expect_silent(chop(d1, db1))
   expect_silent(chop(dt1, dtb1))
-  lb <- lbl_intervals()
+  lb <- lbl_seq()
   expect_equivalent(chop(d1, db1, lb), chop(as.POSIXct(d1), db1, lb))
   expect_equivalent(chop(d1, db1, lb), chop(d1, as.POSIXct(db1), lb))
 })
@@ -54,8 +54,12 @@ test_that("chop_width: difftime", {
   expect_silent(chop_width(d1, width = difftime_w1))
   expect_silent(chop_width(dt1, width = difftime_w2))
 
-  expect_silent(chop_width(d1, width = difftime_w1, start = "1975-11-01"))
-  expect_silent(chop_width(dt1, width = difftime_w2, start = "2000-01-01 15:05"))
+  expect_silent(
+    chop_width(d1, width = difftime_w1, start = as.Date("1975-11-01"))
+  )
+  expect_silent(
+    chop_width(dt1, width = difftime_w2, start = as.POSIXct("2000-01-01 15:05"))
+  )
 })
 
 
@@ -81,4 +85,34 @@ test_that("chop_width: Period", {
   expect_silent(chop_width(dt1, width = period_w2))
 
   # TODO: include tests that Period deals with quirks
+})
+
+
+test_that("Date labels", {
+  li <- lbl_intervals()
+  b <- brk_res(brk_default(db1))
+  expect_equivalent(
+    li(b), "[1975-11-01, 1975-11-15)"
+  )
+
+  b2 <- brk_res(brk_default(db1), x = as.Date("1975-01-01"), extend = TRUE)
+  expect_equivalent(
+    li(b2), c("[-Inf, 1975-11-01)", "[1975-11-01, 1975-11-15)", "[1975-11-15, Inf]")
+  )
+
+  expect_equivalent(
+    lbl_intervals(fmt = "%y %m %d")(b),
+    "[75 11 01, 75 11 15)"
+  )
+
+  expect_equivalent(
+    lbl_dash(" to ")(b),
+    "1975-11-01 to 1975-11-15"
+  )
+
+  expect_equivalent(
+    lbl_dash(" to ", fmt = "%d/%m")(b),
+    "01/11 to 15/11"
+  )
+
 })

@@ -2,13 +2,10 @@
 % Please edit documentation in R/chop.R
 \name{chop}
 \alias{chop}
-\alias{chop.default}
 \alias{kiru}
 \title{Cut numeric data into intervals}
 \usage{
-chop(x, ...)
-
-\method{chop}{default}(
+chop(
   x,
   breaks,
   labels,
@@ -18,12 +15,18 @@ chop(x, ...)
   drop = TRUE
 )
 
-kiru(x, ...)
+kiru(
+  x,
+  breaks,
+  labels,
+  extend = NULL,
+  left = TRUE,
+  close_end = FALSE,
+  drop = TRUE
+)
 }
 \arguments{
 \item{x}{A numeric vector.}
-
-\item{...}{Passed to methods.}
 
 \item{breaks}{See below.}
 

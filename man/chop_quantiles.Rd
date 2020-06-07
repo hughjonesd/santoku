@@ -23,7 +23,7 @@ brk_equally(groups)
 
 \item{probs}{A vector of probabilities for the quantiles.}
 
-\item{...}{Passed to \code{\link[=chop]{chop()}}, or for \code{brk_quantiles} to \code{\link[=quantile]{quantile()}}.}
+\item{...}{Passed to \code{\link[=chop]{chop()}}, or for \code{brk_quantiles} to \code{\link[stats:quantile]{stats::quantile()}}.}
 
 \item{close_end}{Passed to \code{\link[=chop]{chop()}}.}
 
@@ -41,6 +41,9 @@ chops into deciles.
 Note that these functions set \code{close_end = TRUE} by default. This ensures
 that e.g. \verb{chop_quantiles(x, c(0, 1/3, 2/3, 1)} will split the data into
 three equal-sized groups.
+
+For non-numeric \code{x}, quantiles of type 1 will be calculated by default. See
+\code{\link[stats:quantile]{stats::quantile()}}.
 }
 \examples{
 chop_quantiles(1:10, 1:3/4)

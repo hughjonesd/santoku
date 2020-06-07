@@ -14,7 +14,12 @@ brk_quantiles <- function (probs, ...) {
   probs <- sort(probs)
 
   function (x, extend, left, close_end) {
-    qs <- stats::quantile(x, probs, na.rm = TRUE, ...)
+    dots <- list(...)
+    dots$x <- x
+    if (! is.numeric(x) && ! "type" %in% names(dots)) dots$type <- 1
+    dots$probs <- probs
+    dots$na.rm <- TRUE
+    qs <- do.call(stats::quantile, dots)
 
     if (anyNA(qs)) return(empty_breaks()) # data was all NA
 
@@ -88,9 +93,7 @@ brk_mean_sd <- function (sd = 3) {
 #' `brk_width` can be used with time interval classes from base R or the
 #' `lubridate` package.
 #'
-#' @name brk_width-for-datetime
-#'
-#' @param width A [difftime()], [lubridate::Period] or [lubridate::Duration]
+#' @param width A [difftime()], [lubridate::period] or [lubridate::duration]
 #'   object
 #' @param start An object that can be converted by [as.POSIXct()]
 #'
@@ -101,10 +104,12 @@ brk_mean_sd <- function (sd = 3) {
 #' @examples
 #'
 #' if (requireNamespace("lubridate")) {
-#'   year2001 <- as.Date("2001-01-01") + days(0:364)
-#'   tab_width(year2001, months(1))
+#'   year2001 <- as.Date("2001-01-01") + 0:364
+#'   tab_width(year2001, months(1),
+#'         labels = lbl_discrete(" to ", fmt = "%e %b %y"))
 #' }
 #'
+#' @name brk_width-for-datetime
 NULL
 
 #' @rdname chop_width
@@ -113,27 +118,27 @@ NULL
 brk_width <- function (width, start) UseMethod("brk_width")
 
 
-#' @rdname brk_width-for-datetime
-#' @export
-brk_width.difftime <- function (width, start) {
-  width <- as.numeric(width, units = "secs")
-  if (! missing(start)) start <- as.numeric(as.POSIXct(start))
-  NextMethod()
-}
-
-
-#' @rdname brk_width-for-datetime
-#' @export
-brk_width.Duration <- function (width, start) {
-  width <- as.numeric(width)
-  if (! missing(start)) start <- as.numeric(as.POSIXct(start))
-  NextMethod()
-}
-
+# #' @rdname brk_width-for-datetime
+# #' @export
+# brk_width.difftime <- function (width, start) {
+#   width <- as.numeric(width, units = "secs")
+#   if (! missing(start)) start <- as.numeric(as.POSIXct(start))
+#   NextMethod()
+# }
+#
+#
+# #' @rdname brk_width-for-datetime
+# #' @export
+# brk_width.Duration <- function (width, start) {
+#   width <- as.numeric(width)
+#   if (! missing(start)) start <- as.numeric(as.POSIXct(start))
+#   NextMethod()
+# }
 
 #' @rdname brk_width-for-datetime
 #' @export
 brk_width.Period <- function (width, start) {
+  loadNamespace("lubridate")
   sm <- missing(start)
   if (! sm) {
     assert_that(is.scalar(start))
@@ -141,7 +146,7 @@ brk_width.Period <- function (width, start) {
   }
 
   # TODO: why not use this same logic for Duration?
-  function (x, extend) {
+  function (x, extend, left, close_end) {
     # x will be numeric, converted via POSIXct.
     x <- as.POSIXct(x, origin = "1970-01-01 00:00.00 UTC")
     if (sm) start <- quiet_min(x[is.finite(x)])
@@ -153,22 +158,23 @@ brk_width.Period <- function (width, start) {
       if (as.numeric(max_x - start) %% as.numeric(width) != 0 ||
           max_x == start) {
         # extend to cover all data / ensure at least one interval
-        seq_end <- seq_end %m+% width
+        seq_end <- lubridate::add_with_rollback(seq_end, width)
       }
       # alternative to seq, using Period arithmetic
       # We find the number n of widths that gets beyond seq_end
       # and add (width * 0:n) to start
       # normally this would be ceiling((seq_end - start)/width)
       # we calculate it roughly using a Duration
-      n_intervals <- ceiling((seq_end - start)/as.duration(width))
-      breaks <- start %m+% (seq(0, n_intervals) * width)
-      if (max(breaks) < seq_end) breaks <- c(breaks, max(breaks) %m+% width)
+      n_intervals <- ceiling((seq_end - start)/lubridate::as.duration(width))
+      breaks <- lubridate::add_with_rollback(start, (seq(0, n_intervals) * width))
+      if (max(breaks) < seq_end) {
+        breaks <- c(breaks, lubridate::add_with_rollback(max(breaks), width))
+      }
     } else {
       return(empty_breaks())
     }
 
-    # these now get converted to seconds
-    breaks <- create_left_breaks(breaks)
+    breaks <- create_lr_breaks(breaks, left, close_end)
     breaks <- maybe_extend(breaks, x, extend)
 
     breaks
@@ -405,7 +411,7 @@ format.breaks <- function (x, ...) {
 
 #' @rdname breaks-class
 #' @export
-print.breaks <- function (x, ...) cat(format(x))
+print.breaks <- function (x, ...) cat(format(x, ...))
 
 
 #' @rdname breaks-class

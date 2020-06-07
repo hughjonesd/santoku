@@ -12,8 +12,8 @@ lbl_dash(symbol = " - ", raw = FALSE, fmt = NULL)
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
 or standard deviations?}
 
-\item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format. Default varies according to the
-type of breaks.}
+\item{fmt}{A format string, passed into \code{\link[base:sprintf]{base::sprintf()}}, or to \code{\link[=format]{format()}} methods
+for non-numeric breaks. Default varies according to the type of breaks.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
@@ -30,9 +30,8 @@ chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "\%.1f"))
 }
 \seealso{
 Other labelling functions: 
-\code{\link{lbl_date}()},
+\code{\link{lbl_discrete}()},
 \code{\link{lbl_format}()},
-\code{\link{lbl_integer}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_manual}()},
 \code{\link{lbl_seq}()}

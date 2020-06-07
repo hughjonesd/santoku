@@ -21,6 +21,7 @@ Suggests:
     covr,
     testthat (>= 2.1.0),
     knitr,
+    lubridate,
     microbenchmark,
     rmarkdown
 LinkingTo: 
@@ -28,7 +29,8 @@ LinkingTo:
 Imports: 
     Rcpp,
     assertthat,
-    lifecycle
+    lifecycle,
+    vctrs
 URL: https://github.com/hughjonesd/santoku, https://hughjonesd.github.io/santoku/
 BugReports: https://github.com/hughjonesd/santoku/issues
 VignetteBuilder: knitr

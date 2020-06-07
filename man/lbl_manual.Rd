@@ -9,8 +9,8 @@ lbl_manual(sequence, fmt = "\%s")
 \arguments{
 \item{sequence}{A character vector of labels.}
 
-\item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format. Default varies according to the
-type of breaks.}
+\item{fmt}{A format string, passed into \code{\link[base:sprintf]{base::sprintf()}}, or to \code{\link[=format]{format()}} methods
+for non-numeric breaks. Default varies according to the type of breaks.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
@@ -29,9 +29,8 @@ chop(1:10, 1:10, lbl_manual(c("x", "y", "z")))
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
-\code{\link{lbl_date}()},
+\code{\link{lbl_discrete}()},
 \code{\link{lbl_format}()},
-\code{\link{lbl_integer}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_seq}()}
 }

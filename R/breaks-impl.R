@@ -1,6 +1,4 @@
 
-# implementation for breaks class
-
 
 #' Create a breaks object
 #'
@@ -11,30 +9,15 @@
 #'
 #' @noRd
 #'
-create_breaks <- function (obj, left) UseMethod("create_breaks")
-
-
-# create_breaks.Date <- function (obj, left) {
-#   obj <- as.POSIXct(obj)
-#   create_breaks(obj, left)
-# }
-#
-#
-# create_breaks.POSIXct <- function (obj, left) {
-#   obj <- as.numeric(obj)
-#   create_breaks(obj, left)
-# }
-
-
-create_breaks.default <- function (obj, left) {
-  if (anyNA(obj)) stop("`x` contained NAs")
+create_breaks <- function (obj, left) {
+  if (anyNA(obj)) stop("breaks contained NAs")
   stopifnot(all(obj == sort(obj)))
   stopifnot(is.logical(left))
   stopifnot(length(left) == length(obj))
 
   singletons <- singletons(obj)
   if (any(singletons[-1] & singletons[-length(singletons)])) {
-    stop("`x` contained more than two consecutive equal values")
+    stop("breaks contained more than two consecutive equal values")
   }
 
   l_singletons <- c(singletons, FALSE)
@@ -98,6 +81,11 @@ needs_extend <- function (breaks, x, extend) {
 
   needs <- NEITHER
   left <- attr(breaks, "left")
+
+  res <- vctrs::vec_cast_common(x, unclass_breaks(breaks))
+  x <- res[[1]]
+  breaks <- res[[2]]
+
   min_x <- quiet_min(x)
   max_x <- quiet_max(x)
 
@@ -126,31 +114,99 @@ needs_extend <- function (breaks, x, extend) {
 }
 
 
+#' Possibly extend `breaks` to the left or right
+#'
+#' @param breaks,x,extend All passed in from `chop()` via a `brk_` inner
+#' function
+#'
+#' @return A `breaks` object.
+#' @noRd
 maybe_extend <- function (breaks, x, extend) {
   extend_flags <- needs_extend(breaks, x, extend)
 
-  # chooses either min(x) or -Inf
-  choose_endpoint <- function (x, alt, extend, fn) {
-    if (! is.null(extend)) return(alt)
-    ep <- fn(x)
-    if (is.finite(ep)) return(ep) else return(alt)
-  }
-
   if ((extend_flags & LEFT) > 0) {
-    left <- attr(breaks, "left")
-    leftmost_break <- choose_endpoint(x, -Inf, extend, fn = quiet_min)
-    breaks <- c(leftmost_break, breaks) # deletes attributes inc class
-    breaks <- create_breaks(breaks, c(TRUE, left))
+    breaks <- extend_endpoint_left(breaks, x, extend)
   }
-
   if ((extend_flags & RIGHT) > 0) {
-    # this needs to be repeated, because we may have added a break in the stanza
-    # above:
-    left <- attr(breaks, "left")
-    rightmost_break <- choose_endpoint(x, Inf, extend, fn = quiet_max)
-    breaks <- c(breaks, rightmost_break) # deletes attributes inc class
-    breaks <- create_breaks(breaks, c(left, FALSE))
+    breaks <- extend_endpoint_right(breaks, x, extend)
   }
 
   return(breaks)
+}
+
+
+extend_endpoint_left <- function (breaks, x, extend) {
+  left <- attr(breaks, "left")
+  q <- quiet_min(x)
+  # non-finite q could be Inf if set is empty. Not appropriate for a left endpoint!
+  extra_break <- if (is.null(extend) && is.finite(q)) q else class_bounds(x)[1]
+  breaks <- vctrs::vec_c(extra_break, unclass_breaks(breaks))
+  breaks <- create_breaks(breaks, c(TRUE, left))
+
+  breaks
+}
+
+
+extend_endpoint_right <- function (breaks, x, extend) {
+  left <- attr(breaks, "left")
+  q <- quiet_max(x)
+  extra_break <- if (is.null(extend) && is.finite(q)) q else class_bounds(x)[2]
+  breaks <- vctrs::vec_c(unclass_breaks(breaks), extra_break)
+  breaks <- create_breaks(breaks, c(left, FALSE))
+
+  breaks
+}
+
+
+#' Return the infimum and supremum of a class, or throw an error
+#'
+#' @param x Only used for its class
+#'
+#' @return A length-two object
+#' @noRd
+class_bounds <- function (x) {
+  UseMethod("class_bounds")
+}
+
+
+#' @export
+class_bounds.numeric <- function (x) c(-Inf, Inf)
+
+
+#' @export
+class_bounds.POSIXct <- function (x) {
+  as.POSIXct(c(-Inf, Inf), origin = "1970-01-01")
+}
+
+#' @export
+class_bounds.Date <- function (x) {
+  as.Date(c(-Inf, Inf), origin = "1970-01-01")
+}
+
+#' @export
+class_bounds.default <- function (x) {
+  stop("Class '", paste(class(x), sep = "', '"),
+        "' has no natural endpoints for `extend = TRUE`")
+}
+
+
+#' Removes the "breaks" class, and all subclasses, from a break object
+#'
+#' @param breaks A breaks object
+#'
+#' @return The object, with any remaining (super)classes
+#' @noRd
+unclass_breaks <- function (breaks) {
+  assert_that(is.breaks(breaks))
+
+  class_pos <- inherits(breaks, "breaks", which = TRUE)
+  superclasses <- class(breaks)[-seq_len(class_pos)]
+
+  class(breaks) <- if (length(superclasses) == 0 ) {
+                     NULL
+                   } else {
+                     superclasses
+                   }
+
+  breaks
 }

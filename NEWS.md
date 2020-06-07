@@ -34,10 +34,13 @@ and are designed to make using `chop()` more intuitive and predictable.
 
 ## Other changes
 
-* Date and datetime (`POSIXct`) objects can now be chopped. See `?chop.Date`.
-  Note that `chop()` is now an S3 generic.
+* Date and datetime (`POSIXct`) objects can now be chopped. 
+  - `chop_width()` accepts `difftime`, `lubridate::period` or `lubridate::duration`
+    objects
+  - all other `chop_` functions work as well.
 
-* Experimental: `lbl_integer()` for integer data.
+* Experimental: `lbl_discrete()` for discrete data such as integers or (most)
+  dates.
 
 * `brk_mean_sd()` now accepts non-integer positive numbers.
 

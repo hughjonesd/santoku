@@ -2,13 +2,13 @@
 % Please edit documentation in R/labels.R
 \name{lbl_format}
 \alias{lbl_format}
-\title{Labels with arbitrary formatting}
+\title{Label numbers with arbitrary formatting}
 \usage{
 lbl_format(fmt, fmt1 = "\%.3g", raw = FALSE)
 }
 \arguments{
-\item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format. Default varies according to the
-type of breaks.}
+\item{fmt}{A format string, passed into \code{\link[base:sprintf]{base::sprintf()}}, or to \code{\link[=format]{format()}} methods
+for non-numeric breaks. Default varies according to the type of breaks.}
 
 \item{fmt1}{Format for breaks consisting of a single value.}
 
@@ -21,16 +21,24 @@ A vector of labels for \code{chop}, or a function that creates labels.
 \description{
 These labels use \code{\link[base:sprintf]{base::sprintf()}} to format numeric breaks.
 }
+\details{
+Note that you cannot use \code{lbl_format()} with non-numeric breaks. Use
+\code{\link[=lbl_dash]{lbl_dash()}} instead.
+}
 \examples{
-tab(1:10, c(1,3, 3, 7), label = lbl_format("\%.3g to \%.3g"))
-tab(1:10, c(1,3, 3, 7), label = lbl_format("\%.3g to \%.3g", "Exactly \%.3g"))
-tab(rnorm(10), seq(-2, 2, .5), label = lbl_format("\%.2f to \%.2f"))
+
+tab(1:10, c(1,3, 3, 7),
+      label = lbl_format("\%.3g to \%.3g"))
+tab(1:10, c(1,3, 3, 7),
+      label = lbl_format("\%.3g to \%.3g", "Exactly \%.3g"))
+tab(rnorm(10), seq(-2, 2, .5),
+      label = lbl_format("\%.2f to \%.2f"))
+
 }
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
-\code{\link{lbl_date}()},
-\code{\link{lbl_integer}()},
+\code{\link{lbl_discrete}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_manual}()},
 \code{\link{lbl_seq}()}

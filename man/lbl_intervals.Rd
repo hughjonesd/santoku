@@ -10,8 +10,8 @@ lbl_intervals(raw = FALSE, fmt = NULL)
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
 or standard deviations?}
 
-\item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format. Default varies according to the
-type of breaks.}
+\item{fmt}{A format string, passed into \code{\link[base:sprintf]{base::sprintf()}}, or to \code{\link[=format]{format()}} methods
+for non-numeric breaks. Default varies according to the type of breaks.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
@@ -35,9 +35,8 @@ tab(-10:10, c(-3, 0, 0, 3), labels = lbl_intervals())
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
-\code{\link{lbl_date}()},
+\code{\link{lbl_discrete}()},
 \code{\link{lbl_format}()},
-\code{\link{lbl_integer}()},
 \code{\link{lbl_manual}()},
 \code{\link{lbl_seq}()}
 }

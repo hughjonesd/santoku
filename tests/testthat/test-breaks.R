@@ -132,9 +132,3 @@ test_that("printing", {
   expect_output(print(b_empty))
 })
 
-
-test_that("systematic tests", {
-  # input of normal; unsorted; with NA; with +-Inf; only 1 break;
-  # non-numeric; length 0
-
-})

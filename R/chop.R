@@ -22,7 +22,6 @@ NULL
 #' @param close_end Logical. Close last break at right? (If `left` is `FALSE`,
 #'   close first break at left?)
 #' @param drop Logical. Drop unused levels from the result?
-#' @param ... Passed to methods.
 #'
 #' @details
 #' `breaks` may be a numeric vector or a function.
@@ -113,19 +112,13 @@ NULL
 #' # floating point inaccuracy:
 #' chop(0.3/3, c(0, 0.1, 0.1, 1))
 #'
-chop <- function (x, ...) UseMethod("chop")
-
-
-#' @export
-#' @rdname chop
-chop.default <- function (x, breaks, labels,
+chop <- function (x, breaks, labels,
         extend    = NULL,
         left      = TRUE,
         close_end = FALSE,
         drop      = TRUE
       ) {
   assert_that(
-          is.numeric(x),
           is.flag(left),
           is.flag(close_end),
           is.flag(drop)
@@ -143,37 +136,12 @@ chop.default <- function (x, breaks, labels,
         paste(labels, collapse = ", "))
 
   codes <- categorize(x, breaks)
+
   result <- factor(codes, levels = seq.int(length(breaks) - 1L),
         labels = labels)
   if (drop) result <- droplevels(result)
 
   return(result)
-}
-
-
-#' Chop Date objects
-#'
-#' These functions chop Date and POSIXct objects. The default labels are given by
-#'  [lbl_date()]. `breaks` may be specified as [Date] or [POSIXt] objects, or
-#'  using any `brk_...` function.
-#'
-#' @inherit chop-doc params
-#' @inherit chop params return
-#'
-#' @export
-#'
-#' @examples
-chop.Date <- function (x, breaks, labels = lbl_date(), ...) {
-  x <- as.POSIXct(x)
-  chop(x, breaks, labels, ...)
-}
-
-
-#' @rdname chop.Date
-#' @export
-chop.POSIXt <- function (x, breaks, labels = lbl_date("%F %T"), ...) {
- x <- as.numeric(x)
- chop(x, breaks, labels, ...)
 }
 
 
@@ -214,13 +182,16 @@ fillet <- function (x, breaks, labels, left = TRUE, close_end = FALSE) {
 #'
 #'
 #' @param probs A vector of probabilities for the quantiles.
-#' @param ... Passed to [chop()], or for `brk_quantiles` to [quantile()].
+#' @param ... Passed to [chop()], or for `brk_quantiles` to [stats::quantile()].
 #' @inherit chop-doc params return
 #'
 #' @details
 #' Note that these functions set `close_end = TRUE` by default. This ensures
 #' that e.g. `chop_quantiles(x, c(0, 1/3, 2/3, 1)` will split the data into
 #' three equal-sized groups.
+#'
+#' For non-numeric `x`, quantiles of type 1 will be calculated by default. See
+#' [stats::quantile()].
 #'
 #' @family chopping functions
 #'

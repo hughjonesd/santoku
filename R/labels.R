@@ -1,7 +1,7 @@
 
 #' @name label-doc
-#' @param fmt A [sprintf()]-style format. Default varies according to the
-#'   type of breaks.
+#' @param fmt A format string, passed into [base::sprintf()], or to [format()] methods
+#'   for non-numeric breaks. Default varies according to the type of breaks.
 #' @param raw Logical. Always use raw `breaks` in labels, rather than e.g. quantiles
 #'   or standard deviations?
 #' @param symbol String: symbol to use for the dash.
@@ -69,21 +69,30 @@ lbl_intervals <- function (raw = FALSE, fmt = NULL) {
 }
 
 
-#' Labels with arbitrary formatting
+#' Label numbers with arbitrary formatting
 #'
 #' These labels use [base::sprintf()] to format numeric breaks.
 #'
 #' @param fmt1 Format for breaks consisting of a single value.
 #' @inherit label-doc params return
 #'
+#' @details
+#' Note that you cannot use `lbl_format()` with non-numeric breaks. Use
+#' [lbl_dash()] instead.
+#'
 #' @family labelling functions
 #'
 #' @export
 #'
 #' @examples
-#' tab(1:10, c(1,3, 3, 7), label = lbl_format("%.3g to %.3g"))
-#' tab(1:10, c(1,3, 3, 7), label = lbl_format("%.3g to %.3g", "Exactly %.3g"))
-#' tab(rnorm(10), seq(-2, 2, .5), label = lbl_format("%.2f to %.2f"))
+#'
+#' tab(1:10, c(1,3, 3, 7),
+#'       label = lbl_format("%.3g to %.3g"))
+#' tab(1:10, c(1,3, 3, 7),
+#'       label = lbl_format("%.3g to %.3g", "Exactly %.3g"))
+#' tab(rnorm(10), seq(-2, 2, .5),
+#'       label = lbl_format("%.2f to %.2f"))
+#'
 lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
   assert_that(is.string(fmt), is.string(fmt1), is.flag(raw))
 
@@ -148,11 +157,12 @@ lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL) {
 }
 
 
-#' Labels for integer data
+#' Labels for discrete data
 #'
 #' \lifecycle{experimental}
 #'
-#' `lbl_integer` creates labels for integer data. For example, breaks
+#' `lbl_discrete` creates labels for discrete data such as integers.
+#' For example, breaks
 #' `c(1, 3, 4, 6, 7)` are labelled: `"1 - 2", "3", "4 - 5", "6 - 7"`.
 #'
 #' @inherit label-doc
@@ -161,80 +171,59 @@ lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL) {
 #' No check is done that the data is integer-valued. If it isn't, then
 #' these labels may be misleading.
 #'
+#' Be aware that Date objects may have non-integer values. See [Date].
+#'
 #' @family labelling functions
 #'
 #' @export
 #'
 #' @examples
-#' tab(1:7, c(1, 3, 5), lbl_integer())
+#' tab(1:7, c(1, 3, 5), lbl_discrete())
 #'
 #' # Misleading labels for non=integer data
-#' chop(2.5, c(1, 3, 5), lbl_integer())
-lbl_integer <- function (symbol = " - ", fmt = NULL) {
+#' chop(2.5, c(1, 3, 5), lbl_discrete())
+lbl_discrete <- function (symbol = " - ", fmt = NULL) {
   assert_that(is.string(symbol))
 
   function (breaks) {
-    assert_that(all(ceiling(breaks) == floor(breaks)),
+    assert_that(all(ceiling(as.numeric(breaks)) == floor(as.numeric(breaks))),
           msg = "Non-integer breaks")
 
     len_b <- length(breaks)
     singletons <- singletons(breaks)
     left <- attr(breaks, "left")
+    breaks <- unclass_breaks(breaks)
 
     l <- breaks[-len_b]
     r <- breaks[-1]
     left_l <- left[-len_b]
     left_r <- left[-1]
+
+    # if you're right-closed we add 1 to your left endpoint:
     l[! left_l] <- l[! left_l] + 1
+    # if you're left-closed we deduct 1 from your right endpoint:
     r[left_r] <- r[left_r] - 1
+    # sometimes this makes the two endpoints the same:
     singletons <- singletons | r == l
+
     no_integers <- r < l
     if (any(no_integers)) {
       warning("Intervals containing no integers are labelled as \"--\"")
     }
 
     if (! is.null(fmt)) {
-      l <- sprintf(fmt, l)
-      r <- sprintf(fmt, r)
+      if (is.numeric(breaks)) {
+        l <- sprintf(fmt, l)
+        r <- sprintf(fmt, r)
+      } else {
+        l <- format(l, format = fmt)
+        r <- format(r, format = fmt)
+      }
     }
 
     labels <- paste0(l, symbol, r)
     labels[singletons] <- l[singletons]
     labels[no_integers] <- "--"
-
-    return(labels)
-  }
-}
-
-
-#' Labels for date or date-time objects
-#'
-#' @param fmt Format, to be passed to [format.POSIXct()].
-#' @param symbol String to place between dates.
-#'
-#' @inherit label-doc return
-#'
-#' @family labelling functions
-#'
-#' @export
-#'
-#' @examples
-lbl_date <- function (fmt = "%Y-%m-%d", symbol = " to ") {
-  assert_that(is.string(fmt), is.string(symbol))
-
-  function (breaks) {
-    breaks <- as.POSIXct(unclass(breaks), origin = "1970-01-01")
-    break_labels <- format(breaks, format = fmt)
-
-    # TODO: remove duplication with lbl_dash
-    len_b <- length(breaks)
-    singletons <- singletons(breaks)
-
-    l <- break_labels[-len_b]
-    r <- break_labels[-1]
-
-    labels <- paste0(l, symbol, r)
-    labels[singletons] <- l[singletons]
 
     return(labels)
   }
