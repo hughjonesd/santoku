@@ -126,7 +126,6 @@ chop.default <- function (x, breaks, labels,
       ) {
   assert_that(
           is.numeric(x),
-          is.function(breaks) || is.numeric(breaks),
           is.flag(left),
           is.flag(close_end),
           is.flag(drop)

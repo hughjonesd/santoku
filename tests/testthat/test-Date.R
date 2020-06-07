@@ -17,9 +17,9 @@ test_that("Basic chop", {
 
 
 test_that("Basic breaks", {
-  expect_silent(brk_left(db1)(d1, FALSE))
-  expect_silent(brk_left(db1)(d1, NULL))
-  expect_silent(brk_left(db1)(d1, TRUE))
+  expect_silent(brk_res(brk_default(db1), d1, extend = FALSE))
+  expect_silent(brk_res(brk_default(db1), d1, extend = NULL))
+  expect_silent(brk_res(brk_default(db1), d1, extend = TRUE))
 })
 
 

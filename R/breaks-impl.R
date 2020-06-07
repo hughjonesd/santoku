@@ -42,12 +42,10 @@ create_breaks.default <- function (obj, left) {
   stopifnot(all(left[l_singletons]))
   stopifnot(all(! left[r_singletons]))
 
-  break_labels <- attr(obj, "break_labels") %||% create_break_labels(obj)
-
   break_classes <- class(obj)
   if (! inherits(obj, "breaks")) break_classes <- c("breaks", break_classes)
 
-  structure(obj, left = left, break_labels = break_labels, class = break_classes)
+  structure(obj, left = left, class = break_classes)
 }
 
 
