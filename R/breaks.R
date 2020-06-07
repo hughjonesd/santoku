@@ -21,28 +21,11 @@ brk_quantiles <- function (probs, ...) {
     qs <- qs[non_dupes]
     probs <- probs[non_dupes]
 
-    # order matters in the stanza below:
     breaks <- create_lr_breaks(qs, left, close_end)
-    left_vec <- attr(breaks, "left")
-    needs <- needs_extend(breaks, x)
-    if (extend %||% (needs & LEFT) > 0) {
-      if (
-              length(qs) == 0 ||
-              qs[1] > -Inf ||
-              (qs[1] == -Inf && ! left_vec[1]))
-            {
-        probs <- c(0, probs)
-      }
-    }
-    if (extend %||% (needs & RIGHT) > 0) {
-      if (
-              length(qs) == 0 ||
-              qs[length(qs)] < Inf ||
-              (qs[length(qs)] == Inf && left_vec[length(left_vec)])
-            ) {
-        probs <- c(probs, 1)
-      }
-    }
+
+    needs <- needs_extend(breaks, x, extend)
+    if ((needs & LEFT) > 0)  probs <- c(0, probs)
+    if ((needs & RIGHT) > 0) probs <- c(probs, 1)
     breaks <- maybe_extend(breaks, x, extend)
 
     class(breaks) <- c("quantileBreaks", class(breaks))
@@ -86,15 +69,11 @@ brk_mean_sd <- function (sd = 3) {
 
     breaks <- sds * x_sd + x_m
     breaks <- create_lr_breaks(breaks, left, close_end)
-    needs <- needs_extend(breaks, x)
-    breaks <- maybe_extend(breaks, x, extend)
 
-    if (extend %||% (needs & LEFT) > 0) {
-      sds <- c(-Inf, sds)
-    }
-    if (extend %||% (needs & RIGHT) > 0) {
-      sds <- c(sds, Inf)
-    }
+    needs <- needs_extend(breaks, x, extend)
+    if ((needs & LEFT) > 0) sds <- c(-Inf, sds)
+    if ((needs & RIGHT) > 0) sds <- c(sds, Inf)
+    breaks <- maybe_extend(breaks, x, extend)
 
     class(breaks) <- c("sdBreaks", class(breaks))
     attr(breaks, "scaled_endpoints") <- sds

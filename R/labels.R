@@ -95,10 +95,10 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
     singletons <- singletons(breaks)
 
     # no formatting: `lbl_format()` takes that over for itself.
-    break_labels <- scaled_endpoints(breaks, raw = raw)
+    elabels <- scaled_endpoints(breaks, raw = raw)
 
-    l <- break_labels[-len_b]
-    r <- break_labels[-1]
+    l <- elabels[-len_b]
+    r <- elabels[-1]
 
     labels <- sprintf(fmt, l, r)
     labels[singletons] <- sprintf(fmt1, l[singletons])

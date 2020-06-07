@@ -28,10 +28,7 @@ create_breaks <- function (obj, left) {
   stopifnot(all(left[l_singletons]))
   stopifnot(all(! left[r_singletons]))
 
-  break_labels <- attr(obj, "break_labels") %||%
-        unique_truncation(as.numeric(obj))
-
-  structure(obj, left = left, break_labels = break_labels, class = "breaks")
+  structure(obj, left = left, class = "breaks")
 }
 
 
@@ -61,18 +58,51 @@ RIGHT   <- as.raw(2)
 BOTH <- LEFT | RIGHT
 
 
-needs_extend <- function (breaks, x) {
+#' Reports if `breaks` will/should be extended.
+#'
+#' @param breaks A breaks object
+#' @param x Data
+#' @param extend Flag passed into `chop`
+#'
+#' @return Returns LEFT or RIGHT or BOTH only if `breaks` *will*/*must* be
+#' extended i.e. gain an extra break, on the respective sides.
+#'
+#' @details
+#' If `extend` is `FALSE`, always returns `NEITHER`. If `breaks` is length
+#' one, always returns `BOTH`.
+#'
+#' To test whether `breaks` will be extended on either side, use
+#' `(needs & LEFT) > 0` or `(needs & right) > 0`.
+#'
+#' @noRd
+needs_extend <- function (breaks, x, extend) {
+  if (! is.null(extend) && ! extend) return(NEITHER)
   if (length(breaks) < 2L) return(BOTH)
-  needs <- NEITHER
 
+  needs <- NEITHER
   left <- attr(breaks, "left")
   min_x <- quiet_min(x)
   max_x <- quiet_max(x)
-  if (min_x < min(breaks) || (! left[1] && min_x == min(breaks))) {
-    needs <- needs | LEFT
+
+  if (
+          isTRUE(extend)      ||
+          min_x < min(breaks) ||
+          (! left[1] && min_x == min(breaks))
+        ) {
+    # "... and if ..."
+    if (breaks[1] > -Inf || ! left[1]) {
+      needs <- needs | LEFT
+    }
   }
-  if (max_x > max(breaks) || (left[length(left)] && max_x == max(breaks))) {
-    needs <- needs | RIGHT
+
+  if (
+          isTRUE(extend)      ||
+          max_x > max(breaks) ||
+          (left[length(left)] && max_x == max(breaks))
+        ) {
+    if (breaks[length(breaks)] < Inf || left[length(left)]) {
+      needs <- needs | RIGHT
+    }
   }
 
   return(needs)
@@ -80,9 +110,7 @@ needs_extend <- function (breaks, x) {
 
 
 maybe_extend <- function (breaks, x, extend) {
-  extend_flags <- if (is.null(extend)) {
-    needs_extend(breaks, x)
-  } else if (extend) BOTH else NEITHER
+  extend_flags <- needs_extend(breaks, x, extend)
 
   # chooses either min(x) or -Inf
   choose_endpoint <- function (x, alt, extend, fn) {
@@ -93,24 +121,18 @@ maybe_extend <- function (breaks, x, extend) {
 
   if ((extend_flags & LEFT) > 0) {
     left <- attr(breaks, "left")
-    # we add a break if the first break is above -Inf *or* if it is (-Inf. ...
-    if (length(breaks) == 0 || breaks[1] > -Inf || ! left[1]) {
-      leftmost_break <- choose_endpoint(x, -Inf, extend, fn = quiet_min)
-      breaks <- c(leftmost_break, breaks) # deletes attributes inc class
-      breaks <- create_breaks(breaks, c(TRUE, left))
-    }
+    leftmost_break <- choose_endpoint(x, -Inf, extend, fn = quiet_min)
+    breaks <- c(leftmost_break, breaks) # deletes attributes inc class
+    breaks <- create_breaks(breaks, c(TRUE, left))
   }
 
   if ((extend_flags & RIGHT) > 0) {
     # this needs to be repeated, because we may have added a break in the stanza
     # above:
     left <- attr(breaks, "left")
-    # add a break if the last break is finite, or if it is ..., +Inf)
-    if (breaks[length(breaks)] < Inf || left[length(left)]) {
-      rightmost_break <- choose_endpoint(x, Inf, extend, fn = quiet_max)
-      breaks <- c(breaks, rightmost_break) # deletes attributes inc class
-      breaks <- create_breaks(breaks, c(left, FALSE))
-    }
+    rightmost_break <- choose_endpoint(x, Inf, extend, fn = quiet_max)
+    breaks <- c(breaks, rightmost_break) # deletes attributes inc class
+    breaks <- create_breaks(breaks, c(left, FALSE))
   }
 
   return(breaks)
