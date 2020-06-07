@@ -65,7 +65,14 @@
 
 # Questions
 
-  
+* Is it really OK to have `left = FALSE` as the default in `chop_quantiles()`,
+  `chop_evenly()` and friends? 
+  - the alternative is to do it only when `x` is non-numeric.
+  - that makes the surprise rarer, but rare surprises can be worse... and
+    it adds complexity since the functions have to be generic.
+  - another alternative: `chop` sets `left = FALSE` for non-numeric `x`. Probably
+    better.
+
 * Do we need `drop`?
   - should `drop` have a default of `! isTRUE(extend)` i.e. be `FALSE` when
     `extend = TRUE`?
@@ -84,6 +91,7 @@
 * Should we put a `percent` argument into `brk_quantiles()` so it can store 
   scaled endpoints as proportions rather than percentages (the current default)?
   - My sense is, not unless someone asks.
+  - Oh, someone just did ask; more generally though.
   
 * Should `close_end = TRUE` argument come before `...` in `chop_` variants?
   - No. We don't want people to set it by position, so distinguish it from

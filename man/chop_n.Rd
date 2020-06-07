@@ -27,11 +27,17 @@ interval may have fewer elements.
 }
 \details{
 Note that \code{chop_n()} sets \code{close_end = TRUE} by default.
+
+Groups may be larger than \code{n}, if there are too many duplicated elements in \code{x}.
 }
 \examples{
 table(chop_n(1:10, 5))
 
 table(chop_n(1:10, 4))
+
+# too many duplicates
+x <- rep(1:2, each = 3)
+chop_n(x, 2)
 
 }
 \seealso{

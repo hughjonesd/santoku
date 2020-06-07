@@ -319,6 +319,8 @@ chop_evenly <- function (x, intervals, ..., groups, close_end = TRUE) {
 #' @details
 #' Note that `chop_n()` sets `close_end = TRUE` by default.
 #'
+#' Groups may be larger than `n`, if there are too many duplicated elements in `x`.
+#'
 #' @export
 #' @order 1
 #'
@@ -328,6 +330,10 @@ chop_evenly <- function (x, intervals, ..., groups, close_end = TRUE) {
 #' table(chop_n(1:10, 5))
 #'
 #' table(chop_n(1:10, 4))
+#'
+#' # too many duplicates
+#' x <- rep(1:2, each = 3)
+#' chop_n(x, 2)
 #'
 chop_n <- function (x, n, ..., close_end = TRUE) {
   chop(x, brk_n(n), ..., close_end = close_end)
