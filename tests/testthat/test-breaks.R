@@ -58,6 +58,11 @@ test_that("brk_n", {
 })
 
 
+test_that("bugfix: brk_n shouldn't error with too many non-unique values", {
+  expect_error(brk_res(brk_n(2), c(1, 1, 1, 1, 5, 5, 5, 5)), regexp = NA)
+})
+
+
 test_that("brk_width", {
   b <- brk_res(brk_width(1), 0.5:1.5)
   expect_equal(diff(as.vector(b)), 1)

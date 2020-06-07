@@ -243,6 +243,10 @@ brk_n <- function (n) {
     if (length(xs) < 1L) return(empty_breaks())
 
     breaks <-  xs[c(seq(1L, length(xs), n), length(xs))]
+    s1tons <- singletons(breaks)
+    # gets rid of the first of every "triplet", including overlapping triplets:
+    illegal <- which(s1tons[-1] & s1tons[-length(s1tons)])
+    if (length(illegal) > 0) breaks <- breaks[-illegal]
     breaks <- create_lr_breaks(breaks, left, close_end)
     breaks <- maybe_extend(breaks, x, extend)
 
