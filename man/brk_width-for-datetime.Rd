@@ -2,9 +2,12 @@
 % Please edit documentation in R/breaks.R
 \name{brk_width-for-datetime}
 \alias{brk_width-for-datetime}
+\alias{brk_width.Duration}
 \alias{brk_width.Period}
 \title{Equal-width intervals for dates or datetimes}
 \usage{
+\method{brk_width}{Duration}(width, start)
+
 \method{brk_width}{Period}(width, start)
 }
 \arguments{

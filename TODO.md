@@ -2,38 +2,12 @@
 
 # TODO
 
-* chop.Date issues:
-  - What do we do about time zones? :-D
-    - See https://vctrs.r-lib.org/articles/stability.html, esp the section
-      on Dates and DateTimes. Note that the `c()` problem could easily bite
-      you. Luckily `vec_cast_common()` deals with this, casting to a common
-      timezone.
+## Pre 0.4.0
 
-* chop.Date/POSIXct implementation
-  - breaks keep their original type/class as a superclass of `"breaks"` (and
-    any other subclasses)
-  - `x` stays in its original type as long as possible
-  - before `categorize` is called, both `x` and `breaks` will be
-    converted to their common type, and thence to numeric.
-  - maybe we pass the `left` vector separately into the C++ function, rather
-    than binding it tightly to our class implementation.
-  - `brk_` functions use `x` as follows:
-    - in `maybe_extend` which needs to deal with eg Dates anyway
-    - `brk_n` sorts and counts the `x`, which should always be fine.
-
-TODO:
-  - labels should work with `Date` or similar breaks - this should just
-    be a matter of `endpoint_label` methods. `scaled_endpoints` will
-    work as-is.
-  - most `brk_` functions will work with Date breaks
-    - currently, `brk_width` handles difftimes and similar classes
-    - currently, `brk_evenly` passes a `difftime` object into `brk_width`.
-      - non-obvious whether `start` should then become a `Date` or a 
-        `POSIXct` object. Can we guess from the `units()` of difftime?
-  - We can work internally with anchored "Intervals". Doing this beats just
-    relying on e.g. `chop(months(x))` because we can start monthly intervals
-    on e.g. the 15th.
-  
+* Date/Time tests:
+  - `start` in `brk_width()` for e.g. Durations et al.
+  - timezones
+  - `period()` correctness
 
 * Work on tests
   - tests for `left` and `close_end` arguments
@@ -44,17 +18,37 @@ TODO:
     guarantee exactly `intervals` intervals
   - systematic tests for `brk_*` functions
   
+* Try to integrate more of `brk_width.Period`, and call out to a generic
+  only when necessary.
+  - needs a good look anyway
+  
+* chop.Date issues:
+  - What do we do about time zones? :-D
+    - See https://vctrs.r-lib.org/articles/stability.html, esp the section
+      on Dates and DateTimes. Note that the `c()` problem could easily bite
+      you. Luckily `vec_cast_common()` deals with this, casting to a common
+      timezone.
+  - Work internally with anchored "Intervals"? Doing this beats just
+    relying on e.g. `chop(months(x))` because we can e.g. start monthly 
+    intervals on the 15th.
+  - Roll your own `seq` wrapper, which can dispatch on `period()`, `duration()`
+    or `difftime()`? Then you'd probably be able to get rid of the `brk_width()`
+    genericity.
+
 * maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for the same reason
   - `tab_quantiles` needs raw labels by default, to be useful
 
-* cut e.g. Dates, posixct, DateT
-  - what else? ts, xts, zoo, lubridate classes
-  - probably call it something like `chop_dates` rather than trying to
-    do OO
+* implement an endpoint-formatter argument for `lbl_xxx` and friends? See #16 and
+  https://stackoverflow.com/q/14456371/946850
+
+## Post 0.4.0
+
+* Other things to cut
+  - ts, xts, zoo, packageVersion...
   - `brk_days()`, `brk_weeks()` etc.? Equivalent to all lubridate's `days()` etc.
     classes? 
-  - the basic `chop` function, with appropriate breaks, might already 
-  "almost work" b/c it just uses arithmetic comparisons
+
+* Allow `brk_width()` to run backwards? See github feature request.
 
 
 # Thoughts on errors
