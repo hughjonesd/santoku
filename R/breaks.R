@@ -94,8 +94,8 @@ brk_mean_sd <- function (sd = 3) {
 #' `lubridate` package.
 #'
 #' @param width A [difftime()], [lubridate::period] or [lubridate::duration]
-#'   object
-#' @param start An object that can be converted by [as.POSIXct()]
+#'   object.
+#' @param start An object of class [Date] or [POSIXct].
 #'
 #' @details
 #' If `width` is a Period object, [lubridate::add_with_rollback()] is used
@@ -118,16 +118,6 @@ NULL
 brk_width <- function (width, start) UseMethod("brk_width")
 
 
-# #' @rdname brk_width-for-datetime
-# #' @export
-# brk_width.difftime <- function (width, start) {
-#   width <- as.numeric(width, units = "secs")
-#   if (! missing(start)) start <- as.numeric(as.POSIXct(start))
-#   NextMethod()
-# }
-#
-#
-#
 #' @rdname brk_width-for-datetime
 #' @export
 brk_width.Duration <- function (width, start) {
@@ -136,50 +126,6 @@ brk_width.Duration <- function (width, start) {
   NextMethod()
 }
 
-#' @rdname brk_width-for-datetime
-#' @export
-brk_width.Period <- function (width, start) {
-  loadNamespace("lubridate")
-  sm <- missing(start)
-  if (! sm) {
-    assert_that(is.scalar(start))
-    # start <- as.POSIXct(start)
-  }
-
-  # TODO: why not use this same logic for Duration?
-  function (x, extend, left, close_end) {
-    # x <- as.POSIXct(x, origin = "1970-01-01 00:00.00 UTC")
-    if (sm) start <- quiet_min(x[is.finite(x)])
-    # finite if x has any non-NA finite elements:
-    max_x <- quiet_max(x[is.finite(x)])
-
-    if (is.finite(start) && is.finite(max_x)) {
-      seq_end <- max_x
-      if (as.numeric(max_x - start) %% as.numeric(width) != 0 ||
-          max_x == start) {
-        # extend to cover all data / ensure at least one interval
-        seq_end <- lubridate::add_with_rollback(seq_end, width)
-      }
-      # alternative to seq, using Period arithmetic
-      # We find the number n of widths that gets beyond seq_end
-      # and add (width * 0:n) to start
-      # normally this would be ceiling((seq_end - start)/width)
-      # we calculate it roughly using a Duration
-      n_intervals <- ceiling((seq_end - start)/lubridate::as.duration(width))
-      breaks <- lubridate::add_with_rollback(start, (seq(0, n_intervals) * width))
-      if (max(breaks) < seq_end) {
-        breaks <- c(breaks, lubridate::add_with_rollback(max(breaks), width))
-      }
-    } else {
-      return(empty_breaks())
-    }
-
-    breaks <- create_lr_breaks(breaks, left, close_end)
-    breaks <- maybe_extend(breaks, x, extend)
-
-    breaks
-  }
-}
 
 #' @rdname chop_width
 #' @export
@@ -195,11 +141,7 @@ brk_width.default <- function (width, start) {
     # finite if x has any non-NA finite elements:
     max_x <- quiet_max(x[is.finite(x)])
     if (is.finite(start) && is.finite(max_x)) {
-      breaks <- seq(start, max_x, width)
-      # length(breaks) == 1L captures when start == max_x
-      if (breaks[length(breaks)] < max_x || length(breaks) == 1L) {
-        breaks <- c(breaks, breaks[length(breaks)] + width)
-      }
+      breaks <- sequence_width(width, start, max_x)
     } else {
       return(empty_breaks())
     }
@@ -209,6 +151,55 @@ brk_width.default <- function (width, start) {
 
     breaks
   }
+}
+
+
+#' Return a sequence of width `width`
+#'
+#' @param width An object representing a width
+#' @param start Element to start from
+#' @param until Result must be just long enough to cover this element
+#'
+#' @return A sequence of breaks
+#' @noRd
+sequence_width <- function(width, start, until) {
+  UseMethod("sequence_width")
+}
+
+
+#' @export
+sequence_width.default <- function (width, start, until) {
+  breaks <- seq(start, until, width)
+  # length(breaks) == 1L captures when start == max_x
+  if (breaks[length(breaks)] < until || length(breaks) == 1L) {
+    breaks <- c(breaks, breaks[length(breaks)] + width)
+  }
+
+  breaks
+}
+
+
+#' @export
+sequence_width.Period <- function(width, start, until) {
+  loadNamespace("lubridate")
+  seq_end <- until
+  if (as.numeric(until - start) %% as.numeric(width) != 0 ||
+      until == start) {
+    # extend to cover all data / ensure at least one interval
+    seq_end <- lubridate::add_with_rollback(seq_end, width)
+  }
+  # alternative to seq, using Period arithmetic
+  # We find the number n of widths that gets beyond seq_end
+  # and add (width * 0:n) to start
+  # normally this would be ceiling((seq_end - start)/width)
+  # we calculate it roughly using a Duration
+  n_intervals <- ceiling((seq_end - start)/lubridate::as.duration(width))
+  breaks <- lubridate::add_with_rollback(start, (seq(0, n_intervals) * width))
+  if (max(breaks) < seq_end) {
+    breaks <- c(breaks, lubridate::add_with_rollback(max(breaks), width))
+  }
+
+  breaks
 }
 
 

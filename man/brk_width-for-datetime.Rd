@@ -3,18 +3,15 @@
 \name{brk_width-for-datetime}
 \alias{brk_width-for-datetime}
 \alias{brk_width.Duration}
-\alias{brk_width.Period}
 \title{Equal-width intervals for dates or datetimes}
 \usage{
 \method{brk_width}{Duration}(width, start)
-
-\method{brk_width}{Period}(width, start)
 }
 \arguments{
 \item{width}{A \code{\link[=difftime]{difftime()}}, \link[lubridate:period]{lubridate::period} or \link[lubridate:duration]{lubridate::duration}
-object}
+object.}
 
-\item{start}{An object that can be converted by \code{\link[=as.POSIXct]{as.POSIXct()}}}
+\item{start}{An object of class \link{Date} or \link{POSIXct}.}
 }
 \description{
 \code{brk_width} can be used with time interval classes from base R or the
