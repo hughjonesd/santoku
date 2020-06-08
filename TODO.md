@@ -23,11 +23,14 @@
     or `difftime()`? Then you'd probably be able to get rid of the `brk_width()`
     genericity.
 
-* maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for the same reason
+* maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for symmetry reasons
   - `tab_quantiles` needs raw labels by default, to be useful
 
 * implement an endpoint-formatter argument for `lbl_xxx` and friends? See #16 and
   https://stackoverflow.com/q/14456371/946850
+  
+* Do a presentation for dates and times
+
 
 ## Post 0.4.0
 

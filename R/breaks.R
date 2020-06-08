@@ -143,13 +143,12 @@ brk_width.Period <- function (width, start) {
   sm <- missing(start)
   if (! sm) {
     assert_that(is.scalar(start))
-    start <- as.POSIXct(start)
+    # start <- as.POSIXct(start)
   }
 
   # TODO: why not use this same logic for Duration?
   function (x, extend, left, close_end) {
-    # x will be numeric, converted via POSIXct.
-    x <- as.POSIXct(x, origin = "1970-01-01 00:00.00 UTC")
+    # x <- as.POSIXct(x, origin = "1970-01-01 00:00.00 UTC")
     if (sm) start <- quiet_min(x[is.finite(x)])
     # finite if x has any non-NA finite elements:
     max_x <- quiet_max(x[is.finite(x)])
