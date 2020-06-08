@@ -7,8 +7,8 @@
 lbl_format(fmt, fmt1 = "\%.3g", raw = FALSE)
 }
 \arguments{
-\item{fmt}{A format string, passed into \code{\link[base:sprintf]{base::sprintf()}}, or to \code{\link[=format]{format()}} methods
-for non-numeric breaks. Default varies according to the type of breaks.}
+\item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
+methods; or a one-argument formatting function.}
 
 \item{fmt1}{Format for breaks consisting of a single value.}
 
@@ -22,8 +22,8 @@ A vector of labels for \code{chop}, or a function that creates labels.
 These labels use \code{\link[base:sprintf]{base::sprintf()}} to format numeric breaks.
 }
 \details{
-Note that you cannot use \code{lbl_format()} with non-numeric breaks. Use
-\code{\link[=lbl_dash]{lbl_dash()}} instead.
+If \code{fmt} is a function, it must accept two arguments, representing the
+left and right endpoints of each interval.
 }
 \examples{
 
@@ -31,9 +31,12 @@ tab(1:10, c(1,3, 3, 7),
       label = lbl_format("\%.3g to \%.3g"))
 tab(1:10, c(1,3, 3, 7),
       label = lbl_format("\%.3g to \%.3g", "Exactly \%.3g"))
-tab(rnorm(10), seq(-2, 2, .5),
-      label = lbl_format("\%.2f to \%.2f"))
 
+percent <- function (x, y) {
+  sprintf("\%.2f\%\% - \%.2f\%\%", x*100, y*100)
+}
+tab(runif(100), c(0.25, 0.5, .75),
+      labels = lbl_format(percent))
 }
 \seealso{
 Other labelling functions: 

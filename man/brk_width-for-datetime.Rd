@@ -8,17 +8,18 @@
 \method{brk_width}{Duration}(width, start)
 }
 \arguments{
-\item{width}{A \code{\link[=difftime]{difftime()}}, \link[lubridate:period]{lubridate::period} or \link[lubridate:duration]{lubridate::duration}
-object.}
+\item{width}{A scalar \link{difftime}, \link[lubridate:Period-class]{Period} or
+\link[lubridate:Duration-class]{Duration} object.}
 
-\item{start}{An object of class \link{Date} or \link{POSIXct}.}
+\item{start}{A scalar of class \link{Date} or \link[=DateTimeClasses]{POSIXct}.
+Can be omitted.}
 }
 \description{
 \code{brk_width} can be used with time interval classes from base R or the
 \code{lubridate} package.
 }
 \details{
-If \code{width} is a Period object, \code{\link[lubridate:add_with_rollback]{lubridate::add_with_rollback()}} is used
+If \code{width} is a Period, \code{\link[lubridate:add_with_rollback]{lubridate::add_with_rollback()}} is used
 to calculate the widths. This can be useful for e.g. calendar months.
 }
 \examples{

@@ -157,6 +157,8 @@ test_that("lbl_discrete arguments", {
     lbl_discrete(fmt = "(%s)")(lbrk),
     c("(1) - (2)", "(3) - (4)")
   )
+
+
 })
 
 

@@ -10,8 +10,8 @@ lbl_intervals(raw = FALSE, fmt = NULL)
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
 or standard deviations?}
 
-\item{fmt}{A format string, passed into \code{\link[base:sprintf]{base::sprintf()}}, or to \code{\link[=format]{format()}} methods
-for non-numeric breaks. Default varies according to the type of breaks.}
+\item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
+methods; or a one-argument formatting function.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
@@ -30,7 +30,14 @@ Mathematical set notation is as follows:
 }
 }
 \examples{
-tab(-10:10, c(-3, 0, 0, 3), labels = lbl_intervals())
+
+tab(-10:10, c(-3, 0, 0, 3),
+      labels = lbl_intervals())
+
+percent <- function (x) sprintf("\%.2f\%\%", x * 100)
+tab_evenly(runif(20), 10,
+      labels = lbl_intervals(fmt = percent))
+
 }
 \seealso{
 Other labelling functions: 

@@ -1,7 +1,7 @@
 
 #' @name label-doc
-#' @param fmt A format string, passed into [base::sprintf()], or to [format()] methods
-#'   for non-numeric breaks. Default varies according to the type of breaks.
+#' @param fmt A format. Can be a string, passed into [base::sprintf()] or [format()]
+#'   methods; or a one-argument formatting function.
 #' @param raw Logical. Always use raw `breaks` in labels, rather than e.g. quantiles
 #'   or standard deviations?
 #' @param symbol String: symbol to use for the dash.
@@ -31,7 +31,14 @@ NULL
 #' @export
 #'
 #' @examples
-#' tab(-10:10, c(-3, 0, 0, 3), labels = lbl_intervals())
+#'
+#' tab(-10:10, c(-3, 0, 0, 3),
+#'       labels = lbl_intervals())
+#'
+#' percent <- function (x) sprintf("%.2f%%", x * 100)
+#' tab_evenly(runif(20), 10,
+#'       labels = lbl_intervals(fmt = percent))
+#'
 lbl_intervals <- function (raw = FALSE, fmt = NULL) {
   assert_that(is.flag(raw))
 
@@ -77,8 +84,8 @@ lbl_intervals <- function (raw = FALSE, fmt = NULL) {
 #' @inherit label-doc params return
 #'
 #' @details
-#' Note that you cannot use `lbl_format()` with non-numeric breaks. Use
-#' [lbl_dash()] instead.
+#' If `fmt` is a function, it must accept two arguments, representing the
+#' left and right endpoints of each interval.
 #'
 #' @family labelling functions
 #'
@@ -90,11 +97,14 @@ lbl_intervals <- function (raw = FALSE, fmt = NULL) {
 #'       label = lbl_format("%.3g to %.3g"))
 #' tab(1:10, c(1,3, 3, 7),
 #'       label = lbl_format("%.3g to %.3g", "Exactly %.3g"))
-#' tab(rnorm(10), seq(-2, 2, .5),
-#'       label = lbl_format("%.2f to %.2f"))
 #'
+#' percent <- function (x, y) {
+#'   sprintf("%.2f%% - %.2f%%", x*100, y*100)
+#' }
+#' tab(runif(100), c(0.25, 0.5, .75),
+#'       labels = lbl_format(percent))
 lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
-  assert_that(is.string(fmt), is.string(fmt1), is.flag(raw))
+  assert_that(is_format(fmt), is_format(fmt1), is.flag(raw))
 
   function (breaks) {
     stopifnot(is.breaks(breaks))
@@ -109,8 +119,8 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
     l <- elabels[-len_b]
     r <- elabels[-1]
 
-    labels <- sprintf(fmt, l, r)
-    labels[singletons] <- sprintf(fmt1, l[singletons])
+    labels <- apply_format(fmt, l, r)
+    labels[singletons] <- apply_format(fmt1, l[singletons])
 
     return(labels)
   }
@@ -133,8 +143,10 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #'
 #' chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "%.1f"))
 #'
+#' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
+#' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
 lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL) {
-  assert_that(is.string(symbol), is.flag(raw))
+  assert_that(is.string(symbol), is.flag(raw), is.null(fmt) || is_format(fmt))
 
   function (breaks) {
     elabels <-  if (is.null(fmt)) {
@@ -168,8 +180,9 @@ lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL) {
 #' @inherit label-doc
 #'
 #' @details
-#' No check is done that the data is integer-valued. If it isn't, then
-#' these labels may be misleading.
+#' No check is done that the data is discrete-valued. If it isn't, then
+#' these labels may be misleading. Here, discrete-valued means that if
+#' `x < y`, then `x <= y - 1`.
 #'
 #' Be aware that Date objects may have non-integer values. See [Date].
 #'
@@ -180,10 +193,10 @@ lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL) {
 #' @examples
 #' tab(1:7, c(1, 3, 5), lbl_discrete())
 #'
-#' # Misleading labels for non=integer data
+#' # Misleading labels for non-integer data
 #' chop(2.5, c(1, 3, 5), lbl_discrete())
 lbl_discrete <- function (symbol = " - ", fmt = NULL) {
-  assert_that(is.string(symbol))
+  assert_that(is.string(symbol), is.null(fmt) || is_format(fmt))
 
   function (breaks) {
     assert_that(all(ceiling(as.numeric(breaks)) == floor(as.numeric(breaks))),
@@ -212,13 +225,8 @@ lbl_discrete <- function (symbol = " - ", fmt = NULL) {
     }
 
     if (! is.null(fmt)) {
-      if (is.numeric(breaks)) {
-        l <- sprintf(fmt, l)
-        r <- sprintf(fmt, r)
-      } else {
-        l <- format(l, format = fmt)
-        r <- format(r, format = fmt)
-      }
+      l <- apply_format(fmt, l)
+      r <- apply_format(fmt, r)
     }
 
     labels <- paste0(l, symbol, r)
@@ -305,7 +313,7 @@ lbl_seq <- function(start = "a") {
 #' # if labels need repeating:
 #' chop(1:10, 1:10, lbl_manual(c("x", "y", "z")))
 lbl_manual <- function (sequence, fmt = "%s") {
-  assert_that(is.string(fmt))
+  assert_that(is_format(fmt))
 
   if (anyDuplicated(sequence) > 0L) stop("`sequence` contains duplicate items")
   function (breaks) {
@@ -315,6 +323,6 @@ lbl_manual <- function (sequence, fmt = "%s") {
       latest <- paste0(latest, sequence)
       ls <- c(ls, latest)
     }
-    sprintf(fmt, ls[seq(1L, length(breaks) - 1)])
+    apply_format(fmt, ls[seq(1L, length(breaks) - 1)])
   }
 }

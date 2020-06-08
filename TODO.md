@@ -13,15 +13,7 @@
   - ditto for `brk_evenly()` which now uses its own implementation to
     guarantee exactly `intervals` intervals
   - systematic tests for `brk_*` functions
-  
-* Try to integrate more of `brk_width.Period`, and call out to a generic
-  only when necessary.
-  - needs a good look anyway
-  
-* chop.Date issues:
-  - Roll your own `seq` wrapper, which can dispatch on `period()`, `duration()`
-    or `difftime()`? Then you'd probably be able to get rid of the `brk_width()`
-    genericity.
+
 
 * maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for symmetry reasons
   - `tab_quantiles` needs raw labels by default, to be useful

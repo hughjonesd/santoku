@@ -9,7 +9,7 @@ endpoint_labels.default <- function (breaks, raw, fmt = NULL, ...) {
   elabels <- scaled_endpoints(breaks, raw = raw)
 
   elabels <- if (! is.null(fmt)) {
-    sprintf(fmt, elabels)
+    apply_format(fmt, elabels)
   } else {
     unique_truncation(elabels)
   }
@@ -25,7 +25,7 @@ endpoint_labels.Date <- function (breaks, raw, fmt = "%F") {
   # will work fine:
   if (! inherits(elabels, "Date")) return(NextMethod())
 
-  elabels_chr <- format(elabels, fmt)
+  elabels_chr <- apply_format(fmt, elabels)
   minus_inf <- is.infinite(elabels) & elabels < as.Date("1970-01-01")
   plus_inf  <- is.infinite(elabels) & elabels > as.Date("1970-01-01")
   elabels_chr[minus_inf] <- "-Inf"
@@ -41,7 +41,7 @@ endpoint_labels.POSIXt <- function (breaks, raw, fmt = "%F %X") {
   # same comment as endpoint_labels.Date above:
   if (! inherits(elabels, "POSIXt")) return(NextMethod())
 
-  elabels_chr <- format(elabels, fmt)
+  elabels_chr <- apply_format(fmt, elabels)
   minus_inf <- is.infinite(elabels) & elabels < as.POSIXct("1970-01-01")
   plus_inf  <- is.infinite(elabels) & elabels > as.POSIXct("1970-01-01")
   elabels_chr[minus_inf] <- "-Inf"
@@ -56,7 +56,7 @@ endpoint_labels.quantileBreaks <- function (breaks, raw, fmt = "%.3g%%") {
   if (raw) return(NextMethod())
 
   elabels <- scaled_endpoints(breaks, raw = FALSE)
-  elabels <- sprintf(fmt, elabels)
+  elabels <- apply_format(fmt, elabels)
 
   return(elabels)
 }
@@ -67,7 +67,7 @@ endpoint_labels.sdBreaks <- function (breaks, raw, fmt = "%.3g s.d.") {
   if (raw) return(NextMethod())
 
   elabels <- scaled_endpoints(breaks, raw = FALSE)
-  elabels <- sprintf(fmt, elabels)
+  elabels <- apply_format(fmt, elabels)
 
   return(elabels)
 }
@@ -86,6 +86,48 @@ scaled_endpoints.breaks <- function (breaks, raw) {
     attr(breaks, "scaled_endpoints") %||% unclass_breaks(breaks)
   }
 }
+
+
+#' Apply `fmt` to an object
+#'
+#' @param fmt A one-argument function, or a character string.
+#' @param endpoint Endpoints of a break. Various classes.
+#'
+#' @return A character vector.
+#' @noRd
+apply_format <- function (fmt, endpoint, ...) {
+  UseMethod("apply_format")
+}
+
+
+#' @export
+apply_format.function <- function (fmt, endpoint, ...) {
+  fmt(endpoint, ...)
+}
+
+
+#' @export
+#' @method apply_format character
+apply_format.character <- function (fmt, endpoint, ...) {
+  UseMethod("apply_format.character", endpoint)
+}
+
+
+#' @export
+#' @method apply_format.character default
+apply_format.character.default <- function (fmt, endpoint, ...) {
+  format(endpoint, fmt, ...)
+}
+
+
+#' @export
+#' @method apply_format.character numeric
+apply_format.character.numeric <- function (fmt, endpoint, ...) {
+  sprintf(fmt, endpoint, ...)
+}
+
+
+is_format <- function (fmt) is.string(fmt) || is.function(fmt)
 
 
 #' Truncates `num` to look nice, while preserving uniqueness
@@ -116,3 +158,4 @@ unique_truncation <- function (num, ...) {
 
   return(res)
 }
+

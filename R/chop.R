@@ -273,6 +273,7 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' Note that `chop_evenly` sets `close_end = TRUE` by default.
 #'
 #' @family chopping functions
+#' @seealso [brk_width-for-datetime]
 #'
 #' @export
 #' @order 1

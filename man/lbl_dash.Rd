@@ -12,8 +12,8 @@ lbl_dash(symbol = " - ", raw = FALSE, fmt = NULL)
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
 or standard deviations?}
 
-\item{fmt}{A format string, passed into \code{\link[base:sprintf]{base::sprintf()}}, or to \code{\link[=format]{format()}} methods
-for non-numeric breaks. Default varies according to the type of breaks.}
+\item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
+methods; or a one-argument formatting function.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
@@ -27,6 +27,8 @@ chop(1:10, c(2, 5, 8), lbl_dash())
 
 chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "\%.1f"))
 
+pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
+chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
 }
 \seealso{
 Other labelling functions: 

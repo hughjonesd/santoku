@@ -93,12 +93,14 @@ brk_mean_sd <- function (sd = 3) {
 #' `brk_width` can be used with time interval classes from base R or the
 #' `lubridate` package.
 #'
-#' @param width A [difftime()], [lubridate::period] or [lubridate::duration]
-#'   object.
-#' @param start An object of class [Date] or [POSIXct].
+#' @param width A scalar [difftime], [Period][lubridate::Period-class] or
+#'   [Duration][lubridate::Duration-class] object.
+#'
+#' @param start A scalar of class [Date] or [POSIXct][DateTimeClasses].
+#'   Can be omitted.
 #'
 #' @details
-#' If `width` is a Period object, [lubridate::add_with_rollback()] is used
+#' If `width` is a Period, [lubridate::add_with_rollback()] is used
 #' to calculate the widths. This can be useful for e.g. calendar months.
 #'
 #' @examples

@@ -54,6 +54,8 @@ chop_evenly(0:10, 5)
 
 }
 \seealso{
+\link{brk_width-for-datetime}
+
 Other chopping functions: 
 \code{\link{chop_mean_sd}()},
 \code{\link{chop_n}()},
