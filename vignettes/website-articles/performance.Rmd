@@ -20,7 +20,7 @@ requireNamespace("ggplot2", quietly = TRUE)
 
 The core of santoku is written in C++. It is reasonably fast:
 
-```{r, cache = TRUE}
+```{r, cache = FALSE}
 
 packageVersion("santoku")
 mb <- microbenchmark::microbenchmark(

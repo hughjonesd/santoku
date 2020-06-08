@@ -23,7 +23,8 @@ Suggests:
     knitr,
     lubridate,
     microbenchmark,
-    rmarkdown
+    rmarkdown,
+    scales
 LinkingTo: 
     Rcpp
 Imports: 

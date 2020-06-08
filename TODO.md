@@ -18,8 +18,6 @@
 * maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for symmetry reasons
   - `tab_quantiles` needs raw labels by default, to be useful
 
-* implement an endpoint-formatter argument for `lbl_xxx` and friends? See #16 and
-  https://stackoverflow.com/q/14456371/946850
   
 * Do a presentation for dates and times
 

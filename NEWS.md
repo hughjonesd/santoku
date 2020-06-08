@@ -24,14 +24,15 @@ and are designed to make using `chop()` more intuitive and predictable.
 
 * The `groups` argument to `chop_evenly()` has been renamed from `groups` to
   `intervals`. This should make it easier to remember the difference between
-  `chop_evenly()` and `chop_equally()`. (Chop evenly into `n` equal-sized 
+  `chop_evenly()` and `chop_equally()`. (Chop evenly into `n` equal-width
   *intervals*, or chop equally into `n` equal-sized *groups*.)
 
 * `knife()` has been deprecated to keep the interface slim and
   focused. Use `purrr::partial()` instead.
   
-* Many labelling functions have a new `fmt` argument, to format break endpoints
-  via `base::sprintf()`.
+* Many labelling functions have a new `fmt` argument. This can be a string
+  interpreted by `sprintf()` or `format()`, or a 1-argument formatting function
+  for break endpoints, e.g. `scales::label_percent()`.
 
 
 ## Other changes

@@ -119,6 +119,18 @@ tab_evenly(x, 5)
 tab_mean_sd(x)
 ```
 
+
+You can chop dates too:
+
+```{r}
+library(lubridate)
+y2k <- as.Date("2000-01-01") + 0:365
+months <- chop_width(y2k, months(1))
+table(months)
+```
+
+
+
 # Advanced usage
 
 You can change factor labels with the `labels` argument:
@@ -139,13 +151,6 @@ chopped <- chop(x, c(2, 5, 8), lbl_dash())
 data.frame(x, chopped)
 ```
 
-For arbitrary formatting use `lbl_format()` and `sprintf`-style format strings:
-
-```{r}
-chopped <- chop(x, c(2, 5, 8), lbl_format("%s to %s"))
-data.frame(x, chopped)
-```
-
 To label intervals in order use `lbl_seq()`:
 
 ```{r}
@@ -158,6 +163,22 @@ You can use numerals or even roman numerals:
 ```{r}
 chop(x, c(2, 5, 8), lbl_seq("(1)"))
 chop(x, c(2, 5, 8), lbl_seq("i."))
+```
+
+For arbitrary formatting use `lbl_format()` and `sprintf`-style format strings:
+
+```{r}
+chopped <- chop(x, c(2, 5, 8), lbl_format("%s to %s"))
+data.frame(x, chopped)
+```
+
+Or use a formatter from the `{scales}` package:
+
+```{r}
+library(scales)
+r <- runif(10)
+chopped <- chop(r, c(.3, .5, .7), lbl_intervals(fmt = label_percent(0.1)))
+data.frame(r, chopped)
 ```
 
 By default, `chop()` extends `breaks` if necessary. If you don't want
@@ -185,11 +206,10 @@ data.frame(
 If you want to close off the last interval, set `close_end = TRUE`:
 
 ```{r}
-z <- 1:5
 data.frame(
-  z = z,
-  rightmost_open = chop(1:5, 1:5),
-  rightmost_closed   = chop(1:5, 1:5, close_end = TRUE)
+  y = y,
+  rightmost_open = chop(y, 1:5),
+  rightmost_closed   = chop(y, 1:5, close_end = TRUE)
 )
 
 ```
