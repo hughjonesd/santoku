@@ -29,10 +29,7 @@ and are designed to make using `chop()` more intuitive and predictable.
 
 * `knife()` has been deprecated to keep the interface slim and
   focused. Use `purrr::partial()` instead.
-  
-* Many labelling functions have a new `fmt` argument. This can be a string
-  interpreted by `sprintf()` or `format()`, or a 1-argument formatting function
-  for break endpoints, e.g. `scales::label_percent()`.
+
 
 
 ## Other changes
@@ -41,18 +38,22 @@ and are designed to make using `chop()` more intuitive and predictable.
   - `chop_width()` accepts `difftime`, `lubridate::period` or `lubridate::duration`
     objects
   - all other `chop_` functions work as well.
-
+  
+* Many labelling functions have a new `fmt` argument. This can be a string
+  interpreted by `sprintf()` or `format()`, or a 1-argument formatting function
+  for break endpoints, e.g. `scales::label_percent()`.
+  
 * Experimental: `lbl_discrete()` for discrete data such as integers or (most)
   dates.
+  
+* There is a new `lbl_endpoint()` function for labelling intervals solely by
+  their left or right endpoint.
 
 * `brk_mean_sd()` now accepts non-integer positive numbers.
 
 * Add `brk_equally()` for symmetry with `chop_equally()`.
 
 * Minor tweaks to `chop_deciles()`.
-
-* `lbl_format()` can now accept numeric sprintf formats (e.g. `"%.2f"`) 
-  when `raw = FALSE`.
 
 * Bugfix: `lbl_format()` wasn't accepting numeric formats, even when 
   `raw = TRUE`. Thanks to Sharla Gelfand.

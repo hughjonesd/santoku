@@ -185,6 +185,32 @@ test_that("lbl_discrete arguments", {
 })
 
 
+test_that("lbl_endpoint", {
+  lbrk <- brk_res(brk_default(c(1, 3, 5)), extend = FALSE)
+  expect_equivalent(
+    lbl_endpoint()(lbrk),
+    c("1", "3")
+  )
+  expect_equivalent(
+    lbl_endpoint(left = FALSE)(lbrk),
+    c("3", "5")
+  )
+})
+
+
+test_that("lbl_endpoint arguments", {
+  lbrk <- brk_res(brk_default(c(1, 3, 5)), extend = FALSE)
+  expect_equivalent(
+    lbl_endpoint(fmt = "%.2f")(lbrk),
+    c("1.00", "3.00")
+  )
+  expect_equivalent(
+    lbl_endpoint(fmt = percent)(lbrk),
+    c("100.0%", "300.0%")
+  )
+})
+
+
 test_that("bug: breaks labels don't produce duplicates", {
   brk <- brk_res(brk_left(c(1.333335, 1.333336, 1.333337, 5)))
   lbls <- lbl_intervals()(brk)

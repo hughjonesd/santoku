@@ -182,6 +182,36 @@ lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL) {
 }
 
 
+#' Label intervals by their left or right endpoint
+#'
+#' This is useful when the left endpoint unambiguously indicates the
+#' interval
+#'
+#' @inherit label-doc
+#' @param left Flag. Use left endpoint or right endpoint?
+#'
+#' @export
+#'
+#' @examples
+#' chop(1:10, c(2, 5, 8), lbl_endpoint(left = TRUE))
+#' chop(1:10, c(2, 5, 8), lbl_endpoint(left = FALSE))
+#' if (requireNamespace("lubridate")) {
+#'   tab_width(
+#'           as.Date("2000-01-01") + 0:365,
+#'          months(1),
+#'          labels = lbl_endpoint(fmt = "%b")
+#'        )
+#' }
+lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
+  assert_that(is.null(fmt) || is_format(fmt), is.flag(raw), is.flag(left))
+
+  function (breaks) {
+    elabels <- endpoint_labels(breaks, raw, fmt)
+    if (left) elabels[-length(elabels)] else elabels[-1]
+  }
+}
+
+
 #' Labels for discrete data
 #'
 #' \lifecycle{experimental}
