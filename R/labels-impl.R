@@ -129,6 +129,10 @@ apply_format.character.numeric <- function (fmt, endpoint, ...) {
 
 is_format <- function (fmt) is.string(fmt) || is.function(fmt)
 
+on_failure(is_format) <- function(call, env) {
+  paste0(deparse(call$fmt), " is not a valid format (a string or function)")
+}
+
 
 #' Truncates `num` to look nice, while preserving uniqueness
 #'

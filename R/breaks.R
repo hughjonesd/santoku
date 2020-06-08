@@ -415,3 +415,6 @@ print.breaks <- function (x, ...) cat(format(x, ...))
 #' @export
 is.breaks <- function (x, ...) inherits(x, "breaks")
 
+on_failure(is.breaks) <- function (call, env) {
+  paste0(deparse(call$x), " is not an object of class `breaks`")
+}
