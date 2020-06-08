@@ -133,7 +133,6 @@ brk_width <- function (width, start) UseMethod("brk_width")
 brk_width.Duration <- function (width, start) {
   loadNamespace("lubridate")
   width <- lubridate::make_difftime(as.numeric(width))
-  if (! missing(start)) start <- as.numeric(as.POSIXct(start))
   NextMethod()
 }
 

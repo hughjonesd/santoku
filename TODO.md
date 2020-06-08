@@ -4,10 +4,6 @@
 
 ## Pre 0.4.0
 
-* Date/Time tests:
-  - `start` in `brk_width()` for e.g. Durations et al.
-  - timezones
-  - `period()` correctness
 
 * Work on tests
   - tests for `left` and `close_end` arguments
@@ -23,14 +19,6 @@
   - needs a good look anyway
   
 * chop.Date issues:
-  - What do we do about time zones? :-D
-    - See https://vctrs.r-lib.org/articles/stability.html, esp the section
-      on Dates and DateTimes. Note that the `c()` problem could easily bite
-      you. Luckily `vec_cast_common()` deals with this, casting to a common
-      timezone.
-  - Work internally with anchored "Intervals"? Doing this beats just
-    relying on e.g. `chop(months(x))` because we can e.g. start monthly 
-    intervals on the 15th.
   - Roll your own `seq` wrapper, which can dispatch on `period()`, `duration()`
     or `difftime()`? Then you'd probably be able to get rid of the `brk_width()`
     genericity.
@@ -43,10 +31,20 @@
 
 ## Post 0.4.0
 
+* DateTimes: 
+  - work internally with anchored "Intervals"? Doing this beats just
+    relying on e.g. `chop(months(x))` because we can e.g. start monthly 
+    intervals on the 15th.
+  - should we be able to chop by Intervals? This isn't `chop_width` because
+    that isn't a fixed-in-time Interval; if you had a non-overlapping sequence
+    of intervals you could chop with it. But you could equally just chop by
+    the start times.
+    
 * Other things to cut
-  - ts, xts, zoo, packageVersion...
+  - ts, xts, zoo, package_version, units?
   - `brk_days()`, `brk_weeks()` etc.? Equivalent to all lubridate's `days()` etc.
     classes? 
+  
 
 * Allow `brk_width()` to run backwards? See github feature request.
 

@@ -110,10 +110,20 @@ test_that("chop_width: Duration", {
   expect_silent(res1 <- chop_width(d1, width = duration_w1))
   expect_equivalent(table_vals(res1), rep(4, 8))
 
+  expect_silent(
+    res2 <- chop_width(d1, width = duration_w1, start = as.Date("1975-11-16"))
+  )
+  expect_equivalent(table_vals(res2), c(20, 4, 4, 4))
+
   duration_w2 <- dminutes(5)
 
-  expect_silent(res2 <- chop_width(dt1, width = duration_w2))
-  expect_equivalent(table_vals(res2), rep(5, 4))
+  expect_silent(res3 <- chop_width(dt1, width = duration_w2))
+  expect_equivalent(table_vals(res3), rep(5, 4))
+
+  expect_silent(
+    res4 <- chop_width(dt1, duration_w2, start = as.POSIXct("2000-01-01 15:10"))
+  )
+  expect_equivalent(table_vals(res4), c(10, 5, 5))
 
   expect_silent(chop_width(d1, ddays(7)))
   expect_silent(chop_width(dt1, dminutes(7)))
@@ -124,15 +134,51 @@ test_that("chop_width: Period", {
   skip_if_not_installed("lubridate")
   library(lubridate)
 
-  period_w1 <- days(5)
+  period_w1 <- days(8)
+
+  expect_silent(res1 <- chop_width(d1, width = period_w1))
+  expect_equivalent(table_vals(res1), rep(8, 4))
+
+  expect_silent(
+    res2 <- chop_width(d1, period_w1, start = as.Date("1975-11-12"))
+  )
+  expect_equivalent(table_vals(res2), c(16, 8, 8))
+
   period_w2 <- minutes(5)
-  expect_silent(chop_width(d1, width = period_w1))
-  expect_silent(chop_width(dt1, width = period_w2))
+
+  expect_silent(res3 <- chop_width(dt1, width = period_w2))
+  expect_equivalent(table_vals(res3), rep(5, 4))
+
+  expect_silent(
+    res4 <- chop_width(dt1, period_w2, start = as.POSIXct("2000-01-01 15:07"))
+  )
+  expect_equivalent(table_vals(res4), c(7, 5, 5, 3))
 
   expect_silent(chop_width(d1, days(7)))
   expect_silent(chop_width(dt1, minutes(7)))
 
   # TODO: include tests that Period deals with quirks
+})
+
+
+test_that("chop_width: Period quirks", {
+  skip_if_not_installed("lubridate")
+  library(lubridate)
+
+  noughties <- seq(as.Date("2000-01-01"), as.Date("2009-12-31"), by = "day")
+
+  res1 <- chop_width(noughties, years(1))
+  expect_equivalent(
+    table_vals(res1),
+    c(366, 365, 365, 365, 366, 365, 365, 365, 366, 365)
+  )
+
+  y2k <- seq(as.Date("2000-01-01"), as.Date("2000-12-31"), by = "day")
+  res2 <- chop_width(y2k, months(1))
+  expect_equivalent(
+    table_vals(res2),
+    c(31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+  )
 })
 
 
@@ -145,6 +191,19 @@ test_that("chop_evenly", {
 
   expect_silent(chop_evenly(d1, 7))
   expect_silent(chop_evenly(dt1, 7))
+})
+
+
+test_that("chop timezones", {
+  dt_z1 <- seq(as.POSIXct("2000-01-01 09:00:00", tz = "GMT"),
+        by = "hour", length.out = 24)
+  # 8 hours behind. Hi Tom and Dan!
+  dtb_z2 <- as.POSIXct("2000-01-01 12:30:00", tz = "America/Los_Angeles")
+
+  res1 <- chop(dt_z1, dtb_z2)
+  expect_equivalent(table_vals(res1), c(12, 12))
+  # we convert breaks to the timezone of x
+  expect_match(levels(res1), "20:30", fixed = TRUE)
 })
 
 

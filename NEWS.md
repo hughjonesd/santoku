@@ -8,10 +8,12 @@ and are designed to make using `chop()` more intuitive and predictable.
 * `chop()` has two new arguments, `left` and `close_end`.
   - Using `left = FALSE` is simpler and more intuitive than wrapping 
     breaks in `brk_right()`. 
-  - `brk_left()` and `brk_right()` have been kept, but cannot be used to wrap
-    other break functions.
+  - `brk_left()` and `brk_right()` have been kept for now, but cannot be used to 
+    wrap other break functions.
   - Using `close_end` is simpler than passing `close_end` into
     `brk_left()` or `brk_right()` (which no longer accept this argument directly).
+  - `left = TRUE` by default, except for non-numeric objects in 
+    `chop_quantiles()` and `chop_equally()`, where `left = FALSE` works better.
     
 * `close_end` is now `FALSE` by default. 
   - This prevents user surprises when e.g. `chop(3, 1:3)` puts `3` into a 
