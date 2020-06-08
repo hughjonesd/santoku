@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_intervals}
 \alias{lbl_intervals}
-\title{Labels using set notation}
+\title{Label chopped intervals using set notation}
 \usage{
 lbl_intervals(raw = FALSE, fmt = NULL)
 }
@@ -17,7 +17,7 @@ methods; or a one-argument formatting function.}
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-Labels using set notation
+Label chopped intervals using set notation
 }
 \details{
 Mathematical set notation is as follows:

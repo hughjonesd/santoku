@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_dash}
 \alias{lbl_dash}
-\title{Labels like 1 - 3, 4 - 5, ...}
+\title{Label chopped intervals like 1 - 3, 4 - 5, ...}
 \usage{
 lbl_dash(symbol = " - ", raw = FALSE, fmt = NULL)
 }

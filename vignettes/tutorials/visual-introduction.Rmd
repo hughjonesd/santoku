@@ -74,12 +74,13 @@ plot_the_fish <- function (cols = "peachpuff4") {
 }
 
 
-demo_chop <- function (breaks, labels = lbl_intervals(), extend = NULL, ...,
+demo_chop <- function (breaks, labels = lbl_intervals(), extend = NULL, 
+      ..., close_end = FALSE, left = FALSE, 
       lines = TRUE, swoosh = FALSE, lty = 1, cex_labels = 0.7,
       skip_lines = numeric(0)) {
-  chopped <- chop(pts$x, breaks, labels, extend, ...)
+  chopped <- chop(pts$x, breaks, labels = labels, extend = extend, ...)
   if (is.numeric(breaks)) breaks <- brk_left(breaks)
-  breaks <- breaks(pts$x, extend)
+  breaks <- breaks(pts$x, extend = extend, left = left, close_end = close_end)
   
   breaks_r <- round(c(breaks[is.finite(breaks)]))
   breaks_r <- breaks_r[breaks_r > 0 & breaks_r <= fish_x]
@@ -219,11 +220,11 @@ Chops `groups` equal-width intervals
 
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_evenly(x, groups = 5)
+chop_evenly(x, intervals = 5)
 ```
 
 ```{r}
-demo_chop(brk_evenly(groups = 5))
+demo_chop(brk_evenly(intervals = 5))
 ```
 
 ## `chop_equally()`
@@ -363,14 +364,14 @@ demo_chop(c(200, 500, 800), swoosh = TRUE)
 
 ## Left-closed and right-closed
 
-For right-closed breaks use `brk_right()`:
+For right-closed breaks use `left = FALSE`:
 
 ```{r, echo = TRUE, eval = FALSE}
-chop(x, brk_right(c(200, 500, 800)))
+chop(x, c(200, 500, 800), left = FALSE))
 ```
 
 ```{r}
-demo_chop(brk_right(c(200, 500, 800)), swoosh = TRUE)
+demo_chop(c(200, 500, 800), left = FALSE, swoosh = TRUE)
 ```
 
 ## Errors

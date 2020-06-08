@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_endpoint}
 \alias{lbl_endpoint}
-\title{Label intervals by their left or right endpoint}
+\title{Label chopped intervals by their left or right endpoints}
 \usage{
 lbl_endpoint(fmt = NULL, raw = FALSE, left = TRUE)
 }
@@ -20,7 +20,7 @@ A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
 This is useful when the left endpoint unambiguously indicates the
-interval
+interval.
 }
 \examples{
 chop(1:10, c(2, 5, 8), lbl_endpoint(left = TRUE))

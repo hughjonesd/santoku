@@ -2,7 +2,7 @@
 title: "Introduction to santoku"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{santoku}
+  %\VignetteIndexEntry{Introduction to santoku}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -9,3 +9,4 @@ pkgdown::build_site()
 rmarkdown::render("vignettes/tutorials/visual-introduction.Rmd",
       output_dir = "~/hughjonesd.github.io/")
 devtools::release()
+# push hughjonesd.github.io

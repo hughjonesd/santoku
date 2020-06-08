@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_seq}
 \alias{lbl_seq}
-\title{Labels in sequence}
+\title{Label chopped intervals in sequence}
 \usage{
 lbl_seq(start = "a")
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_discrete}
 \alias{lbl_discrete}
-\title{Labels for discrete data}
+\title{Label discrete data}
 \usage{
 lbl_discrete(symbol = " - ", fmt = NULL)
 }

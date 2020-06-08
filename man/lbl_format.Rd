@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_format}
 \alias{lbl_format}
-\title{Label numbers with arbitrary formatting}
+\title{Label chopped intervals with arbitrary formatting}
 \usage{
 lbl_format(fmt, fmt1 = "\%.3g", raw = FALSE)
 }

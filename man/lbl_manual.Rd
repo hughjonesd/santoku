@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_manual}
 \alias{lbl_manual}
-\title{Labels in a user-defined sequence}
+\title{Label chopped intervals in a user-defined sequence}
 \usage{
 lbl_manual(sequence, fmt = "\%s")
 }

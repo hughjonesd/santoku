@@ -11,7 +11,7 @@
 NULL
 
 
-#' Labels using set notation
+#' Label chopped intervals using set notation
 #'
 #' @inherit label-doc
 #'
@@ -75,7 +75,7 @@ lbl_intervals <- function (raw = FALSE, fmt = NULL) {
 }
 
 
-#' Label numbers with arbitrary formatting
+#' Label chopped intervals with arbitrary formatting
 #'
 #' \lifecycle{questioning}
 #'
@@ -140,7 +140,7 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 }
 
 
-#' Labels like 1 - 3, 4 - 5, ...
+#' Label chopped intervals like 1 - 3, 4 - 5, ...
 #'
 #' This label style is user-friendly, but doesn't distinguish between
 #' left- and right-closed intervals.
@@ -182,10 +182,10 @@ lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL) {
 }
 
 
-#' Label intervals by their left or right endpoint
+#' Label chopped intervals by their left or right endpoints
 #'
 #' This is useful when the left endpoint unambiguously indicates the
-#' interval
+#' interval.
 #'
 #' @inherit label-doc
 #' @param left Flag. Use left endpoint or right endpoint?
@@ -212,7 +212,7 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 }
 
 
-#' Labels for discrete data
+#' Label discrete data
 #'
 #' \lifecycle{experimental}
 #'
@@ -281,7 +281,7 @@ lbl_discrete <- function (symbol = " - ", fmt = NULL) {
 }
 
 
-#' Labels in sequence
+#' Label chopped intervals in sequence
 #'
 #' `lbl_seq` labels intervals sequentially, using numbers or letters.
 #'
@@ -337,7 +337,7 @@ lbl_seq <- function(start = "a") {
 }
 
 
-#' Labels in a user-defined sequence
+#' Label chopped intervals in a user-defined sequence
 #'
 #' `lbl_manual()` uses an arbitrary sequence to label
 #' intervals. If the sequence is too short, it will be pasted with itself and
