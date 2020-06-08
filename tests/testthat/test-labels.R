@@ -1,4 +1,7 @@
 
+brackets <- function (x) paste0("(", x, ")")
+
+
 test_that("lbl_manual", {
   brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
 
@@ -53,6 +56,8 @@ test_that("lbl_dash arguments", {
     lbl_dash(fmt = "%.3f")(qbrk),
     c("0.000 - 0.500", "0.500 - 1.000")
   )
+
+  expect_equivalent(lbl_dash(fmt = brackets)(brk), c("(1) - (2)", "(2) - (3)"))
 })
 
 
@@ -62,10 +67,21 @@ test_that("lbl_format", {
     lbl_format("<%.1f to %.1f>")(brk),
     c("<1.0 to 2.0>", "<2.0 to 3.0>")
   )
-  brk <- brk_res(brk_left(c(1, 2, 2, 3)))
+
+  bracket2 <- function (x, y) paste0("(", x, " - ", y, ")")
   expect_equivalent(
-    lbl_format("<%.1f to %.1f>", "|%.3f|")(brk),
+    lbl_format(fmt = bracket2)(brk),
+    c("(1 - 2)", "(2 - 3)")
+  )
+
+  brk2 <- brk_res(brk_left(c(1, 2, 2, 3)))
+  expect_equivalent(
+    lbl_format("<%.1f to %.1f>", "|%.3f|")(brk2),
     c("<1.0 to 2.0>", "|2.000|", "<2.0 to 3.0>")
+  )
+  expect_equivalent(
+    lbl_format(bracket2, "%s")(brk2),
+    c("(1 - 2)", "2", "(2 - 3)")
   )
 })
 
@@ -127,6 +143,10 @@ test_that("lbl_intervals arguments", {
     lbl_intervals(fmt = "%.2f")(qbrk),
     c("[0.00, 0.50)", "[0.50, 1.00)")
   )
+  expect_equivalent(
+    lbl_intervals(fmt = percent)(qbrk),
+    c("[0.0%, 50.0%)", "[50.0%, 100.0%)")
+  )
 })
 
 
@@ -155,6 +175,11 @@ test_that("lbl_discrete arguments", {
   lbrk <- brk_res(brk_default(c(1, 3, 5)))
   expect_equivalent(
     lbl_discrete(fmt = "(%s)")(lbrk),
+    c("(1) - (2)", "(3) - (4)")
+  )
+
+  expect_equivalent(
+    lbl_discrete(fmt = brackets)(lbrk),
     c("(1) - (2)", "(3) - (4)")
   )
 })
