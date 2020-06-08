@@ -127,6 +127,13 @@ apply_format.character.numeric <- function (fmt, endpoint, ...) {
 }
 
 
+#' @export
+#' @method apply_format.character character
+apply_format.character.character <- function (fmt, endpoint, ...) {
+  sprintf(fmt, endpoint, ...)
+}
+
+
 is_format <- function (fmt) is.string(fmt) || is.function(fmt)
 
 on_failure(is_format) <- function(call, env) {
