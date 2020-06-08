@@ -132,10 +132,13 @@ chop <- function (x, breaks, labels,
   if (is.function(labels)) labels <- labels(breaks)
 
   stopifnot(length(labels) == length(breaks) - 1)
-  if (anyDuplicated(labels)) stop("Duplicate labels found: ",
-        paste(labels, collapse = ", "))
 
   codes <- categorize(x, breaks)
+
+  real_codes <- if (drop) unique(codes[! is.na(codes)]) else TRUE
+  if (anyDuplicated(labels[real_codes])) {
+    stop("Duplicate labels found: ", paste(labels, collapse = ", "))
+  }
 
   result <- factor(codes, levels = seq.int(length(breaks) - 1L),
         labels = labels)
