@@ -19,11 +19,20 @@ or standard deviations?}
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-These labels use \code{\link[base:sprintf]{base::sprintf()}} to format numeric breaks.
+\lifecycle{questioning}
 }
 \details{
+These labels let you format breaks arbitrarily, using either a string
+(passed to \code{\link[=sprintf]{sprintf()}}) or a function.
+
 If \code{fmt} is a function, it must accept two arguments, representing the
 left and right endpoints of each interval.
+
+If \code{breaks} are non-numeric, you can only use \code{"\%s"} in a string \code{fmt}.
+\code{breaks} will be converted to character in this case.
+
+\code{lbl_format()} is in the "questioning" stage. As an alternative, consider
+using \code{\link[=lbl_dash]{lbl_dash()}} or \code{\link[=lbl_intervals]{lbl_intervals()}} with the \code{fmt} argument.
 }
 \examples{
 

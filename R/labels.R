@@ -78,7 +78,10 @@ lbl_intervals <- function (raw = FALSE, fmt = NULL) {
 
 #' Label numbers with arbitrary formatting
 #'
-#' These labels use [base::sprintf()] to format numeric breaks.
+#' \lifecycle{questioning}
+#'
+#' These labels let you format breaks arbitrarily, using either a string
+#' (passed to [sprintf()]) or a function.
 #'
 #' @param fmt1 Format for breaks consisting of a single value.
 #' @inherit label-doc params return
@@ -86,6 +89,12 @@ lbl_intervals <- function (raw = FALSE, fmt = NULL) {
 #' @details
 #' If `fmt` is a function, it must accept two arguments, representing the
 #' left and right endpoints of each interval.
+#'
+#' If `breaks` are non-numeric, you can only use `"%s"` in a string `fmt`.
+#' `breaks` will be converted to character in this case.
+#'
+#' `lbl_format()` is in the "questioning" stage. As an alternative, consider
+#' using [lbl_dash()] or [lbl_intervals()] with the `fmt` argument.
 #'
 #' @family labelling functions
 #'
@@ -116,8 +125,13 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
     # no formatting: `lbl_format()` takes that over for itself.
     elabels <- scaled_endpoints(breaks, raw = raw)
 
+    if (is.string(fmt) && ! is.numeric(elabels)) {
+      elabels <- as.character(elabels)
+    }
+
     l <- elabels[-len_b]
     r <- elabels[-1]
+
 
     labels <- apply_format(fmt, l, r)
     labels[singletons] <- apply_format(fmt1, l[singletons])

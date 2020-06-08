@@ -72,6 +72,8 @@ test_that("systematic tests", {
   skip_test(close_end & brk_fun == "brk_manual2")
   skip_test(! left & brk_fun == "brk_left")
   skip_test(left & brk_fun == "brk_right")
+  skip_test(names(x) == "Date" & grepl("lbl_format", lbl_fun))
+  skip_test(names(x) == "POSIXct" & grepl("lbl_format", lbl_fun))
 
   POSIXct_breaks <- c("brk_def_POSIXct", "brk_w_difft_sec")
   Date_breaks <- c("brk_def_Date", "brk_w_difft_day")
