@@ -8,11 +8,11 @@
 \alias{brk_equally}
 \title{Chop by quantiles}
 \usage{
-chop_quantiles(x, probs, ..., left = FALSE, close_end = TRUE)
+chop_quantiles(x, probs, ..., left = is.numeric(x), close_end = TRUE)
 
 chop_deciles(x, ...)
 
-chop_equally(x, groups, ..., left = FALSE, close_end = TRUE)
+chop_equally(x, groups, ..., left = is.numeric(x), close_end = TRUE)
 
 brk_quantiles(probs, ...)
 
@@ -40,13 +40,13 @@ data into equal-sized groups. \code{chop_deciles} is a convenience shortcut and
 chops into deciles.
 }
 \details{
-Note that these functions set \code{left = FALSE} and \code{close_end = TRUE} by default.
-These defaults help to ensure that e.g. \verb{chop_quantiles(x, c(0, 1/3, 2/3, 1)}
+Note that these functions set \code{close_end = TRUE} by default.
+This helps ensure that e.g. \verb{chop_quantiles(x, c(0, 1/3, 2/3, 1)}
 will split the data into three equal-sized groups.
 
-For non-numeric \code{x}, quantiles of type 1 will be calculated by default. See
-\code{\link[stats:quantile]{stats::quantile()}}. \code{left = FALSE} works better for these quantiles,
-since they round down.
+For non-numeric \code{x}, \code{left} is set to \code{FALSE} by default. This works better
+for calculating "type 1" quantiles, since they round down. See
+\code{\link[stats:quantile]{stats::quantile()}}.
 }
 \examples{
 chop_quantiles(1:10, 1:3/4)

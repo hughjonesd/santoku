@@ -186,13 +186,13 @@ fillet <- function (x, breaks, labels, left = TRUE, close_end = FALSE) {
 #' @inherit chop-doc params return
 #'
 #' @details
-#' Note that these functions set `left = FALSE` and `close_end = TRUE` by default.
-#' These defaults help to ensure that e.g. `chop_quantiles(x, c(0, 1/3, 2/3, 1)`
+#' Note that these functions set `close_end = TRUE` by default.
+#' This helps ensure that e.g. `chop_quantiles(x, c(0, 1/3, 2/3, 1)`
 #' will split the data into three equal-sized groups.
 #'
-#' For non-numeric `x`, quantiles of type 1 will be calculated by default. See
-#' [stats::quantile()]. `left = FALSE` works better for these quantiles,
-#' since they round down.
+#' For non-numeric `x`, `left` is set to `FALSE` by default. This works better
+#' for calculating "type 1" quantiles, since they round down. See
+#' [stats::quantile()].
 #'
 #' @family chopping functions
 #'
@@ -211,7 +211,7 @@ fillet <- function (x, breaks, labels, left = TRUE, close_end = FALSE) {
 #' # to label by the quantiles themselves:
 #' chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
 #'
-chop_quantiles <- function(x, probs, ..., left = FALSE, close_end = TRUE) {
+chop_quantiles <- function(x, probs, ..., left = is.numeric(x), close_end = TRUE) {
 
   chop(x, brk_quantiles(probs), ..., left = left, close_end = close_end)
 }
@@ -231,7 +231,7 @@ chop_deciles <- function(x, ...) {
 #'
 #' @export
 #' @order 1
-chop_equally <- function (x, groups, ..., left = FALSE, close_end = TRUE) {
+chop_equally <- function (x, groups, ..., left = is.numeric(x), close_end = TRUE) {
   chop(x, brk_equally(groups), ..., left = left, close_end = close_end)
 }
 
