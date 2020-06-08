@@ -35,7 +35,6 @@ NULL
 #' tab(-10:10, c(-3, 0, 0, 3),
 #'       labels = lbl_intervals())
 #'
-#' percent <- function (x) sprintf("%.2f%%", x * 100)
 #' tab_evenly(runif(20), 10,
 #'       labels = lbl_intervals(fmt = percent))
 #'
@@ -107,11 +106,11 @@ lbl_intervals <- function (raw = FALSE, fmt = NULL) {
 #' tab(1:10, c(1,3, 3, 7),
 #'       label = lbl_format("%.3g to %.3g", "Exactly %.3g"))
 #'
-#' percent <- function (x, y) {
+#' percent2 <- function (x, y) {
 #'   sprintf("%.2f%% - %.2f%%", x*100, y*100)
 #' }
 #' tab(runif(100), c(0.25, 0.5, .75),
-#'       labels = lbl_format(percent))
+#'       labels = lbl_format(percent2))
 lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
   assert_that(is_format(fmt), is_format(fmt1), is.flag(raw))
 

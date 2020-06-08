@@ -19,6 +19,24 @@
 exactly <- function (x) rep(x, each = 2)
 
 
+
+#' Simple formatter
+#'
+#' For a wider range of formatters, consider the
+#' ["scales" package](https://cran.r-project.org/package=scales).
+#'
+#' @param x Numeric values.
+#'
+#' @return `x` formatted as a percent.
+#' @export
+#'
+#' @examples
+#' percent(0.5)
+percent <- function (x) {
+  sprintf("%.1f%%", x * 100)
+}
+
+
 singletons <- function (breaks) {
   # this also works for Date and POSIXct breaks
   dv <- diff(breaks)

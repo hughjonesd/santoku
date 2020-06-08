@@ -41,11 +41,11 @@ tab(1:10, c(1,3, 3, 7),
 tab(1:10, c(1,3, 3, 7),
       label = lbl_format("\%.3g to \%.3g", "Exactly \%.3g"))
 
-percent <- function (x, y) {
+percent2 <- function (x, y) {
   sprintf("\%.2f\%\% - \%.2f\%\%", x*100, y*100)
 }
 tab(runif(100), c(0.25, 0.5, .75),
-      labels = lbl_format(percent))
+      labels = lbl_format(percent2))
 }
 \seealso{
 Other labelling functions: 

@@ -34,7 +34,6 @@ Mathematical set notation is as follows:
 tab(-10:10, c(-3, 0, 0, 3),
       labels = lbl_intervals())
 
-percent <- function (x) sprintf("\%.2f\%\%", x * 100)
 tab_evenly(runif(20), 10,
       labels = lbl_intervals(fmt = percent))
 
