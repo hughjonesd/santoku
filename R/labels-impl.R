@@ -36,7 +36,7 @@ endpoint_labels.Date <- function (breaks, raw, fmt = "%F") {
 
 
 #' @export
-endpoint_labels.POSIXt <- function (breaks, raw, fmt = "%F %X") {
+endpoint_labels.POSIXt <- function (breaks, raw, fmt = "%F %H:%M:%S") {
   elabels <- scaled_endpoints(breaks, raw = raw)
   # same comment as endpoint_labels.Date above:
   if (! inherits(elabels, "POSIXt")) return(NextMethod())
@@ -52,7 +52,7 @@ endpoint_labels.POSIXt <- function (breaks, raw, fmt = "%F %X") {
 
 
 #' @export
-endpoint_labels.quantileBreaks <- function (breaks, raw, fmt = "%.3g%%") {
+endpoint_labels.quantileBreaks <- function (breaks, raw, fmt = percent) {
   if (raw) return(NextMethod())
 
   elabels <- scaled_endpoints(breaks, raw = FALSE)

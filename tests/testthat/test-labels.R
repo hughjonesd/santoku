@@ -43,15 +43,15 @@ test_that("lbl_dash arguments", {
   expect_equivalent(lbl_dash(fmt = "%.2f")(brk), c("1.00 - 2.00", "2.00 - 3.00"))
 
   qbrk <- brk_res(brk_quantiles(c(0, .5, 1)), x = 0:10)
-  expect_equivalent(lbl_dash()(qbrk), c("0% - 50%", "50% - 100%"))
+  expect_equivalent(lbl_dash()(qbrk), c("0.0% - 50.0%", "50.0% - 100.0%"))
   expect_equivalent(lbl_dash(raw = TRUE)(qbrk), c("0 - 5", "5 - 10"))
   expect_equivalent(
     lbl_dash(raw = TRUE, fmt = "%.2f")(qbrk),
     c("0.00 - 5.00", "5.00 - 10.00")
   )
   expect_equivalent(
-    lbl_dash(fmt = "%s per cent")(qbrk),
-    c("0 per cent - 50 per cent", "50 per cent - 100 per cent")
+    lbl_dash(fmt = "%.3f")(qbrk),
+    c("0.000 - 0.500", "0.500 - 1.000")
   )
 })
 
@@ -113,7 +113,7 @@ test_that("lbl_intervals arguments", {
   qbrk <- brk_res(brk_quantiles(c(0, 0.5, 1)), x = 0:10)
   expect_equivalent(
     lbl_intervals()(qbrk),
-    c("[0%, 50%)", "[50%, 100%)")
+    c("[0.0%, 50.0%)", "[50.0%, 100.0%)")
   )
   expect_equivalent(
     lbl_intervals(raw = TRUE)(qbrk),
@@ -125,7 +125,7 @@ test_that("lbl_intervals arguments", {
   )
   expect_equivalent(
     lbl_intervals(fmt = "%.2f")(qbrk),
-    c("[0.00, 50.00)", "[50.00, 100.00)")
+    c("[0.00, 0.50)", "[0.50, 1.00)")
   )
 })
 
@@ -157,12 +157,10 @@ test_that("lbl_discrete arguments", {
     lbl_discrete(fmt = "(%s)")(lbrk),
     c("(1) - (2)", "(3) - (4)")
   )
-
-
 })
 
 
-test_that("breaks labels don't produce duplicates", {
+test_that("bug: breaks labels don't produce duplicates", {
   brk <- brk_res(brk_left(c(1.333335, 1.333336, 1.333337, 5)))
   lbls <- lbl_intervals()(brk)
   expect_true(anyDuplicated(lbls) == 0)

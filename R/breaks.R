@@ -35,7 +35,7 @@ brk_quantiles <- function (probs, ...) {
     breaks <- maybe_extend(breaks, x, extend)
 
     class(breaks) <- c("quantileBreaks", class(breaks))
-    attr(breaks, "scaled_endpoints") <- probs * 100
+    attr(breaks, "scaled_endpoints") <- probs
 
     breaks
   }

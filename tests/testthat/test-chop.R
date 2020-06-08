@@ -115,9 +115,8 @@ test_that("chop_evenly", {
 test_that("chop_quantiles", {
   x <- 1:6
   expect_equivalent(
-          chop_quantiles(x, c(.25, .5, .75)),
-          as.factor(c("[0%, 25%)", "[0%, 25%)", "[25%, 50%)", "[50%, 75%]",
-            "(75%, 100%]", "(75%, 100%]"))
+          chop_quantiles(x, c(.25, .5, .75), labels = lbl_seq("1")),
+          as.factor(c(1, 1, 2, 3, 4, 4))
         )
 })
 
@@ -125,8 +124,8 @@ test_that("chop_quantiles", {
 test_that("chop_equally", {
   x <- 1:6
   expect_equivalent(
-    chop_equally(x, 2, close_end = TRUE),
-    as.factor(rep(c("[0%, 50%)", "[50%, 100%]"), each = 3))
+    chop_equally(x, 2, labels = lbl_seq("1")),
+    as.factor(rep(1:2, each = 3))
   )
 })
 

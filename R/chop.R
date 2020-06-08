@@ -211,7 +211,13 @@ fillet <- function (x, breaks, labels, left = TRUE, close_end = FALSE) {
 #' # to label by the quantiles themselves:
 #' chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
 #'
-chop_quantiles <- function(x, probs, ..., left = is.numeric(x), close_end = TRUE) {
+chop_quantiles <- function(
+        x,
+        probs,
+        ...,
+        left      = is.numeric(x),
+        close_end = TRUE
+      ) {
 
   chop(x, brk_quantiles(probs), ..., left = left, close_end = close_end)
 }
