@@ -2,8 +2,6 @@
 
 # TODO
 
-## Pre 0.4.0
-
 
 * Work on tests
   - tests for `left` and `close_end` arguments
@@ -14,20 +12,18 @@
     guarantee exactly `intervals` intervals
   - systematic tests for `brk_*` functions
 
-
 * maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for symmetry reasons
   - `tab_quantiles` needs raw labels by default, to be useful
-
-  
-* Do a presentation for dates and times
-
-
-## Post 0.4.0
 
 * DateTimes: 
   - work internally with anchored "Intervals"? Doing this beats just
     relying on e.g. `chop(months(x))` because we can e.g. start monthly 
     intervals on the 15th.
+    - but note that effectively this is gonna be what `chop_width(x, width, start)`
+      does.
+    - you might want to do something like:
+      `chop(dates, dates + weeks(1:3))`
+      but that should already work
   - should we be able to chop by Intervals? This isn't `chop_width` because
     that isn't a fixed-in-time Interval; if you had a non-overlapping sequence
     of intervals you could chop with it. But you could equally just chop by
