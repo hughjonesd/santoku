@@ -134,13 +134,13 @@
 <span class="no">mb</span>
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                               expr      min       lq     mean   median       uq</span>
-<span class="co">#&gt;  santoku::chop(rnorm(1e+05), -2:2) 17.08100 20.13888 23.30020 21.46940 23.56776</span>
-<span class="co">#&gt;            cut(rnorm(1e+05), -2:2) 10.23891 11.73721 14.26908 12.05713 13.23055</span>
-<span class="co">#&gt;    Hmisc::cut2(rnorm(1e+05), -2:2) 30.39626 36.08008 53.44986 38.18002 40.64317</span>
-<span class="co">#&gt;        max neval cld</span>
-<span class="co">#&gt;   142.7800   100  a </span>
-<span class="co">#&gt;   128.3219   100  a </span>
-<span class="co">#&gt;  1462.9672   100   b</span></pre></body></html></div>
+<span class="co">#&gt;  santoku::chop(rnorm(1e+05), -2:2) 16.64036 19.42368 21.52735 20.67242 22.57320</span>
+<span class="co">#&gt;            cut(rnorm(1e+05), -2:2) 11.36406 12.53543 15.64737 13.05114 13.90347</span>
+<span class="co">#&gt;    Hmisc::cut2(rnorm(1e+05), -2:2) 31.12147 35.46452 49.98543 37.96964 40.37487</span>
+<span class="co">#&gt;         max neval cld</span>
+<span class="co">#&gt;    60.73155   100  a </span>
+<span class="co">#&gt;   131.03554   100  a </span>
+<span class="co">#&gt;  1148.71255   100   b</span></pre></body></html></div>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">mb</span>) + <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span>()
 <span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></pre></body></html></div>
 <p><img src="performance_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>

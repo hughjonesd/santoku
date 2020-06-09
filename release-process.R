@@ -8,6 +8,7 @@ devtools::check()
 devtools::spell_check()
 pkgdown::build_site()
 
+
 my_home <- "~/hughjonesd.github.io/"
 rmarkdown::render("vignettes/tutorials/visual-introduction.Rmd",
       output_dir = my_home)
