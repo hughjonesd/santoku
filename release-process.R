@@ -6,6 +6,7 @@ devtools::check_win_devel()
 devtools::check_win_release()
 devtools::check()
 devtools::spell_check()
+
 # do this on branch website-x.y.z. Then you can commit and push changes without
 # devtools complaining about uncommitted changes.
 pkgdown::build_site()
