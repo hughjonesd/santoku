@@ -7,7 +7,7 @@
 brk_manual(breaks, left_vec)
 }
 \arguments{
-\item{breaks}{A numeric vector which must be sorted.}
+\item{breaks}{A vector, which must be sorted.}
 
 \item{left_vec}{A logical vector, the same length as \code{breaks}.
 Specifies whether each break is left-closed or right-closed.}

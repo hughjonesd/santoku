@@ -6,9 +6,9 @@
 \alias{santoku-package}
 \title{A versatile cutting tool for R}
 \description{
-santoku is a tool for cutting numeric data into intervals. It provides
+santoku is a tool for cutting data into intervals. It provides
 the function \code{\link[=chop]{chop()}}, which is similar to base R's \code{\link[=cut]{cut()}} or \code{Hmisc::cut2()}.
-\code{chop(x, breaks)} takes a numeric vector \code{x} and returns a factor of the
+\code{chop(x, breaks)} takes a vector \code{x} and returns a factor of the
 same length, coding which interval each element of \code{x} falls into.
 }
 \details{
@@ -19,18 +19,18 @@ won't get unexpected \code{NA} values.
 \item Unlike \code{cut()} or \code{cut2()}, \code{chop()} can handle single values as well as
 intervals. For example, \code{chop(x, breaks = c(1, 2, 2, 3))} will create a
 separate factor level for values exactly equal to 2.
-\item Flexible labelling, including easy ways to label intervals by
-numerals or letters.
+\item Flexible and easy labelling.
 \item Convenience functions for creating quantile intervals, evenly-spaced
 intervals or equal-sized groups.
-\item Convenience functions for quickly tabulating chopped data.
+\item Convenience functions to quickly tabulate chopped data.
+\item Can chop numbers, dates or date-times.
 }
 
 These advantages make santoku especially useful for exploratory analysis,
 where you may not know the range of your data in advance.
 
-To get started, read the vignette:\preformatted{vignette("santoku")
-}
+To get started, read the vignette:\if{html}{\out{<div class="r">}}\preformatted{vignette("santoku")
+}\if{html}{\out{</div>}}
 
 For more details, start with the documentation for \code{\link[=chop]{chop()}}.
 }
