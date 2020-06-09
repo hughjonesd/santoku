@@ -144,22 +144,15 @@ on_failure(is_format) <- function(call, env) {
 #' Truncates `num` to look nice, while preserving uniqueness
 #'
 #' @param num A numeric vector.
-#' @param ... Arguments passed to formatC, except `digits` and `width`.
 #'
 #' @return A character vector
 #' @noRd
-unique_truncation <- function (num, ...) {
+unique_truncation <- function (num) {
   want_unique <- ! duplicated(num) # "real" duplicates are allowed!
-  # we keep the first of each duplicate set.
+                                   # we keep the first of each duplicate set.
 
-  dots <- list(...)
-  dots$x <- num
-  if (! "width" %in% names(dots)) dots$width <- -1
-  if (! "digits" %in% names(dots)) dots$digits <- 4L
-
-  for (digits in seq(dots$digits, 22L)) {
-    dots$digits <- digits
-    res <- do.call(formatC, dots)
+  for (digits in seq(4L, 22L)) {
+    res <- formatC(num, digits = digits, width = -1)
     if (anyDuplicated(res[want_unique]) == 0L) break
   }
 

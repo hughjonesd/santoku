@@ -33,7 +33,7 @@ exactly <- function (x) rep(x, each = 2)
 #' @examples
 #' percent(0.5)
 percent <- function (x) {
-  sprintf("%.1f%%", x * 100)
+  paste0(unique_truncation(x * 100), "%")
 }
 
 
