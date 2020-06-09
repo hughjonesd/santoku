@@ -1,4 +1,4 @@
-# santoku (development version)
+# santoku 0.4.0
 
 ## Interface changes
 
