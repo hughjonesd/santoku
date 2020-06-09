@@ -23,6 +23,7 @@ Suggests:
     knitr,
     lubridate,
     microbenchmark,
+    purrr,
     rmarkdown,
     scales
 LinkingTo: 
