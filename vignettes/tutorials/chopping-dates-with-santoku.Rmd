@@ -24,7 +24,7 @@ class: center, middle
 # Chopping dates with santoku 0.4.0
 ## David Hugh-Jones
 
-<img src="../../man/figures/logo.png" style="width: 250px" />
+<img src="figures/logo.png" style="width: 250px" />
 
 ```{r setup, include = FALSE}
 library(ggplot2)
@@ -85,7 +85,7 @@ class: middle, center
 
 # Santoku 0.4.0 can chop dates.
 
-<img src="../../man/figures/date.png" style="width: 300px;" />
+<img src="figures/date.png" style="width: 300px;" />
 
 ---
 class: inverse, middle
@@ -151,10 +151,10 @@ class: center, middle
 
 # Chopping time works too.
 
-<img src="../../man/figures/thyme.jpg" />
+<img src="figures/thyme.jpg" />
 
 ---
-background-image: url(../../man/figures/crew-dragon.jpg)
+background-image: url(figures/crew-dragon.jpg)
 background-size: cover
 class: inverse, middle
 
@@ -189,7 +189,7 @@ class: middle center
 
 # Happy chopping!
 
-<img src="../../man/figures/logo.png" style="width: 250px" />
+<img src="figures/logo.png" style="width: 250px" />
 
 [CRAN](https://cran.r-project.org/package=santoku)
 
