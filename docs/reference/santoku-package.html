@@ -47,9 +47,9 @@
 
 
 <meta property="og:title" content="A versatile cutting tool for R — santoku-package" />
-<meta property="og:description" content="santoku is a tool for cutting numeric data into intervals. It provides
+<meta property="og:description" content="santoku is a tool for cutting data into intervals. It provides
 the function chop(), which is similar to base R's cut() or Hmisc::cut2().
-chop(x, breaks) takes a numeric vector x and returns a factor of the
+chop(x, breaks) takes a vector x and returns a factor of the
 same length, coding which interval each element of x falls into." />
 <meta property="og:image" content="/logo.png" />
 
@@ -83,7 +83,7 @@ same length, coding which interval each element of x falls into." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -158,9 +158,9 @@ same length, coding which interval each element of x falls into." />
     </div>
 
     <div class="ref-description">
-    <p>santoku is a tool for cutting numeric data into intervals. It provides
+    <p>santoku is a tool for cutting data into intervals. It provides
 the function <code><a href='chop.html'>chop()</a></code>, which is similar to base R's <code><a href='https://rdrr.io/r/base/cut.html'>cut()</a></code> or <code><a href='https://rdrr.io/pkg/Hmisc/man/cut2.html'>Hmisc::cut2()</a></code>.
-<code><a href='chop.html'>chop(x, breaks)</a></code> takes a numeric vector <code>x</code> and returns a factor of the
+<code><a href='chop.html'>chop(x, breaks)</a></code> takes a vector <code>x</code> and returns a factor of the
 same length, coding which interval each element of <code>x</code> falls into.</p>
     </div>
 
@@ -174,17 +174,16 @@ won't get unexpected <code>NA</code> values.</p></li>
 <li><p>Unlike <code><a href='https://rdrr.io/r/base/cut.html'>cut()</a></code> or <code>cut2()</code>, <code><a href='chop.html'>chop()</a></code> can handle single values as well as
 intervals. For example, <code><a href='chop.html'>chop(x, breaks = c(1, 2, 2, 3))</a></code> will create a
 separate factor level for values exactly equal to 2.</p></li>
-<li><p>Flexible labelling, including easy ways to label intervals by
-numerals or letters.</p></li>
+<li><p>Flexible and easy labelling.</p></li>
 <li><p>Convenience functions for creating quantile intervals, evenly-spaced
 intervals or equal-sized groups.</p></li>
-<li><p>Convenience functions for quickly tabulating chopped data.</p></li>
+<li><p>Convenience functions to quickly tabulate chopped data.</p></li>
+<li><p>Can chop numbers, dates or date-times.</p></li>
 </ul>
 
 <p>These advantages make santoku especially useful for exploratory analysis,
 where you may not know the range of your data in advance.</p>
-<p>To get started, read the vignette:</p><pre><span class='fu'><a href='https://rdrr.io/r/utils/vignette.html'>vignette</a></span>(<span class='st'>"santoku"</span>)</pre>
-
+<p>To get started, read the vignette:<div class="r"></p><pre><span class='fu'><a href='https://rdrr.io/r/utils/vignette.html'>vignette</a></span>(<span class='st'>"santoku"</span>)</pre><p></div></p>
 <p>For more details, start with the documentation for <code><a href='chop.html'>chop()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 

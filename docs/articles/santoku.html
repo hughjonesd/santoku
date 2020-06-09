@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -223,36 +223,36 @@
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/chop_quantiles.html">chop_equally</a></span>(<span class="no">x</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="fl">5</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="no">chopped</span>)
 <span class="co">#&gt; chopped</span>
-<span class="co">#&gt;   [0.0%, 20.0%)  [20.0%, 40.0%)  [40.0%, 60.0%)  [60.0%, 80.0%) [80.0%, 100.0%] </span>
-<span class="co">#&gt;               2               2               2               2               2</span></pre></body></html></div>
+<span class="co">#&gt;   [0%, 20%)  [20%, 40%)  [40%, 60%)  [60%, 80%) [80%, 100%] </span>
+<span class="co">#&gt;           2           2           2           2           2</span></pre></body></html></div>
 <p>To chop data up by quantiles, use <code><a href="../reference/chop_quantiles.html">chop_quantiles()</a></code>:</p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/chop_quantiles.html">chop_quantiles</a></span>(<span class="no">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))
 <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x         chopped</span>
-<span class="co">#&gt; 1  4.978305  [25.0%, 50.0%)</span>
-<span class="co">#&gt; 2  8.969989 (75.0%, 100.0%]</span>
-<span class="co">#&gt; 3  3.391823   [0.0%, 25.0%)</span>
-<span class="co">#&gt; 4  4.676785  [25.0%, 50.0%)</span>
-<span class="co">#&gt; 5  7.057042  [50.0%, 75.0%]</span>
-<span class="co">#&gt; 6  9.707687 (75.0%, 100.0%]</span>
-<span class="co">#&gt; 7  6.713807  [50.0%, 75.0%]</span>
-<span class="co">#&gt; 8  8.376589 (75.0%, 100.0%]</span>
-<span class="co">#&gt; 9  1.086165   [0.0%, 25.0%)</span>
-<span class="co">#&gt; 10 4.495479   [0.0%, 25.0%)</span></pre></body></html></div>
+<span class="co">#&gt;           x     chopped</span>
+<span class="co">#&gt; 1  4.978305  [25%, 50%)</span>
+<span class="co">#&gt; 2  8.969989 (75%, 100%]</span>
+<span class="co">#&gt; 3  3.391823   [0%, 25%)</span>
+<span class="co">#&gt; 4  4.676785  [25%, 50%)</span>
+<span class="co">#&gt; 5  7.057042  [50%, 75%]</span>
+<span class="co">#&gt; 6  9.707687 (75%, 100%]</span>
+<span class="co">#&gt; 7  6.713807  [50%, 75%]</span>
+<span class="co">#&gt; 8  8.376589 (75%, 100%]</span>
+<span class="co">#&gt; 9  1.086165   [0%, 25%)</span>
+<span class="co">#&gt; 10 4.495479   [0%, 25%)</span></pre></body></html></div>
 <p>To chop data by standard deviations around the mean, use <code><a href="../reference/chop_mean_sd.html">chop_mean_sd()</a></code>:</p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/chop_mean_sd.html">chop_mean_sd</a></span>(<span class="no">x</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x            chopped</span>
-<span class="co">#&gt; 1  4.978305  [-1 s.d., 0 s.d.)</span>
-<span class="co">#&gt; 2  8.969989   [1 s.d., 2 s.d.)</span>
-<span class="co">#&gt; 3  3.391823  [-1 s.d., 0 s.d.)</span>
-<span class="co">#&gt; 4  4.676785  [-1 s.d., 0 s.d.)</span>
-<span class="co">#&gt; 5  7.057042   [0 s.d., 1 s.d.)</span>
-<span class="co">#&gt; 6  9.707687   [1 s.d., 2 s.d.)</span>
-<span class="co">#&gt; 7  6.713807   [0 s.d., 1 s.d.)</span>
-<span class="co">#&gt; 8  8.376589   [0 s.d., 1 s.d.)</span>
-<span class="co">#&gt; 9  1.086165 [-2 s.d., -1 s.d.)</span>
-<span class="co">#&gt; 10 4.495479  [-1 s.d., 0 s.d.)</span></pre></body></html></div>
+<span class="co">#&gt;           x        chopped</span>
+<span class="co">#&gt; 1  4.978305  [-1 sd, 0 sd)</span>
+<span class="co">#&gt; 2  8.969989   [1 sd, 2 sd)</span>
+<span class="co">#&gt; 3  3.391823  [-1 sd, 0 sd)</span>
+<span class="co">#&gt; 4  4.676785  [-1 sd, 0 sd)</span>
+<span class="co">#&gt; 5  7.057042   [0 sd, 1 sd)</span>
+<span class="co">#&gt; 6  9.707687   [1 sd, 2 sd)</span>
+<span class="co">#&gt; 7  6.713807   [0 sd, 1 sd)</span>
+<span class="co">#&gt; 8  8.376589   [0 sd, 1 sd)</span>
+<span class="co">#&gt; 9  1.086165 [-2 sd, -1 sd)</span>
+<span class="co">#&gt; 10 4.495479  [-1 sd, 0 sd)</span></pre></body></html></div>
 <p><code><a href="../reference/tab.html">tab_n()</a></code>, <code><a href="../reference/tab.html">tab_width()</a></code>, <code><a href="../reference/tab.html">tab_evenly()</a></code> and <code><a href="../reference/tab.html">tab_mean_sd()</a></code> act similarly to <code><a href="../reference/tab.html">tab()</a></code>, calling the related <code>chop_</code> function and then <code><a href="https://rdrr.io/r/base/table.html">table()</a></code>.</p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/tab.html">tab_n</a></span>(<span class="no">x</span>, <span class="fl">4</span>)
 <span class="co">#&gt; x</span>
@@ -268,8 +268,8 @@
 <span class="co">#&gt;              1              2              2              2              3</span>
 <span class="fu"><a href="../reference/tab.html">tab_mean_sd</a></span>(<span class="no">x</span>)
 <span class="co">#&gt; x</span>
-<span class="co">#&gt; [-2 s.d., -1 s.d.)  [-1 s.d., 0 s.d.)   [0 s.d., 1 s.d.)   [1 s.d., 2 s.d.) </span>
-<span class="co">#&gt;                  1                  4                  3                  2</span></pre></body></html></div>
+<span class="co">#&gt; [-2 sd, -1 sd)  [-1 sd, 0 sd)   [0 sd, 1 sd)   [1 sd, 2 sd) </span>
+<span class="co">#&gt;              1              4              3              2</span></pre></body></html></div>
 <p>You can chop dates too:</p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lubridate</span>)
 <span class="co">#&gt; </span>

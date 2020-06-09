@@ -81,7 +81,7 @@ interval may have fewer elements." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -191,7 +191,8 @@ interval may have fewer elements.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Note that <code>chop_n()</code> sets <code>close_end = TRUE</code> by default.</p>
-<p>Groups may be larger than <code>n</code>, if there are too many duplicated elements in <code>x</code>.</p>
+<p>Groups may be larger than <code>n</code>, if there are too many duplicated elements
+in <code>x</code>. If so, a warning is given.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other chopping functions: 
@@ -210,7 +211,7 @@ interval may have fewer elements.</p>
 #&gt;       4       4       2 </div><div class='input'>
 <span class='co'># too many duplicates</span>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>1</span>:<span class='fl'>2</span>, <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'>chop_n</span>(<span class='no'>x</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] {1} {1} {1} {2} {2} {2}
+<span class='fu'>chop_n</span>(<span class='no'>x</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Some intervals contain more than 2 elements</span></div><div class='output co'>#&gt; [1] {1} {1} {1} {2} {2} {2}
 #&gt; Levels: {1} {2}</div><div class='input'>
 </div></pre>
   </div>

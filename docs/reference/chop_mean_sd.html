@@ -81,7 +81,7 @@ The outermost pair of intervals will be shorter if sd is not a whole number." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -194,14 +194,12 @@ The outermost pair of intervals will be shorter if <code>sd</code> is not a whol
 <code><a href='fillet.html'>fillet</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chop_mean_sd</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] [-2 s.d., -1 s.d.) [-2 s.d., -1 s.d.) [-1 s.d., 0 s.d.)  [-1 s.d., 0 s.d.) 
-#&gt;  [5] [-1 s.d., 0 s.d.)  [0 s.d., 1 s.d.)   [0 s.d., 1 s.d.)   [0 s.d., 1 s.d.)  
-#&gt;  [9] [1 s.d., 2 s.d.)   [1 s.d., 2 s.d.)  
-#&gt; 4 Levels: [-2 s.d., -1 s.d.) [-1 s.d., 0 s.d.) ... [1 s.d., 2 s.d.)</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>brk_mean_sd</span>())</div><div class='output co'>#&gt;  [1] [-2 s.d., -1 s.d.) [-2 s.d., -1 s.d.) [-1 s.d., 0 s.d.)  [-1 s.d., 0 s.d.) 
-#&gt;  [5] [-1 s.d., 0 s.d.)  [0 s.d., 1 s.d.)   [0 s.d., 1 s.d.)   [0 s.d., 1 s.d.)  
-#&gt;  [9] [1 s.d., 2 s.d.)   [1 s.d., 2 s.d.)  
-#&gt; 4 Levels: [-2 s.d., -1 s.d.) [-1 s.d., 0 s.d.) ... [1 s.d., 2 s.d.)</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>chop_mean_sd</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] [-2 sd, -1 sd) [-2 sd, -1 sd) [-1 sd, 0 sd)  [-1 sd, 0 sd)  [-1 sd, 0 sd) 
+#&gt;  [6] [0 sd, 1 sd)   [0 sd, 1 sd)   [0 sd, 1 sd)   [1 sd, 2 sd)   [1 sd, 2 sd)  
+#&gt; Levels: [-2 sd, -1 sd) [-1 sd, 0 sd) [0 sd, 1 sd) [1 sd, 2 sd)</div><div class='input'>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>brk_mean_sd</span>())</div><div class='output co'>#&gt;  [1] [-2 sd, -1 sd) [-2 sd, -1 sd) [-1 sd, 0 sd)  [-1 sd, 0 sd)  [-1 sd, 0 sd) 
+#&gt;  [6] [0 sd, 1 sd)   [0 sd, 1 sd)   [0 sd, 1 sd)   [1 sd, 2 sd)   [1 sd, 2 sd)  
+#&gt; Levels: [-2 sd, -1 sd) [-1 sd, 0 sd) [0 sd, 1 sd) [1 sd, 2 sd)</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

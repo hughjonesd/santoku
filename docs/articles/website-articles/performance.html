@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
       <h1 data-toc-skip>Performance</h1>
                         <h4 class="author">David Hugh-Jones</h4>
             
-            <h4 class="date">2020-06-08</h4>
+            <h4 class="date">2020-06-09</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hughjonesd/santoku/blob/master/vignettes/website-articles/performance.Rmd"><code>vignettes/website-articles/performance.Rmd</code></a></small>
       <div class="hidden name"><code>performance.Rmd</code></div>
@@ -125,7 +125,7 @@
 <p>The core of santoku is written in C++. It is reasonably fast:</p>
 <div class="sourceCode" id="cb1"><html><body><pre class="r">
 <span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span>(<span class="st">"santoku"</span>)
-<span class="co">#&gt; [1] '0.3.0.9000'</span>
+<span class="co">#&gt; [1] '0.4.0'</span>
 <span class="no">mb</span> <span class="kw">&lt;-</span> <span class="kw pkg">microbenchmark</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(
         <span class="kw pkg">santoku</span><span class="kw ns">::</span><span class="fu"><a href="../../reference/chop.html">chop</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1e5</span>), -<span class="fl">2</span>:<span class="fl">2</span>),
                   <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1e5</span>), -<span class="fl">2</span>:<span class="fl">2</span>),
@@ -134,13 +134,13 @@
 <span class="no">mb</span>
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                               expr      min       lq     mean   median       uq</span>
-<span class="co">#&gt;  santoku::chop(rnorm(1e+05), -2:2) 16.86851 19.13728 24.02311 21.21847 23.55777</span>
-<span class="co">#&gt;            cut(rnorm(1e+05), -2:2) 11.36247 12.52998 13.77819 12.97052 13.66205</span>
-<span class="co">#&gt;    Hmisc::cut2(rnorm(1e+05), -2:2) 30.50051 35.28387 51.31207 37.87776 40.42736</span>
-<span class="co">#&gt;         max neval cld</span>
-<span class="co">#&gt;   155.94359   100  a </span>
-<span class="co">#&gt;    48.10969   100  a </span>
-<span class="co">#&gt;  1266.75575   100   b</span></pre></body></html></div>
+<span class="co">#&gt;  santoku::chop(rnorm(1e+05), -2:2) 17.08100 20.13888 23.30020 21.46940 23.56776</span>
+<span class="co">#&gt;            cut(rnorm(1e+05), -2:2) 10.23891 11.73721 14.26908 12.05713 13.23055</span>
+<span class="co">#&gt;    Hmisc::cut2(rnorm(1e+05), -2:2) 30.39626 36.08008 53.44986 38.18002 40.64317</span>
+<span class="co">#&gt;        max neval cld</span>
+<span class="co">#&gt;   142.7800   100  a </span>
+<span class="co">#&gt;   128.3219   100  a </span>
+<span class="co">#&gt;  1462.9672   100   b</span></pre></body></html></div>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">mb</span>) + <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span>()
 <span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></pre></body></html></div>
 <p><img src="performance_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>

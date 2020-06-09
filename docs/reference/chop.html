@@ -81,7 +81,7 @@ length as x, representing which interval contains each element of x." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -302,10 +302,9 @@ confusion with <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>t
 <span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  [5, 8]  [5, 8]  [5, 8]  [5, 8]  (8, 10]
 #&gt; [10] (8, 10]
 #&gt; Levels: [1, 2) [2, 5) [5, 8] (8, 10]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='chop_quantiles.html'>brk_quantiles</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>)))</div><div class='output co'>#&gt;  [1] [0.0%, 25.0%)   [0.0%, 25.0%)   [0.0%, 25.0%)   [25.0%, 75.0%) 
-#&gt;  [5] [25.0%, 75.0%)  [25.0%, 75.0%)  [25.0%, 75.0%)  [75.0%, 100.0%]
-#&gt;  [9] [75.0%, 100.0%] [75.0%, 100.0%]
-#&gt; Levels: [0.0%, 25.0%) [25.0%, 75.0%) [75.0%, 100.0%]</div><div class='input'>
+<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='chop_quantiles.html'>brk_quantiles</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>)))</div><div class='output co'>#&gt;  [1] [0%, 25%)   [0%, 25%)   [0%, 25%)   [25%, 75%)  [25%, 75%)  [25%, 75%) 
+#&gt;  [7] [25%, 75%)  [75%, 100%] [75%, 100%] [75%, 100%]
+#&gt; Levels: [0%, 25%) [25%, 75%) [75%, 100%]</div><div class='input'>
 <span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='lbl_dash.html'>lbl_dash</a></span>())</div><div class='output co'>#&gt;  [1] 1 - 2  2 - 5  2 - 5  2 - 5  5 - 8  5 - 8  5 - 8  8 - 10 8 - 10 8 - 10
 #&gt; Levels: 1 - 2 2 - 5 5 - 8 8 - 10</div><div class='input'>
 <span class='co'># floating point inaccuracy:</span>
