@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Chop by quantiles — brk_quantiles • santoku</title>
+<title>Chop by quantiles — chop_quantiles • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,12 +46,11 @@
 
 
 
-<meta property="og:title" content="Chop by quantiles — brk_quantiles" />
+<meta property="og:title" content="Chop by quantiles — chop_quantiles" />
 <meta property="og:description" content="chop_quantiles chops data by quantiles. chop_equally chops
 data into equal-sized groups. chop_deciles is a convenience shortcut and
 chops into deciles." />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -65,7 +68,7 @@ chops into deciles." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -79,7 +82,7 @@ chops into deciles." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0.9000</span>
       </span>
     </div>
 
@@ -119,6 +122,9 @@ chops into deciles." />
     <li>
       <a href="../tutorials/00-visualintroduction.html">A visual introduction to Santoku</a>
     </li>
+    <li>
+      <a href="../tutorials/01-chopping-dates.html">Chopping dates with santoku</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -127,7 +133,7 @@ chops into deciles." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hughjonesd/santoku">
+  <a href="https://github.com/hughjonesd/santoku/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -146,7 +152,7 @@ chops into deciles." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Chop by quantiles</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/breaks.R'><code>R/breaks.R</code></a>, <a href='https://github.com/hughjonesd/santoku/blob/master/R/chop.R'><code>R/chop.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/chop.R'><code>R/chop.R</code></a>, <a href='https://github.com/hughjonesd/santoku/blob/master/R/breaks.R'><code>R/breaks.R</code></a></small>
     <div class="hidden name"><code>chop_quantiles.Rd</code></div>
     </div>
 
@@ -156,28 +162,38 @@ data into equal-sized groups. <code>chop_deciles</code> is a convenience shortcu
 chops into deciles.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>brk_quantiles</span>(<span class='no'>probs</span>, <span class='no'>...</span>)
-
-<span class='fu'>chop_quantiles</span>(<span class='no'>x</span>, <span class='no'>probs</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>chop_quantiles</span>(<span class='no'>x</span>, <span class='no'>probs</span>, <span class='no'>...</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span>(<span class='no'>x</span>), <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>chop_deciles</span>(<span class='no'>x</span>, <span class='no'>...</span>)
 
-<span class='fu'>chop_equally</span>(<span class='no'>x</span>, <span class='no'>groups</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>chop_equally</span>(<span class='no'>x</span>, <span class='no'>groups</span>, <span class='no'>...</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>is.numeric</a></span>(<span class='no'>x</span>), <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>brk_quantiles</span>(<span class='no'>probs</span>, <span class='no'>...</span>)
+
+<span class='fu'>brk_equally</span>(<span class='no'>groups</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A numeric vector.</p></td>
+    </tr>
     <tr>
       <th>probs</th>
       <td><p>A vector of probabilities for the quantiles.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed to <code><a href='https://rdrr.io/r/stats/quantile.html'>quantile()</a></code>.</p></td>
+      <td><p>Passed to <code><a href='chop.html'>chop()</a></code>, or for <code>brk_quantiles</code> to <code><a href='https://rdrr.io/r/stats/quantile.html'>stats::quantile()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>x</th>
-      <td><p>A numeric vector.</p></td>
+      <th>left</th>
+      <td><p>Passed to <code><a href='chop.html'>chop()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>close_end</th>
+      <td><p>Passed to <code><a href='chop.html'>chop()</a></code>.</p></td>
     </tr>
     <tr>
       <th>groups</th>
@@ -188,43 +204,50 @@ chops into deciles.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>For  <code>chop_*</code> functions, a factor of the same length as <code>x</code>.</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Note that these functions set <code>close_end = TRUE</code> by default.
+This helps ensure that e.g. <code>chop_quantiles(x, c(0, 1/3, 2/3, 1)</code>
+will split the data into three equal-sized groups.</p>
+<p>For non-numeric <code>x</code>, <code>left</code> is set to <code>FALSE</code> by default. This works better
+for calculating "type 1" quantiles, since they round down. See
+<code><a href='https://rdrr.io/r/stats/quantile.html'>stats::quantile()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other chopping functions: 
-<code><a href='chop_mean_sd.html'>brk_mean_sd</a>()</code>,
-<code><a href='chop_n.html'>brk_n</a>()</code>,
-<code><a href='chop_width.html'>brk_width</a>()</code>,
+<code><a href='chop_mean_sd.html'>chop_mean_sd</a>()</code>,
+<code><a href='chop_n.html'>chop_n</a>()</code>,
+<code><a href='chop_width.html'>chop_width</a>()</code>,
 <code><a href='chop.html'>chop</a>()</code>,
 <code><a href='fillet.html'>fillet</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chop_quantiles</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>)</div><div class='output co'>#&gt;  [1] [0%, 25%)   [0%, 25%)   [0%, 25%)   [25%, 50%)  [25%, 50%)  [50%, 75%] 
-#&gt;  [7] [50%, 75%]  (75%, 100%] (75%, 100%] (75%, 100%]
-#&gt; Levels: [0%, 25%) [25%, 50%) [50%, 75%] (75%, 100%]</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>brk_quantiles</span>(<span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>))</div><div class='output co'>#&gt;  [1] [0%, 25%)   [0%, 25%)   [0%, 25%)   [25%, 50%)  [25%, 50%)  [50%, 75%] 
-#&gt;  [7] [50%, 75%]  (75%, 100%] (75%, 100%] (75%, 100%]
-#&gt; Levels: [0%, 25%) [25%, 50%) [50%, 75%] (75%, 100%]</div><div class='input'>
-<span class='fu'>chop_deciles</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] [0%, 10%)   [10%, 20%)  [20%, 30%)  [30%, 40%)  [40%, 50%)  [50%, 60%) 
-#&gt;  [7] [60%, 70%)  [70%, 80%)  [80%, 90%]  (90%, 100%]
-#&gt; 10 Levels: [0%, 10%) [10%, 20%) [20%, 30%) [30%, 40%) [40%, 50%) ... (90%, 100%]</div><div class='input'>
-<span class='fu'>chop_equally</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>5</span>)</div><div class='output co'>#&gt;  [1] [0%, 20%)   [0%, 20%)   [20%, 40%)  [20%, 40%)  [40%, 60%)  [40%, 60%) 
-#&gt;  [7] [60%, 80%)  [60%, 80%)  [80%, 100%] [80%, 100%]
-#&gt; Levels: [0%, 20%) [20%, 40%) [40%, 60%) [60%, 80%) [80%, 100%]</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>chop_quantiles</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>)</div><div class='output co'>#&gt;  [1] [0.0%, 25.0%)   [0.0%, 25.0%)   [0.0%, 25.0%)   [25.0%, 50.0%) 
+#&gt;  [5] [25.0%, 50.0%)  [50.0%, 75.0%]  [50.0%, 75.0%]  (75.0%, 100.0%]
+#&gt;  [9] (75.0%, 100.0%] (75.0%, 100.0%]
+#&gt; Levels: [0.0%, 25.0%) [25.0%, 50.0%) [50.0%, 75.0%] (75.0%, 100.0%]</div><div class='input'>
+<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>brk_quantiles</span>(<span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>))</div><div class='output co'>#&gt;  [1] [0.0%, 25.0%)   [0.0%, 25.0%)   [0.0%, 25.0%)   [25.0%, 50.0%) 
+#&gt;  [5] [25.0%, 50.0%)  [50.0%, 75.0%)  [50.0%, 75.0%)  [75.0%, 100.0%]
+#&gt;  [9] [75.0%, 100.0%] [75.0%, 100.0%]
+#&gt; Levels: [0.0%, 25.0%) [25.0%, 50.0%) [50.0%, 75.0%) [75.0%, 100.0%]</div><div class='input'>
+<span class='fu'>chop_deciles</span>(<span class='fl'>1</span>:<span class='fl'>10</span>)</div><div class='output co'>#&gt;  [1] [0.0%, 10.0%)   [10.0%, 20.0%)  [20.0%, 30.0%)  [30.0%, 40.0%) 
+#&gt;  [5] [40.0%, 50.0%)  [50.0%, 60.0%)  [60.0%, 70.0%)  [70.0%, 80.0%) 
+#&gt;  [9] [80.0%, 90.0%)  [90.0%, 100.0%]
+#&gt; 10 Levels: [0.0%, 10.0%) [10.0%, 20.0%) [20.0%, 30.0%) ... [90.0%, 100.0%]</div><div class='input'>
+<span class='fu'>chop_equally</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>5</span>)</div><div class='output co'>#&gt;  [1] [0.0%, 20.0%)   [0.0%, 20.0%)   [20.0%, 40.0%)  [20.0%, 40.0%) 
+#&gt;  [5] [40.0%, 60.0%)  [40.0%, 60.0%)  [60.0%, 80.0%)  [60.0%, 80.0%) 
+#&gt;  [9] [80.0%, 100.0%] [80.0%, 100.0%]
+#&gt; 5 Levels: [0.0%, 20.0%) [20.0%, 40.0%) [40.0%, 60.0%) ... [80.0%, 100.0%]</div><div class='input'>
 <span class='co'># to label by the quantiles themselves:</span>
 <span class='fu'>chop_quantiles</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>1</span>:<span class='fl'>3</span>/<span class='fl'>4</span>, <span class='fu'><a href='lbl_intervals.html'>lbl_intervals</a></span>(<span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;  [1] [1, 3.25)   [1, 3.25)   [1, 3.25)   [3.25, 5.5) [3.25, 5.5) [5.5, 7.75]
 #&gt;  [7] [5.5, 7.75] (7.75, 10]  (7.75, 10]  (7.75, 10] 
 #&gt; Levels: [1, 3.25) [3.25, 5.5) [5.5, 7.75] (7.75, 10]</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -235,7 +258,7 @@ chops into deciles.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a <code>breaks</code> object manually — brk_manual • santoku</title>
+<title>Label chopped intervals by their left or right endpoints — lbl_endpoint • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="Create a <code>breaks</code> object manually — brk_manual" />
-<meta property="og:description" content="Create a breaks object manually" />
+<meta property="og:title" content="Label chopped intervals by their left or right endpoints — lbl_endpoint" />
+<meta property="og:description" content="This is useful when the left endpoint unambiguously indicates the
+interval." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -149,63 +150,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a <code>breaks</code> object manually</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/breaks.R'><code>R/breaks.R</code></a></small>
-    <div class="hidden name"><code>brk_manual.Rd</code></div>
+    <h1>Label chopped intervals by their left or right endpoints</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/labels.R'><code>R/labels.R</code></a></small>
+    <div class="hidden name"><code>lbl_endpoint.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a <code>breaks</code> object manually</p>
+    <p>This is useful when the left endpoint unambiguously indicates the
+interval.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>brk_manual</span>(<span class='no'>breaks</span>, <span class='no'>left_vec</span>)</pre>
+    <pre class="usage"><span class='fu'>lbl_endpoint</span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>breaks</th>
-      <td><p>A numeric vector which must be sorted.</p></td>
+      <th>fmt</th>
+      <td><p>A format. Can be a string, passed into <code><a href='https://rdrr.io/r/base/sprintf.html'>base::sprintf()</a></code> or <code><a href='https://rdrr.io/r/base/format.html'>format()</a></code>
+methods; or a one-argument formatting function.</p></td>
     </tr>
     <tr>
-      <th>left_vec</th>
-      <td><p>A logical vector, the same length as <code>breaks</code>.
-Specifies whether each break is left-closed or right-closed.</p></td>
+      <th>raw</th>
+      <td><p>Logical. Always use raw <code>breaks</code> in labels, rather than e.g. quantiles
+or standard deviations?</p></td>
+    </tr>
+    <tr>
+      <th>left</th>
+      <td><p>Flag. Use left endpoint or right endpoint?</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A (function which returns an) object of class <code>breaks</code>.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>All breaks must be closed on exactly one side, like <code>..., x) [x, ...</code>
-(left-closed) or <code>..., x) [x, ...</code> (right-closed).</p>
-<p>For example, if <code>breaks = 1:3</code> and <code>left = c(TRUE, FALSE, TRUE)</code>, then the
-resulting intervals are</p><pre>
-T        F       T
-[ 1,  2 ] ( 2, 3 )
-</pre>
-
-<p>Singleton breaks are created by repeating a number in <code>breaks</code>.
-Singletons must be closed on both sides, so if there is a repeated number
-at indices <code>i</code>, <code>i+1</code>, <code>left[i]</code> <em>must</em> be <code>TRUE</code> and <code>left[i+1]</code> must be
-<code>FALSE</code>.</p>
+    <p>A vector of labels for <code>chop</code>, or a function that creates labels.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>lbrks</span> <span class='kw'>&lt;-</span> <span class='fu'>brk_manual</span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>3</span>))
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='no'>lbrks</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] [1, 2) [2, 3) &lt;NA&gt;  
-#&gt; Levels: [1, 2) [2, 3)</div><div class='input'>
-<span class='no'>rbrks</span> <span class='kw'>&lt;-</span> <span class='fu'>brk_manual</span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span>(<span class='fl'>FALSE</span>, <span class='fl'>3</span>))
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='no'>rbrks</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] &lt;NA&gt;   (1, 2] (2, 3]
-#&gt; Levels: (1, 2] (2, 3]</div><div class='input'>
-<span class='no'>brks_singleton</span> <span class='kw'>&lt;-</span> <span class='fu'>brk_manual</span>(
-      <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,    <span class='fl'>2</span>,    <span class='fl'>2</span>,     <span class='fl'>3</span>),
-      <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>, <span class='fl'>TRUE</span>))
-
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='no'>brks_singleton</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; [1] [1, 2) {2}    &lt;NA&gt;  
-#&gt; Levels: [1, 2) {2}</div><div class='input'>
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_endpoint</span>(<span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='output co'>#&gt;  [1] 1 2 2 2 5 5 5 8 8 8
+#&gt; Levels: 1 2 5 8</div><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='fu'>lbl_endpoint</span>(<span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>))</div><div class='output co'>#&gt;  [1] 2  5  5  5  8  8  8  10 10 10
+#&gt; Levels: 2 5 8 10</div><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"lubridate"</span>)) {
+  <span class='fu'><a href='tab.html'>tab_width</a></span>(
+          <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2000-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>365</span>,
+         <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>),
+         <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>lbl_endpoint</span>(<span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%b"</span>)
+       )
+}</div><div class='output co'>#&gt; x
+#&gt; Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec 
+#&gt;  31  29  31  30  31  30  31  31  30  31  30  31 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
