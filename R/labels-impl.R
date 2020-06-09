@@ -63,7 +63,7 @@ endpoint_labels.quantileBreaks <- function (breaks, raw, fmt = percent) {
 
 
 #' @export
-endpoint_labels.sdBreaks <- function (breaks, raw, fmt = "%.3g s.d.") {
+endpoint_labels.sdBreaks <- function (breaks, raw, fmt = "%.3g sd") {
   if (raw) return(NextMethod())
 
   elabels <- scaled_endpoints(breaks, raw = FALSE)
