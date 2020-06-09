@@ -11,6 +11,7 @@ devtools::spell_check()
 # devtools complaining about uncommitted changes.
 pkgdown::build_site()
 
+
 my_home <- "~/hughjonesd.github.io/"
 rmarkdown::render("vignettes/tutorials/visual-introduction.Rmd",
       output_dir = my_home)

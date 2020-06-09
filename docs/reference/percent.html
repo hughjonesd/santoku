@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated — knife • santoku</title>
+<title>Simple formatter — percent • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,9 @@
 
 
 
-<meta property="og:title" content="Deprecated — knife" />
-<meta property="og:description" content="
-
-knife() is deprecated in favour of purrr::partial()." />
+<meta property="og:title" content="Simple formatter — percent" />
+<meta property="og:description" content="For a wider range of formatters, consider the
+&quot;scales&quot; package." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -151,32 +150,33 @@ knife() is deprecated in favour of purrr::partial()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Deprecated</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/knife.R'><code>R/knife.R</code></a></small>
-    <div class="hidden name"><code>knife.Rd</code></div>
+    <h1>Simple formatter</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>percent.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' />
-
-<code>knife()</code> is deprecated in favour of <code><a href='https://purrr.tidyverse.org/reference/partial.html'>purrr::partial()</a></code>.</p>
+    <p>For a wider range of formatters, consider the
+<a href='https://cran.r-project.org/package=scales'>"scales" package</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>knife</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>percent</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Parameters for <code><a href='chop.html'>chop()</a></code>.</p></td>
+      <th>x</th>
+      <td><p>Numeric values.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A function.</p>
+    <p><code>x</code> formatted as a percent.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>percent</span>(<span class='fl'>0.5</span>)</div><div class='output co'>#&gt; [1] "50%"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

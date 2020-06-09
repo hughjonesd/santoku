@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Deprecated — knife • santoku</title>
+<title>Equal-width intervals for dates or datetimes — brk_width-for-datetime • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,9 @@
 
 
 
-<meta property="og:title" content="Deprecated — knife" />
-<meta property="og:description" content="
-
-knife() is deprecated in favour of purrr::partial()." />
+<meta property="og:title" content="Equal-width intervals for dates or datetimes — brk_width-for-datetime" />
+<meta property="og:description" content="brk_width can be used with time interval classes from base R or the
+lubridate package." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -151,32 +150,55 @@ knife() is deprecated in favour of purrr::partial()." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Deprecated</h1>
-    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/knife.R'><code>R/knife.R</code></a></small>
-    <div class="hidden name"><code>knife.Rd</code></div>
+    <h1>Equal-width intervals for dates or datetimes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/breaks.R'><code>R/breaks.R</code></a></small>
+    <div class="hidden name"><code>brk_width-for-datetime.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/lifecycle-soft-deprecated.svg' alt='Soft-deprecated lifecycle' />
-
-<code>knife()</code> is deprecated in favour of <code><a href='https://purrr.tidyverse.org/reference/partial.html'>purrr::partial()</a></code>.</p>
+    <p><code>brk_width</code> can be used with time interval classes from base R or the
+<code>lubridate</code> package.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>knife</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='co'># S3 method for Duration</span>
+<span class='fu'><a href='chop_width.html'>brk_width</a></span>(<span class='no'>width</span>, <span class='no'>start</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Parameters for <code><a href='chop.html'>chop()</a></code>.</p></td>
+      <th>width</th>
+      <td><p>A scalar <a href='https://rdrr.io/r/base/difftime.html'>difftime</a>, <a href='http://lubridate.tidyverse.org/reference/Period-class.html'>Period</a> or
+<a href='http://lubridate.tidyverse.org/reference/Duration-class.html'>Duration</a> object.</p></td>
+    </tr>
+    <tr>
+      <th>start</th>
+      <td><p>A scalar of class <a href='https://rdrr.io/r/base/Dates.html'>Date</a> or <a href='https://rdrr.io/r/base/DateTimeClasses.html'>POSIXct</a>.
+Can be omitted.</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>A function.</p>
+    <p>If <code>width</code> is a Period, <code><a href='http://lubridate.tidyverse.org/reference/mplus.html'>lubridate::add_with_rollback()</a></code> is used
+to calculate the widths. This can be useful for e.g. calendar months.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"lubridate"</span>)) {
+  <span class='no'>year2001</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2001-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>364</span>
+  <span class='fu'><a href='tab.html'>tab_width</a></span>(<span class='no'>year2001</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>),
+        <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='lbl_discrete.html'>lbl_discrete</a></span>(<span class='st'>" to "</span>, <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%e %b %y"</span>))
+}</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: lubridate</span></div><div class='output co'>#&gt; x
+#&gt;  1 Jan 01 to 31 Jan 01  1 Feb 01 to 28 Feb 01  1 Mar 01 to 31 Mar 01 
+#&gt;                     31                     28                     31 
+#&gt;  1 Apr 01 to 30 Apr 01  1 May 01 to 31 May 01  1 Jun 01 to 30 Jun 01 
+#&gt;                     30                     31                     30 
+#&gt;  1 Jul 01 to 31 Jul 01  1 Aug 01 to 31 Aug 01  1 Sep 01 to 30 Sep 01 
+#&gt;                     31                     31                     30 
+#&gt;  1 Oct 01 to 31 Oct 01  1 Nov 01 to 30 Nov 01  1 Dec 01 to 31 Dec 01 
+#&gt;                     31                     30                     31 </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

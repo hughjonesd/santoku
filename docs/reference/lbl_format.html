@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Labels using breaks, with arbitrary formatting — lbl_format • santoku</title>
+<title>Label chopped intervals with arbitrary formatting — lbl_format • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,10 +46,9 @@
 
 
 
-<meta property="og:title" content="Labels using breaks, with arbitrary formatting — lbl_format" />
-<meta property="og:description" content="Labels using breaks, with arbitrary formatting" />
+<meta property="og:title" content="Label chopped intervals with arbitrary formatting — lbl_format" />
+<meta property="og:description" content="" />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -63,7 +66,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -77,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -117,6 +120,9 @@
     <li>
       <a href="../tutorials/00-visualintroduction.html">A visual introduction to Santoku</a>
     </li>
+    <li>
+      <a href="../tutorials/01-chopping-dates.html">Chopping dates with santoku</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -125,7 +131,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hughjonesd/santoku">
+  <a href="https://github.com/hughjonesd/santoku/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -143,23 +149,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Labels using breaks, with arbitrary formatting</h1>
+    <h1>Label chopped intervals with arbitrary formatting</h1>
     <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/labels.R'><code>R/labels.R</code></a></small>
     <div class="hidden name"><code>lbl_format.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Labels using breaks, with arbitrary formatting</p>
+    <p><a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>lbl_format</span>(<span class='no'>fmt</span>, <span class='kw'>fmt1</span> <span class='kw'>=</span> <span class='st'>"%s"</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>lbl_format</span>(<span class='no'>fmt</span>, <span class='kw'>fmt1</span> <span class='kw'>=</span> <span class='st'>"%.3g"</span>, <span class='kw'>raw</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>fmt</th>
-      <td><p>A <code><a href='https://rdrr.io/r/base/sprintf.html'>sprintf()</a></code>-style format.</p></td>
+      <td><p>A format. Can be a string, passed into <code><a href='https://rdrr.io/r/base/sprintf.html'>base::sprintf()</a></code> or <code><a href='https://rdrr.io/r/base/format.html'>format()</a></code>
+methods; or a one-argument formatting function.</p></td>
     </tr>
     <tr>
       <th>fmt1</th>
@@ -168,7 +175,7 @@
     <tr>
       <th>raw</th>
       <td><p>Logical. Always use raw <code>breaks</code> in labels, rather than e.g. quantiles
-or standard deviations.</p></td>
+or standard deviations?</p></td>
     </tr>
     </table>
 
@@ -177,34 +184,44 @@ or standard deviations.</p></td>
     <p>A vector of labels for <code>chop</code>, or a function that creates labels.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If <code>raw = FALSE</code>, breaks will be preformatted as strings
-before being passed to <code><a href='https://rdrr.io/r/base/sprintf.html'>sprintf()</a></code>, so only <code>"%s"</code> should be used in
-format strings.</p>
+    <p>These labels let you format breaks arbitrarily, using either a string
+(passed to <code><a href='https://rdrr.io/r/base/sprintf.html'>sprintf()</a></code>) or a function.</p>
+<p>If <code>fmt</code> is a function, it must accept two arguments, representing the
+left and right endpoints of each interval.</p>
+<p>If <code>breaks</code> are non-numeric, you can only use <code>"%s"</code> in a string <code>fmt</code>.
+<code>breaks</code> will be converted to character in this case.</p>
+<p><code>lbl_format()</code> is in the "questioning" stage. As an alternative, consider
+using <code><a href='lbl_dash.html'>lbl_dash()</a></code> or <code><a href='lbl_intervals.html'>lbl_intervals()</a></code> with the <code>fmt</code> argument.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other labelling functions: 
 <code><a href='lbl_dash.html'>lbl_dash</a>()</code>,
+<code><a href='lbl_discrete.html'>lbl_discrete</a>()</code>,
 <code><a href='lbl_intervals.html'>lbl_intervals</a>()</code>,
 <code><a href='lbl_manual.html'>lbl_manual</a>()</code>,
 <code><a href='lbl_seq.html'>lbl_seq</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>7</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>lbl_format</span>(<span class='st'>"%s to %s"</span>))</div><div class='output co'>#&gt; x
+    <pre class="examples"><div class='input'>
+<span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>7</span>),
+      <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>lbl_format</span>(<span class='st'>"%.3g to %.3g"</span>))</div><div class='output co'>#&gt; x
 #&gt;  1 to 3       3  3 to 7 7 to 10 
-#&gt;       2       1       4       3 </div><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>7</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>lbl_format</span>(<span class='st'>"%s to %s"</span>, <span class='st'>"Exactly %s"</span>))</div><div class='output co'>#&gt; x
+#&gt;       2       1       3       4 </div><div class='input'><span class='fu'><a href='tab.html'>tab</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>,<span class='fl'>3</span>, <span class='fl'>3</span>, <span class='fl'>7</span>),
+      <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'>lbl_format</span>(<span class='st'>"%.3g to %.3g"</span>, <span class='st'>"Exactly %.3g"</span>))</div><div class='output co'>#&gt; x
 #&gt;    1 to 3 Exactly 3    3 to 7   7 to 10 
-#&gt;         2         1         4         3 </div></pre>
+#&gt;         2         1         3         4 </div><div class='input'>
+<span class='no'>percent2</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span> (<span class='no'>x</span>, <span class='no'>y</span>) {
+  <span class='fu'><a href='https://rdrr.io/r/base/sprintf.html'>sprintf</a></span>(<span class='st'>"%.2f%% - %.2f%%"</span>, <span class='no'>x</span>*<span class='fl'>100</span>, <span class='no'>y</span>*<span class='fl'>100</span>)
+}
+<span class='fu'><a href='tab.html'>tab</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>100</span>), <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>.75</span>),
+      <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>lbl_format</span>(<span class='no'>percent2</span>))</div><div class='output co'>#&gt; x
+#&gt;  2.01% - 25.00% 25.00% - 50.00% 50.00% - 75.00% 75.00% - 99.71% 
+#&gt;              23              30              28              19 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -215,7 +232,7 @@ format strings.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>
