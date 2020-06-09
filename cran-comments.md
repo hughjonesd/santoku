@@ -14,4 +14,6 @@ This update provides new functionality and alters some interfaces.
 * OK on travis
 * OK on appveyor
 * OK on win-builder release
-* rhub was down, the idle hippies
+* win-builder devel was down
+* OK on rhub release on Ubuntu 16.04
+* other rhub was down
