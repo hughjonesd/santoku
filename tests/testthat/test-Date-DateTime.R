@@ -12,9 +12,14 @@ table_vals <- function (x) unclass(table(x))
 test_that("Basic chop", {
   expect_silent(chop(d1, db1))
   expect_silent(chop(dt1, dtb1))
+})
+
+test_that("Chop with conversion", {
   lb <- lbl_seq()
-  expect_equivalent(chop(d1, db1, lb), chop(as.POSIXct(d1), db1, lb))
-  expect_equivalent(chop(d1, db1, lb), chop(d1, as.POSIXct(db1), lb))
+  withr::with_timezone("UTC", {
+    expect_equivalent(chop(d1, db1, lb), chop(as.POSIXct(d1), db1, lb))
+    expect_equivalent(chop(d1, db1, lb), chop(d1, as.POSIXct(db1), lb))
+  })
 })
 
 

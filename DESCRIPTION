@@ -25,7 +25,8 @@ Suggests:
     microbenchmark,
     purrr,
     rmarkdown,
-    scales
+    scales,
+    withr
 LinkingTo: 
     Rcpp
 Imports: 
