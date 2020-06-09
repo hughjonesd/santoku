@@ -28,7 +28,8 @@ interval may have fewer elements.
 \details{
 Note that \code{chop_n()} sets \code{close_end = TRUE} by default.
 
-Groups may be larger than \code{n}, if there are too many duplicated elements in \code{x}.
+Groups may be larger than \code{n}, if there are too many duplicated elements
+in \code{x}. If so, a warning is given.
 }
 \examples{
 table(chop_n(1:10, 5))

@@ -329,7 +329,8 @@ chop_evenly <- function (x, intervals, ..., groups, close_end = TRUE) {
 #' @details
 #' Note that `chop_n()` sets `close_end = TRUE` by default.
 #'
-#' Groups may be larger than `n`, if there are too many duplicated elements in `x`.
+#' Groups may be larger than `n`, if there are too many duplicated elements
+#' in `x`. If so, a warning is given.
 #'
 #' @export
 #' @order 1
@@ -346,5 +347,10 @@ chop_evenly <- function (x, intervals, ..., groups, close_end = TRUE) {
 #' chop_n(x, 2)
 #'
 chop_n <- function (x, n, ..., close_end = TRUE) {
-  chop(x, brk_n(n), ..., close_end = close_end)
+  res <- chop(x, brk_n(n), ..., close_end = close_end)
+  if (max(tabulate(res)) > n) {
+    warning("Some intervals contain more than ", n, " elements")
+  }
+
+  res
 }
