@@ -324,6 +324,7 @@ brk_right <- function (breaks) {
 #'
 brk_default <- function (breaks) {
   assert_that(noNA(breaks))
+  breaks <- sort(breaks)
 
   function (x, extend, left, close_end) {
     breaks <- create_lr_breaks(breaks, left, close_end)
@@ -334,7 +335,7 @@ brk_default <- function (breaks) {
 
 #' Create a `breaks` object manually
 #'
-#' @param breaks A numeric vector which must be sorted.
+#' @param breaks A vector, which must be sorted.
 #' @param left_vec A logical vector, the same length as `breaks`.
 #'   Specifies whether each break is left-closed or right-closed.
 #'
