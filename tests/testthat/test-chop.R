@@ -142,6 +142,8 @@ test_that("chop_deciles", {
 test_that("chop_n", {
   expect_silent(res <- chop_n(rnorm(100), 10))
   expect_equivalent(as.vector(table(res)), rep(10, 10))
+
+  expect_warning(chop_n(rep(1:3, each = 3), 2))
 })
 
 
