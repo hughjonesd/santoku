@@ -9,13 +9,15 @@ IntegerVector categorize_impl(NumericVector x, NumericVector breaks, LogicalVect
 
   IntegerVector codes(xs, NA_INTEGER);
 
+  int lower = 0;
+  int upper = bs - 1;
   for (int i = 0; i < xs; ++i) {
-    int lower = 0;
-    int upper = bs - 1;
-    if (x[i] < breaks[lower] || (! left[lower] && x[i] == breaks[lower])) {
+    if (i == 0 || x[i] <= x[i-1]) lower = 0;
+    if (i == 0 || x[i] >= x[i-1]) upper = bs - 1;
+    if (x[i] < breaks[0] || (! left[0] && x[i] == breaks[0])) {
       continue;
     }
-    if (x[i] > breaks[upper] || (left[upper] && x[i] == breaks[upper])) {
+    if (x[i] > breaks[bs - 1] || (left[bs - 1] && x[i] == breaks[bs - 1])) {
       continue;
     }
     if (NumericVector::is_na(x[i]) || Rcpp::traits::is_nan<REALSXP>(x[i])) {
@@ -39,10 +41,9 @@ IntegerVector categorize_impl(NumericVector x, NumericVector breaks, LogicalVect
 
 
 // [[Rcpp::export]]
-IntegerVector old_categorize(NumericVector x, NumericVector breaks) {
+IntegerVector categorize_impl_old(NumericVector x, NumericVector breaks, LogicalVector left) {
   int xs = x.size();
   int bs = breaks.size();
-  LogicalVector left = breaks.attr("left");
   if (left.size() != bs) Rcpp::stop("`left` of different size to `breaks`");
 
   IntegerVector codes(xs, NA_INTEGER);
@@ -50,7 +51,7 @@ IntegerVector old_categorize(NumericVector x, NumericVector breaks) {
   for (int i = 0; i < xs; ++i) {
     for (int j = 0; j < bs - 1; ++j) {
       if ((x[i] > breaks[j] || (left[j] && x[i] == breaks[j])) &&
-        (x[i] < breaks[j + 1] || (! left[j + 1] && x[i] == breaks[j + 1]))) {
+          (x[i] < breaks[j + 1] || (! left[j + 1] && x[i] == breaks[j + 1]))) {
         codes[i] = j + 1;
         break;
       }
@@ -59,4 +60,3 @@ IntegerVector old_categorize(NumericVector x, NumericVector breaks) {
 
   return codes;
 }
-

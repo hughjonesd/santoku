@@ -18,22 +18,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// old_categorize
-IntegerVector old_categorize(NumericVector x, NumericVector breaks);
-RcppExport SEXP _santoku_old_categorize(SEXP xSEXP, SEXP breaksSEXP) {
+// categorize_impl_old
+IntegerVector categorize_impl_old(NumericVector x, NumericVector breaks, LogicalVector left);
+RcppExport SEXP _santoku_categorize_impl_old(SEXP xSEXP, SEXP breaksSEXP, SEXP leftSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type breaks(breaksSEXP);
-    rcpp_result_gen = Rcpp::wrap(old_categorize(x, breaks));
+    Rcpp::traits::input_parameter< LogicalVector >::type left(leftSEXP);
+    rcpp_result_gen = Rcpp::wrap(categorize_impl_old(x, breaks, left));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_santoku_categorize_impl", (DL_FUNC) &_santoku_categorize_impl, 3},
-    {"_santoku_old_categorize", (DL_FUNC) &_santoku_old_categorize, 2},
+    {"_santoku_categorize_impl_old", (DL_FUNC) &_santoku_categorize_impl_old, 3},
     {NULL, NULL, 0}
 };
 

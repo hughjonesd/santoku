@@ -5,7 +5,7 @@ categorize_impl <- function(x, breaks, left) {
     .Call(`_santoku_categorize_impl`, x, breaks, left)
 }
 
-old_categorize <- function(x, breaks) {
-    .Call(`_santoku_old_categorize`, x, breaks)
+categorize_impl_old <- function(x, breaks, left) {
+    .Call(`_santoku_categorize_impl_old`, x, breaks, left)
 }
 
