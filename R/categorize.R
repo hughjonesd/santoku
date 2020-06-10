@@ -17,7 +17,7 @@ categorize <- function (x, breaks) {
   x <- as.numeric(res[[1]])
   breaks <- as.numeric(res[[2]])
 
-  codes <- if (OLD) categorize_impl_old(x, breaks, left) else categorize_impl(x, breaks, left)
+  codes <- categorize_impl(x, breaks, left)
 
   codes
 }
