@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -46,7 +50,6 @@
 <meta property="og:description" content="chop cuts x into intervals. It returns a factor of the same
 length as x, representing which interval contains each element of x." />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -64,7 +67,7 @@ length as x, representing which interval contains each element of x." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -78,7 +81,7 @@ length as x, representing which interval contains each element of x." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.0</span>
       </span>
     </div>
 
@@ -118,6 +121,9 @@ length as x, representing which interval contains each element of x." />
     <li>
       <a href="../tutorials/00-visualintroduction.html">A visual introduction to Santoku</a>
     </li>
+    <li>
+      <a href="../tutorials/01-chopping-dates.html">Chopping dates with santoku</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -126,7 +132,7 @@ length as x, representing which interval contains each element of x." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/hughjonesd/santoku">
+  <a href="https://github.com/hughjonesd/santoku/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -154,9 +160,25 @@ length as x, representing which interval contains each element of x." />
 length as <code>x</code>, representing which interval contains each element of <code>x</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chop</span>(<span class='no'>x</span>, <span class='no'>breaks</span>, <span class='no'>labels</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>chop</span>(
+  <span class='no'>x</span>,
+  <span class='no'>breaks</span>,
+  <span class='no'>labels</span>,
+  <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>kiru</span>(<span class='no'>x</span>, <span class='no'>breaks</span>, <span class='no'>labels</span>, <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>kiru</span>(
+  <span class='no'>x</span>,
+  <span class='no'>breaks</span>,
+  <span class='no'>labels</span>,
+  <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,6 +200,15 @@ length as <code>x</code>, representing which interval contains each element of <
       <td><p>Logical. Extend breaks to <code>+/-Inf</code>?</p></td>
     </tr>
     <tr>
+      <th>left</th>
+      <td><p>Logical. Left-closed breaks?</p></td>
+    </tr>
+    <tr>
+      <th>close_end</th>
+      <td><p>Logical. Close last break at right? (If <code>left</code> is <code>FALSE</code>,
+close first break at left?)</p></td>
+    </tr>
+    <tr>
       <th>drop</th>
       <td><p>Logical. Drop unused levels from the result?</p></td>
     </tr>
@@ -190,70 +221,101 @@ the value of <code>x</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>breaks</code> may be a numeric vector or a function.</p>
-<p>If it is a vector, <code>breaks</code> gives the break endpoints.Repeated values create
+<p>If it is a vector, <code>breaks</code> gives the break endpoints. Repeated values create
 singleton intervals. For example <code>breaks = c(1, 3, 3, 5)</code> creates 3
-intervals: <code>[1, 3)</code>, <code>{3}</code> and <code>(3, 5]</code>. Default breaks are
-left-closed except for the last interval; for right-closed breaks see
-<code><a href='brk-left-right.html'>brk_right()</a></code>.</p>
-<p>If <code>breaks</code> is a function it is called with a single argument, <code>x</code>, and
-returns an object of class <code>breaks</code>.</p>
+intervals: <code>[1, 3)</code>, <code>{3}</code> and <code>(3, 5]</code>.</p>
+<p>By default, left-closed intervals are created. If <code>left</code> is <code>FALSE</code>, right-
+closed intervals are created.</p>
+<p>If <code>close_end</code> is <code>TRUE</code> the end break will be closed at both ends, ensuring
+that all values <code>y</code> with <code>min(x) &lt;= y &lt;= max(x)</code> are included in the default
+intervals. That is:</p><ul>
+<li><p>If <code>left</code> is <code>TRUE</code> and <code>close_end</code> is <code>TRUE</code>, breaks will look like
+<code>[x1, x2), [x2, x3) ... [x_n-1, x_n]</code>.</p></li>
+<li><p>If <code>left</code> is <code>FALSE</code> and <code>close_end</code> is <code>TRUE</code>, breaks will look like
+<code>[x1, x2], (x2, x3] ... (x_n-1, x_n]</code>.</p></li>
+<li><p>If <code>left</code> is <code>TRUE</code> and <code>close_end</code> is <code>FALSE</code>, all breaks will look like
+<code>...[x1, x2) ...</code></p></li>
+<li><p>If <code>left</code> is <code>FALSE</code> and <code>close_end</code> is <code>FALSE</code>, all breaks will look like
+<code>...(x1, x2] ...</code></p></li>
+</ul>
+
+<p>If <code>breaks</code> is a function it is called with the <code>x</code>, <code>extend</code>, <code>left</code> and
+<code>close_end</code> arguments, and should return an object of class <code>breaks</code>.
+Use <code>brk_</code> functions in this context, to create a variety of data-dependent
+breaks.</p>
 <p><code>labels</code> may be a character vector. It should have the same length as the
 number of intervals. Alternatively, use a <code>lbl_</code> function such as
-<code><a href='lbl_seq.html'>lbl_seq()</a></code>.</p>
+[lbl_seq()].</p>
 <p>If <code>extend</code> is <code>TRUE</code>, intervals will be extended to <code>[-Inf,
 min(breaks))</code> and <code>(max(breaks), Inf]</code>.</p>
 <p>If <code>extend</code> is <code>NULL</code> (the default), intervals will be extended to
 <code>[min(x), min(breaks))</code> and <code>(max(breaks), max(x)]</code>, <em>only</em> if
 necessary -- i.e. if <code>min(x) &lt; min(breaks)</code> and <code>max(x) &gt; max(breaks)</code>
 respectively.</p>
+<p>Extending intervals, either by <code>extend = NULL</code> or <code>extend = FALSE</code>,
+<em>always</em> leaves the central, non-extended intervals unchanged. In particular,
+<code>close_end</code> applies to the central intervals, not to the extended ones.
+For example, if <code>breaks = c(1, 3, 5)</code> and <code>close_end = TRUE</code>, the resulting
+breaks will be</p>
+<p><code>[1, 3), [3, 5]</code></p>
+<p>and if they are extended on both ends the result will be e.g.</p>
+<p><code>[-Inf, 1), [1, 3), [3, 5], (5, Inf]</code></p>
 <p><code>NA</code> values in <code>x</code>, and values which are outside the (extended) endpoints,
 return <code>NA</code>.</p>
 <p>Note that <code>chop</code>, like all of R, uses binary arithmetic. Thus, numbers may
 not be exactly equal to what you think they should be. There is an example
 below.</p>
+<p>[x1, x2) ...`</p><ul>
+<li><p>If <code>left</code> is <code>FALSE</code> and <code>close_end</code> is <code>FALSE</code>, all breaks will look like
+`...(x1, x2]: R:x1,%20x2)%20...%60%0A*%20If%20%60left%60%20is%20%60FALSE%60%20and%20%60close_end%60%20is%20%60FALSE%60,%20all%20breaks%20will%20look%20like%0A%20%20%20%60...(x1,%20x2
+[lbl_seq()]: R:lbl_seq()
+[3, 5]: R:3,%205
+[3, 5]: R:3,%205</p></li>
+</ul>
+
 <p><code>kiru</code> is a synonym for <code>chop</code>. If you load <code>tidyr</code>, you can use it to avoid
 confusion with <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>tidyr::chop()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>cut</p>
 <p>Other chopping functions: 
-<code><a href='chop_mean_sd.html'>brk_mean_sd</a>()</code>,
-<code><a href='chop_n.html'>brk_n</a>()</code>,
-<code><a href='chop_quantiles.html'>brk_quantiles</a>()</code>,
-<code><a href='chop_width.html'>brk_width</a>()</code>,
+<code><a href='chop_mean_sd.html'>chop_mean_sd</a>()</code>,
+<code><a href='chop_n.html'>chop_n</a>()</code>,
+<code><a href='chop_quantiles.html'>chop_quantiles</a>()</code>,
+<code><a href='chop_width.html'>chop_width</a>()</code>,
 <code><a href='fillet.html'>fillet</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] [1, 2] [1, 2] (2, 3]
-#&gt; Levels: [1, 2] (2, 3]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  [5, 8]  [5, 8]  [5, 8]  [5, 8]  (8, 10]
+    <pre class="examples"><div class='input'><span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] [1, 2) [2, 3] [2, 3]
+#&gt; Levels: [1, 2) [2, 3]</div><div class='input'>
+<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  [5, 8)  [5, 8)  [5, 8)  [8, 10] [8, 10]
+#&gt; [10] [8, 10]
+#&gt; Levels: [1, 2) [2, 5) [5, 8) [8, 10]</div><div class='input'>
+<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>extend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] &lt;NA&gt;   [2, 5) [2, 5) [2, 5) [5, 8) [5, 8) [5, 8) &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;  
+#&gt; Levels: [2, 5) [5, 8)</div><div class='input'>
+<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  {5}     (5, 8)  (5, 8)  [8, 10] [8, 10]
+#&gt; [10] [8, 10]
+#&gt; Levels: [1, 2) [2, 5) {5} (5, 8) [8, 10]</div><div class='input'>
+<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] [1, 2]  [1, 2]  (2, 5]  (2, 5]  (2, 5]  (5, 8]  (5, 8]  (5, 8]  (8, 10]
+#&gt; [10] (8, 10]
+#&gt; Levels: [1, 2] (2, 5] (5, 8] (8, 10]</div><div class='input'>
+<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  [5, 8]  [5, 8]  [5, 8]  [5, 8]  (8, 10]
 #&gt; [10] (8, 10]
 #&gt; Levels: [1, 2) [2, 5) [5, 8] (8, 10]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>extend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] &lt;NA&gt;   [2, 5) [2, 5) [2, 5) [5, 8] [5, 8] [5, 8] [5, 8] &lt;NA&gt;   &lt;NA&gt;  
-#&gt; Levels: [2, 5) [5, 8]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  {5}     (5, 8]  (5, 8]  (5, 8]  (8, 10]
-#&gt; [10] (8, 10]
-#&gt; Levels: [1, 2) [2, 5) {5} (5, 8] (8, 10]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='chop_quantiles.html'>brk_quantiles</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>)))</div><div class='output co'>#&gt;  [1] [0%, 25%)   [0%, 25%)   [0%, 25%)   [25%, 75%]  [25%, 75%]  [25%, 75%] 
-#&gt;  [7] [25%, 75%]  (75%, 100%] (75%, 100%] (75%, 100%]
-#&gt; Levels: [0%, 25%) [25%, 75%] (75%, 100%]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='lbl_dash.html'>lbl_dash</a></span>())</div><div class='output co'>#&gt;  [1] 1 - 2  2 - 5  2 - 5  2 - 5  5 - 8  5 - 8  5 - 8  5 - 8  8 - 10 8 - 10
+<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='chop_quantiles.html'>brk_quantiles</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>)))</div><div class='output co'>#&gt;  [1] [0%, 25%)   [0%, 25%)   [0%, 25%)   [25%, 75%)  [25%, 75%)  [25%, 75%) 
+#&gt;  [7] [25%, 75%)  [75%, 100%] [75%, 100%] [75%, 100%]
+#&gt; Levels: [0%, 25%) [25%, 75%) [75%, 100%]</div><div class='input'>
+<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='lbl_dash.html'>lbl_dash</a></span>())</div><div class='output co'>#&gt;  [1] 1 - 2  2 - 5  2 - 5  2 - 5  5 - 8  5 - 8  5 - 8  8 - 10 8 - 10 8 - 10
 #&gt; Levels: 1 - 2 2 - 5 5 - 8 8 - 10</div><div class='input'>
 <span class='co'># floating point inaccuracy:</span>
 <span class='fu'>chop</span>(<span class='fl'>0.3</span>/<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>0.1</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] [0, 0.1)
 #&gt; Levels: [0, 0.1)</div><div class='input'>
 </div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#details">Details</a></li>
-      <li><a href="#see-also">See also</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -264,7 +326,7 @@ confusion with <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>t
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

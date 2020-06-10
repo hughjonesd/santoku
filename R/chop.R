@@ -2,7 +2,7 @@
 
 #' @name chop-doc
 #' @param x A numeric vector.
-#' @param breaks,labels,...  Passed to [chop()].
+#' @param breaks,labels,left,...,close_end  Passed to [chop()].
 #' @return
 #' For  `chop_*` functions, a factor of the same length as `x`.
 NULL
@@ -18,6 +18,9 @@ NULL
 #' @param breaks See below.
 #' @param labels See below.
 #' @param extend Logical. Extend breaks to `+/-Inf`?
+#' @param left Logical. Left-closed breaks?
+#' @param close_end Logical. Close last break at right? (If `left` is `FALSE`,
+#'   close first break at left?)
 #' @param drop Logical. Drop unused levels from the result?
 #'
 #' @details
@@ -27,17 +30,30 @@ NULL
 #' singleton intervals. For example `breaks = c(1, 3, 3, 5)` creates 3
 #' intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
 #'
-#' By default, left-closed intervals are created, except for the final interval
-#' which will be closed on both sides. To change these defaults, see
-#' [brk_left()].
+#' By default, left-closed intervals are created. If `left` is `FALSE`, right-
+#' closed intervals are created.
 #'
-#' If `breaks` is a function it is called with the `x` and `extend` arguments,
-#' and should return an object of class `breaks`. Use `brk_` functions
-#' in this context, to create a variety of data-dependent breaks.
+#' If `close_end` is `TRUE` the end break will be closed at both ends, ensuring
+#' that all values `y` with `min(x) <= y <= max(x)` are included in the default
+#' intervals. That is:
+#'
+#' * If `left` is `TRUE` and `close_end` is `TRUE`, breaks will look like
+#'   `[x1, x2), [x2, x3) ... [x_n-1, x_n]`.
+#' * If `left` is `FALSE` and `close_end` is `TRUE`, breaks will look like
+#'    `[x1, x2], (x2, x3] ... (x_n-1, x_n]`.
+#' * If `left` is `TRUE` and `close_end` is `FALSE`, all breaks will look like
+#'    `...[x1, x2) ...`
+#' * If `left` is `FALSE` and `close_end` is `FALSE`, all breaks will look like
+#'    `...(x1, x2] ...`
+#'
+#' If `breaks` is a function it is called with the `x`, `extend`, `left` and
+#' `close_end` arguments, and should return an object of class `breaks`.
+#' Use `brk_` functions in this context, to create a variety of data-dependent
+#' breaks.
 #'
 #' `labels` may be a character vector. It should have the same length as the
-#'  number of intervals. Alternatively, use a `lbl_` function such as
-#'  [lbl_seq()].
+#' number of intervals. Alternatively, use a `lbl_` function such as
+#' [lbl_seq()].
 #'
 #' If `extend` is `TRUE`, intervals will be extended to \code{[-Inf,
 #' min(breaks))} and \code{(max(breaks), Inf]}.
@@ -48,7 +64,16 @@ NULL
 #' respectively.
 #'
 #' Extending intervals, either by `extend = NULL` or `extend = FALSE`,
-#' always leaves the central, non-extended intervals unchanged.
+#' *always* leaves the central, non-extended intervals unchanged. In particular,
+#' `close_end` applies to the central intervals, not to the extended ones.
+#' For example, if `breaks = c(1, 3, 5)` and `close_end = TRUE`, the resulting
+#' breaks will be
+#'
+#' `[1, 3), [3, 5]`
+#'
+#' and if they are extended on both ends the result will be e.g.
+#'
+#' `[-Inf, 1), [1, 3), [3, 5], (5, Inf]`
 #'
 #' `NA` values in `x`, and values which are outside the (extended) endpoints,
 #' return `NA`.
@@ -76,6 +101,10 @@ NULL
 #'
 #' chop(1:10, c(2, 5, 5, 8))
 #'
+#' chop(1:10, c(2, 5, 8), left = FALSE)
+#'
+#' chop(1:10, c(2, 5, 8), close_end = TRUE)
+#'
 #' chop(1:10, brk_quantiles(c(0.25, 0.75)))
 #'
 #' chop(1:10, c(2, 5, 8), labels = lbl_dash())
@@ -84,15 +113,18 @@ NULL
 #' chop(0.3/3, c(0, 0.1, 0.1, 1))
 #'
 chop <- function (x, breaks, labels,
-        extend = NULL,
-        drop   = TRUE
+        extend    = NULL,
+        left      = TRUE,
+        close_end = FALSE,
+        drop      = TRUE
       ) {
-  assert_that(is.numeric(x), is.function(breaks) || is.numeric(breaks))
-  breaks <- if (is.function(breaks))  {
-    breaks(x, extend)
-  } else {
-    brk_left(breaks)(x, extend)
-  }
+  assert_that(
+          is.flag(left),
+          is.flag(close_end),
+          is.flag(drop)
+        )
+  if (! is.function(breaks)) breaks <- brk_default(breaks)
+  breaks <- breaks(x, extend, left, close_end)
   assert_that(is.breaks(breaks), length(breaks) >= 2L)
 
   if (missing(labels)) labels <- NULL
@@ -100,10 +132,14 @@ chop <- function (x, breaks, labels,
   if (is.function(labels)) labels <- labels(breaks)
 
   stopifnot(length(labels) == length(breaks) - 1)
-  if (anyDuplicated(labels)) stop("Duplicate labels found: ",
-        paste(labels, collapse = ", "))
 
   codes <- categorize(x, breaks)
+
+  real_codes <- if (drop) unique(codes[! is.na(codes)]) else TRUE
+  if (anyDuplicated(labels[real_codes])) {
+    stop("Duplicate labels found: ", paste(labels, collapse = ", "))
+  }
+
   result <- factor(codes, levels = seq.int(length(breaks) - 1L),
         labels = labels)
   if (drop) result <- droplevels(result)
@@ -135,8 +171,10 @@ kiru <- chop
 #'
 #' @examples
 #' fillet(1:10, c(2, 5, 8))
-fillet <- function (x, breaks, labels) chop(x, breaks, labels, extend = FALSE,
+fillet <- function (x, breaks, labels, left = TRUE, close_end = FALSE) {
+  chop(x, breaks, labels, left = left, close_end = close_end, extend = FALSE,
       drop = FALSE)
+}
 
 
 #' Chop by quantiles
@@ -147,8 +185,17 @@ fillet <- function (x, breaks, labels) chop(x, breaks, labels, extend = FALSE,
 #'
 #'
 #' @param probs A vector of probabilities for the quantiles.
-#' @param ... Passed to [chop()], or for `brk_quantiles` to [quantile()].
+#' @param ... Passed to [chop()], or for `brk_quantiles` to [stats::quantile()].
 #' @inherit chop-doc params return
+#'
+#' @details
+#' Note that these functions set `close_end = TRUE` by default.
+#' This helps ensure that e.g. `chop_quantiles(x, c(0, 1/3, 2/3, 1)`
+#' will split the data into three equal-sized groups.
+#'
+#' For non-numeric `x`, `left` is set to `FALSE` by default. This works better
+#' for calculating "type 1" quantiles, since they round down. See
+#' [stats::quantile()].
 #'
 #' @family chopping functions
 #'
@@ -167,8 +214,15 @@ fillet <- function (x, breaks, labels) chop(x, breaks, labels, extend = FALSE,
 #' # to label by the quantiles themselves:
 #' chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
 #'
-chop_quantiles <- function(x, probs, ...) {
-  chop(x, brk_quantiles(probs), ...)
+chop_quantiles <- function(
+        x,
+        probs,
+        ...,
+        left      = is.numeric(x),
+        close_end = TRUE
+      ) {
+
+  chop(x, brk_quantiles(probs), ..., left = left, close_end = close_end)
 }
 
 
@@ -186,15 +240,18 @@ chop_deciles <- function(x, ...) {
 #'
 #' @export
 #' @order 1
-chop_equally <- function (x, groups, ...) {
-  chop(x, brk_equally(groups), ...)
+chop_equally <- function (x, groups, ..., left = is.numeric(x), close_end = TRUE) {
+  chop(x, brk_equally(groups), ..., left = left, close_end = close_end)
 }
 
 
 #' Chop by standard deviations
 #'
-#' @param sd Whole number: include `sd` standard deviations on each side of
-#'   the mean.
+#' Intervals of width 1 standard deviation are included on either side of the mean.
+#' The outermost pair of intervals will be shorter if `sd` is not a whole number.
+#'
+#'
+#' @param sd Positive number: include up to `sd` standard deviations.
 #' @inherit chop-doc params return
 #'
 #' @family chopping functions
@@ -215,13 +272,17 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' Chop into equal-width intervals
 #'
 #' `chop_width()` chops `x` into intervals of width `width`. `chop_evenly`
-#' chops `x` into `groups` intervals of equal width.
+#' chops `x` into `intervals` intervals of equal width.
 #'
 #' @param width Width of intervals.
 #' @param start Leftpoint of first interval. By default the lowest finite `x`.
 #' @inherit chop-doc params return
 #'
+#' @details
+#' Note that `chop_evenly` sets `close_end = TRUE` by default.
+#'
 #' @family chopping functions
+#' @seealso [brk_width-for-datetime]
 #'
 #' @export
 #' @order 1
@@ -233,7 +294,7 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #'
 #' chop(1:10, brk_width(2, 0))
 #'
-#' chop_evenly(1:10, 5)
+#' chop_evenly(0:10, 5)
 #'
 chop_width <- function (x, width, start, ...) {
   chop(x, brk_width(width, start), ...)
@@ -242,12 +303,18 @@ chop_width <- function (x, width, start, ...) {
 
 #' @rdname chop_width
 #'
-#' @param groups Integer: number of intervals to create.
+#' @param intervals Integer: number of intervals to create.
+#' @param groups Do not use. \lifecycle{deprecated}
 #'
 #' @export
 #' @order 1
-chop_evenly <- function (x, groups, ...) {
-  chop(x, brk_evenly(groups), ...)
+chop_evenly <- function (x, intervals, ..., groups, close_end = TRUE) {
+  if (! missing(groups)) {
+    lifecycle::deprecate_warn("0.4.0", "chop_evenly(groups = )",
+          with = "chop_evenly(intervals = )")
+    if (missing(intervals)) intervals <- groups
+  }
+  chop(x, brk_evenly(intervals), ..., close_end = close_end)
 }
 
 
@@ -259,6 +326,12 @@ chop_evenly <- function (x, groups, ...) {
 #' @param n Integer: number of elements in each interval.
 #' @inherit chop-doc params return
 #'
+#' @details
+#' Note that `chop_n()` sets `close_end = TRUE` by default.
+#'
+#' Groups may be larger than `n`, if there are too many duplicated elements
+#' in `x`. If so, a warning is given.
+#'
 #' @export
 #' @order 1
 #'
@@ -269,6 +342,15 @@ chop_evenly <- function (x, groups, ...) {
 #'
 #' table(chop_n(1:10, 4))
 #'
-chop_n <- function (x, n, ...) {
-  chop(x, brk_n(n), ...)
+#' # too many duplicates
+#' x <- rep(1:2, each = 3)
+#' chop_n(x, 2)
+#'
+chop_n <- function (x, n, ..., close_end = TRUE) {
+  res <- chop(x, brk_n(n), ..., close_end = close_end)
+  if (max(tabulate(res)) > n) {
+    warning("Some intervals contain more than ", n, " elements")
+  }
+
+  res
 }

@@ -3,6 +3,10 @@ title: "Performance"
 author: "David Hugh-Jones"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Performance}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r setup, include = FALSE}
@@ -20,7 +24,7 @@ requireNamespace("ggplot2", quietly = TRUE)
 
 The core of santoku is written in C++. It is reasonably fast:
 
-```{r, cache = TRUE}
+```{r, cache = FALSE}
 
 packageVersion("santoku")
 mb <- microbenchmark::microbenchmark(

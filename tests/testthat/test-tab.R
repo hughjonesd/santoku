@@ -1,7 +1,7 @@
 test_that("tab", {
   expect_identical(
     tab(1:5, c(2, 4), letters[1:3]),
-    table(x = c("a", "b", "b", "b", "c"), useNA = "ifany")
+    table(x = c("a", "b", "b", "c", "c"), useNA = "ifany")
   )
   expect_identical(
     tab(1:5, c(2, 4), letters[1:3]),
@@ -10,7 +10,7 @@ test_that("tab", {
 })
 
 
-test_that("tab_size", {
+test_that("tab_n", {
   expect_identical(
     tab_n(1:9, 3, lbl_seq()),
     table(x = rep(c("a", "b", "c"), 3), useNA = "ifany")
@@ -21,13 +21,8 @@ test_that("tab_size", {
 test_that("tab_width", {
   expect_identical(
     tab_width(0:10, 2),
-    table(x = c(rep(c("[0, 2)", "[2, 4)", "[4, 6)", "[6, 8)", "[8, 10]"), 2),
-          "[8, 10]"))
-  )
-  expect_identical(
-    tab_width(0:10, 2),
-    table(x = c(rep(c("[0, 2)", "[2, 4)", "[4, 6)", "[6, 8)", "[8, 10]"), 2),
-      "[8, 10]"))
+    table(x = c(rep(c("[0, 2)", "[2, 4)", "[4, 6)", "[6, 8)", "[8, 10)"), 2),
+          "{10}"))
   )
 })
 

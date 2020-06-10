@@ -74,12 +74,14 @@ plot_the_fish <- function (cols = "peachpuff4") {
 }
 
 
-demo_chop <- function (breaks, labels = lbl_intervals(), extend = NULL, ...,
+demo_chop <- function (breaks, labels = lbl_intervals(), extend = NULL, 
+      ..., close_end = FALSE, left = FALSE, 
       lines = TRUE, swoosh = FALSE, lty = 1, cex_labels = 0.7,
       skip_lines = numeric(0)) {
-  chopped <- chop(pts$x, breaks, labels, extend, ...)
-  if (is.numeric(breaks)) breaks <- brk_left(breaks)
-  breaks <- breaks(pts$x, extend)
+  chopped <- chop(pts$x, breaks, labels = labels, 
+          extend = extend, left = left, close_end = close_end, ...)
+  if (is.numeric(breaks)) breaks <- brk_default(breaks)
+  breaks <- breaks(pts$x, extend = extend, left = left, close_end = close_end)
   
   breaks_r <- round(c(breaks[is.finite(breaks)]))
   breaks_r <- breaks_r[breaks_r > 0 & breaks_r <= fish_x]
@@ -114,9 +116,15 @@ demo_chop <- function (breaks, labels = lbl_intervals(), extend = NULL, ...,
     if (swoosh) {
       left <- attr(breaks, "left")
       left <- left[is.finite(c(breaks)) & breaks > 0 & breaks <= fish_x]
-      cols <- palette()[seq_len(nlevels(chopped))]
+      cols <- palette()[seq_len(nlevels(chopped) )]
       if (! is.null(extend) && ! extend) cols <- c(NA_col, cols, NA_col)
-      col <- ifelse(left, cols[-1], cols[-length(cols)])
+      # there are n colours, one per interval and `length(left)` lines.
+      # hopefully n = length(left) - 1
+      # left-closed lines get the colour of their right interval
+      line_col <- seq_along(left)
+      line_col[!left] <- line_col[!left] - 1
+      # assuming the first line is left-closed and the last line is right-closed
+      col <- cols[line_col]
   
       for (smooth in 1:5) {
         alpha <-  0.5 - 0.1 * smooth
@@ -210,20 +218,20 @@ chop_width(x, width = 200)
 ```
 
 ```{r}
-demo_chop(brk_width(width = 200))
+demo_chop(brk_width(width = 200), close_end = TRUE)
 ```
 
 ## `chop_evenly()`
 
-Chops `groups` equal-width intervals
+Chops `intervals` equal-width intervals
 
 
 ```{r, echo = TRUE, eval = FALSE}
-chop_evenly(x, groups = 5)
+chop_evenly(x, intervals = 5)
 ```
 
 ```{r}
-demo_chop(brk_evenly(groups = 5))
+demo_chop(brk_evenly(intervals = 5), close_end = TRUE)
 ```
 
 ## `chop_equally()`
@@ -249,7 +257,7 @@ chop_n(x, 100)
 ```
 
 ```{r}
-demo_chop(brk_n(100))
+demo_chop(brk_n(100), close_end = TRUE)
 ```
 
 
@@ -268,7 +276,7 @@ chop_quantiles(x, c(0.05, 0.25, 0.5, 0.75, 0.95)
 ```
 
 ```{r}
-demo_chop(brk_quantiles(c(0.05, 0.25, 0.5, 0.75, 0.95)))
+demo_chop(brk_quantiles(c(0.05, 0.25, 0.5, 0.75, 0.95)), close_end = TRUE)
 ```
 
 ## `chop_mean_sd()`
@@ -283,7 +291,7 @@ demo_chop(brk_mean_sd())
 
 
 
-## Quick tables
+## Quick tables {.smallfont}
 
 ```{r, echo = TRUE}
 tab(x, c(300, 600, 900))
@@ -315,7 +323,8 @@ chop_width(x, 200, labels = lbl_seq())
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_seq(), cex_labels = 1)
+demo_chop(brk_width(200), labels = lbl_seq(), cex_labels = 1, 
+      close_end = TRUE)
 ```
 
 ## Changing labels
@@ -330,7 +339,8 @@ chop_width(x, 200, labels = lbl_seq("(i)"))
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_seq("(i)"), cex_labels = 1)
+demo_chop(brk_width(200), labels = lbl_seq("(i)"), cex_labels = 1,
+      close_end = TRUE)
 ```
 
 ## Changing labels
@@ -345,7 +355,8 @@ chop_width(x, 200, labels = lbl_dash())
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_dash(), cex_labels = 0.8)
+demo_chop(brk_width(200), labels = lbl_dash(), cex_labels = 0.8,
+      close_end = TRUE)
 ```
 
 ## Left-closed and right-closed
@@ -357,30 +368,30 @@ chop(x, c(200, 500, 800))
 ```
 
 ```{r}
-demo_chop(c(200, 500, 800), swoosh = TRUE)
+demo_chop(c(200, 500, 800), left = TRUE, swoosh = TRUE)
 ```
 
 
 ## Left-closed and right-closed
 
-For right-closed breaks use `brk_right()`:
+For right-closed breaks use `left = FALSE`:
 
 ```{r, echo = TRUE, eval = FALSE}
-chop(x, brk_right(c(200, 500, 800)))
+chop(x, c(200, 500, 800), left = FALSE)
 ```
 
 ```{r}
-demo_chop(brk_right(c(200, 500, 800)), swoosh = TRUE)
+demo_chop(c(200, 500, 800), left = FALSE, swoosh = TRUE)
 ```
 
 ## Errors
 
 ![chopping fail](https://media.giphy.com/media/2zom27Xqp7PVe/giphy.gif)
 
-## Errors {.smallfont}
+## Errors {.smallfont .reveal .left}
 
+<div style="text-align: left;">
 <small>Sometimes it's impossible to create the breaks you want.</small>
-
 ```{r, echo = TRUE}
 chop_quantiles(c(-Inf, Inf), c(0.25, 0.75))
 ```
@@ -390,11 +401,10 @@ chop_quantiles(c(-Inf, Inf), c(0.25, 0.75))
 
 <small>When the problem comes from other parameters, e.g. `breaks` or `extend`,
 santoku will give an error.</small>
-
 ```{r, echo = TRUE, error = TRUE}
 chop_quantiles(1:5, c(0.25, NA))
 ```
-
+</div>
 
 ## Happy chopping!
 

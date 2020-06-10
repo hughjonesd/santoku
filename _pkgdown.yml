@@ -4,3 +4,6 @@ tutorials:
 - name: 00-visualintroduction
   title: A visual introduction to Santoku
   url: https://hughjonesd.github.io/visual-introduction.html
+- name: 01-chopping-dates
+  title: Chopping dates with santoku
+  url: https://hughjonesd.github.io/chopping-dates-with-santoku.html

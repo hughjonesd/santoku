@@ -13,5 +13,6 @@ knife(...)
 A function.
 }
 \description{
+\lifecycle{soft-deprecated}
 \code{knife()} is deprecated in favour of \code{\link[purrr:partial]{purrr::partial()}}.
 }

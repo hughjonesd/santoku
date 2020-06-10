@@ -2,6 +2,7 @@
 
 #' Deprecated
 #'
+#' \lifecycle{soft-deprecated}
 #' `knife()` is deprecated in favour of [purrr::partial()].
 #'
 #' @param ... Parameters for [chop()].
@@ -10,7 +11,8 @@
 #'
 #' @export
 knife <- function (...) {
-  .Deprecated("purrr::partial")
+  lifecycle::deprecate_soft("0.4.0", "knife()", with = "purrr::partial()",
+        id = "knife")
   list(...) # force evaluation
   function (x) chop(x, ...)
 }

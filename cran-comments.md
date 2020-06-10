@@ -1,24 +1,19 @@
-This contains cosmetic changes in response to CRAN's initial review:
 
-* Updated license year to 2020.
-* Tweaked the Value sections in man pages of `exactly` and `knife`.
-* Removed "for R" from DESCRIPTION.
+This update provides new functionality and alters some interfaces.
 
 ## Test environments
-* local OS X install, R 3.6.2
-* ubuntu 14.04 (on travis-ci), R 3.6.2
+
+* local OS X install, R 4.0.0
+* ubuntu 14.04 (on travis-ci), R 4.0.0
+* windows (on appveyor), R 4.0.1-patched
 * win-builder (devel and release)
 * rhub (using rhub::check_for_cran())
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.
-
-In addition, one rhub platform gave the following note:
-
-> checking for non-standard things in the check directory ... NOTE
-  Found the following files/directories:
-    'examples_i386' 'examples_x64' 'santoku-Ex_i386.Rout'
-    'santoku-Ex_x64.Rout' 'tests_i386' 'tests_x64'
+* OK on travis
+* OK on appveyor
+* OK on win-builder release
+* win-builder devel was down
+* OK on rhub release on Ubuntu 16.04
+* other rhub was down

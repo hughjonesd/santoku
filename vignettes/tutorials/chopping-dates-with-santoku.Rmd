@@ -1,0 +1,196 @@
+---
+title: "Chopping dates and times with santoku"
+author: "David Hugh-Jones"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    css: [default, default-fonts]
+    chakra: libs/remark-latest.min.js
+    seal: false
+    lib_dir: libs
+    nature:
+      highlightStyle: tomorrow-night
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: center, middle
+
+<style>
+.inverse {
+  background-color: #141417;
+}
+</style>
+
+# Chopping dates with santoku 0.4.0
+## David Hugh-Jones
+
+<img src="figures/logo.png" style="width: 250px" />
+
+```{r setup, include = FALSE}
+library(ggplot2)
+library(santoku)
+library(lubridate)
+
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(
+        fig.height = 2,
+        fig.width  = 10,
+        dpi        = 144,
+        dev        = 'quartz_png',
+        fig.align  = "center",
+        out.width  = "90%",
+        dev.args   = "transparent"
+      )
+date_plot <- function (dates, chopped) {
+  chopped_q <- rlang::enquo(chopped)
+  dfr <- data.frame(dates = dates, chopped = chopped)
+  dfr <- dplyr::rename(dfr, "{{chopped}}" := chopped) 
+  
+  xscale <- if (inherits(dates, "Date")) {
+    scale_x_date(expand = expansion(mult = .15))
+  } else {
+    scale_x_datetime(expand = expansion(mult = .15))
+  }
+  # xscale <- NULL
+  # 
+  ggplot(dfr, aes(x = dates, y = 1, color = {{chopped_q}})) + 
+        geom_point(size = 4, shape = "circle filled", stroke = 2) +
+        theme_void() +
+        theme(
+          text                = element_text(colour = "white", size = 14),
+          legend.text         = element_text(colour = "white", size = 15),
+          axis.text.y         = element_blank(),
+          axis.text.x         = element_text(colour = "white", size = 14),
+          axis.line.x         = element_line(colour = "yellow"),
+          axis.ticks.length.x = unit(0.3, "lines"),
+          axis.ticks.x        = element_line(colour = "yellow"),
+          rect                = element_rect(fill = "transparent", colour = NA),
+          plot.margin         = unit(c(4, 4, 4, 4), "mm")
+        ) +
+        labs(y = "") +
+        xscale
+}
+
+```
+
+---
+class: middle, center
+
+# Santoku is a package for chopping data.
+
+## It provides `chop()`, a replacement for `base::cut()`.
+
+---
+class: middle, center
+
+# Santoku 0.4.0 can chop dates.
+
+<img src="figures/date.png" style="width: 300px;" />
+
+---
+class: inverse, middle
+
+
+```{r, results = "hide"}
+y2k <- as.Date("2000-01-01") + 0:365
+y2k_sample <- sample(y2k, 60)
+apr_aug_1 <- as.Date(c("2000-04-01", "2000-08-01"))
+
+chopped <- chop(y2k_sample, apr_aug_1)
+```
+
+```{r, echo = FALSE}
+date_plot(y2k_sample, chopped)
+```
+
+---
+class: inverse, top
+
+# You can use the usual `chop` functions.
+
+```{r, results = "hide"}
+quartile <- chop_quantiles(y2k_sample, c(0.25, 0.75))
+```
+
+```{r, echo = FALSE}
+date_plot(y2k_sample, quartile)
+```
+
+---
+class: inverse
+
+# Nice labels are important.
+
+```{r}
+# like table(chop(...)):
+tab(y2k_sample, apr_aug_1, labels = lbl_dash(fmt = "%b"))
+```
+
+
+---
+class: inverse
+
+# `chop_width()` works.
+
+* It accepts `difftime`, `lubridate::Period` and `lubridate::Duration` widths.
+
+--
+
+  ```{r}
+  x <- chop_width(y2k, months(1), labels = lbl_endpoint(fmt = "%b"))
+         
+  table(x)
+  ```
+
+--
+
+* `Period` objects get the month right.
+
+---
+class: center, middle
+
+# Chopping time works too.
+
+<img src="figures/thyme.jpg" />
+
+---
+background-image: url(figures/crew-dragon.jpg)
+background-size: cover
+class: inverse, middle
+
+<style>
+.hljs-tomorrow-night .hljs {
+  opacity: 0.98;
+}
+</style>
+
+
+
+```{r, results = "hide"}
+crew_dragon <- as.POSIXct(c(
+                    liftoff = "2020-05-30 15:22", 
+                    dock    = "2020-05-31 10:16"), 
+                  tz = "America/New_York")
+
+uk_times <- seq(as.POSIXct("2020-05-30 18:00", tz = "GMT"), 
+              length.out = 24, by = "hours")
+
+stage <- chop(uk_times, crew_dragon, 
+           labels = c("pre-flight", "flight", "docked"))
+```
+
+
+```{r, echo = FALSE, dev.args = list(bg = rgb(.5, .5, .5, .4))}
+date_plot(uk_times, stage)
+```
+
+---
+class: middle center
+
+# Happy chopping!
+
+<img src="figures/logo.png" style="width: 250px" />
+
+[CRAN](https://cran.r-project.org/package=santoku)
+
+[github](https://hughjonesd.github.io/santoku)

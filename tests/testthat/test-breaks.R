@@ -27,65 +27,24 @@ test_that("brk_manual", {
 test_that("brk_left, brk_right", {
   expect_identical(
           brk_res(brk_left(1:3)),
-          santoku:::create_breaks(1:3, c(TRUE, TRUE, FALSE))
-        )
-  expect_identical(
-          brk_res(brk_left(1:3, close_end = FALSE)),
           santoku:::create_breaks(1:3, c(TRUE, TRUE, TRUE))
         )
   expect_identical(
-          brk_res(brk_right(1:3)),
-          santoku:::create_breaks(1:3, c(TRUE, FALSE, FALSE))
+          brk_res(brk_left(1:3), close_end = TRUE),
+          santoku:::create_breaks(1:3, c(TRUE, TRUE, FALSE))
         )
   expect_identical(
-          brk_res(brk_right(1:3, close_end = FALSE)),
+          brk_res(brk_right(1:3)),
           santoku:::create_breaks(1:3, c(FALSE, FALSE, FALSE))
+        )
+  expect_identical(
+          brk_res(brk_right(1:3), close_end = TRUE),
+          santoku:::create_breaks(1:3, c(TRUE, FALSE, FALSE))
         )
 
   expect_false(
-    anyNA(chop(1:5, brk_left(1:5, FALSE)))
+    anyNA(chop(1:5, brk_left(1:5)))
   )
-})
-
-
-test_that("brk_left/right wrappers", {
-  expect_identical(
-    brk_res(brk_right(brk_manual(1:3, left = rep(TRUE, 3)))),
-    brk_res(brk_right(1:3))
-  )
-  expect_identical(
-    brk_res(brk_left(brk_manual(1:3, left = rep(FALSE, 3)))),
-    brk_res(brk_left(1:3))
-  )
-  expect_identical(
-    brk_res(brk_right(brk_manual(1:3, left = rep(TRUE, 3)), FALSE)),
-    brk_res(brk_right(1:3, FALSE))
-  )
-  expect_identical(
-    brk_res(brk_left(brk_manual(1:3, left = rep(FALSE, 3)), FALSE)),
-      brk_res(brk_left(1:3, FALSE))
-  )
-  expect_identical(
-    brk_res(brk_left(brk_quantiles(1:3/3))),
-    brk_res(brk_quantiles(1:3/3))
-  )
-})
-
-
-test_that("brk_left/right wrappers don't affect `extend`-ed breaks", {
-  x <- 0:100
-  for (f in list(brk_left, brk_right)) {
-    wrapped_brk <- f(brk_quantiles(1:3/4))
-    ext_FALSE <- wrapped_brk(x, extend = FALSE)
-    ext_TRUE  <- wrapped_brk(x, extend = TRUE)
-    ext_NULL  <- wrapped_brk(x, extend = NULL)
-    expect_identical(attr(ext_FALSE, "left")[1], attr(ext_TRUE, "left")[2])
-    expect_identical(attr(ext_FALSE, "left")[1], attr(ext_NULL, "left")[2])
-    lnF <- length(ext_FALSE)
-    lnT <- length(ext_TRUE)
-    expect_identical(attr(ext_FALSE, "left")[lnF], attr(ext_TRUE, "left")[lnT - 1])
-    expect_identical(attr(ext_FALSE, "left")[lnF], attr(ext_NULL, "left")[lnT - 1])
-  }
 })
 
 
@@ -99,52 +58,49 @@ test_that("brk_n", {
 })
 
 
+test_that("bugfix: brk_n shouldn't error with too many non-unique values", {
+  expect_error(brk_res(brk_n(2), c(1, 1, 1, 1, 5, 5, 5, 5)), regexp = NA)
+})
+
+
 test_that("brk_width", {
-  b <- brk_width(1)(0.5:1.5, FALSE)
+  b <- brk_res(brk_width(1), 0.5:1.5)
   expect_equal(diff(as.vector(b)), 1)
 
   width <- runif(1)
-  b <- brk_width(width)(0.5:1.5, FALSE)
+  b <- brk_res(brk_width(width), 0.5:1.5)
   bvec <- as.vector(b)
   expect_equal(diff(bvec)[1], width)
   expect_equal(bvec[1], 0.5)
 
-  b <- brk_width(1)(rep(NA, 2), FALSE)
+  b <- brk_res(brk_width(1), rep(NA, 2))
   expect_identical(as.vector(b), c(-Inf, Inf))
 
-  b <- brk_width(1)(c(Inf, -Inf, NA), FALSE)
+  b <- brk_res(brk_width(1), c(Inf, -Inf, NA))
   expect_identical(as.vector(b), c(-Inf, Inf))
 
-  b <- brk_width(1)(c(NA, 2, 4, NA), FALSE)
+  b <- brk_res(brk_width(1), c(NA, 2, 4, NA))
   expect_equal(diff(as.vector(b))[1], 1)
 })
 
 
 test_that("brk_evenly", {
-  expect_identical(
-          brk_evenly(5)(0:10, FALSE),
-          brk_width(2)(0:10, FALSE)
-        )
+  b <- brk_res(brk_evenly(5), 0:10)
+  expect_identical(as.vector(b), c(0, 2, 4, 6, 8, 10))
 })
 
 
 test_that("brk_mean_sd", {
   x <- rnorm(100)
-  expect_silent(b <- brk_mean_sd(3)(x, FALSE))
+  expect_silent(b <- brk_res(brk_mean_sd(3), x = x))
   m <- mean(x)
   sd <- sd(x)
   sd_ints <- seq(m - 3 * sd, m + 3 * sd, sd)
   expect_equal(as.numeric(b), sd_ints)
 
-  b <- brk_mean_sd(1)(x, NULL)
-  expect_equal(
-          attr(b, "break_labels"),
-          c("-Inf", "-1 sd", "0 sd", "1 sd", "Inf")
-        )
-
-  expect_silent(brk_mean_sd(3)(rep(NA, 2), FALSE))
-  expect_silent(brk_mean_sd(3)(rep(1, 3), FALSE))
-  expect_silent(brk_mean_sd(3)(1, FALSE))
+  expect_silent(brk_res(brk_mean_sd(3), x = rep(NA, 2)))
+  expect_silent(brk_res(brk_mean_sd(3), x = rep(1, 3)))
+  expect_silent(brk_res(brk_mean_sd(3), x = 1))
 })
 
 
@@ -152,14 +108,14 @@ test_that("brk_quantiles", {
   expect_silent(brk_res(brk_quantiles(1:3/4)))
 
   x <- 1:10
-  brks <- brk_quantiles(1:3/4)(x, FALSE)
+  brks <- brk_quantiles(1:3/4)(x, FALSE, TRUE, FALSE)
   expect_equivalent(c(brks), quantile(x, 1:3/4))
 
-  expect_silent(brks <- brk_quantiles(numeric(0))(x, TRUE))
+  expect_silent(brks <- brk_quantiles(numeric(0))(x, TRUE, TRUE, FALSE))
   expect_equivalent(c(brks), c(-Inf, Inf))
 
   x <- rep(1, 5)
-  brks <- brk_quantiles(1:3/4)(x, FALSE)
+  brks <- brk_quantiles(1:3/4)(x, FALSE, TRUE, FALSE)
   expect_equivalent(c(brks), unique(quantile(x, 1:3/4)))
 })
 
@@ -181,9 +137,3 @@ test_that("printing", {
   expect_output(print(b_empty))
 })
 
-
-test_that("systematic tests", {
-  # input of normal; unsorted; with NA; with +-Inf; only 1 break;
-  # non-numeric; length 0
-
-})

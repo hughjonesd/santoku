@@ -2,37 +2,55 @@
 % Please edit documentation in R/labels.R
 \name{lbl_format}
 \alias{lbl_format}
-\title{Labels with arbitrary formatting}
+\title{Label chopped intervals with arbitrary formatting}
 \usage{
-lbl_format(fmt, fmt1 = "\%s", raw = FALSE)
+lbl_format(fmt, fmt1 = "\%.3g", raw = FALSE)
 }
 \arguments{
-\item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format.}
+\item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
+methods; or a one-argument formatting function.}
 
 \item{fmt1}{Format for breaks consisting of a single value.}
 
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
-or standard deviations.}
+or standard deviations?}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-Labels with arbitrary formatting
+\lifecycle{questioning}
 }
 \details{
-If \code{raw = FALSE}, breaks will be preformatted as strings
-before being passed to \code{\link[=sprintf]{sprintf()}}, so only \code{"\%s"} should be used in
-format strings.
+These labels let you format breaks arbitrarily, using either a string
+(passed to \code{\link[=sprintf]{sprintf()}}) or a function.
+
+If \code{fmt} is a function, it must accept two arguments, representing the
+left and right endpoints of each interval.
+
+If \code{breaks} are non-numeric, you can only use \code{"\%s"} in a string \code{fmt}.
+\code{breaks} will be converted to character in this case.
+
+\code{lbl_format()} is in the "questioning" stage. As an alternative, consider
+using \code{\link[=lbl_dash]{lbl_dash()}} or \code{\link[=lbl_intervals]{lbl_intervals()}} with the \code{fmt} argument.
 }
 \examples{
-tab(1:10, c(1,3, 3, 7), label = lbl_format("\%s to \%s"))
-tab(1:10, c(1,3, 3, 7), label = lbl_format("\%s to \%s", "Exactly \%s"))
+
+tab(1:10, c(1,3, 3, 7),
+      label = lbl_format("\%.3g to \%.3g"))
+tab(1:10, c(1,3, 3, 7),
+      label = lbl_format("\%.3g to \%.3g", "Exactly \%.3g"))
+
+percent2 <- function (x, y) {
+  sprintf("\%.2f\%\% - \%.2f\%\%", x*100, y*100)
+}
+tab(runif(100), c(0.25, 0.5, .75),
+      labels = lbl_format(percent2))
 }
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
-\code{\link{lbl_integer}()},
+\code{\link{lbl_discrete}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_manual}()},
 \code{\link{lbl_seq}()}

@@ -2,19 +2,22 @@
 % Please edit documentation in R/labels.R
 \name{lbl_intervals}
 \alias{lbl_intervals}
-\title{Labels using set notation}
+\title{Label chopped intervals using set notation}
 \usage{
-lbl_intervals(raw = FALSE)
+lbl_intervals(raw = FALSE, fmt = NULL)
 }
 \arguments{
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
-or standard deviations.}
+or standard deviations?}
+
+\item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
+methods; or a one-argument formatting function.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-Labels using set notation
+Label chopped intervals using set notation
 }
 \details{
 Mathematical set notation is as follows:
@@ -27,13 +30,19 @@ Mathematical set notation is as follows:
 }
 }
 \examples{
-tab(-10:10, c(-3, 0, 0, 3), labels = lbl_intervals())
+
+tab(-10:10, c(-3, 0, 0, 3),
+      labels = lbl_intervals())
+
+tab_evenly(runif(20), 10,
+      labels = lbl_intervals(fmt = percent))
+
 }
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
+\code{\link{lbl_discrete}()},
 \code{\link{lbl_format}()},
-\code{\link{lbl_integer}()},
 \code{\link{lbl_manual}()},
 \code{\link{lbl_seq}()}
 }

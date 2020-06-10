@@ -2,28 +2,41 @@
 
 # TODO
 
-* rework labels and breaks?
-  - labels passed into breaks inner function, it decides what to do
-  - separate numeric formatting of breaks/break_labels from the surrounding string
-  - this will let sprintf formats work even when raw = FALSE
-  - hopefully get rid of break_labels ugliness
-  - PROBLEM: brk_xxx() is already called by user. So, labels function has
-    to be passed into inner function.
 
-* tests
+* Work on tests
+  - tests for `left` and `close_end` arguments
+  - tests for `brk_default`
+  - probably use `brk_default` more than `brk_left/right`
+  - `brk_width()` needs tests which match the guarantees in the documentation
+  - ditto for `brk_evenly()` which now uses its own implementation to
+    guarantee exactly `intervals` intervals
   - systematic tests for `brk_*` functions
-  
-* maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for the same reason
+
+* maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for symmetry reasons
   - `tab_quantiles` needs raw labels by default, to be useful
 
-* cut e.g. Dates, posixct, DateT
-  - what else? ts, xts, zoo, lubridate classes
-  - probably call it something like `chop_dates` rather than trying to
-    do OO
+* DateTimes: 
+  - work internally with anchored "Intervals"? Doing this beats just
+    relying on e.g. `chop(months(x))` because we can e.g. start monthly 
+    intervals on the 15th.
+    - but note that effectively this is gonna be what `chop_width(x, width, start)`
+      does.
+    - you might want to do something like:
+      `chop(dates, dates + weeks(1:3))`
+      but that should already work
+  - should we be able to chop by Intervals? This isn't `chop_width` because
+    that isn't a fixed-in-time Interval; if you had a non-overlapping sequence
+    of intervals you could chop with it. But you could equally just chop by
+    the start times.
+    
+* Other things to cut
+  - ts, xts, zoo, package_version, units?
   - `brk_days()`, `brk_weeks()` etc.? Equivalent to all lubridate's `days()` etc.
     classes? 
-  - the basic `chop` function, with appropriate breaks, might already 
-  "almost work" b/c it just uses arithmetic comparisons
+  
+
+* Allow `brk_width()` to run backwards? See github feature request.
+
 
 # Thoughts on errors
 
@@ -37,10 +50,19 @@
 * In other cases, e.g. `brk_evenly()` we don't need to make such a guarantee.
 
 
-
 # Questions
 
+* Is it really OK to have `left = FALSE` as the default in `chop_quantiles()`,
+  `chop_evenly()` and friends? 
+  - the alternative is to do it only when `x` is non-numeric.
+  - that makes the surprise rarer, but rare surprises can be worse... and
+    it adds complexity since the functions have to be generic.
+  - another alternative: `chop` sets `left = FALSE` for non-numeric `x`. Probably
+    better.
+
 * Do we need `drop`?
+  - should `drop` have a default of `! isTRUE(extend)` i.e. be `FALSE` when
+    `extend = TRUE`?
 
 * Should we have a flag to return characters?
   - I'm skeptical, `forcats()` exists suggesting that factors aren't yet
@@ -49,10 +71,19 @@
   - If so, then `drop` should probably work even for numeric i.e. integer data
     by moving it down to start at 1
 
-
   
 # Questions with a (provisional) answer
 
+
+* Should we put a `percent` argument into `brk_quantiles()` so it can store 
+  scaled endpoints as proportions rather than percentages (the current default)?
+  - My sense is, not unless someone asks.
+  - Oh, someone just did ask; more generally though.
+  
+* Should `close_end = TRUE` argument come before `...` in `chop_` variants?
+  - No. We don't want people to set it by position, so distinguish it from
+    the initial arguments.
+    
 * What to do about `tidyr::chop()`
   - Current answer: fuck 'em. (NB: just kidding. I am a huge tidyverse fan.) 
   - We provide `kiru()`. So on the REPL, people can just use `kiru()` if they

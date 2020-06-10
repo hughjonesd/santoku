@@ -4,13 +4,13 @@
 \alias{brk_manual}
 \title{Create a \code{breaks} object manually}
 \usage{
-brk_manual(breaks, left)
+brk_manual(breaks, left_vec)
 }
 \arguments{
-\item{breaks}{A numeric vector which must be sorted.}
+\item{breaks}{A vector, which must be sorted.}
 
-\item{left}{A logical vector, the same length as \code{breaks}.
-Is break left-closed?}
+\item{left_vec}{A logical vector, the same length as \code{breaks}.
+Specifies whether each break is left-closed or right-closed.}
 }
 \value{
 A (function which returns an) object of class \code{breaks}.
@@ -30,7 +30,7 @@ T        F       T
 
 Singleton breaks are created by repeating a number in \code{breaks}.
 Singletons must be closed on both sides, so if there is a repeated number
-at indices \code{i}, \code{i+1}, \code{left[i]} must be \code{TRUE} and \code{left[i+1]} must be
+at indices \code{i}, \code{i+1}, \code{left[i]} \emph{must} be \code{TRUE} and \code{left[i+1]} must be
 \code{FALSE}.
 }
 \examples{

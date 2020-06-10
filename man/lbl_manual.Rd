@@ -2,14 +2,15 @@
 % Please edit documentation in R/labels.R
 \name{lbl_manual}
 \alias{lbl_manual}
-\title{Labels in a user-defined sequence}
+\title{Label chopped intervals in a user-defined sequence}
 \usage{
 lbl_manual(sequence, fmt = "\%s")
 }
 \arguments{
 \item{sequence}{A character vector of labels.}
 
-\item{fmt}{A \code{\link[=sprintf]{sprintf()}}-style format.}
+\item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
+methods; or a one-argument formatting function.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
@@ -28,8 +29,8 @@ chop(1:10, 1:10, lbl_manual(c("x", "y", "z")))
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
+\code{\link{lbl_discrete}()},
 \code{\link{lbl_format}()},
-\code{\link{lbl_integer}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_seq}()}
 }
