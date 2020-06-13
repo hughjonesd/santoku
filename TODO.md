@@ -37,6 +37,10 @@
 
 * Allow `brk_width()` to run backwards? See github feature request.
 
+* Implement a simple `Infinity` class that automatically casts to any other
+  class and is always > or < than any other element? Then replace the `class_bounds()`
+  complexity?
+
 
 # Thoughts on errors
 

@@ -108,7 +108,6 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
 <div id="santoku" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#santoku" class="anchor"></a>santoku <img src="reference/figures/logo.png" align="right" alt="santoku logo" width="120">
@@ -129,285 +128,37 @@
 </ul>
 <p>These advantages make santoku especially useful for exploratory analysis, where you may not know the range of your data in advance.</p>
 </div>
-<div id="installation" class="section level2">
+<div id="usage" class="section level2">
 <h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p>To install santoku, run:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"santoku"</span>)</pre></div>
-</div>
-<div id="basic-usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#basic-usage" class="anchor"></a>Basic usage</h2>
-<p>Use <code><a href="reference/chop.html">chop()</a></code> like <code><a href="https://rdrr.io/r/base/cut.html">cut()</a></code> to cut your data up:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">santoku</span>)
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">10</span>, <span class="fl">0</span>, <span class="fl">10</span>)
-(<span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">x</span>, <span class="kw">breaks</span> <span class="kw">=</span> <span class="fl">0</span>:<span class="fl">10</span>))
-<span class="co">#&gt;  [1] [4, 5)  [8, 9)  [3, 4)  [4, 5)  [7, 8)  [9, 10] [6, 7)  [8, 9)  [1, 2) </span>
-<span class="co">#&gt; [10] [4, 5) </span>
-<span class="co">#&gt; Levels: [1, 2) [3, 4) [4, 5) [6, 7) [7, 8) [8, 9) [9, 10]</span>
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x chopped</span>
-<span class="co">#&gt; 1  4.978305  [4, 5)</span>
-<span class="co">#&gt; 2  8.969989  [8, 9)</span>
-<span class="co">#&gt; 3  3.391823  [3, 4)</span>
-<span class="co">#&gt; 4  4.676785  [4, 5)</span>
-<span class="co">#&gt; 5  7.057042  [7, 8)</span>
-<span class="co">#&gt; 6  9.707687 [9, 10]</span>
-<span class="co">#&gt; 7  6.713807  [6, 7)</span>
-<span class="co">#&gt; 8  8.376589  [8, 9)</span>
-<span class="co">#&gt; 9  1.086165  [1, 2)</span>
-<span class="co">#&gt; 10 4.495479  [4, 5)</span></pre></div>
-<p><code><a href="reference/chop.html">chop()</a></code> returns a factor.</p>
-<p>If data is beyond the limits of <code>breaks</code>, they will be extended automatically:</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">x</span>, <span class="kw">breaks</span> <span class="kw">=</span> <span class="fl">3</span>:<span class="fl">7</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x    chopped</span>
-<span class="co">#&gt; 1  4.978305     [4, 5)</span>
-<span class="co">#&gt; 2  8.969989 (7, 9.708]</span>
-<span class="co">#&gt; 3  3.391823     [3, 4)</span>
-<span class="co">#&gt; 4  4.676785     [4, 5)</span>
-<span class="co">#&gt; 5  7.057042 (7, 9.708]</span>
-<span class="co">#&gt; 6  9.707687 (7, 9.708]</span>
-<span class="co">#&gt; 7  6.713807     [6, 7]</span>
-<span class="co">#&gt; 8  8.376589 (7, 9.708]</span>
-<span class="co">#&gt; 9  1.086165 [1.086, 3)</span>
-<span class="co">#&gt; 10 4.495479     [4, 5)</span></pre></div>
-<p>To chop a single number into a separate category, put the number twice in <code>breaks</code>:</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="no">x_fives</span> <span class="kw">&lt;-</span> <span class="no">x</span>
-<span class="no">x_fives</span>[<span class="fl">1</span>:<span class="fl">5</span>] <span class="kw">&lt;-</span> <span class="fl">5</span>
-<span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">x_fives</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">5</span>, <span class="fl">8</span>))
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x_fives</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;     x_fives    chopped</span>
-<span class="co">#&gt; 1  5.000000        {5}</span>
-<span class="co">#&gt; 2  5.000000        {5}</span>
-<span class="co">#&gt; 3  5.000000        {5}</span>
-<span class="co">#&gt; 4  5.000000        {5}</span>
-<span class="co">#&gt; 5  5.000000        {5}</span>
-<span class="co">#&gt; 6  9.707687 (8, 9.708]</span>
-<span class="co">#&gt; 7  6.713807     (5, 8]</span>
-<span class="co">#&gt; 8  8.376589 (8, 9.708]</span>
-<span class="co">#&gt; 9  1.086165 [1.086, 2)</span>
-<span class="co">#&gt; 10 4.495479     [2, 5)</span></pre></div>
-<p>To quickly produce a table of chopped data, use <code><a href="reference/tab.html">tab()</a></code>:</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="fu"><a href="reference/tab.html">tab</a></span>(<span class="fl">1</span>:<span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span>))
-<span class="co">#&gt; x</span>
-<span class="co">#&gt;  [1, 2)  [2, 5)  [5, 8] (8, 10] </span>
-<span class="co">#&gt;       1       3       4       2</span></pre></div>
-</div>
-<div id="more-ways-to-chop" class="section level2">
-<h2 class="hasAnchor">
-<a href="#more-ways-to-chop" class="anchor"></a>More ways to chop</h2>
-<p>To chop into fixed-width intervals, starting at the minimum value, use <code><a href="reference/chop_width.html">chop_width()</a></code>:</p>
-<div class="sourceCode" id="cb6"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop_width.html">chop_width</a></span>(<span class="no">x</span>, <span class="fl">2</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x        chopped</span>
-<span class="co">#&gt; 1  4.978305 [3.086, 5.086)</span>
-<span class="co">#&gt; 2  8.969989 [7.086, 9.086)</span>
-<span class="co">#&gt; 3  3.391823 [3.086, 5.086)</span>
-<span class="co">#&gt; 4  4.676785 [3.086, 5.086)</span>
-<span class="co">#&gt; 5  7.057042 [5.086, 7.086)</span>
-<span class="co">#&gt; 6  9.707687 [9.086, 11.09]</span>
-<span class="co">#&gt; 7  6.713807 [5.086, 7.086)</span>
-<span class="co">#&gt; 8  8.376589 [7.086, 9.086)</span>
-<span class="co">#&gt; 9  1.086165 [1.086, 3.086)</span>
-<span class="co">#&gt; 10 4.495479 [3.086, 5.086)</span></pre></div>
-<p>To chop into exactly <code>groups</code> fixed-with intervals, use <code><a href="reference/chop_width.html">chop_evenly()</a></code>:</p>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop_width.html">chop_evenly</a></span>(<span class="no">x</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="fl">3</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x        chopped</span>
-<span class="co">#&gt; 1  4.978305  [3.96, 6.834)</span>
-<span class="co">#&gt; 2  8.969989 [6.834, 9.708)</span>
-<span class="co">#&gt; 3  3.391823  [1.086, 3.96)</span>
-<span class="co">#&gt; 4  4.676785  [3.96, 6.834)</span>
-<span class="co">#&gt; 5  7.057042 [6.834, 9.708)</span>
-<span class="co">#&gt; 6  9.707687 [9.708, 12.58]</span>
-<span class="co">#&gt; 7  6.713807  [3.96, 6.834)</span>
-<span class="co">#&gt; 8  8.376589 [6.834, 9.708)</span>
-<span class="co">#&gt; 9  1.086165  [1.086, 3.96)</span>
-<span class="co">#&gt; 10 4.495479  [3.96, 6.834)</span></pre></div>
-<p>To chop into groups with a fixed number of members, use <code><a href="reference/chop_n.html">chop_n()</a></code>:</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop_n.html">chop_n</a></span>(<span class="no">x</span>, <span class="fl">4</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="no">chopped</span>)
-<span class="co">#&gt; chopped</span>
-<span class="co">#&gt; [1.086, 4.978)  [4.978, 8.97)  [8.97, 9.708] </span>
-<span class="co">#&gt;              4              4              2</span></pre></div>
-<p>To chop into a fixed number of equal-sized groups, use <code><a href="reference/chop_quantiles.html">chop_equally()</a></code>:</p>
-<div class="sourceCode" id="cb9"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop_quantiles.html">chop_equally</a></span>(<span class="no">x</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="fl">5</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="no">chopped</span>)
-<span class="co">#&gt; chopped</span>
-<span class="co">#&gt;   [0%, 20%)  [20%, 40%)  [40%, 60%)  [60%, 80%) [80%, 100%] </span>
-<span class="co">#&gt;           2           2           2           2           2</span></pre></div>
-<p>To chop data up by quantiles, use <code><a href="reference/chop_quantiles.html">chop_quantiles()</a></code>:</p>
-<div class="sourceCode" id="cb10"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop_quantiles.html">chop_quantiles</a></span>(<span class="no">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>))
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x     chopped</span>
-<span class="co">#&gt; 1  4.978305  [25%, 50%)</span>
-<span class="co">#&gt; 2  8.969989 (75%, 100%]</span>
-<span class="co">#&gt; 3  3.391823   [0%, 25%)</span>
-<span class="co">#&gt; 4  4.676785  [25%, 50%)</span>
-<span class="co">#&gt; 5  7.057042  [50%, 75%]</span>
-<span class="co">#&gt; 6  9.707687 (75%, 100%]</span>
-<span class="co">#&gt; 7  6.713807  [50%, 75%]</span>
-<span class="co">#&gt; 8  8.376589 (75%, 100%]</span>
-<span class="co">#&gt; 9  1.086165   [0%, 25%)</span>
-<span class="co">#&gt; 10 4.495479   [0%, 25%)</span></pre></div>
-<p>To chop data by standard deviations around the mean, use <code><a href="reference/chop_mean_sd.html">chop_mean_sd()</a></code>:</p>
-<div class="sourceCode" id="cb11"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop_mean_sd.html">chop_mean_sd</a></span>(<span class="no">x</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x        chopped</span>
-<span class="co">#&gt; 1  4.978305  [-1 sd, 0 sd)</span>
-<span class="co">#&gt; 2  8.969989   [1 sd, 2 sd)</span>
-<span class="co">#&gt; 3  3.391823  [-1 sd, 0 sd)</span>
-<span class="co">#&gt; 4  4.676785  [-1 sd, 0 sd)</span>
-<span class="co">#&gt; 5  7.057042   [0 sd, 1 sd)</span>
-<span class="co">#&gt; 6  9.707687   [1 sd, 2 sd)</span>
-<span class="co">#&gt; 7  6.713807   [0 sd, 1 sd)</span>
-<span class="co">#&gt; 8  8.376589   [0 sd, 1 sd)</span>
-<span class="co">#&gt; 9  1.086165 [-2 sd, -1 sd)</span>
-<span class="co">#&gt; 10 4.495479  [-1 sd, 0 sd)</span></pre></div>
-<p><code><a href="reference/tab.html">tab_n()</a></code>, <code><a href="reference/tab.html">tab_width()</a></code>, <code><a href="reference/tab.html">tab_evenly()</a></code> and <code><a href="reference/tab.html">tab_mean_sd()</a></code> act similarly to <code><a href="reference/tab.html">tab()</a></code>, calling the related <code>chop_</code> function and then <code><a href="https://rdrr.io/r/base/table.html">table()</a></code>.</p>
-<div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="reference/tab.html">tab_n</a></span>(<span class="no">x</span>, <span class="fl">4</span>)
-<span class="co">#&gt; x</span>
-<span class="co">#&gt; [1.086, 4.978)  [4.978, 8.97)  [8.97, 9.708] </span>
-<span class="co">#&gt;              4              4              2</span>
-<span class="fu"><a href="reference/tab.html">tab_width</a></span>(<span class="no">x</span>, <span class="fl">2</span>)
-<span class="co">#&gt; x</span>
-<span class="co">#&gt; [1.086, 3.086) [3.086, 5.086) [5.086, 7.086) [7.086, 9.086) [9.086, 11.09] </span>
-<span class="co">#&gt;              1              4              2              2              1</span>
-<span class="fu"><a href="reference/tab.html">tab_evenly</a></span>(<span class="no">x</span>, <span class="fl">5</span>)
-<span class="co">#&gt; x</span>
-<span class="co">#&gt;  [1.086, 2.81)  [2.81, 4.535) [4.535, 6.259) [6.259, 7.983) [7.983, 9.708] </span>
-<span class="co">#&gt;              1              2              2              2              3</span>
-<span class="fu"><a href="reference/tab.html">tab_mean_sd</a></span>(<span class="no">x</span>)
-<span class="co">#&gt; x</span>
-<span class="co">#&gt; [-2 sd, -1 sd)  [-1 sd, 0 sd)   [0 sd, 1 sd)   [1 sd, 2 sd) </span>
-<span class="co">#&gt;              1              4              3              2</span></pre></div>
-</div>
-</div>
-<div id="advanced-usage" class="section level1">
-<h1 class="hasAnchor">
-<a href="#advanced-usage" class="anchor"></a>Advanced usage</h1>
-<p>You can change factor labels with the <code>labels</code> argument:</p>
-<div class="sourceCode" id="cb13"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span>), <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"Lowest"</span>, <span class="st">"Low"</span>, <span class="st">"Higher"</span>, <span class="st">"Highest"</span>))
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x chopped</span>
-<span class="co">#&gt; 1  4.978305     Low</span>
-<span class="co">#&gt; 2  8.969989 Highest</span>
-<span class="co">#&gt; 3  3.391823     Low</span>
-<span class="co">#&gt; 4  4.676785     Low</span>
-<span class="co">#&gt; 5  7.057042  Higher</span>
-<span class="co">#&gt; 6  9.707687 Highest</span>
-<span class="co">#&gt; 7  6.713807  Higher</span>
-<span class="co">#&gt; 8  8.376589 Highest</span>
-<span class="co">#&gt; 9  1.086165  Lowest</span>
-<span class="co">#&gt; 10 4.495479     Low</span></pre></div>
-<p>You need as many labels as there are intervals - one fewer than <code><a href="https://rdrr.io/r/base/length.html">length(breaks)</a></code> if your data doesn’t extend beyond <code>breaks</code>, one more than <code><a href="https://rdrr.io/r/base/length.html">length(breaks)</a></code> if it does.</p>
-<p>To label intervals with a dash, use <code><a href="reference/lbl_dash.html">lbl_dash()</a></code>:</p>
-<div class="sourceCode" id="cb14"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span>), <span class="fu"><a href="reference/lbl_dash.html">lbl_dash</a></span>())
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x   chopped</span>
-<span class="co">#&gt; 1  4.978305     2 - 5</span>
-<span class="co">#&gt; 2  8.969989 8 - 9.708</span>
-<span class="co">#&gt; 3  3.391823     2 - 5</span>
-<span class="co">#&gt; 4  4.676785     2 - 5</span>
-<span class="co">#&gt; 5  7.057042     5 - 8</span>
-<span class="co">#&gt; 6  9.707687 8 - 9.708</span>
-<span class="co">#&gt; 7  6.713807     5 - 8</span>
-<span class="co">#&gt; 8  8.376589 8 - 9.708</span>
-<span class="co">#&gt; 9  1.086165 1.086 - 2</span>
-<span class="co">#&gt; 10 4.495479     2 - 5</span></pre></div>
-<p>For arbitrary formatting use <code><a href="reference/lbl_format.html">lbl_format()</a></code> and <code>sprintf</code>-style format strings:</p>
-<div class="sourceCode" id="cb15"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span>), <span class="fu"><a href="reference/lbl_format.html">lbl_format</a></span>(<span class="st">"%s to %s"</span>))
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x    chopped</span>
-<span class="co">#&gt; 1  4.978305     2 to 5</span>
-<span class="co">#&gt; 2  8.969989 8 to 9.708</span>
-<span class="co">#&gt; 3  3.391823     2 to 5</span>
-<span class="co">#&gt; 4  4.676785     2 to 5</span>
-<span class="co">#&gt; 5  7.057042     5 to 8</span>
-<span class="co">#&gt; 6  9.707687 8 to 9.708</span>
-<span class="co">#&gt; 7  6.713807     5 to 8</span>
-<span class="co">#&gt; 8  8.376589 8 to 9.708</span>
-<span class="co">#&gt; 9  1.086165 1.086 to 2</span>
-<span class="co">#&gt; 10 4.495479     2 to 5</span></pre></div>
-<p>To label intervals in order use <code><a href="reference/lbl_seq.html">lbl_seq()</a></code>:</p>
-<div class="sourceCode" id="cb16"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span>), <span class="fu"><a href="reference/lbl_seq.html">lbl_seq</a></span>())
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x chopped</span>
-<span class="co">#&gt; 1  4.978305       b</span>
-<span class="co">#&gt; 2  8.969989       d</span>
-<span class="co">#&gt; 3  3.391823       b</span>
-<span class="co">#&gt; 4  4.676785       b</span>
-<span class="co">#&gt; 5  7.057042       c</span>
-<span class="co">#&gt; 6  9.707687       d</span>
-<span class="co">#&gt; 7  6.713807       c</span>
-<span class="co">#&gt; 8  8.376589       d</span>
-<span class="co">#&gt; 9  1.086165       a</span>
-<span class="co">#&gt; 10 4.495479       b</span></pre></div>
-<p>You can use numerals or even roman numerals:</p>
-<div class="sourceCode" id="cb17"><pre class="r"><span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span>), <span class="fu"><a href="reference/lbl_seq.html">lbl_seq</a></span>(<span class="st">"(1)"</span>))
-<span class="co">#&gt;  [1] (2) (4) (2) (2) (3) (4) (3) (4) (1) (2)</span>
-<span class="co">#&gt; Levels: (1) (2) (3) (4)</span>
-<span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span>), <span class="fu"><a href="reference/lbl_seq.html">lbl_seq</a></span>(<span class="st">"i."</span>))
-<span class="co">#&gt;  [1] ii.  iv.  ii.  ii.  iii. iv.  iii. iv.  i.   ii. </span>
-<span class="co">#&gt; Levels: i. ii. iii. iv.</span></pre></div>
-<p>By default, <code><a href="reference/chop.html">chop()</a></code> extends <code>breaks</code> if necessary. If you don’t want that, set <code>extend = FALSE</code>:</p>
-<div class="sourceCode" id="cb18"><pre class="r"><span class="no">chopped</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span>), <span class="kw">extend</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="no">x</span>, <span class="no">chopped</span>)
-<span class="co">#&gt;           x chopped</span>
-<span class="co">#&gt; 1  4.978305  [3, 5)</span>
-<span class="co">#&gt; 2  8.969989    &lt;NA&gt;</span>
-<span class="co">#&gt; 3  3.391823  [3, 5)</span>
-<span class="co">#&gt; 4  4.676785  [3, 5)</span>
-<span class="co">#&gt; 5  7.057042    &lt;NA&gt;</span>
-<span class="co">#&gt; 6  9.707687    &lt;NA&gt;</span>
-<span class="co">#&gt; 7  6.713807  [5, 7]</span>
-<span class="co">#&gt; 8  8.376589    &lt;NA&gt;</span>
-<span class="co">#&gt; 9  1.086165    &lt;NA&gt;</span>
-<span class="co">#&gt; 10 4.495479  [3, 5)</span></pre></div>
-<p>Data outside the range of <code>breaks</code> will become <code>NA</code>.</p>
-<p>By default, intervals are closed on the left, i.e. they include their left endpoints. If you want right-closed intervals, use <code><a href="reference/brk-left-right.html">brk_right()</a></code>:</p>
-<div class="sourceCode" id="cb19"><pre class="r"><span class="no">y</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">5</span>
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-        <span class="kw">y</span> <span class="kw">=</span> <span class="no">y</span>,
-        <span class="kw">left_closed</span> <span class="kw">=</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">y</span>, <span class="fl">1</span>:<span class="fl">5</span>),
-        <span class="kw">right_closed</span> <span class="kw">=</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="no">y</span>, <span class="fu"><a href="reference/brk-left-right.html">brk_right</a></span>(<span class="fl">1</span>:<span class="fl">5</span>))
-      )
-<span class="co">#&gt;   y left_closed right_closed</span>
-<span class="co">#&gt; 1 1      [1, 2)       [1, 2]</span>
-<span class="co">#&gt; 2 2      [2, 3)       [1, 2]</span>
-<span class="co">#&gt; 3 3      [3, 4)       (2, 3]</span>
-<span class="co">#&gt; 4 4      [4, 5]       (3, 4]</span>
-<span class="co">#&gt; 5 5      [4, 5]       (4, 5]</span></pre></div>
-<p>The last finite interval is right-closed (or if you use <code>brk_right</code>, the first finite interval is left-closed). If you don’t want that, use <code><a href="reference/brk-left-right.html">brk_left()</a></code> explicitly and set <code>close_end = FALSE</code>:</p>
-<div class="sourceCode" id="cb20"><pre class="r"><span class="no">z</span> <span class="kw">&lt;-</span> <span class="fl">1</span>:<span class="fl">5</span>
-<span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">z</span> <span class="kw">=</span> <span class="no">z</span>,
-  <span class="kw">rightmost_closed</span> <span class="kw">=</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="fl">1</span>:<span class="fl">5</span>, <span class="fu"><a href="reference/brk-left-right.html">brk_left</a></span>(<span class="fl">1</span>:<span class="fl">5</span>)),
-  <span class="kw">rightmost_open</span>   <span class="kw">=</span> <span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="fl">1</span>:<span class="fl">5</span>, <span class="fu"><a href="reference/brk-left-right.html">brk_left</a></span>(<span class="fl">1</span>:<span class="fl">5</span>, <span class="kw">close_end</span> <span class="kw">=</span> <span class="fl">FALSE</span>))
-)
-<span class="co">#&gt;   z rightmost_closed rightmost_open</span>
-<span class="co">#&gt; 1 1           [1, 2)         [1, 2)</span>
-<span class="co">#&gt; 2 2           [2, 3)         [2, 3)</span>
-<span class="co">#&gt; 3 3           [3, 4)         [3, 4)</span>
-<span class="co">#&gt; 4 4           [4, 5]         [4, 5)</span>
-<span class="co">#&gt; 5 5           [4, 5]            {5}</span></pre></div>
-<p>If you want to chop repeatedly with the same arguments, create your own <code>knife</code>:</p>
-<div class="sourceCode" id="cb21"><pre class="r"><span class="no">chop_by_quartiles</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/knife.html">knife</a></span>(
-        <span class="kw">breaks</span> <span class="kw">=</span> <span class="fu"><a href="reference/chop_quantiles.html">brk_quantiles</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span>)),
-        <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="reference/lbl_dash.html">lbl_dash</a></span>()
-      )
+<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">santoku</span>)
 
-<span class="fu">chop_by_quartiles</span>(<span class="no">x</span>)
-<span class="co">#&gt;  [1] 25% - 50%  75% - 100% 0% - 25%   25% - 50%  50% - 75%  75% - 100%</span>
-<span class="co">#&gt;  [7] 50% - 75%  75% - 100% 0% - 25%   0% - 25%  </span>
-<span class="co">#&gt; Levels: 0% - 25% 25% - 50% 50% - 75% 75% - 100%</span>
-<span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span>(<span class="fu">chop_by_quartiles</span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">50</span>)))
+<span class="co"># chop returns a factor:</span>
+<span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="fl">1</span>:<span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span>))
+<span class="co">#&gt;  [1] [1, 3)  [1, 3)  [3, 5)  [3, 5)  [5, 7)  [5, 7)  [7, 10] [7, 10] [7, 10]</span>
+<span class="co">#&gt; [10] [7, 10]</span>
+<span class="co">#&gt; Levels: [1, 3) [3, 5) [5, 7) [7, 10]</span>
+
+<span class="co"># exactly() creates its own category</span>
+<span class="co"># `labels` for integer data:</span>
+<span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="fl">1</span>:<span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fu"><a href="reference/exactly.html">exactly</a></span>(<span class="fl">5</span>), <span class="fl">7</span>), <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="reference/lbl_discrete.html">lbl_discrete</a></span>())
+<span class="co">#&gt;  [1] 1 - 2  1 - 2  3 - 4  3 - 4  5      6      7 - 10 7 - 10 7 - 10 7 - 10</span>
+<span class="co">#&gt; Levels: 1 - 2 3 - 4 5 6 7 - 10</span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lubridate</span>)
 <span class="co">#&gt; </span>
-<span class="co">#&gt;   0% - 25%  25% - 50%  50% - 75% 75% - 100% </span>
-<span class="co">#&gt;         13         12         12         13</span></pre></div>
+<span class="co">#&gt; Attaching package: 'lubridate'</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     date, intersect, setdiff, union</span>
+<span class="co"># chop dates by calendar month, then tabulate:</span>
+<span class="fu"><a href="reference/tab.html">tab_width</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>() + <span class="fl">1</span>:<span class="fl">90</span>, <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="fl">1</span>), <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="reference/lbl_discrete.html">lbl_discrete</a></span>(<span class="kw">fmt</span> <span class="kw">=</span> <span class="st">"%d %b"</span>))
+<span class="co">#&gt; x</span>
+<span class="co">#&gt; 14 Jun - 13 Jul 14 Jul - 13 Aug 14 Aug - 13 Sep </span>
+<span class="co">#&gt;              30              31              29</span></pre></div>
+<p>For more information, see the <a href="https://hughjonesd.github.io/santoku/articles/santoku.html">vignette</a>.</p>
 </div>
-
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
