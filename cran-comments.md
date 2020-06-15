@@ -1,5 +1,5 @@
 
-This update is a bugfix.
+This update fixes one serious bug.
 
 ## Test environments
 
@@ -14,7 +14,6 @@ This update is a bugfix.
 * 0/0/0 on OS X
 * 0/0/0 on travis
 * 0/0/0 on appveyor
-* OK on win-builder release
-* win-builder devel was down
-* OK on rhub release on Ubuntu 16.04
-* other rhub was down
+* 1 note (recent update) on win-builder 
+* 1 irreproducible error on rhub, probably a glitch
+  
