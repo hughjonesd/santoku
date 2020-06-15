@@ -69,15 +69,15 @@ BOTH <- LEFT | RIGHT
 #'
 #' @details
 #' If `extend` is `FALSE`, always returns `NEITHER`. If `breaks` is length
-#' one, always returns `BOTH`.
+#' zero, always returns `BOTH`.
 #'
 #' To test whether `breaks` will be extended on either side, use
-#' `(needs & LEFT) > 0` or `(needs & right) > 0`.
+#' `(needs & LEFT) > 0` or `(needs & RIGHT) > 0`.
 #'
 #' @noRd
 needs_extend <- function (breaks, x, extend) {
   if (! is.null(extend) && ! extend) return(NEITHER)
-  if (length(breaks) < 2L) return(BOTH)
+  if (length(breaks) < 1L) return(BOTH)
 
   needs <- NEITHER
   left <- attr(breaks, "left")

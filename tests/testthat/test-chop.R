@@ -48,6 +48,15 @@ test_that("NA, NaN and Inf", {
 })
 
 
+test_that("singleton breaks", {
+  expect_silent(chop(1:4, 2))
+  expect_silent(chop(1:4, 1))
+  expect_silent(chop(1:4, 4))
+  expect_silent(chop(1:4, 0))
+  expect_silent(chop(1:4, 5))
+})
+
+
 test_that("labels", {
   x <- seq(0.5, 2.5, 0.5)
   expect_equivalent(
