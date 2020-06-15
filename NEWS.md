@@ -1,4 +1,6 @@
-# santoku (development version)
+# santoku 0.4.1
+
+* Bugfix: `chop(1:4, 1)` was erroring.
 
 # santoku 0.4.0
 
