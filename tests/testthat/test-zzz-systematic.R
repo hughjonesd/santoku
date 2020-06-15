@@ -27,6 +27,8 @@ test_that("systematic tests", {
     brk_quantiles   = brk_quantiles(1:3/4),
     brk_default     = brk_default(1:3),
     brk_default2    = brk_default(c(1, 2, 2, 3)),
+    brk_default_lo  = brk_default(1),
+    brk_default_hi  = brk_default(5),
     brk_width       = brk_width(1),
     brk_width2      = brk_width(1, 0),
     brk_w_difft_day = brk_width(as.difftime(5, units = "days")),
@@ -93,6 +95,10 @@ test_that("systematic tests", {
   should_fail(with(test_df,
           names(x) %in% c("same", "one") &
           brk_fun == "brk_quantiles" &
+          extend == FALSE
+        ))
+  should_fail(with(test_df,
+          brk_fun %in% c("brk_default_hi", "brk_default_lo") &
           extend == FALSE
         ))
   should_either(names(test_df$x) == "complex")
