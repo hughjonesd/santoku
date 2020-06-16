@@ -100,7 +100,7 @@ brk_mean_sd <- function (sd = 3) {
 #'   Can be omitted.
 #'
 #' @details
-#' If `width` is a Period, [`lubridate::add_with_rollback()`][lubridate::%m+%]
+#' If `width` is a Period, [`lubridate::add_with_rollback()`][lubridate::mplus]
 #' is used to calculate the widths. This can be useful for e.g. calendar months.
 #'
 #' @examples
