@@ -1,4 +1,10 @@
 
+Resubmitting with a one-liner documentation fix. Original comments below. I
+have retested locally, on travis and appveyor, on win-builder (r-devel) and
+on rhub for windows, but these did not catch the original bug.
+
+--
+
 This update fixes one serious bug.
 
 ## Test environments
