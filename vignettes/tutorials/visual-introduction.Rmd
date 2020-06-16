@@ -75,7 +75,7 @@ plot_the_fish <- function (cols = "peachpuff4") {
 
 
 demo_chop <- function (breaks, labels = lbl_intervals(), extend = NULL, 
-      ..., close_end = FALSE, left = FALSE, 
+      ..., close_end = FALSE, left = TRUE, 
       lines = TRUE, swoosh = FALSE, lty = 1, cex_labels = 0.7,
       skip_lines = numeric(0)) {
   chopped <- chop(pts$x, breaks, labels = labels, 
