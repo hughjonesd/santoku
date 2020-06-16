@@ -19,7 +19,7 @@ Can be omitted.}
 \code{lubridate} package.
 }
 \details{
-If \code{width} is a Period, \code{\link[lubridate:\%m+\%]{lubridate::add_with_rollback()}}
+If \code{width} is a Period, \code{\link[lubridate:mplus]{lubridate::add_with_rollback()}}
 is used to calculate the widths. This can be useful for e.g. calendar months.
 }
 \examples{
