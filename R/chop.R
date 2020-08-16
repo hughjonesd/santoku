@@ -281,6 +281,7 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #'
 #' @details
 #' If `width` is negative, intervals will go downwards from `start`.
+#'
 #' `chop_evenly` sets `close_end = TRUE` by default. `chop_width` sets
 #' `left = FALSE` if width is negative.
 #'

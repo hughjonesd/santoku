@@ -45,6 +45,7 @@ chops \code{x} into \code{intervals} intervals of equal width.
 }
 \details{
 If \code{width} is negative, intervals will go downwards from \code{start}.
+
 \code{chop_evenly} sets \code{close_end = TRUE} by default. \code{chop_width} sets
 \code{left = FALSE} if width is negative.
 }
