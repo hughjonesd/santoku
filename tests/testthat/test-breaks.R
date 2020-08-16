@@ -94,8 +94,8 @@ test_that("brk_width, negative width", {
   expect_equal(diff(bvec)[1], -width)
   expect_equal(bvec[length(bvec)], 1.5)
 
-  b <- brk_res(brk_width(-2, start = 2), 0:4)
-  expect_identical(as.vector(b), c(-Inf, 0, 2, Inf))
+  b <- brk_res(brk_width(-2, start = 2.5), 0:4)
+  expect_identical(as.vector(b), c(-1.5, 0.5, 2.5))
 })
 
 
