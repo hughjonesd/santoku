@@ -1,3 +1,8 @@
+# santoku (development version)
+
+* Negative numbers can be used in `chop_width()`.
+  - This sets `left = FALSE` by default.
+  
 # santoku 0.4.1
 
 * Bugfix: `chop(1:4, 1)` was erroring. 

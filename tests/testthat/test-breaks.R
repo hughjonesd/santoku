@@ -84,6 +84,18 @@ test_that("brk_width", {
 })
 
 
+test_that("brk_width, negative width", {
+  b <- brk_res(brk_width(-1), 0.5:1.5)
+  expect_equal(diff(as.vector(b)), 1)
+
+  width <- runif(1, min = -1, max = 0)
+  b <- brk_res(brk_width(width), 0.5:1.5)
+  bvec <- as.vector(b)
+  expect_equal(diff(bvec)[1], -width)
+  expect_equal(bvec[length(bvec)], 1.5)
+})
+
+
 test_that("brk_evenly", {
   b <- brk_res(brk_evenly(5), 0:10)
   expect_identical(as.vector(b), c(0, 2, 4, 6, 8, 10))

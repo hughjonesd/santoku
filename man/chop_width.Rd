@@ -8,7 +8,7 @@
 \alias{brk_evenly}
 \title{Chop into equal-width intervals}
 \usage{
-chop_width(x, width, start, ...)
+chop_width(x, width, start, ..., left = width > 0)
 
 chop_evenly(x, intervals, ..., groups, close_end = TRUE)
 
@@ -23,9 +23,12 @@ brk_evenly(intervals)
 
 \item{width}{Width of intervals.}
 
-\item{start}{Leftpoint of first interval. By default the lowest finite \code{x}.}
+\item{start}{Leftpoint of first interval. By default the smallest finite \code{x},
+or if \code{width} is negative, the largest finite \code{x}.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
+
+\item{left}{Passed to \code{\link[=chop]{chop()}}.}
 
 \item{intervals}{Integer: number of intervals to create.}
 
@@ -41,12 +44,16 @@ For  \verb{chop_*} functions, a factor of the same length as \code{x}.
 chops \code{x} into \code{intervals} intervals of equal width.
 }
 \details{
-Note that \code{chop_evenly} sets \code{close_end = TRUE} by default.
+If \code{width} is negative, intervals will go downwards from \code{start}.
+\code{chop_evenly} sets \code{close_end = TRUE} by default. \code{chop_width} sets
+\code{left = FALSE} if width is negative.
 }
 \examples{
 chop_width(1:10, 2)
 
 chop_width(1:10, 2, start = 0)
+
+chop_width(1:9, -2)
 
 chop(1:10, brk_width(2, 0))
 
