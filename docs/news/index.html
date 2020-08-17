@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
       </span>
     </div>
 
@@ -152,17 +152,30 @@
       <small>Source: <a href='https://github.com/hughjonesd/santoku/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="santoku-0-4-1" class="section level1">
+    <div id="santoku-050" class="section level1">
+<h1 class="page-header" data-toc-text="0.5.0">
+<a href="#santoku-050" class="anchor"></a>santoku 0.5.0<small> Unreleased </small>
+</h1>
+<ul>
+<li>Negative numbers can be used in <code><a href="../reference/chop_width.html">chop_width()</a></code>.
+<ul>
+<li>This sets <code>left = FALSE</code> by default.</li>
+<li>Also works for negative time intervals.</li>
+</ul>
+</li>
+</ul>
+</div>
+    <div id="santoku-041" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.1">
-<a href="#santoku-0-4-1" class="anchor"></a>santoku 0.4.1<small> 2020-06-16 </small>
+<a href="#santoku-041" class="anchor"></a>santoku 0.4.1<small> 2020-06-16 </small>
 </h1>
 <ul>
 <li>Bugfix: <code><a href="../reference/chop.html">chop(1:4, 1)</a></code> was erroring.</li>
 </ul>
 </div>
-    <div id="santoku-0-4-0" class="section level1">
+    <div id="santoku-040" class="section level1">
 <h1 class="page-header" data-toc-text="0.4.0">
-<a href="#santoku-0-4-0" class="anchor"></a>santoku 0.4.0<small> 2020-06-09 </small>
+<a href="#santoku-040" class="anchor"></a>santoku 0.4.0<small> 2020-06-09 </small>
 </h1>
 <div id="interface-changes" class="section level2">
 <h2 class="hasAnchor">
@@ -170,7 +183,7 @@
 <p>The new version has some interface changes. These are based on user experience, and are designed to make using <code><a href="../reference/chop.html">chop()</a></code> more intuitive and predictable.</p>
 <ul>
 <li>
-<code><a href="../reference/chop.html">chop()</a></code> has two new arguments, <code>left</code> and <code>close_end</code>.
+<p><code><a href="../reference/chop.html">chop()</a></code> has two new arguments, <code>left</code> and <code>close_end</code>.</p>
 <ul>
 <li>Using <code>left = FALSE</code> is simpler and more intuitive than wrapping breaks in <code><a href="../reference/brk-left-right.html">brk_right()</a></code>.</li>
 <li>
@@ -181,11 +194,11 @@
 </ul>
 </li>
 <li>
-<code>close_end</code> is now <code>FALSE</code> by default.
+<p><code>close_end</code> is now <code>FALSE</code> by default.</p>
 <ul>
-<li>This prevents user surprises when e.g. <code><a href="../reference/chop.html">chop(3, 1:3)</a></code> puts <code>3</code> into a different category than <code><a href="../reference/chop.html">chop(3, 1:4)</a></code>.</li>
+<li>This prevents user surprises when e.g. <code><a href="../reference/chop.html">chop(3, 1:3)</a></code> puts <code>3</code> into a different category than <code><a href="../reference/chop.html">chop(3, 1:4)</a></code>.</li>
 <li>
-<code>close_end</code> is <code>TRUE</code> by default for <code><a href="../reference/chop_quantiles.html">chop_quantiles()</a></code>, <code><a href="../reference/chop_n.html">chop_n()</a></code> and similar functions. This ensures that e.g. <code><a href="../reference/chop_quantiles.html">chop_quantiles(x, c(0, 1/3, 2/3, 1))</a></code> does what you would expect.</li>
+<code>close_end</code> is <code>TRUE</code> by default for <code><a href="../reference/chop_quantiles.html">chop_quantiles()</a></code>, <code><a href="../reference/chop_n.html">chop_n()</a></code> and similar functions. This ensures that e.g.  <code><a href="../reference/chop_quantiles.html">chop_quantiles(x, c(0, 1/3, 2/3, 1))</a></code> does what you would expect.</li>
 </ul>
 </li>
 <li><p>The <code>groups</code> argument to <code><a href="../reference/chop_width.html">chop_evenly()</a></code> has been renamed from <code>groups</code> to <code>intervals</code>. This should make it easier to remember the difference between <code><a href="../reference/chop_width.html">chop_evenly()</a></code> and <code><a href="../reference/chop_quantiles.html">chop_equally()</a></code>. (Chop evenly into <code>n</code> equal-width <em>intervals</em>, or chop equally into <code>n</code> equal-sized <em>groups</em>.)</p></li>
@@ -196,14 +209,15 @@
 <h2 class="hasAnchor">
 <a href="#other-changes" class="anchor"></a>Other changes</h2>
 <ul>
-<li>Date and datetime (<code>POSIXct</code>) objects can now be chopped.
+<li>
+<p>Date and datetime (<code>POSIXct</code>) objects can now be chopped.</p>
 <ul>
 <li>
 <code><a href="../reference/chop_width.html">chop_width()</a></code> accepts <code>difftime</code>, <code><a href="http://lubridate.tidyverse.org/reference/period.html">lubridate::period</a></code> or <code><a href="http://lubridate.tidyverse.org/reference/duration.html">lubridate::duration</a></code> objects</li>
 <li>all other <code>chop_</code> functions work as well.</li>
 </ul>
 </li>
-<li><p>Many labelling functions have a new <code>fmt</code> argument. This can be a string interpreted by <code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code> or <code><a href="https://rdrr.io/r/base/format.html">format()</a></code>, or a 1-argument formatting function for break endpoints, e.g. <code><a href="https://scales.r-lib.org//reference/label_percent.html">scales::label_percent()</a></code>.</p></li>
+<li><p>Many labelling functions have a new <code>fmt</code> argument. This can be a string interpreted by <code><a href="https://rdrr.io/r/base/sprintf.html">sprintf()</a></code> or <code><a href="https://rdrr.io/r/base/format.html">format()</a></code>, or a 1-argument formatting function for break endpoints, e.g. <code><a href="https://scales.r-lib.org//reference/label_percent.html">scales::label_percent()</a></code>.</p></li>
 <li><p>Experimental: <code><a href="../reference/lbl_discrete.html">lbl_discrete()</a></code> for discrete data such as integers or (most) dates.</p></li>
 <li><p>There is a new <code><a href="../reference/lbl_endpoint.html">lbl_endpoint()</a></code> function for labelling intervals solely by their left or right endpoint.</p></li>
 <li><p><code><a href="../reference/chop_mean_sd.html">brk_mean_sd()</a></code> now accepts non-integer positive numbers.</p></li>
@@ -213,16 +227,16 @@
 </ul>
 </div>
 </div>
-    <div id="santoku-0-3-0" class="section level1">
+    <div id="santoku-030" class="section level1">
 <h1 class="page-header" data-toc-text="0.3.0">
-<a href="#santoku-0-3-0" class="anchor"></a>santoku 0.3.0<small> 2020-01-24 </small>
+<a href="#santoku-030" class="anchor"></a>santoku 0.3.0<small> 2020-01-24 </small>
 </h1>
 <ul>
 <li><p>First CRAN release.</p></li>
 <li><p>Changed <code>kut()</code> to <code><a href="../reference/chop.html">kiru()</a></code>. <code><a href="../reference/chop.html">kiru()</a></code> is an alternative spelling for <code><a href="../reference/chop.html">chop()</a></code>, for use when the tidyr package is loaded.</p></li>
 <li><p><code>lbl_sequence()</code> has become <code><a href="../reference/lbl_manual.html">lbl_manual()</a></code>.</p></li>
 <li>
-<code>lbl_letters()</code> and friends have been replaced by <code><a href="../reference/lbl_seq.html">lbl_seq()</a></code>:
+<p><code>lbl_letters()</code> and friends have been replaced by <code><a href="../reference/lbl_seq.html">lbl_seq()</a></code>:</p>
 <ul>
 <li>to replace <code>lbl_letters()</code> use <code><a href="../reference/lbl_seq.html">lbl_seq()</a></code>
 </li>
@@ -234,15 +248,15 @@
 </li>
 <li>to replace <code>lbl_numerals()</code> use <code><a href="../reference/lbl_seq.html">lbl_seq("1")</a></code>
 </li>
-<li>for more complex formatting use e.g. <code><a href="../reference/lbl_seq.html">lbl_seq("A:")</a></code>, <code><a href="../reference/lbl_seq.html">lbl_seq("(i)")</a></code>
+<li>for more complex formatting use e.g. <code><a href="../reference/lbl_seq.html">lbl_seq("A:")</a></code>, <code><a href="../reference/lbl_seq.html">lbl_seq("(i)")</a></code>
 </li>
 </ul>
 </li>
 </ul>
 </div>
-    <div id="santoku-0-2-0" class="section level1">
+    <div id="santoku-020" class="section level1">
 <h1 class="page-header" data-toc-text="0.2.0">
-<a href="#santoku-0-2-0" class="anchor"></a>santoku 0.2.0<small> Unreleased </small>
+<a href="#santoku-020" class="anchor"></a>santoku 0.2.0<small> Unreleased </small>
 </h1>
 <ul>
 <li><p>Added a <code>NEWS.md</code> file to track changes to the package.</p></li>
