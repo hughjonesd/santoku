@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9000</span>
       </span>
     </div>
 
@@ -155,7 +155,8 @@
 <div id="todo" class="section level1">
 
 <ul>
-<li>Work on tests
+<li>
+<p>Work on tests</p>
 <ul>
 <li>tests for <code>left</code> and <code>close_end</code> arguments</li>
 <li>tests for <code>brk_default</code>
@@ -168,15 +169,17 @@
 <li>systematic tests for <code>brk_*</code> functions</li>
 </ul>
 </li>
-<li>maybe <code>tab_equally</code>, <code>tab_n</code> (!) and <code>tab_quantiles</code> for symmetry reasons
+<li>
+<p>maybe <code>tab_equally</code>, <code>tab_n</code> (!) and <code>tab_quantiles</code> for symmetry reasons</p>
 <ul>
 <li>
 <code>tab_quantiles</code> needs raw labels by default, to be useful</li>
 </ul>
 </li>
-<li>DateTimes:
+<li>
+<p>DateTimes:</p>
 <ul>
-<li>work internally with anchored “Intervals”? Doing this beats just relying on e.g. <code><a href="reference/chop.html">chop(months(x))</a></code> because we can e.g. start monthly intervals on the 15th.
+<li>work internally with anchored “Intervals”? Doing this beats just relying on e.g. <code><a href="reference/chop.html">chop(months(x))</a></code> because we can e.g. start monthly intervals on the 15th.
 <ul>
 <li>but note that effectively this is gonna be what <code><a href="reference/chop_width.html">chop_width(x, width, start)</a></code> does.</li>
 <li>you might want to do something like: <code><a href="reference/chop.html">chop(dates, dates + weeks(1:3))</a></code> but that should already work</li>
@@ -185,7 +188,8 @@
 <li>should we be able to chop by Intervals? This isn’t <code>chop_width</code> because that isn’t a fixed-in-time Interval; if you had a non-overlapping sequence of intervals you could chop with it. But you could equally just chop by the start times.</li>
 </ul>
 </li>
-<li>Other things to cut
+<li>
+<p>Other things to cut</p>
 <ul>
 <li>ts, xts, zoo, package_version, units?</li>
 <li>
@@ -200,17 +204,17 @@
 <h1 class="hasAnchor">
 <a href="#thoughts-on-errors" class="anchor"></a>Thoughts on errors</h1>
 <ul>
-<li>On the whole, we don’t want to error out if <code>x</code> is weird. <code>x</code> is data. But if e.g. <code>breaks</code> are weird, we can error out.
+<li>On the whole, we don’t want to error out if <code>x</code> is weird. <code>x</code> is data. But if e.g. <code>breaks</code> are weird, we can error out.
 <ul>
 <li>Exception: <code>x</code> is the wrong class or type.</li>
 </ul>
 </li>
 <li>In some cases we want to guarantee the set of breaks.
 <ul>
-<li>e.g. <code><a href="reference/brk-left-right.html">brk_left()</a></code>, <code><a href="reference/brk_manual.html">brk_manual()</a></code> with <code>extend</code> set.</li>
+<li>e.g. <code><a href="reference/brk-left-right.html">brk_left()</a></code>, <code><a href="reference/brk_manual.html">brk_manual()</a></code> with <code>extend</code> set.</li>
 </ul>
 </li>
-<li>In other cases, e.g. <code><a href="reference/chop_width.html">brk_evenly()</a></code> we don’t need to make such a guarantee.</li>
+<li>In other cases, e.g. <code><a href="reference/chop_width.html">brk_evenly()</a></code> we don’t need to make such a guarantee.</li>
 </ul>
 </div>
 <div id="questions" class="section level1">
@@ -262,17 +266,17 @@
 </li>
 <li>When to extend?
 <ul>
-<li>I think default should be “if necessary” (<code>extend = NULL</code>); should always extend to Inf, -Inf so that these break labels are not data-dependent</li>
+<li><p>I think default should be “if necessary” (<code>extend = NULL</code>); should always extend to Inf, -Inf so that these break labels are not data-dependent</p></li>
 <li>
 <p>Tension between wanting something predictable in your new data, vs. something readable in <code>tab_*</code>. E.g.</p>
 <div class="sourceCode" id="cb1"><html><pre class="r"><span class="fu">tab_size</span>(<span class="fl">1</span>:<span class="fl">9</span>, <span class="fl">3</span>, <span class="fu"><a href="reference/lbl_seq.html">lbl_seq</a></span>())</pre></html></div>
-<p>should surely return labels a, b, c. But this means we aren’t always extending.</p>
+<p>should surely return labels a, b, c. But this means we aren’t always extending.</p>
 </li>
 </ul>
 </li>
 <li>Should we allow vector <code>labels</code> to be longer than necessary?
 <ul>
-<li>lets people do e.g. <code><a href="reference/chop.html">chop(rnorm(100), -2:2, LETTERS)</a></code>
+<li>lets people do e.g. <code><a href="reference/chop.html">chop(rnorm(100), -2:2, LETTERS)</a></code>
 </li>
 <li>but might hide errors</li>
 <li>overall I’m against</li>
@@ -306,7 +310,7 @@
 <li>throw an error</li>
 </ul>
 </li>
-<li>For some cases e.g. <code>brk_quantiles</code>, <code>brk_width</code>, the data may not work well e.g. if it is all NA. What is an empty set of breaks?</li>
+<li>For some cases e.g. <code>brk_quantiles</code>, <code>brk_width</code>, the data may not work well e.g. if it is all NA. What is an empty set of breaks?</li>
 </ul>
 </div>
 <div id="possible-interfaces" class="section level1">

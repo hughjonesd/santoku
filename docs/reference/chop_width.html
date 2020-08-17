@@ -81,7 +81,7 @@ chops x into intervals intervals of equal width." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.4.1.9000</span>
       </span>
     </div>
 
@@ -160,7 +160,7 @@ chops x into intervals intervals of equal width." />
 chops <code>x</code> into <code>intervals</code> intervals of equal width.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chop_width</span>(<span class='no'>x</span>, <span class='no'>width</span>, <span class='no'>start</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>chop_width</span>(<span class='no'>x</span>, <span class='no'>width</span>, <span class='no'>start</span>, <span class='no'>...</span>, <span class='kw'>left</span> <span class='kw'>=</span> <span class='no'>width</span> <span class='kw'>&gt;</span> <span class='fl'>0</span>)
 
 <span class='fu'>chop_evenly</span>(<span class='no'>x</span>, <span class='no'>intervals</span>, <span class='no'>...</span>, <span class='no'>groups</span>, <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
@@ -184,10 +184,15 @@ chops <code>x</code> into <code>intervals</code> intervals of equal width.</p>
     </tr>
     <tr>
       <th>start</th>
-      <td><p>Leftpoint of first interval. By default the lowest finite <code>x</code>.</p></td>
+      <td><p>Leftpoint of first interval. By default the smallest finite <code>x</code>,
+or if <code>width</code> is negative, the largest finite <code>x</code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
+      <td><p>Passed to <code><a href='chop.html'>chop()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>left</th>
       <td><p>Passed to <code><a href='chop.html'>chop()</a></code>.</p></td>
     </tr>
     <tr>
@@ -209,7 +214,9 @@ chops <code>x</code> into <code>intervals</code> intervals of equal width.</p>
     <p>For  <code>chop_*</code> functions, a factor of the same length as <code>x</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note that <code>chop_evenly</code> sets <code>close_end = TRUE</code> by default.</p>
+    <p>If <code>width</code> is negative, intervals will go downwards from <code>start</code>.</p>
+<p><code>chop_evenly</code> sets <code>close_end = TRUE</code> by default. <code>chop_width</code> sets
+<code>left = FALSE</code> if width is negative.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><a href='brk_width-for-datetime.html'>brk_width-for-datetime</a></p>
@@ -227,6 +234,8 @@ chops <code>x</code> into <code>intervals</code> intervals of equal width.</p>
 <span class='fu'>chop_width</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fl'>2</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='output co'>#&gt;  [1] [0, 2)  [2, 4)  [2, 4)  [4, 6)  [4, 6)  [6, 8)  [6, 8)  [8, 10) [8, 10)
 #&gt; [10] {10}   
 #&gt; Levels: [0, 2) [2, 4) [4, 6) [6, 8) [8, 10) {10}</div><div class='input'>
+<span class='fu'>chop_width</span>(<span class='fl'>1</span>:<span class='fl'>9</span>, -<span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] {1}    (1, 3] (1, 3] (3, 5] (3, 5] (5, 7] (5, 7] (7, 9] (7, 9]
+#&gt; Levels: {1} (1, 3] (3, 5] (5, 7] (7, 9]</div><div class='input'>
 <span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'>brk_width</span>(<span class='fl'>2</span>, <span class='fl'>0</span>))</div><div class='output co'>#&gt;  [1] [0, 2)  [2, 4)  [2, 4)  [4, 6)  [4, 6)  [6, 8)  [6, 8)  [8, 10) [8, 10)
 #&gt; [10] {10}   
 #&gt; Levels: [0, 2) [2, 4) [4, 6) [6, 8) [8, 10) {10}</div><div class='input'>
