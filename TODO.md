@@ -2,7 +2,6 @@
 
 # TODO
 
-
 * Work on tests
   - tests for `left` and `close_end` arguments
   - tests for `brk_default`
@@ -34,8 +33,6 @@
   - `brk_days()`, `brk_weeks()` etc.? Equivalent to all lubridate's `days()` etc.
     classes? 
   
-
-* Allow `brk_width()` to run backwards? See github feature request.
 
 * Implement a simple `Infinity` class that automatically casts to any other
   class and is always > or < than any other element? Then replace the `class_bounds()`
