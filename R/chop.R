@@ -275,11 +275,15 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' chops `x` into `intervals` intervals of equal width.
 #'
 #' @param width Width of intervals.
-#' @param start Leftpoint of first interval. By default the lowest finite `x`.
+#' @param start Leftpoint of first interval. By default the smallest finite `x`,
+#'   or if `width` is negative, the largest finite `x`.
 #' @inherit chop-doc params return
 #'
 #' @details
-#' Note that `chop_evenly` sets `close_end = TRUE` by default.
+#' If `width` is negative, intervals will go downwards from `start`.
+#'
+#' `chop_evenly` sets `close_end = TRUE` by default. `chop_width` sets
+#' `left = FALSE` if width is negative.
 #'
 #' @family chopping functions
 #' @seealso [brk_width-for-datetime]
@@ -292,12 +296,14 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #'
 #' chop_width(1:10, 2, start = 0)
 #'
+#' chop_width(1:9, -2)
+#'
 #' chop(1:10, brk_width(2, 0))
 #'
 #' chop_evenly(0:10, 5)
 #'
-chop_width <- function (x, width, start, ...) {
-  chop(x, brk_width(width, start), ...)
+chop_width <- function (x, width, start, ..., left = width > 0) {
+  chop(x, brk_width(width, start), left = left, ...)
 }
 
 

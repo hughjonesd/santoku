@@ -1,15 +1,12 @@
 
-Resubmitting with a one-liner documentation fix. Original comments below. I
-have retested locally, on travis and appveyor, on win-builder (r-devel) and
-on rhub for windows, but these did not catch the original bug.
+A new version with an incremental improvement to the interface.
 
 --
 
-This update fixes one serious bug.
 
 ## Test environments
 
-* local OS X install, R 4.0.0
+* local OS X install, R 4.0.2
 * Ubuntu (on travis), R 4.0.0
 * windows (on appveyor), R 4.0.1-patched
 * win-builder (devel and release)

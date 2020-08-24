@@ -9,10 +9,12 @@ dtb1 <- dt1[c(5, 15)]
 
 table_vals <- function (x) unclass(table(x))
 
+
 test_that("Basic chop", {
   expect_silent(chop(d1, db1))
   expect_silent(chop(dt1, dtb1))
 })
+
 
 test_that("Chop with conversion", {
   lb <- lbl_seq()
@@ -100,6 +102,23 @@ test_that("chop_width: difftime", {
           start = as.POSIXct("2000-01-01 15:10"))
   )
   expect_equivalent(table_vals(res4), c(10, 5, 5))
+
+  expect_silent(
+    res5 <- chop_width(d1, width = as.difftime(-4, units = "days"))
+  )
+  expect_equivalent(table_vals(res5), rep(4, 8))
+
+  expect_silent(
+    res6 <- chop_width(d1, width = as.difftime(-4, units = "days"),
+          start = as.Date("1975-11-25"))
+  )
+  tv <- table_vals(res6)
+  expect_true(all(tv[c(-1, -length(tv))] == 4))
+
+  expect_silent(
+    res7 <- chop_width(dt1, width = as.difftime(-5, units = "mins"))
+  )
+  expect_equivalent(table_vals(res7), rep(5, 4))
 
   expect_silent(chop_width(d1, as.difftime(7, units = "days")))
   expect_silent(chop_width(dt1, as.difftime(7, units = "mins")))
