@@ -20,9 +20,8 @@ test_that("tab_n", {
 
 test_that("tab_width", {
   expect_identical(
-    tab_width(0:10, 2),
-    table(x = c(rep(c("[0, 2)", "[2, 4)", "[4, 6)", "[6, 8)", "[8, 10)"), 2),
-          "{10}"))
+    tab_width(0:8, 2),
+    table(x = c(rep(c("[0, 2)", "[2, 4)", "[4, 6)", "[6, 8)"), 2), "{8}"))
   )
 })
 
