@@ -155,8 +155,7 @@
 <div id="todo" class="section level1">
 
 <ul>
-<li>
-<p>Work on tests</p>
+<li>Work on tests
 <ul>
 <li>tests for <code>left</code> and <code>close_end</code> arguments</li>
 <li>tests for <code>brk_default</code>
@@ -169,15 +168,13 @@
 <li>systematic tests for <code>brk_*</code> functions</li>
 </ul>
 </li>
-<li>
-<p>maybe <code>tab_equally</code>, <code>tab_n</code> (!) and <code>tab_quantiles</code> for symmetry reasons</p>
+<li>maybe <code>tab_equally</code>, <code>tab_n</code> (!) and <code>tab_quantiles</code> for symmetry reasons
 <ul>
 <li>
 <code>tab_quantiles</code> needs raw labels by default, to be useful</li>
 </ul>
 </li>
-<li>
-<p>DateTimes:</p>
+<li>DateTimes:
 <ul>
 <li>work internally with anchored “Intervals”? Doing this beats just relying on e.g. <code><a href="reference/chop.html">chop(months(x))</a></code> because we can e.g. start monthly intervals on the 15th.
 <ul>
@@ -188,16 +185,14 @@
 <li>should we be able to chop by Intervals? This isn’t <code>chop_width</code> because that isn’t a fixed-in-time Interval; if you had a non-overlapping sequence of intervals you could chop with it. But you could equally just chop by the start times.</li>
 </ul>
 </li>
-<li>
-<p>Other things to cut</p>
+<li>Other things to cut
 <ul>
 <li>ts, xts, zoo, package_version, units?</li>
 <li>
 <code>brk_days()</code>, <code>brk_weeks()</code> etc.? Equivalent to all lubridate’s <code>days()</code> etc. classes?</li>
 </ul>
 </li>
-<li><p>Allow <code><a href="reference/chop_width.html">brk_width()</a></code> to run backwards? See github feature request.</p></li>
-<li><p>Implement a simple <code>Infinity</code> class that automatically casts to any other class and is always &gt; or &lt; than any other element? Then replace the <code>class_bounds()</code> complexity?</p></li>
+<li>Implement a simple <code>Infinity</code> class that automatically casts to any other class and is always &gt; or &lt; than any other element? Then replace the <code>class_bounds()</code> complexity?</li>
 </ul>
 </div>
 <div id="thoughts-on-errors" class="section level1">

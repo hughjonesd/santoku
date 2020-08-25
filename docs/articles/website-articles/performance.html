@@ -110,7 +110,7 @@
       <h1 data-toc-skip>Performance</h1>
                         <h4 class="author">David Hugh-Jones</h4>
             
-            <h4 class="date">2020-08-17</h4>
+            <h4 class="date">2020-08-25</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hughjonesd/santoku/blob/master/vignettes/website-articles/performance.Rmd"><code>vignettes/website-articles/performance.Rmd</code></a></small>
       <div class="hidden name"><code>performance.Rmd</code></div>
@@ -133,14 +133,14 @@
       )
 <span class="no">mb</span>
 <span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;                               expr      min       lq     mean  median       uq</span>
-<span class="co">#&gt;  santoku::chop(rnorm(1e+05), -2:2) 16.03802 18.64176 21.85786 19.6044 22.25228</span>
-<span class="co">#&gt;            cut(rnorm(1e+05), -2:2) 11.71520 12.60380 14.88399 12.9680 13.36752</span>
-<span class="co">#&gt;    Hmisc::cut2(rnorm(1e+05), -2:2) 30.12912 33.26945 51.38185 35.5054 37.15570</span>
+<span class="co">#&gt;                               expr      min       lq     mean   median       uq</span>
+<span class="co">#&gt;  santoku::chop(rnorm(1e+05), -2:2) 17.16027 19.52133 25.13194 21.08942 24.92330</span>
+<span class="co">#&gt;            cut(rnorm(1e+05), -2:2) 10.67964 11.87951 14.92089 12.33870 14.41770</span>
+<span class="co">#&gt;    Hmisc::cut2(rnorm(1e+05), -2:2) 30.40414 34.07546 54.69952 36.51448 40.29026</span>
 <span class="co">#&gt;        max neval</span>
-<span class="co">#&gt;   136.4545   100</span>
-<span class="co">#&gt;   121.8933   100</span>
-<span class="co">#&gt;  1428.6020   100</span></pre></body></html></div>
+<span class="co">#&gt;   188.4967   100</span>
+<span class="co">#&gt;   119.5857   100</span>
+<span class="co">#&gt;  1327.4778   100</span></pre></body></html></div>
 <div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">mb</span>) + <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span>()
 <span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></pre></body></html></div>
 <p><img src="performance_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
