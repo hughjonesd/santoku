@@ -13,9 +13,4 @@ A new version with an incremental improvement to the interface.
 
 ## R CMD check results
 
-* 0/0/0 on OS X
-* 0/0/0 on travis
-* 0/0/0 on appveyor
-* 0 notes on win-builder 
-* 1 failed test on rhub linux, probably a result of floating point arithmetic, 
-  not something one can fix.
+* 0/0/0 on all platforms
