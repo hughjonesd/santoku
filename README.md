@@ -15,6 +15,7 @@ coverage](https://codecov.io/gh/hughjonesd/santoku/branch/master/graph/badge.svg
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/santoku)](https://CRAN.R-project.org/package=santoku)
+[![R-CMD-check](https://github.com/hughjonesd/santoku/workflows/R-CMD-check/badge.svg)](https://github.com/hughjonesd/santoku/actions)
 <!-- badges: end -->
 
 santoku is a versatile cutting tool for R. It provides `chop()`, a
@@ -24,20 +25,20 @@ replacement for `base::cut()`.
 
 Here are some advantages of santoku:
 
-  - By default, `chop()` always covers the whole range of the data, so
+-   By default, `chop()` always covers the whole range of the data, so
     you won’t get unexpected `NA` values.
 
-  - `chop()` can handle single values as well as intervals. For example,
+-   `chop()` can handle single values as well as intervals. For example,
     `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor
     level for values exactly equal to 2.
 
-  - Flexible labelling, including easy ways to label intervals by
+-   Flexible labelling, including easy ways to label intervals by
     numerals or letters.
 
-  - Convenience functions for creating quantile intervals, evenly-spaced
+-   Convenience functions for creating quantile intervals, evenly-spaced
     intervals or equal-sized groups.
 
-  - Convenience functions for quickly tabulating chopped data.
+-   Convenience functions for quickly tabulating chopped data.
 
 These advantages make santoku especially useful for exploratory
 analysis, where you may not know the range of your data in advance.
@@ -68,8 +69,8 @@ library(lubridate)
 # chop dates by calendar month, then tabulate:
 tab_width(Sys.Date() + 1:90, months(1), labels = lbl_discrete(fmt = "%d %b"))
 #> x
-#> 14 Jun - 13 Jul 14 Jul - 13 Aug 14 Aug - 13 Sep 
-#>              30              31              29
+#> 29 Mar - 28 Apr 29 Apr - 28 May 29 May - 28 Jun 
+#>              31              30              29
 ```
 
 For more information, see the
