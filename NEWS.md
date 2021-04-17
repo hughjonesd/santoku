@@ -1,3 +1,8 @@
+
+# santoku (development version)
+
+* Fixes for CRAN.
+
 # santoku 0.5.0
 
 * Negative numbers can be used in `chop_width()`.
