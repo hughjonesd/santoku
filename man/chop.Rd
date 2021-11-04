@@ -50,7 +50,7 @@ the value of \code{x}.
 length as \code{x}, representing which interval contains each element of \code{x}.
 }
 \details{
-\code{x} may be numeric, or a [Date or Date-Time][\link{DateTimeClasses}.
+\code{x} may be numeric, or a \link[=DateTimeClasses]{Date or Date-Time}.
 
 \code{breaks} may be a numeric vector or a function.
 

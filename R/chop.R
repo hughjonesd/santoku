@@ -25,7 +25,7 @@ NULL
 #'
 #' @details
 #'
-#' `x` may be numeric, or a [Date or Date-Time][[DateTimeClasses].
+#' `x` may be numeric, or a [Date or Date-Time][DateTimeClasses].
 #'
 #' `breaks` may be a numeric vector or a function.
 #'
