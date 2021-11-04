@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -48,7 +48,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -92,7 +92,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/hughjonesd/santoku/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -121,7 +121,7 @@
 <p>Here are some advantages of santoku:</p>
 <ul>
 <li><p>By default, <code><a href="reference/chop.html">chop()</a></code> always covers the whole range of the data, so you won’t get unexpected <code>NA</code> values.</p></li>
-<li><p><code><a href="reference/chop.html">chop()</a></code> can handle single values as well as intervals. For example, <code><a href="reference/chop.html">chop(x, breaks = c(1, 2, 2, 3))</a></code> will create a separate factor level for values exactly equal to 2.</p></li>
+<li><p><code><a href="reference/chop.html">chop()</a></code> can handle single values as well as intervals. For example, <code>chop(x, breaks = c(1, 2, 2, 3))</code> will create a separate factor level for values exactly equal to 2.</p></li>
 <li><p>Flexible labelling, including easy ways to label intervals by numerals or letters.</p></li>
 <li><p>Convenience functions for creating quantile intervals, evenly-spaced intervals or equal-sized groups.</p></li>
 <li><p>Convenience functions for quickly tabulating chopped data.</p></li>
@@ -131,31 +131,32 @@
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">santoku</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/hughjonesd/santoku">santoku</a></span><span class="op">)</span>
 
 <span class="co"># chop returns a factor:</span>
-<span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="fl">1</span>:<span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span>))
+<span class="fu"><a href="reference/chop.html">chop</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  [1] [1, 3)  [1, 3)  [3, 5)  [3, 5)  [5, 7)  [5, 7)  [7, 10] [7, 10] [7, 10]</span>
 <span class="co">#&gt; [10] [7, 10]</span>
 <span class="co">#&gt; Levels: [1, 3) [3, 5) [5, 7) [7, 10]</span>
 
 <span class="co"># exactly() creates its own category</span>
 <span class="co"># `labels` for integer data:</span>
-<span class="fu"><a href="reference/chop.html">chop</a></span>(<span class="fl">1</span>:<span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>, <span class="fu"><a href="reference/exactly.html">exactly</a></span>(<span class="fl">5</span>), <span class="fl">7</span>), <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="reference/lbl_discrete.html">lbl_discrete</a></span>())
+<span class="fu"><a href="reference/chop.html">chop</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fu"><a href="reference/exactly.html">exactly</a></span><span class="op">(</span><span class="fl">5</span><span class="op">)</span>, <span class="fl">7</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="reference/lbl_discrete.html">lbl_discrete</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  [1] 1 - 2  1 - 2  3 - 4  3 - 4  5      6      7 - 10 7 - 10 7 - 10 7 - 10</span>
 <span class="co">#&gt; Levels: 1 - 2 3 - 4 5 6 7 - 10</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lubridate</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org">lubridate</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'lubridate'</span>
 <span class="co">#&gt; The following objects are masked from 'package:base':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     date, intersect, setdiff, union</span>
 <span class="co"># chop dates by calendar month, then tabulate:</span>
-<span class="fu"><a href="reference/tab.html">tab_width</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span>() + <span class="fl">1</span>:<span class="fl">90</span>, <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span>(<span class="fl">1</span>), <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="reference/lbl_discrete.html">lbl_discrete</a></span>(<span class="kw">fmt</span> <span class="kw">=</span> <span class="st">"%d %b"</span>))
+<span class="fu"><a href="reference/tab.html">tab_width</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html">Sys.Date</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fl">1</span><span class="op">:</span><span class="fl">90</span>, <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="reference/lbl_discrete.html">lbl_discrete</a></span><span class="op">(</span>fmt <span class="op">=</span> <span class="st">"%d %b"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; x</span>
-<span class="co">#&gt; 14 Jun - 13 Jul 14 Jul - 13 Aug 14 Aug - 13 Sep </span>
-<span class="co">#&gt;              30              31              29</span></pre></div>
+<span class="co">#&gt; 29 Mar - 28 Apr 29 Apr - 28 May 29 May - 28 Jun </span>
+<span class="co">#&gt;              31              30              29</span></code></pre></div>
 <p>For more information, see the <a href="https://hughjonesd.github.io/santoku/articles/santoku.html">vignette</a>.</p>
 </div>
 </div>
@@ -190,11 +191,11 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/hughjonesd/santoku"><img src="https://travis-ci.org/hughjonesd/santoku.svg?branch=master" alt="Travis build status"></a></li>
+<li><a href="https://CRAN.R-project.org/package=santoku"><img src="https://www.r-pkg.org/badges/version/santoku" alt="CRAN status"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://github.com/hughjonesd/santoku/actions"><img src="https://github.com/hughjonesd/santoku/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://ci.appveyor.com/project/hughjonesd/santoku"><img src="https://ci.appveyor.com/api/projects/status/github/hughjonesd/santoku?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
 <li><a href="https://codecov.io/gh/hughjonesd/santoku?branch=master"><img src="https://codecov.io/gh/hughjonesd/santoku/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
-<li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://CRAN.R-project.org/package=santoku"><img src="https://www.r-pkg.org/badges/version/santoku" alt="CRAN status"></a></li>
 </ul>
 </div>
 </div>
@@ -206,7 +207,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

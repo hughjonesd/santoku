@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hughjonesd/santoku/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -155,12 +155,12 @@
     </div>
 
     <div class="ref-description">
-    <p><a href='https://www.tidyverse.org/lifecycle/#questioning'><img src='figures/lifecycle-questioning.svg' alt='Questioning lifecycle'></a></p>
+    <p><a href='https://lifecycle.r-lib.org/articles/stages.html#questioning'><img src='figures/lifecycle-questioning.svg' alt='[Questioning]' /></a></p>
     </div>
 
-    <pre class="usage"><span class='fu'>brk_left</span>(<span class='no'>breaks</span>)
+    <pre class="usage"><span class='fu'>brk_left</span><span class='op'>(</span><span class='va'>breaks</span><span class='op'>)</span>
 
-<span class='fu'>brk_right</span>(<span class='no'>breaks</span>)</pre>
+<span class='fu'>brk_right</span><span class='op'>(</span><span class='va'>breaks</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,13 +181,20 @@
 <p>These functions override the <code>left</code> argument of <code><a href='chop.html'>chop()</a></code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fu'>brk_left</span>(<span class='fl'>5</span>:<span class='fl'>7</span>))</div><div class='output co'>#&gt; [1] [5, 6) [6, 7) {7}   
-#&gt; Levels: [5, 6) [6, 7) {7}</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fu'>brk_right</span>(<span class='fl'>5</span>:<span class='fl'>7</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: `left` argument to `brk_right()` ignored</span></div><div class='output co'>#&gt; [1] {5}    (5, 6] (6, 7]
-#&gt; Levels: {5} (5, 6] (6, 7]</div><div class='input'>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>5</span>:<span class='fl'>7</span>, <span class='fu'>brk_left</span>(<span class='fl'>5</span>:<span class='fl'>7</span>))</div><div class='output co'>#&gt; [1] [5, 6) [6, 7) {7}   
-#&gt; Levels: [5, 6) [6, 7) {7}</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='chop.html'>chop</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>7</span>, <span class='fu'>brk_left</span><span class='op'>(</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] [5, 6) [6, 7) {7}   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [5, 6) [6, 7) {7}</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='chop.html'>chop</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>7</span>, <span class='fu'>brk_right</span><span class='op'>(</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-wrn co'><span class='r-pr'>#&gt;</span> <span class='warning'>Warning: </span>`left` argument to `brk_right()` ignored</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] {5}    (5, 6] (6, 7]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: {5} (5, 6] (6, 7]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'><a href='chop.html'>chop</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>7</span>, <span class='fu'>brk_left</span><span class='op'>(</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] [5, 6) [6, 7) {7}   </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [5, 6) [6, 7) {7}</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -203,7 +210,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
