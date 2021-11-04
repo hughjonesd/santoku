@@ -3,7 +3,7 @@
 \name{chop}
 \alias{chop}
 \alias{kiru}
-\title{Cut numeric data into intervals}
+\title{Cut data into intervals}
 \usage{
 chop(
   x,
@@ -26,7 +26,7 @@ kiru(
 )
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{A vector.}
 
 \item{breaks}{See below.}
 
@@ -50,6 +50,8 @@ the value of \code{x}.
 length as \code{x}, representing which interval contains each element of \code{x}.
 }
 \details{
+\code{x} may be numeric, or a [Date or Date-Time][\link{DateTimeClasses}.
+
 \code{breaks} may be a numeric vector or a function.
 
 If it is a vector, \code{breaks} gives the break endpoints. Repeated values create

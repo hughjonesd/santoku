@@ -19,7 +19,7 @@ brk_width(width, start)
 brk_evenly(intervals)
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{A vector.}
 
 \item{width}{Width of intervals.}
 

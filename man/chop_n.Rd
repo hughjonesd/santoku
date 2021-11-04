@@ -10,7 +10,7 @@ chop_n(x, n, ..., close_end = TRUE)
 brk_n(n)
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{A vector.}
 
 \item{n}{Integer: number of elements in each interval.}
 

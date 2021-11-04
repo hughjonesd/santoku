@@ -19,7 +19,7 @@ brk_quantiles(probs, ...)
 brk_equally(groups)
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{A vector.}
 
 \item{probs}{A vector of probabilities for the quantiles.}
 

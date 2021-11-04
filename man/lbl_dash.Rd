@@ -27,7 +27,7 @@ This label style is user-friendly, but doesn't distinguish between
 left- and right-closed intervals.
 }
 \details{
-\code{first} and \code{last} will be passed to \code{\link[=format]{format()}} with the "innermost" break
+\code{first} and \code{last} will be passed to \code{\link[=sprintf]{sprintf()}} with the "innermost" break
 as an argument. So you can write e.g. \code{last = "\%s+"} to create a label like
 \code{"65+"} for the last category.
 }

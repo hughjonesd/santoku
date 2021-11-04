@@ -11,6 +11,16 @@
 NULL
 
 
+#' @name first-last-doc
+#' @param first String: override label for the first category.
+#' @param last String: override label for the last category.
+#' @details
+#' `first` and `last` will be passed to [sprintf()] with the "innermost" break
+#' as an argument. So you can write e.g. `last = "%s+"` to create a label like
+#' `"65+"` for the last category.
+NULL
+
+
 #' Label chopped intervals using set notation
 #'
 #' @inherit label-doc
@@ -146,13 +156,8 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' left- and right-closed intervals.
 #'
 #' @inherit label-doc
-#' @param first String: override label for the first category.
-#' @param last String: override label for the last category.
 #'
-#' @details
-#' `first` and `last` will be passed to [format()] with the "innermost" break
-#' as an argument. So you can write e.g. `last = "%s+"` to create a label like
-#' `"65+"` for the last category.
+#' @inherit first-last-doc
 #'
 #' @family labelling functions
 #'
@@ -235,6 +240,7 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 #' `c(1, 3, 4, 6, 7)` are labelled: `"1 - 2", "3", "4 - 5", "6 - 7"`.
 #'
 #' @inherit label-doc
+#' @inherit first-last-doc
 #'
 #' @details
 #' No check is done that the data is discrete-valued. If it isn't, then
@@ -250,9 +256,11 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 #' @examples
 #' tab(1:7, c(1, 3, 5), lbl_discrete())
 #'
+#' tab(1:7, c(3, 5), lbl_discrete(first = "<= %s"))
+#'
 #' # Misleading labels for non-integer data
 #' chop(2.5, c(1, 3, 5), lbl_discrete())
-lbl_discrete <- function (symbol = " - ", fmt = NULL) {
+lbl_discrete <- function (symbol = " - ", fmt = NULL, first = NULL, last = NULL) {
   assert_that(is.string(symbol), is.null(fmt) || is_format(fmt))
 
   function (breaks) {
@@ -289,6 +297,12 @@ lbl_discrete <- function (symbol = " - ", fmt = NULL) {
     labels <- paste0(l, symbol, r)
     labels[singletons] <- l[singletons]
     labels[no_integers] <- "--"
+
+    if (! is.null(first)) labels[1] <- endpoint_labels(r[1], raw = FALSE,
+                                                       fmt = first)
+    if (! is.null(last)) labels[length(labels)] <- endpoint_labels(
+                                                     l[length(l)],
+                                                     raw = FALSE, fmt = last)
 
     return(labels)
   }

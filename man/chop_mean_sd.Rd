@@ -10,7 +10,7 @@ chop_mean_sd(x, sd = 3, ...)
 brk_mean_sd(sd = 3)
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{A vector.}
 
 \item{sd}{Positive number: include up to \code{sd} standard deviations.}
 

@@ -7,7 +7,7 @@
 fillet(x, breaks, labels, left = TRUE, close_end = FALSE)
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{A vector.}
 
 \item{breaks}{Passed to \code{\link[=chop]{chop()}}.}
 

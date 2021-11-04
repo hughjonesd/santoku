@@ -1,20 +1,20 @@
 
 
 #' @name chop-doc
-#' @param x A numeric vector.
+#' @param x A vector.
 #' @param breaks,labels,left,...,close_end  Passed to [chop()].
 #' @return
 #' For  `chop_*` functions, a factor of the same length as `x`.
 NULL
 
 
-#' Cut numeric data into intervals
+#' Cut data into intervals
 #'
 #' `chop` cuts `x` into intervals. It returns a factor of the same
 #' length as `x`, representing which interval contains each element of `x`.
 #'
 #'
-#' @param x A numeric vector.
+#' @param x A vector.
 #' @param breaks See below.
 #' @param labels See below.
 #' @param extend Logical. Extend breaks to `+/-Inf`?
@@ -24,6 +24,9 @@ NULL
 #' @param drop Logical. Drop unused levels from the result?
 #'
 #' @details
+#'
+#' `x` may be numeric, or a [Date or Date-Time][[DateTimeClasses].
+#'
 #' `breaks` may be a numeric vector or a function.
 #'
 #' If it is a vector, `breaks` gives the break endpoints. Repeated values create
