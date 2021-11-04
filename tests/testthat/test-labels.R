@@ -190,6 +190,16 @@ test_that("lbl_discrete arguments", {
     lbl_discrete(fmt = brackets)(lbrk),
     c("(1) - (2)", "(3) - (4)")
   )
+
+  expect_equivalent(
+    lbl_discrete(first = "<= %s")(lbrk),
+    c("<= 2", "3 - 4")
+  )
+
+  expect_equivalent(
+    lbl_discrete(last = ">= %s")(lbrk),
+    c("1 - 2", ">= 3")
+  )
 })
 
 
