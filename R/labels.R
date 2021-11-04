@@ -163,6 +163,8 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #'
 #' chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "%.1f"))
 #'
+#' chop(1:10, c(2, 5, 8), lbl_dash(first = "< %s"))
+#'
 #' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
 #' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
 lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL, first = NULL, last = NULL) {
