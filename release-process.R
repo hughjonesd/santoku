@@ -1,12 +1,14 @@
 
+# ensure version is correct, then:
 # run line by line (some commands require command line input)
-# make sure you've put comments in cran-comments.md
 rhc <- rhub::check_for_cran(show_status = FALSE)
 devtools::check_win_devel()
 devtools::check_win_release()
 devtools::check()
 devtools::spell_check()
+# make sure you've put comments in cran-comments.md
 
+# install the new version
 # do this on branch website-x.y.z. Then you can commit and push changes without
 # devtools complaining about uncommitted changes.
 pkgdown::build_site()
