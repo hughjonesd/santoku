@@ -30,4 +30,5 @@ devtools::release()
 # when it's accepted:
 # - merge website-x.y.z into master
 # - push hughjonesd.github.io
-#
+# - git tag -a cran-x.y.z
+# - git push --tags
