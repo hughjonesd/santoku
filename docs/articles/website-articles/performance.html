@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -90,7 +90,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/hughjonesd/santoku/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -104,13 +104,13 @@
 
       
 
-      </header><script src="performance_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="performance_files/header-attrs-2.8/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Performance</h1>
                         <h4 class="author">David Hugh-Jones</h4>
             
-            <h4 class="date">2020-08-27</h4>
+            <h4 class="date">2021-11-04</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hughjonesd/santoku/blob/master/vignettes/website-articles/performance.Rmd"><code>vignettes/website-articles/performance.Rmd</code></a></small>
       <div class="hidden name"><code>performance.Rmd</code></div>
@@ -123,26 +123,28 @@
 <h2 class="hasAnchor">
 <a href="#speed" class="anchor"></a>Speed</h2>
 <p>The core of santoku is written in C++. It is reasonably fast:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r">
-<span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span>(<span class="st">"santoku"</span>)
-<span class="co">#&gt; [1] '0.5.0'</span>
-<span class="no">mb</span> <span class="kw">&lt;-</span> <span class="kw pkg">microbenchmark</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span>(
-        <span class="kw pkg">santoku</span><span class="kw ns">::</span><span class="fu"><a href="../../reference/chop.html">chop</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1e5</span>), -<span class="fl">2</span>:<span class="fl">2</span>),
-                  <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1e5</span>), -<span class="fl">2</span>:<span class="fl">2</span>),
-          <span class="kw pkg">Hmisc</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/cut2.html">cut2</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span>(<span class="fl">1e5</span>), -<span class="fl">2</span>:<span class="fl">2</span>)
-      )
-<span class="no">mb</span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html">packageVersion</a></span><span class="op">(</span><span class="st">"santoku"</span><span class="op">)</span>
+<span class="co">#&gt; [1] '0.6.0'</span>
+<span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html">microbenchmark</a></span><span class="op">(</span>
+        <span class="fu">santoku</span><span class="fu">::</span><span class="fu"><a href="../../reference/chop.html">chop</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,
+                  <span class="fu"><a href="https://rdrr.io/r/base/cut.html">cut</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,
+          <span class="fu">Hmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/cut2.html">cut2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>
+      <span class="op">)</span>
+<span class="va">mb</span>
 <span class="co">#&gt; Unit: milliseconds</span>
 <span class="co">#&gt;                               expr      min       lq     mean   median       uq</span>
-<span class="co">#&gt;  santoku::chop(rnorm(1e+05), -2:2) 17.32465 19.96001 21.96873 21.12408 22.45420</span>
-<span class="co">#&gt;            cut(rnorm(1e+05), -2:2) 11.74272 12.76516 14.26374 12.91402 13.08967</span>
-<span class="co">#&gt;    Hmisc::cut2(rnorm(1e+05), -2:2) 31.74755 36.03740 53.92887 37.44585 39.37972</span>
+<span class="co">#&gt;  santoku::chop(rnorm(1e+05), -2:2) 15.67106 18.85745 22.29788 19.75758 22.66568</span>
+<span class="co">#&gt;            cut(rnorm(1e+05), -2:2) 10.81645 11.82951 13.06344 12.12844 12.85959</span>
+<span class="co">#&gt;    Hmisc::cut2(rnorm(1e+05), -2:2) 30.73389 35.94017 70.31766 37.78273 39.85723</span>
 <span class="co">#&gt;         max neval</span>
-<span class="co">#&gt;    78.90661   100</span>
-<span class="co">#&gt;   121.40162   100</span>
-<span class="co">#&gt;  1352.15911   100</span></pre></body></html></div>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span>(<span class="no">mb</span>) + <span class="kw pkg">ggplot2</span><span class="kw ns">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span>()
-<span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></pre></body></html></div>
+<span class="co">#&gt;   101.88660   100</span>
+<span class="co">#&gt;    46.37539   100</span>
+<span class="co">#&gt;  2832.63841   100</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mb</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></code></pre></div>
 <p><img src="performance_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
 </div>
   </div>
@@ -162,7 +164,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

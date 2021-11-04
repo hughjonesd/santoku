@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Cut numeric data into intervals — chop • santoku</title>
+<title>Cut data into intervals — chop • santoku</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,7 +46,7 @@
 
 
 
-<meta property="og:title" content="Cut numeric data into intervals — chop" />
+<meta property="og:title" content="Cut data into intervals — chop" />
 <meta property="og:description" content="chop cuts x into intervals. It returns a factor of the same
 length as x, representing which interval contains each element of x." />
 <meta property="og:image" content="/logo.png" />
@@ -81,7 +81,7 @@ length as x, representing which interval contains each element of x." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ length as x, representing which interval contains each element of x." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -133,7 +133,7 @@ length as x, representing which interval contains each element of x." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hughjonesd/santoku/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -150,7 +150,7 @@ length as x, representing which interval contains each element of x." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Cut numeric data into intervals</h1>
+    <h1>Cut data into intervals</h1>
     <small class="dont-index">Source: <a href='https://github.com/hughjonesd/santoku/blob/master/R/chop.R'><code>R/chop.R</code></a></small>
     <div class="hidden name"><code>chop.Rd</code></div>
     </div>
@@ -160,32 +160,32 @@ length as x, representing which interval contains each element of x." />
 length as <code>x</code>, representing which interval contains each element of <code>x</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>chop</span>(
-  <span class='no'>x</span>,
-  <span class='no'>breaks</span>,
-  <span class='no'>labels</span>,
-  <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)
+    <pre class="usage"><span class='fu'>chop</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>breaks</span>,
+  <span class='va'>labels</span>,
+  extend <span class='op'>=</span> <span class='cn'>NULL</span>,
+  left <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  close_end <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
-<span class='fu'>kiru</span>(
-  <span class='no'>x</span>,
-  <span class='no'>breaks</span>,
-  <span class='no'>labels</span>,
-  <span class='kw'>extend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
-)</pre>
+<span class='fu'>kiru</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>breaks</span>,
+  <span class='va'>labels</span>,
+  extend <span class='op'>=</span> <span class='cn'>NULL</span>,
+  left <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  close_end <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A numeric vector.</p></td>
+      <td><p>A vector.</p></td>
     </tr>
     <tr>
       <th>breaks</th>
@@ -220,7 +220,8 @@ close first break at left?)</p></td>
 the value of <code>x</code>.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>breaks</code> may be a numeric vector or a function.</p>
+    <p><code>x</code> may be numeric, or a [Date or Date-Time][<a href='https://rdrr.io/r/base/DateTimeClasses.html'>DateTimeClasses</a>.</p>
+<p><code>breaks</code> may be a numeric vector or a function.</p>
 <p>If it is a vector, <code>breaks</code> gives the break endpoints. Repeated values create
 singleton intervals. For example <code>breaks = c(1, 3, 3, 5)</code> creates 3
 intervals: <code>[1, 3)</code>, <code>{3}</code> and <code>(3, 5]</code>.</p>
@@ -286,31 +287,49 @@ confusion with <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>t
 <code><a href='fillet.html'>fillet</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>2</span>)</div><div class='output co'>#&gt; [1] [1, 2) [2, 3] [2, 3]
-#&gt; Levels: [1, 2) [2, 3]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  [5, 8)  [5, 8)  [5, 8)  [8, 10] [8, 10]
-#&gt; [10] [8, 10]
-#&gt; Levels: [1, 2) [2, 5) [5, 8) [8, 10]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>extend</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] &lt;NA&gt;   [2, 5) [2, 5) [2, 5) [5, 8) [5, 8) [5, 8) &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;  
-#&gt; Levels: [2, 5) [5, 8)</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  {5}     (5, 8)  (5, 8)  [8, 10] [8, 10]
-#&gt; [10] [8, 10]
-#&gt; Levels: [1, 2) [2, 5) {5} (5, 8) [8, 10]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>left</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt;  [1] [1, 2]  [1, 2]  (2, 5]  (2, 5]  (2, 5]  (5, 8]  (5, 8]  (5, 8]  (8, 10]
-#&gt; [10] (8, 10]
-#&gt; Levels: [1, 2] (2, 5] (5, 8] (8, 10]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>close_end</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  [5, 8]  [5, 8]  [5, 8]  [5, 8]  (8, 10]
-#&gt; [10] (8, 10]
-#&gt; Levels: [1, 2) [2, 5) [5, 8] (8, 10]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='chop_quantiles.html'>brk_quantiles</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>)))</div><div class='output co'>#&gt;  [1] [0%, 25%)   [0%, 25%)   [0%, 25%)   [25%, 75%)  [25%, 75%)  [25%, 75%) 
-#&gt;  [7] [25%, 75%)  [75%, 100%] [75%, 100%] [75%, 100%]
-#&gt; Levels: [0%, 25%) [25%, 75%) [75%, 100%]</div><div class='input'>
-<span class='fu'>chop</span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span>), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='lbl_dash.html'>lbl_dash</a></span>())</div><div class='output co'>#&gt;  [1] 1 - 2  2 - 5  2 - 5  2 - 5  5 - 8  5 - 8  5 - 8  8 - 10 8 - 10 8 - 10
-#&gt; Levels: 1 - 2 2 - 5 5 - 8 8 - 10</div><div class='input'>
-<span class='co'># floating point inaccuracy:</span>
-<span class='fu'>chop</span>(<span class='fl'>0.3</span>/<span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>0.1</span>, <span class='fl'>1</span>))</div><div class='output co'>#&gt; [1] [0, 0.1)
-#&gt; Levels: [0, 0.1)</div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'>chop</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>2</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] [1, 2) [2, 3] [2, 3]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [1, 2) [2, 3]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>chop</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  [5, 8)  [5, 8)  [5, 8)  [8, 10] [8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] [8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [1, 2) [2, 5) [5, 8) [8, 10]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>chop</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span><span class='op'>)</span>, extend <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] &lt;NA&gt;   [2, 5) [2, 5) [2, 5) [5, 8) [5, 8) [5, 8) &lt;NA&gt;   &lt;NA&gt;   &lt;NA&gt;  </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [2, 5) [5, 8)</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>chop</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  {5}     (5, 8)  (5, 8)  [8, 10] [8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] [8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [1, 2) [2, 5) {5} (5, 8) [8, 10]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>chop</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span><span class='op'>)</span>, left <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] [1, 2]  [1, 2]  (2, 5]  (2, 5]  (2, 5]  (5, 8]  (5, 8]  (5, 8]  (8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] (8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [1, 2] (2, 5] (5, 8] (8, 10]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>chop</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span><span class='op'>)</span>, close_end <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  [5, 8]  [5, 8]  [5, 8]  [5, 8]  (8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] (8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [1, 2) [2, 5) [5, 8] (8, 10]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>chop</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='chop_quantiles.html'>brk_quantiles</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.25</span>, <span class='fl'>0.75</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] [0%, 25%)   [0%, 25%)   [0%, 25%)   [25%, 75%)  [25%, 75%)  [25%, 75%) </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [7] [25%, 75%)  [75%, 100%] [75%, 100%] [75%, 100%]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [0%, 25%) [25%, 75%) [75%, 100%]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='fu'>chop</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>8</span><span class='op'>)</span>, labels <span class='op'>=</span> <span class='fu'><a href='lbl_dash.html'>lbl_dash</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] 1 - 2  2 - 5  2 - 5  2 - 5  5 - 8  5 - 8  5 - 8  8 - 10 8 - 10 8 - 10</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: 1 - 2 2 - 5 5 - 8 8 - 10</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># floating point inaccuracy:</span></span>
+<span class='r-in'><span class='fu'>chop</span><span class='op'>(</span><span class='fl'>0.3</span><span class='op'>/</span><span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.1</span>, <span class='fl'>0.1</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [1] [0, 0.1)</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [0, 0.1)</span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -326,7 +345,7 @@ confusion with <code><a href='https://tidyr.tidyverse.org/reference/chop.html'>t
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

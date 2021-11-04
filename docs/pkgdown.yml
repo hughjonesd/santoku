@@ -1,10 +1,8 @@
-pandoc: 2.7.3
-pkgdown: 1.5.1
+pandoc: 2.14.0.3
+pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   santoku: santoku.html
-  chopping-dates-with-santoku: tutorials/chopping-dates-with-santoku.html
-  visual-introduction: tutorials/visual-introduction.html
-  performance: website-articles/performance.html
-last_built: 2020-08-27T16:45Z
+  website-articles/performance: performance.html
+last_built: 2021-11-04T19:00Z
 

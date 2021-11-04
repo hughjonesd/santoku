@@ -81,7 +81,7 @@ lubridate package." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -89,7 +89,7 @@ lubridate package." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -133,7 +133,7 @@ lubridate package." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hughjonesd/santoku/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -161,44 +161,46 @@ lubridate package." />
     </div>
 
     <pre class="usage"><span class='co'># S3 method for Duration</span>
-<span class='fu'><a href='chop_width.html'>brk_width</a></span>(<span class='no'>width</span>, <span class='no'>start</span>)</pre>
+<span class='fu'><a href='chop_width.html'>brk_width</a></span><span class='op'>(</span><span class='va'>width</span>, <span class='va'>start</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>width</th>
-      <td><p>A scalar <a href='https://rdrr.io/r/base/difftime.html'>difftime</a>, <a href='http://lubridate.tidyverse.org/reference/Period-class.html'>Period</a> or
-<a href='http://lubridate.tidyverse.org/reference/Duration-class.html'>Duration</a> object.</p></td>
+      <td><p>A scalar <a href='https://rdrr.io/r/base/difftime.html'>difftime</a>, <a href='https://lubridate.tidyverse.org/reference/Period-class.html'>Period</a> or
+<a href='https://lubridate.tidyverse.org/reference/Duration-class.html'>Duration</a> object.</p></td>
     </tr>
     <tr>
       <th>start</th>
-      <td><p>A scalar of class <a href='https://rdrr.io/r/base/Dates.html'>Date</a> or <a href='https://rdrr.io/r/base/DateTimeClasses.html'>POSIXct</a>.
+      <td><p>A scalar of class <a href='https://lubridate.tidyverse.org/reference/date_utils.html'>Date</a> or <a href='https://rdrr.io/r/base/DateTimeClasses.html'>POSIXct</a>.
 Can be omitted.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>If <code>width</code> is a Period, <code><a href='http://lubridate.tidyverse.org/reference/mplus.html'>lubridate::add_with_rollback()</a></code>
+    <p>If <code>width</code> is a Period, <code><a href='https://lubridate.tidyverse.org/reference/mplus.html'>lubridate::add_with_rollback()</a></code>
 is used to calculate the widths. This can be useful for e.g. calendar months.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"lubridate"</span>)) {
-  <span class='no'>year2001</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span>(<span class='st'>"2001-01-01"</span>) + <span class='fl'>0</span>:<span class='fl'>364</span>
-  <span class='fu'><a href='tab.html'>tab_width</a></span>(<span class='no'>year2001</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span>(<span class='fl'>1</span>),
-        <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='lbl_discrete.html'>lbl_discrete</a></span>(<span class='st'>" to "</span>, <span class='kw'>fmt</span> <span class='kw'>=</span> <span class='st'>"%e %b %y"</span>))
-}</div><div class='output co'>#&gt; <span class='message'>Loading required namespace: lubridate</span></div><div class='output co'>#&gt; x
-#&gt;  1 Jan 01 to 31 Jan 01  1 Feb 01 to 28 Feb 01  1 Mar 01 to 31 Mar 01 
-#&gt;                     31                     28                     31 
-#&gt;  1 Apr 01 to 30 Apr 01  1 May 01 to 31 May 01  1 Jun 01 to 30 Jun 01 
-#&gt;                     30                     31                     30 
-#&gt;  1 Jul 01 to 31 Jul 01  1 Aug 01 to 31 Aug 01  1 Sep 01 to 30 Sep 01 
-#&gt;                     31                     31                     30 
-#&gt;  1 Oct 01 to 31 Oct 01  1 Nov 01 to 30 Nov 01  1 Dec 01 to 31 Dec 01 
-#&gt;                     31                     30                     31 </div><div class='input'>
-</div></pre>
+    <pre class="examples"><span class='r-in'></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"lubridate"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'>  <span class='va'>year2001</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/as.Date.html'>as.Date</a></span><span class='op'>(</span><span class='st'>"2001-01-01"</span><span class='op'>)</span> <span class='op'>+</span> <span class='fl'>0</span><span class='op'>:</span><span class='fl'>364</span></span>
+<span class='r-in'>  <span class='fu'><a href='tab.html'>tab_width</a></span><span class='op'>(</span><span class='va'>year2001</span>, <span class='fu'><a href='https://rdrr.io/r/base/weekday.POSIXt.html'>months</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>,</span>
+<span class='r-in'>        labels <span class='op'>=</span> <span class='fu'><a href='lbl_discrete.html'>lbl_discrete</a></span><span class='op'>(</span><span class='st'>" to "</span>, fmt <span class='op'>=</span> <span class='st'>"%e %b %y"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> x</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1 Jan 01 to 31 Jan 01  1 Feb 01 to 28 Feb 01  1 Mar 01 to 31 Mar 01 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     31                     28                     31 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1 Apr 01 to 30 Apr 01  1 May 01 to 31 May 01  1 Jun 01 to 30 Jun 01 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     30                     31                     30 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1 Jul 01 to 31 Jul 01  1 Aug 01 to 31 Aug 01  1 Sep 01 to 30 Sep 01 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     31                     31                     30 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  1 Oct 01 to 31 Oct 01  1 Nov 01 to 30 Nov 01  1 Dec 01 to 31 Dec 01 </span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>                     31                     30                     31 </span>
+<span class='r-in'></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -214,7 +216,7 @@ is used to calculate the widths. This can be useful for e.g. calendar months.</p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -82,7 +82,7 @@ clearly." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">santoku</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.5.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.6.0</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@ clearly." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -134,7 +134,7 @@ clearly." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/hughjonesd/santoku/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -157,12 +157,12 @@ clearly." />
     </div>
 
     <div class="ref-description">
-    <p><code>exactly</code> lets you write <code><a href='chop.html'>chop(x, c(1, exactly(2), 3))</a></code>. This
-is the same as <code><a href='chop.html'>chop(x, c(1, 2, 2, 3))</a></code> but conveys your intent more
+    <p><code>exactly</code> lets you write <code>chop(x, c(1, exactly(2), 3))</code>. This
+is the same as <code>chop(x, c(1, 2, 2, 3))</code> but conveys your intent more
 clearly.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>exactly</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>exactly</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -175,16 +175,20 @@ clearly.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The same as <code><a href='https://rdrr.io/r/base/rep.html'>rep(x, each = 2)</a></code>.</p>
+    <p>The same as <code>rep(x, each = 2)</code>.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fu'>exactly</span>(<span class='fl'>5</span>), <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  {5}     (5, 8)  (5, 8)  [8, 10] [8, 10]
-#&gt; [10] [8, 10]
-#&gt; Levels: [1, 2) [2, 5) {5} (5, 8) [8, 10]</div><div class='input'>
-<span class='co'># same:</span>
-<span class='fu'><a href='chop.html'>chop</a></span>(<span class='fl'>1</span>:<span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>8</span>))</div><div class='output co'>#&gt;  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  {5}     (5, 8)  (5, 8)  [8, 10] [8, 10]
-#&gt; [10] [8, 10]
-#&gt; Levels: [1, 2) [2, 5) {5} (5, 8) [8, 10]</div></pre>
+    <pre class="examples"><span class='r-in'><span class='fu'><a href='chop.html'>chop</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fu'>exactly</span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  {5}     (5, 8)  (5, 8)  [8, 10] [8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] [8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [1, 2) [2, 5) {5} (5, 8) [8, 10]</span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># same:</span></span>
+<span class='r-in'><span class='fu'><a href='chop.html'>chop</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>5</span>, <span class='fl'>5</span>, <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span>  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  {5}     (5, 8)  (5, 8)  [8, 10] [8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> [10] [8, 10]</span>
+<span class='r-out co'><span class='r-pr'>#&gt;</span> Levels: [1, 2) [2, 5) {5} (5, 8) [8, 10]</span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -200,7 +204,7 @@ clearly.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
