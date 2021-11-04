@@ -1,5 +1,5 @@
 
-# santoku (development version)
+# santoku 0.6.0
 
 * New arguments `first` and `last` in `lbl_dash()` and `lbl_discrete()` allow you 
   to override the first and last interval labels.
