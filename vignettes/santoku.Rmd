@@ -151,6 +151,14 @@ chopped <- chop(x, c(2, 5, 8), lbl_dash())
 data.frame(x, chopped)
 ```
 
+You can customize the first or last labels:
+
+```{r}
+chopped <- chop(x, c(2, 5, 8), lbl_dash(first = "< 2", last = "9+"))
+data.frame(x, chopped)
+```
+
+
 To label intervals in order use `lbl_seq()`:
 
 ```{r}
@@ -163,22 +171,6 @@ You can use numerals or even roman numerals:
 ```{r}
 chop(x, c(2, 5, 8), lbl_seq("(1)"))
 chop(x, c(2, 5, 8), lbl_seq("i."))
-```
-
-For arbitrary formatting use `lbl_format()` and `sprintf`-style format strings:
-
-```{r}
-chopped <- chop(x, c(2, 5, 8), lbl_format("%s to %s"))
-data.frame(x, chopped)
-```
-
-Or use a formatter from the `{scales}` package:
-
-```{r}
-library(scales)
-r <- runif(10)
-chopped <- chop(r, c(.3, .5, .7), lbl_intervals(fmt = label_percent(0.1)))
-data.frame(r, chopped)
 ```
 
 By default, `chop()` extends `breaks` if necessary. If you don't want
