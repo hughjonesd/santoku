@@ -8,12 +8,12 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/santoku)](https://CRAN.R-project.org/package=santoku)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R-CMD-check](https://github.com/hughjonesd/santoku/workflows/R-CMD-check/badge.svg)](https://github.com/hughjonesd/santoku/actions)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/hughjonesd/santoku?branch=master&svg=true)](https://ci.appveyor.com/project/hughjonesd/santoku)
 [![Codecov test
-coverage](https://codecov.io/gh/hughjonesd/santoku/branch/master/graph/badge.svg)](https://codecov.io/gh/hughjonesd/santoku?branch=master)
+coverage](https://codecov.io/gh/hughjonesd/santoku/branch/master/graph/badge.svg)](https://app.codecov.io/gh/hughjonesd/santoku?branch=master)
 <!-- badges: end -->
 
 santoku is a versatile cutting tool for R. It provides `chop()`, a
@@ -67,8 +67,8 @@ library(lubridate)
 # chop dates by calendar month, then tabulate:
 tab_width(Sys.Date() + 1:90, months(1), labels = lbl_discrete(fmt = "%d %b"))
 #> x
-#> 29 Mar - 28 Apr 29 Apr - 28 May 29 May - 28 Jun 
-#>              31              30              29
+#> 05 Nov - 04 Dec 05 Dec - 04 Jan 05 Jan - 04 Feb 
+#>              30              31              29
 ```
 
 For more information, see the

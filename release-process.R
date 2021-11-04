@@ -21,6 +21,8 @@ withr::with_dir(my_home,
   rmarkdown::render("chopping-dates-with-santoku.Rmd")
 )
 # but don't push yet! it affects what is seen from the website...
+# NB you may need to update the README on master, as this is part
+# of the package.
 
 # Now back to master:
 devtools::release()
