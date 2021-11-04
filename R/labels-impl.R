@@ -88,6 +88,16 @@ scaled_endpoints.breaks <- function (breaks, raw) {
 }
 
 
+#' @export
+scaled_endpoints.numeric <- function (breaks, raw) {
+  if (raw) {
+    breaks
+  } else {
+    attr(breaks, "scaled_endpoints") %||% breaks
+  }
+}
+
+
 #' Apply `fmt` to an object
 #'
 #' @param fmt A one-argument function, or a character string.
@@ -123,7 +133,9 @@ apply_format.character.default <- function (fmt, endpoint, ...) {
 #' @export
 #' @method apply_format.character numeric
 apply_format.character.numeric <- function (fmt, endpoint, ...) {
-  sprintf(fmt, endpoint, ...)
+  # suppressWarnings avoids "One argument not used" for first/last labels
+  # in lbl_dash()
+  suppressWarnings(sprintf(fmt, endpoint, ...))
 }
 
 

@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // categorize_impl
 IntegerVector categorize_impl(NumericVector x, NumericVector breaks, LogicalVector left);
 RcppExport SEXP _santoku_categorize_impl(SEXP xSEXP, SEXP breaksSEXP, SEXP leftSEXP) {

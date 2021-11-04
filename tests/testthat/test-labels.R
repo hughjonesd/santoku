@@ -45,6 +45,12 @@ test_that("lbl_dash arguments", {
   brk <- brk_res(brk_default(1:3), 1:2)
   expect_equivalent(lbl_dash(fmt = "%.2f")(brk), c("1.00 - 2.00", "2.00 - 3.00"))
 
+  expect_equivalent(lbl_dash(first = "< 2")(brk), c("< 2", "2 - 3"))
+  expect_equivalent(lbl_dash(last = "> 2")(brk), c("1 - 2", "> 2"))
+
+  expect_equivalent(lbl_dash(first = "< %s")(brk), c("< 2", "2 - 3"))
+  expect_equivalent(lbl_dash(last = "> %s")(brk), c("1 - 2", "> 2"))
+
   qbrk <- brk_res(brk_quantiles(c(0, .5, 1)), x = 0:10)
   expect_equivalent(lbl_dash()(qbrk), c("0% - 50%", "50% - 100%"))
   expect_equivalent(lbl_dash(raw = TRUE)(qbrk), c("0 - 5", "5 - 10"))
@@ -56,6 +62,8 @@ test_that("lbl_dash arguments", {
     lbl_dash(fmt = "%.3f")(qbrk),
     c("0.000 - 0.500", "0.500 - 1.000")
   )
+
+
 
   expect_equivalent(lbl_dash(fmt = brackets)(brk), c("(1) - (2)", "(2) - (3)"))
 })

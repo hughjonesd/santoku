@@ -146,6 +146,13 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' left- and right-closed intervals.
 #'
 #' @inherit label-doc
+#' @param first String: override label for the first category.
+#' @param last String: override label for the last category.
+#'
+#' @details
+#' `first` and `last` will be passed to [format()] with the "innermost" break
+#' as an argument. So you can write e.g. `last = "%s+"` to create a label like
+#' `"65+"` for the last category.
 #'
 #' @family labelling functions
 #'
@@ -158,7 +165,7 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #'
 #' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
 #' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
-lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL) {
+lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL, first = NULL, last = NULL) {
   assert_that(is.string(symbol), is.flag(raw), is.null(fmt) || is_format(fmt))
 
   function (breaks) {
@@ -177,6 +184,11 @@ lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL) {
     labels <- paste0(l, symbol, r)
     labels[singletons] <- l[singletons]
 
+    if (! is.null(first)) labels[1] <- endpoint_labels(breaks[2], raw = raw,
+                                                        fmt = first)
+    if (! is.null(last)) labels[length(labels)] <- endpoint_labels(
+                                                        breaks[length(breaks)-1],
+                                                        raw = raw, fmt = last)
     return(labels)
   }
 }
