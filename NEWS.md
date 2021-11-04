@@ -1,6 +1,9 @@
 
 # santoku (development version)
 
+* New arguments `first`, `last` in `lbl_dash()` allow you to override
+  the first and last interval labels.
+
 * Fixes for CRAN.
 
 # santoku 0.5.0

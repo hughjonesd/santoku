@@ -4,7 +4,7 @@
 \alias{lbl_dash}
 \title{Label chopped intervals like 1 - 3, 4 - 5, ...}
 \usage{
-lbl_dash(symbol = " - ", raw = FALSE, fmt = NULL)
+lbl_dash(symbol = " - ", raw = FALSE, fmt = NULL, first = NULL, last = NULL)
 }
 \arguments{
 \item{symbol}{String: symbol to use for the dash.}
@@ -14,6 +14,10 @@ or standard deviations?}
 
 \item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
 methods; or a one-argument formatting function.}
+
+\item{first}{String: override label for the first category.}
+
+\item{last}{String: override label for the last category.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
@@ -22,10 +26,17 @@ A vector of labels for \code{chop}, or a function that creates labels.
 This label style is user-friendly, but doesn't distinguish between
 left- and right-closed intervals.
 }
+\details{
+\code{first} and \code{last} will be passed to \code{\link[=format]{format()}} with the "innermost" break
+as an argument. So you can write e.g. \code{last = "\%s+"} to create a label like
+\code{"65+"} for the last category.
+}
 \examples{
 chop(1:10, c(2, 5, 8), lbl_dash())
 
 chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "\%.1f"))
+
+chop(1:10, c(2, 5, 8), lbl_dash(first = "< \%s"))
 
 pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
 chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
