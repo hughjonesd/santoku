@@ -9,6 +9,8 @@
 status](https://www.r-pkg.org/badges/version/santoku)](https://CRAN.R-project.org/package=santoku)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![CRAN Downloads Per
+Month](http://cranlogs.r-pkg.org/badges/santoku)](https://CRAN.R-project.org/package=santoku)
 [![R-CMD-check](https://github.com/hughjonesd/santoku/workflows/R-CMD-check/badge.svg)](https://github.com/hughjonesd/santoku/actions)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/hughjonesd/santoku?branch=master&svg=true)](https://ci.appveyor.com/project/hughjonesd/santoku)
@@ -67,8 +69,8 @@ library(lubridate)
 # chop dates by calendar month, then tabulate:
 tab_width(Sys.Date() + 1:90, months(1), labels = lbl_discrete(fmt = "%d %b"))
 #> x
-#> 05 Nov - 04 Dec 05 Dec - 04 Jan 05 Jan - 04 Feb 
-#>              30              31              29
+#> 01 Dec - 31 Dec 01 Jan - 31 Jan 01 Feb - 28 Feb 
+#>              31              31              28
 ```
 
 For more information, see the
