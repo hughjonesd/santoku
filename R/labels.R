@@ -225,7 +225,11 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
   assert_that(is.null(fmt) || is_format(fmt), is.flag(raw), is.flag(left))
 
   function (breaks) {
-    elabels <- endpoint_labels(breaks, raw, fmt)
+    elabels <- if (! is.null(fmt)) {
+                 endpoint_labels(breaks, raw, fmt)
+               } else {
+                 endpoint_labels(breaks, raw)
+               }
     if (left) elabels[-length(elabels)] else elabels[-1]
   }
 }

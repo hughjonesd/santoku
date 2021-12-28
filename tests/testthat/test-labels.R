@@ -242,3 +242,13 @@ test_that("bug: breaks labels don't produce duplicates", {
   lbls <- lbl_dash()(brk)
   expect_equivalent(anyDuplicated(lbls), 0)
 })
+
+
+test_that("bug: lbl_endpoint() works with no format and non-standard breaks", {
+  expect_error(
+    chop_quantiles(0:10, 0.5, labels = lbl_endpoint())
+    , NA)
+  expect_error(
+    chop_mean_sd(0:10, labels = lbl_endpoint())
+    , NA)
+})

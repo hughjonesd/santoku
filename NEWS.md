@@ -1,5 +1,6 @@
 # santoku (development version)
 
+* Bugfix: `lbl_endpoint()` was erroring for some types of breaks.
 
 # santoku 0.6.0
 
