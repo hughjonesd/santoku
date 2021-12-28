@@ -204,7 +204,7 @@ lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL, first = NULL, las
 #' Label chopped intervals by their left or right endpoints
 #'
 #' This is useful when the left endpoint unambiguously indicates the
-#' interval.
+#' interval. In other cases it may give errors due to duplicate labels.
 #'
 #' @inherit label-doc
 #' @param left Flag. Use left endpoint or right endpoint?

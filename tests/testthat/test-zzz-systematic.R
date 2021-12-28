@@ -93,17 +93,42 @@ test_that("systematic tests", {
   dont_care <-     function (cond) test_df$expect[cond] <<- NA_character_
 
   should_fail(names(test_df$x) == "char")
+
+  # all quantiles will be the same here, so no way to create
+  # intervals if extend is FALSE
   should_fail(with(test_df,
           names(x) %in% c("same", "one") &
           brk_fun == "brk_quantiles" &
           extend == FALSE
         ))
+
+  # brk_default_hi and _lo have a single break, so if you can't
+  # extend it, there are no possible intervals:
   should_fail(with(test_df,
           brk_fun %in% c("brk_default_hi", "brk_default_lo") &
           extend == FALSE
         ))
-  should_either(names(test_df$x) == "complex")
 
+  # brk_default2 has breaks 1,2,2,3
+  # with lbl_endpoint, this may create duplicate left endpoints
+  # ie the user asked for something we can't do
+  dont_care(with(test_df,
+          names(x) %in%
+            c("ordinary", "inf", "inf_lo", "inf_hi", "NaN", "NAs") &
+          brk_fun == "brk_default2" &
+          lbl_fun == "lbl_endpoint"
+        ))
+  dont_care(with(test_df,
+          brk_fun == "brk_default2" &
+          lbl_fun == "lbl_endpoint" &
+          drop == FALSE
+        ))
+  dont_care(with(test_df,
+          brk_fun == "brk_n" &
+          lbl_fun == "lbl_endpoint"
+        ))
+
+  should_either(names(test_df$x) == "complex")
 
   for (r in seq_len(nrow(test_df))) {
     tdata <- test_df[r, ]

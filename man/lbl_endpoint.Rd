@@ -20,7 +20,7 @@ A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
 This is useful when the left endpoint unambiguously indicates the
-interval.
+interval. In other cases it may give errors due to duplicate labels.
 }
 \examples{
 chop(1:10, c(2, 5, 8), lbl_endpoint(left = TRUE))
