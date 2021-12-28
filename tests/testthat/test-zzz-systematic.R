@@ -47,7 +47,8 @@ test_that("systematic tests", {
     lbl_seq           = lbl_seq("a"),
     lbl_seq2          = lbl_seq("(i)"),
     lbl_manual        = lbl_manual(letters[1:2]),
-    lbl_manual2       = lbl_manual(letters[1:2], "%s)")
+    lbl_manual2       = lbl_manual(letters[1:2], "%s)"),
+    lbl_endpoint      = lbl_endpoint()
   )
 
   test_df <- expand.grid(
