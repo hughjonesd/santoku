@@ -7,6 +7,7 @@ template:
   bslib:
     link-color: "#f9ea6b"
     link-decoration: none
+
 tutorials:
 - name: 00-visualintroduction
   title: A visual introduction to Santoku
@@ -14,3 +15,21 @@ tutorials:
 - name: 01-chopping-dates
   title: Chopping dates with santoku
   url: https://hughjonesd.github.io/chopping-dates-with-santoku.html
+
+reference:
+- title: Package overview
+- contents:
+  - "`santoku-package`"
+- title: Chopping functions
+  desc:  Cut a vector into intervals
+- contents:
+  - starts_with("chop")
+  - starts_with("brk")
+- title: Label functions
+  desc: Specify how to label the chopped intervals
+- contents:
+  - starts_with("lbl")
+- title: Miscellaneous
+  desc: Miscellaneous functions
+- contents:
+  - -starts_with("chop|brk|lbl|santoku")
