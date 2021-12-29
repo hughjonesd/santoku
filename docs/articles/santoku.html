@@ -304,32 +304,32 @@
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">chopped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chop.html">chop</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>, <span class="fu"><a href="../reference/lbl_dash.html">lbl_dash</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">chopped</span><span class="op">)</span>
-<span class="co">#&gt;           x   chopped</span>
-<span class="co">#&gt; 1  4.978305     2 - 5</span>
-<span class="co">#&gt; 2  8.969989 8 - 9.708</span>
-<span class="co">#&gt; 3  3.391823     2 - 5</span>
-<span class="co">#&gt; 4  4.676785     2 - 5</span>
-<span class="co">#&gt; 5  7.057042     5 - 8</span>
-<span class="co">#&gt; 6  9.707687 8 - 9.708</span>
-<span class="co">#&gt; 7  6.713807     5 - 8</span>
-<span class="co">#&gt; 8  8.376589 8 - 9.708</span>
-<span class="co">#&gt; 9  1.086165 1.086 - 2</span>
-<span class="co">#&gt; 10 4.495479     2 - 5</span></code></pre></div>
+<span class="co">#&gt;           x chopped</span>
+<span class="co">#&gt; 1  4.978305     2—5</span>
+<span class="co">#&gt; 2  8.969989 8—9.708</span>
+<span class="co">#&gt; 3  3.391823     2—5</span>
+<span class="co">#&gt; 4  4.676785     2—5</span>
+<span class="co">#&gt; 5  7.057042     5—8</span>
+<span class="co">#&gt; 6  9.707687 8—9.708</span>
+<span class="co">#&gt; 7  6.713807     5—8</span>
+<span class="co">#&gt; 8  8.376589 8—9.708</span>
+<span class="co">#&gt; 9  1.086165 1.086—2</span>
+<span class="co">#&gt; 10 4.495479     2—5</span></code></pre></div>
 <p>You can customize the first or last labels:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">chopped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chop.html">chop</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>, <span class="fu"><a href="../reference/lbl_dash.html">lbl_dash</a></span><span class="op">(</span>first <span class="op">=</span> <span class="st">"&lt; 2"</span>, last <span class="op">=</span> <span class="st">"9+"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">chopped</span><span class="op">)</span>
 <span class="co">#&gt;           x chopped</span>
-<span class="co">#&gt; 1  4.978305   2 - 5</span>
+<span class="co">#&gt; 1  4.978305     2—5</span>
 <span class="co">#&gt; 2  8.969989      9+</span>
-<span class="co">#&gt; 3  3.391823   2 - 5</span>
-<span class="co">#&gt; 4  4.676785   2 - 5</span>
-<span class="co">#&gt; 5  7.057042   5 - 8</span>
+<span class="co">#&gt; 3  3.391823     2—5</span>
+<span class="co">#&gt; 4  4.676785     2—5</span>
+<span class="co">#&gt; 5  7.057042     5—8</span>
 <span class="co">#&gt; 6  9.707687      9+</span>
-<span class="co">#&gt; 7  6.713807   5 - 8</span>
+<span class="co">#&gt; 7  6.713807     5—8</span>
 <span class="co">#&gt; 8  8.376589      9+</span>
 <span class="co">#&gt; 9  1.086165     &lt; 2</span>
-<span class="co">#&gt; 10 4.495479   2 - 5</span></code></pre></div>
+<span class="co">#&gt; 10 4.495479     2—5</span></code></pre></div>
 <p>To label intervals in order use <code><a href="../reference/lbl_seq.html">lbl_seq()</a></code>:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">chopped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chop.html">chop</a></span><span class="op">(</span><span class="va">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>, <span class="fu"><a href="../reference/lbl_seq.html">lbl_seq</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>

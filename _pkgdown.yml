@@ -7,6 +7,8 @@ template:
   bslib:
     link-color: "#f9ea6b"
     link-decoration: none
+    navbar-dark-hover-color: "#f9ea6b"
+    navbar-dark-active-color: "#f9ea6b"
 
 tutorials:
 - name: 00-visualintroduction

@@ -67,8 +67,6 @@
 <ul><li>tests for <code>left</code> and <code>close_end</code> arguments</li>
 <li>tests for <code>brk_default</code>
 </li>
-<li>probably use <code>brk_default</code> more than <code>brk_left/right</code>
-</li>
 <li>
 <code><a href="reference/chop_width.html">brk_width()</a></code> needs tests which match the guarantees in the documentation</li>
 <li>ditto for <code><a href="reference/chop_width.html">brk_evenly()</a></code> which now uses its own implementation to guarantee exactly <code>intervals</code> intervals</li>
@@ -98,7 +96,7 @@
 <ul><li>Exception: <code>x</code> is the wrong class or type.</li>
 </ul></li>
 <li>In some cases we want to guarantee the set of breaks.
-<ul><li>e.g. <code><a href="reference/brk-left-right.html">brk_left()</a></code>, <code><a href="reference/brk_manual.html">brk_manual()</a></code> with <code>extend</code> set.</li>
+<ul><li>e.g. <code><a href="reference/brk_manual.html">brk_manual()</a></code> with <code>extend</code> set.</li>
 </ul></li>
 <li>In other cases, e.g. <code><a href="reference/chop_width.html">brk_evenly()</a></code> we don’t need to make such a guarantee.</li>
 </ul></div>
