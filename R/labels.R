@@ -150,10 +150,12 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 }
 
 
-#' Label chopped intervals like 1 - 3, 4 - 5, ...
+#' Label chopped intervals like 1-3, 4-5, ...
 #'
 #' This label style is user-friendly, but doesn't distinguish between
 #' left- and right-closed intervals.
+#'
+#' If your terminal doesn't support unicode, use `lbl_dash("-")`.
 #'
 #' @inherit label-doc
 #'
@@ -172,7 +174,7 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #'
 #' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
 #' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
-lbl_dash <- function (symbol = " - ", raw = FALSE, fmt = NULL, first = NULL, last = NULL) {
+lbl_dash <- function (symbol = "\U2014", raw = FALSE, fmt = NULL, first = NULL, last = NULL) {
   assert_that(is.string(symbol), is.flag(raw), is.null(fmt) || is_format(fmt))
 
   function (breaks) {
@@ -264,7 +266,7 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 #'
 #' # Misleading labels for non-integer data
 #' chop(2.5, c(1, 3, 5), lbl_discrete())
-lbl_discrete <- function (symbol = " - ", fmt = NULL, first = NULL, last = NULL) {
+lbl_discrete <- function (symbol = "\U2014", fmt = NULL, first = NULL, last = NULL) {
   assert_that(is.string(symbol), is.null(fmt) || is_format(fmt))
 
   function (breaks) {

@@ -4,7 +4,7 @@
 \alias{lbl_discrete}
 \title{Label discrete data}
 \usage{
-lbl_discrete(symbol = " - ", fmt = NULL, first = NULL, last = NULL)
+lbl_discrete(symbol = "—", fmt = NULL, first = NULL, last = NULL)
 }
 \arguments{
 \item{symbol}{String: symbol to use for the dash.}

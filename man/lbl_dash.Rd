@@ -2,9 +2,9 @@
 % Please edit documentation in R/labels.R
 \name{lbl_dash}
 \alias{lbl_dash}
-\title{Label chopped intervals like 1 - 3, 4 - 5, ...}
+\title{Label chopped intervals like 1-3, 4-5, ...}
 \usage{
-lbl_dash(symbol = " - ", raw = FALSE, fmt = NULL, first = NULL, last = NULL)
+lbl_dash(symbol = "—", raw = FALSE, fmt = NULL, first = NULL, last = NULL)
 }
 \arguments{
 \item{symbol}{String: symbol to use for the dash.}
@@ -27,9 +27,7 @@ This label style is user-friendly, but doesn't distinguish between
 left- and right-closed intervals.
 }
 \details{
-\code{first} and \code{last} will be passed to \code{\link[=sprintf]{sprintf()}} with the "innermost" break
-as an argument. So you can write e.g. \code{last = "\%s+"} to create a label like
-\code{"65+"} for the last category.
+If your terminal doesn't support unicode, use \code{lbl_dash("-")}.
 }
 \examples{
 chop(1:10, c(2, 5, 8), lbl_dash())
