@@ -2,6 +2,8 @@
 
 * Bugfix: `lbl_endpoint()` was erroring for some types of breaks.
 * Use unicode em-dash and no spaces in `lbl_dash()` and `lbl_discrete()`.
+* The `groups` argument to `chop_evenly()`,  deprecated in 0.4.0, has 
+  been removed.
 
 # santoku 0.6.0
 
