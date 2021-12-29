@@ -77,13 +77,13 @@ intervals.
 Overall:
 \itemize{
 \item If \code{left} is \code{TRUE} and \code{close_end} is \code{TRUE}, breaks will look like
-\verb{[x1, x2), [x2, x3) ... [x_n-1, x_n]}.
+\code{[x1, x2), [x2, x3) ... [x_n-1, x_n]}.
 \item If \code{left} is \code{FALSE} and \code{close_end} is \code{TRUE}, breaks will look like
-\verb{[x1, x2], (x2, x3] ... (x_n-1, x_n]}.
+\code{[x1, x2], (x2, x3] ... (x_n-1, x_n]}.
 \item If \code{left} is \code{TRUE} and \code{close_end} is \code{FALSE}, all breaks will look like
-\verb{...[x1, x2) ...}.
+\code{...[x1, x2) ...}.
 \item If \code{left} is \code{FALSE} and \code{close_end} is \code{FALSE}, all breaks will look like
-\verb{...(x1, x2] ...}.
+\code{...(x1, x2] ...}.
 }
 }
 
@@ -103,18 +103,18 @@ Extending intervals, either by \code{extend = NULL} or \code{extend = FALSE},
 For example, if \code{breaks = c(1, 3, 5)} and \code{close_end = TRUE}, the resulting
 breaks will be
 
-\verb{[1, 3), [3, 5]}
+\code{[1, 3), [3, 5]}
 
 and if \code{extend = TRUE} the result will be
 
-\verb{[-Inf, 1), [1, 3), [3, 5], (5, Inf]}
+\code{[-Inf, 1), [1, 3), [3, 5], (5, Inf]}
 }
 
 \subsection{Labels}{
 
 \code{labels} may be a character vector. It should have the same length as the
 number of intervals. Alternatively, use a \code{lbl_} function such as
-[lbl_seq()].
+\code{\link[=lbl_seq]{lbl_seq()}}.
 }
 
 \subsection{Miscellaneous}{
@@ -128,15 +128,6 @@ confusion with \code{tidyr::chop()}.
 Note that \code{chop}, like all of R, uses binary arithmetic. Thus, numbers may
 not be exactly equal to what you think they should be. There is an example
 below.
-
-[x1, x2) ...`.
-\itemize{
-\item If \code{left} is \code{FALSE} and \code{close_end} is \code{FALSE}, all breaks will look like
-`...(x1, x2]: R:x1,\%20x2)\%20...\%60.\%0A*\%20If\%20\%60left\%60\%20is\%20\%60FALSE\%60\%20and\%20\%60close_end\%60\%20is\%20\%60FALSE\%60,\%20all\%20breaks\%20will\%20look\%20like\%0A\%20\%20\%20\%60...(x1,\%20x2
-[3, 5]: R:3,\%205
-[3, 5]: R:3,\%205
-[lbl_seq()]: R:lbl_seq()
-}
 }
 }
 \examples{

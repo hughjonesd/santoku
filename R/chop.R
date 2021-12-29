@@ -52,13 +52,13 @@ NULL
 #' Overall:
 #'
 #' * If `left` is `TRUE` and `close_end` is `TRUE`, breaks will look like
-#'   `[x1, x2), [x2, x3) ... [x_n-1, x_n]`.
+#'   \code{[x1, x2), [x2, x3) ... [x_n-1, x_n]}.
 #' * If `left` is `FALSE` and `close_end` is `TRUE`, breaks will look like
-#'    `[x1, x2], (x2, x3] ... (x_n-1, x_n]`.
+#'    \code{[x1, x2], (x2, x3] ... (x_n-1, x_n]}.
 #' * If `left` is `TRUE` and `close_end` is `FALSE`, all breaks will look like
-#'   `...[x1, x2) ...`.
+#'   \code{...[x1, x2) ...}.
 #' * If `left` is `FALSE` and `close_end` is `FALSE`, all breaks will look like
-#'   `...(x1, x2] ...`.
+#'   \code{...(x1, x2] ...}.
 #'
 #' ## Extending intervals
 #'
@@ -76,11 +76,11 @@ NULL
 #' For example, if `breaks = c(1, 3, 5)` and `close_end = TRUE`, the resulting
 #' breaks will be
 #'
-#' `[1, 3), [3, 5]`
+#' \code{[1, 3), [3, 5]}
 #'
 #' and if `extend = TRUE` the result will be
 #'
-#' `[-Inf, 1), [1, 3), [3, 5], (5, Inf]`
+#' \code{[-Inf, 1), [1, 3), [3, 5], (5, Inf]}
 #'
 #'
 #' ## Labels
