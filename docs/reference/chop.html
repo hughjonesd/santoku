@@ -175,7 +175,7 @@ breaks will be</p>
 
 <p><code>labels</code> may be a character vector. It should have the same length as the
 number of intervals. Alternatively, use a <code>lbl_</code> function such as
-[lbl_seq()].</p>
+<code><a href="lbl_seq.html">lbl_seq()</a></code>.</p>
 </div>
 
 <div class="section">
@@ -189,12 +189,7 @@ confusion with <code><a href="https://tidyr.tidyverse.org/reference/chop.html" c
 <p>Note that <code>chop</code>, like all of R, uses binary arithmetic. Thus, numbers may
 not be exactly equal to what you think they should be. There is an example
 below.</p>
-<p>[x1, x2) ...`.</p><ul><li><p>If <code>left</code> is <code>FALSE</code> and <code>close_end</code> is <code>FALSE</code>, all breaks will look like
-`...(x1, x2]: R:x1,%20x2)%20...%60.%0A*%20If%20%60left%60%20is%20%60FALSE%60%20and%20%60close_end%60%20is%20%60FALSE%60,%20all%20breaks%20will%20look%20like%0A%20%20%20%60...(x1,%20x2
-[3, 5]: R:3,%205
-[3, 5]: R:3,%205
-[lbl_seq()]: R:lbl_seq()</p></li>
-</ul></div>
+</div>
 
     </div>
     <div class="section level2">
@@ -244,8 +239,8 @@ below.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: [0%, 25%) [25%, 75%) [75%, 100%]</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">chop</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="lbl_dash.html">lbl_dash</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1 - 2  2 - 5  2 - 5  2 - 5  5 - 8  5 - 8  5 - 8  8 - 10 8 - 10 8 - 10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: 1 - 2 2 - 5 5 - 8 8 - 10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1—2  2—5  2—5  2—5  5—8  5—8  5—8  8—10 8—10 8—10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: 1—2 2—5 5—8 8—10</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># floating point inaccuracy:</span></span>
 <span class="r-in"><span class="fu">chop</span><span class="op">(</span><span class="fl">0.3</span><span class="op">/</span><span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0.1</span>, <span class="fl">0.1</span>, <span class="fl">1</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"&lt; 0.1"</span>, <span class="st">"0.1"</span>, <span class="st">"&gt; 0.1"</span><span class="op">)</span><span class="op">)</span></span>
