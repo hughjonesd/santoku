@@ -73,8 +73,6 @@ test_that("systematic tests", {
   skip_test(! left & brk_fun == "brk_manual2")
   skip_test(close_end & brk_fun == "brk_manual")
   skip_test(close_end & brk_fun == "brk_manual2")
-  skip_test(! left & brk_fun == "brk_left")
-  skip_test(left & brk_fun == "brk_right")
   skip_test(names(x) == "Date" & grepl("lbl_format", lbl_fun))
   skip_test(names(x) == "POSIXct" & grepl("lbl_format", lbl_fun))
 

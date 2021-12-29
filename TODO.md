@@ -5,7 +5,6 @@
 * Work on tests
   - tests for `left` and `close_end` arguments
   - tests for `brk_default`
-  - probably use `brk_default` more than `brk_left/right`
   - `brk_width()` needs tests which match the guarantees in the documentation
   - ditto for `brk_evenly()` which now uses its own implementation to
     guarantee exactly `intervals` intervals
@@ -46,7 +45,7 @@
   - Exception: `x` is the wrong class or type.
   
 * In some cases we want to guarantee the set of breaks.
-  - e.g. `brk_left()`, `brk_manual()` with `extend` set.
+  - e.g. `brk_manual()` with `extend` set.
 
 * In other cases, e.g. `brk_evenly()` we don't need to make such a guarantee.
 
