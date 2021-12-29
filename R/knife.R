@@ -11,7 +11,7 @@
 #'
 #' @export
 knife <- function (...) {
-  lifecycle::deprecate_soft("0.4.0", "knife()", with = "purrr::partial()",
+  lifecycle::deprecate_warn("0.4.0", "knife()", with = "purrr::partial()",
         id = "knife")
   list(...) # force evaluation
   function (x) chop(x, ...)

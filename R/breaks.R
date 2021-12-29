@@ -300,10 +300,14 @@ NULL
 #' @export
 #' @rdname brk-left-right
 brk_left <- function (breaks) {
+  lifecycle::deprecate_warn("0.4.0", "brk_left()",
+        details = "Please use the `left` argument to `chop()` instead.")
+
   if (is.function(breaks)) {
     lifecycle::deprecate_stop("0.4.0", "brk_left.function()",
           details = "Please use the `left` argument to `chop()` instead.")
   }
+
   assert_that(noNA(breaks))
   breaks <- sort(breaks)
 
@@ -318,10 +322,14 @@ brk_left <- function (breaks) {
 #' @export
 #' @rdname brk-left-right
 brk_right <- function (breaks) {
+  lifecycle::deprecate_warn("0.4.0", "brk_right()",
+        details = "Please use the `left` argument to `chop()` instead.")
+
   if (is.function(breaks)) {
     lifecycle::deprecate_stop("0.4.0", "brk_right.function()",
       details = "Please use the `left` argument to `chop()` instead.")
   }
+
   assert_that(noNA(breaks))
   breaks <- sort(breaks)
 
