@@ -1,5 +1,12 @@
 destination: docs
 
+template:
+  bootstrap: 5
+  bootswatch: darkly
+  theme: arrow-dark
+  bslib:
+    link-color: "#f9ea6b"
+    link-decoration: none
 tutorials:
 - name: 00-visualintroduction
   title: A visual introduction to Santoku

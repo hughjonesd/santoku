@@ -1,8 +1,8 @@
 pandoc: 2.14.0.3
-pkgdown: 1.6.1
+pkgdown: 2.0.1
 pkgdown_sha: ~
 articles:
   santoku: santoku.html
-  website-articles/performance: performance.html
-last_built: 2021-11-04T19:00Z
+  performance: website-articles/performance.html
+last_built: 2021-12-29T13:30Z
 

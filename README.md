@@ -54,23 +54,23 @@ chop(1:10, c(3, 5, 7))
 #> [10] [7, 10]
 #> Levels: [1, 3) [3, 5) [5, 7) [7, 10]
 
-# exactly() creates its own category
-# `labels` for integer data:
-chop(1:10, c(3, exactly(5), 7), labels = lbl_discrete())
+# Include a number twice to match it exactly;
+# Use `labels = lbl_discrete()` for integer data:
+chop(1:10, c(3, 5, 5, 7), labels = lbl_discrete())
 #>  [1] 1 - 2  1 - 2  3 - 4  3 - 4  5      6      7 - 10 7 - 10 7 - 10 7 - 10
 #> Levels: 1 - 2 3 - 4 5 6 7 - 10
 
-library(lubridate)
-#> 
-#> Attaching package: 'lubridate'
-#> The following objects are masked from 'package:base':
-#> 
-#>     date, intersect, setdiff, union
+loadNamespace("lubridate")
+#> <environment: namespace:lubridate>
+
 # chop dates by calendar month, then tabulate:
-tab_width(Sys.Date() + 1:90, months(1), labels = lbl_discrete(fmt = "%d %b"))
+tab_width(as.Date("2021-12-31") + 1:90, 
+            months(1), 
+            labels = lbl_discrete(fmt = "%d %b")
+          )
 #> x
-#> 01 Dec - 31 Dec 01 Jan - 31 Jan 01 Feb - 28 Feb 
-#>              31              31              28
+#> 01 Jan - 31 Jan 01 Feb - 28 Feb 01 Mar - 31 Mar 
+#>              31              28              31
 ```
 
 For more information, see the

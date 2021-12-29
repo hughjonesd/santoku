@@ -38,13 +38,17 @@ library(santoku)
 # chop returns a factor:
 chop(1:10, c(3, 5, 7))
 
-# exactly() creates its own category
-# `labels` for integer data:
-chop(1:10, c(3, exactly(5), 7), labels = lbl_discrete())
+# Include a number twice to match it exactly;
+# Use `labels = lbl_discrete()` for integer data:
+chop(1:10, c(3, 5, 5, 7), labels = lbl_discrete())
 
-library(lubridate)
+loadNamespace("lubridate")
+
 # chop dates by calendar month, then tabulate:
-tab_width(Sys.Date() + 1:90, months(1), labels = lbl_discrete(fmt = "%d %b"))
+tab_width(as.Date("2021-12-31") + 1:90, 
+            months(1), 
+            labels = lbl_discrete(fmt = "%d %b")
+          )
 
 ```
 
