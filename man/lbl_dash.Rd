@@ -4,7 +4,13 @@
 \alias{lbl_dash}
 \title{Label chopped intervals like 1-3, 4-5, ...}
 \usage{
-lbl_dash(symbol = "—", raw = FALSE, fmt = NULL, first = NULL, last = NULL)
+lbl_dash(
+  symbol = em_dash(),
+  raw = FALSE,
+  fmt = NULL,
+  first = NULL,
+  last = NULL
+)
 }
 \arguments{
 \item{symbol}{String: symbol to use for the dash.}
@@ -27,7 +33,7 @@ This label style is user-friendly, but doesn't distinguish between
 left- and right-closed intervals.
 }
 \details{
-If your terminal doesn't support unicode, use \code{lbl_dash("-")}.
+If you don't want unicode output, use \code{lbl_dash("-")}.
 }
 \examples{
 chop(1:10, c(2, 5, 8), lbl_dash())

@@ -175,3 +175,8 @@ unique_truncation <- function (num) {
   return(res)
 }
 
+
+em_dash <- function() {
+  if (l10n_info()[["UTF-8"]]) "\u2014" else "-"
+}
+
