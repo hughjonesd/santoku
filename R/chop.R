@@ -89,6 +89,9 @@ NULL
 #' number of intervals. Alternatively, use a `lbl_` function such as
 #' [lbl_seq()].
 #'
+#' If `labels` is `NULL`, then integer codes will be returned instead of a
+#' factor.
+#'
 #' ## Miscellaneous
 #'
 #' `NA` values in `x`, and values which are outside the extended endpoints,
@@ -131,7 +134,8 @@ NULL
 #' # floating point inaccuracy:
 #' chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
 #'
-chop <- function (x, breaks, labels,
+chop <- function (x, breaks,
+        labels    = lbl_intervals(),
         extend    = NULL,
         left      = TRUE,
         close_end = FALSE,
@@ -146,13 +150,12 @@ chop <- function (x, breaks, labels,
   breaks <- breaks(x, extend, left, close_end)
   assert_that(is.breaks(breaks), length(breaks) >= 2L)
 
-  if (missing(labels)) labels <- NULL
-  labels <- labels %||% lbl_intervals()
-  if (is.function(labels)) labels <- labels(breaks)
-
-  stopifnot(length(labels) == length(breaks) - 1)
-
   codes <- categorize(x, breaks)
+
+  if (is.null(labels)) return(codes)
+
+  if (is.function(labels)) labels <- labels(breaks)
+  stopifnot(length(labels) == length(breaks) - 1)
 
   real_codes <- if (drop) unique(codes[! is.na(codes)]) else TRUE
   if (anyDuplicated(labels[real_codes])) {
@@ -187,7 +190,7 @@ kiru <- chop
 #'
 #' @examples
 #' fillet(1:10, c(2, 5, 8))
-fillet <- function (x, breaks, labels, left = TRUE, close_end = FALSE) {
+fillet <- function (x, breaks, labels = lbl_intervals(), left = TRUE, close_end = FALSE) {
   chop(x, breaks, labels, left = left, close_end = close_end, extend = FALSE,
       drop = FALSE)
 }

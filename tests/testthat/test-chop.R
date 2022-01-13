@@ -66,6 +66,11 @@ test_that("labels", {
   expect_error(chop(1:10, 3:4, labels = c("a", "a", "a")))
   expect_error(chop(1:10, 3:4, labels = c("a", "b")))
   expect_error(chop(1:10, 3:4, labels = c("a", "b", "c", "d")))
+
+  expect_equivalent(
+          chop(x, 1:2, labels = NULL),
+          c(1, 2, 2, 3, 3)
+        )
 })
 
 

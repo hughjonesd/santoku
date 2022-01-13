@@ -8,7 +8,7 @@
 chop(
   x,
   breaks,
-  labels,
+  labels = lbl_intervals(),
   extend = NULL,
   left = TRUE,
   close_end = FALSE,
@@ -18,7 +18,7 @@ chop(
 kiru(
   x,
   breaks,
-  labels,
+  labels = lbl_intervals(),
   extend = NULL,
   left = TRUE,
   close_end = FALSE,
@@ -115,6 +115,9 @@ and if \code{extend = TRUE} the result will be
 \code{labels} may be a character vector. It should have the same length as the
 number of intervals. Alternatively, use a \code{lbl_} function such as
 \code{\link[=lbl_seq]{lbl_seq()}}.
+
+If \code{labels} is \code{NULL}, then integer codes will be returned instead of a
+factor.
 }
 
 \subsection{Miscellaneous}{

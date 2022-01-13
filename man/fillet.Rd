@@ -4,7 +4,7 @@
 \alias{fillet}
 \title{Chop data precisely (for programmers)}
 \usage{
-fillet(x, breaks, labels, left = TRUE, close_end = FALSE)
+fillet(x, breaks, labels = lbl_intervals(), left = TRUE, close_end = FALSE)
 }
 \arguments{
 \item{x}{A vector.}
