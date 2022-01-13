@@ -12,12 +12,13 @@ NULL
 
 
 #' @name first-last-doc
-#' @param first String: override label for the first category.
-#' @param last String: override label for the last category.
+#' @param first String: override label for the first category. Passed to
+#'   [sprintf()] or [format()], so you can write e.g. `first = "< %s"` to create
+#' a label like `"< 18"`.
+#' @param last String: override label for the last category. Passed to
+#'   [sprintf()] or [format()].
 #' @details
-#' `first` and `last` will be passed to [sprintf()] with the "innermost" break
-#' as an argument. So you can write e.g. `last = "%s+"` to create a label like
-#' `"65+"` for the last category.
+
 NULL
 
 

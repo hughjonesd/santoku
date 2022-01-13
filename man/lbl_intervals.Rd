@@ -13,9 +13,12 @@ or standard deviations?}
 \item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
 methods; or a one-argument formatting function.}
 
-\item{first}{String: override label for the first category.}
+\item{first}{String: override label for the first category. Passed to
+\code{\link[=sprintf]{sprintf()}} or \code{\link[=format]{format()}}, so you can write e.g. \code{first = "< \%s"} to create
+a label like \code{"< 18"}.}
 
-\item{last}{String: override label for the last category.}
+\item{last}{String: override label for the last category. Passed to
+\code{\link[=sprintf]{sprintf()}} or \code{\link[=format]{format()}}.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
