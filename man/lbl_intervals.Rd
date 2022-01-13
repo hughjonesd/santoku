@@ -4,7 +4,7 @@
 \alias{lbl_intervals}
 \title{Label chopped intervals using set notation}
 \usage{
-lbl_intervals(raw = FALSE, fmt = NULL)
+lbl_intervals(raw = FALSE, fmt = NULL, first = NULL, last = NULL)
 }
 \arguments{
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
@@ -12,6 +12,10 @@ or standard deviations?}
 
 \item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
 methods; or a one-argument formatting function.}
+
+\item{first}{String: override label for the first category.}
+
+\item{last}{String: override label for the last category.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.

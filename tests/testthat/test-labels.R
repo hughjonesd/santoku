@@ -154,6 +154,16 @@ test_that("lbl_intervals arguments", {
     lbl_intervals(fmt = percent)(qbrk),
     c("[0%, 50%)", "[50%, 100%)")
   )
+
+  lbrk <- brk_res(brk_default(c(1, 2, 2, 3)))
+  expect_equivalent(
+    lbl_intervals(first = "< %s")(lbrk),
+    c("< 2", "{2}", "(2, 3)")
+  )
+  expect_equivalent(
+    lbl_intervals(last = "> %s")(lbrk),
+    c("[1, 2)", "{2}", "> 2")
+  )
 })
 
 

@@ -24,6 +24,7 @@ NULL
 #' Label chopped intervals using set notation
 #'
 #' @inherit label-doc
+#' @inherit first-last-doc
 #'
 #' @family labelling functions
 #'
@@ -48,8 +49,12 @@ NULL
 #' tab_evenly(runif(20), 10,
 #'       labels = lbl_intervals(fmt = percent))
 #'
-lbl_intervals <- function (raw = FALSE, fmt = NULL) {
-  assert_that(is.flag(raw))
+lbl_intervals <- function (raw = FALSE, fmt = NULL, first = NULL, last = NULL) {
+  assert_that(
+          is.flag(raw),
+          is.string(first) || is.null(first),
+          is.string(last) || is.null(last)
+        )
 
   function (breaks) {
     assert_that(is.breaks(breaks))
@@ -79,6 +84,14 @@ lbl_intervals <- function (raw = FALSE, fmt = NULL) {
 
     sets <- paste0(left_symbol, lb, ", ", rb, right_symbol)
     sets[singletons] <- sprintf("{%s}", lb[singletons])
+
+    if (! is.null(first)) {
+      sets[1] <- endpoint_labels(breaks[2], raw = raw, fmt = first)
+    }
+    if (! is.null(last)) {
+      sets[length(sets)] <- endpoint_labels(breaks[length(breaks)-1], raw = raw,
+                                              fmt = last)
+    }
 
     return(sets)
   }
@@ -176,7 +189,13 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
 lbl_dash <- function (symbol = em_dash(), raw = FALSE, fmt = NULL, first = NULL,
                       last = NULL) {
-  assert_that(is.string(symbol), is.flag(raw), is.null(fmt) || is_format(fmt))
+  assert_that(
+          is.string(symbol),
+          is.flag(raw),
+          is.null(fmt) || is_format(fmt),
+          is.string(first) || is.null(first),
+          is.string(last) || is.null(last)
+        )
 
   function (breaks) {
     elabels <-  if (is.null(fmt)) {
@@ -268,7 +287,12 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 #' # Misleading labels for non-integer data
 #' chop(2.5, c(1, 3, 5), lbl_discrete())
 lbl_discrete <- function (symbol = em_dash(), fmt = NULL, first = NULL, last = NULL) {
-  assert_that(is.string(symbol), is.null(fmt) || is_format(fmt))
+  assert_that(
+          is.string(symbol),
+          is.null(fmt) || is_format(fmt),
+          is.string(first) || is.null(first),
+          is.string(last) || is.null(last)
+        )
 
   function (breaks) {
     assert_that(all(ceiling(as.numeric(breaks)) == floor(as.numeric(breaks))),
