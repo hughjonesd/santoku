@@ -7,6 +7,7 @@
   been removed.
 * Arguments `first` and `last` can now be used in `lbl_intervals()` to override
   the first and last interval labels.
+* Bugfix: `tab()` and friends no longer display an `x` as the variable name.
 
 # santoku 0.6.0
 

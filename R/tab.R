@@ -48,4 +48,4 @@ tab_mean_sd <- function (...) {
 }
 
 
-default_table <- function (x) table(x, useNA = "ifany")
+default_table <- function (x) table(x, useNA = "ifany", dnn = NULL)
