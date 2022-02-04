@@ -11,7 +11,7 @@ test_that("tab", {
 })
 
 
-test_that("tab_n",  {
+test_that("tab_n", {
   expect_identical(
     tab_n(1:9, 3, lbl_seq()),
     table(x = rep(c("a", "b", "c"), 3), useNA = "ifany", dnn = NULL)
