@@ -191,14 +191,14 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' @examples
 #' if (requireNamespace("glue")) {
 #'   tab(1:10, c(1,3, 3, 7),
-#'       label = lbl_glue("{l} to {r}", fmt1 = "Exactly {l}"))
+#'       label = lbl_glue("{l} to {r}", expr1 = "Exactly {l}"))
 #'
 #'  tab(1:10 * 1000, c(1,3, 5, 7) * 1000, label =
 #'    lbl_glue("{prettyNum(l, big.mark=',')}-{prettyNum(r, big.mark=',')}"))
 #'
 #'   # reproducing lbl_intervals():
 #'   glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
-#'   tab(1:10, c(1,3, 3, 7), label = lbl_glue(glue_string, fmt1 = "{{{l}}}"))
+#'   tab(1:10, c(1,3, 3, 7), label = lbl_glue(glue_string, expr1 = "{{{l}}}"))
 #'
 #'
 #' }
