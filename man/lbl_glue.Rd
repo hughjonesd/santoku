@@ -2,14 +2,26 @@
 % Please edit documentation in R/labels.R
 \name{lbl_glue}
 \alias{lbl_glue}
-\title{Label chopped intervals using the \code{glue} package}
+\title{Label chopped intervals using the {glue} package}
 \usage{
-lbl_glue(fmt, fmt1 = fmt, first = NULL, last = NULL, raw = FALSE, ...)
+lbl_glue(
+  expr,
+  fmt = NULL,
+  expr1 = NULL,
+  first = NULL,
+  last = NULL,
+  raw = FALSE,
+  ...
+)
 }
 \arguments{
-\item{fmt}{A glue string passed to \code{\link[glue:glue]{glue::glue()}}.}
+\item{expr}{A glue string passed to \code{\link[glue:glue]{glue::glue()}}.}
 
-\item{fmt1}{Optional glue string for singleton intervals.}
+\item{fmt}{A format to be applied to the \code{breaks} used as labels. Can be a
+string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}} methods; or a
+one-argument formatting function.}
+
+\item{expr1}{Optional glue string for singleton intervals.}
 
 \item{first}{Optional glue string for the first interval.}
 
@@ -27,9 +39,12 @@ A vector of labels for \code{chop}, or a function that creates labels.
 \lifecycle{experimental}
 }
 \details{
-In glue strings, variables \code{l} and \code{r} represent the left and right
-endpoints. Variables \code{l_closed} and \code{r_closed} are \code{TRUE} if the left
-and right endpoints are closed respectively.
+In glue strings, variables \code{l} and \code{r} represent the left and
+right endpoints, respectively. If \code{fmt} is not NULL, they are formatted
+accordingly.
+
+Variables \code{l_closed} and \code{r_closed} are \code{TRUE} if the left and right
+endpoints are closed respectively.
 }
 \examples{
 if (requireNamespace("glue")) {

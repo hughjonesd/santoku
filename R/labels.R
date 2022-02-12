@@ -163,17 +163,23 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 }
 
 
-#' Label chopped intervals using the `glue` package
+#' Label chopped intervals using the {glue} package
 #'
 #' \lifecycle{experimental}
 #'
-#' In glue strings, variables `l` and `r` represent the left and right
-#' endpoints. Variables `l_closed` and `r_closed` are `TRUE` if the left
-#' and right endpoints are closed respectively.
+#' In glue strings, variables `l` and `r` represent the left and
+#' right endpoints, respectively. If `fmt` is not NULL, they are formatted
+#' accordingly.
+#'
+#' Variables `l_closed` and `r_closed` are `TRUE` if the left and right
+#' endpoints are closed respectively.
 #'
 #' @inherit label-doc params return
-#' @param fmt A glue string passed to [glue::glue()].
-#' @param fmt1 Optional glue string for singleton intervals.
+#' @param expr A glue string passed to [glue::glue()].
+#' @param fmt A format to be applied to the `breaks` used as labels. Can be a
+#'   string, passed into [base::sprintf()] or [format()] methods; or a
+#'   one-argument formatting function.
+#' @param expr1 Optional glue string for singleton intervals.
 #' @param first Optional glue string for the first interval.
 #' @param last Optional glue string for the last interval.
 #' @param ... Further arguments passed to [glue::glue()].
@@ -195,21 +201,36 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #'
 #' }
 #'
-lbl_glue <- function (fmt, fmt1 = fmt, first = NULL, last = NULL,
-                        raw = FALSE, ...) {
+lbl_glue <- function (expr, fmt = NULL, expr1 = NULL, first = NULL, last = NULL,
+                      raw = FALSE, ...) {
   if (! requireNamespace("glue", quietly = TRUE)) {
     stop("`lbl_glue` requires the \"glue\" package. To install, type:\n",
            "install.packages(\"glue\")")
   }
 
+  assert_that(
+    is.string(expr),
+    is.null(fmt) || is_format(fmt),
+    is.string(first) || is.null(first),
+    is.string(last) || is.null(last),
+    is.flag(raw)
+  )
+
   function (breaks) {
-    stopifnot(is.breaks(breaks))
+    assert_that(is.breaks(breaks))
+
     len_b <- length(breaks)
 
     labels <- character(len_b - 1)
+    # which breaks are singletons?
     singletons <- singletons(breaks)
 
-    elabels <- scaled_endpoints(breaks, raw = raw)
+    elabels <-  if (is.null(fmt)) {
+      # keep labels numeric, so they can still be processed by glue
+      scaled_endpoints(breaks, raw = raw)
+    } else {
+      endpoint_labels(breaks, raw = raw, fmt = fmt)
+    }
 
     l <- elabels[-len_b]
     r <- elabels[-1]
@@ -223,11 +244,11 @@ lbl_glue <- function (fmt, fmt1 = fmt, first = NULL, last = NULL,
     l_closed <- left[-len_b]
     r_closed <- ! left[-1]
 
-    labels <- glue::glue(fmt, l = l, r = r, l_closed = l_closed,
-                           r_closed = r_closed, ...)
-    labels[singletons] <- glue::glue(fmt1, l = l[singletons], r = r[singletons],
-                                       l_closed = l_closed[singletons],
-                                       r_closed = r_closed[singletons], ...)
+    labels <- glue::glue(expr, l = l, r = r, l_closed = l_closed,
+                         r_closed = r_closed, ...)
+    labels[singletons] <- glue::glue(expr1, l = l[singletons], r = r[singletons],
+                                     l_closed = l_closed[singletons],
+                                     r_closed = r_closed[singletons], ...)
 
     if (! is.null(first)) {
       labels[1] <- glue::glue(first, l = l[1], r = r[1], l_closed = l_closed[1],

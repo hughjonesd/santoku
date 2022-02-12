@@ -125,12 +125,12 @@ test_that("lbl_glue arguments", {
 
   brk2 <- brk_res(brk_manual(c(1,2,2,3), c(TRUE, TRUE, FALSE, TRUE)))
   expect_equivalent(
-    lbl_glue("{l} to {r}", fmt1 = "{{{l}}}")(brk2),
+    lbl_glue("{l} to {r}", expr1 = "{{{l}}}")(brk2),
     c("1 to 2", "{2}", "2 to 3")
   )
 
   expect_equivalent(
-    lbl_glue("<l> to <r>", fmt1 = "{<l>}", .open = "<", .close = ">")(brk2),
+    lbl_glue("<l> to <r>", expr1 = "{<l>}", .open = "<", .close = ">")(brk2),
     c("1 to 2", "{2}", "2 to 3")
   )
 })
