@@ -274,12 +274,14 @@ lbl_glue <- function (expr, fmt = NULL, expr1 = NULL, first = NULL, last = NULL,
 #' passed [lbl_glue()].
 #'
 #' @inheritParams lbl_glue
+#' @inheritParams lbl_dash
 #'
 #' @family labelling functions
 #'
 #' @export
 #'
 #' @examples
+#' if (requireNamespace("glue")) {
 #' chop(1:10, c(2, 5, 8), lbl_dashd())
 #'
 #' chop(1:10, c(2, 5, 8), lbl_dashd(" to ", fmt = "%.1f"))
@@ -288,6 +290,7 @@ lbl_glue <- function (expr, fmt = NULL, expr1 = NULL, first = NULL, last = NULL,
 #'
 #' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
 #' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
+#' }
 lbl_dashd <- function (symbol = em_dash(), raw = FALSE, fmt = NULL, first = NULL,
                       last = NULL, ...) {
   assert_that(is.string(symbol))

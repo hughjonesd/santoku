@@ -14,6 +14,8 @@ lbl_dashd(
 )
 }
 \arguments{
+\item{symbol}{String: symbol to use for the dash.}
+
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
 or standard deviations?}
 
@@ -32,6 +34,7 @@ Drop-in replacement for \code{\link[=lbl_dash]{lbl_dash()}}, but with all argume
 passed \code{\link[=lbl_glue]{lbl_glue()}}.
 }
 \examples{
+if (requireNamespace("glue")) {
 chop(1:10, c(2, 5, 8), lbl_dashd())
 
 chop(1:10, c(2, 5, 8), lbl_dashd(" to ", fmt = "\%.1f"))
@@ -41,11 +44,13 @@ chop(1:10, c(2, 5, 8), lbl_dashd(first = "< {r}"))
 pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
 chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
 }
+}
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
 \code{\link{lbl_discrete}()},
 \code{\link{lbl_format}()},
+\code{\link{lbl_glue}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_manual}()},
 \code{\link{lbl_seq}()}
