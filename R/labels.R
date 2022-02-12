@@ -184,6 +184,8 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' @param last Optional glue string for the last interval.
 #' @param ... Further arguments passed to [glue::glue()].
 #'
+#' @family labelling functions
+#'
 #' @export
 #'
 #' @examples

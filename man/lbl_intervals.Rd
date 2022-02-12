@@ -51,6 +51,7 @@ Other labelling functions:
 \code{\link{lbl_dash}()},
 \code{\link{lbl_discrete}()},
 \code{\link{lbl_format}()},
+\code{\link{lbl_glue}()},
 \code{\link{lbl_manual}()},
 \code{\link{lbl_seq}()}
 }
