@@ -28,6 +28,7 @@ chop(1:10, 1:10, lbl_manual(c("x", "y", "z")))
 }
 \seealso{
 Other labelling functions: 
+\code{\link{lbl_dashd}()},
 \code{\link{lbl_dash}()},
 \code{\link{lbl_discrete}()},
 \code{\link{lbl_format}()},

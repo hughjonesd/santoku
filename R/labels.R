@@ -268,6 +268,42 @@ lbl_glue <- function (expr, fmt = NULL, expr1 = NULL, first = NULL, last = NULL,
 
 #' Label chopped intervals like 1-3, 4-5, ...
 #'
+#' Drop-in replacement for [lbl_dash()], but with all arguments except `symbol`
+#' passed [lbl_glue()].
+#'
+#' @inheritParams lbl_glue
+#'
+#' @family labelling functions
+#'
+#' @export
+#'
+#' @examples
+#' chop(1:10, c(2, 5, 8), lbl_dashd())
+#'
+#' chop(1:10, c(2, 5, 8), lbl_dashd(" to ", fmt = "%.1f"))
+#'
+#' chop(1:10, c(2, 5, 8), lbl_dashd(first = "< {r}"))
+#'
+#' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
+#' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
+lbl_dashd <- function (symbol = em_dash(), raw = FALSE, fmt = NULL, first = NULL,
+                      last = NULL, ...) {
+  assert_that(is.string(symbol))
+
+  expr <- paste0("{l}", symbol, "{r}")
+
+  lbl_glue(
+    expr = expr,
+    raw = raw,
+    fmt = fmt,
+    first = first,
+    last = last,
+    ... = ...
+  )
+}
+
+#' Label chopped intervals like 1-3, 4-5, ...
+#'
 #' This label style is user-friendly, but doesn't distinguish between
 #' left- and right-closed intervals.
 #'
