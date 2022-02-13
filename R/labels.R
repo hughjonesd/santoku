@@ -164,10 +164,11 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 }
 
 
-#' Label chopped intervals like 1-3, 4-5, ...
+#' Label chopped intervals like 1-4, 4-5, ...
 #'
 #' This label style is user-friendly, but doesn't distinguish between
-#' left- and right-closed intervals.
+#' left- and right-closed intervals. It's good for continuous data
+#' where you don't expect points to be exactly on the breaks.
 #'
 #' If you don't want unicode output, use `lbl_dash("-")`.
 #'
