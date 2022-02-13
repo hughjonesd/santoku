@@ -1,5 +1,6 @@
 # santoku (development version)
 
+* Experimental `lbl_glue()` function using the `glue` package.
 * You can now set `labels = NULL` to return integer codes.
 * Bugfix: `lbl_endpoint()` was erroring for some types of breaks.
 * Use unicode em-dash and no spaces in `lbl_dash()` and `lbl_discrete()`.

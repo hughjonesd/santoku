@@ -102,6 +102,40 @@ test_that("lbl_format arguments", {
 })
 
 
+test_that("lbl_glue", {
+  brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
+  expect_equivalent(
+    lbl_glue("{l} to {r}")(brk),
+    c("1 to 2", "2 to 3")
+  )
+
+  expect_equivalent(
+    lbl_glue("{ifelse(l_closed, '[', '(')}{l},{r}{ifelse(r_closed, ']', ')')}")(brk),
+    c("[1,2)", "[2,3)")
+  )
+})
+
+
+test_that("lbl_glue arguments", {
+  brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
+  expect_equivalent(
+    lbl_glue("{l} to {r}", first = "Up to {r}", last = "Beyond {l}")(brk),
+    c("Up to 2", "Beyond 2")
+  )
+
+  brk2 <- brk_res(brk_manual(c(1,2,2,3), c(TRUE, TRUE, FALSE, TRUE)))
+  expect_equivalent(
+    lbl_glue("{l} to {r}", fmt1 = "{{{l}}}")(brk2),
+    c("1 to 2", "{2}", "2 to 3")
+  )
+
+  expect_equivalent(
+    lbl_glue("<l> to <r>", fmt1 = "{<l>}", .open = "<", .close = ">")(brk2),
+    c("1 to 2", "{2}", "2 to 3")
+  )
+})
+
+
 test_that("lbl_intervals", {
   lbrk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
   rbrk <- brk_res(brk_manual(1:3, rep(FALSE, 3)))
@@ -119,6 +153,7 @@ test_that("lbl_intervals", {
   mbrk <- brk_res(brk_manual(1:4, c(FALSE, TRUE, FALSE, TRUE)))
   expect_equivalent(lbl_intervals()(mbrk), c("(1, 2)", "[2, 3]", "(3, 4)"))
 })
+
 
 test_that("lbl_intervals arguments", {
   lbrk <- brk_res(brk_default(c(1, 2, 2, 3) + 0.5))

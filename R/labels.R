@@ -155,7 +155,6 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
     l <- elabels[-len_b]
     r <- elabels[-1]
 
-
     labels <- apply_format(fmt, l, r)
     labels[singletons] <- apply_format(fmt1, l[singletons])
 
@@ -163,6 +162,88 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
   }
 }
 
+
+#' Label chopped intervals using the `glue` package
+#'
+#' \lifecycle{experimental}
+#'
+#' In glue strings, variables `l` and `r` represent the left and right
+#' endpoints. Variables `l_closed` and `r_closed` are `TRUE` if the left
+#' and right endpoints are closed respectively.
+#'
+#' @inherit label-doc params return
+#' @param fmt A glue string passed to [glue::glue()].
+#' @param fmt1 Optional glue string for singleton intervals.
+#' @param first Optional glue string for the first interval.
+#' @param last Optional glue string for the last interval.
+#' @param ... Further arguments passed to [glue::glue()].
+#'
+#' @export
+#'
+#' @examples
+#' if (requireNamespace("glue")) {
+#'   tab(1:10, c(1,3, 3, 7),
+#'       label = lbl_glue("{l} to {r}", fmt1 = "Exactly {l}"))
+#'
+#'  tab(1:10 * 1000, c(1,3, 5, 7) * 1000, label =
+#'    lbl_glue("{prettyNum(l, big.mark=',')}-{prettyNum(r, big.mark=',')}"))
+#'
+#'   # reproducing lbl_intervals():
+#'   glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
+#'   tab(1:10, c(1,3, 3, 7), label = lbl_glue(glue_string, fmt1 = "{{{l}}}"))
+#'
+#'
+#' }
+#'
+lbl_glue <- function (fmt, fmt1 = fmt, first = NULL, last = NULL,
+                        raw = FALSE, ...) {
+  if (! requireNamespace("glue", quietly = TRUE)) {
+    stop("`lbl_glue` requires the \"glue\" package. To install, type:\n",
+           "install.packages(\"glue\")")
+  }
+
+  function (breaks) {
+    stopifnot(is.breaks(breaks))
+    len_b <- length(breaks)
+
+    labels <- character(len_b - 1)
+    singletons <- singletons(breaks)
+
+    elabels <- scaled_endpoints(breaks, raw = raw)
+
+    l <- elabels[-len_b]
+    r <- elabels[-1]
+
+    left <- attr(breaks, "left")
+    # Breaks like [1, 2) [2, 3] have
+    # left TRUE, TRUE, FALSE for breaks 1,2,3
+    # The first two TRUEs say that the left brackets are closed
+    # The last two TRUE & FALSE say that the right brackets are open
+    # and closed respectively. So:
+    l_closed <- left[-len_b]
+    r_closed <- ! left[-1]
+
+    labels <- glue::glue(fmt, l = l, r = r, l_closed = l_closed,
+                           r_closed = r_closed, ...)
+    labels[singletons] <- glue::glue(fmt1, l = l[singletons], r = r[singletons],
+                                       l_closed = l_closed[singletons],
+                                       r_closed = r_closed[singletons], ...)
+
+    if (! is.null(first)) {
+      labels[1] <- glue::glue(first, l = l[1], r = r[1], l_closed = l_closed[1],
+                              r_closed = r_closed[1], ...)
+    }
+
+    if (! is.null(last)) {
+      ll <- len_b - 1
+      labels[ll] <- glue::glue(last, l = l[ll], r = r[ll],
+                                 l_closed = l_closed[ll],
+                                 r_closed = r_closed[ll], ...)
+    }
+
+    return(labels)
+  }
+}
 
 #' Label chopped intervals like 1-4, 4-5, ...
 #'
