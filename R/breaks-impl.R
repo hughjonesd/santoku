@@ -208,5 +208,8 @@ unclass_breaks <- function (breaks) {
                      superclasses
                    }
 
+  # this helps vec_cast_common deal with unusual types of breaks
+  attr(breaks, "left") <- NULL
+
   breaks
 }

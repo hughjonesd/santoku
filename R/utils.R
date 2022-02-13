@@ -38,9 +38,7 @@ percent <- function (x) {
 
 
 singletons <- function (breaks) {
-  # this also works for Date and POSIXct breaks
-  dv <- diff(breaks)
-  unclass(dv) == 0L | is.nan(dv) # is.nan could be from Inf, Inf
+  duplicated(breaks[-1])
 }
 
 

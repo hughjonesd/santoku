@@ -5,13 +5,27 @@ endpoint_labels <- function (breaks, raw, fmt, ...) {
 
 
 #' @export
-endpoint_labels.default <- function (breaks, raw, fmt = NULL, ...) {
+endpoint_labels.numeric <- function (breaks, raw, fmt = NULL, ...) {
   elabels <- scaled_endpoints(breaks, raw = raw)
 
   elabels <- if (! is.null(fmt)) {
     apply_format(fmt, elabels)
   } else {
     unique_truncation(elabels)
+  }
+
+  return(elabels)
+}
+
+
+#' @export
+endpoint_labels.default <- function (breaks, raw, fmt = NULL, ...) {
+  elabels <- scaled_endpoints(breaks, raw = raw)
+
+  elabels <- if (! is.null(fmt)) {
+    apply_format(fmt, elabels)
+  } else {
+    as.character(elabels)
   }
 
   return(elabels)
