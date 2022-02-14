@@ -95,7 +95,7 @@ needs_extend <- function (breaks, x, extend) {
           (! left[1] && min_x == min(breaks))
         ) {
     # "... and if ..."
-    if ((is.numeric(breaks) && as.numeric(breaks[1]) > -Inf) || ! left[1]) {
+    if (is_gt_minus_inf(breaks[1]) || ! left[1]) {
       needs <- needs | LEFT
     }
   }
@@ -105,8 +105,7 @@ needs_extend <- function (breaks, x, extend) {
           max_x > max(breaks) ||
           (left[length(left)] && max_x == max(breaks))
         ) {
-    if ((is.numeric(breaks) && as.numeric(breaks[length(breaks)]) < Inf) ||
-          left[length(left)]) {
+    if (is_lt_inf(breaks[length(breaks)]) || left[length(left)]) {
       needs <- needs | RIGHT
     }
   }
@@ -140,7 +139,7 @@ extend_endpoint_left <- function (breaks, x, extend) {
   left <- attr(breaks, "left")
   q <- quiet_min(x)
   # non-finite q could be Inf if set is empty. Not appropriate for a left endpoint!
-  extra_break <- if (is.null(extend) && is.finite(q)) q else class_bounds(x)[1]
+  extra_break <- if (is.null(extend) && is_gt_minus_inf(q)) q else class_bounds(x)[1]
   breaks <- vctrs::vec_c(extra_break, unclass_breaks(breaks))
   breaks <- create_breaks(breaks, c(TRUE, left))
 
@@ -151,11 +150,23 @@ extend_endpoint_left <- function (breaks, x, extend) {
 extend_endpoint_right <- function (breaks, x, extend) {
   left <- attr(breaks, "left")
   q <- quiet_max(x)
-  extra_break <- if (is.null(extend) && is.finite(q)) q else class_bounds(x)[2]
+  extra_break <- if (is.null(extend) && is_lt_inf(q)) q else class_bounds(x)[2]
   breaks <- vctrs::vec_c(unclass_breaks(breaks), extra_break)
   breaks <- create_breaks(breaks, c(left, FALSE))
 
   breaks
+}
+
+
+is_lt_inf <- function (x) {
+  x <- tryCatch(as.numeric(x), error = return(TRUE))
+  x < Inf
+}
+
+
+is_gt_minus_inf <- function (x) {
+  x <- tryCatch(as.numeric(x), error = return(TRUE))
+  x < Inf
 }
 
 
@@ -186,8 +197,9 @@ class_bounds.Date <- function (x) {
 
 #' @export
 class_bounds.default <- function (x) {
-  stop("Class '", paste(class(x), sep = "', '"),
-        "' has no natural endpoints for `extend = TRUE`")
+  warning("Class '", paste(class(x), sep = "', '"),
+        "' has no natural endpoints corresponding to +/-Inf for `extend = TRUE`;")
+  c(quiet_min(x), quiet_max(x))
 }
 
 
