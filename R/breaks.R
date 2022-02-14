@@ -353,7 +353,6 @@ brk_right <- function (breaks) {
 #'
 brk_default <- function (breaks) {
   assert_that(noNA(breaks))
-  breaks <- sort(breaks)
 
   function (x, extend, left, close_end) {
     breaks <- create_lr_breaks(breaks, left, close_end)

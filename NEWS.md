@@ -9,6 +9,7 @@
 * Arguments `first` and `last` can now be used in `lbl_intervals()` to override
   the first and last interval labels.
 * Bugfix: `tab()` and friends no longer display an `x` as the variable name.
+* `brk_default()` now throws an error if breaks are not sorted.
 
 # santoku 0.6.0
 
