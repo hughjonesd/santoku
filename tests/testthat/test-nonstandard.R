@@ -9,6 +9,21 @@ test_that("character", {
 })
 
 
+test_that("hexmode", {
+  x <- as.hexmode(1:10 + 10)
+  br <- as.hexmode(c(13, 15, 15, 18))
+
+  expect_silent(
+    chop(x, br, extend = FALSE)
+  )
+
+  skip("vctrs can't cast hexmode and integer")
+  expect_silent(
+    chop(x, br)
+  )
+})
+
+
 test_that("unit from units package", {
   loadNamespace("units")
   x <- units::set_units(1:10, cm)
@@ -27,6 +42,9 @@ test_that("unit from units package", {
   expect_error(
     chop(x, br_m2)
   )
+
+  # we don't support mixed units, since units doesn't support
+  # comparison operators on those
 })
 
 
@@ -36,5 +54,21 @@ test_that("package_version", {
 
   expect_silent(
     chop(x, br)
+  )
+})
+
+
+test_that("difftime", {
+  days <- as.Date("1970-01-01") + 0:30
+  difftimes_d <- days[10:15] - days[12:7]
+  difftimes_h <- difftimes_d
+  units(difftimes_h) <- "hours"
+
+  expect_silent(
+    chop(difftimes_d, difftimes_d[c(3,5)])
+  )
+
+  expect_silent(
+    chop(difftimes_d, difftimes_h)
   )
 })
