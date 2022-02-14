@@ -25,6 +25,7 @@ Suggests:
     purrr,
     rmarkdown,
     scales,
+    units,
     withr
 LinkingTo: 
     Rcpp

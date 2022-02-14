@@ -95,7 +95,7 @@ needs_extend <- function (breaks, x, extend) {
           (! left[1] && min_x == min(breaks))
         ) {
     # "... and if ..."
-    if (breaks[1] > -Inf || ! left[1]) {
+    if ((is.numeric(breaks) && as.numeric(breaks[1]) > -Inf) || ! left[1]) {
       needs <- needs | LEFT
     }
   }
@@ -105,7 +105,8 @@ needs_extend <- function (breaks, x, extend) {
           max_x > max(breaks) ||
           (left[length(left)] && max_x == max(breaks))
         ) {
-    if (breaks[length(breaks)] < Inf || left[length(left)]) {
+    if ((is.numeric(breaks) && as.numeric(breaks[length(breaks)]) < Inf) ||
+          left[length(left)]) {
       needs <- needs | RIGHT
     }
   }
