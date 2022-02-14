@@ -28,10 +28,13 @@ categorize <- function (x, breaks) {
 
 
 categorize_non_numeric <- function (x, breaks, left) {
-  stopifnot(length(breaks) == length(left))
+  assert_that(are_equal(length(breaks), length(left)))
 
+  if (is.character(x)) warning("`x` appears to be of type character, using lexical sorting")
+  if (is.character(breaks)) warning("`breaks` appears to be of type character, using lexical sorting")
   codes <- rep(NA_integer_, length(x))
 
+  # reimplementation of the C++ code... could probably be faster!
   for (i in seq_along(x)) {
     x_i <- x[i]
     for (j in seq_len(length(breaks) - 1)) {
