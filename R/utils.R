@@ -38,7 +38,7 @@ percent <- function (x) {
 
 
 singletons <- function (breaks) {
-  duplicated(breaks[-1])
+  duplicated(breaks)[-1]
 }
 
 
