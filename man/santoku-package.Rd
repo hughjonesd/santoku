@@ -23,7 +23,7 @@ separate factor level for values exactly equal to 2.
 \item Convenience functions for creating quantile intervals, evenly-spaced
 intervals or equal-sized groups.
 \item Convenience functions to quickly tabulate chopped data.
-\item Can chop numbers, dates or date-times.
+\item Can chop numbers, dates or date-times and other objects.
 }
 
 These advantages make santoku especially useful for exploratory analysis,

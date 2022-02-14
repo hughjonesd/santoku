@@ -25,7 +25,7 @@ NULL
 #'
 #' * Convenience functions to quickly tabulate chopped data.
 #'
-#' * Can chop numbers, dates or date-times.
+#' * Can chop numbers, dates or date-times and other objects.
 #'
 #' These advantages make santoku especially useful for exploratory analysis,
 #' where you may not know the range of your data in advance.
