@@ -159,13 +159,17 @@ extend_endpoint_right <- function (breaks, x, extend) {
 
 
 is_lt_inf <- function (x) {
-  x <- tryCatch(as.numeric(x), error = function (...) return(TRUE))
+  x <- tryCatch(strict_as_numeric(x),
+                  error = function (...) return(TRUE)
+                )
   x < Inf
 }
 
 
 is_gt_minus_inf <- function (x) {
-  x <- tryCatch(as.numeric(x), error = function (...) return(TRUE))
+  x <- tryCatch(strict_as_numeric(x),
+                  error = function (...) return(TRUE)
+                )
   x > -Inf
 }
 

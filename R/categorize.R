@@ -14,8 +14,12 @@ categorize <- function (x, breaks) {
   # vec_cast won't accept e.g. characters but it also won't convert e.g. Dates
   # as.numeric accepts both
   # fuck you, world
-  x <- tryCatch(as.numeric(res[[1]]), error = function (...) res[[1]])
-  breaks <- tryCatch(as.numeric(res[[2]]), error = function (...) res[[2]])
+  x <- tryCatch(strict_as_numeric(res[[1]]),
+                  error   = function (...) res[[1]]
+                )
+  breaks <- tryCatch(strict_as_numeric(res[[2]]),
+                       error   = function (...) res[[2]]
+                     )
 
   codes <- if (is.numeric(x) && is.numeric(breaks)) {
     categorize_impl(x, breaks, left)
