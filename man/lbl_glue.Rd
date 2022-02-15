@@ -7,7 +7,7 @@
 lbl_glue(
   expr,
   fmt = NULL,
-  expr1 = NULL,
+  single = NULL,
   first = NULL,
   last = NULL,
   raw = FALSE,
@@ -15,13 +15,13 @@ lbl_glue(
 )
 }
 \arguments{
-\item{expr}{A glue string passed to \code{\link[glue:glue]{glue::glue()}}.}
+\item{expr}{A glue expression string passed to \code{\link[glue:glue]{glue::glue()}}.}
 
 \item{fmt}{A format to be applied to the \code{breaks} used as labels. Can be a
-string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}} methods; or a
-one-argument formatting function.}
+string, passed into \code{\link[base:sprintf]{base::sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates)
+methods; or a one-argument formatting function.}
 
-\item{expr1}{Optional glue string for singleton intervals.}
+\item{single}{Optional glue string for singleton intervals.}
 
 \item{first}{Optional glue string for the first interval.}
 
@@ -47,16 +47,15 @@ Variables \code{l_closed} and \code{r_closed} are \code{TRUE} if the left and ri
 endpoints are closed respectively.
 }
 \examples{
-  tab(1:10, c(1,3, 3, 7),
-      label = lbl_glue("{l} to {r}", expr1 = "Exactly {l}"))
+tab(1:10, c(1, 3, 3, 7),
+    label = lbl_glue("{l} to {r}", single = "Exactly {l}"))
 
- tab(1:10 * 1000, c(1,3, 5, 7) * 1000, label =
-   lbl_glue("{prettyNum(l, big.mark=',')}-{prettyNum(r, big.mark=',')}"))
+tab(1:10 * 1000, c(1, 3, 5, 7) * 1000,
+    label = lbl_glue("{l}-{r}", fmt = \(x) prettyNum(x, big.mark=',')))
 
-  # reproducing lbl_intervals():
-  glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
-  tab(1:10, c(1,3, 3, 7), label = lbl_glue(glue_string, expr1 = "{{{l}}}"))
-
+# reproducing lbl_intervals():
+glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
+tab(1:10, c(1, 3, 3, 7), label = lbl_glue(glue_string, single = "{{{l}}}"))
 
 }
 \seealso{
