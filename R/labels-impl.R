@@ -19,6 +19,10 @@ endpoint_labels.numeric <- function (breaks, raw, fmt = NULL, ...) {
 
 
 #' @export
+endpoint_labels.integer <- endpoint_labels.numeric
+
+
+#' @export
 endpoint_labels.default <- function (breaks, raw, fmt = NULL, ...) {
   elabels <- scaled_endpoints(breaks, raw = raw)
 
