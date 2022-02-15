@@ -32,10 +32,21 @@ categorize <- function (x, breaks) {
 
 
 categorize_non_numeric <- function (x, breaks, left) {
-  assert_that(are_equal(length(breaks), length(left)))
 
-  if (is.character(x)) warning("`x` appears to be of type character, using lexical sorting")
-  if (is.character(breaks)) warning("`breaks` appears to be of type character, using lexical sorting")
+  if (getOption("santoku.warn_character", TRUE)) {
+    warning_statement <- paste0(
+      "`%s` appears to be of type character, using lexical sorting.\n",
+      "To turn off this warning, use:\n",
+      "  options(santoku.warn_character = FALSE)",
+      collapse = "")
+    if (is.character(x)) {
+      warning(sprintf(warning_statement, "x"))
+    }
+    if (is.character(breaks)) {
+      warning(sprintf(warning_statement, "breaks"))
+    }
+  }
+
   codes <- rep(NA_integer_, length(x))
 
   # reimplementation of the C++ code... could probably be faster!
