@@ -47,7 +47,6 @@ tab_evenly(runif(20), 10,
 }
 \seealso{
 Other labelling functions: 
-\code{\link{lbl_dashd}()},
 \code{\link{lbl_dash}()},
 \code{\link{lbl_discrete}()},
 \code{\link{lbl_format}()},

@@ -34,7 +34,6 @@ chop(1:10, c(2, 5, 8), lbl_seq("(A)"))
 }
 \seealso{
 Other labelling functions: 
-\code{\link{lbl_dashd}()},
 \code{\link{lbl_dash}()},
 \code{\link{lbl_discrete}()},
 \code{\link{lbl_format}()},

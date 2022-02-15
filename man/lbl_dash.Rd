@@ -50,7 +50,6 @@ chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
 }
 \seealso{
 Other labelling functions: 
-\code{\link{lbl_dashd}()},
 \code{\link{lbl_discrete}()},
 \code{\link{lbl_format}()},
 \code{\link{lbl_glue}()},
