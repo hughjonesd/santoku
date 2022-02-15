@@ -21,6 +21,9 @@ endpoint_labels.numeric <- function (breaks, raw, fmt = NULL, ...) {
 #' @export
 endpoint_labels.integer <- endpoint_labels.numeric
 
+#' @export
+endpoint_labels.double <- endpoint_labels.numeric
+
 
 #' @export
 endpoint_labels.default <- function (breaks, raw, fmt = NULL, ...) {
