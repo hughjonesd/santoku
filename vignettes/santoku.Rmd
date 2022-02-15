@@ -154,7 +154,7 @@ data.frame(x, chopped)
 You can customize the first or last labels:
 
 ```{r}
-chopped <- chop(x, c(2, 5, 8), lbl_dash(first = "< 2", last = "9+"))
+chopped <- chop(x, c(2, 5, 8), lbl_dash(first = "< 2", last = "8+"))
 data.frame(x, chopped)
 ```
 

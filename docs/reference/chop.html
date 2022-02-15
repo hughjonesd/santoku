@@ -19,7 +19,7 @@ length as x, representing which interval contains each element of x."><meta prop
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../articles/santoku.html">Get started</a>
 </li>
@@ -73,7 +73,7 @@ length as <code>x</code>, representing which interval contains each element of <
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">chop</span><span class="op">(</span>
   <span class="va">x</span>,
   <span class="va">breaks</span>,
-  <span class="va">labels</span>,
+  labels <span class="op">=</span> <span class="fu"><a href="lbl_intervals.html">lbl_intervals</a></span><span class="op">(</span><span class="op">)</span>,
   extend <span class="op">=</span> <span class="cn">NULL</span>,
   left <span class="op">=</span> <span class="cn">TRUE</span>,
   close_end <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -83,7 +83,7 @@ length as <code>x</code>, representing which interval contains each element of <
 <span class="fu">kiru</span><span class="op">(</span>
   <span class="va">x</span>,
   <span class="va">breaks</span>,
-  <span class="va">labels</span>,
+  labels <span class="op">=</span> <span class="fu"><a href="lbl_intervals.html">lbl_intervals</a></span><span class="op">(</span><span class="op">)</span>,
   extend <span class="op">=</span> <span class="cn">NULL</span>,
   left <span class="op">=</span> <span class="cn">TRUE</span>,
   close_end <span class="op">=</span> <span class="cn">FALSE</span>,
@@ -176,6 +176,8 @@ breaks will be</p>
 <p><code>labels</code> may be a character vector. It should have the same length as the
 number of intervals. Alternatively, use a <code>lbl_</code> function such as
 <code><a href="lbl_seq.html">lbl_seq()</a></code>.</p>
+<p>If <code>labels</code> is <code>NULL</code>, then integer codes will be returned instead of a
+factor.</p>
 </div>
 
 <div class="section">
@@ -194,7 +196,7 @@ below.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
-    <div class="dont-index"><p>cut</p>
+    <div class="dont-index"><p><code><a href="https://rdrr.io/r/base/cut.html" class="external-link">base::cut()</a></code>, <a href="non-standard-types.html">non-standard-types</a> for chopping objects that aren't numbers.</p>
 <p>Other chopping functions: 
 <code><a href="chop_mean_sd.html">chop_mean_sd</a>()</code>,
 <code><a href="chop_n.html">chop_n</a>()</code>,
@@ -258,7 +260,7 @@ below.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer></div>

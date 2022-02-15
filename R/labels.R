@@ -17,8 +17,6 @@ NULL
 #' a label like `"< 18"`.
 #' @param last String: override label for the last category. Passed to
 #'   [sprintf()] or [format()].
-#' @details
-
 NULL
 
 
