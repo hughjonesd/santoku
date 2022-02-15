@@ -88,7 +88,7 @@ test_that("systematic tests", {
   should_fail <-   function (cond) test_df$expect[cond] <<- "error"
   should_warn <-   function (cond) test_df$expect[cond] <<- "warn"
   should_either <- function (cond) test_df$expect[cond] <<- "either"
-  dont_care <-     function (cond) test_df$expect[cond] <<- NA_character_
+  dont_care <-     function (cond) test_df <<- test_df[! cond, ]
 
   should_fail(names(test_df$x) == "char")
 
