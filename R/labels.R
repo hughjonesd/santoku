@@ -177,7 +177,7 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' @param fmt A format to be applied to the `breaks` used as labels. Can be a
 #'   string, passed into [base::sprintf()] or [format()] methods; or a
 #'   one-argument formatting function.
-#' @param expr1 Optional glue string for singleton intervals.
+#' @param single Optional glue string for singleton intervals.
 #' @param first Optional glue string for the first interval.
 #' @param last Optional glue string for the last interval.
 #' @param ... Further arguments passed to [glue::glue()].
@@ -187,17 +187,17 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' @export
 #'
 #' @examples
-#' tab(1:10, c(1,3, 3, 7),
-#'     label = lbl_glue("{l} to {r}", expr1 = "Exactly {l}"))
+#' tab(1:10, c(1, 3, 3, 7),
+#'     label = lbl_glue("{l} to {r}", single = "Exactly {l}"))
 #'
 #' tab(1:10 * 1000, c(1,3, 5, 7) * 1000, label =
 #'     lbl_glue("{prettyNum(l, big.mark=',')}-{prettyNum(r, big.mark=',')}"))
 #'
-#'   # reproducing lbl_intervals():
-#'   glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
-#'   tab(1:10, c(1,3, 3, 7), label = lbl_glue(glue_string, expr1 = "{{{l}}}"))
+#' # reproducing lbl_intervals():
+#' glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
+#' tab(1:10, c(1, 3, 3, 7), label = lbl_glue(glue_string, single = "{{{l}}}"))
 #'
-lbl_glue <- function (expr, fmt = NULL, expr1 = NULL, first = NULL, last = NULL,
+lbl_glue <- function (expr, fmt = NULL, single = NULL, first = NULL, last = NULL,
                       raw = FALSE, ...) {
 
   assert_that(
@@ -238,7 +238,9 @@ lbl_glue <- function (expr, fmt = NULL, expr1 = NULL, first = NULL, last = NULL,
 
     labels <- glue::glue(expr, l = l, r = r, l_closed = l_closed,
                          r_closed = r_closed, ...)
-    labels[singletons] <- glue::glue(expr1, l = l[singletons], r = r[singletons],
+    labels[singletons] <- glue::glue(single,
+                                     l = l[singletons],
+                                     r = r[singletons],
                                      l_closed = l_closed[singletons],
                                      r_closed = r_closed[singletons], ...)
 
