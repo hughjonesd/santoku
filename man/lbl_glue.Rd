@@ -47,7 +47,6 @@ Variables \code{l_closed} and \code{r_closed} are \code{TRUE} if the left and ri
 endpoints are closed respectively.
 }
 \examples{
-if (requireNamespace("glue")) {
   tab(1:10, c(1,3, 3, 7),
       label = lbl_glue("{l} to {r}", expr1 = "Exactly {l}"))
 
@@ -58,8 +57,6 @@ if (requireNamespace("glue")) {
   glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
   tab(1:10, c(1,3, 3, 7), label = lbl_glue(glue_string, expr1 = "{{{l}}}"))
 
-
-}
 
 }
 \seealso{

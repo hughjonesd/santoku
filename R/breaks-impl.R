@@ -208,5 +208,8 @@ unclass_breaks <- function (breaks) {
                      superclasses
                    }
 
+  # clean up
+  attr(breaks, "left") <- NULL
+
   breaks
 }

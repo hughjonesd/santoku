@@ -189,26 +189,18 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' @export
 #'
 #' @examples
-#' if (requireNamespace("glue")) {
-#'   tab(1:10, c(1,3, 3, 7),
-#'       label = lbl_glue("{l} to {r}", expr1 = "Exactly {l}"))
+#' tab(1:10, c(1,3, 3, 7),
+#'     label = lbl_glue("{l} to {r}", expr1 = "Exactly {l}"))
 #'
-#'  tab(1:10 * 1000, c(1,3, 5, 7) * 1000, label =
-#'    lbl_glue("{prettyNum(l, big.mark=',')}-{prettyNum(r, big.mark=',')}"))
+#' tab(1:10 * 1000, c(1,3, 5, 7) * 1000, label =
+#'     lbl_glue("{prettyNum(l, big.mark=',')}-{prettyNum(r, big.mark=',')}"))
 #'
 #'   # reproducing lbl_intervals():
 #'   glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
 #'   tab(1:10, c(1,3, 3, 7), label = lbl_glue(glue_string, expr1 = "{{{l}}}"))
 #'
-#'
-#' }
-#'
 lbl_glue <- function (expr, fmt = NULL, expr1 = NULL, first = NULL, last = NULL,
                       raw = FALSE, ...) {
-  if (! requireNamespace("glue", quietly = TRUE)) {
-    stop("`lbl_glue` requires the \"glue\" package. To install, type:\n",
-           "install.packages(\"glue\")")
-  }
 
   assert_that(
     is.string(expr),
@@ -268,10 +260,11 @@ lbl_glue <- function (expr, fmt = NULL, expr1 = NULL, first = NULL, last = NULL,
   }
 }
 
-#' Label chopped intervals like 1-3, 4-5, ...
+#' Label chopped intervals like 1-4, 4-5, ...
 #'
 #' This label style is user-friendly, but doesn't distinguish between
-#' left- and right-closed intervals.
+#' left- and right-closed intervals. It's good for continuous data
+#' where you don't expect points to be exactly on the breaks.
 #'
 #' If you don't want unicode output, use `lbl_dash("-")`.
 #'

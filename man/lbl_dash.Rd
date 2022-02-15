@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_dash}
 \alias{lbl_dash}
-\title{Label chopped intervals like 1-3, 4-5, ...}
+\title{Label chopped intervals like 1-4, 4-5, ...}
 \usage{
 lbl_dash(
   symbol = em_dash(),
@@ -33,7 +33,8 @@ A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
 This label style is user-friendly, but doesn't distinguish between
-left- and right-closed intervals.
+left- and right-closed intervals. It's good for continuous data
+where you don't expect points to be exactly on the breaks.
 }
 \details{
 If you don't want unicode output, use \code{lbl_dash("-")}.

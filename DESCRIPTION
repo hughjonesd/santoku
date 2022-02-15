@@ -32,6 +32,7 @@ LinkingTo:
 Imports: 
     Rcpp,
     assertthat,
+    glue,
     lifecycle,
     vctrs
 URL: https://github.com/hughjonesd/santoku, https://hughjonesd.github.io/santoku/
