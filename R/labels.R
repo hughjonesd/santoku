@@ -173,10 +173,10 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' endpoints are closed respectively.
 #'
 #' @inherit label-doc params return
-#' @param expr A glue string passed to [glue::glue()].
+#' @param expr A glue expression string passed to [glue::glue()].
 #' @param fmt A format to be applied to the `breaks` used as labels. Can be a
-#'   string, passed into [base::sprintf()] or [format()] methods; or a
-#'   one-argument formatting function.
+#'   string, passed into [base::sprintf()] (numbers) or [format()] (dates)
+#'   methods; or a one-argument formatting function.
 #' @param single Optional glue string for singleton intervals.
 #' @param first Optional glue string for the first interval.
 #' @param last Optional glue string for the last interval.
@@ -190,8 +190,8 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' tab(1:10, c(1, 3, 3, 7),
 #'     label = lbl_glue("{l} to {r}", single = "Exactly {l}"))
 #'
-#' tab(1:10 * 1000, c(1,3, 5, 7) * 1000, label =
-#'     lbl_glue("{prettyNum(l, big.mark=',')}-{prettyNum(r, big.mark=',')}"))
+#' tab(1:10 * 1000, c(1, 3, 5, 7) * 1000,
+#'     label = lbl_glue("{l}-{r}", fmt = \(x) prettyNum(x, big.mark=',')))
 #'
 #' # reproducing lbl_intervals():
 #' glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
