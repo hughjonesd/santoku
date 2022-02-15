@@ -17,7 +17,7 @@ which may be slower.
 be cast to the same type using \code{\link[vctrs:vec_cast]{vctrs::vec_cast_common()}}.
 \item Not all chopping operations make sense, for example, \code{\link[=chop_mean_sd]{chop_mean_sd()}}
 on a character vector.
-\item If you get errors, try setting \code{extend = FALSE}.
+\item If you get errors, try setting \code{extend = FALSE} (but also file a bug report).
 \item To request support for a type, open an issue on Github.
 }
 }

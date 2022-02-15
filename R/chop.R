@@ -112,7 +112,7 @@ NULL
 #'
 #' @family chopping functions
 #'
-#' @seealso cut
+#' @seealso [base::cut()], [non-standard-types] for chopping objects that aren't numbers.
 #'
 #' @examples
 #' chop(1:3, 2)
