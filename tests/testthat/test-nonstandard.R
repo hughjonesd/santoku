@@ -144,3 +144,19 @@ test_that("hms::hms", {
     ignore_attr = TRUE
   )
 })
+
+
+test_that("haven::labelled", {
+  skip_if_not_installed("haven")
+
+  x <- haven::labelled(1:10, c("Lo" = 1, "Hi" = 10))
+  br <- haven::labelled(c(3, 5), c("Mid" = 3, "Mid2" = 5))
+
+  expect_silent(
+    chop(x, c(2, 5, 5, 8))
+  )
+
+  expect_silent(
+    chop(x, br)
+  )
+})

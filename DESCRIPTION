@@ -27,7 +27,8 @@ Suggests:
     scales,
     units,
     withr,
-    hms
+    hms,
+    haven
 LinkingTo: 
     Rcpp
 Imports: 
