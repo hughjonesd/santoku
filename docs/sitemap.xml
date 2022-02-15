@@ -85,6 +85,9 @@
     <loc>/reference/lbl_format.html</loc>
   </url>
   <url>
+    <loc>/reference/lbl_glue.html</loc>
+  </url>
+  <url>
     <loc>/reference/lbl_intervals.html</loc>
   </url>
   <url>
@@ -92,6 +95,9 @@
   </url>
   <url>
     <loc>/reference/lbl_seq.html</loc>
+  </url>
+  <url>
+    <loc>/reference/non-standard-types.html</loc>
   </url>
   <url>
     <loc>/reference/percent.html</loc>

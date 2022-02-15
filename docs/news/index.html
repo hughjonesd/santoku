@@ -17,7 +17,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item">
   <a class="nav-link" href="../articles/santoku.html">Get started</a>
 </li>
@@ -62,8 +62,16 @@
 
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="development version" id="santoku-development-version">santoku (development version)<a class="anchor" aria-label="anchor" href="#santoku-development-version"></a></h2>
-<ul><li>Bugfix: <code><a href="../reference/lbl_endpoint.html">lbl_endpoint()</a></code> was erroring for some types of breaks.</li>
+<ul><li>You can now chop many more types, including <code>units</code> from the <code>units</code> package, <code>difftime</code> objects, <code>package_version</code> objects, etc. Characters will be chopped with a warning.</li>
+<li>Experimental <code><a href="../reference/lbl_glue.html">lbl_glue()</a></code> function using the <code>glue</code> package.</li>
+<li>You can now set <code>labels = NULL</code> to return integer codes.</li>
 <li>Use unicode em-dash and no spaces in <code><a href="../reference/lbl_dash.html">lbl_dash()</a></code> and <code><a href="../reference/lbl_discrete.html">lbl_discrete()</a></code>.</li>
+<li>The <code>groups</code> argument to <code><a href="../reference/chop_width.html">chop_evenly()</a></code>, deprecated in 0.4.0, has been removed.</li>
+<li>Arguments <code>first</code> and <code>last</code> can now be used in <code><a href="../reference/lbl_intervals.html">lbl_intervals()</a></code> to override the first and last interval labels.</li>
+<li>Bugfix: <code><a href="../reference/tab.html">tab()</a></code> and friends no longer display an <code>x</code> as the variable name.</li>
+<li>Bugfix: <code><a href="../reference/lbl_endpoint.html">lbl_endpoint()</a></code> was erroring for some types of breaks.</li>
+<li>
+<code><a href="../reference/brk_default.html">brk_default()</a></code> now throws an error if breaks are not sorted.</li>
 </ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.6.0" id="santoku-060">santoku 0.6.0<a class="anchor" aria-label="anchor" href="#santoku-060"></a></h2><p class="text-muted">CRAN release: 2021-11-04</p>
@@ -156,7 +164,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer></div>

@@ -41,7 +41,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div id="navbar" class="collapse navbar-collapse ms-2">
+    <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item">
   <a class="nav-link" href="../../articles/santoku.html">Get started</a>
@@ -84,12 +84,15 @@
   </div>
 </nav><div class="container template-article">
 
+
+
+
 <div class="row">
   <main id="main"><div class="page-header">
       <img src="../../logo.png" class="logo" alt=""><h1>Performance</h1>
                         <h4 data-toc-skip class="author">David Hugh-Jones</h4>
             
-            <h4 data-toc-skip class="date">2021-12-29</h4>
+            <h4 data-toc-skip class="date">2022-02-15</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hughjonesd/santoku/blob/HEAD/vignettes/website-articles/performance.Rmd" class="external-link"><code>vignettes/website-articles/performance.Rmd</code></a></small>
       <div class="d-none name"><code>performance.Rmd</code></div>
@@ -105,25 +108,110 @@
 <code class="sourceCode R">
 <span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"santoku"</span><span class="op">)</span>
 <span class="co">#&gt; [1] '0.6.0.9000'</span>
-<span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/microbenchmark/man/microbenchmark.html" class="external-link">microbenchmark</a></span><span class="op">(</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">27101975</span><span class="op">)</span>
+
+<span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span>
         <span class="fu">santoku</span><span class="fu">::</span><span class="fu"><a href="../../reference/chop.html">chop</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,
-                  <span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,
-          <span class="fu">Hmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/cut2.html" class="external-link">cut2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>
+        <span class="fu">base</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,
+        <span class="fu">Hmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/cut2.html" class="external-link">cut2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e5</span><span class="op">)</span>, <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,
+        min_iterations <span class="op">=</span> <span class="fl">100</span>,
+        check <span class="op">=</span> <span class="cn">FALSE</span>
       <span class="op">)</span>
 <span class="va">mb</span>
-<span class="co">#&gt; Unit: milliseconds</span>
-<span class="co">#&gt;                               expr      min       lq     mean   median       uq</span>
-<span class="co">#&gt;  santoku::chop(rnorm(1e+05), -2:2) 16.87009 19.93291 28.05275 22.47545 28.94458</span>
-<span class="co">#&gt;            cut(rnorm(1e+05), -2:2) 10.65231 12.49209 16.60328 13.43981 18.04926</span>
-<span class="co">#&gt;    Hmisc::cut2(rnorm(1e+05), -2:2) 32.10550 38.66206 63.48575 41.79065 48.10011</span>
-<span class="co">#&gt;         max neval</span>
-<span class="co">#&gt;   224.85813   100</span>
-<span class="co">#&gt;    47.59338   100</span>
-<span class="co">#&gt;  1141.62026   100</span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 x 6</span></span>
+<span class="co">#&gt;   expression                            min  median `itr/sec` mem_alloc `gc/sec`</span>
+<span class="co">#&gt;   <span style="color: #949494;font-style: italic;">&lt;bch:expr&gt;</span><span>                        </span><span style="color: #949494;font-style: italic;">&lt;bch:t&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:t&gt;</span><span>     </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:byt&gt;</span><span>    </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(rnorm(1e+05), -2:2)  26.4ms  30.3ms      32.2    14.5MB    21.4 </span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> base::cut(rnorm(1e+05), -2:2)      18.1ms  20.4ms      48.4    3.49MB     7.24</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span><span> Hmisc::cut2(rnorm(1e+05), -2:2)    46.5ms  52.8ms      18.5    87.7MB    60.3</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">mb</span><span class="op">)</span> <span class="op">+</span> <span class="fu">ggplot2</span><span class="fu">::</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_light</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; Coordinate system already present. Adding new coordinate system, which will replace the existing one.</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="co">#&gt; Loading required namespace: tidyr</span></code></pre></div>
+<p><img src="performance_files/figure-html/unnamed-chunk-1-1.png" width="576"></p>
+</div>
+<div class="section level2">
+<h2 id="dates">Dates<a class="anchor" aria-label="anchor" href="#dates"></a>
+</h2>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">364</span>, <span class="fl">1e5</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+<span class="va">break_dates</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">60</span>, <span class="fl">120</span>, <span class="fl">180</span><span class="op">)</span>
+
+<span class="va">mb_dates</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span>
+              <span class="fu">santoku</span><span class="fu">::</span><span class="fu"><a href="../../reference/chop.html">chop</a></span><span class="op">(</span><span class="va">dates</span>, <span class="va">break_dates</span><span class="op">)</span>,
+              <span class="fu">base</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="va">dates</span>, <span class="va">break_dates</span><span class="op">)</span>,
+              <span class="fu">Hmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/cut2.html" class="external-link">cut2</a></span><span class="op">(</span><span class="va">dates</span>, <span class="va">break_dates</span><span class="op">)</span>,
+              min_iterations <span class="op">=</span> <span class="fl">100</span>,
+              check <span class="op">=</span> <span class="cn">FALSE</span>
+            <span class="op">)</span>
+
+<span class="va">mb_dates</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 x 6</span></span>
+<span class="co">#&gt;   expression                             min median `itr/sec` mem_alloc `gc/sec`</span>
+<span class="co">#&gt;   <span style="color: #949494;font-style: italic;">&lt;bch:expr&gt;</span><span>                        </span><span style="color: #949494;font-style: italic;">&lt;bch:tm&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:&gt;</span><span>     </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:byt&gt;</span><span>    </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(dates, break_dates)  19.22ms 22.7ms      42.9    10.6MB     20.2</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> base::cut(dates, break_dates)       7.98ms   10ms      98.9     3.9MB     11.0</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span><span> Hmisc::cut2(dates, break_dates)    19.66ms 24.9ms      38.4    15.3MB     25.6</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb_dates</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></code></pre></div>
 <p><img src="performance_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
+</div>
+<div class="section level2">
+<h2 id="cutting-characters-pure-r-implementation">Cutting characters (pure R implementation)<a class="anchor" aria-label="anchor" href="#cutting-characters-pure-r-implementation"></a>
+</h2>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">oo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span>santoku.warn_character <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
+
+<span class="va">lipsum</span> <span class="op">&lt;-</span> <span class="fu">stringi</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/stringi/man/stri_rand_lipsum.html" class="external-link">stri_rand_lipsum</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>
+
+<span class="va">mb_pure_r</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span>
+               <span class="fu">santoku</span><span class="fu">::</span><span class="fu"><a href="../../reference/chop.html">chop</a></span><span class="op">(</span><span class="va">lipsum</span>, <span class="va">letters</span><span class="op">)</span>,
+               <span class="fu">santoku</span><span class="fu">::</span><span class="fu"><a href="../../reference/chop.html">chop</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">26</span>, length <span class="op">=</span> <span class="fl">100</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">26</span><span class="op">)</span>,
+               min_iterations <span class="op">=</span> <span class="fl">100</span>,
+               check <span class="op">=</span> <span class="cn">FALSE</span>
+             <span class="op">)</span>
+
+<span class="va">mb_pure_r</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 x 6</span></span>
+<span class="co">#&gt;   expression                                         min   median `itr/sec`</span>
+<span class="co">#&gt;   <span style="color: #949494;font-style: italic;">&lt;bch:expr&gt;</span><span>                                    </span><span style="color: #949494;font-style: italic;">&lt;bch:tm&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:tm&gt;</span><span>     </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(lipsum, letters)                  2.61ms    3.1ms      302.</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> santoku::chop(seq(1, 26, length = 100), 1:26)   1.17ms    1.3ms      673.</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: mem_alloc &lt;bch:byt&gt;, gc/sec &lt;dbl&gt;</span></span>
+
+<span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">oo</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb_pure_r</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></code></pre></div>
+<p><img src="performance_files/figure-html/unnamed-chunk-3-1.png" width="576"></p>
+</div>
+<div class="section level2">
+<h2 id="many-breaks">Many breaks<a class="anchor" aria-label="anchor" href="#many-breaks"></a>
+</h2>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">many_breaks</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="op">-</span><span class="fl">2</span>, <span class="fl">2</span>, <span class="fl">0.001</span><span class="op">)</span>
+
+<span class="va">mb_breaks</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span>
+        <span class="fu">santoku</span><span class="fu">::</span><span class="fu"><a href="../../reference/chop.html">chop</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e4</span><span class="op">)</span>, <span class="va">many_breaks</span><span class="op">)</span>,
+        <span class="fu">base</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/base/cut.html" class="external-link">cut</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e4</span><span class="op">)</span>, <span class="va">many_breaks</span><span class="op">)</span>,
+        <span class="fu">Hmisc</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/Hmisc/man/cut2.html" class="external-link">cut2</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html" class="external-link">rnorm</a></span><span class="op">(</span><span class="fl">1e4</span><span class="op">)</span>, <span class="va">many_breaks</span><span class="op">)</span>,
+        min_iterations <span class="op">=</span> <span class="fl">100</span>,
+        check <span class="op">=</span> <span class="cn">FALSE</span>
+      <span class="op">)</span>
+
+<span class="va">mb_breaks</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 x 6</span></span>
+<span class="co">#&gt;   expression                                    min   median `itr/sec` mem_alloc</span>
+<span class="co">#&gt;   <span style="color: #949494;font-style: italic;">&lt;bch:expr&gt;</span><span>                               </span><span style="color: #949494;font-style: italic;">&lt;bch:tm&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:tm&gt;</span><span>     </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:byt&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(rnorm(10000), many_breaks)   40.1ms   42.2ms      22.9    4.73MB</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> base::cut(rnorm(10000), many_breaks)       11.9ms   12.6ms      76.2    1.54MB</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span><span> Hmisc::cut2(rnorm(10000), many_breaks)     33.4ms   35.5ms      27.1     6.2MB</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: gc/sec &lt;dbl&gt;</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb_breaks</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></code></pre></div>
+<p><img src="performance_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
@@ -138,7 +226,7 @@
 
 <div class="pkgdown-footer-right">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
     </footer>
