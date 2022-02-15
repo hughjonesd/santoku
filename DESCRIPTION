@@ -25,8 +25,7 @@ Suggests:
     purrr,
     rmarkdown,
     scales,
-    withr, 
-    glue
+    withr
 LinkingTo: 
     Rcpp
 Imports: 
