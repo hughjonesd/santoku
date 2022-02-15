@@ -6,6 +6,12 @@ test_that("character", {
   expect_warning(
     chop(x, br)
   )
+
+  oo <- options(santoku.warn_character = FALSE)
+  on.exit(options(oo))
+  expect_silent(
+    chop(x, br)
+  )
 })
 
 
@@ -41,6 +47,20 @@ test_that("unit from units package", {
   br_m2 <- units::set_units(c(3,5,5,8), m^2)
   expect_error(
     chop(x, br_m2)
+  )
+
+  expect_silent(
+    chopped <- chop_width(x, units::set_units(0.05, m))
+  )
+  expect_equal(
+    as.numeric(chopped), c(rep(1, 5), rep(2, 5))
+  )
+
+  expect_silent(
+    chopped <- chop_evenly(x, intervals = 2)
+  )
+  expect_equal(
+    as.numeric(chopped), c(rep(1, 5), rep(2, 5))
   )
 
   # we don't support mixed units, since units doesn't support
