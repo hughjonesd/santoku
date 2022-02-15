@@ -112,7 +112,7 @@ NULL
 #'
 #' @family chopping functions
 #'
-#' @seealso cut
+#' @seealso [base::cut()], [non-standard-types] for chopping objects that aren't numbers.
 #'
 #' @examples
 #' chop(1:3, 2)
@@ -321,7 +321,7 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #'
 #' chop_evenly(0:10, 5)
 #'
-chop_width <- function (x, width, start, ..., left = width > 0) {
+chop_width <- function (x, width, start, ..., left = strict_as_numeric(width) > 0) {
   chop(x, brk_width(width, start), left = left, ...)
 }
 

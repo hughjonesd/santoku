@@ -88,9 +88,14 @@ test_that("systematic tests", {
   should_fail <-   function (cond) test_df$expect[cond] <<- "error"
   should_warn <-   function (cond) test_df$expect[cond] <<- "warn"
   should_either <- function (cond) test_df$expect[cond] <<- "either"
-  dont_care <-     function (cond) test_df$expect[cond] <<- NA_character_
+  dont_care <-     function (cond) test_df <<- test_df[! cond, ]
 
   should_fail(names(test_df$x) == "char")
+
+  # but if we break by quantities, OK:
+  should_warn(names(test_df$x) == "char" &
+          test_df$brk_fun %in% c("brk_equally", "brk_quantiles", "brk_n")
+        )
 
   # all quantiles will be the same here, so no way to create
   # intervals if extend is FALSE

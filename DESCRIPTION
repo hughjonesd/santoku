@@ -21,11 +21,15 @@ Suggests:
     testthat (>= 2.1.0),
     knitr,
     lubridate,
-    microbenchmark,
+    bench,
     purrr,
     rmarkdown,
     scales,
-    withr
+    stringi,
+    units,
+    withr,
+    hms,
+    haven
 LinkingTo: 
     Rcpp
 Imports: 

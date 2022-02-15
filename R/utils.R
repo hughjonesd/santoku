@@ -38,9 +38,7 @@ percent <- function (x) {
 
 
 singletons <- function (breaks) {
-  # this also works for Date and POSIXct breaks
-  dv <- diff(breaks)
-  unclass(dv) == 0L | is.nan(dv) # is.nan could be from Inf, Inf
+  duplicated(breaks)[-1]
 }
 
 
@@ -51,3 +49,26 @@ quiet_min <- function (x) suppressWarnings(min(x, na.rm = TRUE))
 
 
 quiet_max <- function (x) suppressWarnings(max(x, na.rm = TRUE))
+
+
+
+#' Stricter `as.numeric`
+#'
+#' This converts warnings to errors, and errors if any NAs are introduced,
+#' but is less strict than `vctrs::vec_cast()`
+#'
+#' @param x A vector
+#'
+#' @return `as.numeric(x)`, with no new NAs
+#' @noRd
+#'
+strict_as_numeric <- function (x) {
+  nas <- is.na(x)
+
+  x <- tryCatch(as.numeric(x),
+                  warning = function (w) stop("Warning from as.numeric(x)")
+                )
+  if (any(is.na(x) & ! nas)) stop("Could not convert some elements")
+
+  x
+}

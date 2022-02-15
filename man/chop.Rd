@@ -155,7 +155,7 @@ chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
 
 }
 \seealso{
-cut
+\code{\link[base:cut]{base::cut()}}, \link{non-standard-types} for chopping objects that aren't numbers.
 
 Other chopping functions: 
 \code{\link{chop_mean_sd}()},
