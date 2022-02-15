@@ -25,7 +25,7 @@ endpoint_labels.default <- function (breaks, raw, fmt = NULL, ...) {
   elabels <- if (! is.null(fmt)) {
     apply_format(fmt, elabels)
   } else {
-    as.character(elabels)
+    base::format(elabels)
   }
 
   return(elabels)
@@ -140,7 +140,7 @@ apply_format.character <- function (fmt, endpoint, ...) {
 #' @export
 #' @method apply_format.character default
 apply_format.character.default <- function (fmt, endpoint, ...) {
-  format(endpoint, fmt, ...)
+  base::format(endpoint, fmt, ...)
 }
 
 
