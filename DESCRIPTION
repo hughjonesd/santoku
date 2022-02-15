@@ -26,7 +26,8 @@ Suggests:
     rmarkdown,
     scales,
     units,
-    withr
+    withr,
+    hms
 LinkingTo: 
     Rcpp
 Imports: 

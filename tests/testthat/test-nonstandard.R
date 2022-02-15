@@ -56,8 +56,9 @@ test_that("hexmode", {
 })
 
 
-test_that("unit from units package", {
-  loadNamespace("units")
+test_that("units::units", {
+  skip_if_not_installed("units")
+
   x <- units::set_units(1:10, cm)
   br <- units::set_units(c(3, 5, 5, 8), cm)
   br_mm <- units::set_units(c(30, 50, 50, 80), mm)
@@ -124,5 +125,22 @@ test_that("difftime", {
 
   expect_silent(
     chop(difftimes_d, difftimes_h)
+  )
+})
+
+
+test_that("hms::hms", {
+  skip_if_not_installed("hms")
+
+  x <- hms::hms(minutes = 1:180)
+  br <- hms::hms(hours = 1:2)
+
+  expect_silent(
+    chopped <- chop(x, br)
+  )
+  expect_equal(
+    as.numeric(chopped),
+    rep(1:3, c(59, 60, 61)),
+    ignore_attr = TRUE
   )
 })
