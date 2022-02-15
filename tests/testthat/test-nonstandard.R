@@ -12,8 +12,34 @@ test_that("character", {
   expect_silent(
     chop(x, br)
   )
+
+  expect_silent(
+    chop_equally(x, 13)
+  )
+
+  expect_silent(
+    chop_n(x, 13)
+  )
 })
 
+
+test_that("ordered", {
+  x <- ordered(1:10)
+  br <- ordered(c(5, 8), levels = levels(x))
+
+  expect_silent(
+    chop(x, br)
+  )
+
+  expect_silent(
+    chop_n(x, 5)
+  )
+
+  expect_silent(
+    chop_equally(x, groups = 2)
+  )
+
+})
 
 test_that("hexmode", {
   x <- as.hexmode(1:10 + 10)
@@ -61,6 +87,14 @@ test_that("unit from units package", {
   )
   expect_equal(
     as.numeric(chopped), c(rep(1, 5), rep(2, 5))
+  )
+
+  expect_silent(
+    chop_equally(x, 5)
+  )
+
+  expect_silent(
+    chop_n(x, 3)
   )
 
   # we don't support mixed units, since units doesn't support
