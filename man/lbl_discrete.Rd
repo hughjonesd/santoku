@@ -4,10 +4,19 @@
 \alias{lbl_discrete}
 \title{Label discrete data}
 \usage{
-lbl_discrete(symbol = em_dash(), fmt = NULL, first = NULL, last = NULL)
+lbl_discrete(
+  symbol = em_dash(),
+  unit = 1,
+  fmt = NULL,
+  first = NULL,
+  last = NULL
+)
 }
 \arguments{
 \item{symbol}{String: symbol to use for the dash.}
+
+\item{unit}{Minimum difference between distinct values of data.
+For integers, 1.}
 
 \item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
 methods; or a one-argument formatting function.}
@@ -32,7 +41,7 @@ For example, breaks
 
 No check is done that the data is discrete-valued. If it isn't, then
 these labels may be misleading. Here, discrete-valued means that if
-\code{x < y}, then \code{x <= y - 1}.
+\code{x < y}, then \code{x <= y - unit}.
 
 Be aware that Date objects may have non-integer values. See \link{Date}.
 }
@@ -43,6 +52,8 @@ tab(1:7, c(3, 5), lbl_discrete(first = "<= \%s"))
 
 # Misleading labels for non-integer data
 chop(2.5, c(1, 3, 5), lbl_discrete())
+
+tab(1:7 * 1000, c(1, 3, 5) * 1000, lbl_discrete(unit = 1000))
 }
 \seealso{
 Other labelling functions: 

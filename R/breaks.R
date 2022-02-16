@@ -1,5 +1,4 @@
 
-
 #' @rdname chop_quantiles
 #'
 #' @export
@@ -113,6 +112,7 @@ brk_mean_sd <- function (sd = 3) {
 #'
 #' @name brk_width-for-datetime
 NULL
+
 
 #' @rdname chop_width
 #' @export
@@ -267,80 +267,6 @@ brk_n <- function (n) {
 }
 
 
-#' @param breaks A numeric vector.
-#' @name breaks-doc
-#' @return A (function which returns an) object of class `breaks`.
-NULL
-
-
-#' Left- or right-closed breaks
-#'
-#' \lifecycle{questioning}
-#'
-#' These functions are in the "questioning" stage because they clash with the
-#' `left` argument to [chop()] and friends.
-#'
-#' @inherit breaks-doc params return
-#'
-#' @name brk-left-right
-#'
-#' @details
-#' These functions override the `left` argument of [chop()].
-#'
-#' @examples
-#' chop(5:7, brk_left(5:7))
-#'
-#' chop(5:7, brk_right(5:7))
-#'
-#' chop(5:7, brk_left(5:7))
-#'
-NULL
-
-
-#' @export
-#' @rdname brk-left-right
-brk_left <- function (breaks) {
-  lifecycle::deprecate_warn("0.4.0", "brk_left()",
-        details = "Please use the `left` argument to `chop()` instead.")
-
-  if (is.function(breaks)) {
-    lifecycle::deprecate_stop("0.4.0", "brk_left.function()",
-          details = "Please use the `left` argument to `chop()` instead.")
-  }
-
-  assert_that(noNA(breaks))
-  breaks <- sort(breaks)
-
-  function(x, extend, left, close_end) {
-    if (! left) warning("`left` argument to `brk_left()` ignored")
-    breaks <- create_lr_breaks(breaks, left = TRUE, close_end)
-    maybe_extend(breaks, x, extend)
-  }
-}
-
-
-#' @export
-#' @rdname brk-left-right
-brk_right <- function (breaks) {
-  lifecycle::deprecate_warn("0.4.0", "brk_right()",
-        details = "Please use the `left` argument to `chop()` instead.")
-
-  if (is.function(breaks)) {
-    lifecycle::deprecate_stop("0.4.0", "brk_right.function()",
-      details = "Please use the `left` argument to `chop()` instead.")
-  }
-
-  assert_that(noNA(breaks))
-  breaks <- sort(breaks)
-
-  function (x, extend, left, close_end) {
-    if (left) warning("`left` argument to `brk_right()` ignored")
-    breaks <- create_lr_breaks(breaks, left = FALSE, close_end)
-    maybe_extend(breaks, x, extend)
-  }
-}
-
-
 #' Create a standard set of breaks
 #'
 #' @inherit breaks-doc params return
@@ -359,6 +285,12 @@ brk_default <- function (breaks) {
     maybe_extend(breaks, x, extend)
   }
 }
+
+
+#' @param breaks A numeric vector.
+#' @name breaks-doc
+#' @return A (function which returns an) object of class `breaks`.
+NULL
 
 
 #' Create a `breaks` object manually
