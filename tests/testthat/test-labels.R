@@ -133,6 +133,11 @@ test_that("lbl_glue arguments", {
     lbl_glue("<l> to <r>", fmt1 = "{<l>}", .open = "<", .close = ">")(brk2),
     c("1 to 2", "{2}", "2 to 3")
   )
+
+  expect_equivalent(
+    lbl_glue("{l}")(brk2),
+    c("1", "2", "2")
+  )
 })
 
 
