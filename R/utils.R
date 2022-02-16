@@ -72,3 +72,25 @@ strict_as_numeric <- function (x) {
 
   x
 }
+
+
+#' Test a break
+#'
+#' @param brk_fun A call to a `brk_` function
+#' @param x,extend,left,close_end Passed in to `brk_fun`
+#'
+#' @return
+#' @noRd
+#'
+#' @examples
+#' brk_res(brk_default(1:3))
+#'
+brk_res <- function (
+  brk_fun,
+  x         = 1:2,
+  extend    = FALSE,
+  left      = TRUE,
+  close_end = FALSE
+) {
+  brk_fun(x, extend = extend, left = left, close_end = close_end)
+}
