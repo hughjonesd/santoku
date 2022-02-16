@@ -340,12 +340,14 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 #' `c(1, 3, 4, 6, 7)` are labelled: `"1 - 2", "3", "4 - 5", "6 - 7"`.
 #'
 #' @inherit label-doc
+#' @param unit Minimum difference between distinct values of data.
+#'   For integers, 1.
 #' @inherit first-last-doc
 #'
 #' @details
 #' No check is done that the data is discrete-valued. If it isn't, then
 #' these labels may be misleading. Here, discrete-valued means that if
-#' `x < y`, then `x <= y - 1`.
+#' `x < y`, then `x <= y - unit`.
 #'
 #' Be aware that Date objects may have non-integer values. See [Date].
 #'
@@ -360,9 +362,18 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 #'
 #' # Misleading labels for non-integer data
 #' chop(2.5, c(1, 3, 5), lbl_discrete())
-lbl_discrete <- function (symbol = em_dash(), fmt = NULL, first = NULL, last = NULL) {
+#'
+#' tab(1:7 * 1000, c(1, 3, 5) * 1000, lbl_discrete(unit = 1000))
+lbl_discrete <- function (
+                  symbol = em_dash(),
+                  unit = 1,
+                  fmt = NULL,
+                  first = NULL,
+                  last = NULL
+                ) {
   assert_that(
           is.string(symbol),
+          is.scalar(unit),
           is.null(fmt) || is_format(fmt),
           is.string(first) || is.null(first),
           is.string(last) || is.null(last)
@@ -382,26 +393,29 @@ lbl_discrete <- function (symbol = em_dash(), fmt = NULL, first = NULL, last = N
     left_l <- left[-len_b]
     left_r <- left[-1]
 
-    # if you're right-closed we add 1 to your left endpoint:
-    l[! left_l] <- l[! left_l] + 1
-    # if you're left-closed we deduct 1 from your right endpoint:
-    r[left_r] <- r[left_r] - 1
+    # if you're right-closed we add `unit` to your left endpoint:
+    l[! left_l] <- l[! left_l] + unit
+    # if you're left-closed we deduct `unit` from your right endpoint:
+    r[left_r] <- r[left_r] - unit
     # sometimes this makes the two endpoints the same:
     singletons <- singletons | r == l
 
-    no_integers <- r < l
-    if (any(no_integers)) {
-      warning("Intervals containing no integers are labelled as \"--\"")
+    too_small <- r < l
+    if (any(too_small)) {
+      warning("Intervals smaller than `unit` are labelled as \"--\"")
     }
 
     if (! is.null(fmt)) {
-      l <- apply_format(fmt, l)
-      r <- apply_format(fmt, r)
+      labels_l <- apply_format(fmt, l)
+      labels_r <- apply_format(fmt, r)
+    } else {
+      labels_l <- base::format(l)
+      labels_r <- base::format(r)
     }
 
-    labels <- paste0(l, symbol, r)
+    labels <- paste0(labels_l, symbol, labels_r)
     labels[singletons] <- l[singletons]
-    labels[no_integers] <- "--"
+    labels[too_small] <- "--"
 
     if (! is.null(first)) labels[1] <- endpoint_labels(r[1], raw = FALSE,
                                                        fmt = first)

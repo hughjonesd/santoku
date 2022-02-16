@@ -11,7 +11,8 @@ Author: David Hugh-Jones [aut, cre]
 Maintainer: David Hugh-Jones <davidhughjones@gmail.com>
 Description: A tool for cutting data into intervals. Allows singleton intervals.
   Always includes the whole range of data by default. Flexible labelling. 
-  Convenience functions for cutting by quantiles etc. Handles dates and times.
+  Convenience functions for cutting by quantiles etc. Handles dates, times, units
+  and other vectors.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

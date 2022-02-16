@@ -17,7 +17,8 @@ pkgdown::build_site()
 my_home <- "~/hughjonesd.github.io/"
 rmarkdown::render("vignettes/tutorials/visual-introduction.Rmd",
       output_dir = my_home)
-file.copy("vignettes/tutorials/chopping-dates-with-santoku.Rmd", my_home)
+file.copy("vignettes/tutorials/chopping-dates-with-santoku.Rmd", my_home,
+            overwrite = TRUE)
 file.copy("vignettes/tutorials/figures", my_home, recursive = TRUE)
 withr::with_dir(my_home,
   rmarkdown::render("chopping-dates-with-santoku.Rmd")
