@@ -33,8 +33,8 @@ test_that("NA, NaN and Inf", {
   expect_equivalent(r, factor(c("a", "a", "Inf"), levels = c("a", "Inf")))
 
   # otherwise, we respect close_end = FALSE
-  r <- chop(x, brk_right(c(-Inf, Inf)), labels = "a",
-        extend = FALSE)
+  r <- chop(x, brk_default(c(-Inf, Inf)), labels = "a",
+        extend = FALSE, left = FALSE)
   expect_equivalent(r, factor(c(NA, "a", "a"), levels = "a"))
   r <- chop(x, c(-Inf, Inf), labels = "a", extend = FALSE)
   expect_equivalent(r, factor(c("a", "a", NA), levels = "a"))

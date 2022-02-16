@@ -24,30 +24,6 @@ test_that("brk_manual", {
 })
 
 
-test_that("brk_left, brk_right", {
-  expect_identical(
-          brk_res(brk_left(1:3)),
-          santoku:::create_breaks(1:3, c(TRUE, TRUE, TRUE))
-        )
-  expect_identical(
-          brk_res(brk_left(1:3), close_end = TRUE),
-          santoku:::create_breaks(1:3, c(TRUE, TRUE, FALSE))
-        )
-  expect_identical(
-          brk_res(brk_right(1:3)),
-          santoku:::create_breaks(1:3, c(FALSE, FALSE, FALSE))
-        )
-  expect_identical(
-          brk_res(brk_right(1:3), close_end = TRUE),
-          santoku:::create_breaks(1:3, c(TRUE, FALSE, FALSE))
-        )
-
-  expect_false(
-    anyNA(chop(1:5, brk_left(1:5)))
-  )
-})
-
-
 test_that("brk_n", {
   for (i in 1:10) {
     x <- rnorm(sample(10:20, 1L))
@@ -145,10 +121,10 @@ test_that("brk_equally", {
 
 
 test_that("printing", {
-  b <- brk_left(1:3)
+  b <- brk_default(1:3)
   expect_output(print(b))
   expect_silent(format(b))
-  b_empty <- brk_left(1)
+  b_empty <- brk_default(1)
   expect_output(print(b_empty))
 })
 
