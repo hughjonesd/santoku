@@ -135,8 +135,8 @@ test_that("lbl_glue arguments", {
   )
 
   expect_equivalent(
-    lbl_glue("{l}")(brk2),
-    c("1", "2", "2")
+    lbl_glue("{l} to {r}")(brk2),
+    c("1 to 2", "2 to 2", "2 to 3")
   )
 })
 
