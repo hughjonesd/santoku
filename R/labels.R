@@ -59,11 +59,7 @@ lbl_intervals <- function (raw = FALSE, fmt = NULL, first = NULL, last = NULL) {
     assert_that(is.breaks(breaks))
     left <- attr(breaks, "left")
     # less ugly than do.call:
-    elabels <-  if (is.null(fmt)) {
-                  endpoint_labels(breaks, raw = raw)
-                } else {
-                  endpoint_labels(breaks, raw = raw, fmt = fmt)
-                }
+    elabels <- endpoint_labels(breaks, raw = raw, fmt = fmt)
 
     len_b <- length(breaks)
     if (len_b < 1L) return(character(0))
@@ -215,11 +211,7 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 
     labels <- character(len_b - 1)
 
-    elabels <-  if (is.null(fmt)) {
-      endpoint_labels(breaks, raw = raw)
-    } else {
-      endpoint_labels(breaks, raw = raw, fmt = fmt)
-    }
+    elabels <- endpoint_labels(breaks, raw = raw, fmt = fmt)
 
     l <- elabels[-len_b]
     r <- elabels[-1]
@@ -299,11 +291,7 @@ lbl_dash <- function (symbol = em_dash(), raw = FALSE, fmt = NULL, first = NULL,
         )
 
   function (breaks) {
-    elabels <-  if (is.null(fmt)) {
-                  endpoint_labels(breaks, raw = raw)
-                } else {
-                  endpoint_labels(breaks, raw = raw, fmt = fmt)
-                }
+    elabels <- endpoint_labels(breaks, raw = raw, fmt = fmt)
 
     len_b <- length(breaks)
     singletons <- singletons(breaks)
@@ -348,11 +336,7 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
   assert_that(is.null(fmt) || is_format(fmt), is.flag(raw), is.flag(left))
 
   function (breaks) {
-    elabels <- if (! is.null(fmt)) {
-                 endpoint_labels(breaks, raw, fmt)
-               } else {
-                 endpoint_labels(breaks, raw)
-               }
+    elabels <- endpoint_labels(breaks, raw, fmt)
     if (left) elabels[-length(elabels)] else elabels[-1]
   }
 }
