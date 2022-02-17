@@ -1,5 +1,5 @@
 
-endpoint_labels <- function (breaks, raw, fmt, ...) {
+endpoint_labels <- function (breaks, raw, fmt = NULL, ...) {
   UseMethod("endpoint_labels")
 }
 
@@ -40,11 +40,14 @@ endpoint_labels.default <- function (breaks, raw, fmt = NULL, ...) {
 
 
 #' @export
-endpoint_labels.Date <- function (breaks, raw, fmt = "%F") {
+endpoint_labels.Date <- function (breaks, raw, fmt = NULL) {
   elabels <- scaled_endpoints(breaks, raw = raw)
   # this could be a number. If so, a `fmt` for `sprintf`
   # will work fine:
   if (! inherits(elabels, "Date")) return(NextMethod())
+
+  # set default format
+  if (is.null(fmt)) fmt <- "%F"
 
   elabels_chr <- apply_format(fmt, elabels)
   minus_inf <- is.infinite(elabels) & elabels < as.Date("1970-01-01")
@@ -57,10 +60,13 @@ endpoint_labels.Date <- function (breaks, raw, fmt = "%F") {
 
 
 #' @export
-endpoint_labels.POSIXt <- function (breaks, raw, fmt = "%F %H:%M:%S") {
+endpoint_labels.POSIXt <- function (breaks, raw, fmt = NULL) {
   elabels <- scaled_endpoints(breaks, raw = raw)
   # same comment as endpoint_labels.Date above:
   if (! inherits(elabels, "POSIXt")) return(NextMethod())
+
+  # set default format
+  if (is.null(fmt)) fmt <- "%F %H:%M:%S"
 
   elabels_chr <- apply_format(fmt, elabels)
   minus_inf <- is.infinite(elabels) & elabels < as.POSIXct("1970-01-01")
@@ -73,8 +79,11 @@ endpoint_labels.POSIXt <- function (breaks, raw, fmt = "%F %H:%M:%S") {
 
 
 #' @export
-endpoint_labels.quantileBreaks <- function (breaks, raw, fmt = percent) {
+endpoint_labels.quantileBreaks <- function (breaks, raw, fmt = NULL) {
   if (raw) return(NextMethod())
+
+  # set default format
+  if (is.null(fmt)) fmt <- percent
 
   elabels <- scaled_endpoints(breaks, raw = FALSE)
   elabels <- apply_format(fmt, elabels)
@@ -84,8 +93,11 @@ endpoint_labels.quantileBreaks <- function (breaks, raw, fmt = percent) {
 
 
 #' @export
-endpoint_labels.sdBreaks <- function (breaks, raw, fmt = "%.3g sd") {
+endpoint_labels.sdBreaks <- function (breaks, raw, fmt = NULL) {
   if (raw) return(NextMethod())
+
+  # set default format
+  if (is.null(fmt)) fmt <- "%.3g sd"
 
   elabels <- scaled_endpoints(breaks, raw = FALSE)
   elabels <- apply_format(fmt, elabels)

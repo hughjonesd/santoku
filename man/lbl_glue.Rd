@@ -2,14 +2,26 @@
 % Please edit documentation in R/labels.R
 \name{lbl_glue}
 \alias{lbl_glue}
-\title{Label chopped intervals using the \code{glue} package}
+\title{Label chopped intervals using the {glue} package}
 \usage{
-lbl_glue(fmt, fmt1 = fmt, first = NULL, last = NULL, raw = FALSE, ...)
+lbl_glue(
+  label,
+  fmt = NULL,
+  single = NULL,
+  first = NULL,
+  last = NULL,
+  raw = FALSE,
+  ...
+)
 }
 \arguments{
-\item{fmt}{A glue string passed to \code{\link[glue:glue]{glue::glue()}}.}
+\item{label}{A glue string passed to \code{\link[glue:glue]{glue::glue()}}.}
 
-\item{fmt1}{Optional glue string for singleton intervals.}
+\item{fmt}{A format to be applied to the \code{breaks} used as labels. Can be a
+string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates,s times)
+methods; or a one-argument formatting function.}
+
+\item{single}{Optional glue string for singleton intervals.}
 
 \item{first}{Optional glue string for the first interval.}
 
@@ -27,20 +39,32 @@ A vector of labels for \code{chop}, or a function that creates labels.
 \lifecycle{experimental}
 }
 \details{
-In glue strings, variables \code{l} and \code{r} represent the left and right
-endpoints. Variables \code{l_closed} and \code{r_closed} are \code{TRUE} if the left
-and right endpoints are closed respectively.
+In glue strings, variables \code{l} and \code{r} represent the left and
+right endpoints, respectively. If \code{fmt} is not NULL, they are formatted
+accordingly.
+
+Variables \code{l_closed} and \code{r_closed} are \code{TRUE} if the left and right
+endpoints are closed respectively.
 }
 \examples{
+tab(1:10, c(1, 3, 3, 7),
+    label = lbl_glue("{l} to {r}", single = "Exactly {l}"))
 
-tab(1:10, c(1,3, 3, 7),
-   label = lbl_glue("{l} to {r}", fmt1 = "Exactly {l}"))
-
-tab(1:10 * 1000, c(1,3, 5, 7) * 1000, label =
-   lbl_glue("{prettyNum(l, big.mark=',')}-{prettyNum(r, big.mark=',')}"))
+tab(1:10 * 1000, c(1, 3, 5, 7) * 1000,
+    label = lbl_glue("{l}-{r}", fmt = \(x) prettyNum(x, big.mark=',')))
 
 # reproducing lbl_intervals():
 glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
-tab(1:10, c(1,3, 3, 7), label = lbl_glue(glue_string, fmt1 = "{{{l}}}"))
+tab(1:10, c(1, 3, 3, 7), label = lbl_glue(glue_string, single = "{{{l}}}"))
 
 }
+\seealso{
+Other labelling functions: 
+\code{\link{lbl_dash}()},
+\code{\link{lbl_discrete}()},
+\code{\link{lbl_format}()},
+\code{\link{lbl_intervals}()},
+\code{\link{lbl_manual}()},
+\code{\link{lbl_seq}()}
+}
+\concept{labelling functions}

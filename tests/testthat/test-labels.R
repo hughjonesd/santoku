@@ -123,20 +123,36 @@ test_that("lbl_glue arguments", {
     c("Up to 2", "Beyond 2")
   )
 
+  expect_equivalent(
+    lbl_glue("<{l} to {r}>", fmt = "%.1f")(brk),
+    c("<1.0 to 2.0>", "<2.0 to 3.0>")
+  )
+
   brk2 <- brk_res(brk_manual(c(1,2,2,3), c(TRUE, TRUE, FALSE, TRUE)))
   expect_equivalent(
-    lbl_glue("{l} to {r}", fmt1 = "{{{l}}}")(brk2),
+    lbl_glue("{l} to {r}", single = "{{{l}}}")(brk2),
     c("1 to 2", "{2}", "2 to 3")
   )
 
   expect_equivalent(
-    lbl_glue("<l> to <r>", fmt1 = "{<l>}", .open = "<", .close = ">")(brk2),
+    lbl_glue("<l> to <r>", single = "{<l>}", .open = "<", .close = ">")(brk2),
     c("1 to 2", "{2}", "2 to 3")
   )
 
   expect_equivalent(
     lbl_glue("{l} to {r}")(brk2),
     c("1 to 2", "2 to 2", "2 to 3")
+  )
+
+  expect_equivalent(
+    lbl_glue("<{l} to {r}>", fmt = '%.1f', single = "|{sprintf('%.3f', as.numeric(l))}|")(brk2),
+    c("<1.0 to 2.0>", "|2.000|", "<2.0 to 3.0>")
+  )
+
+  qbrk <- brk_res(brk_quantiles(c(0, .5, 1)), x = 0:10)
+  expect_equivalent(
+    lbl_glue("{l} / {r}", raw = TRUE)(qbrk),
+    c("0 / 5", "5 / 10")
   )
 })
 
