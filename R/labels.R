@@ -214,8 +214,6 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
     len_b <- length(breaks)
 
     labels <- character(len_b - 1)
-    # which breaks are singletons?
-    singletons <- singletons(breaks)
 
     elabels <-  if (is.null(fmt)) {
       endpoint_labels(breaks, raw = raw)
@@ -237,11 +235,17 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 
     labels <- glue::glue(label, l = l, r = r, l_closed = l_closed,
                          r_closed = r_closed, ...)
-    labels[singletons] <- glue::glue(single,
-                                     l = l[singletons],
-                                     r = r[singletons],
-                                     l_closed = l_closed[singletons],
-                                     r_closed = r_closed[singletons], ...)
+
+    if (! is.null(single)) {
+      # which breaks are singletons?
+      singletons <- singletons(breaks)
+
+      labels[singletons] <- glue::glue(single,
+                                       l = l[singletons],
+                                       r = r[singletons],
+                                       l_closed = l_closed[singletons],
+                                       r_closed = r_closed[singletons], ...)
+    }
 
     if (! is.null(first)) {
       labels[1] <- glue::glue(first, l = l[1], r = r[1], l_closed = l_closed[1],
