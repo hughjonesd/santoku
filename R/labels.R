@@ -171,7 +171,7 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' @inherit label-doc params return
 #' @param label A glue string passed to [glue::glue()].
 #' @param fmt A format to be applied to the `breaks` used as labels. Can be a
-#'   string, passed into [base::sprintf()] (numbers) or [format()] (dates)
+#'   string, passed into [sprintf()] (numbers) or [format()] (dates,s times)
 #'   methods; or a one-argument formatting function.
 #' @param single Optional glue string for singleton intervals.
 #' @param first Optional glue string for the first interval.

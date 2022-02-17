@@ -5,7 +5,7 @@
 \title{Label chopped intervals using the {glue} package}
 \usage{
 lbl_glue(
-  expr,
+  label,
   fmt = NULL,
   single = NULL,
   first = NULL,
@@ -15,10 +15,10 @@ lbl_glue(
 )
 }
 \arguments{
-\item{expr}{A glue expression string passed to \code{\link[glue:glue]{glue::glue()}}.}
+\item{label}{A glue string passed to \code{\link[glue:glue]{glue::glue()}}.}
 
 \item{fmt}{A format to be applied to the \code{breaks} used as labels. Can be a
-string, passed into \code{\link[base:sprintf]{base::sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates)
+string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates,s times)
 methods; or a one-argument formatting function.}
 
 \item{single}{Optional glue string for singleton intervals.}
