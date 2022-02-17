@@ -218,8 +218,7 @@ lbl_glue <- function (expr, fmt = NULL, single = NULL, first = NULL, last = NULL
     singletons <- singletons(breaks)
 
     elabels <-  if (is.null(fmt)) {
-      # keep labels numeric, so they can still be processed by glue
-      scaled_endpoints(breaks, raw = raw)
+      endpoint_labels(breaks, raw = raw)
     } else {
       endpoint_labels(breaks, raw = raw, fmt = fmt)
     }
