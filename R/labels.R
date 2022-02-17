@@ -173,7 +173,7 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' endpoints are closed respectively.
 #'
 #' @inherit label-doc params return
-#' @param expr A glue expression string passed to [glue::glue()].
+#' @param label A glue string passed to [glue::glue()].
 #' @param fmt A format to be applied to the `breaks` used as labels. Can be a
 #'   string, passed into [base::sprintf()] (numbers) or [format()] (dates)
 #'   methods; or a one-argument formatting function.
@@ -197,11 +197,11 @@ lbl_format <- function(fmt, fmt1 = "%.3g", raw = FALSE) {
 #' glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
 #' tab(1:10, c(1, 3, 3, 7), label = lbl_glue(glue_string, single = "{{{l}}}"))
 #'
-lbl_glue <- function (expr, fmt = NULL, single = NULL, first = NULL, last = NULL,
+lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NULL,
                       raw = FALSE, ...) {
 
   assert_that(
-    is.string(expr),
+    is.string(label),
     is.null(fmt) || is_format(fmt),
     is.string(first) || is.null(first),
     is.string(last) || is.null(last),
@@ -235,7 +235,7 @@ lbl_glue <- function (expr, fmt = NULL, single = NULL, first = NULL, last = NULL
     l_closed <- left[-len_b]
     r_closed <- ! left[-1]
 
-    labels <- glue::glue(expr, l = l, r = r, l_closed = l_closed,
+    labels <- glue::glue(label, l = l, r = r, l_closed = l_closed,
                          r_closed = r_closed, ...)
     labels[singletons] <- glue::glue(single,
                                      l = l[singletons],
