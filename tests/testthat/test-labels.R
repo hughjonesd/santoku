@@ -140,6 +140,11 @@ test_that("lbl_glue arguments", {
   )
 
   expect_equivalent(
+    lbl_glue("{l} to {r}")(brk2),
+    c("1 to 2", "2 to 2", "2 to 3")
+  )
+
+  expect_equivalent(
     lbl_glue("<{sprintf('%.1f', l)} to {sprintf('%.1f',r)}>",
              single = "|{sprintf('%.3f', l)}|")(brk2),
     c("<1.0 to 2.0>", "|2.000|", "<2.0 to 3.0>")
