@@ -52,18 +52,15 @@ categorize_non_numeric <- function (x, breaks, left) {
 
   codes <- rep(NA_integer_, length(x))
 
-  # reimplementation of the C++ code... could probably be faster!
-  for (i in seq_along(x)) {
-    x_i <- x[i]
-    for (j in seq_len(length(breaks) - 1)) {
-      lb <- breaks[j]
-      rb <- breaks[j + 1]
-      if ((x_i > lb || (left[j] && x_i == lb)) &&
-          (x_i < rb || (! left[j + 1] && x_i == rb))) {
-        codes[i] = j
-        break
-      }
-    }
+  for (j in seq_len(length(breaks) - 1)) {
+    more_than_j <- x > breaks[j]
+    less_than_j_plus_one <- x < breaks[j+1]
+    equals_j <- x == breaks[j]
+    equals_j_plus_one <- x == breaks[j+1]
+
+    codes[more_than_j & less_than_j_plus_one] <- j
+    if (left[j]) codes[equals_j] <- j
+    if (! left[j+1]) codes[equals_j_plus_one] <- j
   }
 
   codes

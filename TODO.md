@@ -13,29 +13,26 @@
 * maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for symmetry reasons
   - `tab_quantiles` needs raw labels by default, to be useful
 
-* DateTimes: 
-  - work internally with anchored "Intervals"? Doing this beats just
-    relying on e.g. `chop(months(x))` because we can e.g. start monthly 
-    intervals on the 15th.
-    - but note that effectively this is gonna be what `chop_width(x, width, start)`
-      does.
-    - you might want to do something like:
-      `chop(dates, dates + weeks(1:3))`
-      but that should already work
-  - should we be able to chop by Intervals? This isn't `chop_width` because
-    that isn't a fixed-in-time Interval; if you had a non-overlapping sequence
-    of intervals you could chop with it. But you could equally just chop by
-    the start times.
     
 * Other things to cut
-  - ts, xts, zoo, package_version, units?
-  - `brk_days()`, `brk_weeks()` etc.? Equivalent to all lubridate's `days()` etc.
-    classes? 
+  - Hunt for classes to try
   
 
 * Implement a simple `Infinity` class that automatically casts to any other
   class and is always > or < than any other element? Then replace the `class_bounds()`
   complexity?
+  - The problem at the moment is that `vec_cast()` is highly unreliable and
+    you never know if a particular class will accept `Inf`.
+  - An infinity class would be fine, but how does that go into the existing
+    `breaks` object which has its own underlying class?
+  - Might be more reasonable just not to add `Inf` or `-Inf` elements. Instead,
+    record whether the breaks have left and right "infinity" set. Then just
+    add numeric infinity to the breaks before you call `categorize_impl` (or
+    the R version). In particular, e.g. `integer64` doesn't like `Inf` or `-Inf`
+    but it does have very large numbers in `bit64::lim.integer64` which look
+    ugly and which only exist to be lower/higher than everything else anyway...
+    - But NB this requires a new way to create the labels, and that kinda 
+      sucks....
 
 
 # Thoughts on errors
