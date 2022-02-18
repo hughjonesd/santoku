@@ -201,7 +201,7 @@ class_bounds.Date <- function (x) {
 
 #' @export
 class_bounds.default <- function (x) {
-  warning("Class '", paste(class(x), sep = "', '"),
+  warning("Class '", paste(class(x), collapse = "', '"),
         "' has no natural endpoints corresponding to +/-Inf for `extend = TRUE`;")
   c(quiet_min(x), quiet_max(x))
 }

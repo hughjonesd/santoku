@@ -321,7 +321,7 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #'
 #' chop_evenly(0:10, 5)
 #'
-chop_width <- function (x, width, start, ..., left = strict_as_numeric(width) > 0) {
+chop_width <- function (x, width, start, ..., left = sign(width) > 0) {
   chop(x, brk_width(width, start), left = left, ...)
 }
 

@@ -144,9 +144,9 @@ brk_width.default <- function (width, start) {
     max_x    <- quiet_max(x[is.finite(x)])
 
     if (sm) {
-      start <- if (strict_as_numeric(width) > 0) min_x else max_x
+      start <- if (sign(width) > 0) min_x else max_x
     }
-    until <- if (strict_as_numeric(width) > 0) max_x else min_x
+    until <- if (sign(width) > 0) max_x else min_x
 
     if (is.finite(start) && is.finite(until)) {
       breaks <- sequence_width(width, start, until)
@@ -154,7 +154,7 @@ brk_width.default <- function (width, start) {
       return(empty_breaks())
     }
 
-    if (strict_as_numeric(width) <= 0) breaks <- rev(breaks)
+    if (sign(width) <= 0) breaks <- rev(breaks)
 
     breaks <- create_lr_breaks(breaks, left, close_end)
     breaks <- maybe_extend(breaks, x, extend)
@@ -181,7 +181,7 @@ sequence_width <- function(width, start, until) {
 sequence_width.default <- function (width, start, until) {
   breaks <- seq(start, until, width)
 
-  too_short <- if (strict_as_numeric(width) > 0) {
+  too_short <- if (sign(width) > 0) {
     breaks[length(breaks)] < until
   } else {
     breaks[length(breaks)] > until
@@ -235,7 +235,7 @@ brk_evenly <- function(intervals) {
   function (x, extend, left, close_end) {
     min_x <- quiet_min(x[is.finite(x)])
     max_x <- quiet_max(x[is.finite(x)])
-    if (strict_as_numeric(max_x - min_x) <= 0) return(empty_breaks())
+    if (sign(max_x - min_x) <= 0) return(empty_breaks())
 
     breaks <- seq(min_x, max_x, length.out = intervals + 1L)
     breaks <- create_lr_breaks(breaks, left, close_end)

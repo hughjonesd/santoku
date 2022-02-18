@@ -12,15 +12,19 @@
 * You can now chop many more types, including `units` from the `units` package,
   `difftime` objects, `package_version` objects, etc. Characters will be
   chopped with a warning.
-* Experimental `lbl_glue()` function using the `glue` package.
+  - If you have problems chopping a vector type, file a bug report.
+* Experimental `lbl_glue()` function using the `glue` package. Thanks to @dpprdan.
 * You can now set `labels = NULL` to return integer codes.
 * Use unicode em-dash and no spaces in `lbl_dash()` and `lbl_discrete()`.
-
+* `brk_default()` now throws an error if breaks are not sorted.
 * Arguments `first` and `last` can now be used in `lbl_intervals()` to override
   the first and last interval labels.
+  
+## Bugfixes
+
 * Bugfix: `tab()` and friends no longer display an `x` as the variable name.
 * Bugfix: `lbl_endpoint()` was erroring for some types of breaks.
-* `brk_default()` now throws an error if breaks are not sorted.
+
 
 
 # santoku 0.6.0
