@@ -142,6 +142,43 @@ test_that("difftime", {
 })
 
 
+test_that("bit64", {
+  skip_if_not_installed("bit64")
+
+  x64 <- bit64::as.integer64(1:10)
+  b64 <- bit64::as.integer64(c(3, 5, 5, 7))
+
+  expect_silent(
+    chop(x64, b64)
+  )
+
+  expect_silent(
+    chopped <- chop(x64, b64, extend = TRUE)
+  )
+  expect_equivalent(
+    as.numeric(chopped),
+    c(1, 1, 2, 2, 3, 4, 5, 5, 5, 5)
+  )
+
+  expect_silent(
+    chop(1:10, b64)
+  )
+
+  expect_silent(
+    chop(x64, as.integer(c(3, 5, 5, 7)))
+  )
+
+  skip("vec_cast_common doesn't like double and integer64")
+
+  expect_silent(
+    chop(x64, c(3, 5, 5, 7))
+  )
+
+  expect_silent(
+    chop(c(1, 3, 5, 7), b64)
+  )
+})
+
 test_that("hms::hms", {
   skip_if_not_installed("hms")
 

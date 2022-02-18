@@ -13,7 +13,8 @@ categorize <- function (x, breaks) {
   res <- vctrs::vec_cast_common(x, unclass_breaks(breaks))
   # vec_cast won't accept e.g. characters but it also won't convert e.g. Dates
   # as.numeric accepts both
-  # fuck you, world
+  # We want to convert things to numeric objects, but NB, not all
+  # numeric objects will work OK in categorize_impl
   x <- tryCatch(strict_as_numeric(res[[1]]),
                   error   = function (...) res[[1]]
                 )
@@ -21,7 +22,9 @@ categorize <- function (x, breaks) {
                        error   = function (...) res[[2]]
                      )
 
-  codes <- if (is.numeric(x) && is.numeric(breaks)) {
+  # we use is_bare_numeric here because e.g. large integer64 vectors will
+  # fail in categorize_impl()
+  codes <- if (rlang::is_bare_numeric(x) && rlang::is_bare_numeric(breaks)) {
     categorize_impl(x, breaks, left)
   } else {
     categorize_non_numeric(x, breaks, left)

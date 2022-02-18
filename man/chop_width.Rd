@@ -8,7 +8,7 @@
 \alias{brk_evenly}
 \title{Chop into equal-width intervals}
 \usage{
-chop_width(x, width, start, ..., left = strict_as_numeric(width) > 0)
+chop_width(x, width, start, ..., left = sign(width) > 0)
 
 chop_evenly(x, intervals, ..., close_end = TRUE)
 

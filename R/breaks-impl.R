@@ -199,11 +199,23 @@ class_bounds.Date <- function (x) {
   as.Date(c(-Inf, Inf), origin = "1970-01-01")
 }
 
+
+#' @export
+class_bounds.integer64 <- function (x) {
+  bit64::lim.integer64()
+}
+
+
 #' @export
 class_bounds.default <- function (x) {
-  warning("Class '", paste(class(x), collapse = "', '"),
-        "' has no natural endpoints corresponding to +/-Inf for `extend = TRUE`;")
-  c(quiet_min(x), quiet_max(x))
+  tryCatch(
+    vctrs::vec_cast(c(-Inf, Inf), x),
+    error = function(...) {
+      warning("Class '", paste(class(x), collapse = "', '"),
+              "' has no natural endpoints corresponding to +/-Inf for `extend = TRUE`;")
+      c(quiet_min(x), quiet_max(x))
+    }
+  )
 }
 
 
