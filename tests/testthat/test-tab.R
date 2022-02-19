@@ -43,3 +43,29 @@ test_that("tab_mean_sd", {
         )
   expect_equivalent(length(tb), 8)
 })
+
+test_that("tab_quantiles", {
+  expect_identical(
+    tab_quantiles(1:4, c(0, .25, .5, .75, 1)),
+    table(x = c("[0%, 25%)", "[25%, 50%)", "[50%, 75%)", "[75%, 100%]"),
+          dnn = NULL)
+  )
+})
+
+test_that("tab_deciles", {
+  expect_identical(
+    tab_deciles(0:9),
+    table(x = c("[0%, 10%)", "[10%, 20%)", "[20%, 30%)", "[30%, 40%)",
+                "[40%, 50%)", "[50%, 60%)", "[60%, 70%)", "[70%, 80%)",
+                "[80%, 90%)", "[90%, 100%]"),
+          dnn = NULL)
+  )
+})
+
+test_that("tab_equally", {
+  expect_identical(
+    tab_equally(1:4, 4),
+    table(x = c("[0%, 25%)", "[25%, 50%)", "[50%, 75%)", "[75%, 100%]"),
+          dnn = NULL)
+  )
+})
