@@ -70,7 +70,7 @@ NULL
 #' necessary -- i.e. if `min(x) < min(breaks)` and `max(x) > max(breaks)`
 #' respectively.
 #'
-#' Extending intervals, either by `extend = NULL` or `extend = FALSE`,
+#' Extending intervals, either by `extend = NULL` or `extend = TRUE`,
 #' *always* leaves the central, non-extended intervals unchanged. In particular,
 #' `close_end` applies to the central intervals, not to the extended ones.
 #' For example, if `breaks = c(1, 3, 5)` and `close_end = TRUE`, the resulting
