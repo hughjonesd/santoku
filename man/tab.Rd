@@ -6,6 +6,9 @@
 \alias{tab_evenly}
 \alias{tab_n}
 \alias{tab_mean_sd}
+\alias{tab_quantiles}
+\alias{tab_deciles}
+\alias{tab_equally}
 \title{Tabulate data by intervals}
 \usage{
 tab(...)
@@ -17,6 +20,12 @@ tab_evenly(...)
 tab_n(...)
 
 tab_mean_sd(...)
+
+tab_quantiles(...)
+
+tab_deciles(...)
+
+tab_equally(...)
 }
 \arguments{
 \item{...}{Passed to \code{chop}}
@@ -32,4 +41,6 @@ on the result.
 tab(1:10, c(2, 5, 8))
 
 tab_mean_sd(1:10)
+
+tab_equally(rpois(50, 4), groups = 4)
 }

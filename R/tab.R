@@ -15,6 +15,8 @@
 #' tab(1:10, c(2, 5, 8))
 #'
 #' tab_mean_sd(1:10)
+#'
+#' tab_equally(rpois(50, 4), groups = 4)
 tab <- function (...) {
   default_table(chop(...))
 }
@@ -45,6 +47,27 @@ tab_n <- function (...) {
 #' @export
 tab_mean_sd <- function (...) {
   default_table(chop_mean_sd(...))
+}
+
+
+#' @rdname tab
+#' @export
+tab_quantiles <- function (...) {
+  default_table(chop_quantiles(...))
+}
+
+
+#' @rdname tab
+#' @export
+tab_deciles <- function (...) {
+  default_table(chop_deciles(...))
+}
+
+
+#' @rdname tab
+#' @export
+tab_equally <- function (...) {
+  default_table(chop_equally(...))
 }
 
 
