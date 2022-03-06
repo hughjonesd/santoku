@@ -1,7 +1,7 @@
 
 #' @name label-doc
-#' @param fmt A format to be applied to the `breaks` used as labels. Can be a
-#'   string, passed into [sprintf()] (numbers) or [format()] (dates, times);
+#' @param fmt A format to be applied to the break endpoints used in labels. `fmt`
+#'   can be a string, passed into [sprintf()] (numbers) or [format()] (dates, times);
 #'   or a one-argument formatting function.
 #' @param raw Logical. Always use raw `breaks` in labels, rather than e.g. quantiles
 #'   or standard deviations?
@@ -13,30 +13,31 @@ NULL
 
 
 #' @name first-last-doc
-#' @param first String: override label for the first category. Passed to
-#'   [glue::glue()]: write e.g. `first = "< {r}"` to create a label like `"< 18"`.
-#' @param last String: override label for the last category. Passed to
-#'   [glue::glue()]: write e.g. `last = "> {l}` to create a label like `"> 65"`.
+#' @param single Glue string: label for singleton intervals. See [lbl_glue()]
+#'   for details.
+#' @param first Glue string: override label for the first category. Write e.g.
+#'   `first = "< {r}"` to create a label like `"< 18"`. See [lbl_glue()]
+#'   for details.
+#' @param last String: override label for the last category. Write e.g.
+#'   `last = "> {l}` to create a label like `"> 65"`. See [lbl_glue()]
+#'   for details.
 NULL
 
 
 #' Label chopped intervals using set notation
 #'
-#' @inherit label-doc
-#' @inherit first-last-doc
-#'
-#' @family labelling functions
-#'
-#' @details
-#'
-#' Mathematical set notation is as follows:
+#' Mathematical set notation looks like this:
 #'
 #' * \code{[a, b]}: all numbers `x` where `a <= x <= b`;
 #' * \code{(a, b)}: all numbers where `a < x < b`;
 #' * \code{[a, b)}: all numbers where `a <= x < b`;
 #' * \code{(a, b]}: all numbers where `a < x <= b`;
-#' * \code{{a}}: just the number `a`.
+#' * \code{{a}}: just the number `a` exactly.
 #'
+#' @inherit label-doc
+#' @inherit first-last-doc
+#'
+#' @family labelling functions
 #'
 #' @export
 #'
@@ -48,66 +49,26 @@ NULL
 #' tab_evenly(runif(20), 10,
 #'       labels = lbl_intervals(fmt = percent))
 #'
-lbl_intervals <- function (fmt = NULL, first = NULL, last = NULL, raw = FALSE) {
-  assert_that(
-          is.flag(raw),
-          is.string(first) || is.null(first),
-          is.string(last) || is.null(last)
-        )
-
-  function (breaks) {
-    assert_that(is.breaks(breaks))
-    left <- attr(breaks, "left")
-    # less ugly than do.call:
-    elabels <- endpoint_labels(breaks, raw = raw, fmt = fmt)
-
-    len_b <- length(breaks)
-    if (len_b < 1L) return(character(0))
-
-    lb <- elabels[-len_b]
-    rb <- elabels[-1]
-    l_closed <- left[-len_b]
-    r_closed <- ! left[-1]
-
-    len_i <- len_b - 1
-    singletons <- singletons(breaks)
-    left_symbol <- rep("(", len_i)
-    left_symbol[l_closed] <- "["
-
-    right_symbol <- rep(")", len_i)
-    right_symbol[r_closed] <- "]"
-
-    sets <- paste0(left_symbol, lb, ", ", rb, right_symbol)
-    sets[singletons] <- sprintf("{%s}", lb[singletons])
-
-    if (! is.null(first)) {
-      sets[1] <- endpoint_labels(breaks[2], raw = raw, fmt = first)
-    }
-    if (! is.null(last)) {
-      sets[length(sets)] <- endpoint_labels(breaks[length(breaks)-1], raw = raw,
-                                              fmt = last)
-    }
-
-    return(sets)
-  }
+lbl_intervals <- function (fmt = NULL, single = "{{{l}}}", first = NULL, last = NULL, raw = FALSE) {
+  interval_glue <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
+  lbl_glue(label = interval_glue, single = single, fmt = fmt, first = first,
+             last = last, raw = raw)
 }
 
 
 #' Label chopped intervals using the {glue} package
 #'
-#' \lifecycle{experimental}
-#'
-#' In glue strings, variables `l` and `r` represent the left and
-#' right endpoints, respectively. If `fmt` is not NULL, they are formatted
-#' accordingly.
+#' Use `"{l}"` and `"{r}"` to show the left and right endpoints of the intervals.
 #'
 #' Variables `l_closed` and `r_closed` are `TRUE` if the left and right
-#' endpoints are closed respectively.
+#' endpoints are closed.
+#'
+#' The endpoints themselves are formatted using `fmt` before being passed to
+#' `glue()`.
 #'
 #' @inherit label-doc params return
 #' @inherit first-last-doc params
 #' @param label A glue string passed to [glue::glue()].
-#' @param single Optional glue string for singleton intervals.
 #' @param ... Further arguments passed to [glue::glue()].
 #'
 #' @family labelling functions
@@ -139,13 +100,13 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
   function (breaks) {
     assert_that(is.breaks(breaks))
 
-    len_b <- length(breaks)
+    len_breaks <- length(breaks)
 
-    labels <- character(len_b - 1)
+    labels <- character(len_breaks - 1)
 
     elabels <- endpoint_labels(breaks, raw = raw, fmt = fmt)
 
-    l <- elabels[-len_b]
+    l <- elabels[-len_breaks]
     r <- elabels[-1]
 
     left <- attr(breaks, "left")
@@ -154,7 +115,7 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
     # The first two TRUEs say that the left brackets are closed
     # The last two TRUE & FALSE say that the right brackets are open
     # and closed respectively. So:
-    l_closed <- left[-len_b]
+    l_closed <- left[-len_breaks]
     r_closed <- ! left[-1]
 
     labels <- glue::glue(label, l = l, r = r, l_closed = l_closed,
@@ -177,7 +138,7 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
     }
 
     if (! is.null(last)) {
-      ll <- len_b - 1
+      ll <- len_breaks - 1
       labels[ll] <- glue::glue(last, l = l[ll], r = r[ll],
                                  l_closed = l_closed[ll],
                                  r_closed = r_closed[ll], ...)
@@ -186,6 +147,7 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
     return(labels)
   }
 }
+
 
 #' Label chopped intervals like 1-4, 4-5, ...
 #'
@@ -208,39 +170,16 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #'
 #' chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "%.1f"))
 #'
-#' chop(1:10, c(2, 5, 8), lbl_dash(first = "< %s"))
+#' chop(1:10, c(2, 5, 8), lbl_dash(first = "< {r}"))
 #'
 #' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
 #' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
-lbl_dash <- function (symbol = em_dash(), fmt = NULL, first = NULL,
+lbl_dash <- function (symbol = em_dash(), fmt = NULL, single = "{l}", first = NULL,
                       last = NULL, raw = FALSE) {
-  assert_that(
-          is.string(symbol),
-          is.flag(raw),
-          is.null(fmt) || is_format(fmt),
-          is.string(first) || is.null(first),
-          is.string(last) || is.null(last)
-        )
 
-  function (breaks) {
-    elabels <- endpoint_labels(breaks, raw = raw, fmt = fmt)
-
-    len_b <- length(breaks)
-    singletons <- singletons(breaks)
-
-    l <- elabels[-len_b]
-    r <- elabels[-1]
-
-    labels <- paste0(l, symbol, r)
-    labels[singletons] <- l[singletons]
-
-    if (! is.null(first)) labels[1] <- endpoint_labels(breaks[2], raw = raw,
-                                                        fmt = first)
-    if (! is.null(last)) labels[length(labels)] <- endpoint_labels(
-                                                        breaks[length(breaks)-1],
-                                                        raw = raw, fmt = last)
-    return(labels)
-  }
+  label_glue <- paste0("{l}", symbol, "{r}")
+  lbl_glue(label = label_glue, fmt = fmt, single = single, first = first,
+             last = last, raw = raw)
 }
 
 
@@ -301,7 +240,7 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 #' @examples
 #' tab(1:7, c(1, 3, 5), lbl_discrete())
 #'
-#' tab(1:7, c(3, 5), lbl_discrete(first = "<= %s"))
+#' tab(1:7, c(3, 5), lbl_discrete(first = "<= {r}"))
 #'
 #' # Misleading labels for non-integer data
 #' chop(2.5, c(1, 3, 5), lbl_discrete())
@@ -326,14 +265,14 @@ lbl_discrete <- function (
     assert_that(all(ceiling(as.numeric(breaks)) == floor(as.numeric(breaks))),
           msg = "Non-integer breaks")
 
-    len_b <- length(breaks)
+    len_breaks <- length(breaks)
     singletons <- singletons(breaks)
     left <- attr(breaks, "left")
     breaks <- unclass_breaks(breaks)
 
-    l <- breaks[-len_b]
+    l <- breaks[-len_breaks]
     r <- breaks[-1]
-    left_l <- left[-len_b]
+    left_l <- left[-len_breaks]
     left_r <- left[-1]
 
     # if you're right-closed we add `unit` to your left endpoint:
@@ -360,11 +299,20 @@ lbl_discrete <- function (
     labels[singletons] <- l[singletons]
     labels[too_small] <- "--"
 
-    if (! is.null(first)) labels[1] <- endpoint_labels(r[1], raw = FALSE,
-                                                       fmt = first)
-    if (! is.null(last)) labels[length(labels)] <- endpoint_labels(
-                                                     l[length(l)],
-                                                     raw = FALSE, fmt = last)
+    l_closed <- left_l
+    # r_closed is used for "]" in labels so need to switch it here:
+    r_closed <- ! left_r
+
+    if (! is.null(first)) {
+      labels[1] <- glue::glue(first, l = labels_l[1], r = labels_r[1],
+                              l_closed = l_closed[1], r_closed = r_closed[1])
+    }
+
+    if (! is.null(last)) {
+      ll <- len_breaks - 1
+      labels[ll] <- glue::glue(last, l = labels_l[ll], r = labels_r[ll],
+                               l_closed = l_closed[ll], r_closed = r_closed[ll])
+    }
 
     return(labels)
   }

@@ -9,8 +9,8 @@ lbl_manual(sequence, fmt = "\%s")
 \arguments{
 \item{sequence}{A character vector of labels.}
 
-\item{fmt}{A format to be applied to the \code{breaks} used as labels. Can be a
-string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
+\item{fmt}{A format to be applied to the break endpoints used in labels. \code{fmt}
+can be a string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
 or a one-argument formatting function.}
 }
 \value{

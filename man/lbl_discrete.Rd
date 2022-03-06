@@ -18,15 +18,17 @@ lbl_discrete(
 \item{unit}{Minimum difference between distinct values of data.
 For integers, 1.}
 
-\item{fmt}{A format to be applied to the \code{breaks} used as labels. Can be a
-string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
+\item{fmt}{A format to be applied to the break endpoints used in labels. \code{fmt}
+can be a string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
 or a one-argument formatting function.}
 
-\item{first}{String: override label for the first category. Passed to
-\code{\link[glue:glue]{glue::glue()}}: write e.g. \code{first = "< {r}"} to create a label like \code{"< 18"}.}
+\item{first}{Glue string: override label for the first category. Write e.g.
+\code{first = "< {r}"} to create a label like \code{"< 18"}. See \code{\link[=lbl_glue]{lbl_glue()}}
+for details.}
 
-\item{last}{String: override label for the last category. Passed to
-\code{\link[glue:glue]{glue::glue()}}: write e.g. \verb{last = "> \{l\}} to create a label like \code{"> 65"}.}
+\item{last}{String: override label for the last category. Write e.g.
+\verb{last = "> \{l\}} to create a label like \code{"> 65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
+for details.}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.
@@ -48,7 +50,7 @@ Be aware that Date objects may have non-integer values. See \link{Date}.
 \examples{
 tab(1:7, c(1, 3, 5), lbl_discrete())
 
-tab(1:7, c(3, 5), lbl_discrete(first = "<= \%s"))
+tab(1:7, c(3, 5), lbl_discrete(first = "<= {r}"))
 
 # Misleading labels for non-integer data
 chop(2.5, c(1, 3, 5), lbl_discrete())

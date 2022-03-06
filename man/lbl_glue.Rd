@@ -17,17 +17,20 @@ lbl_glue(
 \arguments{
 \item{label}{A glue string passed to \code{\link[glue:glue]{glue::glue()}}.}
 
-\item{fmt}{A format to be applied to the \code{breaks} used as labels. Can be a
-string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
+\item{fmt}{A format to be applied to the break endpoints used in labels. \code{fmt}
+can be a string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
 or a one-argument formatting function.}
 
-\item{single}{Optional glue string for singleton intervals.}
+\item{single}{Glue string: label for singleton intervals. See \code{\link[=lbl_glue]{lbl_glue()}}
+for details.}
 
-\item{first}{String: override label for the first category. Passed to
-\code{\link[glue:glue]{glue::glue()}}: write e.g. \code{first = "< {r}"} to create a label like \code{"< 18"}.}
+\item{first}{Glue string: override label for the first category. Write e.g.
+\code{first = "< {r}"} to create a label like \code{"< 18"}. See \code{\link[=lbl_glue]{lbl_glue()}}
+for details.}
 
-\item{last}{String: override label for the last category. Passed to
-\code{\link[glue:glue]{glue::glue()}}: write e.g. \verb{last = "> \{l\}} to create a label like \code{"> 65"}.}
+\item{last}{String: override label for the last category. Write e.g.
+\verb{last = "> \{l\}} to create a label like \code{"> 65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
+for details.}
 
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
 or standard deviations?}
@@ -38,15 +41,14 @@ or standard deviations?}
 A vector of labels for \code{chop}, or a function that creates labels.
 }
 \description{
-\lifecycle{experimental}
+Use \code{"{l}"} and \code{"{r}"} to show the left and right endpoints of the intervals.
 }
 \details{
-In glue strings, variables \code{l} and \code{r} represent the left and
-right endpoints, respectively. If \code{fmt} is not NULL, they are formatted
-accordingly.
-
 Variables \code{l_closed} and \code{r_closed} are \code{TRUE} if the left and right
-endpoints are closed respectively.
+endpoints are closed.
+
+The endpoints themselves are formatted using \code{fmt} before being passed to
+\code{glue()}.
 }
 \examples{
 tab(1:10, c(1, 3, 3, 7),

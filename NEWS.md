@@ -2,21 +2,27 @@
 
 ## Breaking changes
 
+* In labelling functions, `first` and `last` arguments are now passed to 
+  `glue::glue()`. Variables `l` and `r` represent the left and right endpoints 
+  of the intervals. 
 * The `groups` argument to `chop_evenly()`,  deprecated in 0.4.0, has 
   been removed.
 * `brk_left()` and `brk_right()`, deprecated in 0.4.0, have been removed.
 * `knife()`, deprecated in 0.4.0, has been removed.
 * `lbl_format()`, questioning since 0.4.0, has been removed.
-* Arguments in `lbl_dash()` and `lbl_intervals()` have been reordered for
+* `lbl_dash()` and `lbl_intervals()` gain a new `single` parameter to represent
+  singleton intervals. Also their arguments have been reordered for
   consistency with other labelling functions.
 
 ## Other changes
 
 * You can now chop many more types, including `units` from the `units` package,
-  `difftime` objects, `package_version` objects, etc. Characters will be
-  chopped with a warning.
+  `difftime` objects, `package_version` objects, etc. 
+  - Character vectors will be chopped by lexicographic order, with an optional warning.
   - If you have problems chopping a vector type, file a bug report.
-* Experimental `lbl_glue()` function using the `glue` package. Thanks to @dpprdan.
+* The {glue} package is now a hard dependency and is used in many places to 
+  format labels. 
+* There is a new `lbl_glue()` function using the `glue` package. Thanks to @dpprdan.
 * You can now set `labels = NULL` to return integer codes.
 * Use unicode em-dash and no spaces in `lbl_dash()` and `lbl_discrete()`.
 * `brk_default()` now throws an error if breaks are not sorted.
