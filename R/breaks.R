@@ -44,7 +44,7 @@ brk_quantiles <- function (probs, ...) {
 #' @rdname chop_quantiles
 #'
 #' @export
-#' @order 3
+#' @order 2
 brk_equally <- function (groups) {
   assert_that(is.count(groups))
   brk_quantiles(seq(0, groups)/groups)
@@ -99,7 +99,7 @@ brk_mean_sd <- function (sd = 3) {
 #'   Can be omitted.
 #'
 #' @details
-#' If `width` is a Period, [`lubridate::add_with_rollback()`][lubridate::mplus]
+#' If `width` is a Period, [`lubridate::add_with_rollback()`][`lubridate::m+`]
 #' is used to calculate the widths. This can be useful for e.g. calendar months.
 #'
 #' @examples

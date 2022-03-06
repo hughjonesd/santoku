@@ -1,22 +1,27 @@
 
 
 #' @name chop-doc
-#' @param x A vector.
-#' @param breaks,labels,left,...,close_end  Passed to [chop()].
+#' @param ... Passed to chop().
 #' @return
-#' For  `chop_*` functions, a factor of the same length as `x`.
+#' `chop_*` functions return a [`factor`] of the same length as `x`.
+#'
+#' `brk_*` functions return a [`function`] to create `breaks`.
+#'
+#' `tab_*` functions return a contingency [table()].
 NULL
 
 
 #' Cut data into intervals
 #'
-#' `chop` cuts `x` into intervals. It returns a factor of the same
-#' length as `x`, representing which interval contains each element of `x`.
-#'
+#' `chop` cuts `x` into intervals. It returns a [`factor`] of the same length as
+#' `x`, representing which interval contains each element of `x`.
+#' `kiru` is an alias for `chop`.
+#' `tab` calls `chop` and returns a contingency [table()] from the result.
 #'
 #' @param x A vector.
-#' @param breaks See below.
-#' @param labels See below.
+#' @param breaks A numeric vector of cut-points or a function to create
+#'   cut-points from `x`.
+#' @param labels A character vector of labels or a function to create labels.
 #' @param extend Logical. Extend breaks to `+/-Inf`?
 #' @param left Logical. Left-closed breaks?
 #' @param close_end Logical. Close last break at right? (If `left` is `FALSE`,
@@ -105,14 +110,17 @@ NULL
 #' below.
 #'
 #' @return
-#' A [factor] of the same length as `x`, representing the intervals containing
-#' the value of `x`.
+#' `chop()` returns a [`factor`] of the same length as `x`, representing the
+#' intervals containing the value of `x`.
+#'
+#' `tab()` returns a contingency [table()].
 #'
 #' @export
 #'
 #' @family chopping functions
 #'
-#' @seealso [base::cut()], [non-standard-types] for chopping objects that aren't numbers.
+#' @seealso [base::cut()], [`non-standard-types`] for chopping objects that
+#'   aren't numbers.
 #'
 #' @examples
 #' chop(1:3, 2)
@@ -177,12 +185,15 @@ kiru <- chop
 
 #' Chop data precisely (for programmers)
 #'
-#' @inherit chop-doc params return
+#' @inheritParams chop
 #'
 #' @details
 #' `fillet()` calls [chop()] with `extend = FALSE` and `drop = FALSE`. This
 #' ensures that you get only the `breaks` and `labels` you ask for. When
 #' programming, consider using `fillet()` instead of `chop()`.
+#'
+#' @return `fillet()` returns a [`factor`] of the same length as `x`, representing
+#'   the intervals containing the value of `x`.
 #'
 #' @family chopping functions
 #'
@@ -205,6 +216,7 @@ fillet <- function (x, breaks, labels = lbl_intervals(), left = TRUE, close_end 
 #'
 #' @param probs A vector of probabilities for the quantiles.
 #' @param ... Passed to [chop()], or for `brk_quantiles` to [stats::quantile()].
+#' @inheritParams chop
 #' @inherit chop-doc params return
 #'
 #' @details
@@ -240,7 +252,6 @@ chop_quantiles <- function(
         left      = is.numeric(x),
         close_end = TRUE
       ) {
-
   chop(x, brk_quantiles(probs), ..., left = left, close_end = close_end)
 }
 
@@ -271,6 +282,7 @@ chop_equally <- function (x, groups, ..., left = is.numeric(x), close_end = TRUE
 #'
 #'
 #' @param sd Positive number: include up to `sd` standard deviations.
+#' @inheritParams chop
 #' @inherit chop-doc params return
 #'
 #' @family chopping functions
@@ -296,6 +308,7 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' @param width Width of intervals.
 #' @param start Leftpoint of first interval. By default the smallest finite `x`,
 #'   or if `width` is negative, the largest finite `x`.
+#' @inheritParams chop
 #' @inherit chop-doc params return
 #'
 #' @details
@@ -343,6 +356,7 @@ chop_evenly <- function (x, intervals, ..., close_end = TRUE) {
 #' interval may have fewer elements.
 #'
 #' @param n Integer: number of elements in each interval.
+#' @inheritParams chop
 #' @inherit chop-doc params return
 #'
 #' @details
@@ -357,9 +371,7 @@ chop_evenly <- function (x, intervals, ..., close_end = TRUE) {
 #' @family chopping functions
 #'
 #' @examples
-#' table(chop_n(1:10, 5))
-#'
-#' table(chop_n(1:10, 4))
+#' chop_n(1:10, 5)
 #'
 #' # too many duplicates
 #' x <- rep(1:2, each = 3)

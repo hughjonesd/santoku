@@ -9,16 +9,19 @@ fillet(x, breaks, labels = lbl_intervals(), left = TRUE, close_end = FALSE)
 \arguments{
 \item{x}{A vector.}
 
-\item{breaks}{Passed to \code{\link[=chop]{chop()}}.}
+\item{breaks}{A numeric vector of cut-points or a function to create
+cut-points from \code{x}.}
 
-\item{labels}{Passed to \code{\link[=chop]{chop()}}.}
+\item{labels}{A character vector of labels or a function to create labels.}
 
-\item{left}{Passed to \code{\link[=chop]{chop()}}.}
+\item{left}{Logical. Left-closed breaks?}
 
-\item{close_end}{Passed to \code{\link[=chop]{chop()}}.}
+\item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
+close first break at left?)}
 }
 \value{
-For  \verb{chop_*} functions, a factor of the same length as \code{x}.
+\code{fillet()} returns a \code{\link{factor}} of the same length as \code{x}, representing
+the intervals containing the value of \code{x}.
 }
 \description{
 Chop data precisely (for programmers)
@@ -37,6 +40,6 @@ Other chopping functions:
 \code{\link{chop_n}()},
 \code{\link{chop_quantiles}()},
 \code{\link{chop_width}()},
-\code{\link{chop}()}
+\code{\link{tab}()}
 }
 \concept{chopping functions}
