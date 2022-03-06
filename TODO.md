@@ -9,13 +9,6 @@
   - ditto for `brk_evenly()` which now uses its own implementation to
     guarantee exactly `intervals` intervals
   - systematic tests for `brk_*` functions
-
-* maybe `tab_equally`, `tab_n` (!) and `tab_quantiles` for symmetry reasons
-  - `tab_quantiles` needs raw labels by default, to be useful
-
-    
-* Other things to cut
-  - Hunt for classes to try
   
 
 * Implement a simple `Infinity` class that automatically casts to any other
@@ -61,16 +54,11 @@
   - should `drop` have a default of `! isTRUE(extend)` i.e. be `FALSE` when
     `extend = TRUE`?
 
-* Should we have a flag to return characters?
-  - I'm skeptical, `forcats()` exists suggesting that factors aren't yet
-    seen as worthless!
-  - Maybe have an `output = c("factor", "character", "numeric")` switch
-  - If so, then `drop` should probably work even for numeric i.e. integer data
-    by moving it down to start at 1
 
-  
 # Questions with a (provisional) answer
 
+* Should we have a flag to return characters?
+  - No, we have `labels = NULL` for integer codes only though.
 
 * Should we put a `percent` argument into `brk_quantiles()` so it can store 
   scaled endpoints as proportions rather than percentages (the current default)?

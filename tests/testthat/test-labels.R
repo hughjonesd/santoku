@@ -52,6 +52,12 @@ test_that("lbl_dash arguments", {
   expect_equivalent(lbl_dash("-", first = "< {r}")(brk), c("< 2", "2-3"))
   expect_equivalent(lbl_dash("-", last = "> {l}")(brk), c("1-2", "> 2"))
 
+  brk2 <- brk_res(brk_default(c(1, 2, 2, 3)), 1:2)
+  expect_equivalent(
+    lbl_dash("-", single = "Just {l}")(brk2),
+    c("1-2", "Just 2", "2-3")
+  )
+
   qbrk <- brk_res(brk_quantiles(c(0, .5, 1)), x = 0:10)
   expect_equivalent(lbl_dash("-")(qbrk), c("0%-50%", "50%-100%"))
   expect_equivalent(lbl_dash("-", raw = TRUE)(qbrk), c("0-5", "5-10"))
@@ -185,6 +191,10 @@ test_that("lbl_intervals arguments", {
   expect_equivalent(
     lbl_intervals(last = "> {l}")(lbrk),
     c("[1, 2)", "{2}", "> 2")
+  )
+  expect_equivalent(
+    lbl_intervals(single = "[{l}]")(lbrk),
+    c("[1, 2)", "[2]", "(2, 3)")
   )
 })
 
