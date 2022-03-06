@@ -1,7 +1,8 @@
 
 #' @name label-doc
-#' @param fmt A format. Can be a string, passed into [base::sprintf()] or [format()]
-#'   methods; or a one-argument formatting function.
+#' @param fmt A format to be applied to the `breaks` used as labels. Can be a
+#'   string, passed into [sprintf()] (numbers) or [format()] (dates, times);
+#'   or a one-argument formatting function.
 #' @param raw Logical. Always use raw `breaks` in labels, rather than e.g. quantiles
 #'   or standard deviations?
 #' @param symbol String: symbol to use for the dash.
@@ -13,10 +14,9 @@ NULL
 
 #' @name first-last-doc
 #' @param first String: override label for the first category. Passed to
-#'   [sprintf()] or [format()], so you can write e.g. `first = "< %s"` to create
-#' a label like `"< 18"`.
+#'   [glue::glue()]: write e.g. `first = "< {r}"` to create a label like `"< 18"`.
 #' @param last String: override label for the last category. Passed to
-#'   [sprintf()] or [format()].
+#'   [glue::glue()]: write e.g. `last = "> {l}` to create a label like `"> 65"`.
 NULL
 
 
@@ -48,7 +48,7 @@ NULL
 #' tab_evenly(runif(20), 10,
 #'       labels = lbl_intervals(fmt = percent))
 #'
-lbl_intervals <- function (raw = FALSE, fmt = NULL, first = NULL, last = NULL) {
+lbl_intervals <- function (fmt = NULL, first = NULL, last = NULL, raw = FALSE) {
   assert_that(
           is.flag(raw),
           is.string(first) || is.null(first),
@@ -105,13 +105,9 @@ lbl_intervals <- function (raw = FALSE, fmt = NULL, first = NULL, last = NULL) {
 #' endpoints are closed respectively.
 #'
 #' @inherit label-doc params return
+#' @inherit first-last-doc params
 #' @param label A glue string passed to [glue::glue()].
-#' @param fmt A format to be applied to the `breaks` used as labels. Can be a
-#'   string, passed into [sprintf()] (numbers) or [format()] (dates,s times)
-#'   methods; or a one-argument formatting function.
 #' @param single Optional glue string for singleton intervals.
-#' @param first Optional glue string for the first interval.
-#' @param last Optional glue string for the last interval.
 #' @param ... Further arguments passed to [glue::glue()].
 #'
 #' @family labelling functions
@@ -216,8 +212,8 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #'
 #' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
 #' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
-lbl_dash <- function (symbol = em_dash(), raw = FALSE, fmt = NULL, first = NULL,
-                      last = NULL) {
+lbl_dash <- function (symbol = em_dash(), fmt = NULL, first = NULL,
+                      last = NULL, raw = FALSE) {
   assert_that(
           is.string(symbol),
           is.flag(raw),

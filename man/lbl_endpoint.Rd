@@ -7,8 +7,9 @@
 lbl_endpoint(fmt = NULL, raw = FALSE, left = TRUE)
 }
 \arguments{
-\item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
-methods; or a one-argument formatting function.}
+\item{fmt}{A format to be applied to the \code{breaks} used as labels. Can be a
+string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
+or a one-argument formatting function.}
 
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
 or standard deviations?}

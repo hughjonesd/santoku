@@ -18,14 +18,16 @@ lbl_glue(
 \item{label}{A glue string passed to \code{\link[glue:glue]{glue::glue()}}.}
 
 \item{fmt}{A format to be applied to the \code{breaks} used as labels. Can be a
-string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates,s times)
-methods; or a one-argument formatting function.}
+string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
+or a one-argument formatting function.}
 
 \item{single}{Optional glue string for singleton intervals.}
 
-\item{first}{Optional glue string for the first interval.}
+\item{first}{String: override label for the first category. Passed to
+\code{\link[glue:glue]{glue::glue()}}: write e.g. \code{first = "< {r}"} to create a label like \code{"< 18"}.}
 
-\item{last}{Optional glue string for the last interval.}
+\item{last}{String: override label for the last category. Passed to
+\code{\link[glue:glue]{glue::glue()}}: write e.g. \verb{last = "> \{l\}} to create a label like \code{"> 65"}.}
 
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
 or standard deviations?}

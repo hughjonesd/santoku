@@ -6,27 +6,27 @@
 \usage{
 lbl_dash(
   symbol = em_dash(),
-  raw = FALSE,
   fmt = NULL,
   first = NULL,
-  last = NULL
+  last = NULL,
+  raw = FALSE
 )
 }
 \arguments{
 \item{symbol}{String: symbol to use for the dash.}
 
-\item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
-or standard deviations?}
-
-\item{fmt}{A format. Can be a string, passed into \code{\link[base:sprintf]{base::sprintf()}} or \code{\link[=format]{format()}}
-methods; or a one-argument formatting function.}
+\item{fmt}{A format to be applied to the \code{breaks} used as labels. Can be a
+string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
+or a one-argument formatting function.}
 
 \item{first}{String: override label for the first category. Passed to
-\code{\link[=sprintf]{sprintf()}} or \code{\link[=format]{format()}}, so you can write e.g. \code{first = "< \%s"} to create
-a label like \code{"< 18"}.}
+\code{\link[glue:glue]{glue::glue()}}: write e.g. \code{first = "< {r}"} to create a label like \code{"< 18"}.}
 
 \item{last}{String: override label for the last category. Passed to
-\code{\link[=sprintf]{sprintf()}} or \code{\link[=format]{format()}}.}
+\code{\link[glue:glue]{glue::glue()}}: write e.g. \verb{last = "> \{l\}} to create a label like \code{"> 65"}.}
+
+\item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
+or standard deviations?}
 }
 \value{
 A vector of labels for \code{chop}, or a function that creates labels.

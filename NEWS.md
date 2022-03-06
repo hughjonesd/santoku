@@ -7,6 +7,8 @@
 * `brk_left()` and `brk_right()`, deprecated in 0.4.0, have been removed.
 * `knife()`, deprecated in 0.4.0, has been removed.
 * `lbl_format()`, questioning since 0.4.0, has been removed.
+* Arguments in `lbl_dash()` and `lbl_intervals()` have been reordered for
+  consistency with other labelling functions.
 
 ## Other changes
 
