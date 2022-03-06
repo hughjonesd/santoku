@@ -17,9 +17,7 @@ lbl_glue(
 \arguments{
 \item{label}{A glue string passed to \code{\link[glue:glue]{glue::glue()}}.}
 
-\item{fmt}{A format to be applied to the break endpoints used in labels. \code{fmt}
-can be a string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
-or a one-argument formatting function.}
+\item{fmt}{String or function. A format for break endpoints.}
 
 \item{single}{Glue string: label for singleton intervals. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
@@ -38,7 +36,7 @@ or standard deviations?}
 \item{...}{Further arguments passed to \code{\link[glue:glue]{glue::glue()}}.}
 }
 \value{
-A vector of labels for \code{chop}, or a function that creates labels.
+A function that creates a vector of labels.
 }
 \description{
 Use \code{"{l}"} and \code{"{r}"} to show the left and right endpoints of the intervals.
@@ -50,6 +48,18 @@ endpoints are closed.
 The endpoints themselves are formatted using \code{fmt} before being passed to
 \code{glue()}.
 }
+\section{Formatting endpoints}{
+
+
+If \code{fmt} is not \code{NULL} then it is used to format the endpoints. If \code{fmt} is
+a string then numeric endpoints will be formatted by \code{sprintf(fmt, breaks)};
+other endpoints, e.g. Date objects, will be formatted by \code{format(breaks, fmt)}.
+
+If \code{fmt} is a function, it should take a vector of numbers (or other objects
+that can be used as breaks) and return a character vector. It may be helpful
+to use functions from the \code{{scales}} package, e.g. \verb{[scales::label_comma()]}.
+}
+
 \examples{
 tab(1:10, c(1, 3, 3, 7),
     label = lbl_glue("{l} to {r}", single = "Exactly {l}"))

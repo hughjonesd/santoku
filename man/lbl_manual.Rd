@@ -9,12 +9,10 @@ lbl_manual(sequence, fmt = "\%s")
 \arguments{
 \item{sequence}{A character vector of labels.}
 
-\item{fmt}{A format to be applied to the break endpoints used in labels. \code{fmt}
-can be a string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
-or a one-argument formatting function.}
+\item{fmt}{String or function. A format for break endpoints.}
 }
 \value{
-A vector of labels for \code{chop}, or a function that creates labels.
+A function that creates a vector of labels.
 }
 \description{
 \code{lbl_manual()} uses an arbitrary sequence to label

@@ -166,9 +166,7 @@ apply_format.character.default <- function (fmt, endpoint, ...) {
 #' @export
 #' @method apply_format.character numeric
 apply_format.character.numeric <- function (fmt, endpoint, ...) {
-  # suppressWarnings avoids "One argument not used" for first/last labels
-  # in lbl_dash()
-  suppressWarnings(sprintf(fmt, endpoint, ...))
+  sprintf(fmt, endpoint, ...)
 }
 
 

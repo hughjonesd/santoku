@@ -1,14 +1,22 @@
 
 #' @name label-doc
-#' @param fmt A format to be applied to the break endpoints used in labels. `fmt`
-#'   can be a string, passed into [sprintf()] (numbers) or [format()] (dates, times);
-#'   or a one-argument formatting function.
+#' @param fmt String or function. A format for break endpoints.
 #' @param raw Logical. Always use raw `breaks` in labels, rather than e.g. quantiles
 #'   or standard deviations?
 #' @param symbol String: symbol to use for the dash.
 #' @param ... Arguments passed to format methods.
 #'
-#' @return A vector of labels for `chop`, or a function that creates labels.
+#' @section Formatting endpoints:
+#'
+#' If `fmt` is not `NULL` then it is used to format the endpoints. If `fmt` is
+#' a string then numeric endpoints will be formatted by `sprintf(fmt, breaks)`;
+#' other endpoints, e.g. Date objects, will be formatted by `format(breaks, fmt)`.
+#'
+#' If `fmt` is a function, it should take a vector of numbers (or other objects
+#' that can be used as breaks) and return a character vector. It may be helpful
+#' to use functions from the `{scales}` package, e.g. `[scales::label_comma()]`.
+#'
+#' @return A function that creates a vector of labels.
 NULL
 
 
@@ -25,6 +33,9 @@ NULL
 
 
 #' Label chopped intervals using set notation
+#'
+#' These labels are the most exact since they show you whether
+#' intervals are "closed" or "open", i.e. whether they include their endpoints.
 #'
 #' Mathematical set notation looks like this:
 #'
@@ -66,7 +77,7 @@ lbl_intervals <- function (fmt = NULL, single = "{{{l}}}", first = NULL, last = 
 #' The endpoints themselves are formatted using `fmt` before being passed to
 #' `glue()`.
 #'
-#' @inherit label-doc params return
+#' @inherit label-doc
 #' @inherit first-last-doc params
 #' @param label A glue string passed to [glue::glue()].
 #' @param ... Further arguments passed to [glue::glue()].
@@ -158,7 +169,6 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #' If you don't want unicode output, use `lbl_dash("-")`.
 #'
 #' @inherit label-doc
-#'
 #' @inherit first-last-doc
 #'
 #' @family labelling functions
@@ -215,11 +225,9 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 
 #' Label discrete data
 #'
-#' \lifecycle{experimental}
-#'
-#' `lbl_discrete` creates labels for discrete data such as integers.
+#' `lbl_discrete` creates labels for discrete data, such as integers.
 #' For example, breaks
-#' `c(1, 3, 4, 6, 7)` are labelled: `"1 - 2", "3", "4 - 5", "6 - 7"`.
+#' `c(1, 3, 4, 6, 7)` are labelled: `"1-2", "3", "4-5", "6-7"`.
 #'
 #' @inherit label-doc
 #' @param unit Minimum difference between distinct values of data.
@@ -227,7 +235,7 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 #' @inherit first-last-doc
 #'
 #' @details
-#' No check is done that the data is discrete-valued. If it isn't, then
+#' No check is done that the data are discrete-valued. If they are not, then
 #' these labels may be misleading. Here, discrete-valued means that if
 #' `x < y`, then `x <= y - unit`.
 #'

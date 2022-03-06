@@ -13,9 +13,7 @@ lbl_intervals(
 )
 }
 \arguments{
-\item{fmt}{A format to be applied to the break endpoints used in labels. \code{fmt}
-can be a string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
-or a one-argument formatting function.}
+\item{fmt}{String or function. A format for break endpoints.}
 
 \item{single}{Glue string: label for singleton intervals. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
@@ -32,12 +30,14 @@ for details.}
 or standard deviations?}
 }
 \value{
-A vector of labels for \code{chop}, or a function that creates labels.
+A function that creates a vector of labels.
 }
 \description{
-Mathematical set notation looks like this:
+These labels are the most exact since they show you whether
+intervals are "closed" or "open", i.e. whether they include their endpoints.
 }
 \details{
+Mathematical set notation looks like this:
 \itemize{
 \item \code{[a, b]}: all numbers \code{x} where \verb{a <= x <= b};
 \item \code{(a, b)}: all numbers where \verb{a < x < b};
@@ -46,6 +46,18 @@ Mathematical set notation looks like this:
 \item \code{{a}}: just the number \code{a} exactly.
 }
 }
+\section{Formatting endpoints}{
+
+
+If \code{fmt} is not \code{NULL} then it is used to format the endpoints. If \code{fmt} is
+a string then numeric endpoints will be formatted by \code{sprintf(fmt, breaks)};
+other endpoints, e.g. Date objects, will be formatted by \code{format(breaks, fmt)}.
+
+If \code{fmt} is a function, it should take a vector of numbers (or other objects
+that can be used as breaks) and return a character vector. It may be helpful
+to use functions from the \code{{scales}} package, e.g. \verb{[scales::label_comma()]}.
+}
+
 \examples{
 
 tab(-10:10, c(-3, 0, 0, 3),

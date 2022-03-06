@@ -16,9 +16,7 @@ lbl_dash(
 \arguments{
 \item{symbol}{String: symbol to use for the dash.}
 
-\item{fmt}{A format to be applied to the break endpoints used in labels. \code{fmt}
-can be a string, passed into \code{\link[=sprintf]{sprintf()}} (numbers) or \code{\link[=format]{format()}} (dates, times);
-or a one-argument formatting function.}
+\item{fmt}{String or function. A format for break endpoints.}
 
 \item{single}{Glue string: label for singleton intervals. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
@@ -35,7 +33,7 @@ for details.}
 or standard deviations?}
 }
 \value{
-A vector of labels for \code{chop}, or a function that creates labels.
+A function that creates a vector of labels.
 }
 \description{
 This label style is user-friendly, but doesn't distinguish between
@@ -45,6 +43,18 @@ where you don't expect points to be exactly on the breaks.
 \details{
 If you don't want unicode output, use \code{lbl_dash("-")}.
 }
+\section{Formatting endpoints}{
+
+
+If \code{fmt} is not \code{NULL} then it is used to format the endpoints. If \code{fmt} is
+a string then numeric endpoints will be formatted by \code{sprintf(fmt, breaks)};
+other endpoints, e.g. Date objects, will be formatted by \code{format(breaks, fmt)}.
+
+If \code{fmt} is a function, it should take a vector of numbers (or other objects
+that can be used as breaks) and return a character vector. It may be helpful
+to use functions from the \code{{scales}} package, e.g. \verb{[scales::label_comma()]}.
+}
+
 \examples{
 chop(1:10, c(2, 5, 8), lbl_dash())
 
