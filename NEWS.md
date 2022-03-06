@@ -6,6 +6,7 @@
   been removed.
 * `brk_left()` and `brk_right()`, deprecated in 0.4.0, have been removed.
 * `knife()`, deprecated in 0.4.0, has been removed.
+* `lbl_format()`, questioning since 0.4.0, has been removed.
 
 ## Other changes
 

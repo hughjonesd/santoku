@@ -39,9 +39,6 @@ test_that("systematic tests", {
   lbl_funs <- list(
     lbl_dash          = lbl_dash(),
     lbl_dash2         = lbl_dash("/"),
-    lbl_format        = lbl_format("%s to %s"),
-    lbl_format2       = lbl_format("%s to %s", "%s..."),
-    lbl_format_raw    = lbl_format("%s to %s", raw = TRUE),
     lbl_intervals     = lbl_intervals(),
     lbl_intervals_raw = lbl_intervals(raw = TRUE),
     lbl_seq           = lbl_seq("a"),
@@ -73,8 +70,6 @@ test_that("systematic tests", {
   skip_test(! left & brk_fun == "brk_manual2")
   skip_test(close_end & brk_fun == "brk_manual")
   skip_test(close_end & brk_fun == "brk_manual2")
-  skip_test(names(x) == "Date" & grepl("lbl_format", lbl_fun))
-  skip_test(names(x) == "POSIXct" & grepl("lbl_format", lbl_fun))
 
   POSIXct_breaks <- c("brk_def_POSIXct", "brk_w_difft_sec")
   Date_breaks <- c("brk_def_Date", "brk_w_difft_day")

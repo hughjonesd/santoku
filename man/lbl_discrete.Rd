@@ -58,7 +58,6 @@ tab(1:7 * 1000, c(1, 3, 5) * 1000, lbl_discrete(unit = 1000))
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
-\code{\link{lbl_format}()},
 \code{\link{lbl_glue}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_manual}()},

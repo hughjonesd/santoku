@@ -68,40 +68,6 @@ test_that("lbl_dash arguments", {
 })
 
 
-test_that("lbl_format", {
-  brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
-  expect_equivalent(
-    lbl_format("<%.1f to %.1f>")(brk),
-    c("<1.0 to 2.0>", "<2.0 to 3.0>")
-  )
-
-  bracket2 <- function (x, y) paste0("(", x, " - ", y, ")")
-  expect_equivalent(
-    lbl_format(fmt = bracket2)(brk),
-    c("(1 - 2)", "(2 - 3)")
-  )
-
-  brk2 <- brk_res(brk_default(c(1, 2, 2, 3)))
-  expect_equivalent(
-    lbl_format("<%.1f to %.1f>", "|%.3f|")(brk2),
-    c("<1.0 to 2.0>", "|2.000|", "<2.0 to 3.0>")
-  )
-  expect_equivalent(
-    lbl_format(bracket2, "%s")(brk2),
-    c("(1 - 2)", "2", "(2 - 3)")
-  )
-})
-
-
-test_that("lbl_format arguments", {
-  qbrk <- brk_res(brk_quantiles(c(0, .5, 1)), x = 0:10)
-  expect_equivalent(
-    lbl_format("%s / %s", raw = TRUE)(qbrk),
-    c("0 / 5", "5 / 10")
-  )
-})
-
-
 test_that("lbl_glue", {
   brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
   expect_equivalent(
