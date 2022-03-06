@@ -30,7 +30,7 @@ other endpoints, e.g. Date objects, will be formatted by \code{format(breaks, fm
 
 If \code{fmt} is a function, it should take a vector of numbers (or other objects
 that can be used as breaks) and return a character vector. It may be helpful
-to use functions from the \code{{scales}} package, e.g. \verb{[scales::label_comma()]}.
+to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_number]{scales::label_comma()}}.
 }
 
 \examples{

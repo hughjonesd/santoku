@@ -36,17 +36,14 @@ categorize <- function (x, breaks) {
 
 categorize_non_numeric <- function (x, breaks, left) {
 
-  if (getOption("santoku.warn_character", TRUE)) {
-    warning_statement <- paste0(
-      "`%s` appears to be of type character, using lexical sorting.\n",
-      "To turn off this warning, use:\n",
-      "  options(santoku.warn_character = FALSE)",
-      collapse = "")
-    if (is.character(x)) {
-      warning(sprintf(warning_statement, "x"))
-    }
-    if (is.character(breaks)) {
-      warning(sprintf(warning_statement, "breaks"))
+  if (is.character(x) || is.character(breaks)) {
+    if (getOption("santoku.warn_character", TRUE)) {
+      warning_statement <- paste(
+        "`x` or `breaks` is of type character, using lexical sorting.",
+        "To turn off this warning, run:",
+        "  options(santoku.warn_character = FALSE)",
+        collapse = "\n")
+      warning(warning_statement)
     }
   }
 

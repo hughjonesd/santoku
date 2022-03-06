@@ -28,8 +28,8 @@ T        F       T
 [ 1,  2 ] ( 2, 3 )
 }
 
-Singleton breaks are created by repeating a number in \code{breaks}.
-Singletons must be closed on both sides, so if there is a repeated number
+Singleton breaks are created by repeating a number in \code{breaks}. Singletons
+must be closed on both sides, so if there is a repeated number
 at indices \code{i}, \code{i+1}, \code{left[i]} \emph{must} be \code{TRUE} and \code{left[i+1]} must be
 \code{FALSE}.
 }

@@ -312,8 +312,8 @@ NULL
 #' [ 1,  2 ] ( 2, 3 )
 #' }
 #'
-#' Singleton breaks are created by repeating a number in `breaks`.
-#' Singletons must be closed on both sides, so if there is a repeated number
+#' Singleton breaks are created by repeating a number in `breaks`. Singletons
+#' must be closed on both sides, so if there is a repeated number
 #' at indices `i`, `i+1`, `left[i]` *must* be `TRUE` and `left[i+1]` must be
 #' `FALSE`.
 #'

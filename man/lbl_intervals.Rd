@@ -19,11 +19,11 @@ lbl_intervals(
 for details.}
 
 \item{first}{Glue string: override label for the first category. Write e.g.
-\code{first = "< {r}"} to create a label like \code{"< 18"}. See \code{\link[=lbl_glue]{lbl_glue()}}
+\code{first = "<{r}"} to create a label like \code{"<18"}. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
 
 \item{last}{String: override label for the last category. Write e.g.
-\verb{last = "> \{l\}} to create a label like \code{"> 65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
+\code{last = ">{l}"} to create a label like \code{">65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
 
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
@@ -33,7 +33,7 @@ or standard deviations?}
 A function that creates a vector of labels.
 }
 \description{
-These labels are the most exact since they show you whether
+These labels are the most exact, since they show you whether
 intervals are "closed" or "open", i.e. whether they include their endpoints.
 }
 \details{
@@ -55,7 +55,7 @@ other endpoints, e.g. Date objects, will be formatted by \code{format(breaks, fm
 
 If \code{fmt} is a function, it should take a vector of numbers (or other objects
 that can be used as breaks) and return a character vector. It may be helpful
-to use functions from the \code{{scales}} package, e.g. \verb{[scales::label_comma()]}.
+to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_number]{scales::label_comma()}}.
 }
 
 \examples{

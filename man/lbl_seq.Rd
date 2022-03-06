@@ -9,6 +9,9 @@ lbl_seq(start = "a")
 \arguments{
 \item{start}{String. A template for the sequence. See below.}
 }
+\value{
+A function that creates a vector of labels.
+}
 \description{
 \code{lbl_seq} labels intervals sequentially, using numbers or letters.
 }

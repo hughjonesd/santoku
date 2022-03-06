@@ -23,11 +23,11 @@ lbl_glue(
 for details.}
 
 \item{first}{Glue string: override label for the first category. Write e.g.
-\code{first = "< {r}"} to create a label like \code{"< 18"}. See \code{\link[=lbl_glue]{lbl_glue()}}
+\code{first = "<{r}"} to create a label like \code{"<18"}. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
 
 \item{last}{String: override label for the last category. Write e.g.
-\verb{last = "> \{l\}} to create a label like \code{"> 65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
+\code{last = ">{l}"} to create a label like \code{">65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
 
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
@@ -42,11 +42,16 @@ A function that creates a vector of labels.
 Use \code{"{l}"} and \code{"{r}"} to show the left and right endpoints of the intervals.
 }
 \details{
-Variables \code{l_closed} and \code{r_closed} are \code{TRUE} if the left and right
-endpoints are closed.
+The following variables are available in the glue string:
+\itemize{
+\item \code{l} is a character vector of left endpoints of intervals.
+\item \code{r} is a character vector of right endpoints of intervals.
+\item \code{l_closed} is a logical vector. Elements are \code{TRUE} when the left
+endpoint is closed.
+\item \code{r_closed} is a logical vector, \code{TRUE} when the right endpoint is closed.
+}
 
-The endpoints themselves are formatted using \code{fmt} before being passed to
-\code{glue()}.
+Endpoints will be formatted by \code{fmt} before being passed to \code{glue()}.
 }
 \section{Formatting endpoints}{
 
@@ -57,7 +62,7 @@ other endpoints, e.g. Date objects, will be formatted by \code{format(breaks, fm
 
 If \code{fmt} is a function, it should take a vector of numbers (or other objects
 that can be used as breaks) and return a character vector. It may be helpful
-to use functions from the \code{{scales}} package, e.g. \verb{[scales::label_comma()]}.
+to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_number]{scales::label_comma()}}.
 }
 
 \examples{
@@ -65,10 +70,12 @@ tab(1:10, c(1, 3, 3, 7),
     label = lbl_glue("{l} to {r}", single = "Exactly {l}"))
 
 tab(1:10 * 1000, c(1, 3, 5, 7) * 1000,
-    label = lbl_glue("{l}-{r}", fmt = \(x) prettyNum(x, big.mark=',')))
+    label = lbl_glue("{l}-{r}", fmt = function(x) prettyNum(x, big.mark=',')))
 
 # reproducing lbl_intervals():
-glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
+interval_left <- "{ifelse(l_closed, '[', '(')}"
+interval_right <- "{ifelse(r_closed, ']', ')')}"
+glue_string <- paste0(interval_left, "{l}", ", ", "{r}", interval_right)
 tab(1:10, c(1, 3, 3, 7), label = lbl_glue(glue_string, single = "{{{l}}}"))
 
 }

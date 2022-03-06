@@ -14,7 +14,7 @@
 #'
 #' If `fmt` is a function, it should take a vector of numbers (or other objects
 #' that can be used as breaks) and return a character vector. It may be helpful
-#' to use functions from the `{scales}` package, e.g. `[scales::label_comma()]`.
+#' to use functions from the `{scales}` package, e.g. [scales::label_comma()].
 #'
 #' @return A function that creates a vector of labels.
 NULL
@@ -24,17 +24,17 @@ NULL
 #' @param single Glue string: label for singleton intervals. See [lbl_glue()]
 #'   for details.
 #' @param first Glue string: override label for the first category. Write e.g.
-#'   `first = "< {r}"` to create a label like `"< 18"`. See [lbl_glue()]
+#'   `first = "<{r}"` to create a label like `"<18"`. See [lbl_glue()]
 #'   for details.
 #' @param last String: override label for the last category. Write e.g.
-#'   `last = "> {l}` to create a label like `"> 65"`. See [lbl_glue()]
+#'   `last = ">{l}"` to create a label like `">65"`. See [lbl_glue()]
 #'   for details.
 NULL
 
 
 #' Label chopped intervals using set notation
 #'
-#' These labels are the most exact since they show you whether
+#' These labels are the most exact, since they show you whether
 #' intervals are "closed" or "open", i.e. whether they include their endpoints.
 #'
 #' Mathematical set notation looks like this:
@@ -67,20 +67,60 @@ lbl_intervals <- function (fmt = NULL, single = "{{{l}}}", first = NULL, last = 
 }
 
 
+#' Label chopped intervals like 1-4, 4-5, ...
+#'
+#' This label style is user-friendly, but doesn't distinguish between
+#' left- and right-closed intervals. It's good for continuous data
+#' where you don't expect points to be exactly on the breaks.
+#'
+#' If you don't want unicode output, use `lbl_dash("-")`.
+#'
+#' @inherit label-doc
+#' @inherit first-last-doc
+#'
+#' @family labelling functions
+#'
+#' @export
+#'
+#' @examples
+#' chop(1:10, c(2, 5, 8), lbl_dash())
+#'
+#' chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "%.1f"))
+#'
+#' chop(1:10, c(2, 5, 8), lbl_dash(first = "<{r}"))
+#'
+#' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
+#' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
+lbl_dash <- function (symbol = em_dash(), fmt = NULL, single = "{l}", first = NULL,
+                      last = NULL, raw = FALSE) {
+
+  label_glue <- paste0("{l}", symbol, "{r}")
+  lbl_glue(label = label_glue, fmt = fmt, single = single, first = first,
+           last = last, raw = raw)
+}
+
+
 #' Label chopped intervals using the {glue} package
 #'
 #' Use `"{l}"` and `"{r}"` to show the left and right endpoints of the intervals.
-#'
-#' Variables `l_closed` and `r_closed` are `TRUE` if the left and right
-#' endpoints are closed.
-#'
-#' The endpoints themselves are formatted using `fmt` before being passed to
-#' `glue()`.
 #'
 #' @inherit label-doc
 #' @inherit first-last-doc params
 #' @param label A glue string passed to [glue::glue()].
 #' @param ... Further arguments passed to [glue::glue()].
+#'
+#' @details
+#'
+#' The following variables are available in the glue string:
+#'
+#' * `l` is a character vector of left endpoints of intervals.
+#' * `r` is a character vector of right endpoints of intervals.
+#' * `l_closed` is a logical vector. Elements are `TRUE` when the left
+#'   endpoint is closed.
+#' * `r_closed` is a logical vector, `TRUE` when the right endpoint is closed.
+#'
+#'
+#' Endpoints will be formatted by `fmt` before being passed to `glue()`.
 #'
 #' @family labelling functions
 #'
@@ -91,10 +131,12 @@ lbl_intervals <- function (fmt = NULL, single = "{{{l}}}", first = NULL, last = 
 #'     label = lbl_glue("{l} to {r}", single = "Exactly {l}"))
 #'
 #' tab(1:10 * 1000, c(1, 3, 5, 7) * 1000,
-#'     label = lbl_glue("{l}-{r}", fmt = \(x) prettyNum(x, big.mark=',')))
+#'     label = lbl_glue("{l}-{r}", fmt = function(x) prettyNum(x, big.mark=',')))
 #'
 #' # reproducing lbl_intervals():
-#' glue_string <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
+#' interval_left <- "{ifelse(l_closed, '[', '(')}"
+#' interval_right <- "{ifelse(r_closed, ']', ')')}"
+#' glue_string <- paste0(interval_left, "{l}", ", ", "{r}", interval_right)
 #' tab(1:10, c(1, 3, 3, 7), label = lbl_glue(glue_string, single = "{{{l}}}"))
 #'
 lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NULL,
@@ -160,39 +202,6 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 }
 
 
-#' Label chopped intervals like 1-4, 4-5, ...
-#'
-#' This label style is user-friendly, but doesn't distinguish between
-#' left- and right-closed intervals. It's good for continuous data
-#' where you don't expect points to be exactly on the breaks.
-#'
-#' If you don't want unicode output, use `lbl_dash("-")`.
-#'
-#' @inherit label-doc
-#' @inherit first-last-doc
-#'
-#' @family labelling functions
-#'
-#' @export
-#'
-#' @examples
-#' chop(1:10, c(2, 5, 8), lbl_dash())
-#'
-#' chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "%.1f"))
-#'
-#' chop(1:10, c(2, 5, 8), lbl_dash(first = "< {r}"))
-#'
-#' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
-#' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
-lbl_dash <- function (symbol = em_dash(), fmt = NULL, single = "{l}", first = NULL,
-                      last = NULL, raw = FALSE) {
-
-  label_glue <- paste0("{l}", symbol, "{r}")
-  lbl_glue(label = label_glue, fmt = fmt, single = single, first = first,
-             last = last, raw = raw)
-}
-
-
 #' Label chopped intervals by their left or right endpoints
 #'
 #' This is useful when the left endpoint unambiguously indicates the
@@ -250,10 +259,11 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 #'
 #' tab(1:7, c(3, 5), lbl_discrete(first = "<= {r}"))
 #'
+#' tab(1:7 * 1000, c(1, 3, 5) * 1000, lbl_discrete(unit = 1000))
+#'
 #' # Misleading labels for non-integer data
 #' chop(2.5, c(1, 3, 5), lbl_discrete())
 #'
-#' tab(1:7 * 1000, c(1, 3, 5) * 1000, lbl_discrete(unit = 1000))
 lbl_discrete <- function (
                   symbol = em_dash(),
                   unit = 1,
@@ -346,6 +356,7 @@ lbl_discrete <- function (
 #' Other characters will be retained as-is.
 #'
 #' @family labelling functions
+#' @inherit label-doc return
 #'
 #' @export
 #'
@@ -369,13 +380,13 @@ lbl_seq <- function(start = "a") {
     "a" = lbl_manual(letters, fmt),
     "A" = lbl_manual(LETTERS, fmt),
     "i" = function (breaks) {
-           sprintf(fmt, tolower(utils::as.roman(seq(1L, length(breaks) - 1))))
+           sprintf(fmt, tolower(utils::as.roman(seq(1L, length(breaks) - 1L))))
          },
     "I" = function (breaks) {
-           sprintf(fmt, utils::as.roman(seq(1L, length(breaks) - 1)))
+           sprintf(fmt, utils::as.roman(seq(1L, length(breaks) - 1L)))
          },
     "1" = function (breaks) {
-            sprintf(fmt, seq(1L, length(breaks) - 1))
+            sprintf(fmt, seq(1L, length(breaks) - 1L))
           }
     )
 
@@ -390,7 +401,7 @@ lbl_seq <- function(start = "a") {
 #' repeated.
 #'
 #' @param sequence A character vector of labels.
-#' @inherit label-doc params return
+#' @inherit label-doc
 #'
 #' @family labelling functions
 #'
