@@ -76,8 +76,7 @@ interval. In other cases it may give errors due to duplicate labels.</p>
     <div class="section level2">
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>fmt</dt>
-<dd><p>A format. Can be a string, passed into <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">base::sprintf()</a></code> or <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code>
-methods; or a one-argument formatting function.</p></dd>
+<dd><p>String or function. A format for break endpoints.</p></dd>
 <dt>raw</dt>
 <dd><p>Logical. Always use raw <code>breaks</code> in labels, rather than e.g. quantiles
 or standard deviations?</p></dd>
@@ -86,7 +85,19 @@ or standard deviations?</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A vector of labels for <code>chop</code>, or a function that creates labels.</p>
+    <p>A function that creates a vector of labels.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="formatting-endpoints">Formatting endpoints<a class="anchor" aria-label="anchor" href="#formatting-endpoints"></a></h2>
+    
+
+
+<p>If <code>fmt</code> is not <code>NULL</code> then it is used to format the endpoints. If <code>fmt</code> is
+a string then numeric endpoints will be formatted by <code>sprintf(fmt, breaks)</code>;
+other endpoints, e.g. Date objects, will be formatted by <code>format(breaks, fmt)</code>.</p>
+<p>If <code>fmt</code> is a function, it should take a vector of numbers (or other objects
+that can be used as breaks) and return a character vector. It may be helpful
+to use functions from the <code>{scales}</code> package, e.g. <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code>.</p>
     </div>
 
     <div class="section level2">

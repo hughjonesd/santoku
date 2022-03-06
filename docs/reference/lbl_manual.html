@@ -81,19 +81,30 @@ repeated.</p>
     <dl><dt>sequence</dt>
 <dd><p>A character vector of labels.</p></dd>
 <dt>fmt</dt>
-<dd><p>A format. Can be a string, passed into <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">base::sprintf()</a></code> or <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code>
-methods; or a one-argument formatting function.</p></dd>
+<dd><p>String or function. A format for break endpoints.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A vector of labels for <code>chop</code>, or a function that creates labels.</p>
+    <p>A function that creates a vector of labels.</p>
+    </div>
+    <div class="section level2">
+    <h2 id="formatting-endpoints">Formatting endpoints<a class="anchor" aria-label="anchor" href="#formatting-endpoints"></a></h2>
+    
+
+
+<p>If <code>fmt</code> is not <code>NULL</code> then it is used to format the endpoints. If <code>fmt</code> is
+a string then numeric endpoints will be formatted by <code>sprintf(fmt, breaks)</code>;
+other endpoints, e.g. Date objects, will be formatted by <code>format(breaks, fmt)</code>.</p>
+<p>If <code>fmt</code> is a function, it should take a vector of numbers (or other objects
+that can be used as breaks) and return a character vector. It may be helpful
+to use functions from the <code>{scales}</code> package, e.g. <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other labelling functions: 
 <code><a href="lbl_dash.html">lbl_dash</a>()</code>,
 <code><a href="lbl_discrete.html">lbl_discrete</a>()</code>,
-<code><a href="lbl_format.html">lbl_format</a>()</code>,
+<code><a href="lbl_glue.html">lbl_glue</a>()</code>,
 <code><a href="lbl_intervals.html">lbl_intervals</a>()</code>,
 <code><a href="lbl_seq.html">lbl_seq</a>()</code></p></div>
     </div>

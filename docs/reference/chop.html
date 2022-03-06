@@ -159,7 +159,7 @@ min(breaks))</code> and <code>(max(breaks), Inf]</code>.</p>
 <code>[min(x), min(breaks))</code> and <code>(max(breaks), max(x)]</code>, <em>only</em> if
 necessary -- i.e. if <code>min(x) &lt; min(breaks)</code> and <code>max(x) &gt; max(breaks)</code>
 respectively.</p>
-<p>Extending intervals, either by <code>extend = NULL</code> or <code>extend = FALSE</code>,
+<p>Extending intervals, either by <code>extend = NULL</code> or <code>extend = TRUE</code>,
 <em>always</em> leaves the central, non-extended intervals unchanged. In particular,
 <code>close_end</code> applies to the central intervals, not to the extended ones.
 For example, if <code>breaks = c(1, 3, 5)</code> and <code>close_end = TRUE</code>, the resulting

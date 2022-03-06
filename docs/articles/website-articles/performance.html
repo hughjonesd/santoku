@@ -92,7 +92,7 @@
       <img src="../../logo.png" class="logo" alt=""><h1>Performance</h1>
                         <h4 data-toc-skip class="author">David Hugh-Jones</h4>
             
-            <h4 data-toc-skip class="date">2022-02-15</h4>
+            <h4 data-toc-skip class="date">2022-03-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hughjonesd/santoku/blob/HEAD/vignettes/website-articles/performance.Rmd" class="external-link"><code>vignettes/website-articles/performance.Rmd</code></a></small>
       <div class="d-none name"><code>performance.Rmd</code></div>
@@ -118,12 +118,12 @@
         check <span class="op">=</span> <span class="cn">FALSE</span>
       <span class="op">)</span>
 <span class="va">mb</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 x 6</span></span>
-<span class="co">#&gt;   expression                            min  median `itr/sec` mem_alloc `gc/sec`</span>
-<span class="co">#&gt;   <span style="color: #949494;font-style: italic;">&lt;bch:expr&gt;</span><span>                        </span><span style="color: #949494;font-style: italic;">&lt;bch:t&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:t&gt;</span><span>     </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:byt&gt;</span><span>    </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(rnorm(1e+05), -2:2)  26.4ms  30.3ms      32.2    14.5MB    21.4 </span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> base::cut(rnorm(1e+05), -2:2)      18.1ms  20.4ms      48.4    3.49MB     7.24</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span><span> Hmisc::cut2(rnorm(1e+05), -2:2)    46.5ms  52.8ms      18.5    87.7MB    60.3</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span>
+<span class="co">#&gt;   expression                             min median `itr/sec` mem_alloc `gc/sec`</span>
+<span class="co">#&gt;   <span style="color: #949494;font-style: italic;">&lt;bch:expr&gt;</span><span>                        </span><span style="color: #949494;font-style: italic;">&lt;bch:tm&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:&gt;</span><span>     </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:byt&gt;</span><span>    </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(rnorm(1e+05), -2:2)   27.4ms   31ms      31.3   14.66MB    20.0 </span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> base::cut(rnorm(1e+05), -2:2)       16.8ms 18.8ms      51.8    3.49MB     6.41</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span><span> Hmisc::cut2(rnorm(1e+05), -2:2)     47.3ms 53.6ms      18.7   87.45MB    51.2</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
 <span class="co">#&gt; Loading required namespace: tidyr</span></code></pre></div>
@@ -146,12 +146,12 @@
             <span class="op">)</span>
 
 <span class="va">mb_dates</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 x 6</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span>
 <span class="co">#&gt;   expression                             min median `itr/sec` mem_alloc `gc/sec`</span>
 <span class="co">#&gt;   <span style="color: #949494;font-style: italic;">&lt;bch:expr&gt;</span><span>                        </span><span style="color: #949494;font-style: italic;">&lt;bch:tm&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:&gt;</span><span>     </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:byt&gt;</span><span>    </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(dates, break_dates)  19.22ms 22.7ms      42.9    10.6MB     20.2</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> base::cut(dates, break_dates)       7.98ms   10ms      98.9     3.9MB     11.0</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span><span> Hmisc::cut2(dates, break_dates)    19.66ms 24.9ms      38.4    15.3MB     25.6</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(dates, break_dates)  19.22ms 22.9ms      41.8    10.6MB     22.5</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> base::cut(dates, break_dates)       8.79ms 10.8ms      89.7     3.9MB     11.1</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span><span> Hmisc::cut2(dates, break_dates)    22.41ms 28.3ms      34.1    15.3MB     22.7</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb_dates</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></code></pre></div>
 <p><img src="performance_files/figure-html/unnamed-chunk-2-1.png" width="576"></p>
@@ -174,12 +174,12 @@
              <span class="op">)</span>
 
 <span class="va">mb_pure_r</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 x 6</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span>
 <span class="co">#&gt;   expression                                         min   median `itr/sec`</span>
 <span class="co">#&gt;   <span style="color: #949494;font-style: italic;">&lt;bch:expr&gt;</span><span>                                    </span><span style="color: #949494;font-style: italic;">&lt;bch:tm&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:tm&gt;</span><span>     </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(lipsum, letters)                  2.61ms    3.1ms      302.</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> santoku::chop(seq(1, 26, length = 100), 1:26)   1.17ms    1.3ms      673.</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: mem_alloc &lt;bch:byt&gt;, gc/sec &lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(lipsum, letters)                  2.99ms   3.94ms      216.</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> santoku::chop(seq(1, 26, length = 100), 1:26)   1.98ms   3.82ms      229.</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 2 more variables: mem_alloc &lt;bch:byt&gt;, `gc/sec` &lt;dbl&gt;</span></span>
 
 <span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="va">oo</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -202,13 +202,13 @@
       <span class="op">)</span>
 
 <span class="va">mb_breaks</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 x 6</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span>
 <span class="co">#&gt;   expression                                    min   median `itr/sec` mem_alloc</span>
 <span class="co">#&gt;   <span style="color: #949494;font-style: italic;">&lt;bch:expr&gt;</span><span>                               </span><span style="color: #949494;font-style: italic;">&lt;bch:tm&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:tm&gt;</span><span>     </span><span style="color: #949494;font-style: italic;">&lt;dbl&gt;</span><span> </span><span style="color: #949494;font-style: italic;">&lt;bch:byt&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(rnorm(10000), many_breaks)   40.1ms   42.2ms      22.9    4.73MB</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> base::cut(rnorm(10000), many_breaks)       11.9ms   12.6ms      76.2    1.54MB</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span><span> Hmisc::cut2(rnorm(10000), many_breaks)     33.4ms   35.5ms      27.1     6.2MB</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: gc/sec &lt;dbl&gt;</span></span></code></pre></div>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span><span> santoku::chop(rnorm(10000), many_breaks)   43.2ms   57.3ms      16.4    5.08MB</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span><span> base::cut(rnorm(10000), many_breaks)       11.8ms     14ms      65.2    1.54MB</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span><span> Hmisc::cut2(rnorm(10000), many_breaks)     33.8ms   49.3ms      19.0     6.2MB</span></span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: `gc/sec` &lt;dbl&gt;</span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb_breaks</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></code></pre></div>
 <p><img src="performance_files/figure-html/unnamed-chunk-4-1.png" width="576"></p>

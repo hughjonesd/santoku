@@ -75,10 +75,11 @@ where you don't expect points to be exactly on the breaks.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">lbl_dash</span><span class="op">(</span>
   symbol <span class="op">=</span> <span class="fu">em_dash</span><span class="op">(</span><span class="op">)</span>,
-  raw <span class="op">=</span> <span class="cn">FALSE</span>,
   fmt <span class="op">=</span> <span class="cn">NULL</span>,
+  single <span class="op">=</span> <span class="st">"{l}"</span>,
   first <span class="op">=</span> <span class="cn">NULL</span>,
-  last <span class="op">=</span> <span class="cn">NULL</span>
+  last <span class="op">=</span> <span class="cn">NULL</span>,
+  raw <span class="op">=</span> <span class="cn">FALSE</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -86,33 +87,48 @@ where you don't expect points to be exactly on the breaks.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
     <dl><dt>symbol</dt>
 <dd><p>String: symbol to use for the dash.</p></dd>
+<dt>fmt</dt>
+<dd><p>String or function. A format for break endpoints.</p></dd>
+<dt>single</dt>
+<dd><p>Glue string: label for singleton intervals. See <code><a href="lbl_glue.html">lbl_glue()</a></code>
+for details.</p></dd>
+<dt>first</dt>
+<dd><p>Glue string: override label for the first category. Write e.g.
+<code>first = "&lt;{r}"</code> to create a label like <code>"&lt;18"</code>. See <code><a href="lbl_glue.html">lbl_glue()</a></code>
+for details.</p></dd>
+<dt>last</dt>
+<dd><p>String: override label for the last category. Write e.g.
+<code>last = "&gt;{l}"</code> to create a label like <code>"&gt;65"</code>. See <code><a href="lbl_glue.html">lbl_glue()</a></code>
+for details.</p></dd>
 <dt>raw</dt>
 <dd><p>Logical. Always use raw <code>breaks</code> in labels, rather than e.g. quantiles
 or standard deviations?</p></dd>
-<dt>fmt</dt>
-<dd><p>A format. Can be a string, passed into <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">base::sprintf()</a></code> or <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code>
-methods; or a one-argument formatting function.</p></dd>
-<dt>first</dt>
-<dd><p>String: override label for the first category. Passed to
-<code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code> or <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code>, so you can write e.g. <code>first = "&lt; %s"</code> to create
-a label like <code>"&lt; 18"</code>.</p></dd>
-<dt>last</dt>
-<dd><p>String: override label for the last category. Passed to
-<code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code> or <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code>.</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A vector of labels for <code>chop</code>, or a function that creates labels.</p>
+    <p>A function that creates a vector of labels.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
     <p>If you don't want unicode output, use <code>lbl_dash("-")</code>.</p>
     </div>
     <div class="section level2">
+    <h2 id="formatting-endpoints">Formatting endpoints<a class="anchor" aria-label="anchor" href="#formatting-endpoints"></a></h2>
+    
+
+
+<p>If <code>fmt</code> is not <code>NULL</code> then it is used to format the endpoints. If <code>fmt</code> is
+a string then numeric endpoints will be formatted by <code>sprintf(fmt, breaks)</code>;
+other endpoints, e.g. Date objects, will be formatted by <code>format(breaks, fmt)</code>.</p>
+<p>If <code>fmt</code> is a function, it should take a vector of numbers (or other objects
+that can be used as breaks) and return a character vector. It may be helpful
+to use functions from the <code>{scales}</code> package, e.g. <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code>.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other labelling functions: 
 <code><a href="lbl_discrete.html">lbl_discrete</a>()</code>,
-<code><a href="lbl_format.html">lbl_format</a>()</code>,
+<code><a href="lbl_glue.html">lbl_glue</a>()</code>,
 <code><a href="lbl_intervals.html">lbl_intervals</a>()</code>,
 <code><a href="lbl_manual.html">lbl_manual</a>()</code>,
 <code><a href="lbl_seq.html">lbl_seq</a>()</code></p></div>
@@ -129,15 +145,15 @@ a label like <code>"&lt; 18"</code>.</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] 5.0 to 8.0  8.0 to 10.0 8.0 to 10.0 8.0 to 10.0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: 1.0 to 2.0 2.0 to 5.0 5.0 to 8.0 8.0 to 10.0</span>
 <span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="chop.html">chop</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>, <span class="fu">lbl_dash</span><span class="op">(</span>first <span class="op">=</span> <span class="st">"&lt; %s"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] &lt; 2  2—5  2—5  2—5  5—8  5—8  5—8  8—10 8—10 8—10</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: &lt; 2 2—5 5—8 8—10</span>
+<span class="r-in"><span class="fu"><a href="chop.html">chop</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span>, <span class="fu">lbl_dash</span><span class="op">(</span>first <span class="op">=</span> <span class="st">"&lt;{r}"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] &lt;2   2—5  2—5  2—5  5—8  5—8  5—8  8—10 8—10 8—10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: &lt;2 2—5 5—8 8—10</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">pretty</span> <span class="op">&lt;-</span> <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/formatc.html" class="external-link">prettyNum</a></span><span class="op">(</span><span class="va">x</span>, big.mark <span class="op">=</span> <span class="st">","</span>, digits <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu"><a href="chop.html">chop</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span> <span class="op">*</span> <span class="fl">10000</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">3000</span>, <span class="fl">7000</span><span class="op">)</span>, <span class="fu">lbl_dash</span><span class="op">(</span><span class="st">" to "</span>, fmt <span class="op">=</span> <span class="va">pretty</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 1,006 to 3,000 1,006 to 3,000 3,000 to 7,000 3,000 to 7,000 1,006 to 3,000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 7,000 to 8,172 3,000 to 7,000 1,006 to 3,000 7,000 to 8,172 1,006 to 3,000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: 1,006 to 3,000 3,000 to 7,000 7,000 to 8,172</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 3,000 to 7,000 508 to 3,000   3,000 to 7,000 3,000 to 7,000 3,000 to 7,000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] 3,000 to 7,000 7,000 to 7,635 3,000 to 7,000 3,000 to 7,000 3,000 to 7,000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: 508 to 3,000 3,000 to 7,000 7,000 to 7,635</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
