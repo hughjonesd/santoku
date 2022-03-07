@@ -37,6 +37,7 @@ fillet(1:10, c(2, 5, 8))
 \seealso{
 Other chopping functions: 
 \code{\link{chop_equally}()},
+\code{\link{chop_evenly}()},
 \code{\link{chop_mean_sd}()},
 \code{\link{chop_n}()},
 \code{\link{chop_quantiles}()},

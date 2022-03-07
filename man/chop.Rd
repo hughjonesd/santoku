@@ -178,6 +178,7 @@ aren't numbers.
 
 Other chopping functions: 
 \code{\link{chop_equally}()},
+\code{\link{chop_evenly}()},
 \code{\link{chop_mean_sd}()},
 \code{\link{chop_n}()},
 \code{\link{chop_quantiles}()},

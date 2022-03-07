@@ -308,10 +308,9 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 }
 
 
-#' Chop into equal-width intervals
+#' Chop into fixed-width intervals
 #'
-#' `chop_width()` chops `x` into intervals of width `width`. `chop_evenly()`
-#' chops `x` into `intervals` intervals of equal width.
+#' `chop_width()` chops `x` into intervals of fixed `width`.
 #'
 #' @param width Width of intervals.
 #' @param start Leftpoint of first interval. By default the smallest finite `x`,
@@ -320,10 +319,8 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' @inherit chop-doc params return
 #'
 #' @details
-#' If `width` is negative, intervals will go downwards from `start`.
-#'
-#' `chop_evenly()` sets `close_end = TRUE` by default. `chop_width()` sets
-#' `left = FALSE` if width is negative.
+#' If `width` is negative, `chop_width()` sets `left = FALSE` and intervals will
+#' go downwards from `start`.
 #'
 #' @family chopping functions
 #' @seealso [brk_width-for-datetime]
@@ -340,19 +337,28 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #'
 #' chop(1:10, brk_width(2, 0))
 #'
-#' chop_evenly(0:10, 5)
-#'
 chop_width <- function (x, width, start, ..., left = sign(width) > 0) {
   chop(x, brk_width(width, start), left = left, ...)
 }
 
 
-#' @rdname chop_width
+#' Chop into equal-width intervals
+#'
+#' `chop_evenly()` chops `x` into `intervals` intervals of equal width.
 #'
 #' @param intervals Integer: number of intervals to create.
+#' @inheritParams chop
+#' @inherit chop-doc params return
+#'
+#' @details `chop_evenly()` sets `close_end = TRUE` by default.
+#'
+#' @family chopping functions
 #'
 #' @export
 #' @order 1
+#' @examples
+#' chop_evenly(0:10, 5)
+#'
 chop_evenly <- function (x, intervals, ..., close_end = TRUE) {
   chop(x, brk_evenly(intervals), ..., close_end = close_end)
 }

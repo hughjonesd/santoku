@@ -226,7 +226,7 @@ sequence_width.Period <- function(width, start, until) {
 }
 
 
-#' @rdname chop_width
+#' @rdname chop_evenly
 #' @export
 #' @order 2
 brk_evenly <- function(intervals) {

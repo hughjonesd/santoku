@@ -2,27 +2,18 @@
 % Please edit documentation in R/chop.R, R/breaks.R, R/tab.R
 \name{chop_width}
 \alias{chop_width}
-\alias{chop_evenly}
 \alias{brk_width}
 \alias{brk_width.default}
-\alias{brk_evenly}
 \alias{tab_width}
-\alias{tab_evenly}
-\title{Chop into equal-width intervals}
+\title{Chop into fixed-width intervals}
 \usage{
 chop_width(x, width, start, ..., left = sign(width) > 0)
-
-chop_evenly(x, intervals, ..., close_end = TRUE)
 
 brk_width(width, start)
 
 \method{brk_width}{default}(width, start)
 
-brk_evenly(intervals)
-
 tab_width(x, width, start, ..., left = sign(width) > 0)
-
-tab_evenly(x, intervals, ..., close_end = TRUE)
 }
 \arguments{
 \item{x}{A vector.}
@@ -35,11 +26,6 @@ or if \code{width} is negative, the largest finite \code{x}.}
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
 
 \item{left}{Logical. Left-closed breaks?}
-
-\item{intervals}{Integer: number of intervals to create.}
-
-\item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
-close first break at left?)}
 }
 \value{
 \verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
@@ -49,14 +35,11 @@ close first break at left?)}
 \verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
 }
 \description{
-\code{chop_width()} chops \code{x} into intervals of width \code{width}. \code{chop_evenly()}
-chops \code{x} into \code{intervals} intervals of equal width.
+\code{chop_width()} chops \code{x} into intervals of fixed \code{width}.
 }
 \details{
-If \code{width} is negative, intervals will go downwards from \code{start}.
-
-\code{chop_evenly()} sets \code{close_end = TRUE} by default. \code{chop_width()} sets
-\code{left = FALSE} if width is negative.
+If \code{width} is negative, \code{chop_width()} sets \code{left = FALSE} and intervals will
+go downwards from \code{start}.
 }
 \examples{
 chop_width(1:10, 2)
@@ -67,8 +50,6 @@ chop_width(1:9, -2)
 
 chop(1:10, brk_width(2, 0))
 
-chop_evenly(0:10, 5)
-
 tab_width(1:10, 2, start = 0)
 
 }
@@ -77,6 +58,7 @@ tab_width(1:10, 2, start = 0)
 
 Other chopping functions: 
 \code{\link{chop_equally}()},
+\code{\link{chop_evenly}()},
 \code{\link{chop_mean_sd}()},
 \code{\link{chop_n}()},
 \code{\link{chop_quantiles}()},

@@ -48,7 +48,7 @@ tab_width <- function (x, width, start, ..., left = sign(width) > 0) {
 }
 
 
-#' @rdname chop_width
+#' @rdname chop_evenly
 #' @export
 #' @order 3
 tab_evenly <- function (x, intervals, ..., close_end = TRUE) {
