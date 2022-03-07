@@ -40,6 +40,6 @@ Other chopping functions:
 \code{\link{chop_n}()},
 \code{\link{chop_quantiles}()},
 \code{\link{chop_width}()},
-\code{\link{tab}()}
+\code{\link{chop}()}
 }
 \concept{chopping functions}

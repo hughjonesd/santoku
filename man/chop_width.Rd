@@ -79,7 +79,7 @@ Other chopping functions:
 \code{\link{chop_mean_sd}()},
 \code{\link{chop_n}()},
 \code{\link{chop_quantiles}()},
-\code{\link{fillet}()},
-\code{\link{tab}()}
+\code{\link{chop}()},
+\code{\link{fillet}()}
 }
 \concept{chopping functions}

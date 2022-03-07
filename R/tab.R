@@ -2,7 +2,6 @@
 
 #' @rdname chop
 #' @export
-#' @order 3
 #' @examples
 #' tab(1:10, c(2, 5, 8))
 #'
