@@ -85,7 +85,7 @@ tab_n <- function (x, n, ..., close_end = TRUE) {
 #' tab_mean_sd(1:10)
 #'
 tab_mean_sd <- function (x, sd = 3, ...) {
-  default_table(chop_mean_sd(x = x, c = sd, ... = ...))
+  default_table(chop_mean_sd(x = x, sd = sd, ... = ...))
 }
 
 
