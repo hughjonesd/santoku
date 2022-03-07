@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{percent}
 \alias{percent}
-\title{Simple formatter}
+\title{Simple percentage formatter}
 \usage{
 percent(x)
 }
@@ -13,8 +13,8 @@ percent(x)
 \code{x} formatted as a percent.
 }
 \description{
-For a wider range of formatters, consider the
-\href{https://cran.r-project.org/package=scales}{"scales" package}.
+\code{percent()} formats \code{x} as a percentage.
+For a wider range of formatters, consider the \href{https://cran.r-project.org/package=scales}{{scales} package}.
 }
 \examples{
 percent(0.5)

@@ -21,10 +21,11 @@ exactly <- function (x) rep(x, each = 2)
 
 
 
-#' Simple formatter
+#' Simple percentage formatter
 #'
-#' For a wider range of formatters, consider the
-#' ["scales" package](https://cran.r-project.org/package=scales).
+#' `percent()` formats `x` as a percentage.
+#' For a wider range of formatters, consider the [{scales}
+#' package](https://cran.r-project.org/package=scales).
 #'
 #' @param x Numeric values.
 #'
