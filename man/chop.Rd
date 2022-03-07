@@ -60,10 +60,10 @@ intervals containing the value of \code{x}.
 \code{tab()} returns a contingency \code{\link[=table]{table()}}.
 }
 \description{
-\code{chop} cuts \code{x} into intervals. It returns a \code{\link{factor}} of the same length as
+\code{chop()} cuts \code{x} into intervals. It returns a \code{\link{factor}} of the same length as
 \code{x}, representing which interval contains each element of \code{x}.
-\code{kiru} is an alias for \code{chop}.
-\code{tab} calls \code{chop} and returns a contingency \code{\link[=table]{table()}} from the result.
+\code{kiru()} is an alias for \code{chop}.
+\code{tab()} calls \code{chop()} and returns a contingency \code{\link[=table]{table()}} from the result.
 }
 \details{
 \code{x} may be numeric, or a \link[=DateTimeClasses]{Date or Date-Time}.
@@ -77,7 +77,7 @@ intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
 
 If \code{breaks} is a function it is called with the \code{x}, \code{extend}, \code{left} and
 \code{close_end} arguments, and should return an object of class \code{breaks}.
-Use \code{brk_} functions in this context, to create a variety of data-dependent
+Use \verb{brk_*} functions in this context, to create a variety of data-dependent
 breaks.
 }
 
@@ -129,7 +129,7 @@ and if \code{extend = TRUE} the result will be
 \subsection{Labels}{
 
 \code{labels} may be a character vector. It should have the same length as the
-number of intervals. Alternatively, use a \code{lbl_} function such as
+number of intervals. Alternatively, use a \verb{lbl_*} function such as
 \code{\link[=lbl_seq]{lbl_seq()}}.
 
 If \code{labels} is \code{NULL}, then integer codes will be returned instead of a
@@ -141,10 +141,10 @@ factor.
 \code{NA} values in \code{x}, and values which are outside the extended endpoints,
 return \code{NA}.
 
-\code{kiru} is a synonym for \code{chop}. If you load \code{tidyr}, you can use it to avoid
-confusion with \code{tidyr::chop()}.
+\code{kiru()} is a synonym for \code{chop()}. If you load \code{{tidyr}}, you can use it to
+avoid confusion with \code{tidyr::chop()}.
 
-Note that \code{chop}, like all of R, uses binary arithmetic. Thus, numbers may
+Note that \code{chop()}, like all of R, uses binary arithmetic. Thus, numbers may
 not be exactly equal to what you think they should be. There is an example
 below.
 }

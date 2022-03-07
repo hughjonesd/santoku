@@ -22,8 +22,8 @@ repeated.
 \section{Formatting endpoints}{
 
 
-If \code{fmt} is not \code{NULL} then it is used to format the endpoints. If \code{fmt} is
-a string then numeric endpoints will be formatted by \code{sprintf(fmt, breaks)};
+If \code{fmt} is not \code{NULL} then it is used to format the endpoints. If \code{fmt} is a
+string then numeric endpoints will be formatted by \code{sprintf(fmt, breaks)};
 other endpoints, e.g. Date objects, will be formatted by \code{format(breaks, fmt)}.
 
 If \code{fmt} is a function, it should take a vector of numbers (or other objects

@@ -29,8 +29,8 @@ for details.}
 \code{last = ">{l}"} to create a label like \code{">65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
 
-\item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g. quantiles
-or standard deviations?}
+\item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g.
+quantiles or standard deviations?}
 }
 \value{
 A function that creates a vector of labels.
@@ -46,8 +46,8 @@ If you don't want unicode output, use \code{lbl_dash("-")}.
 \section{Formatting endpoints}{
 
 
-If \code{fmt} is not \code{NULL} then it is used to format the endpoints. If \code{fmt} is
-a string then numeric endpoints will be formatted by \code{sprintf(fmt, breaks)};
+If \code{fmt} is not \code{NULL} then it is used to format the endpoints. If \code{fmt} is a
+string then numeric endpoints will be formatted by \code{sprintf(fmt, breaks)};
 other endpoints, e.g. Date objects, will be formatted by \code{format(breaks, fmt)}.
 
 If \code{fmt} is a function, it should take a vector of numbers (or other objects

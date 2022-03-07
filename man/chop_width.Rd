@@ -32,7 +32,7 @@ tab_evenly(x, intervals, ..., close_end = TRUE)
 \item{start}{Leftpoint of first interval. By default the smallest finite \code{x},
 or if \code{width} is negative, the largest finite \code{x}.}
 
-\item{...}{Passed to chop().}
+\item{...}{Passed to \code{\link[=chop]{chop()}}.}
 
 \item{left}{Logical. Left-closed breaks?}
 
@@ -49,13 +49,13 @@ close first break at left?)}
 \verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
 }
 \description{
-\code{chop_width()} chops \code{x} into intervals of width \code{width}. \code{chop_evenly}
+\code{chop_width()} chops \code{x} into intervals of width \code{width}. \code{chop_evenly()}
 chops \code{x} into \code{intervals} intervals of equal width.
 }
 \details{
 If \code{width} is negative, intervals will go downwards from \code{start}.
 
-\code{chop_evenly} sets \code{close_end = TRUE} by default. \code{chop_width} sets
+\code{chop_evenly()} sets \code{close_end = TRUE} by default. \code{chop_width()} sets
 \code{left = FALSE} if width is negative.
 }
 \examples{

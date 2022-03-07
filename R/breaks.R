@@ -89,7 +89,7 @@ brk_mean_sd <- function (sd = 3) {
 
 #' Equal-width intervals for dates or datetimes
 #'
-#' `brk_width` can be used with time interval classes from base R or the
+#' `brk_width()` can be used with time interval classes from base R or the
 #' `lubridate` package.
 #'
 #' @param width A scalar [difftime], [Period][lubridate::Period-class] or

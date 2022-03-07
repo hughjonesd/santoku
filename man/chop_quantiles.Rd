@@ -32,7 +32,8 @@ tab_equally(x, groups, ..., left = is.numeric(x), close_end = TRUE)
 
 \item{probs}{A vector of probabilities for the quantiles.}
 
-\item{...}{Passed to \code{\link[=chop]{chop()}}, or for \code{brk_quantiles} to \code{\link[stats:quantile]{stats::quantile()}}.}
+\item{...}{Passed to \code{\link[=chop]{chop()}}, or for \code{brk_quantiles()} to
+\code{\link[stats:quantile]{stats::quantile()}}.}
 
 \item{left}{Logical. Left-closed breaks?}
 
@@ -49,8 +50,8 @@ close first break at left?)}
 \verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
 }
 \description{
-\code{chop_quantiles} chops data by quantiles. \code{chop_equally} chops
-data into equal-sized groups. \code{chop_deciles} is a convenience shortcut and
+\code{chop_quantiles()} chops data by quantiles. \code{chop_equally()} chops
+data into equal-sized groups. \code{chop_deciles()} is a convenience shortcut and
 chops into deciles.
 }
 \details{

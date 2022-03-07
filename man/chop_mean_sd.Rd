@@ -17,7 +17,7 @@ tab_mean_sd(x, sd = 3, ...)
 
 \item{sd}{Positive number: include up to \code{sd} standard deviations.}
 
-\item{...}{Passed to chop().}
+\item{...}{Passed to \code{\link[=chop]{chop()}}.}
 }
 \value{
 \verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
@@ -27,8 +27,10 @@ tab_mean_sd(x, sd = 3, ...)
 \verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
 }
 \description{
-Intervals of width 1 standard deviation are included on either side of the mean.
-The outermost pair of intervals will be shorter if \code{sd} is not a whole number.
+Intervals of width 1 standard deviation are included on either side of the
+mean.
+The outermost pair of intervals will be shorter if \code{sd} is not a whole
+number.
 }
 \examples{
 chop_mean_sd(1:10)

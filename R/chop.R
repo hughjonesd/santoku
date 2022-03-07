@@ -1,7 +1,7 @@
 
 
 #' @name chop-doc
-#' @param ... Passed to chop().
+#' @param ... Passed to [chop()].
 #' @return
 #' `chop_*` functions return a [`factor`] of the same length as `x`.
 #'
@@ -13,10 +13,10 @@ NULL
 
 #' Cut data into intervals
 #'
-#' `chop` cuts `x` into intervals. It returns a [`factor`] of the same length as
+#' `chop()` cuts `x` into intervals. It returns a [`factor`] of the same length as
 #' `x`, representing which interval contains each element of `x`.
-#' `kiru` is an alias for `chop`.
-#' `tab` calls `chop` and returns a contingency [table()] from the result.
+#' `kiru()` is an alias for `chop`.
+#' `tab()` calls `chop()` and returns a contingency [table()] from the result.
 #'
 #' @param x A vector.
 #' @param breaks A numeric vector of cut-points or a function to create
@@ -42,7 +42,7 @@ NULL
 #'
 #' If `breaks` is a function it is called with the `x`, `extend`, `left` and
 #' `close_end` arguments, and should return an object of class `breaks`.
-#' Use `brk_` functions in this context, to create a variety of data-dependent
+#' Use `brk_*` functions in this context, to create a variety of data-dependent
 #' breaks.
 #'
 #' ## Options for breaks
@@ -91,7 +91,7 @@ NULL
 #' ## Labels
 #'
 #' `labels` may be a character vector. It should have the same length as the
-#' number of intervals. Alternatively, use a `lbl_` function such as
+#' number of intervals. Alternatively, use a `lbl_*` function such as
 #' [lbl_seq()].
 #'
 #' If `labels` is `NULL`, then integer codes will be returned instead of a
@@ -102,10 +102,10 @@ NULL
 #' `NA` values in `x`, and values which are outside the extended endpoints,
 #' return `NA`.
 #'
-#' `kiru` is a synonym for `chop`. If you load `tidyr`, you can use it to avoid
-#'  confusion with `tidyr::chop()`.
+#' `kiru()` is a synonym for `chop()`. If you load `{tidyr}`, you can use it to
+#' avoid confusion with `tidyr::chop()`.
 #'
-#' Note that `chop`, like all of R, uses binary arithmetic. Thus, numbers may
+#' Note that `chop()`, like all of R, uses binary arithmetic. Thus, numbers may
 #' not be exactly equal to what you think they should be. There is an example
 #' below.
 #'
@@ -209,13 +209,14 @@ fillet <- function (x, breaks, labels = lbl_intervals(), left = TRUE, close_end 
 
 #' Chop by quantiles
 #'
-#' `chop_quantiles` chops data by quantiles. `chop_equally` chops
-#' data into equal-sized groups. `chop_deciles` is a convenience shortcut and
+#' `chop_quantiles()` chops data by quantiles. `chop_equally()` chops
+#' data into equal-sized groups. `chop_deciles()` is a convenience shortcut and
 #' chops into deciles.
 #'
 #'
 #' @param probs A vector of probabilities for the quantiles.
-#' @param ... Passed to [chop()], or for `brk_quantiles` to [stats::quantile()].
+#' @param ... Passed to [chop()], or for `brk_quantiles()` to
+#'   [stats::quantile()].
 #' @inheritParams chop
 #' @inherit chop-doc params return
 #'
@@ -277,8 +278,10 @@ chop_equally <- function (x, groups, ..., left = is.numeric(x), close_end = TRUE
 
 #' Chop by standard deviations
 #'
-#' Intervals of width 1 standard deviation are included on either side of the mean.
-#' The outermost pair of intervals will be shorter if `sd` is not a whole number.
+#' Intervals of width 1 standard deviation are included on either side of the
+#' mean.
+#' The outermost pair of intervals will be shorter if `sd` is not a whole
+#' number.
 #'
 #'
 #' @param sd Positive number: include up to `sd` standard deviations.
@@ -302,7 +305,7 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 
 #' Chop into equal-width intervals
 #'
-#' `chop_width()` chops `x` into intervals of width `width`. `chop_evenly`
+#' `chop_width()` chops `x` into intervals of width `width`. `chop_evenly()`
 #' chops `x` into `intervals` intervals of equal width.
 #'
 #' @param width Width of intervals.
@@ -314,7 +317,7 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' @details
 #' If `width` is negative, intervals will go downwards from `start`.
 #'
-#' `chop_evenly` sets `close_end = TRUE` by default. `chop_width` sets
+#' `chop_evenly()` sets `close_end = TRUE` by default. `chop_width()` sets
 #' `left = FALSE` if width is negative.
 #'
 #' @family chopping functions

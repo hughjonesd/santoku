@@ -17,7 +17,7 @@ tab_n(x, n, ..., close_end = TRUE)
 
 \item{n}{Integer: number of elements in each interval.}
 
-\item{...}{Passed to chop().}
+\item{...}{Passed to \code{\link[=chop]{chop()}}.}
 
 \item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
 close first break at left?)}

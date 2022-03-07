@@ -15,7 +15,7 @@
 Can be omitted.}
 }
 \description{
-\code{brk_width} can be used with time interval classes from base R or the
+\code{brk_width()} can be used with time interval classes from base R or the
 \code{lubridate} package.
 }
 \details{
