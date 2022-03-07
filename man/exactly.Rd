@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{exactly}
 \alias{exactly}
-\title{Syntactic sugar}
+\title{Define singleton intervals explicitly}
 \usage{
 exactly(x)
 }
@@ -13,8 +13,9 @@ exactly(x)
 The same as \code{rep(x, each = 2)}.
 }
 \description{
-\code{exactly} lets you write \code{chop(x, c(1, exactly(2), 3))}. This
-is the same as \code{chop(x, c(1, 2, 2, 3))} but conveys your intent more
+\code{exactly()} duplicates its input.
+It lets you define singleton intervals like this: \code{chop(x, c(1, exactly(2), 3))}.
+This is the same as \code{chop(x, c(1, 2, 2, 3))} but conveys your intent more
 clearly.
 }
 \examples{

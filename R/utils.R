@@ -1,9 +1,10 @@
 
 
-#' Syntactic sugar
+#' Define singleton intervals explicitly
 #'
-#' `exactly` lets you write `chop(x, c(1, exactly(2), 3))`. This
-#' is the same as `chop(x, c(1, 2, 2, 3))` but conveys your intent more
+#' `exactly()` duplicates its input.
+#' It lets you define singleton intervals like this: `chop(x, c(1, exactly(2), 3))`.
+#' This is the same as `chop(x, c(1, 2, 2, 3))` but conveys your intent more
 #' clearly.
 #'
 #' @param x A numeric vector.
