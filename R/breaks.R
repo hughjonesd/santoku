@@ -41,7 +41,7 @@ brk_quantiles <- function (probs, ...) {
 }
 
 
-#' @rdname chop_quantiles
+#' @rdname chop_equally
 #'
 #' @export
 #' @order 2

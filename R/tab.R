@@ -91,6 +91,10 @@ tab_mean_sd <- function (x, sd = 3, ...) {
 #' @rdname chop_quantiles
 #' @export
 #' @order 3
+#' @examples
+#' set.seed(42)
+#' tab_quantiles(rnorm(100), probs = 1:3/4, label = lbl_intervals(raw = TRUE))
+#'
 tab_quantiles <-
   function (x, probs, ..., left = is.numeric(x), close_end = TRUE) {
   default_table(
@@ -113,13 +117,9 @@ tab_deciles <- function (x, ...) {
 }
 
 
-#' @rdname chop_quantiles
+#' @rdname chop_equally
 #' @export
 #' @order 3
-#' @examples
-#' set.seed(42)
-#' tab_quantiles(rnorm(100), probs = 1:3/4, label = lbl_intervals(raw = TRUE))
-#'
 tab_equally <-
   function (x, groups, ..., left = is.numeric(x), close_end = TRUE) {
   default_table(

@@ -209,10 +209,8 @@ fillet <- function (x, breaks, labels = lbl_intervals(), left = TRUE, close_end 
 
 #' Chop by quantiles
 #'
-#' `chop_quantiles()` chops data by quantiles. `chop_equally()` chops
-#' data into equal-sized groups. `chop_deciles()` is a convenience shortcut and
-#' chops into deciles.
-#'
+#' `chop_quantiles()` chops data by quantiles.
+#' `chop_deciles()` is a convenience shortcut and chops into deciles.
 #'
 #' @param probs A vector of probabilities for the quantiles.
 #' @param ... Passed to [chop()], or for `brk_quantiles()` to
@@ -241,8 +239,6 @@ fillet <- function (x, breaks, labels = lbl_intervals(), left = TRUE, close_end 
 #'
 #' chop_deciles(1:10)
 #'
-#' chop_equally(1:10, 5)
-#'
 #' # to label by the quantiles themselves:
 #' chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
 #'
@@ -265,12 +261,21 @@ chop_deciles <- function(x, ...) {
 }
 
 
-#' @rdname chop_quantiles
+#' Chop equal-sized groups
+#'
+#' `chop_equally()` chops `x` into groups with an equal number of elements.
 #'
 #' @param groups Number of groups.
+#' @inheritParams chop
+#' @inherit chop-doc params return
+#'
+#' @family chopping functions
 #'
 #' @export
 #' @order 1
+#' @examples
+#' chop_equally(1:10, 5)
+#'
 chop_equally <- function (x, groups, ..., left = is.numeric(x), close_end = TRUE) {
   chop(x, brk_equally(groups), ..., left = left, close_end = close_end)
 }

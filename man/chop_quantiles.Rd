@@ -3,29 +3,20 @@
 \name{chop_quantiles}
 \alias{chop_quantiles}
 \alias{chop_deciles}
-\alias{chop_equally}
 \alias{brk_quantiles}
-\alias{brk_equally}
 \alias{tab_quantiles}
 \alias{tab_deciles}
-\alias{tab_equally}
 \title{Chop by quantiles}
 \usage{
 chop_quantiles(x, probs, ..., left = is.numeric(x), close_end = TRUE)
 
 chop_deciles(x, ...)
 
-chop_equally(x, groups, ..., left = is.numeric(x), close_end = TRUE)
-
 brk_quantiles(probs, ...)
-
-brk_equally(groups)
 
 tab_quantiles(x, probs, ..., left = is.numeric(x), close_end = TRUE)
 
 tab_deciles(x, ...)
-
-tab_equally(x, groups, ..., left = is.numeric(x), close_end = TRUE)
 }
 \arguments{
 \item{x}{A vector.}
@@ -39,8 +30,6 @@ tab_equally(x, groups, ..., left = is.numeric(x), close_end = TRUE)
 
 \item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
 close first break at left?)}
-
-\item{groups}{Number of groups.}
 }
 \value{
 \verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
@@ -50,9 +39,8 @@ close first break at left?)}
 \verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
 }
 \description{
-\code{chop_quantiles()} chops data by quantiles. \code{chop_equally()} chops
-data into equal-sized groups. \code{chop_deciles()} is a convenience shortcut and
-chops into deciles.
+\code{chop_quantiles()} chops data by quantiles.
+\code{chop_deciles()} is a convenience shortcut and chops into deciles.
 }
 \details{
 Note that these functions set \code{close_end = TRUE} by default.
@@ -70,8 +58,6 @@ chop(1:10, brk_quantiles(1:3/4))
 
 chop_deciles(1:10)
 
-chop_equally(1:10, 5)
-
 # to label by the quantiles themselves:
 chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
 
@@ -81,6 +67,7 @@ tab_quantiles(rnorm(100), probs = 1:3/4, label = lbl_intervals(raw = TRUE))
 }
 \seealso{
 Other chopping functions: 
+\code{\link{chop_equally}()},
 \code{\link{chop_mean_sd}()},
 \code{\link{chop_n}()},
 \code{\link{chop_width}()},
