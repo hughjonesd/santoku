@@ -32,7 +32,7 @@ for details.}
 A function that creates a vector of labels.
 }
 \description{
-\code{lbl_discrete} creates labels for discrete data, such as integers.
+\code{lbl_discrete()} creates labels for discrete data, such as integers.
 For example, breaks
 \code{c(1, 3, 4, 6, 7)} are labelled: \verb{"1-2", "3", "4-5", "6-7"}.
 }
@@ -46,8 +46,8 @@ Be aware that Date objects may have non-integer values. See \link{Date}.
 \section{Formatting endpoints}{
 
 
-If \code{fmt} is not \code{NULL} then it is used to format the endpoints. If \code{fmt} is
-a string then numeric endpoints will be formatted by \code{sprintf(fmt, breaks)};
+If \code{fmt} is not \code{NULL} then it is used to format the endpoints. If \code{fmt} is a
+string then numeric endpoints will be formatted by \code{sprintf(fmt, breaks)};
 other endpoints, e.g. Date objects, will be formatted by \code{format(breaks, fmt)}.
 
 If \code{fmt} is a function, it should take a vector of numbers (or other objects

@@ -13,7 +13,7 @@ lbl_seq(start = "a")
 A function that creates a vector of labels.
 }
 \description{
-\code{lbl_seq} labels intervals sequentially, using numbers or letters.
+\code{lbl_seq()} labels intervals sequentially, using numbers or letters.
 }
 \details{
 \code{start} shows the first element of the sequence. It must contain exactly \emph{one}

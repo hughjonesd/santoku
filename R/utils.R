@@ -1,9 +1,10 @@
 
 
-#' Syntactic sugar
+#' Define singleton intervals explicitly
 #'
-#' `exactly` lets you write `chop(x, c(1, exactly(2), 3))`. This
-#' is the same as `chop(x, c(1, 2, 2, 3))` but conveys your intent more
+#' `exactly()` duplicates its input.
+#' It lets you define singleton intervals like this: `chop(x, c(1, exactly(2), 3))`.
+#' This is the same as `chop(x, c(1, 2, 2, 3))` but conveys your intent more
 #' clearly.
 #'
 #' @param x A numeric vector.
@@ -20,10 +21,11 @@ exactly <- function (x) rep(x, each = 2)
 
 
 
-#' Simple formatter
+#' Simple percentage formatter
 #'
-#' For a wider range of formatters, consider the
-#' ["scales" package](https://cran.r-project.org/package=scales).
+#' `percent()` formats `x` as a percentage.
+#' For a wider range of formatters, consider the [{scales}
+#' package](https://cran.r-project.org/package=scales).
 #'
 #' @param x Numeric values.
 #'

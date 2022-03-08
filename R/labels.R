@@ -1,16 +1,17 @@
 
 #' @name label-doc
 #' @param fmt String or function. A format for break endpoints.
-#' @param raw Logical. Always use raw `breaks` in labels, rather than e.g. quantiles
-#'   or standard deviations?
+#' @param raw Logical. Always use raw `breaks` in labels, rather than e.g.
+#'   quantiles or standard deviations?
 #' @param symbol String: symbol to use for the dash.
 #' @param ... Arguments passed to format methods.
 #'
 #' @section Formatting endpoints:
 #'
-#' If `fmt` is not `NULL` then it is used to format the endpoints. If `fmt` is
-#' a string then numeric endpoints will be formatted by `sprintf(fmt, breaks)`;
-#' other endpoints, e.g. Date objects, will be formatted by `format(breaks, fmt)`.
+#' If `fmt` is not `NULL` then it is used to format the endpoints. If `fmt` is a
+#' string then numeric endpoints will be formatted by `sprintf(fmt, breaks)`;
+#' other endpoints, e.g. Date objects, will be formatted by `format(breaks,
+#' fmt)`.
 #'
 #' If `fmt` is a function, it should take a vector of numbers (or other objects
 #' that can be used as breaks) and return a character vector. It may be helpful
@@ -234,7 +235,7 @@ lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
 
 #' Label discrete data
 #'
-#' `lbl_discrete` creates labels for discrete data, such as integers.
+#' `lbl_discrete()` creates labels for discrete data, such as integers.
 #' For example, breaks
 #' `c(1, 3, 4, 6, 7)` are labelled: `"1-2", "3", "4-5", "6-7"`.
 #'
@@ -339,7 +340,7 @@ lbl_discrete <- function (
 
 #' Label chopped intervals in sequence
 #'
-#' `lbl_seq` labels intervals sequentially, using numbers or letters.
+#' `lbl_seq()` labels intervals sequentially, using numbers or letters.
 #'
 #' @param start String. A template for the sequence. See below.
 #'
