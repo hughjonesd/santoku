@@ -3,10 +3,16 @@ Type: Package
 Title: A Versatile Cutting Tool
 Version: 0.6.0.9000
 Authors@R:
+    c(
     person(given = "David",
            family = "Hugh-Jones",
            role = c("aut", "cre"),
-           email = "davidhughjones@gmail.com")
+           email = "davidhughjones@gmail.com"),
+    person(given = "Daniel",
+           family = "Possenriede",
+           role = c("ctb"),
+           email = "possenriede@gmail.com")
+    )
 Author: David Hugh-Jones [aut, cre]
 Maintainer: David Hugh-Jones <davidhughjones@gmail.com>
 Description: A tool for cutting data into intervals. Allows singleton intervals.

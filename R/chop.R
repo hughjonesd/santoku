@@ -313,8 +313,8 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' `chop_width()` chops `x` into intervals of fixed `width`.
 #'
 #' @param width Width of intervals.
-#' @param start Leftpoint of first interval. By default the smallest finite `x`,
-#'   or if `width` is negative, the largest finite `x`.
+#' @param start Starting point for intervals. By default the smallest 
+#'   finite `x` (largest if `width` is negative).
 #' @inheritParams chop
 #' @inherit chop-doc params return
 #'

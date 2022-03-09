@@ -46,4 +46,9 @@ Useful links:
 \author{
 \strong{Maintainer}: David Hugh-Jones \email{davidhughjones@gmail.com}
 
+Other contributors:
+\itemize{
+  \item Daniel Possenriede \email{possenriede@gmail.com} [contributor]
+}
+
 }

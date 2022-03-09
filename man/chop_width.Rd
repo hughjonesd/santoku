@@ -20,8 +20,8 @@ tab_width(x, width, start, ..., left = sign(width) > 0)
 
 \item{width}{Width of intervals.}
 
-\item{start}{Leftpoint of first interval. By default the smallest finite \code{x},
-or if \code{width} is negative, the largest finite \code{x}.}
+\item{start}{Starting point for intervals. By default the smallest
+finite \code{x} (largest if \code{width} is negative).}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
 
