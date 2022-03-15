@@ -5,6 +5,10 @@
 * In labelling functions, `first` and `last` arguments are now passed to 
   `glue::glue()`. Variables `l` and `r` represent the left and right endpoints 
   of the intervals. 
+* `chop_mean_sd()` now takes a vector `sds` of standard deviations, rather than
+  a single maximum number `sd` of standard deviations. Write e.g. 
+  `chop_mean_sd(sds = 1:3)` rather than `chop_mean_sd(sd = 3)`. The `sd` argument
+  is deprecated.
 * The `groups` argument to `chop_evenly()`,  deprecated in 0.4.0, has 
   been removed.
 * `brk_left()` and `brk_right()`, deprecated in 0.4.0, have been removed.

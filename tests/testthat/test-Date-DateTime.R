@@ -73,7 +73,7 @@ test_that("chop_mean_sd", {
   cmp2 <- cut(dt1, mean(dt1) + (-2:2) * sd(dt1), right = FALSE)
   expect_equivalent(table_vals(res2), table_vals(cmp2))
 
-  expect_silent(res3 <- chop_mean_sd(d1, 1.4))
+  expect_silent(res3 <- chop_mean_sd(d1, c(1, 1.4)))
   # the -10 and 10 capture values outside 1.4 sds:
   cmp3 <- cut(d1,  mean(d1) + c(-10, -1.4, -1, 0, 1, 1.4, 10) * sd(d1), right = FALSE)
   expect_equivalent(table_vals(res3), table_vals(cmp3))

@@ -83,15 +83,20 @@ test_that("brk_evenly", {
 
 test_that("brk_mean_sd", {
   x <- rnorm(100)
-  expect_silent(b <- brk_res(brk_mean_sd(3), x = x))
+  expect_silent(b <- brk_res(brk_mean_sd(1:3), x = x))
   m <- mean(x)
   sd <- sd(x)
   sd_ints <- seq(m - 3 * sd, m + 3 * sd, sd)
   expect_equal(as.numeric(b), sd_ints)
 
-  expect_silent(brk_res(brk_mean_sd(3), x = rep(NA, 2)))
-  expect_silent(brk_res(brk_mean_sd(3), x = rep(1, 3)))
-  expect_silent(brk_res(brk_mean_sd(3), x = 1))
+  expect_silent(brk_res(brk_mean_sd(1:3), x = rep(NA, 2)))
+  expect_silent(brk_res(brk_mean_sd(1:3), x = rep(1, 3)))
+  expect_silent(brk_res(brk_mean_sd(1:3), x = 1))
+
+  lifecycle::expect_deprecated(res <- brk_res(brk_mean_sd(sd = 3)))
+  expect_equivalent(
+    res, brk_res(brk_mean_sd(1:3))
+  )
 })
 
 

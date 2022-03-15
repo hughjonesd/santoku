@@ -6,18 +6,20 @@
 \alias{tab_mean_sd}
 \title{Chop by standard deviations}
 \usage{
-chop_mean_sd(x, sd = 3, ...)
+chop_mean_sd(x, sds = 1:3, ..., sd = deprecated())
 
-brk_mean_sd(sd = 3)
+brk_mean_sd(sds = 1:3, sd = deprecated())
 
 tab_mean_sd(x, sd = 3, ...)
 }
 \arguments{
 \item{x}{A vector.}
 
-\item{sd}{Positive number: include up to \code{sd} standard deviations.}
+\item{sds}{Positive numeric vector of standard deviations.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
+
+\item{sd}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \value{
 \verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
@@ -27,10 +29,13 @@ tab_mean_sd(x, sd = 3, ...)
 \verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
 }
 \description{
-Intervals of width 1 standard deviation are included on either side of the
+Intervals are measured in standard deviations on either side of the
 mean.
-The outermost pair of intervals will be shorter if \code{sd} is not a whole
-number.
+}
+\details{
+In version 0.7.0, these functions changed to specifying \code{sds} as a vector.
+To chop 1, 2 and 3 standard deviations around the mean, write
+\code{chop_mean_sd(x, sds = 1:3)} instead of \code{chop_mean_sd(x, sd = 3)}.
 }
 \examples{
 chop_mean_sd(1:10)

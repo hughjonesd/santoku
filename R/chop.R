@@ -283,13 +283,16 @@ chop_equally <- function (x, groups, ..., left = is.numeric(x), close_end = TRUE
 
 #' Chop by standard deviations
 #'
-#' Intervals of width 1 standard deviation are included on either side of the
+#' Intervals are measured in standard deviations on either side of the
 #' mean.
-#' The outermost pair of intervals will be shorter if `sd` is not a whole
-#' number.
 #'
+#' In version 0.7.0, these functions changed to specifying `sds` as a vector.
+#' To chop 1, 2 and 3 standard deviations around the mean, write
+#' `chop_mean_sd(x, sds = 1:3)` instead of `chop_mean_sd(x, sd = 3)`.
 #'
-#' @param sd Positive number: include up to `sd` standard deviations.
+#' @param sds Positive numeric vector of standard deviations.
+#' @param sd  `r lifecycle::badge("deprecated")`
+#'
 #' @inheritParams chop
 #' @inherit chop-doc params return
 #'
@@ -303,8 +306,9 @@ chop_equally <- function (x, groups, ..., left = is.numeric(x), close_end = TRUE
 #'
 #' chop(1:10, brk_mean_sd())
 #'
-chop_mean_sd <- function (x, sd = 3, ...) {
-  chop(x, brk_mean_sd(sd), ...)
+#' @importFrom lifecycle deprecated
+chop_mean_sd <- function (x, sds = 1:3,  ..., sd = deprecated()) {
+  chop(x, brk_mean_sd(sds = sds, sd = sd), ...)
 }
 
 
@@ -313,7 +317,7 @@ chop_mean_sd <- function (x, sd = 3, ...) {
 #' `chop_width()` chops `x` into intervals of fixed `width`.
 #'
 #' @param width Width of intervals.
-#' @param start Starting point for intervals. By default the smallest 
+#' @param start Starting point for intervals. By default the smallest
 #'   finite `x` (largest if `width` is negative).
 #' @inheritParams chop
 #' @inherit chop-doc params return

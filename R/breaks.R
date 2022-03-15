@@ -54,25 +54,35 @@ brk_equally <- function (groups) {
 #' @rdname chop_mean_sd
 #' @export
 #' @order 2
-brk_mean_sd <- function (sd = 3) {
-  assert_that(is.number(sd), sd > 0)
+#' @importFrom lifecycle deprecated
+brk_mean_sd <- function (sds = 1:3, sd = deprecated()) {
+  if (lifecycle::is_present(sd)) {
+    lifecycle::deprecate_soft(
+            when = "0.7.0",
+            what = "brk_mean_sd(sd)",
+            with = "brk_mean_sd(sds = 'vector of sds')"
+          )
+    assert_that(is.number(sd), sd > 0)
+    # we start from 0 but remove the 0
+    # this works for e.g. sd = 0.5, whereas seq(1L, sd, 1L) would not:
+    sds <- seq(0L, sd, 1L)[-1]
+    if (! sd %in% sds) sds <- c(sds, sd)
+  }
+
+  assert_that(is.numeric(sds), all(sds > 0))
 
   function (x, extend, left, close_end) {
-    x_m <- mean(x, na.rm = TRUE)
-    x_sd <- sd(x, na.rm = TRUE)
+    x_mean <- mean(x, na.rm = TRUE)
+    x_sd <- stats::sd(x, na.rm = TRUE)
 
-    if (is.na(x_m) || is.na(x_sd) || x_sd == 0) {
+    if (is.na(x_mean) || is.na(x_sd) || x_sd == 0) {
       return(empty_breaks())
     }
 
-    # work out the "sds" first, then scale them by mean and sd
-    sds_plus <- seq(0, sd, 1L)
-    if (! sd %in% sds_plus) sds_plus <- c(sds_plus, sd)
-    sds_minus <- -1 * sds_plus[-1]
-    sds_minus <- sort(sds_minus)
-    sds <- c(sds_minus, sds_plus)
-
-    breaks <- sds * x_sd + x_m
+    # add negative sds, then scale them by mean and sd
+    sds <- sort(sds)
+    sds <- c(-rev(sds), 0, sds)
+    breaks <- sds * x_sd + x_mean
     breaks <- create_lr_breaks(breaks, left, close_end)
 
     needs <- needs_extend(breaks, x, extend)
