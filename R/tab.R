@@ -41,7 +41,7 @@ tab_width <- function (x, width, start, ..., left = sign(width) > 0) {
       x     = x,
       width = width,
       start = start,
-      ...   = ...,
+      ...,
       left  = left
     )
   )
@@ -56,7 +56,7 @@ tab_evenly <- function (x, intervals, ..., close_end = TRUE) {
       chop_evenly(
       x         = x,
       intervals = intervals,
-      ...       = ...,
+      ...,
       close_end = close_end
     )
   )
@@ -73,7 +73,7 @@ tab_evenly <- function (x, intervals, ..., close_end = TRUE) {
 #' tab_n(1:10, 4)
 #'
 tab_n <- function (x, n, ..., close_end = TRUE) {
-  default_table(chop_n(x = x, n = n, ... = ..., close_end = close_end))
+  default_table(chop_n(x = x, n = n, ..., close_end = close_end))
 }
 
 
@@ -84,7 +84,7 @@ tab_n <- function (x, n, ..., close_end = TRUE) {
 #' tab_mean_sd(1:10)
 #'
 tab_mean_sd <- function (x, sd = 3, ...) {
-  default_table(chop_mean_sd(x = x, sd = sd, ... = ...))
+  default_table(chop_mean_sd(x = x, sd = sd, ...))
 }
 
 
@@ -101,7 +101,7 @@ tab_quantiles <-
     chop_quantiles(
       x         = x,
       probs     = probs,
-      ...       = ...,
+      ...,
       left      = left,
       close_end = close_end
     )
@@ -113,7 +113,7 @@ tab_quantiles <-
 #' @export
 #' @order 3
 tab_deciles <- function (x, ...) {
-  default_table(chop_deciles(x = x, ... = ...))
+  default_table(chop_deciles(x = x, ...))
 }
 
 
@@ -124,7 +124,7 @@ tab_equally <-
   function (x, groups, ..., left = is.numeric(x), close_end = TRUE) {
   default_table(
     chop_equally(
-      x = x, groups = groups, ... = ..., left = left, close_end = close_end
+      x = x, groups = groups, ..., left = left, close_end = close_end
     )
   )
 }
