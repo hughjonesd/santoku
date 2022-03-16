@@ -10,7 +10,7 @@ chop_mean_sd(x, sds = 1:3, ..., sd = deprecated())
 
 brk_mean_sd(sds = 1:3, sd = deprecated())
 
-tab_mean_sd(x, sd = 3, ...)
+tab_mean_sd(x, sds = 1:3, ...)
 }
 \arguments{
 \item{x}{A vector.}
