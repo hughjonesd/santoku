@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -96,8 +96,8 @@ for details.</p></dd>
 <code>last = "&gt;{l}"</code> to create a label like <code>"&gt;65"</code>. See <code>lbl_glue()</code>
 for details.</p></dd>
 <dt>raw</dt>
-<dd><p>Logical. Always use raw <code>breaks</code> in labels, rather than e.g. quantiles
-or standard deviations?</p></dd>
+<dd><p>Logical. Always use raw <code>breaks</code> in labels, rather than e.g.
+quantiles or standard deviations?</p></dd>
 <dt>...</dt>
 <dd><p>Further arguments passed to <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code>.</p></dd>
 </dl></div>
@@ -119,8 +119,8 @@ endpoint is closed.</p></li>
     
 
 
-<p>If <code>fmt</code> is not <code>NULL</code> then it is used to format the endpoints. If <code>fmt</code> is
-a string then numeric endpoints will be formatted by <code>sprintf(fmt, breaks)</code>;
+<p>If <code>fmt</code> is not <code>NULL</code> then it is used to format the endpoints. If <code>fmt</code> is a
+string then numeric endpoints will be formatted by <code>sprintf(fmt, breaks)</code>;
 other endpoints, e.g. Date objects, will be formatted by <code>format(breaks, fmt)</code>.</p>
 <p>If <code>fmt</code> is a function, it should take a vector of numbers (or other objects
 that can be used as breaks) and return a character vector. It may be helpful
@@ -138,12 +138,12 @@ to use functions from the <code>{scales}</code> package, e.g. <code><a href="htt
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="tab.html">tab</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span>,</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="chop.html">tab</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span>,</span>
 <span class="r-in">    label <span class="op">=</span> <span class="fu">lbl_glue</span><span class="op">(</span><span class="st">"{l} to {r}"</span>, single <span class="op">=</span> <span class="st">"Exactly {l}"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    1 to 3 Exactly 3    3 to 7   7 to 10 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         2         1         3         4 </span>
 <span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="tab.html">tab</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="fl">1000</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1000</span>,</span>
+<span class="r-in"><span class="fu"><a href="chop.html">tab</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="fl">1000</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">5</span>, <span class="fl">7</span><span class="op">)</span> <span class="op">*</span> <span class="fl">1000</span>,</span>
 <span class="r-in">    label <span class="op">=</span> <span class="fu">lbl_glue</span><span class="op">(</span><span class="st">"{l}-{r}"</span>, fmt <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/formatc.html" class="external-link">prettyNum</a></span><span class="op">(</span><span class="va">x</span>, big.mark<span class="op">=</span><span class="st">','</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  1,000-3,000  3,000-5,000  5,000-7,000 7,000-10,000 </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            2            2            2            4 </span>
@@ -152,7 +152,7 @@ to use functions from the <code>{scales}</code> package, e.g. <code><a href="htt
 <span class="r-in"><span class="va">interval_left</span> <span class="op">&lt;-</span> <span class="st">"{ifelse(l_closed, '[', '(')}"</span></span>
 <span class="r-in"><span class="va">interval_right</span> <span class="op">&lt;-</span> <span class="st">"{ifelse(r_closed, ']', ')')}"</span></span>
 <span class="r-in"><span class="va">glue_string</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">interval_left</span>, <span class="st">"{l}"</span>, <span class="st">", "</span>, <span class="st">"{r}"</span>, <span class="va">interval_right</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu"><a href="tab.html">tab</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu">lbl_glue</span><span class="op">(</span><span class="va">glue_string</span>, single <span class="op">=</span> <span class="st">"{{{l}}}"</span><span class="op">)</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu"><a href="chop.html">tab</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">3</span>, <span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span>, label <span class="op">=</span> <span class="fu">lbl_glue</span><span class="op">(</span><span class="va">glue_string</span>, single <span class="op">=</span> <span class="st">"{{{l}}}"</span><span class="op">)</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1, 3)     {3}  (3, 7) [7, 10] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       2       1       3       4 </span>
 <span class="r-in"></span>

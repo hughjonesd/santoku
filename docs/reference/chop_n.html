@@ -12,7 +12,7 @@ interval may have fewer elements."><meta property="og:image" content="/logo.png"
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,7 +59,7 @@ interval may have fewer elements."><meta property="og:image" content="/logo.png"
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Chop into fixed-sized groups</h1>
-      <small class="dont-index">Source: <a href="https://github.com/hughjonesd/santoku/blob/HEAD/R/chop.R" class="external-link"><code>R/chop.R</code></a>, <a href="https://github.com/hughjonesd/santoku/blob/HEAD/R/breaks.R" class="external-link"><code>R/breaks.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/hughjonesd/santoku/blob/HEAD/R/chop.R" class="external-link"><code>R/chop.R</code></a>, <a href="https://github.com/hughjonesd/santoku/blob/HEAD/R/breaks.R" class="external-link"><code>R/breaks.R</code></a>, <a href="https://github.com/hughjonesd/santoku/blob/HEAD/R/tab.R" class="external-link"><code>R/tab.R</code></a></small>
       <div class="d-none name"><code>chop_n.Rd</code></div>
     </div>
 
@@ -72,7 +72,9 @@ interval may have fewer elements.</p>
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">chop_n</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">...</span>, close_end <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="fu">brk_n</span><span class="op">(</span><span class="va">n</span><span class="op">)</span></code></pre></div>
+<span class="fu">brk_n</span><span class="op">(</span><span class="va">n</span><span class="op">)</span>
+
+<span class="fu">tab_n</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">...</span>, close_end <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -84,11 +86,14 @@ interval may have fewer elements.</p>
 <dt>...</dt>
 <dd><p>Passed to <code><a href="chop.html">chop()</a></code>.</p></dd>
 <dt>close_end</dt>
-<dd><p>Passed to <code><a href="chop.html">chop()</a></code>.</p></dd>
+<dd><p>Logical. Close last break at right? (If <code>left</code> is <code>FALSE</code>,
+close first break at left?)</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>For  <code>chop_*</code> functions, a factor of the same length as <code>x</code>.</p>
+    <p><code>chop_*</code> functions return a <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></code> of the same length as <code>x</code>.
+<code>brk_*</code> functions return a <code><a href="https://rdrr.io/r/base/function.html" class="external-link">function</a></code> to create <code>breaks</code>.
+<code>tab_*</code> functions return a contingency <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -99,6 +104,8 @@ in <code>x</code>. If so, a warning is given.</p>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other chopping functions: 
+<code><a href="chop_equally.html">chop_equally</a>()</code>,
+<code><a href="chop_evenly.html">chop_evenly</a>()</code>,
 <code><a href="chop_mean_sd.html">chop_mean_sd</a>()</code>,
 <code><a href="chop_quantiles.html">chop_quantiles</a>()</code>,
 <code><a href="chop_width.html">chop_width</a>()</code>,
@@ -108,15 +115,10 @@ in <code>x</code>. If so, a warning is given.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu">chop_n</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1, 6) [6, 10] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       5       5 </span>
-<span class="r-in"></span>
-<span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="fu">chop_n</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">4</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1, 5)  [5, 9) [9, 10] </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       4       4       2 </span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">chop_n</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] [1, 6)  [1, 6)  [1, 6)  [1, 6)  [1, 6)  [6, 10] [6, 10] [6, 10] [6, 10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] [6, 10]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: [1, 6) [6, 10]</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># too many duplicates</span></span>
 <span class="r-in"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, each <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
@@ -124,6 +126,15 @@ in <code>x</code>. If so, a warning is given.</p>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Some intervals contain more than 2 elements</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] {1} {1} {1} {2} {2} {2}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: {1} {2}</span>
+<span class="r-in"></span>
+<span class="r-in"><span class="fu">tab_n</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">5</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1, 6) [6, 10] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       5       5 </span>
+<span class="r-in"></span>
+<span class="r-in"><span class="co"># fewer elements in one group</span></span>
+<span class="r-in"><span class="fu">tab_n</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fl">4</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1, 5)  [5, 9) [9, 10] </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       4       4       2 </span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

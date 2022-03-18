@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -75,17 +75,20 @@
     <dl><dt>x</dt>
 <dd><p>A vector.</p></dd>
 <dt>breaks</dt>
-<dd><p>Passed to <code><a href="chop.html">chop()</a></code>.</p></dd>
+<dd><p>A numeric vector of cut-points or a function to create
+cut-points from <code>x</code>.</p></dd>
 <dt>labels</dt>
-<dd><p>Passed to <code><a href="chop.html">chop()</a></code>.</p></dd>
+<dd><p>A character vector of labels or a function to create labels.</p></dd>
 <dt>left</dt>
-<dd><p>Passed to <code><a href="chop.html">chop()</a></code>.</p></dd>
+<dd><p>Logical. Left-closed breaks?</p></dd>
 <dt>close_end</dt>
-<dd><p>Passed to <code><a href="chop.html">chop()</a></code>.</p></dd>
+<dd><p>Logical. Close last break at right? (If <code>left</code> is <code>FALSE</code>,
+close first break at left?)</p></dd>
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>For  <code>chop_*</code> functions, a factor of the same length as <code>x</code>.</p>
+    <p><code>fillet()</code> returns a <code><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></code> of the same length as <code>x</code>, representing
+the intervals containing the value of <code>x</code>.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
@@ -96,6 +99,8 @@ programming, consider using <code>fillet()</code> instead of <code><a href="chop
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other chopping functions: 
+<code><a href="chop_equally.html">chop_equally</a>()</code>,
+<code><a href="chop_evenly.html">chop_evenly</a>()</code>,
 <code><a href="chop_mean_sd.html">chop_mean_sd</a>()</code>,
 <code><a href="chop_n.html">chop_n</a>()</code>,
 <code><a href="chop_quantiles.html">chop_quantiles</a>()</code>,

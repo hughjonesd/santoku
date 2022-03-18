@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,11 +61,13 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="santoku-development-version">santoku (development version)<a class="anchor" aria-label="anchor" href="#santoku-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.7.0" id="santoku-070">santoku 0.7.0<a class="anchor" aria-label="anchor" href="#santoku-070"></a></h2>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-0-7-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-7-0"></a></h3>
 <ul><li>In labelling functions, <code>first</code> and <code>last</code> arguments are now passed to <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code>. Variables <code>l</code> and <code>r</code> represent the left and right endpoints of the intervals.</li>
-<li>The <code>groups</code> argument to <code><a href="../reference/chop_width.html">chop_evenly()</a></code>, deprecated in 0.4.0, has been removed.</li>
+<li>
+<code><a href="../reference/chop_mean_sd.html">chop_mean_sd()</a></code> now takes a vector <code>sds</code> of standard deviations, rather than a single maximum number <code>sd</code> of standard deviations. Write e.g.  <code>chop_mean_sd(sds = 1:3)</code> rather than <code>chop_mean_sd(sd = 3)</code>. The <code>sd</code> argument is deprecated.</li>
+<li>The <code>groups</code> argument to <code><a href="../reference/chop_evenly.html">chop_evenly()</a></code>, deprecated in 0.4.0, has been removed.</li>
 <li>
 <code>brk_left()</code> and <code>brk_right()</code>, deprecated in 0.4.0, have been removed.</li>
 <li>
@@ -75,7 +77,7 @@
 <li>Arguments of <code><a href="../reference/lbl_dash.html">lbl_dash()</a></code> and <code><a href="../reference/lbl_intervals.html">lbl_intervals()</a></code> have been reordered for consistency with other labelling functions.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="other-changes-development-version">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h3>
+<h3 id="other-changes-0-7-0">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-0-7-0"></a></h3>
 <ul><li>You can now chop many more types, including <code>units</code> from the <code>units</code> package, <code>difftime</code> objects, <code>package_version</code> objects, etc.
 <ul><li>Character vectors will be chopped by lexicographic order, with an optional warning.</li>
 <li>If you have problems chopping a vector type, file a bug report.</li>
@@ -90,8 +92,8 @@
 <code><a href="../reference/brk_default.html">brk_default()</a></code> throws an error if breaks are not sorted.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bugfixes-development-version">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-development-version"></a></h3>
-<ul><li>Bugfix: <code><a href="../reference/tab.html">tab()</a></code> and friends no longer display an <code>x</code> as the variable name.</li>
+<h3 id="bugfixes-0-7-0">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-7-0"></a></h3>
+<ul><li>Bugfix: <code><a href="../reference/chop.html">tab()</a></code> and friends no longer display an <code>x</code> as the variable name.</li>
 <li>Bugfix: <code><a href="../reference/lbl_endpoint.html">lbl_endpoint()</a></code> was erroring for some types of breaks.</li>
 </ul></div>
 </div>
@@ -123,7 +125,7 @@
 <code>brk_left()</code> and <code>brk_right()</code> have been kept for now, but cannot be used to wrap other break functions.</li>
 <li>Using <code>close_end</code> is simpler than passing <code>close_end</code> into <code>brk_left()</code> or <code>brk_right()</code> (which no longer accept this argument directly).</li>
 <li>
-<code>left = TRUE</code> by default, except for non-numeric objects in <code><a href="../reference/chop_quantiles.html">chop_quantiles()</a></code> and <code><a href="../reference/chop_quantiles.html">chop_equally()</a></code>, where <code>left = FALSE</code> works better.</li>
+<code>left = TRUE</code> by default, except for non-numeric objects in <code><a href="../reference/chop_quantiles.html">chop_quantiles()</a></code> and <code><a href="../reference/chop_equally.html">chop_equally()</a></code>, where <code>left = FALSE</code> works better.</li>
 </ul></li>
 <li>
 <p><code>close_end</code> is now <code>FALSE</code> by default.</p>
@@ -131,7 +133,7 @@
 <li>
 <code>close_end</code> is <code>TRUE</code> by default for <code><a href="../reference/chop_quantiles.html">chop_quantiles()</a></code>, <code><a href="../reference/chop_n.html">chop_n()</a></code> and similar functions. This ensures that e.g.  <code>chop_quantiles(x, c(0, 1/3, 2/3, 1))</code> does what you would expect.</li>
 </ul></li>
-<li><p>The <code>groups</code> argument to <code><a href="../reference/chop_width.html">chop_evenly()</a></code> has been renamed from <code>groups</code> to <code>intervals</code>. This should make it easier to remember the difference between <code><a href="../reference/chop_width.html">chop_evenly()</a></code> and <code><a href="../reference/chop_quantiles.html">chop_equally()</a></code>. (Chop evenly into <code>n</code> equal-width <em>intervals</em>, or chop equally into <code>n</code> equal-sized <em>groups</em>.)</p></li>
+<li><p>The <code>groups</code> argument to <code><a href="../reference/chop_evenly.html">chop_evenly()</a></code> has been renamed from <code>groups</code> to <code>intervals</code>. This should make it easier to remember the difference between <code><a href="../reference/chop_evenly.html">chop_evenly()</a></code> and <code><a href="../reference/chop_equally.html">chop_equally()</a></code>. (Chop evenly into <code>n</code> equal-width <em>intervals</em>, or chop equally into <code>n</code> equal-sized <em>groups</em>.)</p></li>
 <li><p><code>knife()</code> has been deprecated to keep the interface slim and focused. Use <code><a href="https://purrr.tidyverse.org/reference/partial.html" class="external-link">purrr::partial()</a></code> instead.</p></li>
 </ul></div>
 <div class="section level3">
@@ -146,7 +148,7 @@
 <li><p>Experimental: <code><a href="../reference/lbl_discrete.html">lbl_discrete()</a></code> for discrete data such as integers or (most) dates.</p></li>
 <li><p>There is a new <code><a href="../reference/lbl_endpoint.html">lbl_endpoint()</a></code> function for labelling intervals solely by their left or right endpoint.</p></li>
 <li><p><code><a href="../reference/chop_mean_sd.html">brk_mean_sd()</a></code> now accepts non-integer positive numbers.</p></li>
-<li><p>Add <code><a href="../reference/chop_quantiles.html">brk_equally()</a></code> for symmetry with <code><a href="../reference/chop_quantiles.html">chop_equally()</a></code>.</p></li>
+<li><p>Add <code><a href="../reference/chop_equally.html">brk_equally()</a></code> for symmetry with <code><a href="../reference/chop_equally.html">chop_equally()</a></code>.</p></li>
 <li><p>Minor tweaks to <code><a href="../reference/chop_quantiles.html">chop_deciles()</a></code>.</p></li>
 <li><p>Bugfix: <code>lbl_format()</code> wasn’t accepting numeric formats, even when <code>raw = TRUE</code>. Thanks to Sharla Gelfand.</p></li>
 </ul></div>

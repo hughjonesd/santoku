@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -161,9 +161,9 @@
 <span class="co">#&gt; 8  8.376589 [8, 9.708]</span>
 <span class="co">#&gt; 9  1.086165 [1.086, 2)</span>
 <span class="co">#&gt; 10 4.495479     [2, 5)</span></code></pre></div>
-<p>To quickly produce a table of chopped data, use <code><a href="../reference/tab.html">tab()</a></code>:</p>
+<p>To quickly produce a table of chopped data, use <code><a href="../reference/chop.html">tab()</a></code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/tab.html">tab</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/chop.html">tab</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">5</span>, <span class="fl">8</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt;  [1, 2)  [2, 5)  [5, 8) [8, 10] </span>
 <span class="co">#&gt;       1       3       3       3</span></code></pre></div>
 </div>
@@ -185,9 +185,9 @@
 <span class="co">#&gt; 8  8.376589 [7.086, 9.086)</span>
 <span class="co">#&gt; 9  1.086165 [1.086, 3.086)</span>
 <span class="co">#&gt; 10 4.495479 [3.086, 5.086)</span></code></pre></div>
-<p>To chop into exactly <code>intervals</code> fixed-with intervals, use <code><a href="../reference/chop_width.html">chop_evenly()</a></code>:</p>
+<p>To chop into exactly <code>intervals</code> fixed-with intervals, use <code><a href="../reference/chop_evenly.html">chop_evenly()</a></code>:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">chopped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chop_width.html">chop_evenly</a></span><span class="op">(</span><span class="va">x</span>, intervals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">chopped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chop_evenly.html">chop_evenly</a></span><span class="op">(</span><span class="va">x</span>, intervals <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">chopped</span><span class="op">)</span>
 <span class="co">#&gt;           x        chopped</span>
 <span class="co">#&gt; 1  4.978305  [3.96, 6.834)</span>
@@ -207,9 +207,9 @@
 <span class="co">#&gt; chopped</span>
 <span class="co">#&gt; [1.086, 4.978)  [4.978, 8.97)  [8.97, 9.708] </span>
 <span class="co">#&gt;              4              4              2</span></code></pre></div>
-<p>To chop into a fixed number of equal-sized groups, use <code><a href="../reference/chop_quantiles.html">chop_equally()</a></code>:</p>
+<p>To chop into a fixed number of equal-sized groups, use <code><a href="../reference/chop_equally.html">chop_equally()</a></code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">chopped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chop_quantiles.html">chop_equally</a></span><span class="op">(</span><span class="va">x</span>, groups <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">chopped</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/chop_equally.html">chop_equally</a></span><span class="op">(</span><span class="va">x</span>, groups <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">chopped</span><span class="op">)</span>
 <span class="co">#&gt; chopped</span>
 <span class="co">#&gt;   [0%, 20%)  [20%, 40%)  [40%, 60%)  [60%, 80%) [80%, 100%] </span>
@@ -244,18 +244,18 @@
 <span class="co">#&gt; 8  8.376589   [0 sd, 1 sd)</span>
 <span class="co">#&gt; 9  1.086165 [-2 sd, -1 sd)</span>
 <span class="co">#&gt; 10 4.495479  [-1 sd, 0 sd)</span></code></pre></div>
-<p><code><a href="../reference/tab.html">tab_n()</a></code>, <code><a href="../reference/tab.html">tab_width()</a></code>, <code><a href="../reference/tab.html">tab_evenly()</a></code> and <code><a href="../reference/tab.html">tab_mean_sd()</a></code> act similarly to <code><a href="../reference/tab.html">tab()</a></code>, calling the related <code>chop_</code> function and then <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code>.</p>
+<p><code><a href="../reference/chop_n.html">tab_n()</a></code>, <code><a href="../reference/chop_width.html">tab_width()</a></code>, <code><a href="../reference/chop_evenly.html">tab_evenly()</a></code> and <code><a href="../reference/chop_mean_sd.html">tab_mean_sd()</a></code> act similarly to <code><a href="../reference/chop.html">tab()</a></code>, calling the related <code>chop_</code> function and then <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code>.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/tab.html">tab_n</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">4</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/chop_n.html">tab_n</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">4</span><span class="op">)</span>
 <span class="co">#&gt; [1.086, 4.978)  [4.978, 8.97)  [8.97, 9.708] </span>
 <span class="co">#&gt;              4              4              2</span>
-<span class="fu"><a href="../reference/tab.html">tab_width</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span>
+<span class="fu"><a href="../reference/chop_width.html">tab_width</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">2</span><span class="op">)</span>
 <span class="co">#&gt; [1.086, 3.086) [3.086, 5.086) [5.086, 7.086) [7.086, 9.086) [9.086, 11.09) </span>
 <span class="co">#&gt;              1              4              2              2              1</span>
-<span class="fu"><a href="../reference/tab.html">tab_evenly</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">5</span><span class="op">)</span>
+<span class="fu"><a href="../reference/chop_evenly.html">tab_evenly</a></span><span class="op">(</span><span class="va">x</span>, <span class="fl">5</span><span class="op">)</span>
 <span class="co">#&gt;  [1.086, 2.81)  [2.81, 4.535) [4.535, 6.259) [6.259, 7.983) [7.983, 9.708] </span>
 <span class="co">#&gt;              1              2              2              2              3</span>
-<span class="fu"><a href="../reference/tab.html">tab_mean_sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="fu"><a href="../reference/chop_mean_sd.html">tab_mean_sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; [-2 sd, -1 sd)  [-1 sd, 0 sd)   [0 sd, 1 sd)   [1 sd, 2 sd) </span>
 <span class="co">#&gt;              1              4              3              2</span></code></pre></div>
 <p>You can chop dates too:</p>

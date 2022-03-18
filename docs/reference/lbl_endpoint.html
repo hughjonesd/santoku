@@ -12,7 +12,7 @@ interval. In other cases it may give errors due to duplicate labels."><meta prop
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,8 +78,8 @@ interval. In other cases it may give errors due to duplicate labels.</p>
     <dl><dt>fmt</dt>
 <dd><p>String or function. A format for break endpoints.</p></dd>
 <dt>raw</dt>
-<dd><p>Logical. Always use raw <code>breaks</code> in labels, rather than e.g. quantiles
-or standard deviations?</p></dd>
+<dd><p>Logical. Always use raw <code>breaks</code> in labels, rather than e.g.
+quantiles or standard deviations?</p></dd>
 <dt>left</dt>
 <dd><p>Flag. Use left endpoint or right endpoint?</p></dd>
 </dl></div>
@@ -92,8 +92,8 @@ or standard deviations?</p></dd>
     
 
 
-<p>If <code>fmt</code> is not <code>NULL</code> then it is used to format the endpoints. If <code>fmt</code> is
-a string then numeric endpoints will be formatted by <code>sprintf(fmt, breaks)</code>;
+<p>If <code>fmt</code> is not <code>NULL</code> then it is used to format the endpoints. If <code>fmt</code> is a
+string then numeric endpoints will be formatted by <code>sprintf(fmt, breaks)</code>;
 other endpoints, e.g. Date objects, will be formatted by <code>format(breaks, fmt)</code>.</p>
 <p>If <code>fmt</code> is a function, it should take a vector of numbers (or other objects
 that can be used as breaks) and return a character vector. It may be helpful
@@ -109,7 +109,7 @@ to use functions from the <code>{scales}</code> package, e.g. <code><a href="htt
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 2  5  5  5  8  8  8  10 10 10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: 2 5 8 10</span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html" class="external-link">requireNamespace</a></span><span class="op">(</span><span class="st">"lubridate"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in">  <span class="fu"><a href="tab.html">tab_width</a></span><span class="op">(</span></span>
+<span class="r-in">  <span class="fu"><a href="chop_width.html">tab_width</a></span><span class="op">(</span></span>
 <span class="r-in">          <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="st">"2000-01-01"</span><span class="op">)</span> <span class="op">+</span> <span class="fl">0</span><span class="op">:</span><span class="fl">365</span>,</span>
 <span class="r-in">         <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>,</span>
 <span class="r-in">         labels <span class="op">=</span> <span class="fu">lbl_endpoint</span><span class="op">(</span>fmt <span class="op">=</span> <span class="st">"%b"</span><span class="op">)</span></span>

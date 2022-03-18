@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@
 </li>
 <li>
 <code><a href="reference/chop_width.html">brk_width()</a></code> needs tests which match the guarantees in the documentation</li>
-<li>ditto for <code><a href="reference/chop_width.html">brk_evenly()</a></code> which now uses its own implementation to guarantee exactly <code>intervals</code> intervals</li>
+<li>ditto for <code><a href="reference/chop_evenly.html">brk_evenly()</a></code> which now uses its own implementation to guarantee exactly <code>intervals</code> intervals</li>
 <li>systematic tests for <code>brk_*</code> functions</li>
 </ul></li>
 <li>Implement a simple <code>Infinity</code> class that automatically casts to any other class and is always &gt; or &lt; than any other element? Then replace the <code>class_bounds()</code> complexity?
@@ -88,11 +88,11 @@
 <li>In some cases we want to guarantee the set of breaks.
 <ul><li>e.g. <code><a href="reference/brk_manual.html">brk_manual()</a></code> with <code>extend</code> set.</li>
 </ul></li>
-<li>In other cases, e.g. <code><a href="reference/chop_width.html">brk_evenly()</a></code> we don’t need to make such a guarantee.</li>
+<li>In other cases, e.g. <code><a href="reference/chop_evenly.html">brk_evenly()</a></code> we don’t need to make such a guarantee.</li>
 </ul></div>
 <div class="section level1">
 <h1 id="questions">Questions<a class="anchor" aria-label="anchor" href="#questions"></a></h1>
-<ul><li>Is it really OK to have <code>left = FALSE</code> as the default in <code><a href="reference/chop_quantiles.html">chop_quantiles()</a></code>, <code><a href="reference/chop_width.html">chop_evenly()</a></code> and friends?
+<ul><li>Is it really OK to have <code>left = FALSE</code> as the default in <code><a href="reference/chop_quantiles.html">chop_quantiles()</a></code>, <code><a href="reference/chop_evenly.html">chop_evenly()</a></code> and friends?
 <ul><li>the alternative is to do it only when <code>x</code> is non-numeric.</li>
 <li>that makes the surprise rarer, but rare surprises can be worse… and it adds complexity since the functions have to be generic.</li>
 <li>another alternative: <code>chop</code> sets <code>left = FALSE</code> for non-numeric <code>x</code>. Probably better.</li>
