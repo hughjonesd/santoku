@@ -9,8 +9,10 @@ devtools::spell_check()
 # make sure you've put comments in cran-comments.md
 
 # install the new version
+# IF YOU WANT TO KEEP WEBSITE ON THE CRAN VERSION:
 # do this on branch website-x.y.z. Then you can commit and push changes without
 # devtools complaining about uncommitted changes.
+# OTHERWISE, JUST DO THIS ON MASTER
 pkgdown::build_site()
 
 
