@@ -13,7 +13,6 @@ Authors@R:
            role = c("ctb"),
            email = "possenriede@gmail.com")
     )
-Author: David Hugh-Jones [aut, cre]
 Maintainer: David Hugh-Jones <davidhughjones@gmail.com>
 Description: A tool for cutting data into intervals. Allows singleton intervals.
   Always includes the whole range of data by default. Flexible labelling. 
