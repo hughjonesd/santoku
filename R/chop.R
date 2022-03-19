@@ -30,20 +30,22 @@ NULL
 #'
 #' @details
 #'
-#' `x` may be numeric, or a [Date or Date-Time][DateTimeClasses].
+#' `x` may be a numeric vector, or more generally, any vector which can be
+#' compared with `<` and `==` (see [Ops][groupGeneric]). In particular [Date]
+#' and [date-time][DateTimeClasses] objects are supported. Character vectors
+#' are supported with a warning.
 #'
 #' ## Breaks
 #'
-#' `breaks` may be a numeric vector or a function.
+#' `breaks` may be a vector or a function.
 #'
 #' If it is a vector, `breaks` gives the break endpoints. Repeated values create
 #' singleton intervals. For example `breaks = c(1, 3, 3, 5)` creates 3
 #' intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
 #'
-#' If `breaks` is a function it is called with the `x`, `extend`, `left` and
+#' If `breaks` is a function, it is called with the `x`, `extend`, `left` and
 #' `close_end` arguments, and should return an object of class `breaks`.
-#' Use `brk_*` functions in this context, to create a variety of data-dependent
-#' breaks.
+#' Use `brk_*` functions to create a variety of data-dependent breaks.
 #'
 #' ## Options for breaks
 #'
@@ -51,8 +53,8 @@ NULL
 #' closed intervals are created.
 #'
 #' If `close_end` is `TRUE` the end break will be closed at both ends, ensuring
-#' that all values `y` with `min(x) <= y <= max(x)` are included in the default
-#' intervals.
+#' that all values `x` with `min(breaks) <= x <= max(breaks)` are included in
+#' the default intervals.
 #'
 #' Overall:
 #'
