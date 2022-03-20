@@ -56,7 +56,7 @@ NULL
 #' that all values `x` with `min(breaks) <= x <= max(breaks)` are included in
 #' the default intervals.
 #'
-#' Overall:
+#' Using [mathematical set notation][lbl_intervals()]:
 #'
 #' * If `left` is `TRUE` and `close_end` is `TRUE`, breaks will look like
 #'   \code{[x1, x2), [x2, x3) ... [x_n-1, x_n]}.

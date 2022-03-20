@@ -92,7 +92,7 @@ If \code{close_end} is \code{TRUE} the end break will be closed at both ends, en
 that all values \code{x} with \verb{min(breaks) <= x <= max(breaks)} are included in
 the default intervals.
 
-Overall:
+Using \link[=lbl_intervals]{mathematical set notation}:
 \itemize{
 \item If \code{left} is \code{TRUE} and \code{close_end} is \code{TRUE}, breaks will look like
 \code{[x1, x2), [x2, x3) ... [x_n-1, x_n]}.
