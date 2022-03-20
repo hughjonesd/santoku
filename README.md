@@ -43,34 +43,70 @@ Here are some advantages of santoku:
 These advantages make santoku especially useful for exploratory
 analysis, where you may not know the range of your data in advance.
 
-## Usage
+## Examples
 
 ``` r
 library(santoku)
+```
 
-# chop returns a factor:
-chop(1:10, c(3, 5, 7))
-#>  [1] [1, 3)  [1, 3)  [3, 5)  [3, 5)  [5, 7)  [5, 7)  [7, 10] [7, 10] [7, 10]
-#> [10] [7, 10]
-#> Levels: [1, 3) [3, 5) [5, 7) [7, 10]
+`chop` returns a factor:
 
-# Include a number twice to match it exactly;
-# Use `labels = lbl_discrete()` for integer data:
-chop(1:10, c(3, 5, 5, 7), labels = lbl_discrete())
-#>  [1] 1 - 2  1 - 2  3 - 4  3 - 4  5      6      7 - 10 7 - 10 7 - 10 7 - 10
-#> Levels: 1 - 2 3 - 4 5 6 7 - 10
+``` r
+chop(1:8, c(3, 5, 7))
+#> [1] [1, 3) [1, 3) [3, 5) [3, 5) [5, 7) [5, 7) [7, 8] [7, 8]
+#> Levels: [1, 3) [3, 5) [5, 7) [7, 8]
+```
 
-loadNamespace("lubridate")
-#> <environment: namespace:lubridate>
+Include a number twice to match it exactly:
 
-# chop dates by calendar month, then tabulate:
-tab_width(as.Date("2021-12-31") + 1:90, 
-            months(1), 
+``` r
+chop(1:8, c(3, 5, 5, 7))
+#> [1] [1, 3) [1, 3) [3, 5) [3, 5) {5}    (5, 7) [7, 8] [7, 8]
+#> Levels: [1, 3) [3, 5) {5} (5, 7) [7, 8]
+```
+
+Customize output with `lbl_*` functions:
+
+``` r
+chop(1:8, c(3, 5, 7), labels = lbl_dash())
+#> [1] 1—3 1—3 3—5 3—5 5—7 5—7 7—8 7—8
+#> Levels: 1—3 3—5 5—7 7—8
+```
+
+Chop into fixed-width intervals:
+
+``` r
+chop_width(runif(10), 0.1)
+#>  [1] [0.8278, 0.9278)  [0.8278, 0.9278)  [0.8278, 0.9278)  [0.3278, 0.4278) 
+#>  [5] [0.7278, 0.8278)  [0.2278, 0.3278)  [0.9278, 1.028)   [0.02781, 0.1278)
+#>  [9] [0.9278, 1.028)   [0.02781, 0.1278)
+#> 6 Levels: [0.02781, 0.1278) [0.2278, 0.3278) ... [0.9278, 1.028)
+```
+
+Or into fixed-size groups:
+
+``` r
+chop_n(1:10, 5)
+#>  [1] [1, 6)  [1, 6)  [1, 6)  [1, 6)  [1, 6)  [6, 10] [6, 10] [6, 10] [6, 10]
+#> [10] [6, 10]
+#> Levels: [1, 6) [6, 10]
+```
+
+Chop dates by calendar month, then tabulate:
+
+``` r
+library(lubridate)
+#> 
+#> Attaching package: 'lubridate'
+#> The following objects are masked from 'package:base':
+#> 
+#>     date, intersect, setdiff, union
+
+tab_width(as.Date("2021-12-31") + 1:90, months(1), 
             labels = lbl_discrete(fmt = "%d %b")
           )
-#> x
-#> 01 Jan - 31 Jan 01 Feb - 28 Feb 01 Mar - 31 Mar 
-#>              31              28              31
+#> 01 Jan—31 Jan 01 Feb—28 Feb 01 Mar—31 Mar 
+#>            31            28            31
 ```
 
 For more information, see the

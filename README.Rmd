@@ -30,23 +30,50 @@ knitr::opts_chunk$set(
 ```
 
 
-## Usage
+## Examples
 
 ```{r}
 library(santoku)
+```
 
-# chop returns a factor:
-chop(1:10, c(3, 5, 7))
+`chop` returns a factor:
 
-# Include a number twice to match it exactly;
-# Use `labels = lbl_discrete()` for integer data:
-chop(1:10, c(3, 5, 5, 7), labels = lbl_discrete())
+```{r}
+chop(1:8, c(3, 5, 7))
+```
 
-loadNamespace("lubridate")
+Include a number twice to match it exactly: 
 
-# chop dates by calendar month, then tabulate:
-tab_width(as.Date("2021-12-31") + 1:90, 
-            months(1), 
+```{r}
+chop(1:8, c(3, 5, 5, 7))
+```
+
+Customize output with `lbl_*` functions:
+
+```{r}
+chop(1:8, c(3, 5, 7), labels = lbl_dash())
+```
+
+
+Chop into fixed-width intervals:
+
+```{r}
+chop_width(runif(10), 0.1)
+```
+
+Or into fixed-size groups:
+
+```{r}
+chop_n(1:10, 5)
+```
+
+
+Chop dates by calendar month, then tabulate:
+
+```{r}
+library(lubridate)
+
+tab_width(as.Date("2021-12-31") + 1:90, months(1), 
             labels = lbl_discrete(fmt = "%d %b")
           )
 
