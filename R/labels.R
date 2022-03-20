@@ -315,7 +315,7 @@ lbl_discrete <- function (
     }
 
     labels <- paste0(labels_l, symbol, labels_r)
-    labels[singletons] <- l[singletons]
+    labels[singletons] <- labels_l[singletons]
     labels[too_small] <- "--"
 
     l_closed <- left_l
