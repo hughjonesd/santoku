@@ -1,5 +1,8 @@
 # santoku (development version)
 
+* Bugfix: `lbl_discrete()` sometimes had ugly label formatting. 
+
+
 # santoku 0.7.0
 
 ## Breaking changes

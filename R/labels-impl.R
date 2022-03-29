@@ -106,6 +106,14 @@ endpoint_labels.sdBreaks <- function (breaks, raw, fmt = NULL) {
 }
 
 
+#' Return numeric (or whatever) endpoints of breaks, possibly scaled
+#'
+#' @param breaks Breaks or numeric object
+#' @param raw Logical. If `FALSE`, return endpoints scaled as e.g. sds or
+#'   quantiles
+#'
+#' @return Numbers, dates, etc. with no `breaks` class.
+#' @noRd
 scaled_endpoints <- function (breaks, raw) {
   UseMethod("scaled_endpoints")
 }
@@ -122,7 +130,7 @@ scaled_endpoints.breaks <- function (breaks, raw) {
 
 
 #' @export
-scaled_endpoints.numeric <- function (breaks, raw) {
+scaled_endpoints.default <- function (breaks, raw) {
   if (raw) {
     breaks
   } else {

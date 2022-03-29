@@ -306,13 +306,8 @@ lbl_discrete <- function (
       warning("Intervals smaller than `unit` are labelled as \"--\"")
     }
 
-    if (! is.null(fmt)) {
-      labels_l <- apply_format(fmt, l)
-      labels_r <- apply_format(fmt, r)
-    } else {
-      labels_l <- base::format(l)
-      labels_r <- base::format(r)
-    }
+    labels_l <- endpoint_labels(l, raw = FALSE, fmt = fmt)
+    labels_r <- endpoint_labels(r, raw = FALSE, fmt = fmt)
 
     labels <- paste0(labels_l, symbol, labels_r)
     labels[singletons] <- labels_l[singletons]
