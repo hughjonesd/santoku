@@ -1,5 +1,7 @@
 # santoku (development version)
 
+* `chop_equally()` now uses `lbl_intervals(raw = TRUE)` by default, bringing it
+  into line with `chop_evenly()`, `chop_width()` and `chop_n()`.
 * Bugfix: `lbl_discrete()` sometimes had ugly label formatting. 
 
 

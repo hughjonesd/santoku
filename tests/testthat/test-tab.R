@@ -66,7 +66,7 @@ test_that("tab_deciles", {
 test_that("tab_equally", {
   expect_identical(
     tab_equally(1:4, 4),
-    table(x = c("[0%, 25%)", "[25%, 50%)", "[50%, 75%)", "[75%, 100%]"),
+    table(x = c("[1, 1.75)", "[1.75, 2.5)", "[2.5, 3.25)", "[3.25, 4]"),
           dnn = NULL)
   )
 })

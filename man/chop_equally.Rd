@@ -6,7 +6,14 @@
 \alias{tab_equally}
 \title{Chop equal-sized groups}
 \usage{
-chop_equally(x, groups, ..., left = is.numeric(x), close_end = TRUE)
+chop_equally(
+  x,
+  groups,
+  ...,
+  labels = lbl_intervals(raw = TRUE),
+  left = is.numeric(x),
+  close_end = TRUE
+)
 
 brk_equally(groups)
 
@@ -18,6 +25,8 @@ tab_equally(x, groups, ..., left = is.numeric(x), close_end = TRUE)
 \item{groups}{Number of groups.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
+
+\item{labels}{A character vector of labels or a function to create labels.}
 
 \item{left}{Logical. Left-closed breaks?}
 

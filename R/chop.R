@@ -278,8 +278,10 @@ chop_deciles <- function(x, ...) {
 #' @examples
 #' chop_equally(1:10, 5)
 #'
-chop_equally <- function (x, groups, ..., left = is.numeric(x), close_end = TRUE) {
-  chop(x, brk_equally(groups), ..., left = left, close_end = close_end)
+chop_equally <- function (x, groups, ..., labels = lbl_intervals(raw = TRUE),
+                            left = is.numeric(x), close_end = TRUE) {
+  chop(x, brk_equally(groups), ..., labels = labels, left = left,
+         close_end = close_end)
 }
 
 
