@@ -97,6 +97,29 @@ brk_mean_sd <- function (sds = 1:3, sd = deprecated()) {
   }
 }
 
+
+
+#' @rdname chop_pretty
+#'
+#' @export
+#' @order 2
+brk_pretty <- function (n = 5, ...) {
+  assert_that(is.count(n))
+
+  function (x, extend, left, close_end) {
+    breaks <- base::pretty(x, n = n, ...)
+    if (length(breaks) == 0 || is.null(breaks)) {
+      return(empty_breaks())
+    }
+
+    breaks <- create_lr_breaks(breaks, left, close_end)
+    breaks <- maybe_extend(breaks, x, extend)
+
+    breaks
+  }
+}
+
+
 #' Equal-width intervals for dates or datetimes
 #'
 #' `brk_width()` can be used with time interval classes from base R or the

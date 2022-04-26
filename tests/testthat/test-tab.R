@@ -39,9 +39,17 @@ test_that("tab_evenly", {
 
 test_that("tab_mean_sd", {
   expect_silent(
-          tb <- tab_mean_sd(rnorm(100), sds = 1:3, extend = TRUE, drop = FALSE)
-        )
+    tb <- tab_mean_sd(rnorm(100), sds = 1:3, extend = TRUE, drop = FALSE)
+  )
   expect_equivalent(length(tb), 8)
+})
+
+
+test_that("tab_pretty", {
+  expect_silent(
+    tb <- tab_pretty(1:9)
+  )
+  expect_equivalent(length(tb), 5)
 })
 
 

@@ -171,6 +171,13 @@ test_that("chop_mean_sd", {
 })
 
 
+test_that("chop_pretty", {
+  expect_silent(res <- chop_pretty(1:10))
+  expect_silent(res <- chop_pretty(1:10, 3))
+  expect_silent(res <- chop_pretty(1:10, 3))
+})
+
+
 test_that("fillet", {
   x <- -2:2
   expect_silent(sole <- fillet(x, -1:1))

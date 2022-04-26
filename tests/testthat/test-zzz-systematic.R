@@ -23,6 +23,7 @@ test_that("systematic tests", {
     brk_manual2     = brk_manual(1:3, c(FALSE, TRUE, FALSE)),
     brk_mean_sd     = brk_mean_sd(),
     brk_mean_sd2    = brk_mean_sd(c(1, 1.96)),
+    brk_pretty      = brk_pretty(),
     brk_n           = brk_n(5),
     brk_quantiles   = brk_quantiles(1:3/4),
     brk_default     = brk_default(1:3),

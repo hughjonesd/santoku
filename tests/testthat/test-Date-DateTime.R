@@ -80,6 +80,16 @@ test_that("chop_mean_sd", {
 })
 
 
+test_that("chop_pretty", {
+  expect_silent(res <- chop_pretty(d1))
+  cmp <- chop(d1, base::pretty(d1))
+  expect_equivalent(
+    table_vals(res),
+    table_vals(cmp)
+  )
+})
+
+
 test_that("chop_width: difftime", {
   difftime_w1 <- as.difftime(4, units = "days")
 

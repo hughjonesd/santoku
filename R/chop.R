@@ -316,6 +316,38 @@ chop_mean_sd <- function (x, sds = 1:3,  ..., sd = deprecated()) {
 }
 
 
+
+#' Chop using pretty breakpoints
+#'
+#' `chop_pretty()` uses [base::pretty()] to calculate breakpoints
+#' which are 1, 2 or 5 times a power of 10. These look nice in graphs.
+#'
+#' [base::pretty()] tries to return `n+1` breakpoints, i.e. `n` intervals, but
+#' note that this is not guaranteed. There are methods for Date and POSIXct
+#' objects.
+#'
+#' For fine-grained control over [base::pretty()] parameters, use
+#' `chop(x, brk_pretty(...))`.
+#'
+#' @inheritParams chop
+#' @inherit chop-doc params return
+#' @param n Positive integer passed to [base::pretty()]. How many intervals to chop into?
+#' @param ... Passed to [chop()] by `chop_pretty()` and `tab_pretty()`; passed
+#'   to [base::pretty()] by `brk_pretty()`.
+#'
+#' @export
+#' @order 1
+#'
+#' @examples
+#' chop_pretty(1:10)
+#'
+#' chop(1:10, brk_pretty(n = 5, high.u.bias = 0))
+#'
+chop_pretty <- function (x, n = 5, ...) {
+  chop(x, brk_pretty(n = n), ...)
+}
+
+
 #' Chop into fixed-width intervals
 #'
 #' `chop_width()` chops `x` into intervals of fixed `width`.

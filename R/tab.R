@@ -88,6 +88,17 @@ tab_mean_sd <- function (x, sds = 1:3, ...) {
 }
 
 
+#' @rdname chop_pretty
+#' @export
+#' @order 3
+#' @examples
+#' tab_pretty(1:10)
+#'
+tab_pretty <- function (x, n = 5, ...) {
+  default_table(chop_pretty(x = x, n = n, ...))
+}
+
+
 #' @rdname chop_quantiles
 #' @export
 #' @order 3
