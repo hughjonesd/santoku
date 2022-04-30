@@ -8,7 +8,7 @@
 \usage{
 chop_proportions(x, proportions, ...)
 
-brk_proportions(props)
+brk_proportions(proportions)
 
 tab_proportions(x, proportions, ...)
 }
