@@ -183,6 +183,7 @@ Other chopping functions:
 \code{\link{chop_evenly}()},
 \code{\link{chop_mean_sd}()},
 \code{\link{chop_n}()},
+\code{\link{chop_proportions}()},
 \code{\link{chop_quantiles}()},
 \code{\link{chop_width}()},
 \code{\link{fillet}()}

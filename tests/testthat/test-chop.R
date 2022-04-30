@@ -125,6 +125,15 @@ test_that("chop_evenly", {
 })
 
 
+test_that("chop_proportions", {
+  x <- 0:10
+  expect_equivalent(
+    chop_proportions(x, c(0.2, 0.8), labels = lbl_seq("1")),
+    factor(rep(1:3, c(2, 6, 3)))
+  )
+})
+
+
 test_that("chop_quantiles", {
   x <- 1:6
   expect_equivalent(

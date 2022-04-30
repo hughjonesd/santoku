@@ -277,6 +277,26 @@ brk_evenly <- function(intervals) {
 }
 
 
+#' @rdname chop_proportions
+#' @export
+#' @order 2
+brk_proportions <- function(props) {
+  assert_that(is.numeric(props), noNA(props), all(props >= 0), all(props <= 1))
+  props <- sort(props)
+
+  function (x, extend, left, close_end) {
+    min_x <- quiet_min(x[is.finite(x)])
+    max_x <- quiet_max(x[is.finite(x)])
+    range_x <- max_x - min_x
+    if (sign(range_x) <= 0) return(empty_breaks())
+
+    breaks <- min_x + range_x * props
+    breaks <- create_lr_breaks(breaks, left, close_end)
+    maybe_extend(breaks, x, extend)
+  }
+}
+
+
 #' @rdname chop_n
 #' @export
 #' @order 2

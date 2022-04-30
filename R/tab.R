@@ -52,13 +52,18 @@ tab_width <- function (x, width, start, ..., left = sign(width) > 0) {
 #' @export
 #' @order 3
 tab_evenly <- function (x, intervals, ..., close_end = TRUE) {
-    default_table(
-      chop_evenly(
-      x         = x,
-      intervals = intervals,
-      ...,
-      close_end = close_end
-    )
+  default_table(
+    chop_evenly(x = x, intervals = intervals, ..., close_end = close_end)
+  )
+}
+
+
+#' @rdname chop_proportions
+#' @export
+#' @order 3
+tab_proportions <- function (x, proportions, ...) {
+  default_table(
+    chop_proportions(x = x, proportions = proportions, ...)
   )
 }
 

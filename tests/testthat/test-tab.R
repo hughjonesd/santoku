@@ -37,6 +37,14 @@ test_that("tab_evenly", {
 })
 
 
+test_that("tab_proportions", {
+  expect_identical(
+    tab_proportions(0:10, c(0.2, 0.8)),
+    table(rep(c("[0, 2)", "[2, 8)", "[8, 10]"), c(2, 6, 3)), dnn = NULL)
+  )
+})
+
+
 test_that("tab_mean_sd", {
   expect_silent(
     tb <- tab_mean_sd(rnorm(100), sds = 1:3, extend = TRUE, drop = FALSE)

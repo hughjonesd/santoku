@@ -81,6 +81,16 @@ test_that("brk_evenly", {
 })
 
 
+test_that("brk_proportions", {
+  b <- brk_res(brk_proportions(c(0.2, 0.8)), 0:10)
+  expect_identical(as.vector(b), c(2, 8))
+
+  expect_error(brk_proportions(c(0, 1, 2)))
+  expect_error(brk_proportions(c(-1, 0.5)))
+  expect_error(brk_proportions(c(0.5, NA)))
+})
+
+
 test_that("brk_mean_sd", {
   x <- rnorm(100)
   expect_silent(b <- brk_res(brk_mean_sd(1:3), x = x))

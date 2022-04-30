@@ -19,6 +19,7 @@ test_that("systematic tests", {
   )
   brk_funs <- list(
     brk_evenly      = brk_evenly(2),
+    brk_proportions = brk_proportions(c(0.25, 0.6)),
     brk_manual      = brk_manual(1:3, rep(TRUE, 3)),
     brk_manual2     = brk_manual(1:3, c(FALSE, TRUE, FALSE)),
     brk_mean_sd     = brk_mean_sd(),

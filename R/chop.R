@@ -404,6 +404,26 @@ chop_evenly <- function (x, intervals, ..., close_end = TRUE) {
 }
 
 
+#' Chop into proportions of the range of x
+#'
+#' `chop_proportions()` chops `x` into `proportions` of its range, excluding
+#' infinite values.
+#'
+#' @param proportions Numeric vector between 0 and 1: proportions of x's range
+#' @inheritParams chop
+#' @inherit chop-doc params return
+#'
+#' @family chopping functions
+#'
+#' @export
+#' @order 1
+#' @examples
+#' chop_proportions(0:10, c(0.2, 0.8))
+#'
+chop_proportions <- function (x, proportions, ...) {
+  chop(x, brk_proportions(proportions), ...)
+}
+
 #' Chop into fixed-sized groups
 #'
 #' `chop_n()` creates intervals containing a fixed number of elements. One
