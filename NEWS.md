@@ -6,6 +6,7 @@
   functions chop `x` into proportions of its range.
 * `chop_equally()` now uses `lbl_intervals(raw = TRUE)` by default, bringing it
   into line with `chop_evenly()`, `chop_width()` and `chop_n()`.
+* New `lbl_midpoint()` function labels breaks by their midpoints.
 * Bugfix: `lbl_discrete()` sometimes had ugly label formatting. 
 
 

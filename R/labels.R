@@ -101,6 +101,46 @@ lbl_dash <- function (symbol = em_dash(), fmt = NULL, single = "{l}", first = NU
 }
 
 
+#' Label chopped intervals by their midpoints
+#'
+#' This uses the midpoint of each interval for
+#' its label.
+#'
+#' @inherit label-doc
+#' @inherit first-last-doc
+#'
+#' @family labelling functions
+#'
+#' @export
+#'
+#' @examples
+#' chop(1:10, c(2, 5, 8), lbl_midpoint())
+lbl_midpoint <- function (fmt = NULL, single = NULL, first = NULL, last = NULL,
+                          raw = FALSE) {
+  function (breaks) {
+    assert_that(is.breaks(breaks))
+
+    break_nums <- scaled_endpoints(breaks, raw = raw)
+    l_nums <- break_nums[-length(break_nums)]
+    r_nums <- break_nums[-1]
+    midpoints <- (l_nums + r_nums)/2
+
+    midpoints <- if (!is.null(fmt)) {
+                   apply_format(fmt, midpoints)
+                 }
+                 else {
+                   unique_truncation(midpoints)
+                 }
+
+    gluer <- lbl_glue(label = "{m}", fmt = fmt, single = single, first = first,
+                        last = last, raw = raw, m = midpoints)
+    labels <- gluer(breaks)
+
+    labels
+  }
+}
+
+
 #' Label chopped intervals using the {glue} package
 #'
 #' Use `"{l}"` and `"{r}"` to show the left and right endpoints of the intervals.
@@ -119,7 +159,6 @@ lbl_dash <- function (symbol = em_dash(), fmt = NULL, single = "{l}", first = NU
 #' * `l_closed` is a logical vector. Elements are `TRUE` when the left
 #'   endpoint is closed.
 #' * `r_closed` is a logical vector, `TRUE` when the right endpoint is closed.
-#'
 #'
 #' Endpoints will be formatted by `fmt` before being passed to `glue()`.
 #'
@@ -172,30 +211,54 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
     l_closed <- left[-len_breaks]
     r_closed <- ! left[-1]
 
+    # check ... for anything not in glue::glue args
+    # effectively, we move any user-supplied arguments into
+    # an environment specifically for glue
+    # this is mostly to make the lbl_midpoints() hack
+    # of passing in `m` work
+    dots <- rlang::enexprs(...)
+    glue_env <- new.env()
+    not_glue_args <- setdiff(names(dots), names(formals(glue::glue)))
+    for (nm in not_glue_args) {
+      assign(deparse(dots[[nm]]),
+               eval(dots[[nm]], parent.frame()),
+               glue_env
+             )
+    }
     labels <- glue::glue(label, l = l, r = r, l_closed = l_closed,
-                         r_closed = r_closed, ...)
+                         r_closed = r_closed, ..., .envir = glue_env)
 
     if (! is.null(single)) {
       # which breaks are singletons?
       singletons <- singletons(breaks)
 
       labels[singletons] <- glue::glue(single,
-                                       l = l[singletons],
-                                       r = r[singletons],
-                                       l_closed = l_closed[singletons],
-                                       r_closed = r_closed[singletons], ...)
+                                         l = l[singletons],
+                                         r = r[singletons],
+                                         l_closed = l_closed[singletons],
+                                         r_closed = r_closed[singletons],
+                                         ...,
+                                         .envir = glue_env
+                                       )
     }
 
     if (! is.null(first)) {
-      labels[1] <- glue::glue(first, l = l[1], r = r[1], l_closed = l_closed[1],
-                              r_closed = r_closed[1], ...)
+      labels[1] <- glue::glue(first, l = l[1], r = r[1],
+                                l_closed = l_closed[1],
+                                r_closed = r_closed[1],
+                                ...,
+                                .envir = glue_env
+                              )
     }
 
     if (! is.null(last)) {
       ll <- len_breaks - 1
       labels[ll] <- glue::glue(last, l = l[ll], r = r[ll],
                                  l_closed = l_closed[ll],
-                                 r_closed = r_closed[ll], ...)
+                                 r_closed = r_closed[ll],
+                                 ...,
+                                 .envir = glue_env
+                               )
     }
 
     return(labels)

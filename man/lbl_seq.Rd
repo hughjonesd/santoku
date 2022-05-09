@@ -41,6 +41,7 @@ Other labelling functions:
 \code{\link{lbl_discrete}()},
 \code{\link{lbl_glue}()},
 \code{\link{lbl_intervals}()},
-\code{\link{lbl_manual}()}
+\code{\link{lbl_manual}()},
+\code{\link{lbl_midpoint}()}
 }
 \concept{labelling functions}

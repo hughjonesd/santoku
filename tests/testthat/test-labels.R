@@ -129,6 +129,26 @@ test_that("lbl_glue arguments", {
 })
 
 
+test_that("lbl_midpoints", {
+  lbrk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
+  expect_equivalent(lbl_midpoint()(lbrk), c("1.5", "2.5"))
+})
+
+
+test_that("lbl_midpoint arguments", {
+  lbrk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
+  expect_equivalent(lbl_midpoint(first = "{r}")(lbrk), c("2", "2.5"))
+  expect_equivalent(lbl_midpoint(last = "{l}")(lbrk), c("1.5", "2"))
+
+  sbrk <- brk_res(brk_manual(c(1, 2, 2, 3), c(TRUE, TRUE, FALSE, TRUE)))
+  expect_equivalent(lbl_midpoint(single = "[{l}]")(sbrk), c("1.5", "[2]", "2.5"))
+
+  qbrk <- brk_res(brk_quantiles(c(0, 0.5, 1)), x = 0:10)
+  expect_equivalent(lbl_midpoint(fmt = percent)(qbrk), c("25%", "75%"))
+  expect_equivalent(lbl_midpoint(raw = TRUE)(qbrk), c("2.5", "7.5"))
+})
+
+
 test_that("lbl_intervals", {
   lbrk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
   rbrk <- brk_res(brk_manual(1:3, rep(FALSE, 3)))
