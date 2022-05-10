@@ -27,6 +27,7 @@ reference:
 - contents:
   - starts_with("chop")
   - starts_with("brk")
+  - starts_with("tab")
 - title: Label functions
   desc: Specify how to label the chopped intervals
 - contents:
