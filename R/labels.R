@@ -274,6 +274,8 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #' @inherit label-doc
 #' @param left Flag. Use left endpoint or right endpoint?
 #'
+#' @family labelling functions
+#'
 #' @export
 #'
 #' @examples

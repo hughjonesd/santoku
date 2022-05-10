@@ -44,3 +44,14 @@ if (requireNamespace("lubridate")) {
        )
 }
 }
+\seealso{
+Other labelling functions: 
+\code{\link{lbl_dash}()},
+\code{\link{lbl_discrete}()},
+\code{\link{lbl_glue}()},
+\code{\link{lbl_intervals}()},
+\code{\link{lbl_manual}()},
+\code{\link{lbl_midpoint}()},
+\code{\link{lbl_seq}()}
+}
+\concept{labelling functions}

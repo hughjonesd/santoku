@@ -49,6 +49,7 @@ chop(1:10, c(2, 5, 8), lbl_midpoint())
 Other labelling functions: 
 \code{\link{lbl_dash}()},
 \code{\link{lbl_discrete}()},
+\code{\link{lbl_endpoint}()},
 \code{\link{lbl_glue}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_manual}()},
