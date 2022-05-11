@@ -1,7 +1,7 @@
 ---
 title: "santoku - a visual introduction"
 author: "David Hugh-Jones"
-date: "04/09/2019"
+date: "`r Sys.Date()`"
 output: 
   revealjs::revealjs_presentation:
     md_extensions: +raw_html
@@ -161,16 +161,18 @@ head(pts)
 x <- pts$x
 ```
 
-## Some data
 
+## Some data
 
 ```{r, echo = TRUE}
 plot_the_fish()
 ```
 
+
 ## `chop()`
 
 `chop()` is a replacement for base R's `cut()` function.
+
 
 ## `chop()`
 
@@ -182,6 +184,7 @@ chop(x, c(300, 600, 900))
 demo_chop(c(300, 600, 900))
 ```
 
+
 ## `extend = FALSE`
 
 ```{r, echo = TRUE, eval = FALSE}
@@ -190,11 +193,11 @@ chop(x, c(300, 600, 900), extend = FALSE)
 
 ```{r}
 demo_chop(c(300, 600, 900), extend = FALSE)
-legend("bottomright", "NA", col = NA_col, pch = 19, bty = "n")
+legend("bottomright", "NA", col = NA_col, pch = 19, bty = "n", cex = 2)
 ```
 
-## Chopping by a single value
 
+## Chopping by a single value
 
 ```{r, echo = TRUE, eval = FALSE}
 chop(x, c(300, 500, 500, 800))
@@ -218,21 +221,35 @@ chop_width(x, width = 200)
 ```
 
 ```{r}
-demo_chop(brk_width(width = 200), close_end = TRUE)
+demo_chop(brk_width(width = 200))
 ```
+
 
 ## `chop_evenly()`
 
 Chops `intervals` equal-width intervals
-
 
 ```{r, echo = TRUE, eval = FALSE}
 chop_evenly(x, intervals = 5)
 ```
 
 ```{r}
-demo_chop(brk_evenly(intervals = 5), close_end = TRUE)
+demo_chop(brk_evenly(intervals = 5))
 ```
+
+
+## `chop_proportions()`
+
+Chops intervals by proportions of the data range
+
+```{r, echo = TRUE, eval = FALSE}
+chop_proportions(x, proportions = c(0.2, 0.8))
+```
+
+```{r}
+demo_chop(brk_proportions(proportions = c(0.2, 0.8)))
+```
+
 
 ## `chop_equally()`
 
@@ -257,27 +274,30 @@ chop_n(x, 100)
 ```
 
 ```{r}
+# close_end avoids a singleton interval at the end
 demo_chop(brk_n(100), close_end = TRUE)
+```
+
+
+## `chop_quantiles()`
+
+```{r, echo = TRUE, eval = FALSE}
+chop_quantiles(x, c(0.2, 0.8))
+```
+
+```{r}
+demo_chop(brk_quantiles(c(0.2, 0.8)))
 ```
 
 
 ## Summary
 
-Chop by:            | number of elements | width
---------------------|--------------------|-------------
-Fixed size          | `chop_n()`         | `chop_width()`
-Fixed no. of groups | `chop_equally()`   | `chop_evenly()`
+Chop by: / Size means:  | number of elements | width
+------------------------|--------------------|----------------
+Fixed size              | `chop_n()`         | `chop_width()`
+Fixed no. of groups     | `chop_equally()`   | `chop_evenly()`
+Specific sizes          | `chop_quantiles()` | `chop_proportions()`
 
-## `chop_quantiles()`
-
-
-```{r, echo = TRUE, eval = FALSE}
-chop_quantiles(x, c(0.05, 0.25, 0.5, 0.75, 0.95)
-```
-
-```{r}
-demo_chop(brk_quantiles(c(0.05, 0.25, 0.5, 0.75, 0.95)), close_end = TRUE)
-```
 
 ## `chop_mean_sd()`
 
@@ -323,8 +343,7 @@ chop_width(x, 200, labels = lbl_seq())
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_seq(), cex_labels = 1, 
-      close_end = TRUE)
+demo_chop(brk_width(200), labels = lbl_seq(), cex_labels = 1)
 ```
 
 ## Changing labels
@@ -339,8 +358,7 @@ chop_width(x, 200, labels = lbl_seq("(i)"))
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_seq("(i)"), cex_labels = 1,
-      close_end = TRUE)
+demo_chop(brk_width(200), labels = lbl_seq("(i)"), cex_labels = 1)
 ```
 
 ## Changing labels
@@ -355,8 +373,7 @@ chop_width(x, 200, labels = lbl_dash())
 
 
 ```{r}
-demo_chop(brk_width(200), labels = lbl_dash(), cex_labels = 0.8,
-      close_end = TRUE)
+demo_chop(brk_width(200), labels = lbl_dash(), cex_labels = 0.8)
 ```
 
 ## Left-closed and right-closed
