@@ -47,7 +47,8 @@ test_that("systematic tests", {
     lbl_seq2          = lbl_seq("(i)"),
     lbl_manual        = lbl_manual(letters[1:2]),
     lbl_manual2       = lbl_manual(letters[1:2], "%s)"),
-    lbl_endpoint      = lbl_endpoint()
+    lbl_endpoints     = lbl_endpoints(),
+    lbl_midpoints     = lbl_midpoints()
   )
 
   test_df <- expand.grid(
@@ -110,22 +111,22 @@ test_that("systematic tests", {
         ))
 
   # brk_default2 has breaks 1,2,2,3
-  # with lbl_endpoint, this may create duplicate left endpoints
+  # with lbl_endpoints, this may create duplicate left endpoints
   # ie the user asked for something we can't do
   dont_care(with(test_df,
           names(x) %in%
             c("ordinary", "inf", "inf_lo", "inf_hi", "NaN", "NAs") &
           brk_fun == "brk_default2" &
-          lbl_fun == "lbl_endpoint"
+          lbl_fun == "lbl_endpoints"
         ))
   dont_care(with(test_df,
           brk_fun == "brk_default2" &
-          lbl_fun == "lbl_endpoint" &
+          lbl_fun == "lbl_endpoints" &
           drop == FALSE
         ))
   dont_care(with(test_df,
           brk_fun == "brk_n" &
-          lbl_fun == "lbl_endpoint"
+          lbl_fun == "lbl_endpoints"
         ))
 
   should_either(names(test_df$x) == "complex")

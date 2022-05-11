@@ -137,7 +137,7 @@ class: inverse
 --
 
   ```{r}
-  x <- chop_width(y2k, months(1), labels = lbl_endpoint(fmt = "%b"))
+  x <- chop_width(y2k, months(1), labels = lbl_endpoints(fmt = "%b"))
          
   table(x)
   ```

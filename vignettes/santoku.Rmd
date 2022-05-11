@@ -176,7 +176,8 @@ chop(x, c(2, 5, 8), lbl_seq("i."))
 Other labelling functions include:
 
 * `lbl_discrete()`, for integer data
-* `lbl_endpoint()`, use left endpoints as labels
+* `lbl_endpoints()`, use left endpoints as labels
+* `lbl_midpoints()`, use interval midpoints as labels
 * `lbl_manual()`, specify labels manually
 
 By default, `chop()` extends `breaks` if necessary. If you don't want

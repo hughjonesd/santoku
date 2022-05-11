@@ -83,10 +83,10 @@ tab(1:10, c(1, 3, 3, 7), label = lbl_glue(glue_string, single = "{{{l}}}"))
 Other labelling functions: 
 \code{\link{lbl_dash}()},
 \code{\link{lbl_discrete}()},
-\code{\link{lbl_endpoint}()},
+\code{\link{lbl_endpoints}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_manual}()},
-\code{\link{lbl_midpoint}()},
+\code{\link{lbl_midpoints}()},
 \code{\link{lbl_seq}()}
 }
 \concept{labelling functions}

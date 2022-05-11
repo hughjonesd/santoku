@@ -114,8 +114,8 @@ lbl_dash <- function (symbol = em_dash(), fmt = NULL, single = "{l}", first = NU
 #' @export
 #'
 #' @examples
-#' chop(1:10, c(2, 5, 8), lbl_midpoint())
-lbl_midpoint <- function (fmt = NULL, single = NULL, first = NULL, last = NULL,
+#' chop(1:10, c(2, 5, 8), lbl_midpoints())
+lbl_midpoints <- function (fmt = NULL, single = NULL, first = NULL, last = NULL,
                           raw = FALSE) {
   function (breaks) {
     assert_that(is.breaks(breaks))
@@ -279,22 +279,31 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #' @export
 #'
 #' @examples
-#' chop(1:10, c(2, 5, 8), lbl_endpoint(left = TRUE))
-#' chop(1:10, c(2, 5, 8), lbl_endpoint(left = FALSE))
+#' chop(1:10, c(2, 5, 8), lbl_endpoints(left = TRUE))
+#' chop(1:10, c(2, 5, 8), lbl_endpoints(left = FALSE))
 #' if (requireNamespace("lubridate")) {
 #'   tab_width(
 #'           as.Date("2000-01-01") + 0:365,
 #'          months(1),
-#'          labels = lbl_endpoint(fmt = "%b")
+#'          labels = lbl_endpoints(fmt = "%b")
 #'        )
 #' }
-lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
+lbl_endpoints <- function (fmt = NULL, raw = FALSE, left = TRUE) {
   assert_that(is.null(fmt) || is_format(fmt), is.flag(raw), is.flag(left))
 
   function (breaks) {
     elabels <- endpoint_labels(breaks, raw, fmt)
     if (left) elabels[-length(elabels)] else elabels[-1]
   }
+}
+
+
+#' @rdname lbl_endpoints
+#' @export
+lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
+  lifecycle::deprecate_soft(when = "0.8.0", what = "lbl_endpoint()",
+                              with = "lbl_endpoints()")
+   lbl_endpoints(fmt = fmt, raw = raw, left = left)
 }
 
 

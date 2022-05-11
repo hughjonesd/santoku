@@ -39,10 +39,10 @@ chop(1:10, c(2, 5, 8), lbl_seq("(A)"))
 Other labelling functions: 
 \code{\link{lbl_dash}()},
 \code{\link{lbl_discrete}()},
-\code{\link{lbl_endpoint}()},
+\code{\link{lbl_endpoints}()},
 \code{\link{lbl_glue}()},
 \code{\link{lbl_intervals}()},
 \code{\link{lbl_manual}()},
-\code{\link{lbl_midpoint}()}
+\code{\link{lbl_midpoints}()}
 }
 \concept{labelling functions}

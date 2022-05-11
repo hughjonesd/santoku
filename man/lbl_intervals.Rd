@@ -71,10 +71,10 @@ tab_evenly(runif(20), 10,
 Other labelling functions: 
 \code{\link{lbl_dash}()},
 \code{\link{lbl_discrete}()},
-\code{\link{lbl_endpoint}()},
+\code{\link{lbl_endpoints}()},
 \code{\link{lbl_glue}()},
 \code{\link{lbl_manual}()},
-\code{\link{lbl_midpoint}()},
+\code{\link{lbl_midpoints}()},
 \code{\link{lbl_seq}()}
 }
 \concept{labelling functions}

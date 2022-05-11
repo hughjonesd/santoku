@@ -41,10 +41,10 @@ chop(1:10, 1:10, lbl_manual(c("x", "y", "z")))
 Other labelling functions: 
 \code{\link{lbl_dash}()},
 \code{\link{lbl_discrete}()},
-\code{\link{lbl_endpoint}()},
+\code{\link{lbl_endpoints}()},
 \code{\link{lbl_glue}()},
 \code{\link{lbl_intervals}()},
-\code{\link{lbl_midpoint}()},
+\code{\link{lbl_midpoints}()},
 \code{\link{lbl_seq}()}
 }
 \concept{labelling functions}

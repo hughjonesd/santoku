@@ -1,12 +1,19 @@
 # santoku (development version)
 
+## Breaking changes
+
+* `lbl_endpoint()` has been renamed to `lbl_endpoints()`. The old version will
+  trigger a deprecation warning.
+  
+## Other changes
+
 * New `chop_pretty()`, `brk_pretty()` and `tab_pretty()` functions use 
   `base::pretty()` to calculate attractive breakpoints. Thanks @davidhodge931.
 * New `chop_proportions()`, `brk_proportions()` and `tab_proportions()`
   functions chop `x` into proportions of its range.
 * `chop_equally()` now uses `lbl_intervals(raw = TRUE)` by default, bringing it
   into line with `chop_evenly()`, `chop_width()` and `chop_n()`.
-* New `lbl_midpoint()` function labels breaks by their midpoints.
+* New `lbl_midpoints()` function labels breaks by their midpoints.
 * Bugfix: `lbl_discrete()` sometimes had ugly label formatting. 
 
 
