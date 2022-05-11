@@ -126,13 +126,8 @@ lbl_midpoints <- function (fmt = NULL, single = NULL, first = NULL, last = NULL,
     # doing this, rather than (l_nums + r_nums)/2, works for e.g. Date objects:
     midpoints <- l_nums + (r_nums - l_nums)/2
 
-    midpoints <- endpoint_labels(midpoints, raw = raw, fmt = fmt)
-    # midpoints <- if (!is.null(fmt)) {
-    #                apply_format(fmt, midpoints)
-    #              }
-    #              else {
-    #                unique_truncation(midpoints)
-    #              }
+    # we've applied raw already (anyway, midpoints is just a numeric)
+    midpoints <- endpoint_labels(midpoints, raw = TRUE, fmt = fmt)
 
     gluer <- lbl_glue(label = "{m}", fmt = fmt, single = single, first = first,
                         last = last, raw = raw, m = midpoints)
