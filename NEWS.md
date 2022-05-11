@@ -3,7 +3,8 @@
 ## Breaking changes
 
 * `lbl_endpoint()` has been renamed to `lbl_endpoints()`. The old version will
-  trigger a deprecation warning.
+  trigger a deprecation warning. `lbl_endpoints()` gains `first`, `last` and
+  `single` arguments like other labelling functions.
   
 ## Other changes
 

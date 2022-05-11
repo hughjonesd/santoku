@@ -5,12 +5,30 @@
 \alias{lbl_endpoint}
 \title{Label chopped intervals by their left or right endpoints}
 \usage{
-lbl_endpoints(fmt = NULL, raw = FALSE, left = TRUE)
+lbl_endpoints(
+  fmt = NULL,
+  single = NULL,
+  first = NULL,
+  last = NULL,
+  raw = FALSE,
+  left = TRUE
+)
 
 lbl_endpoint(fmt = NULL, raw = FALSE, left = TRUE)
 }
 \arguments{
 \item{fmt}{String or function. A format for break endpoints.}
+
+\item{single}{Glue string: label for singleton intervals. See \code{\link[=lbl_glue]{lbl_glue()}}
+for details.}
+
+\item{first}{Glue string: override label for the first category. Write e.g.
+\code{first = "<{r}"} to create a label like \code{"<18"}. See \code{\link[=lbl_glue]{lbl_glue()}}
+for details.}
+
+\item{last}{String: override label for the last category. Write e.g.
+\code{last = ">{l}"} to create a label like \code{">65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
+for details.}
 
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g.
 quantiles or standard deviations?}

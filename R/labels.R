@@ -272,6 +272,7 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #' interval. In other cases it may give errors due to duplicate labels.
 #'
 #' @inherit label-doc
+#' @inherit first-last-doc
 #' @param left Flag. Use left endpoint or right endpoint?
 #'
 #' @family labelling functions
@@ -288,13 +289,13 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #'          labels = lbl_endpoints(fmt = "%b")
 #'        )
 #' }
-lbl_endpoints <- function (fmt = NULL, raw = FALSE, left = TRUE) {
-  assert_that(is.null(fmt) || is_format(fmt), is.flag(raw), is.flag(left))
+lbl_endpoints <- function (fmt = NULL, left = TRUE, single = NULL, first = NULL,
+                             last = NULL, raw = FALSE) {
+  assert_that(is.flag(left))
 
-  function (breaks) {
-    elabels <- endpoint_labels(breaks, raw, fmt)
-    if (left) elabels[-length(elabels)] else elabels[-1]
-  }
+  label <- if (left) "{l}" else "{r}"
+  lbl_glue(label, fmt = fmt, single = single, first = first, last = last,
+             raw = raw)
 }
 
 
