@@ -15,6 +15,7 @@
 * `chop_equally()` now uses `lbl_intervals(raw = TRUE)` by default, bringing it
   into line with `chop_evenly()`, `chop_width()` and `chop_n()`.
 * New `lbl_midpoints()` function labels breaks by their midpoints.
+* `lbl_discrete()` gains a `single` argument.
 * Bugfix: `lbl_discrete()` sometimes had ugly label formatting. 
 
 

@@ -341,6 +341,7 @@ lbl_discrete <- function (
                   symbol = em_dash(),
                   unit = 1,
                   fmt = NULL,
+                  single = NULL,
                   first = NULL,
                   last = NULL
                 ) {
@@ -348,6 +349,7 @@ lbl_discrete <- function (
           is.string(symbol),
           is.scalar(unit),
           is.null(fmt) || is_format(fmt),
+          is.string(single) || is.null(single),
           is.string(first) || is.null(first),
           is.string(last) || is.null(last)
         )
@@ -388,6 +390,13 @@ lbl_discrete <- function (
     l_closed <- left_l
     # r_closed is used for "]" in labels so need to switch it here:
     r_closed <- ! left_r
+
+    if (! is.null(single)) {
+      labels[singletons] <- glue::glue(single, l = labels_l[singletons],
+                                         r = labels_r[singletons],
+                                         l_closed = l_closed[singletons],
+                                         r_closed = r_closed[singletons])
+    }
 
     if (! is.null(first)) {
       labels[1] <- glue::glue(first, l = labels_l[1], r = labels_r[1],

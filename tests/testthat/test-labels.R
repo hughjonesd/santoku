@@ -309,6 +309,12 @@ test_that("lbl_discrete arguments", {
     c("1-2", ">= 3")
   )
 
+  sbrk <- brk_res(brk_default(c(1, 3, 3, 6)))
+  expect_equivalent(
+    lbl_discrete("-", single = "[{l}]")(sbrk),
+    c("1-2", "[3]", "4-5")
+  )
+
   brk1000 <- brk_res(brk_default(c(1, 3, 5) * 1000))
   expect_equivalent(
     lbl_discrete("-", unit = 1000)(brk1000),

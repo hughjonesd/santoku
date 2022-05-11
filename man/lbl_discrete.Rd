@@ -8,6 +8,7 @@ lbl_discrete(
   symbol = em_dash(),
   unit = 1,
   fmt = NULL,
+  single = NULL,
   first = NULL,
   last = NULL
 )
@@ -19,6 +20,9 @@ lbl_discrete(
 For integers, 1.}
 
 \item{fmt}{String or function. A format for break endpoints.}
+
+\item{single}{Glue string: label for singleton intervals. See \code{\link[=lbl_glue]{lbl_glue()}}
+for details.}
 
 \item{first}{Glue string: override label for the first category. Write e.g.
 \code{first = "<{r}"} to create a label like \code{"<18"}. See \code{\link[=lbl_glue]{lbl_glue()}}
