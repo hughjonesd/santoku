@@ -129,6 +129,13 @@ test_that("systematic tests", {
           lbl_fun == "lbl_endpoints"
         ))
 
+  # lbl_midpoints struggles with Inf for obvious reasons
+  dont_care(with(test_df,
+          names(x) %in% c("inf", "inf_lo", "inf_hi") &
+          brk_fun == "brk_n" &
+          lbl_fun == "lbl_midpoints"
+        ))
+
   should_either(names(test_df$x) == "complex")
 
   for (r in seq_len(nrow(test_df))) {
