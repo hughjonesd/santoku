@@ -17,6 +17,11 @@ knitr::opts_chunk$set(
 ```
 
 
+## Introduction
+
+Santoku is a package for cutting data into intervals. It provides a replacement
+for base R's `cut()` function.
+
 ## Installation
 
 To install santoku, run:
@@ -94,7 +99,6 @@ chopped <- chop_equally(x, groups = 5)
 table(chopped)
 ```
 
-
 To chop data up by quantiles, use `chop_quantiles()`:
 
 ```{r}
@@ -109,8 +113,17 @@ chopped <- chop_mean_sd(x)
 data.frame(x, chopped)
 ```
 
-`tab_n()`, `tab_width()`, `tab_evenly()` and `tab_mean_sd()` act similarly to
-`tab()`, calling the related `chop_` function and then `table()`.
+To chop data into attractive intervals, use `chop_pretty()`. This 
+selects intervals which are a multiple of 2, 5 or 10. It's useful for producing
+bar plots.
+
+```{r}
+chopped <- chop_pretty(x)
+data.frame(x, chopped)
+```
+
+`tab_n()`, `tab_width()`, and friends act similarly to
+`tab()`, calling the related `chop_*` function and then `table()` on the result.
 
 ```{r}
 tab_n(x, 4)
@@ -118,7 +131,6 @@ tab_width(x, 2)
 tab_evenly(x, 5)
 tab_mean_sd(x)
 ```
-
 
 You can chop dates too:
 
@@ -128,7 +140,6 @@ y2k <- as.Date("2000-01-01") + 0:365
 months <- chop_width(y2k, months(1))
 table(months)
 ```
-
 
 
 # Advanced usage
@@ -147,14 +158,23 @@ it does.
 To label intervals with a dash, use `lbl_dash()`:
 
 ```{r}
-chopped <- chop(x, c(2, 5, 8), lbl_dash())
+chopped <- chop(x, c(2, 5, 8), labels = lbl_dash())
 data.frame(x, chopped)
+```
+
+To label integer data, use `lbl_discrete()`. It uses more informative right 
+endpoints:
+
+```{r}
+chopped  <- chop(1:10, c(2, 5, 8), labels = lbl_discrete())
+chopped2 <- chop(1:10, c(2, 5, 8), labels = lbl_dash())
+data.frame(x = 1:10, lbl_discrete = chopped, lbl_dash = chopped2)
 ```
 
 You can customize the first or last labels:
 
 ```{r}
-chopped <- chop(x, c(2, 5, 8), lbl_dash(first = "< 2", last = "8+"))
+chopped <- chop(x, c(2, 5, 8), labels = lbl_dash(first = "< 2", last = "8+"))
 data.frame(x, chopped)
 ```
 
@@ -162,23 +182,23 @@ data.frame(x, chopped)
 To label intervals in order use `lbl_seq()`:
 
 ```{r}
-chopped <- chop(x, c(2, 5, 8), lbl_seq())
+chopped <- chop(x, c(2, 5, 8), labels = lbl_seq())
 data.frame(x, chopped)
 ```
 
 You can use numerals or even roman numerals:
 
 ```{r}
-chop(x, c(2, 5, 8), lbl_seq("(1)"))
-chop(x, c(2, 5, 8), lbl_seq("i."))
+chop(x, c(2, 5, 8), labels = lbl_seq("(1)"))
+chop(x, c(2, 5, 8), labels = lbl_seq("i."))
 ```
 
 Other labelling functions include:
 
-* `lbl_discrete()`, for integer data
-* `lbl_endpoints()`, use left endpoints as labels
-* `lbl_midpoints()`, use interval midpoints as labels
-* `lbl_manual()`, specify labels manually
+* `lbl_endpoints()` - use left endpoints as labels
+* `lbl_midpoints()` - use interval midpoints as labels
+* `lbl_manual()` - specify labels manually
+* `lbl_glue()` - specify labels flexibly with the `{glue}` package
 
 By default, `chop()` extends `breaks` if necessary. If you don't want
 that, set `extend = FALSE`:
