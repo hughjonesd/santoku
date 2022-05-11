@@ -6,17 +6,19 @@
 \title{Label chopped intervals by their left or right endpoints}
 \usage{
 lbl_endpoints(
+  left = TRUE,
   fmt = NULL,
   single = NULL,
   first = NULL,
   last = NULL,
-  raw = FALSE,
-  left = TRUE
+  raw = FALSE
 )
 
 lbl_endpoint(fmt = NULL, raw = FALSE, left = TRUE)
 }
 \arguments{
+\item{left}{Flag. Use left endpoint or right endpoint?}
+
 \item{fmt}{String or function. A format for break endpoints.}
 
 \item{single}{Glue string: label for singleton intervals. See \code{\link[=lbl_glue]{lbl_glue()}}
@@ -32,8 +34,6 @@ for details.}
 
 \item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g.
 quantiles or standard deviations?}
-
-\item{left}{Flag. Use left endpoint or right endpoint?}
 }
 \value{
 A function that creates a vector of labels.

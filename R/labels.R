@@ -286,7 +286,7 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #'          labels = lbl_endpoints(fmt = "%b")
 #'        )
 #' }
-lbl_endpoints <- function (fmt = NULL, left = TRUE, single = NULL, first = NULL,
+lbl_endpoints <- function (left = TRUE, fmt = NULL, single = NULL, first = NULL,
                              last = NULL, raw = FALSE) {
   assert_that(is.flag(left))
 
