@@ -409,6 +409,9 @@ chop_evenly <- function (x, intervals, ..., close_end = TRUE) {
 #' `chop_proportions()` chops `x` into `proportions` of its range, excluding
 #' infinite values.
 #'
+#' By default, labels show the raw numeric endpoints. To label intervals by
+#' the proportions, use `labels = lbl_intervals(raw = FALSE)`.
+#'
 #' @param proportions Numeric vector between 0 and 1: proportions of x's range
 #' @inheritParams chop
 #' @inherit chop-doc params return
@@ -420,8 +423,9 @@ chop_evenly <- function (x, intervals, ..., close_end = TRUE) {
 #' @examples
 #' chop_proportions(0:10, c(0.2, 0.8))
 #'
-chop_proportions <- function (x, proportions, ...) {
-  chop(x, brk_proportions(proportions), ...)
+chop_proportions <- function (x, proportions, ...,
+                                labels = lbl_intervals(raw = TRUE)) {
+  chop(x, brk_proportions(proportions), labels = labels, ...)
 }
 
 #' Chop into fixed-sized groups

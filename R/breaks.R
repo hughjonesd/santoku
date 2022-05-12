@@ -293,7 +293,15 @@ brk_proportions <- function(proportions) {
 
     breaks <- min_x + range_x * proportions
     breaks <- create_lr_breaks(breaks, left, close_end)
-    maybe_extend(breaks, x, extend)
+
+    scaled_endpoints <- proportions
+    needs <- needs_extend(breaks, x, extend)
+    if ((needs & LEFT) > 0) scaled_endpoints <- c(0, scaled_endpoints)
+    if ((needs & RIGHT) > 0) scaled_endpoints <- c(scaled_endpoints, 1)
+    breaks <- maybe_extend(breaks, x, extend)
+    attr(breaks, "scaled_endpoints") <- scaled_endpoints
+
+    breaks
   }
 }
 
