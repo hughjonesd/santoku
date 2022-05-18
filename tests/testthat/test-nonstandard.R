@@ -39,8 +39,8 @@ test_that("ordered", {
   expect_silent(
     chop_equally(x, groups = 2)
   )
-
 })
+
 
 test_that("hexmode", {
   x <- as.hexmode(1:10 + 10)
@@ -51,6 +51,34 @@ test_that("hexmode", {
   )
 
   skip("vctrs can't cast hexmode and integer")
+  expect_silent(
+    chop(x, br)
+  )
+})
+
+
+test_that("stat::ts", {
+  x <- ts(1:10)
+  # note: we need to specify integer breaks
+  # vec_cast can't cope with ts(<integer>) and ts(<double>)
+  br <- c(5L, 8L)
+
+  expect_silent(
+    chop(x, br)
+  )
+
+  x <- ts(c(1.0, 3.0, 5.0))
+  br <- c(2.0, 4.0)
+  expect_silent(
+    chop(x, br)
+  )
+
+  chop_equally(x, 3)
+
+  skip("Can't cope with mixed integer/double ts objects")
+
+  x <- ts(1:10)
+  br <- ts(c(5.0, 8.0))
   expect_silent(
     chop(x, br)
   )
