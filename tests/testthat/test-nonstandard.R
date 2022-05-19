@@ -73,7 +73,13 @@ test_that("stat::ts", {
     chop(x, br)
   )
 
-  chop_equally(x, 3)
+  expect_silent(
+    chop_equally(x, groups = 3)
+  )
+
+  expect_silent(
+    chop_width(x, width = 2)
+  )
 
   skip("Can't cope with mixed integer/double ts objects")
 
