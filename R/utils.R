@@ -39,6 +39,22 @@ percent <- function (x) {
 }
 
 
+#' Report singleton intervals
+#'
+#' @param breaks A breaks object
+#'
+#' @return
+#' A logical vector of `length(breaks) - 1`, `TRUE`
+#' if the corresponding interval is a singleton.
+#' @noRd
+#'
+#' @examples
+#' brk <- brk_res(brk_default(c(1, 1, 2, 3, 3, 4)))
+#' brk
+#' # Breaks object: {1} (1, 2) [2, 3) {3} (3, 4)
+#'
+#' singletons(brk)
+#' # TRUE FALSE FALSE TRUE FALSE
 singletons <- function (breaks) {
   duplicated(breaks)[-1]
 }
