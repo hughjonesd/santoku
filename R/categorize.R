@@ -10,7 +10,7 @@ categorize <- function (x, breaks) {
   # we first cast to the most informative common type. Then to numeric.
 
   left <- attr(breaks, "left")
-  res <- vctrs::vec_cast_common(x, unclass_breaks(breaks))
+  res <- santoku_cast_common(x, unclass_breaks(breaks))
   # vec_cast won't accept e.g. characters but it also won't convert e.g. Dates
   # as.numeric accepts both
   # We want to convert things to numeric objects, but NB, not all

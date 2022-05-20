@@ -50,7 +50,6 @@ test_that("hexmode", {
     chop(x, br, extend = FALSE)
   )
 
-  skip("vctrs can't cast hexmode and integer")
   expect_silent(
     chop(x, br)
   )
@@ -202,7 +201,6 @@ test_that("bit64", {
     chop(x64, as.integer(c(3, 5, 5, 7)))
   )
 
-  skip("vec_cast_common doesn't like double and integer64")
 
   expect_silent(
     chop(x64, c(3, 5, 5, 7))
@@ -212,6 +210,7 @@ test_that("bit64", {
     chop(c(1, 3, 5, 7), b64)
   )
 })
+
 
 test_that("hms::hms", {
   skip_if_not_installed("hms")
