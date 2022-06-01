@@ -123,7 +123,7 @@ class: inverse
 
 ```{r}
 # like table(chop(...)):
-tab(y2k_sample, apr_aug_1, labels = lbl_dash(fmt = "%b"))
+tab(y2k_sample, apr_aug_1, labels = lbl_discrete(fmt = "%b"))
 ```
 
 
