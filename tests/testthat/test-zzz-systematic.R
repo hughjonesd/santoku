@@ -76,10 +76,12 @@ test_that("systematic tests", {
 
   POSIXct_breaks <- c("brk_def_POSIXct", "brk_w_difft_sec")
   Date_breaks <- c("brk_def_Date", "brk_w_difft_day")
-  skip_test(names(x) == "Date" & ! brk_fun %in% Date_breaks)
-  skip_test(names(x) != "Date" & brk_fun %in% Date_breaks)
-  skip_test(names(x) == "POSIXct" & ! brk_fun %in% POSIXct_breaks)
-  skip_test(names(x) != "POSIXct" & brk_fun %in% POSIXct_breaks)
+  skip_test(names(x) %in% c("Date", "POSIXct")  &
+              ! brk_fun %in% c(Date_breaks, POSIXct_breaks))
+  skip_test(! names(x) %in% c("Date", "POSIXct") &
+              brk_fun %in% c(Date_breaks, POSIXct_breaks))
+  # don't try to break dates by 1 second width (very slow!)
+  skip_test(names(x) != "POSIXct" & brk_fun == "brk_w_difft_sec")
 
   test_df$expect <- "succeed"
   # some things should fail
