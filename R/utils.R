@@ -81,7 +81,7 @@ strict_as_numeric <- function (x) {
 #' @param brk_fun A call to a `brk_` function
 #' @param x,extend,left,close_end Passed in to `brk_fun`
 #'
-#' @return
+#' @return A `breaks` object.
 #' @noRd
 #'
 #' @examples

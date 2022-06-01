@@ -29,7 +29,9 @@ intervals or equal-sized groups.
 These advantages make santoku especially useful for exploratory analysis,
 where you may not know the range of your data in advance.
 
-To get started, read the vignette:\if{html}{\out{<div class="sourceCode r">}}\preformatted{vignette("santoku")
+To get started, read the vignette:
+
+\if{html}{\out{<div class="sourceCode r">}}\preformatted{vignette("santoku")
 }\if{html}{\out{</div>}}
 
 For more details, start with the documentation for \code{\link[=chop]{chop()}}.

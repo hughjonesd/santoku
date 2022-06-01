@@ -99,3 +99,91 @@ santoku_cast_common.hexmode.default <- function (x, y) {
 santoku_cast_common.default.hexmode <- function (x, y) {
   santoku_cast_common(x, as.numeric(y))
 }
+
+
+#' @export
+santoku_cast_common.octmode <- function (x, y) {
+  UseMethod("santoku_cast_common.octmode", object = y)
+}
+
+
+#' @export
+santoku_cast_common.octmode.octmode <- function (x, y) {
+  list(x, y)
+}
+
+
+#' @export
+santoku_cast_common.octmode.default <- function (x, y) {
+  santoku_cast_common(as.numeric(x), y)
+}
+
+
+#' @export
+santoku_cast_common.default.octmode <- function (x, y) {
+  santoku_cast_common(x, as.numeric(y))
+}
+
+
+#' @export
+santoku_cast_common.Date <- function (x, y) {
+  UseMethod("santoku_cast_common.Date", object = y)
+}
+
+
+#' @export
+santoku_cast_common.Date.Date <- function (x, y) {
+  list(x, y)
+}
+
+
+#' @export
+santoku_cast_common.Date.POSIXct <- function (x, y) {
+  list(as.POSIXct(x), y)
+}
+
+
+#' @export
+santoku_cast_common.Date.default <- function (x, y) {
+  santoku_cast_common(as.numeric(x), y)
+}
+
+
+#' @export
+santoku_cast_common.default.Date <- function (x, y) {
+  santoku_cast_common(x, as.numeric(y))
+}
+
+
+
+#' @export
+santoku_cast_common.POSIXct <- function (x, y) {
+  UseMethod("santoku_cast_common.POSIXct", object = y)
+}
+
+
+#' @export
+santoku_cast_common.POSIXct.POSIXct <- function (x, y) {
+  list(x, y)
+}
+
+
+#' @export
+santoku_cast_common.POSIXct.default <- function (x, y) {
+  santoku_cast_common(as.numeric(x), y)
+}
+
+
+#' @export
+santoku_cast_common.default.POSIXct <- function (x, y) {
+  santoku_cast_common(x, as.numeric(y))
+}
+
+
+
+#' @export
+santoku_cast_common.POSIXct.Date <- function (x, y) {
+  list(x, as.POSIXct(y))
+}
+
+

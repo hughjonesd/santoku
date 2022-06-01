@@ -16,7 +16,7 @@
 #' @param fmt Format string or function
 #' @param ...
 #'
-#' @return
+#' @return A character vector of break endpoints.
 #' @noRd
 #'
 endpoint_labels <- function (breaks, raw, fmt = NULL, ...) {

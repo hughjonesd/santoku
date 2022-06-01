@@ -14,7 +14,7 @@ be choppable.
 which may be slower.
 \item Character \code{x} and \code{breaks} are chopped with a warning.
 \item If \code{x} and \code{breaks} are not the same type, they should be able to
-be cast to the same type using \code{\link[vctrs:vec_cast]{vctrs::vec_cast_common()}}.
+be cast to the same type, usually using \code{\link[vctrs:vec_cast]{vctrs::vec_cast_common()}}.
 \item Not all chopping operations make sense, for example, \code{\link[=chop_mean_sd]{chop_mean_sd()}}
 on a character vector.
 \item If you get errors, try setting \code{extend = FALSE} (but also file a bug report).

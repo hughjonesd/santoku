@@ -11,16 +11,8 @@ categorize <- function (x, breaks) {
 
   left <- attr(breaks, "left")
   res <- santoku_cast_common(x, unclass_breaks(breaks))
-  # vec_cast won't accept e.g. characters but it also won't convert e.g. Dates
-  # as.numeric accepts both
-  # We want to convert things to numeric objects, but NB, not all
-  # numeric objects will work OK in categorize_impl
-  x <- tryCatch(strict_as_numeric(res[[1]]),
-                  error   = function (...) res[[1]]
-                )
-  breaks <- tryCatch(strict_as_numeric(res[[2]]),
-                       error   = function (...) res[[2]]
-                     )
+  x <- res[[1]]
+  breaks <- res[[2]]
 
   # we use is_bare_numeric here because e.g. large integer64 vectors will
   # fail in categorize_impl()

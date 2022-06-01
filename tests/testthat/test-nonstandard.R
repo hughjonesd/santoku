@@ -56,6 +56,28 @@ test_that("hexmode", {
 })
 
 
+test_that("octmode", {
+  x <- as.octmode(1:10 + 10)
+  br <- as.octmode(c(13, 15, 15, 18))
+
+  expect_silent(
+    chop(x, br, extend = FALSE)
+  )
+
+  expect_silent(
+    chop(x, br)
+  )
+
+  expect_silent(
+    chop(x, c(12, 15, 15, 18))
+  )
+
+  expect_silent(
+    chop(1:10 + 10, br)
+  )
+})
+
+
 test_that("stat::ts", {
   x <- ts(1:10)
   # note: we need to specify integer breaks
@@ -79,8 +101,6 @@ test_that("stat::ts", {
   expect_silent(
     chop_width(x, width = 2)
   )
-
-  skip("Can't cope with mixed integer/double ts objects")
 
   x <- ts(1:10)
   br <- ts(c(5.0, 8.0))
