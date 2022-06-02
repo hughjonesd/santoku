@@ -229,6 +229,12 @@ test_that("bit64", {
   expect_silent(
     chop(c(1, 3, 5, 7), b64)
   )
+
+  expect_equivalent(
+    chop(x64, c(2.5, 7.5), labels = letters[1:3]),
+    factor(c(1, 1, 2, 2, 2, 2, 2, 3, 3, 3), labels = letters[1:3])
+  )
+
 })
 
 

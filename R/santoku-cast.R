@@ -2,13 +2,18 @@
 
 #' Hacked version of [vctrs::vec_cast_common()]
 #'
-#' This almost always defers to `vctrs::vec_cast_common()`.
-#' As of version 0.7.0.9000 it picks up on `ts` objects
-#' and `integer64` objects.
-#'
 #' @param x,y Vectors to cast
 #'
-#' @return A list of two vectors
+#' @return A list of two vectors of the same class; or
+#' errors, if that isn't possible.
+#'
+#' This almost always defers to `vctrs::vec_cast_common()`.
+#'
+#' Often, we are more relaxed than `vctrs` because
+#' we have a more specific use case (comparing numeric
+#' values). So e.g. we're fine with comparing a `ts`
+#' object to a number, whereas other binary
+#' operations might not make sense.
 #'
 #' @noRd
 #'
@@ -30,6 +35,35 @@ santoku_cast_common.default.default <- function (x, y) {
 
 # Specific default.x methods are in their sections below.
 
+
+# ==== double ====
+
+# We have specific double methods just to catch bit64 objects
+
+#' @export
+santoku_cast_common.double <- function (x, y) {
+  UseMethod("santoku_cast_common.double", object = y)
+}
+
+
+#' @export
+santoku_cast_common.double.default <- function (x, y) {
+  # almost always delegate to default
+  santoku_cast_common.default(x, y)
+}
+
+
+#' @export
+santoku_cast_common.double.integer64 <- function (x, y) {
+  loadNamespace("bit64")
+  # we cast the integer64 to double.
+  # See santoku_cast_common.integer64.double below for why.
+  list(x, as.double(y))
+}
+
+
+# ==== ts ====
+
 #' @export
 santoku_cast_common.ts <- function (x, y) {
   UseMethod("santoku_cast_common.ts", object = y)
@@ -50,6 +84,8 @@ santoku_cast_common.default.ts <- function (x, y) {
 }
 
 
+# ==== integer64 ====
+
 #' @export
 santoku_cast_common.integer64 <- function (x, y) {
   UseMethod("santoku_cast_common.integer64", object = y)
@@ -59,6 +95,18 @@ santoku_cast_common.integer64 <- function (x, y) {
 #' @export
 santoku_cast_common.integer64.integer64 <- function (x, y) {
   list(x, y)
+}
+
+
+#' @export
+santoku_cast_common.integer64.double <- function (x, y) {
+  loadNamespace("bit64")
+  # we cast the integer64 to double.
+  # This may lose precision, but if so, it gives a warning.
+  # If we cast double to integer64, then
+  # e.g. chop(as.integer64(1:5), 2.5)
+  # silently converts 2.5 to 2 and gives a wrong answer
+  list(as.double(x), y)
 }
 
 
@@ -75,6 +123,8 @@ santoku_cast_common.default.integer64 <- function (x, y) {
   santoku_cast_common(bit64::as.integer64(x), y)
 }
 
+
+# ==== hexmode ====
 
 #' @export
 santoku_cast_common.hexmode <- function (x, y) {
@@ -101,6 +151,8 @@ santoku_cast_common.default.hexmode <- function (x, y) {
 }
 
 
+# ==== octmode ====
+
 #' @export
 santoku_cast_common.octmode <- function (x, y) {
   UseMethod("santoku_cast_common.octmode", object = y)
@@ -125,6 +177,12 @@ santoku_cast_common.default.octmode <- function (x, y) {
 }
 
 
+# ==== Date ====
+
+# We delegate to vctrs for Date+numeric (which gives an error)
+# Not obvious how to interpret conversion of Date to numeric
+
+
 #' @export
 santoku_cast_common.Date <- function (x, y) {
   UseMethod("santoku_cast_common.Date", object = y)
@@ -143,18 +201,9 @@ santoku_cast_common.Date.POSIXct <- function (x, y) {
 }
 
 
-#' @export
-santoku_cast_common.Date.default <- function (x, y) {
-  santoku_cast_common(as.numeric(x), y)
-}
+# ==== POSIXct ====
 
-
-#' @export
-santoku_cast_common.default.Date <- function (x, y) {
-  santoku_cast_common(x, as.numeric(y))
-}
-
-
+# We delegate to vctrs for POSIXct/numeric, see Date above
 
 #' @export
 santoku_cast_common.POSIXct <- function (x, y) {
@@ -169,21 +218,6 @@ santoku_cast_common.POSIXct.POSIXct <- function (x, y) {
 
 
 #' @export
-santoku_cast_common.POSIXct.default <- function (x, y) {
-  santoku_cast_common(as.numeric(x), y)
-}
-
-
-#' @export
-santoku_cast_common.default.POSIXct <- function (x, y) {
-  santoku_cast_common(x, as.numeric(y))
-}
-
-
-
-#' @export
 santoku_cast_common.POSIXct.Date <- function (x, y) {
   list(x, as.POSIXct(y))
 }
-
-
