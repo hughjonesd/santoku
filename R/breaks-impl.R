@@ -201,9 +201,24 @@ class_bounds.POSIXct <- function (x) {
   as.POSIXct(c(-Inf, Inf), origin = "1970-01-01")
 }
 
+
 #' @export
 class_bounds.Date <- function (x) {
   as.Date(c(-Inf, Inf), origin = "1970-01-01")
+}
+
+
+#' @export
+class_bounds.difftime <- function (x) {
+  as.difftime(c(-Inf, Inf), units = units(x))
+}
+
+
+#' @export
+class_bounds.units <- function (x) {
+  loadNamespace("units")
+  # note: the units() call is from namespace base, not units
+  units::set_units(c(-Inf, Inf), units(x), mode = "standard")
 }
 
 
@@ -212,6 +227,7 @@ class_bounds.integer64 <- function (x) {
   loadNamespace("bit64")
   bit64::lim.integer64()
 }
+
 
 #' @export
 class_bounds.zoo <- function (x) {

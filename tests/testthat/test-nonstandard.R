@@ -14,6 +14,11 @@ test_that("character", {
     chop(x, br)
   )
 
+  # here, we think there should *always* be a warning
+  expect_warning(
+    chop(x, br, extend = TRUE)
+  )
+
   expect_silent(
     chop_equally(x, 13)
   )
@@ -30,6 +35,11 @@ test_that("ordered", {
 
   expect_silent(
     chop(x, br)
+  )
+
+  # here, we think there should *always* be a warning
+  expect_warning(
+    chop(x, br, extend = TRUE)
   )
 
   expect_silent(
@@ -53,6 +63,13 @@ test_that("hexmode", {
   expect_silent(
     chop(x, br)
   )
+
+  # here, there happens to be a warning as of 0.7.0.9000,
+  # but we'd be happy if we could represent +/- Inf as hexmode
+  suppressWarnings(expect_error(
+    chop(x, br, extend = TRUE),
+    regexp = NA
+  ))
 })
 
 
@@ -75,6 +92,11 @@ test_that("octmode", {
   expect_silent(
     chop(1:10 + 10, br)
   )
+
+  suppressWarnings(expect_error(
+    chop(x, br, extend = TRUE),
+    regexp = NA
+  ))
 })
 
 
@@ -92,6 +114,10 @@ test_that("stat::ts", {
   br <- c(2.0, 4.0)
   expect_silent(
     chop(x, br)
+  )
+
+  expect_silent(
+    chop(x, br, extend = TRUE)
   )
 
   expect_silent(
@@ -170,6 +196,10 @@ test_that("units::units", {
     chop(x, br)
   )
 
+  expect_silent(
+    chop(x, br, extend = TRUE)
+  )
+
   expect_equal(
     as.numeric(chop(x, br_mm)),
     c(1, 1, 2, 2, 3, 4, 4, 5, 5, 5)
@@ -183,6 +213,7 @@ test_that("units::units", {
   expect_silent(
     chopped <- chop_width(x, units::set_units(0.05, m))
   )
+
   expect_equal(
     as.numeric(chopped), c(rep(1, 5), rep(2, 5))
   )
@@ -191,6 +222,7 @@ test_that("units::units", {
   expect_silent(
     chopped <- chop_width(x, units::set_units(0.05, m), start)
   )
+
   expect_equal(
     as.numeric(chopped), c(1, rep(2, 5), rep(3, 4))
   )
@@ -198,6 +230,7 @@ test_that("units::units", {
   expect_silent(
     chopped <- chop_evenly(x, intervals = 2)
   )
+
   expect_equal(
     as.numeric(chopped), c(rep(1, 5), rep(2, 5))
   )
@@ -226,6 +259,10 @@ test_that("package_version", {
   expect_silent(
     chop(x, br)
   )
+
+  expect_warning(
+    chop(x, br, extend = TRUE)
+  )
 })
 
 
@@ -241,6 +278,10 @@ test_that("difftime", {
 
   expect_silent(
     chop(difftimes_d, difftimes_h)
+  )
+
+  expect_silent(
+    chop(difftimes_d, difftimes_d[c(3,5)], extend = TRUE)
   )
 })
 
@@ -312,13 +353,17 @@ test_that("hms::hms", {
     rep(1:3, c(59, 60, 61)),
     ignore_attr = TRUE
   )
+
+  expect_silent(
+    chop(x, br, extend = TRUE)
+  )
 })
 
 
 test_that("haven::labelled", {
   skip_if_not_installed("haven")
 
-  x <- haven::labelled(1:10, c("Lo" = 1, "Hi" = 10))
+  x <- haven::labelled(as.double(1:10), c("Lo" = 1, "Hi" = 10))
   br <- haven::labelled(c(3, 5), c("Mid" = 3, "Mid2" = 5))
 
   expect_silent(
@@ -327,5 +372,9 @@ test_that("haven::labelled", {
 
   expect_silent(
     chop(x, br)
+  )
+
+  expect_silent(
+    chop(x, br, extend = TRUE)
   )
 })
