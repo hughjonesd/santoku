@@ -110,6 +110,56 @@ test_that("stat::ts", {
 })
 
 
+test_that("zoo::zoo", {
+  skip_if_not_installed("zoo")
+
+  x <- zoo::zoo(1:10, 1:10)
+
+  expect_silent(
+    chop(x, c(3, 5, 5, 7))
+  )
+
+  suppressWarnings(expect_error(
+    # gives a warning but no error as of 0.7.0.9000
+    chop(x, c(3, 5, 5, 7), extend = TRUE),
+    regexp = NA
+  ))
+
+  expect_silent(
+    chop_width(x, 2)
+  )
+
+  expect_silent(
+    chop_equally(x, 2)
+  )
+})
+
+
+test_that("xts::xts", {
+  skip_if_not_installed("xts")
+
+  x <- xts::xts(1:10, Sys.Date() + 1:10)
+
+  expect_silent(
+    chop(x, c(3, 5, 5, 7))
+  )
+
+  suppressWarnings(expect_error(
+    # gives a warning but no error as of 0.7.0.9000
+    chop(x, c(3, 5, 5, 7), extend = TRUE),
+    regexp = NA
+  ))
+
+  expect_silent(
+    chop_width(x, 2)
+  )
+
+  expect_silent(
+    chop_equally(x, 2)
+  )
+})
+
+
 test_that("units::units", {
   skip_if_not_installed("units")
 

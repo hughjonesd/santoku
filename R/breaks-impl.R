@@ -177,7 +177,11 @@ is_gt_minus_inf <- function (x) {
 }
 
 
-#' Return the infimum and supremum of a class, or throw an error
+#' Return the infimum and supremum of a class
+#'
+#' The default tries to cast `c(-Inf, Inf)` to the
+#' class. If this fails, it returns `c(min(x), max(x))`
+#' and emits a warning.
 #'
 #' @param x Only used for its class
 #'
@@ -205,7 +209,14 @@ class_bounds.Date <- function (x) {
 
 #' @export
 class_bounds.integer64 <- function (x) {
+  loadNamespace("bit64")
   bit64::lim.integer64()
+}
+
+#' @export
+class_bounds.zoo <- function (x) {
+  loadNamespace("zoo")
+  zoo::zoo(c(-Inf, Inf))
 }
 
 
@@ -239,7 +250,6 @@ unclass_breaks <- function (breaks) {
                    } else {
                      superclasses
                    }
-
 
   # this helps vec_cast_common deal with unusual types of breaks
   attr(breaks, "left") <- NULL

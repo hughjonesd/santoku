@@ -62,6 +62,52 @@ santoku_cast_common.double.integer64 <- function (x, y) {
 }
 
 
+# ==== Date ====
+
+# We delegate to vctrs for Date+numeric (which gives an error)
+# Not obvious how to interpret conversion of Date to numeric
+
+
+#' @export
+santoku_cast_common.Date <- function (x, y) {
+  UseMethod("santoku_cast_common.Date", object = y)
+}
+
+
+#' @export
+santoku_cast_common.Date.Date <- function (x, y) {
+  list(x, y)
+}
+
+
+#' @export
+santoku_cast_common.Date.POSIXct <- function (x, y) {
+  list(as.POSIXct(x), y)
+}
+
+
+# ==== POSIXct ====
+
+# We delegate to vctrs for POSIXct/numeric, see Date above
+
+#' @export
+santoku_cast_common.POSIXct <- function (x, y) {
+  UseMethod("santoku_cast_common.POSIXct", object = y)
+}
+
+
+#' @export
+santoku_cast_common.POSIXct.POSIXct <- function (x, y) {
+  list(x, y)
+}
+
+
+#' @export
+santoku_cast_common.POSIXct.Date <- function (x, y) {
+  list(x, as.POSIXct(y))
+}
+
+
 # ==== ts ====
 
 #' @export
@@ -81,6 +127,31 @@ santoku_cast_common.ts.default <- function (x, y) {
 #' @export
 santoku_cast_common.default.ts <- function (x, y) {
   santoku_cast_common(x, unclass(y))
+}
+
+
+# ==== zoo ====
+
+#' @export
+santoku_cast_common.zoo <- function (x, y) {
+  UseMethod("santoku_cast_common.zoo", object = y)
+}
+
+# we don't have a zoo.zoo method because returning
+# two zoo objects would cause comparisons to only
+# work where the indices are the same. So, we always
+# work on the underlying data.
+
+#' @export
+santoku_cast_common.zoo.default <- function (x, y) {
+  loadNamespace("zoo")
+  santoku_cast_common(zoo::coredata(x), y)
+}
+
+#' @export
+santoku_cast_common.default.zoo <- function (x, y) {
+  loadNamespace("zoo")
+  santoku_cast_common(x, zoo::coredata(y))
 }
 
 
@@ -174,50 +245,4 @@ santoku_cast_common.octmode.default <- function (x, y) {
 #' @export
 santoku_cast_common.default.octmode <- function (x, y) {
   santoku_cast_common(x, as.numeric(y))
-}
-
-
-# ==== Date ====
-
-# We delegate to vctrs for Date+numeric (which gives an error)
-# Not obvious how to interpret conversion of Date to numeric
-
-
-#' @export
-santoku_cast_common.Date <- function (x, y) {
-  UseMethod("santoku_cast_common.Date", object = y)
-}
-
-
-#' @export
-santoku_cast_common.Date.Date <- function (x, y) {
-  list(x, y)
-}
-
-
-#' @export
-santoku_cast_common.Date.POSIXct <- function (x, y) {
-  list(as.POSIXct(x), y)
-}
-
-
-# ==== POSIXct ====
-
-# We delegate to vctrs for POSIXct/numeric, see Date above
-
-#' @export
-santoku_cast_common.POSIXct <- function (x, y) {
-  UseMethod("santoku_cast_common.POSIXct", object = y)
-}
-
-
-#' @export
-santoku_cast_common.POSIXct.POSIXct <- function (x, y) {
-  list(x, y)
-}
-
-
-#' @export
-santoku_cast_common.POSIXct.Date <- function (x, y) {
-  list(x, as.POSIXct(y))
 }
