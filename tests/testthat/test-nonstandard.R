@@ -221,7 +221,6 @@ test_that("bit64", {
     chop(x64, as.integer(c(3, 5, 5, 7)))
   )
 
-
   expect_silent(
     chop(x64, c(3, 5, 5, 7))
   )
@@ -233,6 +232,17 @@ test_that("bit64", {
   expect_equivalent(
     chop(x64, c(2.5, 7.5), labels = letters[1:3]),
     factor(c(1, 1, 2, 2, 2, 2, 2, 3, 3, 3), labels = letters[1:3])
+  )
+
+  x64_big <- bit64::as.integer64("1000000000000000000") + 1:10
+  b64_big <- bit64::as.integer64("1000000000000000000") + c(3, 5, 5, 7)
+
+  expect_silent(
+    chop(x64_big, b64_big)
+  )
+
+  expect_warning(
+    chop(c(bit64::as.integer64(1), x64_big), 2.5)
   )
 
 })
