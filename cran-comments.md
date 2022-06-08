@@ -2,6 +2,8 @@
 A new version with new functionality and one function becoming
 deprecated.
 
+Resubmission: remove revdep folder from the package. 
+
 
 ## Test environments
 
