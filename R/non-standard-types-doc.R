@@ -9,9 +9,11 @@
 #'   which may be slower.
 #' * Character `x` and `breaks` are chopped with a warning.
 #' * If `x` and `breaks` are not the same type, they should be able to
-#'   be cast to the same type using [vctrs::vec_cast_common()].
+#'   be cast to the same type, usually using [vctrs::vec_cast_common()].
 #' * Not all chopping operations make sense, for example, [chop_mean_sd()]
 #'   on a character vector.
+#' * For indexed objects such as [stats::ts()] objects, indices will be dropped
+#'   from the result.
 #' * If you get errors, try setting `extend = FALSE` (but also file a bug report).
 #' * To request support for a type, open an issue on Github.
 #'

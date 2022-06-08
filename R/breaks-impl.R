@@ -82,7 +82,7 @@ needs_extend <- function (breaks, x, extend) {
   needs <- NEITHER
   left <- attr(breaks, "left")
 
-  res <- vctrs::vec_cast_common(x, unclass_breaks(breaks))
+  res <- santoku_cast_common(x, unclass_breaks(breaks))
   x <- res[[1]]
   breaks <- res[[2]]
 
@@ -140,7 +140,8 @@ extend_endpoint_left <- function (breaks, x, extend) {
   q <- quiet_min(x)
   # non-finite q could be Inf if set is empty. Not appropriate for a left endpoint!
   extra_break <- if (is.null(extend) && is_gt_minus_inf(q)) q else class_bounds(x)[1]
-  breaks <- vctrs::vec_c(extra_break, unclass_breaks(breaks))
+  res <- santoku_cast_common(extra_break, unclass_breaks(breaks))
+  breaks <- vctrs::vec_c(res[[1]], res[[2]])
   breaks <- create_breaks(breaks, c(TRUE, left))
 
   breaks
@@ -151,7 +152,9 @@ extend_endpoint_right <- function (breaks, x, extend) {
   left <- attr(breaks, "left")
   q <- quiet_max(x)
   extra_break <- if (is.null(extend) && is_lt_inf(q)) q else class_bounds(x)[2]
-  breaks <- vctrs::vec_c(unclass_breaks(breaks), extra_break)
+  # necessary because min() and max() may unclass things
+  res <- santoku_cast_common(unclass_breaks(breaks), extra_break)
+  breaks <- vctrs::vec_c(res[[1]], res[[2]])
   breaks <- create_breaks(breaks, c(left, FALSE))
 
   breaks
@@ -174,7 +177,11 @@ is_gt_minus_inf <- function (x) {
 }
 
 
-#' Return the infimum and supremum of a class, or throw an error
+#' Return the infimum and supremum of a class
+#'
+#' The default tries to cast `c(-Inf, Inf)` to the
+#' class. If this fails, it returns `c(min(x), max(x))`
+#' and emits a warning.
 #'
 #' @param x Only used for its class
 #'
@@ -194,6 +201,7 @@ class_bounds.POSIXct <- function (x) {
   as.POSIXct(c(-Inf, Inf), origin = "1970-01-01")
 }
 
+
 #' @export
 class_bounds.Date <- function (x) {
   as.Date(c(-Inf, Inf), origin = "1970-01-01")
@@ -201,8 +209,30 @@ class_bounds.Date <- function (x) {
 
 
 #' @export
+class_bounds.difftime <- function (x) {
+  as.difftime(c(-Inf, Inf), units = units(x))
+}
+
+
+#' @export
+class_bounds.units <- function (x) {
+  loadNamespace("units")
+  # note: the units() call is from namespace base, not units
+  units::set_units(c(-Inf, Inf), units(x), mode = "standard")
+}
+
+
+#' @export
 class_bounds.integer64 <- function (x) {
+  loadNamespace("bit64")
   bit64::lim.integer64()
+}
+
+
+#' @export
+class_bounds.zoo <- function (x) {
+  loadNamespace("zoo")
+  zoo::zoo(c(-Inf, Inf))
 }
 
 
@@ -236,7 +266,6 @@ unclass_breaks <- function (breaks) {
                    } else {
                      superclasses
                    }
-
 
   # this helps vec_cast_common deal with unusual types of breaks
   attr(breaks, "left") <- NULL

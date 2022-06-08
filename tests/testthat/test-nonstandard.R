@@ -14,6 +14,11 @@ test_that("character", {
     chop(x, br)
   )
 
+  # here, we think there should *always* be a warning
+  expect_warning(
+    chop(x, br, extend = TRUE)
+  )
+
   expect_silent(
     chop_equally(x, 13)
   )
@@ -30,6 +35,11 @@ test_that("ordered", {
 
   expect_silent(
     chop(x, br)
+  )
+
+  # here, we think there should *always* be a warning
+  expect_warning(
+    chop(x, br, extend = TRUE)
   )
 
   expect_silent(
@@ -50,10 +60,43 @@ test_that("hexmode", {
     chop(x, br, extend = FALSE)
   )
 
-  skip("vctrs can't cast hexmode and integer")
   expect_silent(
     chop(x, br)
   )
+
+  # here, there happens to be a warning as of 0.7.0.9000,
+  # but we'd be happy if we could represent +/- Inf as hexmode
+  suppressWarnings(expect_error(
+    chop(x, br, extend = TRUE),
+    regexp = NA
+  ))
+})
+
+
+test_that("octmode", {
+  x <- as.octmode(1:10 + 10)
+  br <- as.octmode(c(13, 15, 15, 18))
+
+  expect_silent(
+    chop(x, br, extend = FALSE)
+  )
+
+  expect_silent(
+    chop(x, br)
+  )
+
+  expect_silent(
+    chop(x, c(12, 15, 15, 18))
+  )
+
+  expect_silent(
+    chop(1:10 + 10, br)
+  )
+
+  suppressWarnings(expect_error(
+    chop(x, br, extend = TRUE),
+    regexp = NA
+  ))
 })
 
 
@@ -74,6 +117,10 @@ test_that("stat::ts", {
   )
 
   expect_silent(
+    chop(x, br, extend = TRUE)
+  )
+
+  expect_silent(
     chop_equally(x, groups = 3)
   )
 
@@ -81,12 +128,60 @@ test_that("stat::ts", {
     chop_width(x, width = 2)
   )
 
-  skip("Can't cope with mixed integer/double ts objects")
-
   x <- ts(1:10)
   br <- ts(c(5.0, 8.0))
   expect_silent(
     chop(x, br)
+  )
+})
+
+
+test_that("zoo::zoo", {
+  skip_if_not_installed("zoo")
+
+  x <- zoo::zoo(1:10, 1:10)
+
+  expect_silent(
+    chop(x, c(3, 5, 5, 7))
+  )
+
+  suppressWarnings(expect_error(
+    # gives a warning but no error as of 0.7.0.9000
+    chop(x, c(3, 5, 5, 7), extend = TRUE),
+    regexp = NA
+  ))
+
+  expect_silent(
+    chop_width(x, 2)
+  )
+
+  expect_silent(
+    chop_equally(x, 2)
+  )
+})
+
+
+test_that("xts::xts", {
+  skip_if_not_installed("xts")
+
+  x <- xts::xts(1:10, Sys.Date() + 1:10)
+
+  expect_silent(
+    chop(x, c(3, 5, 5, 7))
+  )
+
+  suppressWarnings(expect_error(
+    # gives a warning but no error as of 0.7.0.9000
+    chop(x, c(3, 5, 5, 7), extend = TRUE),
+    regexp = NA
+  ))
+
+  expect_silent(
+    chop_width(x, 2)
+  )
+
+  expect_silent(
+    chop_equally(x, 2)
   )
 })
 
@@ -99,6 +194,10 @@ test_that("units::units", {
   br_mm <- units::set_units(c(30, 50, 50, 80), mm)
   expect_silent(
     chop(x, br)
+  )
+
+  expect_silent(
+    chop(x, br, extend = TRUE)
   )
 
   expect_equal(
@@ -114,6 +213,7 @@ test_that("units::units", {
   expect_silent(
     chopped <- chop_width(x, units::set_units(0.05, m))
   )
+
   expect_equal(
     as.numeric(chopped), c(rep(1, 5), rep(2, 5))
   )
@@ -122,6 +222,7 @@ test_that("units::units", {
   expect_silent(
     chopped <- chop_width(x, units::set_units(0.05, m), start)
   )
+
   expect_equal(
     as.numeric(chopped), c(1, rep(2, 5), rep(3, 4))
   )
@@ -129,6 +230,7 @@ test_that("units::units", {
   expect_silent(
     chopped <- chop_evenly(x, intervals = 2)
   )
+
   expect_equal(
     as.numeric(chopped), c(rep(1, 5), rep(2, 5))
   )
@@ -157,6 +259,10 @@ test_that("package_version", {
   expect_silent(
     chop(x, br)
   )
+
+  expect_warning(
+    chop(x, br, extend = TRUE)
+  )
 })
 
 
@@ -172,6 +278,10 @@ test_that("difftime", {
 
   expect_silent(
     chop(difftimes_d, difftimes_h)
+  )
+
+  expect_silent(
+    chop(difftimes_d, difftimes_d[c(3,5)], extend = TRUE)
   )
 })
 
@@ -202,8 +312,6 @@ test_that("bit64", {
     chop(x64, as.integer(c(3, 5, 5, 7)))
   )
 
-  skip("vec_cast_common doesn't like double and integer64")
-
   expect_silent(
     chop(x64, c(3, 5, 5, 7))
   )
@@ -211,7 +319,25 @@ test_that("bit64", {
   expect_silent(
     chop(c(1, 3, 5, 7), b64)
   )
+
+  expect_equivalent(
+    chop(x64, c(2.5, 7.5), labels = letters[1:3]),
+    factor(c(1, 1, 2, 2, 2, 2, 2, 3, 3, 3), labels = letters[1:3])
+  )
+
+  x64_big <- bit64::as.integer64("1000000000000000000") + 1:10
+  b64_big <- bit64::as.integer64("1000000000000000000") + c(3, 5, 5, 7)
+
+  expect_silent(
+    chop(x64_big, b64_big)
+  )
+
+  expect_warning(
+    chop(c(bit64::as.integer64(1), x64_big), 2.5)
+  )
+
 })
+
 
 test_that("hms::hms", {
   skip_if_not_installed("hms")
@@ -227,13 +353,17 @@ test_that("hms::hms", {
     rep(1:3, c(59, 60, 61)),
     ignore_attr = TRUE
   )
+
+  expect_silent(
+    chop(x, br, extend = TRUE)
+  )
 })
 
 
 test_that("haven::labelled", {
   skip_if_not_installed("haven")
 
-  x <- haven::labelled(1:10, c("Lo" = 1, "Hi" = 10))
+  x <- haven::labelled(as.double(1:10), c("Lo" = 1, "Hi" = 10))
   br <- haven::labelled(c(3, 5), c("Mid" = 3, "Mid2" = 5))
 
   expect_silent(
@@ -242,5 +372,9 @@ test_that("haven::labelled", {
 
   expect_silent(
     chop(x, br)
+  )
+
+  expect_silent(
+    chop(x, br, extend = TRUE)
   )
 })

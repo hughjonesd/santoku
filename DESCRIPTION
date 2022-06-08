@@ -21,22 +21,24 @@ Description: A tool for cutting data into intervals. Allows singleton intervals.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Suggests: 
+    bench,
     bit64,
     covr,
-    testthat (>= 2.1.0),
+    haven,
+    hms,
     knitr,
     lubridate,
-    bench,
     purrr,
     rmarkdown,
     scales,
     stringi,
+    testthat (>= 2.1.0),
     units,
     withr,
-    hms,
-    haven
+    xts,
+    zoo
 LinkingTo: 
     Rcpp
 Imports: 
