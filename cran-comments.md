@@ -1,5 +1,6 @@
 
-A new version with new functionality.
+A new version with new functionality and one function becoming
+deprecated.
 
 
 ## Test environments
@@ -13,6 +14,11 @@ A new version with new functionality.
 ## R CMD check results
 
 * All OK.
+
+
+## Reverse dependencies
+
+* ggblanket and simplevis: both pass R CMD check OK.
 
 
 
