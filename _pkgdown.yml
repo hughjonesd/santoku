@@ -33,6 +33,6 @@ reference:
 - contents:
   - starts_with("lbl")
 - title: Miscellaneous
-  desc: Miscellaneous functions
+  desc: Miscellaneous documentation
 - contents:
   - -starts_with("chop|brk|lbl|santoku")

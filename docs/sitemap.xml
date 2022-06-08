@@ -61,6 +61,12 @@
     <loc>/reference/chop_n.html</loc>
   </url>
   <url>
+    <loc>/reference/chop_pretty.html</loc>
+  </url>
+  <url>
+    <loc>/reference/chop_proportions.html</loc>
+  </url>
+  <url>
     <loc>/reference/chop_quantiles.html</loc>
   </url>
   <url>
@@ -88,6 +94,9 @@
     <loc>/reference/lbl_endpoint.html</loc>
   </url>
   <url>
+    <loc>/reference/lbl_endpoints.html</loc>
+  </url>
+  <url>
     <loc>/reference/lbl_format.html</loc>
   </url>
   <url>
@@ -100,6 +109,9 @@
     <loc>/reference/lbl_manual.html</loc>
   </url>
   <url>
+    <loc>/reference/lbl_midpoints.html</loc>
+  </url>
+  <url>
     <loc>/reference/lbl_seq.html</loc>
   </url>
   <url>
@@ -107,6 +119,9 @@
   </url>
   <url>
     <loc>/reference/percent.html</loc>
+  </url>
+  <url>
+    <loc>/reference/santoku-cast.html</loc>
   </url>
   <url>
     <loc>/reference/santoku-package.html</loc>

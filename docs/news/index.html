@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,34 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.7.0" id="santoku-070">santoku 0.7.0<a class="anchor" aria-label="anchor" href="#santoku-070"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.8.0" id="santoku-080">santoku 0.8.0<a class="anchor" aria-label="anchor" href="#santoku-080"></a></h2>
+<div class="section level3">
+<h3 id="breaking-changes-0-8-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-8-0"></a></h3>
+<ul><li>
+<code><a href="../reference/lbl_endpoints.html">lbl_endpoint()</a></code> has been renamed to <code><a href="../reference/lbl_endpoints.html">lbl_endpoints()</a></code>. The old version will trigger a deprecation warning. <code><a href="../reference/lbl_endpoints.html">lbl_endpoints()</a></code> gains <code>first</code>, <code>last</code> and <code>single</code> arguments like other labelling functions.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="other-changes-0-8-0">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-0-8-0"></a></h3>
+<ul><li>New <code><a href="../reference/chop_pretty.html">chop_pretty()</a></code>, <code><a href="../reference/chop_pretty.html">brk_pretty()</a></code> and <code><a href="../reference/chop_pretty.html">tab_pretty()</a></code> functions use <code><a href="https://rdrr.io/r/base/pretty.html" class="external-link">base::pretty()</a></code> to calculate attractive breakpoints. Thanks <a href="https://github.com/davidhodge931" class="external-link">@davidhodge931</a>.</li>
+<li>New <code><a href="../reference/chop_proportions.html">chop_proportions()</a></code>, <code><a href="../reference/chop_proportions.html">brk_proportions()</a></code> and <code><a href="../reference/chop_proportions.html">tab_proportions()</a></code> functions chop <code>x</code> into proportions of its range.</li>
+<li>
+<code><a href="../reference/chop_equally.html">chop_equally()</a></code> now uses <code>lbl_intervals(raw = TRUE)</code> by default, bringing it into line with <code><a href="../reference/chop_evenly.html">chop_evenly()</a></code>, <code><a href="../reference/chop_width.html">chop_width()</a></code> and <code><a href="../reference/chop_n.html">chop_n()</a></code>.</li>
+<li>New <code><a href="../reference/lbl_midpoints.html">lbl_midpoints()</a></code> function labels breaks by their midpoints.</li>
+<li>
+<code><a href="../reference/lbl_discrete.html">lbl_discrete()</a></code> gains a <code>single</code> argument.</li>
+<li>You can now chop <code>ts</code>, <code><a href="https://rdrr.io/pkg/xts/man/xts.html" class="external-link">xts::xts</a></code> and <code><a href="https://rdrr.io/pkg/zoo/man/zoo.html" class="external-link">zoo::zoo</a></code> objects.</li>
+<li>
+<code><a href="../reference/chop.html">chop()</a></code> is more forgiving when mixing different types, e.g.:
+<ul><li>
+<code>Date</code> objects with <code>POSIXct</code> breaks, and vice versa</li>
+<li>
+<code><a href="https://rdrr.io/pkg/bit64/man/bit64-package.html" class="external-link">bit64::integer64</a></code> and <code>double</code>s</li>
+</ul></li>
+<li>Bugfix: <code><a href="../reference/lbl_discrete.html">lbl_discrete()</a></code> sometimes had ugly label formatting.</li>
+</ul></div>
+</div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.7.0" id="santoku-070">santoku 0.7.0<a class="anchor" aria-label="anchor" href="#santoku-070"></a></h2><p class="text-muted">CRAN release: 2022-03-18</p>
 <div class="section level3">
 <h3 id="breaking-changes-0-7-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-7-0"></a></h3>
 <ul><li>In labelling functions, <code>first</code> and <code>last</code> arguments are now passed to <code><a href="https://glue.tidyverse.org/reference/glue.html" class="external-link">glue::glue()</a></code>. Variables <code>l</code> and <code>r</code> represent the left and right endpoints of the intervals.</li>
@@ -94,7 +121,7 @@
 <div class="section level3">
 <h3 id="bugfixes-0-7-0">Bugfixes<a class="anchor" aria-label="anchor" href="#bugfixes-0-7-0"></a></h3>
 <ul><li>Bugfix: <code><a href="../reference/chop.html">tab()</a></code> and friends no longer display an <code>x</code> as the variable name.</li>
-<li>Bugfix: <code><a href="../reference/lbl_endpoint.html">lbl_endpoint()</a></code> was erroring for some types of breaks.</li>
+<li>Bugfix: <code><a href="../reference/lbl_endpoints.html">lbl_endpoint()</a></code> was erroring for some types of breaks.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -146,7 +173,7 @@
 </ul></li>
 <li><p>Many labelling functions have a new <code>fmt</code> argument. This can be a string interpreted by <code><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf()</a></code> or <code><a href="https://rdrr.io/r/base/format.html" class="external-link">format()</a></code>, or a 1-argument formatting function for break endpoints, e.g. <code><a href="https://scales.r-lib.org/reference/label_percent.html" class="external-link">scales::label_percent()</a></code>.</p></li>
 <li><p>Experimental: <code><a href="../reference/lbl_discrete.html">lbl_discrete()</a></code> for discrete data such as integers or (most) dates.</p></li>
-<li><p>There is a new <code><a href="../reference/lbl_endpoint.html">lbl_endpoint()</a></code> function for labelling intervals solely by their left or right endpoint.</p></li>
+<li><p>There is a new <code><a href="../reference/lbl_endpoints.html">lbl_endpoint()</a></code> function for labelling intervals solely by their left or right endpoint.</p></li>
 <li><p><code><a href="../reference/chop_mean_sd.html">brk_mean_sd()</a></code> now accepts non-integer positive numbers.</p></li>
 <li><p>Add <code><a href="../reference/chop_equally.html">brk_equally()</a></code> for symmetry with <code><a href="../reference/chop_equally.html">chop_equally()</a></code>.</p></li>
 <li><p>Minor tweaks to <code><a href="../reference/chop_quantiles.html">chop_deciles()</a></code>.</p></li>
@@ -188,7 +215,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>

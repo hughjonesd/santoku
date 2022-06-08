@@ -14,7 +14,7 @@ c(1, 3, 4, 6, 7) are labelled: "1-2", "3", "4-5", "6-7".'><meta property="og:ima
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,6 +77,7 @@ For example, breaks
   symbol <span class="op">=</span> <span class="fu">em_dash</span><span class="op">(</span><span class="op">)</span>,
   unit <span class="op">=</span> <span class="fl">1</span>,
   fmt <span class="op">=</span> <span class="cn">NULL</span>,
+  single <span class="op">=</span> <span class="cn">NULL</span>,
   first <span class="op">=</span> <span class="cn">NULL</span>,
   last <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
@@ -91,6 +92,9 @@ For example, breaks
 For integers, 1.</p></dd>
 <dt>fmt</dt>
 <dd><p>String or function. A format for break endpoints.</p></dd>
+<dt>single</dt>
+<dd><p>Glue string: label for singleton intervals. See <code><a href="lbl_glue.html">lbl_glue()</a></code>
+for details.</p></dd>
 <dt>first</dt>
 <dd><p>Glue string: override label for the first category. Write e.g.
 <code>first = "&lt;{r}"</code> to create a label like <code>"&lt;18"</code>. See <code><a href="lbl_glue.html">lbl_glue()</a></code>
@@ -109,7 +113,7 @@ for details.</p></dd>
     <p>No check is done that the data are discrete-valued. If they are not, then
 these labels may be misleading. Here, discrete-valued means that if
 <code>x &lt; y</code>, then <code>x &lt;= y - unit</code>.</p>
-<p>Be aware that Date objects may have non-integer values. See <a href="https://rdrr.io/r/base/Dates.html" class="external-link">Date</a>.</p>
+<p>Be aware that Date objects may have non-integer values. See <a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">Date</a>.</p>
     </div>
     <div class="section level2">
     <h2 id="formatting-endpoints">Formatting endpoints<a class="anchor" aria-label="anchor" href="#formatting-endpoints"></a></h2>
@@ -127,9 +131,11 @@ to use functions from the <code>{scales}</code> package, e.g. <code><a href="htt
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other labelling functions: 
 <code><a href="lbl_dash.html">lbl_dash</a>()</code>,
+<code><a href="lbl_endpoints.html">lbl_endpoints</a>()</code>,
 <code><a href="lbl_glue.html">lbl_glue</a>()</code>,
 <code><a href="lbl_intervals.html">lbl_intervals</a>()</code>,
 <code><a href="lbl_manual.html">lbl_manual</a>()</code>,
+<code><a href="lbl_midpoints.html">lbl_midpoints</a>()</code>,
 <code><a href="lbl_seq.html">lbl_seq</a>()</code></p></div>
     </div>
 
@@ -163,7 +169,7 @@ to use functions from the <code>{scales}</code> package, e.g. <code><a href="htt
 </div>
 
 <div class="pkgdown-footer-right">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
     </footer></div>
