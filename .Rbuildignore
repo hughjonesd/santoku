@@ -14,8 +14,10 @@
 ^codecov\.yml$
 website-articles
 tutorials
+revdep
 ^doc$
 ^Meta$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
 ^\.github$
+^CRAN-SUBMISSION$
