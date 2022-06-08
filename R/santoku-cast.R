@@ -22,7 +22,20 @@ santoku_cast_common <- function (x, y) {
 }
 
 
+#' Internal functions
+#'
+#' @name santoku-cast
+#' @param x,y Vectors to cast.
+#'
+#' @return A list.
+#' @keywords internal
+#'
+#' These are internal functions. Do not use.
+NULL
+
+
 #' @export
+#' @rdname santoku-cast
 santoku_cast_common.default <- function (x, y) {
   UseMethod("santoku_cast_common.default", object = y)
 }
@@ -41,6 +54,7 @@ santoku_cast_common.default.default <- function (x, y) {
 # We have specific double methods just to catch bit64 objects
 
 #' @export
+#' @rdname santoku-cast
 santoku_cast_common.double <- function (x, y) {
   UseMethod("santoku_cast_common.double", object = y)
 }
@@ -69,6 +83,7 @@ santoku_cast_common.double.integer64 <- function (x, y) {
 
 
 #' @export
+#' @rdname santoku-cast
 santoku_cast_common.Date <- function (x, y) {
   UseMethod("santoku_cast_common.Date", object = y)
 }
@@ -91,6 +106,7 @@ santoku_cast_common.Date.POSIXct <- function (x, y) {
 # We delegate to vctrs for POSIXct/numeric, see Date above
 
 #' @export
+#' @rdname santoku-cast
 santoku_cast_common.POSIXct <- function (x, y) {
   UseMethod("santoku_cast_common.POSIXct", object = y)
 }
@@ -111,6 +127,7 @@ santoku_cast_common.POSIXct.Date <- function (x, y) {
 # ==== ts ====
 
 #' @export
+#' @rdname santoku-cast
 santoku_cast_common.ts <- function (x, y) {
   UseMethod("santoku_cast_common.ts", object = y)
 }
@@ -133,6 +150,7 @@ santoku_cast_common.default.ts <- function (x, y) {
 # ==== zoo ====
 
 #' @export
+#' @rdname santoku-cast
 santoku_cast_common.zoo <- function (x, y) {
   UseMethod("santoku_cast_common.zoo", object = y)
 }
@@ -158,6 +176,7 @@ santoku_cast_common.default.zoo <- function (x, y) {
 # ==== integer64 ====
 
 #' @export
+#' @rdname santoku-cast
 santoku_cast_common.integer64 <- function (x, y) {
   UseMethod("santoku_cast_common.integer64", object = y)
 }
@@ -198,6 +217,7 @@ santoku_cast_common.default.integer64 <- function (x, y) {
 # ==== hexmode ====
 
 #' @export
+#' @rdname santoku-cast
 santoku_cast_common.hexmode <- function (x, y) {
   UseMethod("santoku_cast_common.hexmode", object = y)
 }
@@ -225,6 +245,7 @@ santoku_cast_common.default.hexmode <- function (x, y) {
 # ==== octmode ====
 
 #' @export
+#' @rdname santoku-cast
 santoku_cast_common.octmode <- function (x, y) {
   UseMethod("santoku_cast_common.octmode", object = y)
 }
