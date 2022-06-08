@@ -1,4 +1,4 @@
-# santoku (development version)
+# santoku 0.8.0
 
 ## Breaking changes
 
