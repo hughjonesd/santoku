@@ -268,6 +268,8 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #' This is useful when the left endpoint unambiguously indicates the
 #' interval. In other cases it may give errors due to duplicate labels.
 #'
+#' `lbl_endpoint()` is deprecated. Do not use it.
+#'
 #' @inherit label-doc
 #' @inherit first-last-doc
 #' @param left Flag. Use left endpoint or right endpoint?

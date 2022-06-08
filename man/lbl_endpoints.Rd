@@ -42,6 +42,9 @@ A function that creates a vector of labels.
 This is useful when the left endpoint unambiguously indicates the
 interval. In other cases it may give errors due to duplicate labels.
 }
+\details{
+\code{lbl_endpoint()} is deprecated. Do not use it.
+}
 \section{Formatting endpoints}{
 
 
