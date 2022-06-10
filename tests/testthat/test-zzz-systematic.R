@@ -18,37 +18,37 @@ test_that("systematic tests", {
     POSIXct  = as.POSIXct("2000-01-01") + 0:30
   )
   brk_funs <- list(
-    brk_evenly      = brk_evenly(2),
-    brk_proportions = brk_proportions(c(0.25, 0.6)),
-    brk_manual      = brk_manual(1:3, rep(TRUE, 3)),
-    brk_manual2     = brk_manual(1:3, c(FALSE, TRUE, FALSE)),
-    brk_mean_sd     = brk_mean_sd(),
-    brk_mean_sd2    = brk_mean_sd(c(1, 1.96)),
-    brk_pretty      = brk_pretty(),
-    brk_n           = brk_n(5),
-    brk_quantiles   = brk_quantiles(1:3/4),
-    brk_default     = brk_default(1:3),
-    brk_default2    = brk_default(c(1, 2, 2, 3)),
-    brk_default_lo  = brk_default(1),
-    brk_default_hi  = brk_default(5),
-    brk_width       = brk_width(1),
-    brk_width2      = brk_width(1, 0),
-    brk_w_difft_day = brk_width(as.difftime(5, units = "days")),
-    brk_w_difft_sec = brk_width(as.difftime(5, units = "secs")),
-    brk_def_Date    = brk_default(as.Date("1950-01-05") + c(0, 5)),
-    brk_def_POSIXct = brk_default(as.POSIXct("2000-01-01") + c(10, 20))
+    brk_evenly      = expression(brk_evenly(2)),
+    brk_proportions = expression(brk_proportions(c(0.25, 0.6))),
+    brk_manual      = expression(brk_manual(1:3, rep(TRUE, 3))),
+    brk_manual2     = expression(brk_manual(1:3, c(FALSE, TRUE, FALSE))),
+    brk_mean_sd     = expression(brk_mean_sd()),
+    brk_mean_sd2    = expression(brk_mean_sd(c(1, 1.96))),
+    brk_pretty      = expression(brk_pretty()),
+    brk_n           = expression(brk_n(5)),
+    brk_quantiles   = expression(brk_quantiles(1:3/4)),
+    brk_default     = expression(brk_default(1:3)),
+    brk_default2    = expression(brk_default(c(1, 2, 2, 3))),
+    brk_default_lo  = expression(brk_default(1)),
+    brk_default_hi  = expression(brk_default(5)),
+    brk_width       = expression(brk_width(1)),
+    brk_width2      = expression(brk_width(1, 0)),
+    brk_w_difft_day = expression(brk_width(as.difftime(5, units = "days"))),
+    brk_w_difft_sec = expression(brk_width(as.difftime(5, units = "secs"))),
+    brk_def_Date    = expression(brk_default(as.Date("1950-01-05") + c(0, 5))),
+    brk_def_POSIXct = expression(brk_default(as.POSIXct("2000-01-01") + c(10, 20)))
   )
   lbl_funs <- list(
-    lbl_dash          = lbl_dash(),
-    lbl_dash2         = lbl_dash("/"),
-    lbl_intervals     = lbl_intervals(),
-    lbl_intervals_raw = lbl_intervals(raw = TRUE),
-    lbl_seq           = lbl_seq("a"),
-    lbl_seq2          = lbl_seq("(i)"),
-    lbl_manual        = lbl_manual(letters[1:2]),
-    lbl_manual2       = lbl_manual(letters[1:2], "%s)"),
-    lbl_endpoints     = lbl_endpoints(),
-    lbl_midpoints     = lbl_midpoints()
+    lbl_dash          = expression(lbl_dash()),
+    lbl_dash2         = expression(lbl_dash("/")),
+    lbl_intervals     = expression(lbl_intervals()),
+    lbl_intervals_raw = expression(lbl_intervals(raw = TRUE)),
+    lbl_seq           = expression(lbl_seq("a")),
+    lbl_seq2          = expression(lbl_seq("(i)")),
+    lbl_manual        = expression(lbl_manual(letters[1:2])),
+    lbl_manual2       = expression(lbl_manual(letters[1:2], "%s)")),
+    lbl_endpoints     = expression(lbl_endpoints()),
+    lbl_midpoints     = expression(lbl_midpoints())
   )
 
   test_df <- expand.grid(
@@ -58,6 +58,7 @@ test_that("systematic tests", {
     extend    = c(TRUE, FALSE),
     left      = c(TRUE, FALSE),
     close_end = c(TRUE, FALSE),
+    raw       = c(TRUE, FALSE),
     drop      = c(TRUE, FALSE),
     stringsAsFactors = FALSE
   )
@@ -84,6 +85,8 @@ test_that("systematic tests", {
   skip_test(names(x) != "POSIXct" & brk_fun == "brk_w_difft_sec")
 
   test_df$expect <- "succeed"
+  test_df$row <- seq_len(nrow(test_df))
+
   # some things should fail
   should_fail <-   function (cond) test_df$expect[cond] <<- "error"
   should_warn <-   function (cond) test_df$expect[cond] <<- "warn"
@@ -111,6 +114,15 @@ test_that("systematic tests", {
           brk_fun %in% c("brk_default_hi", "brk_default_lo") &
           extend == FALSE
         ))
+
+  # raw endpoints get duplicated if multiple quantiles are infinite:
+  # dont_care(with(test_df,
+  #         names(x) %in% c("inf_lo", "inf_hi") &
+  #         brk_fun == "brk_quantiles" &
+  #         lbl_fun %in% c("lbl_midpoints", "lbl_endpoints") &
+  #         raw == TRUE &
+  #         extend == TRUE
+  #       ))
 
   # brk_default2 has breaks 1,2,2,3
   # with lbl_endpoints, this may create duplicate left endpoints
@@ -140,15 +152,23 @@ test_that("systematic tests", {
 
   should_either(names(test_df$x) == "complex")
 
-  for (r in seq_len(nrow(test_df))) {
+  # we sample the same 10000 rows every day
+  seed <- as.numeric(Sys.Date())
+  set.seed(seed)
+  sample_rows <- sort(sample(nrow(test_df), 10000, replace = FALSE))
+
+  for (r in sample_rows) {
     tdata <- test_df[r, ]
     if (is.na(tdata$expect)) next
 
     x <- tdata$x[[1]]
     info <- sprintf(
-          "row: %s x: %s breaks: %s labels: %s extend: %s left: %s close_end: %s drop: %s",
-          r, names(tdata$x), tdata$brk_fun, tdata$lbl_fun, tdata$extend,
-          tdata$left, tdata$close_end, tdata$drop)
+          "seed: %s row: %s
+          command: chop(%s, %s, labels = %s, extend = %s, left = %s,
+                     close_end = %s, raw = %s, drop = %s)",
+          seed, tdata$row, tdata$x, as.character(brk_funs[[tdata$brk_fun]]),
+          as.character(lbl_funs[[tdata$lbl_fun]]), tdata$extend,
+          tdata$left, tdata$close_end, tdata$raw, tdata$drop)
 
     # NA means "no error":
     regexp <- switch(tdata$expect, "succeed" = NA, NULL)
@@ -157,11 +177,12 @@ test_that("systematic tests", {
     # suppressWarnings or we drown in them:
     suppressWarnings(exp_fn(
             chop(x,
-              breaks    = brk_funs[[tdata$brk_fun]],
-              labels    = lbl_funs[[tdata$lbl_fun]],
+              breaks    = eval(brk_funs[[tdata$brk_fun]]),
+              labels    = eval(lbl_funs[[tdata$lbl_fun]]),
               extend    = tdata$extend,
               left      = tdata$left,
               close_end = tdata$close_end,
+              raw       = tdata$raw,
               drop      = tdata$drop
             ),
             regexp = regexp,
