@@ -76,7 +76,7 @@ are supported with a warning.
 
 If it is a vector, \code{breaks} gives the break endpoints. Repeated values create
 singleton intervals. For example \code{breaks = c(1, 3, 3, 5)} creates 3
-intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
+intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5)}.
 
 If \code{breaks} is a function, it is called with the \code{x}, \code{extend}, \code{left} and
 \code{close_end} arguments, and should return an object of class \code{breaks}.

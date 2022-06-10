@@ -41,7 +41,7 @@ NULL
 #'
 #' If it is a vector, `breaks` gives the break endpoints. Repeated values create
 #' singleton intervals. For example `breaks = c(1, 3, 3, 5)` creates 3
-#' intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
+#' intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5)}.
 #'
 #' If `breaks` is a function, it is called with the `x`, `extend`, `left` and
 #' `close_end` arguments, and should return an object of class `breaks`.
