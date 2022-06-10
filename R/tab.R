@@ -13,6 +13,7 @@ tab <-
     extend    = NULL,
     left      = TRUE,
     close_end = FALSE,
+    raw       = NULL,
     drop      = TRUE
   ) {
   default_table(
@@ -23,6 +24,7 @@ tab <-
       extend    = extend,
       left      = left,
       close_end = close_end,
+      raw       = raw,
       drop      = drop
     )
   )
@@ -61,9 +63,9 @@ tab_evenly <- function (x, intervals, ..., close_end = TRUE) {
 #' @rdname chop_proportions
 #' @export
 #' @order 3
-tab_proportions <- function (x, proportions, ...) {
+tab_proportions <- function (x, proportions, ..., raw = TRUE) {
   default_table(
-    chop_proportions(x = x, proportions = proportions, ...)
+    chop_proportions(x = x, proportions = proportions, ..., raw = raw)
   )
 }
 
@@ -88,8 +90,8 @@ tab_n <- function (x, n, ..., close_end = TRUE) {
 #' @examples
 #' tab_mean_sd(1:10)
 #'
-tab_mean_sd <- function (x, sds = 1:3, ...) {
-  default_table(chop_mean_sd(x = x, sds = sds, ...))
+tab_mean_sd <- function (x, sds = 1:3, ..., raw = FALSE) {
+  default_table(chop_mean_sd(x = x, sds = sds, ..., raw = raw))
 }
 
 
@@ -112,14 +114,15 @@ tab_pretty <- function (x, n = 5, ...) {
 #' tab_quantiles(rnorm(100), probs = 1:3/4, label = lbl_intervals(raw = TRUE))
 #'
 tab_quantiles <-
-  function (x, probs, ..., left = is.numeric(x), close_end = TRUE) {
+  function (x, probs, ..., left = is.numeric(x), close_end = TRUE, raw = FALSE) {
   default_table(
     chop_quantiles(
       x         = x,
       probs     = probs,
       ...,
       left      = left,
-      close_end = close_end
+      close_end = close_end,
+      raw       = raw
     )
   )
 }
@@ -137,10 +140,10 @@ tab_deciles <- function (x, ...) {
 #' @export
 #' @order 3
 tab_equally <-
-  function (x, groups, ..., left = is.numeric(x), close_end = TRUE) {
+  function (x, groups, ..., left = is.numeric(x), close_end = TRUE, raw = TRUE) {
   default_table(
     chop_equally(
-      x = x, groups = groups, ..., left = left, close_end = close_end
+      x = x, groups = groups, ..., left = left, close_end = close_end, raw = raw
     )
   )
 }

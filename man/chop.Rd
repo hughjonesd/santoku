@@ -13,6 +13,7 @@ chop(
   extend = NULL,
   left = TRUE,
   close_end = FALSE,
+  raw = NULL,
   drop = TRUE
 )
 
@@ -23,6 +24,7 @@ kiru(
   extend = NULL,
   left = TRUE,
   close_end = FALSE,
+  raw = NULL,
   drop = TRUE
 )
 
@@ -33,6 +35,7 @@ tab(
   extend = NULL,
   left = TRUE,
   close_end = FALSE,
+  raw = NULL,
   drop = TRUE
 )
 }
@@ -50,6 +53,8 @@ cut-points from \code{x}.}
 
 \item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
 close first break at left?)}
+
+\item{raw}{Logical. Use raw values in labels?}
 
 \item{drop}{Logical. Drop unused levels from the result?}
 }
@@ -136,6 +141,15 @@ number of intervals. Alternatively, use a \verb{lbl_*} function such as
 
 If \code{labels} is \code{NULL}, then integer codes will be returned instead of a
 factor.
+
+If \code{raw} is \code{TRUE}, labels will show the actual numbers calculated by breaks.
+If \code{raw} is \code{FALSE} then labels may show other objects, such
+as quantiles for \code{\link[=chop_quantiles]{chop_quantiles()}} and friends, proportions of the range for
+\code{\link[=chop_proportions]{chop_proportions()}}, or standard deviations for \code{\link[=chop_mean_sd]{chop_mean_sd()}}.
+
+If \code{raw} is \code{NULL} then \verb{lbl_*} functions will use their default (usually
+\code{FALSE}). Otherwise, \code{raw} argument to \code{chop()} overrides \code{raw} arguments
+passed into \verb{lbl_*} functions directly.
 }
 
 \subsection{Miscellaneous}{

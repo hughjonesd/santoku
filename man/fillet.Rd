@@ -4,7 +4,14 @@
 \alias{fillet}
 \title{Chop data precisely (for programmers)}
 \usage{
-fillet(x, breaks, labels = lbl_intervals(), left = TRUE, close_end = FALSE)
+fillet(
+  x,
+  breaks,
+  labels = lbl_intervals(),
+  left = TRUE,
+  close_end = FALSE,
+  raw = NULL
+)
 }
 \arguments{
 \item{x}{A vector.}
@@ -18,6 +25,8 @@ cut-points from \code{x}.}
 
 \item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
 close first break at left?)}
+
+\item{raw}{Logical. Use raw values in labels?}
 }
 \value{
 \code{fillet()} returns a \code{\link{factor}} of the same length as \code{x}, representing

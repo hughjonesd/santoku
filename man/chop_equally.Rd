@@ -10,14 +10,15 @@ chop_equally(
   x,
   groups,
   ...,
-  labels = lbl_intervals(raw = TRUE),
+  labels = lbl_intervals(),
   left = is.numeric(x),
-  close_end = TRUE
+  close_end = TRUE,
+  raw = TRUE
 )
 
 brk_equally(groups)
 
-tab_equally(x, groups, ..., left = is.numeric(x), close_end = TRUE)
+tab_equally(x, groups, ..., left = is.numeric(x), close_end = TRUE, raw = TRUE)
 }
 \arguments{
 \item{x}{A vector.}
@@ -32,6 +33,8 @@ tab_equally(x, groups, ..., left = is.numeric(x), close_end = TRUE)
 
 \item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
 close first break at left?)}
+
+\item{raw}{Logical. Use raw values in labels?}
 }
 \value{
 \verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.

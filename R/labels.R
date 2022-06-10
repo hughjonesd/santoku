@@ -117,7 +117,8 @@ lbl_dash <- function (symbol = em_dash(), fmt = NULL, single = "{l}", first = NU
 #' chop(1:10, c(2, 5, 8), lbl_midpoints())
 lbl_midpoints <- function (fmt = NULL, single = NULL, first = NULL, last = NULL,
                           raw = FALSE) {
-  function (breaks) {
+  RAW <- raw # avoid "recursive default argument reference"
+  function (breaks, raw = RAW) {
     assert_that(is.breaks(breaks))
 
     break_nums <- scaled_endpoints(breaks, raw = raw)
@@ -187,7 +188,8 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
     is.flag(raw)
   )
 
-  function (breaks) {
+  RAW <- raw # avoid "recursive default argument reference"
+  function (breaks, raw = RAW) {
     assert_that(is.breaks(breaks))
 
     len_breaks <- length(breaks)
@@ -356,7 +358,7 @@ lbl_discrete <- function (
           is.string(last) || is.null(last)
         )
 
-  function (breaks) {
+  function (breaks, raw = NULL) {
     assert_that(all(ceiling(as.numeric(breaks)) == floor(as.numeric(breaks))),
           msg = "Non-integer breaks")
 
@@ -458,13 +460,13 @@ lbl_seq <- function(start = "a") {
   res <- switch(key,
     "a" = lbl_manual(letters, fmt),
     "A" = lbl_manual(LETTERS, fmt),
-    "i" = function (breaks) {
+    "i" = function (breaks, raw = NULL) {
            sprintf(fmt, tolower(utils::as.roman(seq(1L, length(breaks) - 1L))))
          },
-    "I" = function (breaks) {
+    "I" = function (breaks, raw = NULL) {
            sprintf(fmt, utils::as.roman(seq(1L, length(breaks) - 1L)))
          },
-    "1" = function (breaks) {
+    "1" = function (breaks, raw = NULL) {
             sprintf(fmt, seq(1L, length(breaks) - 1L))
           }
     )
@@ -495,7 +497,7 @@ lbl_manual <- function (sequence, fmt = "%s") {
   assert_that(is_format(fmt))
 
   if (anyDuplicated(sequence) > 0L) stop("`sequence` contains duplicate items")
-  function (breaks) {
+  function (breaks, raw = NULL) {
     ls <- sequence
     latest <- ls
     while (length(breaks) - 1 > length(ls)) {

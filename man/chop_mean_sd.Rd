@@ -6,11 +6,11 @@
 \alias{tab_mean_sd}
 \title{Chop by standard deviations}
 \usage{
-chop_mean_sd(x, sds = 1:3, ..., sd = deprecated())
+chop_mean_sd(x, sds = 1:3, ..., raw = FALSE, sd = deprecated())
 
 brk_mean_sd(sds = 1:3, sd = deprecated())
 
-tab_mean_sd(x, sds = 1:3, ...)
+tab_mean_sd(x, sds = 1:3, ..., raw = FALSE)
 }
 \arguments{
 \item{x}{A vector.}
@@ -18,6 +18,8 @@ tab_mean_sd(x, sds = 1:3, ...)
 \item{sds}{Positive numeric vector of standard deviations.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
+
+\item{raw}{Logical. Use raw values in labels?}
 
 \item{sd}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }

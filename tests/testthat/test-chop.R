@@ -87,6 +87,46 @@ test_that("extend", {
 })
 
 
+test_that("raw", {
+  x <- 1:10
+
+  expect_silent(
+    res <- chop(x, brk_quantiles(c(0.25, 0.75)), raw = TRUE)
+  )
+  expect_equivalent(
+    levels(res),
+    c("[1, 3.25)", "[3.25, 7.75)", "[7.75, 10]")
+  )
+
+  expect_silent(
+    res <- chop(x, brk_quantiles(c(0.25, 0.75)), raw = FALSE)
+  )
+  expect_equivalent(
+    levels(res),
+    c("[0%, 25%)", "[25%, 75%)", "[75%, 100%]")
+  )
+
+  # raw overrides raw in labels
+  expect_silent(
+    res <- chop(x, brk_quantiles(c(0.25, 0.75)),
+                  labels = lbl_intervals(raw = FALSE), raw = TRUE)
+  )
+  expect_equivalent(
+    levels(res),
+    c("[1, 3.25)", "[3.25, 7.75)", "[7.75, 10]")
+  )
+
+  expect_silent(
+    res <- chop(x, brk_quantiles(c(0.25, 0.75)),
+                  labels = lbl_intervals(raw = TRUE), raw = FALSE)
+  )
+  expect_equivalent(
+    levels(res),
+    c("[0%, 25%)", "[25%, 75%)", "[75%, 100%]")
+  )
+})
+
+
 test_that("drop", {
   x <- c(1, 3)
   expect_equivalent(
@@ -131,6 +171,12 @@ test_that("chop_proportions", {
     chop_proportions(x, c(0.2, 0.8), labels = lbl_seq("1")),
     factor(rep(1:3, c(2, 6, 3)))
   )
+
+  expect_equivalent(
+    chop_proportions(x, c(0.2, 0.8), labels = lbl_intervals(), raw = FALSE),
+    chop_proportions(x, c(0.2, 0.8), labels = lbl_intervals(raw = FALSE),
+                       raw = NULL)
+  )
 })
 
 
@@ -140,6 +186,11 @@ test_that("chop_quantiles", {
           chop_quantiles(x, c(.25, .5, .75), labels = lbl_seq("1")),
           as.factor(c(1, 1, 2, 3, 4, 4))
         )
+
+  expect_equivalent(
+    chop_quantiles(x, c(.25, .5, .75), raw = TRUE),
+    chop_quantiles(x, c(.25, .5, .75), labels = lbl_intervals(raw = TRUE), raw = NULL)
+  )
 })
 
 
@@ -148,6 +199,16 @@ test_that("chop_equally", {
   expect_equivalent(
     chop_equally(x, 2, labels = lbl_seq("1")),
     as.factor(rep(1:2, each = 3))
+  )
+
+  expect_equivalent(
+    chop_equally(x, 2, labels = lbl_intervals(raw = FALSE), raw = NULL),
+    chop_equally(x, 2, raw = FALSE)
+  )
+
+  expect_equivalent(
+    chop_equally(x, 2, labels = lbl_intervals(raw = TRUE)),
+    chop_equally(x, 2, raw = TRUE)
   )
 })
 
@@ -175,6 +236,12 @@ test_that("chop_mean_sd", {
   expect_equivalent(as.vector(table(res)), c(1, 1, 1))
   expect_silent(res2 <- chop_mean_sd(x, sds = 1:2))
   expect_silent(chop_mean_sd(x, sds = c(1, 1.96)))
+
+  expect_equivalent(
+    chop_mean_sd(x, raw = TRUE),
+    chop_mean_sd(x, labels = lbl_intervals(raw = TRUE), raw = NULL),
+  )
+
   lifecycle::expect_deprecated(res3 <- chop_mean_sd(x, sd = 2))
   expect_equivalent(res2, res3)
 })

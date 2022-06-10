@@ -8,13 +8,27 @@
 \alias{tab_deciles}
 \title{Chop by quantiles}
 \usage{
-chop_quantiles(x, probs, ..., left = is.numeric(x), close_end = TRUE)
+chop_quantiles(
+  x,
+  probs,
+  ...,
+  left = is.numeric(x),
+  close_end = TRUE,
+  raw = FALSE
+)
 
 chop_deciles(x, ...)
 
 brk_quantiles(probs, ...)
 
-tab_quantiles(x, probs, ..., left = is.numeric(x), close_end = TRUE)
+tab_quantiles(
+  x,
+  probs,
+  ...,
+  left = is.numeric(x),
+  close_end = TRUE,
+  raw = FALSE
+)
 
 tab_deciles(x, ...)
 }
@@ -30,6 +44,8 @@ tab_deciles(x, ...)
 
 \item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
 close first break at left?)}
+
+\item{raw}{Logical. Use raw values in labels?}
 }
 \value{
 \verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.

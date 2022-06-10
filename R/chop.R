@@ -26,6 +26,7 @@ NULL
 #' @param left Logical. Left-closed breaks?
 #' @param close_end Logical. Close last break at right? (If `left` is `FALSE`,
 #'   close first break at left?)
+#' @param raw Logical. Use raw values in labels?
 #' @param drop Logical. Drop unused levels from the result?
 #'
 #' @details
@@ -99,6 +100,16 @@ NULL
 #' If `labels` is `NULL`, then integer codes will be returned instead of a
 #' factor.
 #'
+#' If `raw` is `TRUE`, labels will show the actual numbers calculated by breaks.
+#' If `raw` is `FALSE` then labels may show other objects, such
+#' as quantiles for [chop_quantiles()] and friends, proportions of the range for
+#'  [chop_proportions()], or standard deviations for [chop_mean_sd()].
+#'
+#'  If `raw` is `NULL` then `lbl_*` functions will use their default (usually
+#'  `FALSE`). Otherwise, `raw` argument to `chop()` overrides `raw` arguments
+#'  passed into `lbl_*` functions directly.
+#'
+#'
 #' ## Miscellaneous
 #'
 #' `NA` values in `x`, and values which are outside the extended endpoints,
@@ -149,12 +160,15 @@ chop <- function (x, breaks,
         extend    = NULL,
         left      = TRUE,
         close_end = FALSE,
+        raw       = NULL,
         drop      = TRUE
       ) {
   assert_that(
+          is.flag(extend) || is.null(extend),
           is.flag(left),
           is.flag(close_end),
-          is.flag(drop)
+          is.flag(drop),
+          is.flag(raw) || is.null(raw)
         )
   if (! is.function(breaks)) breaks <- brk_default(breaks)
   breaks <- breaks(x, extend, left, close_end)
@@ -164,7 +178,9 @@ chop <- function (x, breaks,
 
   if (is.null(labels)) return(codes)
 
-  if (is.function(labels)) labels <- labels(breaks)
+  if (is.function(labels)) {
+    labels <- if (is.null(raw)) labels(breaks) else labels(breaks, raw = raw)
+  }
   stopifnot(length(labels) == length(breaks) - 1)
 
   real_codes <- if (drop) unique(codes[! is.na(codes)]) else TRUE
@@ -203,9 +219,9 @@ kiru <- chop
 #'
 #' @examples
 #' fillet(1:10, c(2, 5, 8))
-fillet <- function (x, breaks, labels = lbl_intervals(), left = TRUE, close_end = FALSE) {
+fillet <- function (x, breaks, labels = lbl_intervals(), left = TRUE, close_end = FALSE, raw = NULL) {
   chop(x, breaks, labels, left = left, close_end = close_end, extend = FALSE,
-      drop = FALSE)
+      raw = raw, drop = FALSE)
 }
 
 
@@ -249,9 +265,11 @@ chop_quantiles <- function(
         probs,
         ...,
         left      = is.numeric(x),
-        close_end = TRUE
+        close_end = TRUE,
+        raw       = FALSE
       ) {
-  chop(x, brk_quantiles(probs), ..., left = left, close_end = close_end)
+  chop(x, brk_quantiles(probs), ..., left = left, close_end = close_end,
+         raw = raw)
 }
 
 
@@ -278,10 +296,17 @@ chop_deciles <- function(x, ...) {
 #' @examples
 #' chop_equally(1:10, 5)
 #'
-chop_equally <- function (x, groups, ..., labels = lbl_intervals(raw = TRUE),
-                            left = is.numeric(x), close_end = TRUE) {
+chop_equally <- function (
+        x,
+        groups,
+        ...,
+        labels    = lbl_intervals(),
+        left      = is.numeric(x),
+        close_end = TRUE,
+        raw       = TRUE
+      ) {
   chop(x, brk_equally(groups), ..., labels = labels, left = left,
-         close_end = close_end)
+         close_end = close_end, raw = raw)
 }
 
 
@@ -311,8 +336,8 @@ chop_equally <- function (x, groups, ..., labels = lbl_intervals(raw = TRUE),
 #' chop(1:10, brk_mean_sd())
 #'
 #' @importFrom lifecycle deprecated
-chop_mean_sd <- function (x, sds = 1:3,  ..., sd = deprecated()) {
-  chop(x, brk_mean_sd(sds = sds, sd = sd), ...)
+chop_mean_sd <- function (x, sds = 1:3,  ..., raw = FALSE, sd = deprecated()) {
+  chop(x, brk_mean_sd(sds = sds, sd = sd), ..., raw = raw)
 }
 
 
@@ -410,7 +435,7 @@ chop_evenly <- function (x, intervals, ..., close_end = TRUE) {
 #' infinite values.
 #'
 #' By default, labels show the raw numeric endpoints. To label intervals by
-#' the proportions, use `labels = lbl_intervals(raw = FALSE)`.
+#' the proportions, use `raw = FALSE`.
 #'
 #' @param proportions Numeric vector between 0 and 1: proportions of x's range
 #' @inheritParams chop
@@ -423,9 +448,14 @@ chop_evenly <- function (x, intervals, ..., close_end = TRUE) {
 #' @examples
 #' chop_proportions(0:10, c(0.2, 0.8))
 #'
-chop_proportions <- function (x, proportions, ...,
-                                labels = lbl_intervals(raw = TRUE)) {
-  chop(x, brk_proportions(proportions), labels = labels, ...)
+chop_proportions <- function (
+        x,
+        proportions,
+        ...,
+        labels = lbl_intervals(),
+        raw    = TRUE
+      ) {
+  chop(x, brk_proportions(proportions), labels = labels, ..., raw = raw)
 }
 
 #' Chop into fixed-sized groups

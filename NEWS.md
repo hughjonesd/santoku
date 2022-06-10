@@ -1,5 +1,8 @@
 # santoku (development version)
 
+* New `raw` parameter to `chop()` overrides `raw` in `lbl_*` functions.
+  - In future, `raw` in `lbl_*` functions may be deprecated.
+
 # santoku 0.8.0
 
 ## Breaking changes
