@@ -154,7 +154,11 @@ test_that("systematic tests", {
   # we sample the same 10000 rows every day
   seed <- as.numeric(Sys.Date())
   set.seed(seed)
-  sample_rows <- sort(sample(nrow(test_df), 10000, replace = FALSE))
+  sample_rows <- if (getOption("santoku.test_everything", FALSE)) {
+                   seq_len(nrow(test_df))
+                 } else {
+                  sort(sample(nrow(test_df), 10000, replace = FALSE))
+                 }
 
   for (r in sample_rows) {
     tdata <- test_df[r, ]
