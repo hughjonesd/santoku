@@ -5,17 +5,16 @@
 #' @examples
 #' tab(1:10, c(2, 5, 8))
 #'
-tab <-
-  function (
-    x,
-    breaks,
-    labels    = lbl_intervals(),
-    extend    = NULL,
-    left      = TRUE,
-    close_end = FALSE,
-    raw       = NULL,
-    drop      = TRUE
-  ) {
+tab <- function (
+         x,
+         breaks,
+         labels    = lbl_intervals(),
+         extend    = NULL,
+         left      = TRUE,
+         close_end = FALSE,
+         raw       = NULL,
+         drop      = TRUE
+       ) {
   default_table(
     chop(
       x         = x,
@@ -37,7 +36,13 @@ tab <-
 #' @examples
 #' tab_width(1:10, 2, start = 0)
 #'
-tab_width <- function (x, width, start, ..., left = sign(width) > 0) {
+tab_width <- function (
+               x,
+               width,
+               start,
+               ...,
+               left = sign(width) > 0
+             ) {
   default_table(
     chop_width(
       x     = x,
@@ -53,7 +58,12 @@ tab_width <- function (x, width, start, ..., left = sign(width) > 0) {
 #' @rdname chop_evenly
 #' @export
 #' @order 3
-tab_evenly <- function (x, intervals, ..., close_end = TRUE) {
+tab_evenly <- function (
+                x,
+                intervals,
+                ...,
+                close_end = TRUE
+              ) {
   default_table(
     chop_evenly(x = x, intervals = intervals, ..., close_end = close_end)
   )
@@ -63,7 +73,12 @@ tab_evenly <- function (x, intervals, ..., close_end = TRUE) {
 #' @rdname chop_proportions
 #' @export
 #' @order 3
-tab_proportions <- function (x, proportions, ..., raw = TRUE) {
+tab_proportions <- function (
+                     x,
+                     proportions,
+                     ...,
+                     raw = TRUE
+                   ) {
   default_table(
     chop_proportions(x = x, proportions = proportions, ..., raw = raw)
   )
@@ -79,7 +94,12 @@ tab_proportions <- function (x, proportions, ..., raw = TRUE) {
 #' # fewer elements in one group
 #' tab_n(1:10, 4)
 #'
-tab_n <- function (x, n, ..., close_end = TRUE) {
+tab_n <- function (
+           x,
+           n,
+           ...,
+           close_end = TRUE
+         ) {
   default_table(chop_n(x = x, n = n, ..., close_end = close_end))
 }
 
@@ -90,7 +110,12 @@ tab_n <- function (x, n, ..., close_end = TRUE) {
 #' @examples
 #' tab_mean_sd(1:10)
 #'
-tab_mean_sd <- function (x, sds = 1:3, ..., raw = FALSE) {
+tab_mean_sd <- function (
+                 x,
+                 sds = 1:3,
+                 ...,
+                 raw = FALSE
+               ) {
   default_table(chop_mean_sd(x = x, sds = sds, ..., raw = raw))
 }
 
@@ -113,8 +138,14 @@ tab_pretty <- function (x, n = 5, ...) {
 #' set.seed(42)
 #' tab_quantiles(rnorm(100), probs = 1:3/4, label = lbl_intervals(raw = TRUE))
 #'
-tab_quantiles <-
-  function (x, probs, ..., left = is.numeric(x), close_end = TRUE, raw = FALSE) {
+tab_quantiles <- function (
+                   x,
+                   probs,
+                   ...,
+                   left      = is.numeric(x),
+                   close_end = TRUE,
+                   raw       = FALSE
+                 ) {
   default_table(
     chop_quantiles(
       x         = x,
@@ -139,8 +170,14 @@ tab_deciles <- function (x, ...) {
 #' @rdname chop_equally
 #' @export
 #' @order 3
-tab_equally <-
-  function (x, groups, ..., left = is.numeric(x), close_end = TRUE, raw = TRUE) {
+tab_equally <- function (
+                 x,
+                 groups,
+                 ...,
+                 left      = is.numeric(x),
+                 close_end = TRUE,
+                 raw       = TRUE
+               ) {
   default_table(
     chop_equally(
       x = x, groups = groups, ..., left = left, close_end = close_end, raw = raw

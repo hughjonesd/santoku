@@ -156,13 +156,13 @@ NULL
 #' chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
 #'
 chop <- function (x, breaks,
-        labels    = lbl_intervals(),
-        extend    = NULL,
-        left      = TRUE,
-        close_end = FALSE,
-        raw       = NULL,
-        drop      = TRUE
-      ) {
+          labels    = lbl_intervals(),
+          extend    = NULL,
+          left      = TRUE,
+          close_end = FALSE,
+          raw       = NULL,
+          drop      = TRUE
+        ) {
   assert_that(
           is.flag(extend) || is.null(extend),
           is.flag(left),
@@ -219,7 +219,14 @@ kiru <- chop
 #'
 #' @examples
 #' fillet(1:10, c(2, 5, 8))
-fillet <- function (x, breaks, labels = lbl_intervals(), left = TRUE, close_end = FALSE, raw = NULL) {
+fillet <- function (
+            x,
+            breaks,
+            labels    = lbl_intervals(),
+            left      = TRUE,
+            close_end = FALSE,
+            raw       = NULL
+          ) {
   chop(x, breaks, labels, left = left, close_end = close_end, extend = FALSE,
       raw = raw, drop = FALSE)
 }
@@ -261,13 +268,13 @@ fillet <- function (x, breaks, labels = lbl_intervals(), left = TRUE, close_end 
 #' chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
 #'
 chop_quantiles <- function(
-        x,
-        probs,
-        ...,
-        left      = is.numeric(x),
-        close_end = TRUE,
-        raw       = FALSE
-      ) {
+                    x,
+                    probs,
+                    ...,
+                    left      = is.numeric(x),
+                    close_end = TRUE,
+                    raw       = FALSE
+                  ) {
   chop(x, brk_quantiles(probs), ..., left = left, close_end = close_end,
          raw = raw)
 }
@@ -297,14 +304,14 @@ chop_deciles <- function(x, ...) {
 #' chop_equally(1:10, 5)
 #'
 chop_equally <- function (
-        x,
-        groups,
-        ...,
-        labels    = lbl_intervals(),
-        left      = is.numeric(x),
-        close_end = TRUE,
-        raw       = TRUE
-      ) {
+                  x,
+                  groups,
+                  ...,
+                  labels    = lbl_intervals(),
+                  left      = is.numeric(x),
+                  close_end = TRUE,
+                  raw       = TRUE
+                ) {
   chop(x, brk_equally(groups), ..., labels = labels, left = left,
          close_end = close_end, raw = raw)
 }
@@ -336,7 +343,13 @@ chop_equally <- function (
 #' chop(1:10, brk_mean_sd())
 #'
 #' @importFrom lifecycle deprecated
-chop_mean_sd <- function (x, sds = 1:3,  ..., raw = FALSE, sd = deprecated()) {
+chop_mean_sd <- function (
+                  x,
+                  sds = 1:3,
+                  ...,
+                  raw = FALSE,
+                  sd  = deprecated()
+                ) {
   chop(x, brk_mean_sd(sds = sds, sd = sd), ..., raw = raw)
 }
 
@@ -402,7 +415,13 @@ chop_pretty <- function (x, n = 5, ...) {
 #'
 #' chop(1:10, brk_width(2, 0))
 #'
-chop_width <- function (x, width, start, ..., left = sign(width) > 0) {
+chop_width <- function (
+                x,
+                width,
+                start,
+                ...,
+                left = sign(width) > 0
+              ) {
   chop(x, brk_width(width, start), left = left, ...)
 }
 
@@ -424,7 +443,12 @@ chop_width <- function (x, width, start, ..., left = sign(width) > 0) {
 #' @examples
 #' chop_evenly(0:10, 5)
 #'
-chop_evenly <- function (x, intervals, ..., close_end = TRUE) {
+chop_evenly <- function (
+                 x,
+                 intervals,
+                 ...,
+                 close_end = TRUE
+               ) {
   chop(x, brk_evenly(intervals), ..., close_end = close_end)
 }
 
@@ -449,12 +473,12 @@ chop_evenly <- function (x, intervals, ..., close_end = TRUE) {
 #' chop_proportions(0:10, c(0.2, 0.8))
 #'
 chop_proportions <- function (
-        x,
-        proportions,
-        ...,
-        labels = lbl_intervals(),
-        raw    = TRUE
-      ) {
+                      x,
+                      proportions,
+                      ...,
+                      labels = lbl_intervals(),
+                      raw    = TRUE
+                    ) {
   chop(x, brk_proportions(proportions), labels = labels, ..., raw = raw)
 }
 
@@ -485,7 +509,12 @@ chop_proportions <- function (
 #' x <- rep(1:2, each = 3)
 #' chop_n(x, 2)
 #'
-chop_n <- function (x, n, ..., close_end = TRUE) {
+chop_n <- function (
+            x,
+            n,
+            ...,
+            close_end = TRUE
+          ) {
   res <- chop(x, brk_n(n), ..., close_end = close_end)
   if (max(tabulate(res)) > n) {
     warning("Some intervals contain more than ", n, " elements")

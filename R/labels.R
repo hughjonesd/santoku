@@ -61,8 +61,13 @@ NULL
 #' tab_evenly(runif(20), 10,
 #'       labels = lbl_intervals(fmt = percent))
 #'
-lbl_intervals <- function (fmt = NULL, single = "{{{l}}}", first = NULL,
-                             last = NULL, raw = FALSE) {
+lbl_intervals <- function (
+                   fmt    = NULL,
+                   single = "{{{l}}}",
+                   first  = NULL,
+                   last   = NULL,
+                   raw    = FALSE
+                 ) {
   if (! isFALSE(raw)) {
     lifecycle::deprecate_soft("0.9.0", "lbl_intervals(raw)", "chop(raw)")
   }
@@ -96,8 +101,14 @@ lbl_intervals <- function (fmt = NULL, single = "{{{l}}}", first = NULL,
 #'
 #' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
 #' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
-lbl_dash <- function (symbol = em_dash(), fmt = NULL, single = "{l}", first = NULL,
-                      last = NULL, raw = FALSE) {
+lbl_dash <- function (
+              symbol = em_dash(),
+              fmt    = NULL,
+              single = "{l}",
+              first  = NULL,
+              last   = NULL,
+              raw    = FALSE
+            ) {
   if (! isFALSE(raw)) {
     lifecycle::deprecate_soft("0.9.0", "lbl_dash(raw)", "chop(raw)")
   }
@@ -122,8 +133,13 @@ lbl_dash <- function (symbol = em_dash(), fmt = NULL, single = "{l}", first = NU
 #'
 #' @examples
 #' chop(1:10, c(2, 5, 8), lbl_midpoints())
-lbl_midpoints <- function (fmt = NULL, single = NULL, first = NULL, last = NULL,
-                          raw = FALSE) {
+lbl_midpoints <- function (
+                   fmt    = NULL,
+                   single = NULL,
+                   first  = NULL,
+                   last   = NULL,
+                   raw    = FALSE
+                 ) {
   if (! isFALSE(raw)) {
     lifecycle::deprecate_soft("0.9.0", "lbl_midpoints(raw)", "chop(raw)")
   }
@@ -188,8 +204,15 @@ lbl_midpoints <- function (fmt = NULL, single = NULL, first = NULL, last = NULL,
 #' glue_string <- paste0(interval_left, "{l}", ", ", "{r}", interval_right)
 #' tab(1:10, c(1, 3, 3, 7), label = lbl_glue(glue_string, single = "{{{l}}}"))
 #'
-lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NULL,
-                      raw = FALSE, ...) {
+lbl_glue <- function (
+              label,
+              fmt    = NULL,
+              single = NULL,
+              first  = NULL,
+              last   = NULL,
+              raw    = FALSE,
+              ...
+            ) {
   assert_that(
     is.string(label),
     is.null(fmt) || is_format(fmt),
@@ -284,7 +307,7 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #' This is useful when the left endpoint unambiguously indicates the
 #' interval. In other cases it may give errors due to duplicate labels.
 #'
-#' `lbl_endpoint()` is deprecated. Do not use it.
+#' `lbl_endpoint()` is `r lifecycle::badge("deprecated")`. Do not use it.
 #'
 #' @inherit label-doc
 #' @inherit first-last-doc
@@ -310,8 +333,14 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #'   # duplicate labels `"2", "3", "3"`:
 #'   chop(1:3, 1:3, lbl_endpoints(left = FALSE))
 #' }
-lbl_endpoints <- function (left = TRUE, fmt = NULL, single = NULL, first = NULL,
-                             last = NULL, raw = FALSE) {
+lbl_endpoints <- function (
+                   left   = TRUE,
+                   fmt    = NULL,
+                   single = NULL,
+                   first  = NULL,
+                   last   = NULL,
+                   raw    = FALSE
+                 ) {
   assert_that(is.flag(left))
 
   if (! isFALSE(raw)) {
@@ -326,8 +355,12 @@ lbl_endpoints <- function (left = TRUE, fmt = NULL, single = NULL, first = NULL,
 
 #' @rdname lbl_endpoints
 #' @export
-lbl_endpoint <- function (fmt = NULL, raw = FALSE, left = TRUE) {
-  lifecycle::deprecate_soft(when = "0.8.0", what = "lbl_endpoint()",
+lbl_endpoint <- function (
+                  fmt  = NULL,
+                  raw  = FALSE,
+                  left = TRUE
+                ) {
+  lifecycle::deprecate_warn(when = "0.8.0", what = "lbl_endpoint()",
                               with = "lbl_endpoints()")
    lbl_endpoints(fmt = fmt, raw = raw, left = left)
 }
