@@ -40,7 +40,6 @@ test_that("systematic tests", {
     lbl_dash          = expression(lbl_dash()),
     lbl_intervals     = expression(lbl_intervals()),
     lbl_seq           = expression(lbl_seq("a")),
-    lbl_manual        = expression(lbl_manual(letters[1:2])),
     lbl_endpoints     = expression(lbl_endpoints()),
     lbl_midpoints     = expression(lbl_midpoints())
   )

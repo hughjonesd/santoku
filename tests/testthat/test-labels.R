@@ -5,6 +5,10 @@ brackets <- function (x) paste0("(", x, ")")
 test_that("lbl_manual", {
   brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
 
+  lifecycle::expect_deprecated(lbl_manual(letters))
+
+  withr::local_options(lifecycle_verbosity = "quiet")
+
   expect_error(lbl_manual(c("a", "a")))
   expect_equivalent(lbl_manual(letters[1])(brk), c("a", "aa"))
 })
@@ -29,8 +33,8 @@ test_that("lbl_seq", {
   expect_equivalent(lbl_seq("1)")(brk), c("1)", "2)"))
 
   brk_many <- brk_res(brk_manual(1:28, rep(TRUE, 28)))
-  expect_equivalent(lbl_seq("a")(brk_many), c(letters, "aa"))
-  expect_equivalent(lbl_seq("A)")(brk_many), paste0(c(LETTERS, "AA"), ")"))
+  expect_error(lbl_seq("a")(brk_many))
+  expect_error(lbl_seq("A)")(brk_many))
 })
 
 

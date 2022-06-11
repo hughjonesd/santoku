@@ -482,16 +482,26 @@ lbl_seq <- function(start = "a") {
   fmt <- sub("(a|A|i|I|1)", "%s", start)
 
   res <- switch(key,
-    "a" = lbl_manual(letters, fmt),
-    "A" = lbl_manual(LETTERS, fmt),
+    "a" = function (breaks, raw = NULL) {
+            if (length(breaks) > 27L) {
+              stop("Can't use more than 26 intervals with lbl_seq(\"a\")")
+            }
+            sprintf(fmt, letters[seq_len(length(breaks) - 1L)])
+          },
+    "A" = function (breaks, raw = NULL) {
+            if (length(breaks) > 27L) {
+              stop("Can't use more than 26 intervals with lbl_seq(\"A\")")
+            }
+            sprintf(fmt, LETTERS[seq_len(length(breaks) - 1L)])
+          },
     "i" = function (breaks, raw = NULL) {
-           sprintf(fmt, tolower(utils::as.roman(seq(1L, length(breaks) - 1L))))
+           sprintf(fmt, tolower(utils::as.roman(seq_len(length(breaks) - 1L))))
          },
     "I" = function (breaks, raw = NULL) {
-           sprintf(fmt, utils::as.roman(seq(1L, length(breaks) - 1L)))
+           sprintf(fmt, utils::as.roman(seq_len(length(breaks) - 1L)))
          },
     "1" = function (breaks, raw = NULL) {
-            sprintf(fmt, seq(1L, length(breaks) - 1L))
+            sprintf(fmt, seq_len(length(breaks) - 1L))
           }
     )
 
@@ -500,6 +510,12 @@ lbl_seq <- function(start = "a") {
 
 
 #' Label chopped intervals in a user-defined sequence
+#'
+#' `r lifecycle::badge("deprecated")`
+#'
+#' `lbl_manual()` is deprecated because it is little used and is not closely
+#' related to the rest of the package. It also risks mislabelling intervals, e.g.
+#' if intervals are extended.
 #'
 #' `lbl_manual()` uses an arbitrary sequence to label
 #' intervals. If the sequence is too short, it will be pasted with itself and
@@ -512,12 +528,15 @@ lbl_seq <- function(start = "a") {
 #'
 #' @export
 #'
+#' @keywords internal
+#'
 #' @examples
 #' chop(1:10, c(2, 5, 8), lbl_manual(c("w", "x", "y", "z")))
-#'
-#' # if labels need repeating:
-#' chop(1:10, 1:10, lbl_manual(c("x", "y", "z")))
+#' # ->
+#' chop(1:10, c(2, 5, 8), labels = c("w", "x", "y", "z"))
 lbl_manual <- function (sequence, fmt = "%s") {
+  lifecycle::deprecate_warn("0.9.0", "lbl_manual()",
+                            details = "Just specify `labels = sequence` instead.")
   assert_that(is_format(fmt))
 
   if (anyDuplicated(sequence) > 0L) stop("`sequence` contains duplicate items")

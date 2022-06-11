@@ -15,6 +15,13 @@ lbl_manual(sequence, fmt = "\%s")
 A function that creates a vector of labels.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}
+}
+\details{
+\code{lbl_manual()} is deprecated because it is little used and is not closely
+related to the rest of the package. It also risks mislabelling intervals, e.g.
+if intervals are extended.
+
 \code{lbl_manual()} uses an arbitrary sequence to label
 intervals. If the sequence is too short, it will be pasted with itself and
 repeated.
@@ -33,9 +40,8 @@ to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label
 
 \examples{
 chop(1:10, c(2, 5, 8), lbl_manual(c("w", "x", "y", "z")))
-
-# if labels need repeating:
-chop(1:10, 1:10, lbl_manual(c("x", "y", "z")))
+# ->
+chop(1:10, c(2, 5, 8), labels = c("w", "x", "y", "z"))
 }
 \seealso{
 Other labelling functions: 
@@ -48,3 +54,4 @@ Other labelling functions:
 \code{\link{lbl_seq}()}
 }
 \concept{labelling functions}
+\keyword{internal}
