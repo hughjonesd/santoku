@@ -45,7 +45,7 @@ chop(1:5, c(2, 4))
 Include a number twice to match it exactly: 
 
 ```{r}
-chop(1:4, c(2, 2, 4))
+chop(1:5, c(2, 2, 4))
 ```
 
 Customize output with `lbl_*` functions:
