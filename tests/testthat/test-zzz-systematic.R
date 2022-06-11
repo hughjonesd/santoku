@@ -115,13 +115,23 @@ test_that("systematic tests", {
         ))
 
   # raw endpoints get duplicated if multiple quantiles are infinite:
-  # dont_care(with(test_df,
-  #         names(x) %in% c("inf_lo", "inf_hi") &
-  #         brk_fun == "brk_quantiles" &
-  #         lbl_fun %in% c("lbl_midpoints", "lbl_endpoints") &
-  #         raw == TRUE &
-  #         extend == TRUE
-  #       ))
+  dont_care(with(test_df,
+                   names(x) %in% c("inf_lo", "inf_hi") &
+                   brk_fun == "brk_quantiles" &
+                   lbl_fun == "lbl_midpoints" &
+                   raw == TRUE &
+                   extend == TRUE &
+                   close_end == FALSE
+                 ))
+  dont_care(with(test_df,
+                   names(x) == "inf_lo" &
+                   brk_fun == "brk_quantiles" &
+                   lbl_fun == "lbl_endpoints" &
+                   raw == TRUE &
+                   extend == TRUE &
+                   left == FALSE &
+                   close_end == FALSE
+                 ))
 
   # brk_default2 has breaks 1,2,2,3
   # with lbl_endpoints, this may create duplicate left endpoints
