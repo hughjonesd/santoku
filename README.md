@@ -25,20 +25,25 @@ replacement for `base::cut()`.
 
 Here are some advantages of santoku:
 
--   By default, `chop()` always covers the whole range of the data, so
+  - By default, `chop()` always covers the whole range of the data, so
     you won’t get unexpected `NA` values.
 
--   `chop()` can handle single values as well as intervals. For example,
+  - `chop()` can handle single values as well as intervals. For example,
     `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor
     level for values exactly equal to 2.
 
--   Flexible labelling, including easy ways to label intervals by
-    numerals or letters.
+  - `chop()` can handle many kinds of data, including numbers, dates and
+    times.
 
--   Convenience functions for creating quantile intervals, evenly-spaced
-    intervals or equal-sized groups.
+  - `chop_*` functions create intervals in many ways, using quantiles of
+    the data, standard deviations, fixed-width intervals, equal-sized
+    groups, or pretty intervals for use in graphs.
 
--   Convenience functions for quickly tabulating chopped data.
+  - `lbl_*` functions make it easy to label intervals: use interval
+    notation like `[1, 2)`, dash notation like `1-2`, or arbitrary
+    styles using `glue::glue()`.
+
+  - `tab_*` functions quickly chop data, then tabulate it.
 
 These advantages make santoku especially useful for exploratory
 analysis, where you may not know the range of your data in advance.
@@ -77,10 +82,10 @@ Chop into fixed-width intervals:
 
 ``` r
 chop_width(runif(10), 0.1)
-#>  [1] [0.8278, 0.9278)  [0.8278, 0.9278)  [0.8278, 0.9278)  [0.3278, 0.4278) 
-#>  [5] [0.7278, 0.8278)  [0.2278, 0.3278)  [0.9278, 1.028)   [0.02781, 0.1278)
-#>  [9] [0.9278, 1.028)   [0.02781, 0.1278)
-#> 6 Levels: [0.02781, 0.1278) [0.2278, 0.3278) ... [0.9278, 1.028)
+#>  [1] [0.6498, 0.7498)  [0.04979, 0.1498) [0.1498, 0.2498)  [0.5498, 0.6498) 
+#>  [5] [0.7498, 0.8498)  [0.4498, 0.5498)  [0.8498, 0.9498)  [0.04979, 0.1498)
+#>  [9] [0.6498, 0.7498)  [0.1498, 0.2498) 
+#> 7 Levels: [0.04979, 0.1498) [0.1498, 0.2498) ... [0.8498, 0.9498)
 ```
 
 Or into fixed-size groups:

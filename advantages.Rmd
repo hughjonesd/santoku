@@ -8,19 +8,23 @@ for `base::cut()`.
  Here are some advantages of santoku:
 
  * By default, `chop()` always covers the whole range of the data, so you
- won't get unexpected `NA` values.
+   won't get unexpected `NA` values.
 
  * `chop()` can handle single values as well as intervals. For example, 
    `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor level for
    values exactly equal to 2.
 
- * Flexible labelling, including easy ways to label intervals by
-   numerals or letters.
+ * `chop()` can handle many kinds of data, including numbers, dates and 
+   times.
 
- * Convenience functions for creating quantile intervals, evenly-spaced
-  intervals or equal-sized groups.
+ * `chop_*` functions create intervals in many ways, using quantiles of the data, 
+   standard deviations, fixed-width intervals, equal-sized groups, or
+   pretty intervals for use in graphs.
+ 
+* `lbl_*` functions make it easy to label intervals: use interval notation 
+   like `[1, 2)`, dash notation like `1-2`, or arbitrary styles using `glue::glue()`.
 
- * Convenience functions for quickly tabulating chopped data.
+ * `tab_*` functions quickly chop data, then tabulate it.
 
  These advantages make santoku especially useful for exploratory analysis,
  where you may not know the range of your data in advance.
