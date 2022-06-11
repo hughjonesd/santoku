@@ -2,6 +2,7 @@
 
 * New `raw` parameter to `chop()`.
   - `raw` in `lbl_*` functions is soft-deprecated.
+* `lbl_manual()` is deprecated. Just use a vector argument to `labels` instead.
 
 # santoku 0.8.0
 
