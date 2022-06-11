@@ -30,8 +30,8 @@ for details.}
 \code{last = ">{l}"} to create a label like \code{">65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
 
-\item{raw}{Logical. Always use raw \code{breaks} in labels, rather than e.g.
-quantiles or standard deviations?}
+\item{raw}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}. Use the \code{raw} argument to \code{\link[=chop]{chop()}}
+instead.}
 
 \item{...}{Further arguments passed to \code{\link[glue:glue]{glue::glue()}}.}
 }

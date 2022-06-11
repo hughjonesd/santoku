@@ -42,7 +42,6 @@ test_that("systematic tests", {
     lbl_dash          = expression(lbl_dash()),
     lbl_dash2         = expression(lbl_dash("/")),
     lbl_intervals     = expression(lbl_intervals()),
-    lbl_intervals_raw = expression(lbl_intervals(raw = TRUE)),
     lbl_seq           = expression(lbl_seq("a")),
     lbl_seq2          = expression(lbl_seq("(i)")),
     lbl_manual        = expression(lbl_manual(letters[1:2])),

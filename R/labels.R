@@ -1,8 +1,8 @@
 
 #' @name label-doc
 #' @param fmt String or function. A format for break endpoints.
-#' @param raw Logical. Always use raw `breaks` in labels, rather than e.g.
-#'   quantiles or standard deviations?
+#' @param raw `r lifecycle::badge("deprecated")`. Use the `raw` argument to [chop()]
+#'   instead.
 #' @param symbol String: symbol to use for the dash.
 #' @param ... Arguments passed to format methods.
 #'
@@ -61,7 +61,11 @@ NULL
 #' tab_evenly(runif(20), 10,
 #'       labels = lbl_intervals(fmt = percent))
 #'
-lbl_intervals <- function (fmt = NULL, single = "{{{l}}}", first = NULL, last = NULL, raw = FALSE) {
+lbl_intervals <- function (fmt = NULL, single = "{{{l}}}", first = NULL,
+                             last = NULL, raw = FALSE) {
+  if (! isFALSE(raw)) {
+    lifecycle::deprecate_soft("0.9.0", "lbl_intervals(raw)", "chop(raw)")
+  }
   interval_glue <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
   lbl_glue(label = interval_glue, single = single, fmt = fmt, first = first,
              last = last, raw = raw)
@@ -94,6 +98,9 @@ lbl_intervals <- function (fmt = NULL, single = "{{{l}}}", first = NULL, last = 
 #' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
 lbl_dash <- function (symbol = em_dash(), fmt = NULL, single = "{l}", first = NULL,
                       last = NULL, raw = FALSE) {
+  if (! isFALSE(raw)) {
+    lifecycle::deprecate_soft("0.9.0", "lbl_dash(raw)", "chop(raw)")
+  }
 
   label_glue <- paste0("{l}", symbol, "{r}")
   lbl_glue(label = label_glue, fmt = fmt, single = single, first = first,
@@ -117,6 +124,10 @@ lbl_dash <- function (symbol = em_dash(), fmt = NULL, single = "{l}", first = NU
 #' chop(1:10, c(2, 5, 8), lbl_midpoints())
 lbl_midpoints <- function (fmt = NULL, single = NULL, first = NULL, last = NULL,
                           raw = FALSE) {
+  if (! isFALSE(raw)) {
+    lifecycle::deprecate_soft("0.9.0", "lbl_midpoints(raw)", "chop(raw)")
+  }
+
   RAW <- raw # avoid "recursive default argument reference"
   function (breaks, raw = RAW) {
     assert_that(is.breaks(breaks))
@@ -131,8 +142,8 @@ lbl_midpoints <- function (fmt = NULL, single = NULL, first = NULL, last = NULL,
     midpoints <- endpoint_labels(midpoints, raw = TRUE, fmt = fmt)
 
     gluer <- lbl_glue(label = "{m}", fmt = fmt, single = single, first = first,
-                        last = last, raw = raw, m = midpoints)
-    labels <- gluer(breaks)
+                        last = last, m = midpoints)
+    labels <- gluer(breaks, raw = raw)
 
     labels
   }
@@ -179,7 +190,6 @@ lbl_midpoints <- function (fmt = NULL, single = NULL, first = NULL, last = NULL,
 #'
 lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NULL,
                       raw = FALSE, ...) {
-
   assert_that(
     is.string(label),
     is.null(fmt) || is_format(fmt),
@@ -187,6 +197,10 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
     is.string(last) || is.null(last),
     is.flag(raw)
   )
+
+  if (! isFALSE(raw)) {
+    lifecycle::deprecate_soft("0.9.0", "lbl_glue(raw)", "chop(raw)")
+  }
 
   RAW <- raw # avoid "recursive default argument reference"
   function (breaks, raw = RAW) {
@@ -293,6 +307,10 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 lbl_endpoints <- function (left = TRUE, fmt = NULL, single = NULL, first = NULL,
                              last = NULL, raw = FALSE) {
   assert_that(is.flag(left))
+
+  if (! isFALSE(raw)) {
+    lifecycle::deprecate_soft("0.9.0", "lbl_endpoints(raw)", "chop(raw)")
+  }
 
   label <- if (left) "{l}" else "{r}"
   lbl_glue(label, fmt = fmt, single = single, first = first, last = last,
