@@ -20,10 +20,8 @@ test_that("systematic tests", {
   brk_funs <- list(
     brk_evenly      = expression(brk_evenly(2)),
     brk_proportions = expression(brk_proportions(c(0.25, 0.6))),
-    brk_manual      = expression(brk_manual(1:3, rep(TRUE, 3))),
-    brk_manual2     = expression(brk_manual(1:3, c(FALSE, TRUE, FALSE))),
+    brk_manual      = expression(brk_manual(1:3, c(FALSE, TRUE, FALSE))),
     brk_mean_sd     = expression(brk_mean_sd()),
-    brk_mean_sd2    = expression(brk_mean_sd(c(1, 1.96))),
     brk_pretty      = expression(brk_pretty()),
     brk_n           = expression(brk_n(5)),
     brk_quantiles   = expression(brk_quantiles(1:3/4)),
@@ -40,12 +38,9 @@ test_that("systematic tests", {
   )
   lbl_funs <- list(
     lbl_dash          = expression(lbl_dash()),
-    lbl_dash2         = expression(lbl_dash("/")),
     lbl_intervals     = expression(lbl_intervals()),
     lbl_seq           = expression(lbl_seq("a")),
-    lbl_seq2          = expression(lbl_seq("(i)")),
     lbl_manual        = expression(lbl_manual(letters[1:2])),
-    lbl_manual2       = expression(lbl_manual(letters[1:2], "%s)")),
     lbl_endpoints     = expression(lbl_endpoints()),
     lbl_midpoints     = expression(lbl_midpoints())
   )
@@ -54,10 +49,12 @@ test_that("systematic tests", {
     x         = x_vals,
     brk_fun   = names(brk_funs),
     lbl_fun   = names(lbl_funs),
-    extend    = c(TRUE, FALSE),
+    # we translate NA to NULL in chop(); doing this means we don't need a list():
+    extend    = c(TRUE, FALSE, NA),
     left      = c(TRUE, FALSE),
     close_end = c(TRUE, FALSE),
-    raw       = c(TRUE, FALSE),
+    # ditto:
+    raw       = c(TRUE, FALSE, NA),
     drop      = c(TRUE, FALSE),
     stringsAsFactors = FALSE
   )
@@ -70,9 +67,7 @@ test_that("systematic tests", {
   }
 
   skip_test(! left & brk_fun == "brk_manual")
-  skip_test(! left & brk_fun == "brk_manual2")
   skip_test(close_end & brk_fun == "brk_manual")
-  skip_test(close_end & brk_fun == "brk_manual2")
 
   POSIXct_breaks <- c("brk_def_POSIXct", "brk_w_difft_sec")
   Date_breaks <- c("brk_def_Date", "brk_w_difft_day")
@@ -114,6 +109,14 @@ test_that("systematic tests", {
           extend == FALSE
         ))
 
+  # ditto when extend is NULL and there's no non-NA data
+  # here we have to fail even though with some data we'd be OK
+  should_fail(with(test_df,
+                    brk_fun %in% c("brk_default_hi", "brk_default_lo") &
+                    names(x) %in% c("all_NAs", "none") &
+                    is.na(extend)
+  ))
+
   # raw endpoints get duplicated if multiple quantiles are infinite:
   dont_care(with(test_df,
                    names(x) %in% c("inf_lo", "inf_hi") &
@@ -131,6 +134,19 @@ test_that("systematic tests", {
                    extend == TRUE &
                    left == FALSE &
                    close_end == FALSE
+                 ))
+
+  # lbl_endpoints() can create duplicates
+  # when you extend an open interval to add a singleton
+  # e.g. {1}, (1, 2]
+  dont_care(with(test_df,
+                   lbl_fun == "lbl_endpoints" &
+                   left == FALSE & is.na(extend)
+                 ))
+  dont_care(with(test_df,
+                   lbl_fun == "lbl_endpoints" &
+                   brk_fun %in% c("brk_default_lo", "brk_manual") &
+                   left == TRUE & is.na(extend)
                  ))
 
   # brk_default2 has breaks 1,2,2,3
@@ -164,24 +180,30 @@ test_that("systematic tests", {
   # we sample the same 10000 rows every day
   seed <- as.numeric(Sys.Date())
   set.seed(seed)
-  sample_rows <- if (getOption("santoku.test_everything", FALSE)) {
+  test_everything <- isTRUE(as.logical(Sys.getenv("CI"))) ||
+                              getOption("santoku.test_everything", FALSE)
+
+  sample_rows <- if (test_everything) {
                    seq_len(nrow(test_df))
                  } else {
-                  sort(sample(nrow(test_df), 10000, replace = FALSE))
+                   sort(sample(nrow(test_df), 10000, replace = FALSE))
                  }
 
   for (r in sample_rows) {
     tdata <- test_df[r, ]
     if (is.na(tdata$expect)) next
+    if (is.na(tdata$extend)) tdata$extend <- NULL
+    if (is.na(tdata$raw)) tdata$raw <- NULL
 
     x <- tdata$x[[1]]
+    format_null <- function (x) if (is.null(x)) "NULL" else x
     info <- sprintf(
           "seed: %s row: %s
           command: chop(%s, %s, labels = %s, extend = %s, left = %s,
                      close_end = %s, raw = %s, drop = %s)",
           seed, tdata$row, tdata$x, as.character(brk_funs[[tdata$brk_fun]]),
-          as.character(lbl_funs[[tdata$lbl_fun]]), tdata$extend,
-          tdata$left, tdata$close_end, tdata$raw, tdata$drop)
+          as.character(lbl_funs[[tdata$lbl_fun]]), format_null(tdata$extend),
+          tdata$left, tdata$close_end, format_null(tdata$raw), tdata$drop)
 
     # NA means "no error":
     regexp <- switch(tdata$expect, "succeed" = NA, NULL)
@@ -202,6 +224,6 @@ test_that("systematic tests", {
             class  = err_class,
             info   = info
           ))
-
   }
 })
+
