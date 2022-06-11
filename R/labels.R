@@ -304,6 +304,12 @@ lbl_glue <- function (label, fmt = NULL, single = NULL, first = NULL, last = NUL
 #'          labels = lbl_endpoints(fmt = "%b")
 #'        )
 #' }
+#'
+#' \dontrun{
+#'   # This gives breaks `[1, 2) [2, 3) {3}` which lead to
+#'   # duplicate labels `"2", "3", "3"`:
+#'   chop(1:3, 1:3, lbl_endpoints(left = FALSE))
+#' }
 lbl_endpoints <- function (left = TRUE, fmt = NULL, single = NULL, first = NULL,
                              last = NULL, raw = FALSE) {
   assert_that(is.flag(left))

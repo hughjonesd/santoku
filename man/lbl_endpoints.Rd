@@ -67,6 +67,12 @@ if (requireNamespace("lubridate")) {
          labels = lbl_endpoints(fmt = "\%b")
        )
 }
+
+\dontrun{
+  # This gives breaks `[1, 2) [2, 3) {3}` which lead to
+  # duplicate labels `"2", "3", "3"`:
+  chop(1:3, 1:3, lbl_endpoints(left = FALSE))
+}
 }
 \seealso{
 Other labelling functions: 
