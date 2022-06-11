@@ -39,19 +39,19 @@ library(santoku)
 `chop` returns a factor:
 
 ```{r}
-chop(1:8, c(3, 5, 7))
+chop(1:5, c(2, 4))
 ```
 
 Include a number twice to match it exactly: 
 
 ```{r}
-chop(1:8, c(3, 5, 5, 7))
+chop(1:4, c(2, 2, 4))
 ```
 
 Customize output with `lbl_*` functions:
 
 ```{r}
-chop(1:8, c(3, 5, 7), labels = lbl_dash())
+chop(1:5, c(2, 4), labels = lbl_dash())
 ```
 
 
