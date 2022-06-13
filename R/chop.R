@@ -203,12 +203,11 @@ kiru <- chop
 
 #' Chop data precisely (for programmers)
 #'
-#' @inheritParams chop
-#'
-#' @details
 #' `fillet()` calls [chop()] with `extend = FALSE` and `drop = FALSE`. This
 #' ensures that you get only the `breaks` and `labels` you ask for. When
 #' programming, consider using `fillet()` instead of `chop()`.
+#'
+#' @inheritParams chop
 #'
 #' @return `fillet()` returns a [`factor`] of the same length as `x`, representing
 #'   the intervals containing the value of `x`.

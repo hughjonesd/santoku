@@ -33,9 +33,6 @@ close first break at left?)}
 the intervals containing the value of \code{x}.
 }
 \description{
-Chop data precisely (for programmers)
-}
-\details{
 \code{fillet()} calls \code{\link[=chop]{chop()}} with \code{extend = FALSE} and \code{drop = FALSE}. This
 ensures that you get only the \code{breaks} and \code{labels} you ask for. When
 programming, consider using \code{fillet()} instead of \code{chop()}.
