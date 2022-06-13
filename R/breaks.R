@@ -197,68 +197,6 @@ brk_width.default <- function (width, start) {
 }
 
 
-#' Return a sequence of width `width`
-#'
-#' @param width An object representing a width
-#' @param start Element to start from
-#' @param until Result must be just long enough to cover this element
-#'
-#' @return A sequence of breaks
-#' @noRd
-sequence_width <- function(width, start, until) {
-  UseMethod("sequence_width")
-}
-
-
-#' @export
-sequence_width.default <- function (width, start, until) {
-  breaks <- seq(start, until, width)
-
-  too_short <- if (sign(width) > 0) {
-    breaks[length(breaks)] < until
-  } else {
-    breaks[length(breaks)] > until
-  }
-
-  # length(breaks) == 1L captures when start == max_x
-  if (too_short || length(breaks) == 1L) {
-    breaks <- c(breaks, breaks[length(breaks)] + width)
-  }
-
-  breaks
-}
-
-
-#' @export
-sequence_width.Period <- function(width, start, until) {
-  loadNamespace("lubridate")
-
-  if (as.numeric(until - start) %% as.numeric(width) != 0 || until == start) {
-    # extend to cover all data / ensure at least one interval
-    until <- lubridate::add_with_rollback(until, width)
-  }
-  # alternative to seq, using Period arithmetic
-  # We find the number n of widths that gets beyond seq_end
-  # and add (width * 0:n) to start
-  # normally this would be ceiling((seq_end - start)/width)
-  # we calculate it roughly using a Duration
-  n_intervals <- ceiling((until - start)/lubridate::as.duration(width))
-  breaks <- lubridate::add_with_rollback(start, (seq(0, n_intervals) * width))
-
-  last_break <- breaks[length(breaks)]
-  too_short <- if (width > 0) {
-     last_break < until
-  } else {
-    last_break > until
-  }
-  if (too_short) {
-    breaks <- c(breaks, lubridate::add_with_rollback(last_break, width))
-  }
-
-  breaks
-}
-
-
 #' @rdname chop_evenly
 #' @export
 #' @order 2
