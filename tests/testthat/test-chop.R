@@ -107,6 +107,8 @@ test_that("raw", {
   )
 
   # raw overrides raw in labels
+  withr::local_options(lifecycle_verbosity = "quiet")
+
   expect_silent(
     res <- chop(x, brk_quantiles(c(0.25, 0.75)),
                   labels = lbl_intervals(raw = FALSE), raw = TRUE)
@@ -225,6 +227,10 @@ test_that("chop_deciles", {
 test_that("chop_n", {
   expect_silent(res <- chop_n(rnorm(100), 10))
   expect_equivalent(as.vector(table(res)), rep(10, 10))
+
+  # chop_n should give accurate answers even when left = FALSE
+  res <- chop_n(1:4, 2, left = FALSE)
+  expect_equivalent(as.vector(table(res)), rep(2, 2))
 
   expect_warning(chop_n(rep(1:3, each = 3), 2))
 })

@@ -483,8 +483,7 @@ chop_proportions <- function (
 
 #' Chop into fixed-sized groups
 #'
-#' `chop_n()` creates intervals containing a fixed number of elements. One
-#' interval may have fewer elements.
+#' `chop_n()` creates intervals containing a fixed number of elements.
 #'
 #' @param n Integer: number of elements in each interval.
 #' @inheritParams chop
@@ -492,6 +491,10 @@ chop_proportions <- function (
 #'
 #' @details
 #' Note that `chop_n()` sets `close_end = TRUE` by default.
+#'
+#' If `length(x)` is not divided exactly by `n`, one interval will have fewer
+#' than `n` elements. This will be the last interval if `left` is `TRUE`, and
+#' the first interval otherwise.
 #'
 #' Groups may be larger than `n`, if there are too many duplicated elements
 #' in `x`. If so, a warning is given.

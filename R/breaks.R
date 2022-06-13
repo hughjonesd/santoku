@@ -251,10 +251,11 @@ brk_n <- function (n) {
   assert_that(is.count(n))
 
   function (x, extend, left, close_end) {
-    xs <- sort(x) # remove NAs
+    xs <- sort(x, decreasing = ! left, na.last = NA) # remove NAs
     if (length(xs) < 1L) return(empty_breaks())
 
     breaks <-  xs[c(seq(1L, length(xs), n), length(xs))]
+    if (! left) breaks <- rev(breaks)
     s1tons <- singletons(breaks)
     # gets rid of the first of every "triplet", including overlapping triplets:
     illegal <- which(s1tons[-1] & s1tons[-length(s1tons)])
