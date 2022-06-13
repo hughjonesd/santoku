@@ -147,6 +147,26 @@ test_that("brk_pretty", {
 })
 
 
+test_that("brk_fn", {
+  x <- 1:10
+  expect_silent(
+    brks <- brk_res(brk_fn(scales::breaks_extended(5)), x = x)
+  )
+  expect_equivalent(
+    brks,
+    brk_res(brk_default(scales::breaks_extended(5)(x)))
+  )
+
+  expect_silent(
+    brks2 <- brk_res(brk_fn(pretty, n = 10), x = x)
+  )
+  expect_equivalent(
+    brks2,
+    brk_res(brk_default(pretty(x, n = 10)), x = x)
+  )
+})
+
+
 test_that("printing", {
   b <- brk_default(1:3)
   expect_output(print(b))

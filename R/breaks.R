@@ -329,6 +329,12 @@ brk_n <- function (n) {
 }
 
 
+#' @param breaks A numeric vector.
+#' @name breaks-doc
+#' @return A function which returns an object of class `breaks`.
+NULL
+
+
 #' Create a standard set of breaks
 #'
 #' @inherit breaks-doc params return
@@ -347,12 +353,6 @@ brk_default <- function (breaks) {
     maybe_extend(breaks, x, extend)
   }
 }
-
-
-#' @param breaks A numeric vector.
-#' @name breaks-doc
-#' @return A (function which returns an) object of class `breaks`.
-NULL
 
 
 #' Create a `breaks` object manually
@@ -408,6 +408,44 @@ brk_manual <- function (breaks, left_vec) {
     if (! left) warning("Ignoring `left` with `brk_manual()`")
     if (close_end) warning("Ignoring `close_end` with `brk_manual()`")
     maybe_extend(breaks, x, extend)
+  }
+}
+
+
+#' Create breaks using an existing function
+#'
+#' `brk_fn()` is a convenience wrapper: `chop(x, brk_fn(foo, ...))`
+#' is the same as `chop(x, foo(x, ...))`.
+#'
+#' @param fn A function which returns a numeric vector of breaks.
+#' @param ... Further arguments to `fn`
+#'
+#' @inherit breaks-doc return
+#' @export
+#'
+#' @examples
+#'
+#' if (requireNamespace("scales")) {
+#'   chop(rlnorm(10), brk_fn(scales::breaks_log(5)))
+#'   # same as
+#'   # x <- rlnorm(10)
+#'   # chop(x, scales::breaks_log(5)(x))
+#' }
+#'
+brk_fn <- function (fn, ...) {
+  assert_that(is.function(fn))
+
+  function (x, extend, left, close_end) {
+    breaks <- fn(x, ...)
+    assert_that(is.numeric(breaks))
+    if (length(breaks) == 0) {
+      return(empty_breaks())
+    }
+
+    breaks <- create_lr_breaks(breaks, left, close_end)
+    breaks <- maybe_extend(breaks, x, extend)
+
+    breaks
   }
 }
 

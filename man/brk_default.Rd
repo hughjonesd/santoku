@@ -10,7 +10,7 @@ brk_default(breaks)
 \item{breaks}{A numeric vector.}
 }
 \value{
-A (function which returns an) object of class \code{breaks}.
+A function which returns an object of class \code{breaks}.
 }
 \description{
 Create a standard set of breaks

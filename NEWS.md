@@ -1,8 +1,14 @@
 # santoku (development version)
 
+## Breaking changes
+
 * New `raw` parameter to `chop()`.
   - `raw` in `lbl_*` functions is soft-deprecated.
 * `lbl_manual()` is deprecated. Just use a vector argument to `labels` instead.
+
+## Other changes
+* New `brk_fn()` breaks wrap an arbitrary function.
+
 
 # santoku 0.8.0
 

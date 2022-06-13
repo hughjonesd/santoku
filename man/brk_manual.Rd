@@ -13,7 +13,7 @@ brk_manual(breaks, left_vec)
 Specifies whether each break is left-closed or right-closed.}
 }
 \value{
-A (function which returns an) object of class \code{breaks}.
+A function which returns an object of class \code{breaks}.
 }
 \description{
 Create a \code{breaks} object manually
