@@ -197,7 +197,6 @@ Other labelling functions include:
 
 * `lbl_endpoints()` - use left endpoints as labels
 * `lbl_midpoints()` - use interval midpoints as labels
-* `lbl_manual()` - specify labels manually
 * `lbl_glue()` - specify labels flexibly with the `{glue}` package
 
 By default, `chop()` extends `breaks` if necessary. If you don't want
