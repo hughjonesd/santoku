@@ -8,6 +8,7 @@
 
 ## Other changes
 * New `brk_fn()` breaks wrap an arbitrary function.
+* Added section on non-standard objects to vignette.
 
 
 # santoku 0.8.0
