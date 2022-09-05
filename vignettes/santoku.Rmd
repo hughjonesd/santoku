@@ -232,3 +232,80 @@ data.frame(
 
 ```
 
+
+# Chopping dates, times and other vectors
+
+You can chop many kinds of vectors with santoku, including Date objects...
+
+```{r}
+y2k <- as.Date("2000-01-01") + 0:10 * 7
+data.frame(
+  y2k = y2k,
+  chopped = chop(y2k, as.Date(c("2000-02-01", "2000-03-01")))
+)
+```
+
+
+... and POSIXct (date-time) objects:
+
+```{r}
+# hours of the 2020 Crew Dragon flight:
+crew_dragon <- seq(as.POSIXct("2020-05-30 18:00", tz = "GMT"), 
+                     length.out = 24, by = "hours")
+liftoff <- as.POSIXct("2020-05-30 15:22", tz = "America/New_York")
+dock    <- as.POSIXct("2020-05-31 10:16", tz = "America/New_York")
+
+data.frame(
+  crew_dragon = crew_dragon,
+  chopped = chop(crew_dragon, c(liftoff, dock), 
+                   labels = c("pre-flight", "flight", "docked"))
+)
+
+```
+
+Note how santoku correctly handles the different timezones.
+
+You can use `chop_width()` with objects from the `lubridate` package, 
+to chop by irregular periods such as months:
+
+```{r}
+library(lubridate)
+data.frame(
+  y2k = y2k,
+  chopped = chop_width(y2k, months(1))
+)
+```
+
+You can format labels using format strings from `strptime()`.
+`lbl_discrete()` is useful here:
+
+```{r}
+data.frame(
+  y2k = y2k,
+  chopped = chop_width(y2k, months(1), labels = lbl_discrete(fmt = "%e %b"))
+)
+```
+
+You can also chop vectors with units, using the `units` package:
+
+```{r}
+library(units)
+
+x <- set_units(1:10 * 10, cm)
+br <- set_units(1:3, ft)
+data.frame(
+  x = x,
+  chopped = chop(x, br)
+)
+```
+
+You should be able to chop anything that has a comparison operator. You can
+even chop character data using lexical ordering. By default santoku emits a 
+warning in this case, to avoid accidentally misinterpreting results:
+
+```{r}
+chop(letters[1:10], c("d", "f"))
+```
+
+If you find a type of data that you can't chop, please 
+[file an issue](https://github.com/hughjonesd/santoku/issues).
