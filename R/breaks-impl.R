@@ -32,16 +32,20 @@ create_breaks <- function (obj, left) {
 }
 
 
-create_lr_breaks <- function (obj, left, close_end) {
-  assert_that(is.flag(left), is.flag(close_end))
+create_extended_breaks <- function (obj, x, extend, left, close_end) {
+  brks <- create_lr_breaks(obj = obj, left = left)
+  extend_and_close(breaks = brks, x = x, extend = extend, left = left,
+                     close_end = close_end)
+}
+
+
+create_lr_breaks <- function (obj, left) {
+  assert_that(is.flag(left))
   left_vec <- rep(left, length(obj))
 
   st <- singletons(obj)
   left_vec[which(st)]     <- TRUE
   left_vec[which(st) + 1] <- FALSE
-
-  if (left && close_end) left_vec[length(left_vec)] <- FALSE
-  if (! left && close_end) left_vec[1] <- TRUE
 
   create_breaks(obj, left_vec)
 }
@@ -62,7 +66,7 @@ BOTH <- LEFT | RIGHT
 #'
 #' @param breaks A breaks object
 #' @param x Data
-#' @param extend Flag passed into `chop`
+#' @param extend,left,close_end Parameters passed into `chop`
 #'
 #' @return Returns LEFT or RIGHT or BOTH only if `breaks` *will*/*must* be
 #' extended i.e. gain an extra break, on the respective sides.
@@ -71,16 +75,20 @@ BOTH <- LEFT | RIGHT
 #' If `extend` is `FALSE`, always returns `NEITHER`. If `breaks` is length
 #' zero, always returns `BOTH`.
 #'
+#' If extend is `NULL` then `left` and `close_end` are taken into account.
+#'
 #' To test whether `breaks` will be extended on either side, use
 #' `(needs & LEFT) > 0` or `(needs & RIGHT) > 0`.
 #'
 #' @noRd
-needs_extend <- function (breaks, x, extend) {
+needs_extend <- function (breaks, x, extend, left, close_end) {
   if (! is.null(extend) && ! extend) return(NEITHER)
   if (length(breaks) < 1L) return(BOTH)
 
   needs <- NEITHER
-  left <- attr(breaks, "left")
+  left_vec <- attr(breaks, "left")
+  if (left && close_end) left_vec[length(left_vec)] <- FALSE
+  if (! left && close_end) left_vec[1] <- TRUE
 
   res <- santoku_cast_common(x, unclass_breaks(breaks))
   x <- res[[1]]
@@ -92,10 +100,10 @@ needs_extend <- function (breaks, x, extend) {
   if (
           isTRUE(extend)      ||
           min_x < min(breaks) ||
-          (! left[1] && min_x == min(breaks))
+          (! left_vec[1] && min_x == min(breaks))
         ) {
-    # "... and if ..."
-    if (is_gt_minus_inf(breaks[1]) || ! left[1]) {
+    # "... and if ..." the first break is finite, or will be left-open
+    if (is_gt_minus_inf(breaks[1]) || ! left_vec[1]) {
       needs <- needs | LEFT
     }
   }
@@ -103,9 +111,10 @@ needs_extend <- function (breaks, x, extend) {
   if (
           isTRUE(extend)      ||
           max_x > max(breaks) ||
-          (left[length(left)] && max_x == max(breaks))
+          (left_vec[length(left_vec)] && max_x == max(breaks))
         ) {
-    if (is_lt_inf(breaks[length(breaks)]) || left[length(left)]) {
+    # "... and if ..." the last break is finite, or will be left-closed (right-open)
+    if (is_lt_inf(breaks[length(breaks)]) || left_vec[length(left_vec)]) {
       needs <- needs | RIGHT
     }
   }
@@ -114,15 +123,16 @@ needs_extend <- function (breaks, x, extend) {
 }
 
 
-#' Possibly extend `breaks` to the left or right
+#' Extend `breaks` to the left or right according to `extend` parameter,
+#' and close end according to `close_end` parameter
 #'
-#' @param breaks,x,extend All passed in from `chop()` via a `brk_` inner
-#' function
+#' @param breaks,x,extend,left,close_end All passed in from `chop()` via
+#' a `brk_` inner function
 #'
 #' @return A `breaks` object.
 #' @noRd
-maybe_extend <- function (breaks, x, extend) {
-  extend_flags <- needs_extend(breaks, x, extend)
+extend_and_close <- function (breaks, x, extend, left, close_end) {
+  extend_flags <- needs_extend(breaks, x, extend, left, close_end)
 
   if ((extend_flags & LEFT) > 0) {
     breaks <- extend_endpoint_left(breaks, x, extend)
@@ -131,6 +141,11 @@ maybe_extend <- function (breaks, x, extend) {
     breaks <- extend_endpoint_right(breaks, x, extend)
   }
 
+  left_vec <- attr(breaks, "left")
+  if (left && close_end) left_vec[length(left_vec)] <- FALSE
+  if (! left && close_end) left_vec[1] <- TRUE
+  attr(breaks, "left") <- left_vec
+
   return(breaks)
 }
 
@@ -138,7 +153,7 @@ maybe_extend <- function (breaks, x, extend) {
 extend_endpoint_left <- function (breaks, x, extend) {
   left <- attr(breaks, "left")
   q <- quiet_min(x)
-  # non-finite q could be Inf if set is empty. Not appropriate for a left endpoint!
+  # non-finite q could be Inf if x is empty. Not appropriate for a left endpoint!
   extra_break <- if (is.null(extend) && is_gt_minus_inf(q)) q else class_bounds(x)[1]
   res <- santoku_cast_common(extra_break, unclass_breaks(breaks))
   breaks <- vctrs::vec_c(res[[1]], res[[2]])

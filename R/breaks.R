@@ -26,12 +26,12 @@ brk_quantiles <- function (probs, ...) {
     qs <- qs[non_dupes]
     probs <- probs[non_dupes]
 
-    breaks <- create_lr_breaks(qs, left, close_end)
+    breaks <- create_lr_breaks(qs, left)
 
-    needs <- needs_extend(breaks, x, extend)
+    needs <- needs_extend(breaks, x, extend, left, close_end)
     if ((needs & LEFT) > 0)  probs <- c(0, probs)
     if ((needs & RIGHT) > 0) probs <- c(probs, 1)
-    breaks <- maybe_extend(breaks, x, extend)
+    breaks <- extend_and_close(breaks, x, extend, left, close_end)
 
     class(breaks) <- c("quantileBreaks", class(breaks))
     attr(breaks, "scaled_endpoints") <- probs
@@ -47,7 +47,7 @@ brk_quantiles <- function (probs, ...) {
 #' @order 2
 brk_equally <- function (groups) {
   assert_that(is.count(groups))
-  brk_quantiles(seq(0, groups)/groups)
+  brk_quantiles(seq(0L, groups)/groups)
 }
 
 
@@ -83,12 +83,12 @@ brk_mean_sd <- function (sds = 1:3, sd = deprecated()) {
     sds <- sort(sds)
     sds <- c(-rev(sds), 0, sds)
     breaks <- sds * x_sd + x_mean
-    breaks <- create_lr_breaks(breaks, left, close_end)
+    breaks <- create_lr_breaks(breaks, left)
 
-    needs <- needs_extend(breaks, x, extend)
+    needs <- needs_extend(breaks, x, extend, left, close_end)
     if ((needs & LEFT) > 0) sds <- c(-Inf, sds)
     if ((needs & RIGHT) > 0) sds <- c(sds, Inf)
-    breaks <- maybe_extend(breaks, x, extend)
+    breaks <- extend_and_close(breaks, x, extend, left, close_end)
 
     class(breaks) <- c("sdBreaks", class(breaks))
     attr(breaks, "scaled_endpoints") <- sds
@@ -112,8 +112,7 @@ brk_pretty <- function (n = 5, ...) {
       return(empty_breaks())
     }
 
-    breaks <- create_lr_breaks(breaks, left, close_end)
-    breaks <- maybe_extend(breaks, x, extend)
+    breaks <- create_extended_breaks(breaks, x, extend, left, close_end)
 
     breaks
   }
@@ -189,8 +188,7 @@ brk_width.default <- function (width, start) {
 
     if (sign(width) <= 0) breaks <- rev(breaks)
 
-    breaks <- create_lr_breaks(breaks, left, close_end)
-    breaks <- maybe_extend(breaks, x, extend)
+    breaks <- create_extended_breaks(breaks, x, extend, left, close_end)
 
     breaks
   }
@@ -209,8 +207,9 @@ brk_evenly <- function(intervals) {
     if (sign(max_x - min_x) <= 0) return(empty_breaks())
 
     breaks <- seq(min_x, max_x, length.out = intervals + 1L)
-    breaks <- create_lr_breaks(breaks, left, close_end)
-    maybe_extend(breaks, x, extend)
+    breaks <- create_extended_breaks(breaks, x, extend, left, close_end)
+
+    breaks
   }
 }
 
@@ -230,13 +229,13 @@ brk_proportions <- function(proportions) {
     if (sign(range_x) <= 0) return(empty_breaks())
 
     breaks <- min_x + range_x * proportions
-    breaks <- create_lr_breaks(breaks, left, close_end)
+    breaks <- create_lr_breaks(breaks, left)
 
     scaled_endpoints <- proportions
-    needs <- needs_extend(breaks, x, extend)
+    needs <- needs_extend(breaks, x, extend, left, close_end)
     if ((needs & LEFT) > 0) scaled_endpoints <- c(0, scaled_endpoints)
     if ((needs & RIGHT) > 0) scaled_endpoints <- c(scaled_endpoints, 1)
-    breaks <- maybe_extend(breaks, x, extend)
+    breaks <- extend_and_close(breaks, x, extend, left, close_end)
     attr(breaks, "scaled_endpoints") <- scaled_endpoints
 
     breaks
@@ -260,8 +259,7 @@ brk_n <- function (n) {
     # gets rid of the first of every "triplet", including overlapping triplets:
     illegal <- which(s1tons[-1] & s1tons[-length(s1tons)])
     if (length(illegal) > 0) breaks <- breaks[-illegal]
-    breaks <- create_lr_breaks(breaks, left, close_end)
-    breaks <- maybe_extend(breaks, x, extend)
+    breaks <- create_extended_breaks(breaks, x, extend, left, close_end)
 
     breaks
   }
@@ -288,8 +286,7 @@ brk_default <- function (breaks) {
   assert_that(noNA(breaks))
 
   function (x, extend, left, close_end) {
-    breaks <- create_lr_breaks(breaks, left, close_end)
-    maybe_extend(breaks, x, extend)
+    create_extended_breaks(breaks, x, extend, left, close_end)
   }
 }
 
@@ -341,12 +338,13 @@ brk_manual <- function (breaks, left_vec) {
           noNA(left_vec),
           length(left_vec) == length(breaks)
         )
-  breaks <- create_breaks(breaks, left_vec)
+
 
   function (x, extend, left, close_end) {
     if (! left) warning("Ignoring `left` with `brk_manual()`")
     if (close_end) warning("Ignoring `close_end` with `brk_manual()`")
-    maybe_extend(breaks, x, extend)
+    breaks <- create_breaks(breaks, left_vec)
+    breaks <- extend_and_close(breaks, x, extend, left, close_end)
   }
 }
 
@@ -381,8 +379,7 @@ brk_fn <- function (fn, ...) {
       return(empty_breaks())
     }
 
-    breaks <- create_lr_breaks(breaks, left, close_end)
-    breaks <- maybe_extend(breaks, x, extend)
+    breaks <- create_extended_breaks(breaks, x, extend, left, close_end)
 
     breaks
   }
