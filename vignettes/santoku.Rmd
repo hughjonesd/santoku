@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+options(digits = 4)
 ```
 
 
@@ -32,10 +34,12 @@ install.packages("santoku")
 
 ## Basic usage
 
-Use `chop()` like `cut()` to cut your data up:
+Use `chop()` like `cut()`, to cut numeric data into intervals between a set of
+`breaks`.
 
 ```{r}
 library(santoku)
+
 x <- runif(10, 0, 10)
 (chopped <- chop(x, breaks = 0:10))
 data.frame(x, chopped)
@@ -132,17 +136,17 @@ tab_evenly(x, 5)
 tab_mean_sd(x)
 ```
 
-You can chop dates too:
-
-```{r}
-library(lubridate)
-y2k <- as.Date("2000-01-01") + 0:365
-months <- chop_width(y2k, months(1))
-table(months)
-```
-
 
 # Advanced usage
+
+By default, santoku labels intervals using mathematical notation:
+
+* `[0, 1]` means all numbers between 0 and 1 inclusive.
+* `(0, 1)` means all numbers _stricly_ between 0 and 1, not including the
+  endpoints.
+* `[0, 1)` means all numbers between 0 and 1, including 0 but not 1.
+* `(0, 1]` means all numbers between 0 and 1, including 1 but not 0.
+* `{0}` means just the number 0.
 
 You can change factor labels with the `labels` argument:
 
@@ -221,13 +225,15 @@ data.frame(
       )
 ```
 
-If you want to close off the last interval, set `close_end = TRUE`:
+By default, the last interval is closed on both ends.
+If you want to keep the last interval open at the end, 
+set `close_end = FALSE`:
 
 ```{r}
 data.frame(
   y = y,
   rightmost_open = chop(y, 1:5),
-  rightmost_closed   = chop(y, 1:5, close_end = TRUE)
+  rightmost_closed   = chop(y, 1:5, close_end = FALSE)
 )
 
 ```

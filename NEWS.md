@@ -4,7 +4,8 @@
 
 There are important changes to `close_end`.
 
-* `close_end` is now `TRUE` by default. In previous versions:
+* `close_end` is now `TRUE` by default in `chop()` and `fillet()`. 
+  In previous versions:
 
   ```r
   chop(1:2, 1:2)
