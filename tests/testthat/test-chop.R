@@ -87,6 +87,27 @@ test_that("extend", {
 })
 
 
+test_that("close_end", {
+  res <- chop(1:4, 2:3, close_end = TRUE, drop = FALSE)
+  expect_equivalent(
+    levels(res),
+    c("[1, 2)", "[2, 3)", "[3, 4]")
+  )
+
+  res <- chop(1:4, 2:3, close_end = FALSE, extend = FALSE, drop = FALSE)
+  expect_equivalent(
+    levels(res),
+    c("[2, 3)")
+  )
+
+  res <- chop(1:4, 2:3, close_end = TRUE, extend = FALSE, drop = FALSE)
+  expect_equivalent(
+    levels(res),
+    c("[2, 3]")
+  )
+})
+
+
 test_that("raw", {
   x <- 1:10
 
