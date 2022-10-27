@@ -120,17 +120,10 @@ If \code{extend} is \code{NULL} (the default), intervals will be extended to
 necessary -- i.e. if \code{min(x) < min(breaks)} and \code{max(x) > max(breaks)}
 respectively.
 
-Extending intervals, either by \code{extend = NULL} or \code{extend = TRUE},
-\emph{always} leaves the central, non-extended intervals unchanged. In particular,
-\code{close_end} applies to the central intervals, not to the extended ones.
-For example, if \code{breaks = c(1, 3, 5)} and \code{close_end = TRUE}, the resulting
-breaks will be
-
-\code{[1, 3), [3, 5]}
-
-and if \code{extend = TRUE} the result will be
-
-\code{[-Inf, 1), [1, 3), [3, 5], (5, Inf]}
+\code{close_end} is applied after breaks are extended, i.e. always to the very last
+or very first break. This is a change from
+previous behaviour. Up to version 0.8.0, \code{close_end} was applied to the
+user-specified intervals, then \code{extend} was applied.
 }
 
 \subsection{Labels}{

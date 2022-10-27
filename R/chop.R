@@ -78,18 +78,11 @@ NULL
 #' necessary -- i.e. if `min(x) < min(breaks)` and `max(x) > max(breaks)`
 #' respectively.
 #'
-#' Extending intervals, either by `extend = NULL` or `extend = TRUE`,
-#' *always* leaves the central, non-extended intervals unchanged. In particular,
-#' `close_end` applies to the central intervals, not to the extended ones.
-#' For example, if `breaks = c(1, 3, 5)` and `close_end = TRUE`, the resulting
-#' breaks will be
-#'
-#' \code{[1, 3), [3, 5]}
-#'
-#' and if `extend = TRUE` the result will be
-#'
-#' \code{[-Inf, 1), [1, 3), [3, 5], (5, Inf]}
-#'
+#' `close_end` is applied after breaks are extended, i.e. always to the very last
+#' or very first break. This is a change from
+#' previous behaviour. Up to version 0.8.0, `close_end` was applied to the
+#' user-specified intervals, then `extend` was applied. Note that
+#' if breaks are extended, then the extended break is always closed anyway.
 #'
 #' ## Labels
 #'
@@ -178,18 +171,20 @@ chop <- function (x, breaks,
 
   if (is.null(labels)) return(codes)
 
-  if (is.function(labels)) {
-    labels <- if (is.null(raw)) labels(breaks) else labels(breaks, raw = raw)
+  lbls <- if (is.function(labels)) {
+    if (is.null(raw)) labels(breaks) else labels(breaks, raw = raw)
+  } else {
+    labels
   }
-  stopifnot(length(labels) == length(breaks) - 1)
+  stopifnot(length(lbls) == length(breaks) - 1)
 
   real_codes <- if (drop) unique(codes[! is.na(codes)]) else TRUE
-  if (anyDuplicated(labels[real_codes])) {
-    stop("Duplicate labels found: ", paste(labels, collapse = ", "))
+  if (anyDuplicated(lbls[real_codes])) {
+    stop("Duplicate labels found: ", paste(lbls, collapse = ", "))
   }
 
   result <- factor(codes, levels = seq.int(length(breaks) - 1L),
-        labels = labels)
+        labels = lbls)
   if (drop) result <- droplevels(result)
 
   return(result)
