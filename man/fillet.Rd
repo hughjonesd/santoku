@@ -9,7 +9,7 @@ fillet(
   breaks,
   labels = lbl_intervals(),
   left = TRUE,
-  close_end = FALSE,
+  close_end = TRUE,
   raw = NULL
 )
 }

@@ -57,6 +57,9 @@ NULL
 #' that all values `x` with `min(breaks) <= x <= max(breaks)` are included in
 #' the default intervals.
 #'
+#' Before version 0.9.0, `close_end` was `FALSE` by default, and also behaved
+#' differently with respect to extended breaks: see "Extending intervals" below.
+#'
 #' Using [mathematical set notation][lbl_intervals()]:
 #'
 #' * If `left` is `TRUE` and `close_end` is `TRUE`, breaks will look like
@@ -152,7 +155,7 @@ chop <- function (x, breaks,
           labels    = lbl_intervals(),
           extend    = NULL,
           left      = TRUE,
-          close_end = FALSE,
+          close_end = TRUE,
           raw       = NULL,
           drop      = TRUE
         ) {
@@ -218,7 +221,7 @@ fillet <- function (
             breaks,
             labels    = lbl_intervals(),
             left      = TRUE,
-            close_end = FALSE,
+            close_end = TRUE,
             raw       = NULL
           ) {
   chop(x, breaks, labels, left = left, close_end = close_end, extend = FALSE,

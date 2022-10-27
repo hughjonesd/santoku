@@ -12,7 +12,7 @@ chop(
   labels = lbl_intervals(),
   extend = NULL,
   left = TRUE,
-  close_end = FALSE,
+  close_end = TRUE,
   raw = NULL,
   drop = TRUE
 )
@@ -23,7 +23,7 @@ kiru(
   labels = lbl_intervals(),
   extend = NULL,
   left = TRUE,
-  close_end = FALSE,
+  close_end = TRUE,
   raw = NULL,
   drop = TRUE
 )
@@ -96,6 +96,9 @@ closed intervals are created.
 If \code{close_end} is \code{TRUE} the end break will be closed at both ends, ensuring
 that all values \code{x} with \verb{min(breaks) <= x <= max(breaks)} are included in
 the default intervals.
+
+Before version 0.9.0, \code{close_end} was \code{FALSE} by default, and also behaved
+differently with respect to extended breaks: see "Extending intervals" below.
 
 Using \link[=lbl_intervals]{mathematical set notation}:
 \itemize{

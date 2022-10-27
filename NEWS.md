@@ -2,9 +2,27 @@
 
 ## Breaking changes
 
-* There is one important breaking change to the effect of `close_end`. This
-  is now always applied after `extend`. For example, in previous versions,
-  this would happen:
+There are important changes to `close_end`.
+
+* `close_end` is now `TRUE` by default. In previous versions:
+
+  ```r
+  chop(1:2, 1:2)
+  ## [1] [1, 2) {2}   
+  ## Levels: [1, 2) {2}  
+  ```
+  
+  Whereas now:
+  
+  ```r
+  chop(1:2, 1:2)
+  ## [1] [1, 2] [1, 2]
+  ## Levels: [1, 2]
+  ```
+  
+  
+* `close_end` is now always applied after `extend`. For example, in previous
+  versions:
   
   ```r
   chop(1:4, 2:3, close_end = TRUE)
@@ -12,16 +30,19 @@
   ## Levels: [1, 2) [2, 3] (3, 4]
   ```
   
-  Whereas from version 0.9.0, this happens:
+  Whereas now:
   
   ```r
   chop(1:4, 2:3, close_end = TRUE)
   ## [1] [1, 2) [2, 3) [3, 4] [3, 4]
   ## Levels: [1, 2) [2, 3) [3, 4]
   ```
+  
+I expect this to be the last breaking change to the `chop()` interface before
+version 1.0. If it causes problems for you, please file an issue.
 
-* New `raw` parameter to `chop()`.
-  - `raw` in `lbl_*` functions is soft-deprecated.
+* There is a new `raw` parameter to `chop()`. This replaces the parameter
+  `raw` in `lbl_*` functions, which is now soft-deprecated.
 * `lbl_manual()` is deprecated. Just use a vector argument to `labels` instead.
 
 ## Other changes

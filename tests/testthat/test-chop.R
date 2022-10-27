@@ -5,12 +5,18 @@ test_that("basic functionality", {
   rbrks <- brk_manual(1:3, rep(FALSE, 3))
   rc_brks <- brk_manual(1:3, c(TRUE, TRUE, FALSE))
 
-  expect_equivalent(chop(x, lbrks, lbl_seq("1"), extend = FALSE),
-        factor(c(1, 2, NA)))
-  expect_equivalent(chop(x, rbrks, lbl_seq("1"), extend = FALSE),
-        factor(c(NA, 1, 2)))
-  expect_equivalent(chop(x, rc_brks, lbl_seq("1"), extend = FALSE),
-        factor(c(1, 2, 2)))
+  expect_equivalent(
+    chop(x, lbrks, lbl_seq("1"), extend = FALSE, close_end = FALSE),
+    factor(c(1, 2, NA))
+  )
+  expect_equivalent(
+    chop(x, rbrks, lbl_seq("1"), extend = FALSE, close_end = FALSE),
+    factor(c(NA, 1, 2))
+  )
+  expect_equivalent(
+    chop(x, rc_brks, lbl_seq("1"), extend = FALSE, close_end = FALSE),
+    factor(c(1, 2, 2))
+  )
 
 
 })
@@ -18,8 +24,10 @@ test_that("basic functionality", {
 
 test_that("NA, NaN and Inf", {
   y <- c(1:3, NA, NaN)
-  expect_equivalent(chop(y, 1:3, lbl_seq("1"), extend = FALSE),
-        factor(c(1, 2, NA, NA, NA)))
+  expect_equivalent(
+    chop(y, 1:3, lbl_seq("1"), extend = FALSE, close_end = FALSE),
+    factor(c(1, 2, NA, NA, NA))
+  )
 
   x <- c(-Inf, 1, Inf)
   r <- chop(x, 1:2, labels = letters[1:3])
@@ -27,17 +35,17 @@ test_that("NA, NaN and Inf", {
 
   x <- c(-Inf, 1, Inf)
   # if extend is NULL, we should ensure even Inf is included
-  r <- chop(x, -Inf, left = FALSE, labels = c("-Inf", "a"))
-  expect_equivalent(r, factor(c("-Inf", "a", "a"), levels = c("-Inf", "a")))
-  r <- chop(x, Inf, labels = c("a", "Inf"))
-  expect_equivalent(r, factor(c("a", "a", "Inf"), levels = c("a", "Inf")))
+  r <- chop(x, -Inf, left = FALSE, labels = c("-Inf", "a"), close_end = FALSE)
+  expect_equivalent(r, factor(c("-Inf", "a", "a")))
+  r <- chop(x, Inf, labels = c("a", "Inf"), close_end = FALSE)
+  expect_equivalent(r, factor(c("a", "a", "Inf")))
 
   # otherwise, we respect close_end = FALSE
   r <- chop(x, brk_default(c(-Inf, Inf)), labels = "a",
-        extend = FALSE, left = FALSE)
-  expect_equivalent(r, factor(c(NA, "a", "a"), levels = "a"))
-  r <- chop(x, c(-Inf, Inf), labels = "a", extend = FALSE)
-  expect_equivalent(r, factor(c("a", "a", NA), levels = "a"))
+        extend = FALSE, left = FALSE, close_end = FALSE)
+  expect_equivalent(r, factor(c(NA, "a", "a")))
+  r <- chop(x, c(-Inf, Inf), labels = "a", extend = FALSE, close_end = FALSE)
+  expect_equivalent(r, factor(c("a", "a", NA)))
 
   all_na <- rep(NA_real_, 5)
   expect_silent(chop(all_na, 1:2))
@@ -54,6 +62,7 @@ test_that("singleton breaks", {
   expect_silent(chop(1:4, 4))
   expect_silent(chop(1:4, 0))
   expect_silent(chop(1:4, 5))
+  expect_silent(chop(1, 1))
 })
 
 
@@ -173,7 +182,7 @@ test_that("chop_width", {
   )
   expect_equivalent(
     chop_width(x, 2, 0, labels = lbl_seq("1")),
-    factor(c(1, rep(2:4, each = 2), 5, 5, 6))
+    factor(c(1, rep(2:4, each = 2), 5, 5, 5))
   )
 })
 
@@ -210,9 +219,11 @@ test_that("chop_quantiles", {
           as.factor(c(1, 1, 2, 3, 4, 4))
         )
 
+  withr::local_options(lifecycle_verbosity = "quiet")
   expect_equivalent(
     chop_quantiles(x, c(.25, .5, .75), raw = TRUE),
-    chop_quantiles(x, c(.25, .5, .75), labels = lbl_intervals(raw = TRUE), raw = NULL)
+    chop_quantiles(x, c(.25, .5, .75), labels = lbl_intervals(raw = TRUE),
+                     raw = NULL)
   )
 })
 
@@ -224,6 +235,7 @@ test_that("chop_equally", {
     as.factor(rep(1:2, each = 3))
   )
 
+  withr::local_options(lifecycle_verbosity = "quiet")
   expect_equivalent(
     chop_equally(x, 2, labels = lbl_intervals(raw = FALSE), raw = NULL),
     chop_equally(x, 2, raw = FALSE)
@@ -264,13 +276,14 @@ test_that("chop_mean_sd", {
   expect_silent(res2 <- chop_mean_sd(x, sds = 1:2))
   expect_silent(chop_mean_sd(x, sds = c(1, 1.96)))
 
+  lifecycle::expect_deprecated(res3 <- chop_mean_sd(x, sd = 2))
+  expect_equivalent(res2, res3)
+
+  withr::local_options(lifecycle_verbosity = "quiet")
   expect_equivalent(
     chop_mean_sd(x, raw = TRUE),
     chop_mean_sd(x, labels = lbl_intervals(raw = TRUE), raw = NULL),
   )
-
-  lifecycle::expect_deprecated(res3 <- chop_mean_sd(x, sd = 2))
-  expect_equivalent(res2, res3)
 })
 
 
