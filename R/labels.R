@@ -583,3 +583,22 @@ lbl_manual <- function (sequence, fmt = "%s") {
     apply_format(fmt, ls[seq(1L, length(breaks) - 1)])
   }
 }
+
+
+lbl_by_names <- function(break_vec) {
+  is_named <- nzchar(names(break_vec))
+  break_vec <- break_vec[is_named]
+
+  function (breaks, raw = NULL) {
+    # default labels
+    labels <- lbl_intervals()(breaks, raw = FALSE)
+
+    break_leftpoints <- unclass_breaks(breaks)[-length(breaks)]
+    matched_breaks <- match(break_leftpoints, break_vec)
+    has_match <- ! is.na(matched_breaks)
+    matched_breaks <- matched_breaks[has_match]
+    labels[has_match] <- names(break_vec)[matched_breaks]
+
+    return(labels)
+  }
+}

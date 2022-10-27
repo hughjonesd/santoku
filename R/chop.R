@@ -91,13 +91,13 @@ NULL
 #' ## Labels
 #'
 #' `labels` may be a character vector. It should have the same length as the
-#' number of intervals. Alternatively, use a `lbl_*` function such as
-#' [lbl_seq()].
+#' (possibly extended) number of intervals. Alternatively, `labels` may be a
+#' `lbl_*` function such as [lbl_seq()].
 #'
 #' If `breaks` is a named vector, and no `labels` argument is explicitly
-#' given, then non-zero-length names of `breaks` will be used as labels.
-#' You can omit the name of the last element. Be careful if elements of `x`
-#' may be below the first break.
+#' given, then non-zero-length names of `breaks` will be used as labels for
+#' the interval starting at the corresponding element. Other intervals will
+#' be labelled using [lbl_intervals()].
 #'
 #' If `labels` is `NULL`, then integer codes will be returned instead of a
 #' factor.
@@ -156,10 +156,6 @@ NULL
 #'
 #' chop(1:10, c(Low = 1, Mid = 3, High = 8, 10))
 #'
-#' # Take care when using named breaks:
-#' chop(1:6, c(One_plus = 1, Two_plus = 2, Three_plus = 3, Five_plus = 5))
-#' chop(0:4, c(One_plus = 1, Two_plus = 2, Three_plus = 3, Five_plus = 5))
-#'
 #' # floating point inaccuracy:
 #' chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
 #'
@@ -178,7 +174,10 @@ chop <- function (x, breaks,
           is.flag(drop),
           is.flag(raw) || is.null(raw)
         )
+
+  break_vec <- breaks
   break_names <- names(breaks)
+
   if (! is.function(breaks)) breaks <- brk_default(breaks)
   breaks <- breaks(x, extend, left, close_end)
   assert_that(is.breaks(breaks), length(breaks) >= 2L)
@@ -187,9 +186,10 @@ chop <- function (x, breaks,
 
   if (is.null(labels)) return(codes)
 
-  lbls <- if (! is.null(break_names) && missing(labels)) {
-    break_names[nzchar(break_names)]
-  } else if (is.function(labels)) {
+  if (! is.null(break_names) && missing(labels)) {
+    labels <- lbl_by_names(break_vec)
+  }
+  lbls <- if (is.function(labels)) {
     if (is.null(raw)) labels(breaks) else labels(breaks, raw = raw)
   } else {
     labels

@@ -100,6 +100,10 @@ test_that("break names as labels", {
     chop(1:4, c(Low = 1, High = 3, 4), labels = lbl_endpoints()),
     factor(c("1", "1", "3", "3"))
   )
+  expect_equivalent(
+    chop(1:5, c(Low = 1, 3, High = 4)),
+    factor(c("Low", "Low", "[3, 4)", "High", "High"))
+  )
 })
 
 

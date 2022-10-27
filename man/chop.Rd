@@ -186,10 +186,6 @@ chop(1:10, c(2, 5, 8), labels = lbl_dash())
 
 chop(1:10, c(Low = 1, Mid = 3, High = 8, 10))
 
-# Take care when using named breaks:
-chop(1:6, c(One_plus = 1, Two_plus = 2, Three_plus = 3, Five_plus = 5))
-chop(0:4, c(One_plus = 1, Two_plus = 2, Three_plus = 3, Five_plus = 5))
-
 # floating point inaccuracy:
 chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
 

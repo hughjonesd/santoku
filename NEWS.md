@@ -42,10 +42,10 @@ There are important changes to `close_end`.
 We changed this behaviour to be more in line with user expectations. 
 
 * If `breaks` is a named vector, and no explicit `labels` argument is given,
-  the names will be used as labels:
+  names will be used as labels:
   
   ```r
-  chop(1:5, c(Low = 1, Mid = 2, High = 4, 5))
+  chop(1:5, c(Low = 1, Mid = 2, High = 4))
   ## [1] Low  Mid  Mid  High High
   ## Levels: Low Mid High  
   ```
@@ -55,8 +55,9 @@ We changed this behaviour to be more in line with user expectations.
   
 * `lbl_manual()` is deprecated. Just use a vector argument to `labels` instead.
 
-I expect these to be the last important breaking changes before
-we release version 1.0 and mark the package as "stable". If they cause problems for you, please file an issue.
+I expect these to be the last important breaking changes before we release 
+version 1.0 and mark the package as "stable". If they cause problems for you,
+please file an issue.
 
 
 ## Other changes
