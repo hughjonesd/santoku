@@ -34,7 +34,7 @@ tab(
   labels = lbl_intervals(),
   extend = NULL,
   left = TRUE,
-  close_end = FALSE,
+  close_end = TRUE,
   raw = NULL,
   drop = TRUE
 )

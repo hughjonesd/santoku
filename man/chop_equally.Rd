@@ -18,7 +18,7 @@ chop_equally(
 
 brk_equally(groups)
 
-tab_equally(x, groups, ..., left = is.numeric(x), close_end = TRUE, raw = TRUE)
+tab_equally(x, groups, ..., left = is.numeric(x), raw = TRUE)
 }
 \arguments{
 \item{x}{A vector.}

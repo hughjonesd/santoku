@@ -21,14 +21,7 @@ chop_deciles(x, ...)
 
 brk_quantiles(probs, ...)
 
-tab_quantiles(
-  x,
-  probs,
-  ...,
-  left = is.numeric(x),
-  close_end = TRUE,
-  raw = FALSE
-)
+tab_quantiles(x, probs, ..., left = is.numeric(x), raw = FALSE)
 
 tab_deciles(x, ...)
 }
