@@ -267,15 +267,13 @@ demo_chop(brk_quantiles(1:4/5))
 
 Chops intervals with a *fixed* number of elements
 
-* The last group may have fewer elements
-
 ```{r, echo = TRUE, eval = FALSE}
-chop_n(x, 100)
+chop_n(x, 50)
 ```
 
 ```{r}
 # close_end avoids a singleton interval at the end
-demo_chop(brk_n(100), close_end = TRUE)
+demo_chop(brk_n(50), close_end = TRUE)
 ```
 
 
