@@ -83,6 +83,26 @@ test_that("labels", {
 })
 
 
+test_that("break names as labels", {
+  expect_equivalent(
+    chop(1:4, c(Low = 1, High = 3, 4)),
+    factor(c("Low", "Low", "High", "High"))
+  )
+  expect_equivalent(
+    chop(1:5, c(Low = 1, Mid = 3, High = 4)),
+    factor(c("Low", "Low", "Mid", "High", "High"))
+  )
+  expect_equivalent(
+    chop(1:4, c(Low = 1, High = 3, 4), labels = letters[1:2]),
+    factor(c("a", "a", "b", "b"))
+  )
+  expect_equivalent(
+    chop(1:4, c(Low = 1, High = 3, 4), labels = lbl_endpoints()),
+    factor(c("1", "1", "3", "3"))
+  )
+})
+
+
 test_that("extend", {
   x <- c(1, 4)
   expect_equivalent(

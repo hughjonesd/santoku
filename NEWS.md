@@ -38,13 +38,26 @@ There are important changes to `close_end`.
   ## [1] [1, 2) [2, 3) [3, 4] [3, 4]
   ## Levels: [1, 2) [2, 3) [3, 4]
   ```
+
+We changed this behaviour to be more in line with user expectations. 
+
+* If `breaks` is a named vector, and no explicit `labels` argument is given,
+  the names will be used as labels:
   
-I expect this to be the last breaking change to the `chop()` interface before
-version 1.0. If it causes problems for you, please file an issue.
+  ```r
+  chop(1:5, c(Low = 1, Mid = 2, High = 4, 5))
+  ## [1] Low  Mid  Mid  High High
+  ## Levels: Low Mid High  
+  ```
 
 * There is a new `raw` parameter to `chop()`. This replaces the parameter
   `raw` in `lbl_*` functions, which is now soft-deprecated.
+  
 * `lbl_manual()` is deprecated. Just use a vector argument to `labels` instead.
+
+I expect these to be the last important breaking changes before
+we release version 1.0 and mark the package as "stable". If they cause problems for you, please file an issue.
+
 
 ## Other changes
 * New `brk_fn()` breaks wrap an arbitrary function.

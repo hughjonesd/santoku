@@ -136,6 +136,11 @@ if breaks are extended, then the extended break is always closed anyway.
 number of intervals. Alternatively, use a \verb{lbl_*} function such as
 \code{\link[=lbl_seq]{lbl_seq()}}.
 
+If \code{breaks} is a named vector, and no \code{labels} argument is explicitly
+given, then non-zero-length names of \code{breaks} will be used as labels.
+You can omit the name of the last element. Be careful if elements of \code{x}
+may be below the first break.
+
 If \code{labels} is \code{NULL}, then integer codes will be returned instead of a
 factor.
 
@@ -178,6 +183,12 @@ chop(1:10, c(2, 5, 8), close_end = TRUE)
 chop(1:10, brk_quantiles(c(0.25, 0.75)))
 
 chop(1:10, c(2, 5, 8), labels = lbl_dash())
+
+chop(1:10, c(Low = 1, Mid = 3, High = 8, 10))
+
+# Take care when using named breaks:
+chop(1:6, c(One_plus = 1, Two_plus = 2, Three_plus = 3, Five_plus = 5))
+chop(0:4, c(One_plus = 1, Two_plus = 2, Three_plus = 3, Five_plus = 5))
 
 # floating point inaccuracy:
 chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
