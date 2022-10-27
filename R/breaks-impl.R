@@ -152,8 +152,8 @@ needs_extend <- function (breaks, x, extend, left, close_end) {
 
 #' Close end of breaks if close_end is TRUE
 #'
-#' If `breaks` has length 1, i.e. it's an incomplete breaks object,
-#' this will create a singleton
+#' This never adds a break, it just changes the breaks' `left` attribute.
+#' It leaves everything unchanged if `close_end` is `FALSE`.
 #'
 #' @param breaks,left,close_end Passed in from a `brk_` function
 #'
@@ -174,6 +174,18 @@ maybe_close_end <- function (breaks, left, close_end) {
 }
 
 
+#' Extend the left endpoint of a breaks object according to user parameters
+#'
+#' This always adds a new break, which is `-Inf` if `extend` is `TRUE`
+#' and equal to the minimum of `x` if `extend` is `NULL`.
+#'
+#' It fixes the `left` attribute if a new singleton break is going to be
+#' created.
+#'
+#' @param breaks,x,extend Passed in from a `brk_` inner function
+#'
+#' @return A new breaks object
+#' @noRd
 extend_endpoint_left <- function (breaks, x, extend) {
   left <- attr(breaks, "left")
   q <- quiet_min(x)
@@ -192,6 +204,18 @@ extend_endpoint_left <- function (breaks, x, extend) {
 }
 
 
+#' Extend the right endpoint of a breaks object according to user parameters
+#'
+#' This always adds a new break, which is `Inf` if `extend` is `TRUE`
+#' and equal to the maximum of `x` if `extend` is `NULL`.
+#'
+#' It fixes the `left` attribute if a new singleton break is going to be
+#' created.
+#'
+#' @param breaks,x,extend Passed in from a `brk_` inner function
+#'
+#' @return A new breaks object
+#' @noRd
 extend_endpoint_right <- function (breaks, x, extend) {
   left <- attr(breaks, "left")
   q <- quiet_max(x)

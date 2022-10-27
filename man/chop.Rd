@@ -123,7 +123,8 @@ respectively.
 \code{close_end} is applied after breaks are extended, i.e. always to the very last
 or very first break. This is a change from
 previous behaviour. Up to version 0.8.0, \code{close_end} was applied to the
-user-specified intervals, then \code{extend} was applied.
+user-specified intervals, then \code{extend} was applied. Note that
+if breaks are extended, then the extended break is always closed anyway.
 }
 
 \subsection{Labels}{
