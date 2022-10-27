@@ -56,6 +56,31 @@ empty_breaks <- function () {
 }
 
 
+#' Extend `breaks` to the left or right according to `extend` parameter,
+#' and close end according to `close_end` parameter
+#'
+#' @param breaks,x,extend,left,close_end All passed in from `chop()` via
+#' a `brk_` inner function
+#'
+#' @return A `breaks` object.
+#' @noRd
+extend_and_close <- function (breaks, x, extend, left, close_end) {
+  extend_flags <- needs_extend(breaks, x, extend, left, close_end)
+
+  if ((extend_flags & LEFT) > 0) {
+    breaks <- extend_endpoint_left(breaks, x, extend)
+  }
+  if ((extend_flags & RIGHT) > 0) {
+    breaks <- extend_endpoint_right(breaks, x, extend)
+  }
+
+  breaks <- maybe_close_end(breaks, left = left, close_end = close_end)
+
+  return(breaks)
+}
+
+
+
 NEITHER <- as.raw(0)
 LEFT    <- as.raw(1)
 RIGHT   <- as.raw(2)
@@ -86,9 +111,11 @@ needs_extend <- function (breaks, x, extend, left, close_end) {
   if (length(breaks) < 1L) return(BOTH)
 
   needs <- NEITHER
+
+  # temporarily close the breaks, to see if unextended closed breaks need
+  # extension
+  breaks <- maybe_close_end(breaks, left = left, close_end = close_end)
   left_vec <- attr(breaks, "left")
-  if (left && close_end) left_vec[length(left_vec)] <- FALSE
-  if (! left && close_end) left_vec[1] <- TRUE
 
   res <- santoku_cast_common(x, unclass_breaks(breaks))
   x <- res[[1]]
@@ -123,27 +150,24 @@ needs_extend <- function (breaks, x, extend, left, close_end) {
 }
 
 
-#' Extend `breaks` to the left or right according to `extend` parameter,
-#' and close end according to `close_end` parameter
+#' Close end of breaks if close_end is TRUE
 #'
-#' @param breaks,x,extend,left,close_end All passed in from `chop()` via
-#' a `brk_` inner function
+#' If `breaks` has length 1, i.e. it's an incomplete breaks object,
+#' this will create a singleton
 #'
-#' @return A `breaks` object.
+#' @param breaks,left,close_end Passed in from a `brk_` function
+#'
+#' @return New breaks object, with the end perhaps closed
 #' @noRd
-extend_and_close <- function (breaks, x, extend, left, close_end) {
-  extend_flags <- needs_extend(breaks, x, extend, left, close_end)
-
-  if ((extend_flags & LEFT) > 0) {
-    breaks <- extend_endpoint_left(breaks, x, extend)
-  }
-  if ((extend_flags & RIGHT) > 0) {
-    breaks <- extend_endpoint_right(breaks, x, extend)
-  }
+maybe_close_end <- function (breaks, left, close_end) {
+  if (! close_end) return(breaks)
 
   left_vec <- attr(breaks, "left")
-  if (left && close_end) left_vec[length(left_vec)] <- FALSE
-  if (! left && close_end) left_vec[1] <- TRUE
+  if (left) {
+    left_vec[length(left_vec)] <- FALSE
+  } else {
+    left_vec[1] <- TRUE
+  }
   attr(breaks, "left") <- left_vec
 
   return(breaks)
@@ -157,6 +181,11 @@ extend_endpoint_left <- function (breaks, x, extend) {
   extra_break <- if (is.null(extend) && is_gt_minus_inf(q)) q else class_bounds(x)[1]
   res <- santoku_cast_common(extra_break, unclass_breaks(breaks))
   breaks <- vctrs::vec_c(res[[1]], res[[2]])
+  # Ensure that a new "singleton" break has the right TRUE,FALSE left-closed
+  # pattern
+  if (length(breaks) > 1 && breaks[1] == breaks[2]) {
+    left[1] <- FALSE
+  }
   breaks <- create_breaks(breaks, c(TRUE, left))
 
   breaks
@@ -170,6 +199,12 @@ extend_endpoint_right <- function (breaks, x, extend) {
   # necessary because min() and max() may unclass things
   res <- santoku_cast_common(unclass_breaks(breaks), extra_break)
   breaks <- vctrs::vec_c(res[[1]], res[[2]])
+  lb <- length(breaks)
+  # Ensure that a new "singleton" break has the right TRUE,FALSE left-closed
+  # pattern
+  if (lb > 1 && breaks[lb] == breaks[lb - 1]) {
+    left[length(left)] <- TRUE
+  }
   breaks <- create_breaks(breaks, c(left, FALSE))
 
   breaks
