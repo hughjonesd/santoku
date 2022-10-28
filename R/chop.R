@@ -241,10 +241,6 @@ fillet <- function (
 #' @inherit chop-doc params return
 #'
 #' @details
-#' Note that these functions set `close_end = TRUE` by default.
-#' This helps ensure that e.g. `chop_quantiles(x, c(0, 1/3, 2/3, 1)`
-#' will split the data into three equal-sized groups.
-#'
 #' For non-numeric `x`, `left` is set to `FALSE` by default. This works better
 #' for calculating "type 1" quantiles, since they round down. See
 #' [stats::quantile()].
@@ -269,11 +265,9 @@ chop_quantiles <- function(
                     probs,
                     ...,
                     left      = is.numeric(x),
-                    close_end = TRUE,
                     raw       = FALSE
                   ) {
-  chop(x, brk_quantiles(probs), ..., left = left, close_end = close_end,
-         raw = raw)
+  chop(x, brk_quantiles(probs), ..., left = left, raw = raw)
 }
 
 

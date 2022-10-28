@@ -8,14 +8,7 @@
 \alias{tab_deciles}
 \title{Chop by quantiles}
 \usage{
-chop_quantiles(
-  x,
-  probs,
-  ...,
-  left = is.numeric(x),
-  close_end = TRUE,
-  raw = FALSE
-)
+chop_quantiles(x, probs, ..., left = is.numeric(x), raw = FALSE)
 
 chop_deciles(x, ...)
 
@@ -35,9 +28,6 @@ tab_deciles(x, ...)
 
 \item{left}{Logical. Left-closed breaks?}
 
-\item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
-close first break at left?)}
-
 \item{raw}{Logical. Use raw values in labels?}
 }
 \value{
@@ -52,10 +42,6 @@ close first break at left?)}
 \code{chop_deciles()} is a convenience shortcut and chops into deciles.
 }
 \details{
-Note that these functions set \code{close_end = TRUE} by default.
-This helps ensure that e.g. \verb{chop_quantiles(x, c(0, 1/3, 2/3, 1)}
-will split the data into three equal-sized groups.
-
 For non-numeric \code{x}, \code{left} is set to \code{FALSE} by default. This works better
 for calculating "type 1" quantiles, since they round down. See
 \code{\link[stats:quantile]{stats::quantile()}}.

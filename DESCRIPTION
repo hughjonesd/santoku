@@ -21,7 +21,7 @@ Description: A tool for cutting data into intervals. Allows singleton intervals.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 Suggests: 
     bench,
     bit64,
