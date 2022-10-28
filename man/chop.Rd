@@ -81,7 +81,7 @@ are supported with a warning.
 
 If it is a vector, \code{breaks} gives the break endpoints. Repeated values create
 singleton intervals. For example \code{breaks = c(1, 3, 3, 5)} creates 3
-intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5)}.
+intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
 
 If \code{breaks} is a function, it is called with the \code{x}, \code{extend}, \code{left} and
 \code{close_end} arguments, and should return an object of class \code{breaks}.
@@ -90,8 +90,8 @@ Use \verb{brk_*} functions to create a variety of data-dependent breaks.
 
 \subsection{Options for breaks}{
 
-By default, left-closed intervals are created. If \code{left} is \code{FALSE}, right-
-closed intervals are created.
+By default, left-closed intervals are created. If \code{left} is \code{FALSE},
+right-closed intervals are created.
 
 If \code{close_end} is \code{TRUE} the end break will be closed at both ends, ensuring
 that all values \code{x} with \verb{min(breaks) <= x <= max(breaks)} are included in
@@ -163,23 +163,25 @@ below.
 }
 }
 \examples{
-chop(1:3, 2)
 
-chop(1:10, c(2, 5, 8))
+chop(1:7, c(2, 4, 6))
 
-chop(1:10, c(2, 5, 8), extend = FALSE)
+chop(1:7, c(2, 4, 6), extend = FALSE)
 
-chop(1:10, c(2, 5, 5, 8))
+chop(1:7, c(2, 4, 4, 6))
 
-chop(1:10, c(2, 5, 8), left = FALSE)
+chop(1:7, c(2, 4, 6), left = FALSE)
 
-chop(1:10, c(2, 5, 8), close_end = TRUE)
+chop(1:7, c(2, 4, 6), close_end = FALSE)
 
-chop(1:10, brk_quantiles(c(0.25, 0.75)))
+chop(1:7, brk_quantiles(c(0.25, 0.75)))
 
-chop(1:10, c(2, 5, 8), labels = lbl_dash())
+chop(1:7, c(2, 4, 6), labels = lbl_dash())
 
-# floating point inaccuracy:
+# A single break is fine if `extend` is not `FALSE`:
+chop(1:7, 4)
+
+# Floating point inaccuracy:
 chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
 
 tab(1:10, c(2, 5, 8))
