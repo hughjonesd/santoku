@@ -66,10 +66,10 @@ chop(1:10, brk_quantiles(1:3/4))
 chop_deciles(1:10)
 
 # to label by the quantiles themselves:
-chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
+chop_quantiles(1:10, 1:3/4, raw = TRUE)
 
 set.seed(42)
-tab_quantiles(rnorm(100), probs = 1:3/4, label = lbl_intervals(raw = TRUE))
+tab_quantiles(rnorm(100), probs = 1:3/4, raw = TRUE)
 
 }
 \seealso{

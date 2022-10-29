@@ -285,7 +285,7 @@ fillet <- function (
 #' chop_deciles(1:10)
 #'
 #' # to label by the quantiles themselves:
-#' chop_quantiles(1:10, 1:3/4, lbl_intervals(raw = TRUE))
+#' chop_quantiles(1:10, 1:3/4, raw = TRUE)
 #'
 chop_quantiles <- function(
                     x,

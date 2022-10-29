@@ -589,13 +589,14 @@ lbl_by_names <- function (break_vec) {
   is_named <- nzchar(names(break_vec))
   break_vec <- break_vec[is_named]
 
-  function (breaks, raw = NULL) {
+  function (breaks, raw = FALSE) {
     # default labels
-    labels <- lbl_intervals()(breaks, raw = FALSE)
+    labels <- lbl_intervals()(breaks, raw = raw)
 
     break_leftpoints <- attr(breaks, "scaled_endpoints") %||% unclass_breaks(breaks)
     break_leftpoints <- break_leftpoints[-length(break_leftpoints)]
 
+    # replace labels where break_leftpoints is in break_vec
     matched_breaks <- match(break_leftpoints, break_vec)
     has_match <- ! is.na(matched_breaks)
     matched_breaks <- matched_breaks[has_match]

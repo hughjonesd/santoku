@@ -61,6 +61,7 @@ I expect these to be the last important breaking changes before we release
 version 1.0 and mark the package as "stable". If they cause problems for you,
 please file an issue.
 
+* A `labels` argument to `chop_quantiles()` now needs to be explicitly named.
 
 ## Other changes
 * New `brk_fn()` breaks wrap an arbitrary function.
