@@ -190,8 +190,9 @@ chop <- function (x, breaks,
           is.flag(raw) || is.null(raw)
         )
 
-  break_vec <- breaks
-  break_names <- names(breaks)
+  if (! is.null(names(breaks)) && missing(labels)) {
+    labels <- lbl_by_names(breaks)
+  }
 
   if (! is.function(breaks)) breaks <- brk_default(breaks)
   breaks <- breaks(x, extend, left, close_end)
@@ -201,9 +202,6 @@ chop <- function (x, breaks,
 
   if (is.null(labels)) return(codes)
 
-  if (! is.null(break_names) && missing(labels)) {
-    labels <- lbl_by_names(break_vec)
-  }
   lbls <- if (is.function(labels)) {
     if (is.null(raw)) labels(breaks) else labels(breaks, raw = raw)
   } else {
