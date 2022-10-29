@@ -159,6 +159,13 @@ You need as many labels as there are intervals - one fewer than `length(breaks)`
 if your data doesn't extend beyond `breaks`, one more than `length(breaks)` if
 it does.
 
+Or, provide labels as names to the `breaks` argument:
+
+```{r}
+chopped <- chop(x, c(Lowest = 1, Low = 2, Higher = 5, Highest = 8))
+data.frame(x, chopped)
+```
+
 To label intervals with a dash, use `lbl_dash()`:
 
 ```{r}

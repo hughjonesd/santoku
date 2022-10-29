@@ -48,6 +48,7 @@ NULL
 #' `close_end` arguments, and should return an object of class `breaks`.
 #' Use `brk_*` functions to create a variety of data-dependent breaks.
 #'
+#' Names of `breaks` may be used for labels. See "Labels" below.
 #'
 #' ## Options for breaks
 #'
@@ -97,7 +98,8 @@ NULL
 #' If `breaks` is a named vector, and no `labels` argument is explicitly
 #' given, then non-zero-length names of `breaks` will be used as labels for
 #' the interval starting at the corresponding element. Other intervals will
-#' be labelled using [lbl_intervals()].
+#' be labelled using [lbl_intervals()]. This feature is
+#' `r lifecycle::badge("experimental")`.
 #'
 #' If `labels` is `NULL`, then integer codes will be returned instead of a
 #' factor.

@@ -86,6 +86,8 @@ intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
 If \code{breaks} is a function, it is called with the \code{x}, \code{extend}, \code{left} and
 \code{close_end} arguments, and should return an object of class \code{breaks}.
 Use \verb{brk_*} functions to create a variety of data-dependent breaks.
+
+Names of \code{breaks} may be used for labels. See "Labels" below.
 }
 
 \subsection{Options for breaks}{
@@ -139,7 +141,8 @@ if breaks are extended, then the extended break is always closed anyway.
 If \code{breaks} is a named vector, and no \code{labels} argument is explicitly
 given, then non-zero-length names of \code{breaks} will be used as labels for
 the interval starting at the corresponding element. Other intervals will
-be labelled using \code{\link[=lbl_intervals]{lbl_intervals()}}.
+be labelled using \code{\link[=lbl_intervals]{lbl_intervals()}}. This feature is
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}.
 
 If \code{labels} is \code{NULL}, then integer codes will be returned instead of a
 factor.
