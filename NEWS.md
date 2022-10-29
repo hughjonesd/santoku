@@ -49,6 +49,8 @@ We changed this behaviour to be more in line with user expectations.
   ## [1] Low  Mid  Mid  High High
   ## Levels: Low Mid High  
   ```
+  Names can also be used for labels in `probs` in `chop_quantiles()` and
+  `proportions` in `chop_proportions()`.
 
 * There is a new `raw` parameter to `chop()`. This replaces the parameter
   `raw` in `lbl_*` functions, which is now soft-deprecated.

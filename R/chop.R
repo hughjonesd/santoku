@@ -175,7 +175,7 @@ NULL
 #' chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
 #'
 chop <- function (x, breaks,
-          labels    = lbl_intervals(),
+          labels    = default_labels(breaks),
           extend    = NULL,
           left      = TRUE,
           close_end = TRUE,
@@ -189,10 +189,6 @@ chop <- function (x, breaks,
           is.flag(drop),
           is.flag(raw) || is.null(raw)
         )
-
-  if (! is.null(names(breaks)) && missing(labels)) {
-    labels <- lbl_by_names(breaks)
-  }
 
   if (! is.function(breaks)) breaks <- brk_default(breaks)
   breaks <- breaks(x, extend, left, close_end)
@@ -262,7 +258,8 @@ fillet <- function (
 #' `chop_quantiles()` chops data by quantiles.
 #' `chop_deciles()` is a convenience shortcut and chops into deciles.
 #'
-#' @param probs A vector of probabilities for the quantiles.
+#' @param probs A vector of probabilities for the quantiles. If `probs` has names,
+#'   these will be used for labels.
 #' @param ... Passed to [chop()], or for `brk_quantiles()` to
 #'   [stats::quantile()].
 #' @inheritParams chop
@@ -281,6 +278,8 @@ fillet <- function (
 #' @examples
 #' chop_quantiles(1:10, 1:3/4)
 #'
+#' chop_quantiles(1:10, c(Q1 = 0, Q2 = 0.25, Q3 = 0.5, Q4 = 0.75))
+#'
 #' chop(1:10, brk_quantiles(1:3/4))
 #'
 #' chop_deciles(1:10)
@@ -292,10 +291,11 @@ chop_quantiles <- function(
                     x,
                     probs,
                     ...,
+                    labels    = default_labels(probs),
                     left      = is.numeric(x),
                     raw       = FALSE
                   ) {
-  chop(x, brk_quantiles(probs), ..., left = left, raw = raw)
+  chop(x, brk_quantiles(probs), ..., labels = labels, left = left, raw = raw)
 }
 
 
@@ -441,7 +441,7 @@ chop_width <- function (
                 ...,
                 left = sign(width) > 0
               ) {
-  chop(x, brk_width(width, start), left = left, ...)
+  chop(x, brk_width(width, start), ..., left = left)
 }
 
 
@@ -480,7 +480,8 @@ chop_evenly <- function (
 #' By default, labels show the raw numeric endpoints. To label intervals by
 #' the proportions, use `raw = FALSE`.
 #'
-#' @param proportions Numeric vector between 0 and 1: proportions of x's range
+#' @param proportions Numeric vector between 0 and 1: proportions of x's range.
+#'   If `proportions` has names, these will be used for labels.
 #' @inheritParams chop
 #' @inherit chop-doc params return
 #'
@@ -490,15 +491,16 @@ chop_evenly <- function (
 #' @order 1
 #' @examples
 #' chop_proportions(0:10, c(0.2, 0.8))
+#' chop_proportions(0:10, c(Low = 0, Mid = 0.2, High = 0.8))
 #'
 chop_proportions <- function (
                       x,
                       proportions,
                       ...,
-                      labels = lbl_intervals(),
+                      labels = default_labels(proportions),
                       raw    = TRUE
                     ) {
-  chop(x, brk_proportions(proportions), labels = labels, ..., raw = raw)
+  chop(x, brk_proportions(proportions), ..., labels = labels, raw = raw)
 }
 
 #' Chop into fixed-sized groups

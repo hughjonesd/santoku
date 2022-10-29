@@ -585,7 +585,7 @@ lbl_manual <- function (sequence, fmt = "%s") {
 }
 
 
-lbl_by_names <- function(break_vec) {
+lbl_by_names <- function (break_vec) {
   is_named <- nzchar(names(break_vec))
   break_vec <- break_vec[is_named]
 
@@ -593,12 +593,23 @@ lbl_by_names <- function(break_vec) {
     # default labels
     labels <- lbl_intervals()(breaks, raw = FALSE)
 
-    break_leftpoints <- unclass_breaks(breaks)[-length(breaks)]
+    break_leftpoints <- attr(breaks, "scaled_endpoints") %||% unclass_breaks(breaks)
+    break_leftpoints <- break_leftpoints[-length(break_leftpoints)]
+
     matched_breaks <- match(break_leftpoints, break_vec)
     has_match <- ! is.na(matched_breaks)
     matched_breaks <- matched_breaks[has_match]
     labels[has_match] <- names(break_vec)[matched_breaks]
 
     return(labels)
+  }
+}
+
+
+default_labels <- function (breaks) {
+  if (! is.null(names(breaks))) {
+    lbl_by_names(breaks)
+  } else {
+    lbl_intervals()
   }
 }

@@ -9,7 +9,7 @@
 chop(
   x,
   breaks,
-  labels = lbl_intervals(),
+  labels = default_labels(breaks),
   extend = NULL,
   left = TRUE,
   close_end = TRUE,
@@ -20,7 +20,7 @@ chop(
 kiru(
   x,
   breaks,
-  labels = lbl_intervals(),
+  labels = default_labels(breaks),
   extend = NULL,
   left = TRUE,
   close_end = TRUE,
@@ -31,7 +31,7 @@ kiru(
 tab(
   x,
   breaks,
-  labels = lbl_intervals(),
+  labels = default_labels(breaks),
   extend = NULL,
   left = TRUE,
   close_end = TRUE,

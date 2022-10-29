@@ -8,7 +8,7 @@
 tab <- function (
          x,
          breaks,
-         labels    = lbl_intervals(),
+         labels    = default_labels(breaks),
          extend    = NULL,
          left      = TRUE,
          close_end = TRUE,
