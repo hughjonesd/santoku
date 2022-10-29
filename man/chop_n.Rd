@@ -10,7 +10,7 @@ chop_n(x, n, ..., close_end = TRUE)
 
 brk_n(n)
 
-tab_n(x, n, ..., close_end = TRUE)
+tab_n(x, n, ...)
 }
 \arguments{
 \item{x}{A vector.}

@@ -11,7 +11,7 @@ tab <- function (
          labels    = lbl_intervals(),
          extend    = NULL,
          left      = TRUE,
-         close_end = FALSE,
+         close_end = TRUE,
          raw       = NULL,
          drop      = TRUE
        ) {
@@ -44,13 +44,7 @@ tab_width <- function (
                left = sign(width) > 0
              ) {
   default_table(
-    chop_width(
-      x     = x,
-      width = width,
-      start = start,
-      ...,
-      left  = left
-    )
+    chop_width(x = x, width = width, start = start, ..., left = left)
   )
 }
 
@@ -61,11 +55,10 @@ tab_width <- function (
 tab_evenly <- function (
                 x,
                 intervals,
-                ...,
-                close_end = TRUE
+                ...
               ) {
   default_table(
-    chop_evenly(x = x, intervals = intervals, ..., close_end = close_end)
+    chop_evenly(x = x, intervals = intervals, ...)
   )
 }
 
@@ -97,10 +90,9 @@ tab_proportions <- function (
 tab_n <- function (
            x,
            n,
-           ...,
-           close_end = TRUE
+           ...
          ) {
-  default_table(chop_n(x = x, n = n, ..., close_end = close_end))
+  default_table(chop_n(x = x, n = n, ...))
 }
 
 
@@ -143,18 +135,10 @@ tab_quantiles <- function (
                    probs,
                    ...,
                    left      = is.numeric(x),
-                   close_end = TRUE,
                    raw       = FALSE
                  ) {
   default_table(
-    chop_quantiles(
-      x         = x,
-      probs     = probs,
-      ...,
-      left      = left,
-      close_end = close_end,
-      raw       = raw
-    )
+    chop_quantiles(x = x, probs = probs, ..., left = left, raw = raw)
   )
 }
 
@@ -175,15 +159,14 @@ tab_equally <- function (
                  groups,
                  ...,
                  left      = is.numeric(x),
-                 close_end = TRUE,
                  raw       = TRUE
                ) {
   default_table(
-    chop_equally(
-      x = x, groups = groups, ..., left = left, close_end = close_end, raw = raw
-    )
+    chop_equally(x = x, groups = groups, ..., left = left, raw = raw)
   )
 }
 
 
-default_table <- function (x) table(x, useNA = "ifany", dnn = NULL)
+default_table <- function (x) {
+  table(x, useNA = "ifany", dnn = NULL)
+}

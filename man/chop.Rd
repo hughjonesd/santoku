@@ -34,7 +34,7 @@ tab(
   labels = lbl_intervals(),
   extend = NULL,
   left = TRUE,
-  close_end = FALSE,
+  close_end = TRUE,
   raw = NULL,
   drop = TRUE
 )
@@ -81,7 +81,7 @@ are supported with a warning.
 
 If it is a vector, \code{breaks} gives the break endpoints. Repeated values create
 singleton intervals. For example \code{breaks = c(1, 3, 3, 5)} creates 3
-intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5)}.
+intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
 
 If \code{breaks} is a function, it is called with the \code{x}, \code{extend}, \code{left} and
 \code{close_end} arguments, and should return an object of class \code{breaks}.
@@ -90,8 +90,8 @@ Use \verb{brk_*} functions to create a variety of data-dependent breaks.
 
 \subsection{Options for breaks}{
 
-By default, left-closed intervals are created. If \code{left} is \code{FALSE}, right-
-closed intervals are created.
+By default, left-closed intervals are created. If \code{left} is \code{FALSE},
+right-closed intervals are created.
 
 If \code{close_end} is \code{TRUE} the end break will be closed at both ends, ensuring
 that all values \code{x} with \verb{min(breaks) <= x <= max(breaks)} are included in
@@ -133,13 +133,13 @@ if breaks are extended, then the extended break is always closed anyway.
 \subsection{Labels}{
 
 \code{labels} may be a character vector. It should have the same length as the
-number of intervals. Alternatively, use a \verb{lbl_*} function such as
-\code{\link[=lbl_seq]{lbl_seq()}}.
+(possibly extended) number of intervals. Alternatively, \code{labels} may be a
+\verb{lbl_*} function such as \code{\link[=lbl_seq]{lbl_seq()}}.
 
 If \code{breaks} is a named vector, and no \code{labels} argument is explicitly
-given, then non-zero-length names of \code{breaks} will be used as labels.
-You can omit the name of the last element. Be careful if elements of \code{x}
-may be below the first break.
+given, then non-zero-length names of \code{breaks} will be used as labels for
+the interval starting at the corresponding element. Other intervals will
+be labelled using \code{\link[=lbl_intervals]{lbl_intervals()}}.
 
 If \code{labels} is \code{NULL}, then integer codes will be returned instead of a
 factor.
@@ -168,25 +168,38 @@ below.
 }
 }
 \examples{
-chop(1:3, 2)
 
-chop(1:10, c(2, 5, 8))
+chop(1:7, c(2, 4, 6))
 
-chop(1:10, c(2, 5, 8), extend = FALSE)
+chop(1:7, c(2, 4, 6), extend = FALSE)
 
-chop(1:10, c(2, 5, 5, 8))
+# Repeat a number for a singleton break:
+chop(1:7, c(2, 4, 4, 6))
 
-chop(1:10, c(2, 5, 8), left = FALSE)
+chop(1:7, c(2, 4, 6), left = FALSE)
 
-chop(1:10, c(2, 5, 8), close_end = TRUE)
+chop(1:7, c(2, 4, 6), close_end = FALSE)
 
-chop(1:10, brk_quantiles(c(0.25, 0.75)))
+chop(1:7, brk_quantiles(c(0.25, 0.75)))
 
-chop(1:10, c(2, 5, 8), labels = lbl_dash())
+# A single break is fine if `extend` is not `FALSE`:
+chop(1:7, 4)
 
-chop(1:10, c(Low = 1, Mid = 3, High = 8, 10))
+# -- Labels --
 
-# floating point inaccuracy:
+chop(1:7, c(Lowest = 1, Low = 2, Mid = 4, High = 6))
+
+chop(1:7, c(2, 4, 6), labels = c("Lowest", "Low", "Mid", "High"))
+
+chop(1:7, c(2, 4, 6), labels = lbl_dash())
+
+# -- Non-standard types --
+
+chop(as.Date("2001-01-01") + 1:7, as.Date("2001-01-04"))
+
+suppressWarnings(chop(LETTERS[1:7], "D"))
+
+# Floating point inaccuracy:
 chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
 
 tab(1:10, c(2, 5, 8))

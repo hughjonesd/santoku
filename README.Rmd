@@ -73,10 +73,9 @@ Chop dates by calendar month, then tabulate:
 ```{r}
 library(lubridate)
 
-tab_width(as.Date("2021-12-31") + 1:90, months(1), 
-            labels = lbl_discrete(fmt = "%d %b")
-          )
+dates <- as.Date("2021-12-31") + 1:90
 
+tab_width(dates, months(1), labels = lbl_discrete(fmt = "%d %b"))
 ```
 
 For more information, see the [vignette](https://hughjonesd.github.io/santoku/articles/santoku.html).

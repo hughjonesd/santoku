@@ -10,7 +10,7 @@ chop_evenly(x, intervals, ..., close_end = TRUE)
 
 brk_evenly(intervals)
 
-tab_evenly(x, intervals, ..., close_end = TRUE)
+tab_evenly(x, intervals, ...)
 }
 \arguments{
 \item{x}{A vector.}
