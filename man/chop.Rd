@@ -47,9 +47,11 @@ cut-points from \code{x}.}
 
 \item{labels}{A character vector of labels or a function to create labels.}
 
-\item{extend}{Logical. Extend breaks to \verb{+/-Inf}?}
+\item{extend}{Logical. If \code{TRUE}, always extend breaks to \verb{+/-Inf}. If \code{NULL},
+extend breaks to \code{min(x)} and/or \code{max(x)} only if necessary. If \code{NULL}, never
+extend.}
 
-\item{left}{Logical. Left-closed breaks?}
+\item{left}{Logical. Left-closed or right-closed breaks?}
 
 \item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
 close first break at left?)}
@@ -93,9 +95,9 @@ Use \verb{brk_*} functions to create a variety of data-dependent breaks.
 By default, left-closed intervals are created. If \code{left} is \code{FALSE},
 right-closed intervals are created.
 
-If \code{close_end} is \code{TRUE} the end break will be closed at both ends, ensuring
-that all values \code{x} with \verb{min(breaks) <= x <= max(breaks)} are included in
-the default intervals.
+If \code{close_end} is \code{TRUE} the final break (or first break if \code{left} is \code{FALSE})
+will be closed at both ends. This guarantees that all values \code{x} with
+\verb{min(breaks) <= x <= max(breaks)} are included in the intervals.
 
 Before version 0.9.0, \code{close_end} was \code{FALSE} by default, and also behaved
 differently with respect to extended breaks: see "Extending intervals" below.
@@ -103,13 +105,13 @@ differently with respect to extended breaks: see "Extending intervals" below.
 Using \link[=lbl_intervals]{mathematical set notation}:
 \itemize{
 \item If \code{left} is \code{TRUE} and \code{close_end} is \code{TRUE}, breaks will look like
-\code{[x1, x2), [x2, x3) ... [x_n-1, x_n]}.
+\code{[b1, b2), [b2, b3) ... [b_n-1, b_n]}.
 \item If \code{left} is \code{FALSE} and \code{close_end} is \code{TRUE}, breaks will look like
-\code{[x1, x2], (x2, x3] ... (x_n-1, x_n]}.
+\code{[b1, b2], (b2, b3] ... (b_n-1, b_n]}.
 \item If \code{left} is \code{TRUE} and \code{close_end} is \code{FALSE}, all breaks will look like
-\code{...[x1, x2) ...}.
+\code{...[b1, b2) ...}.
 \item If \code{left} is \code{FALSE} and \code{close_end} is \code{FALSE}, all breaks will look like
-\code{...(x1, x2] ...}.
+\code{...(b1, b2] ...}.
 }
 }
 

@@ -21,7 +21,7 @@ cut-points from \code{x}.}
 
 \item{labels}{A character vector of labels or a function to create labels.}
 
-\item{left}{Logical. Left-closed breaks?}
+\item{left}{Logical. Left-closed or right-closed breaks?}
 
 \item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
 close first break at left?)}

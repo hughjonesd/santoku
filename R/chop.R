@@ -22,8 +22,10 @@ NULL
 #' @param breaks A numeric vector of cut-points or a function to create
 #'   cut-points from `x`.
 #' @param labels A character vector of labels or a function to create labels.
-#' @param extend Logical. Extend breaks to `+/-Inf`?
-#' @param left Logical. Left-closed breaks?
+#' @param extend Logical. If `TRUE`, always extend breaks to `+/-Inf`. If `NULL`,
+#'   extend breaks to `min(x)` and/or `max(x)` only if necessary. If `NULL`, never
+#'   extend.
+#' @param left Logical. Left-closed or right-closed breaks?
 #' @param close_end Logical. Close last break at right? (If `left` is `FALSE`,
 #'   close first break at left?)
 #' @param raw Logical. Use raw values in labels?
@@ -53,9 +55,9 @@ NULL
 #' By default, left-closed intervals are created. If `left` is `FALSE`,
 #' right-closed intervals are created.
 #'
-#' If `close_end` is `TRUE` the end break will be closed at both ends, ensuring
-#' that all values `x` with `min(breaks) <= x <= max(breaks)` are included in
-#' the default intervals.
+#' If `close_end` is `TRUE` the final break (or first break if `left` is `FALSE`)
+#' will be closed at both ends. This guarantees that all values `x` with
+#' `min(breaks) <= x <= max(breaks)` are included in the intervals.
 #'
 #' Before version 0.9.0, `close_end` was `FALSE` by default, and also behaved
 #' differently with respect to extended breaks: see "Extending intervals" below.
@@ -63,13 +65,13 @@ NULL
 #' Using [mathematical set notation][lbl_intervals()]:
 #'
 #' * If `left` is `TRUE` and `close_end` is `TRUE`, breaks will look like
-#'   \code{[x1, x2), [x2, x3) ... [x_n-1, x_n]}.
+#'   \code{[b1, b2), [b2, b3) ... [b_n-1, b_n]}.
 #' * If `left` is `FALSE` and `close_end` is `TRUE`, breaks will look like
-#'    \code{[x1, x2], (x2, x3] ... (x_n-1, x_n]}.
+#'    \code{[b1, b2], (b2, b3] ... (b_n-1, b_n]}.
 #' * If `left` is `TRUE` and `close_end` is `FALSE`, all breaks will look like
-#'   \code{...[x1, x2) ...}.
+#'   \code{...[b1, b2) ...}.
 #' * If `left` is `FALSE` and `close_end` is `FALSE`, all breaks will look like
-#'   \code{...(x1, x2] ...}.
+#'   \code{...(b1, b2] ...}.
 #'
 #' ## Extending intervals
 #'

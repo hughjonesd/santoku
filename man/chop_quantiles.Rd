@@ -26,7 +26,7 @@ tab_deciles(x, ...)
 \item{...}{Passed to \code{\link[=chop]{chop()}}, or for \code{brk_quantiles()} to
 \code{\link[stats:quantile]{stats::quantile()}}.}
 
-\item{left}{Logical. Left-closed breaks?}
+\item{left}{Logical. Left-closed or right-closed breaks?}
 
 \item{raw}{Logical. Use raw values in labels?}
 }

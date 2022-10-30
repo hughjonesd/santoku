@@ -37,9 +37,11 @@ tab_fn(
 
 \item{...}{Further arguments to \code{fn}}
 
-\item{extend}{Logical. Extend breaks to \verb{+/-Inf}?}
+\item{extend}{Logical. If \code{TRUE}, always extend breaks to \verb{+/-Inf}. If \code{NULL},
+extend breaks to \code{min(x)} and/or \code{max(x)} only if necessary. If \code{NULL}, never
+extend.}
 
-\item{left}{Logical. Left-closed breaks?}
+\item{left}{Logical. Left-closed or right-closed breaks?}
 
 \item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
 close first break at left?)}

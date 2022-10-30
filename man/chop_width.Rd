@@ -25,7 +25,7 @@ finite \code{x} (largest if \code{width} is negative).}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
 
-\item{left}{Logical. Left-closed breaks?}
+\item{left}{Logical. Left-closed or right-closed breaks?}
 }
 \value{
 \verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
