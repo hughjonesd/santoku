@@ -377,6 +377,9 @@ brk_fn <- function (fn, ...) {
 
   function (x, extend, left, close_end) {
     breaks <- fn(x, ...)
+    # some functions (e.g. quantile()) return a named vector
+    # which might create surprise labels:
+    breaks <- unname(breaks)
     assert_that(is.numeric(breaks))
     if (length(breaks) == 0) {
       return(empty_breaks())
