@@ -78,8 +78,8 @@ NULL
 #'
 #' If `extend` is `NULL` (the default), intervals will be extended to
 #' \code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, *only* if
-#' necessary -- i.e. if `min(x) < min(breaks)` and `max(x) > max(breaks)`
-#' respectively.
+#' necessary -- i.e. if elements of `x` would be below or above the unextended
+#' breaks.
 #'
 #' `close_end` is applied after breaks are extended, i.e. always to the very last
 #' or very first break. This is a change from

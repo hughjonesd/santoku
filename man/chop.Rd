@@ -120,8 +120,8 @@ min(breaks))} and \code{(max(breaks), Inf]}.
 
 If \code{extend} is \code{NULL} (the default), intervals will be extended to
 \code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, \emph{only} if
-necessary -- i.e. if \code{min(x) < min(breaks)} and \code{max(x) > max(breaks)}
-respectively.
+necessary -- i.e. if elements of \code{x} would be below or above the unextended
+breaks.
 
 \code{close_end} is applied after breaks are extended, i.e. always to the very last
 or very first break. This is a change from
