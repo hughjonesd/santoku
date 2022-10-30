@@ -157,6 +157,9 @@ NULL
 #' # A single break is fine if `extend` is not `FALSE`:
 #' chop(1:7, 4)
 #'
+#' # Floating point inaccuracy:
+#' chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
+#'
 #' # -- Labels --
 #'
 #' chop(1:7, c(Lowest = 1, Low = 2, Mid = 4, High = 6))
@@ -171,8 +174,6 @@ NULL
 #'
 #' suppressWarnings(chop(LETTERS[1:7], "D"))
 #'
-#' # Floating point inaccuracy:
-#' chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
 #'
 chop <- function (x, breaks,
           labels    = default_labels(breaks),

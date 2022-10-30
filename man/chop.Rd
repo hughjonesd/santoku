@@ -188,6 +188,9 @@ chop(1:7, brk_quantiles(c(0.25, 0.75)))
 # A single break is fine if `extend` is not `FALSE`:
 chop(1:7, 4)
 
+# Floating point inaccuracy:
+chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
+
 # -- Labels --
 
 chop(1:7, c(Lowest = 1, Low = 2, Mid = 4, High = 6))
@@ -202,8 +205,6 @@ chop(as.Date("2001-01-01") + 1:7, as.Date("2001-01-04"))
 
 suppressWarnings(chop(LETTERS[1:7], "D"))
 
-# Floating point inaccuracy:
-chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
 
 tab(1:10, c(2, 5, 8))
 
