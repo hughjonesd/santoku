@@ -41,8 +41,7 @@ There are important changes to `close_end`.
 
 We changed this behaviour to be more in line with user expectations. 
 
-* If `breaks` is a named vector, and no explicit `labels` argument is given,
-  names will be used as labels:
+* If `breaks` has names, they will be used as labels:
   
   ```r
   chop(1:5, c(Low = 1, Mid = 2, High = 4))

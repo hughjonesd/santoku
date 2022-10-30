@@ -8,14 +8,7 @@
 \alias{tab_deciles}
 \title{Chop by quantiles}
 \usage{
-chop_quantiles(
-  x,
-  probs,
-  ...,
-  labels = default_labels(probs),
-  left = is.numeric(x),
-  raw = FALSE
-)
+chop_quantiles(x, probs, ..., left = is.numeric(x), raw = FALSE)
 
 chop_deciles(x, ...)
 
@@ -28,13 +21,11 @@ tab_deciles(x, ...)
 \arguments{
 \item{x}{A vector.}
 
-\item{probs}{A vector of probabilities for the quantiles. If \code{probs} has names,
-these will be used for labels.}
+\item{probs}{A vector of probabilities for the quantiles. If \code{probs} has
+names, these will be used for labels.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}, or for \code{brk_quantiles()} to
 \code{\link[stats:quantile]{stats::quantile()}}.}
-
-\item{labels}{A character vector of labels or a function to create labels.}
 
 \item{left}{Logical. Left-closed breaks?}
 

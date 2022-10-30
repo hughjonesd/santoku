@@ -9,7 +9,7 @@
 chop(
   x,
   breaks,
-  labels = default_labels(breaks),
+  labels = lbl_intervals(),
   extend = NULL,
   left = TRUE,
   close_end = TRUE,
@@ -20,7 +20,7 @@ chop(
 kiru(
   x,
   breaks,
-  labels = default_labels(breaks),
+  labels = lbl_intervals(),
   extend = NULL,
   left = TRUE,
   close_end = TRUE,
@@ -31,7 +31,7 @@ kiru(
 tab(
   x,
   breaks,
-  labels = default_labels(breaks),
+  labels = lbl_intervals(),
   extend = NULL,
   left = TRUE,
   close_end = TRUE,
@@ -138,11 +138,10 @@ if breaks are extended, then the extended break is always closed anyway.
 (possibly extended) number of intervals. Alternatively, \code{labels} may be a
 \verb{lbl_*} function such as \code{\link[=lbl_seq]{lbl_seq()}}.
 
-If \code{breaks} is a named vector, and no \code{labels} argument is explicitly
-given, then non-zero-length names of \code{breaks} will be used as labels for
-the interval starting at the corresponding element. Other intervals will
-be labelled using \code{\link[=lbl_intervals]{lbl_intervals()}}. This feature is
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}.
+If \code{breaks} is a named vector, then non-zero-length names of \code{breaks} will be
+used as labels for the interval starting at the corresponding element. This
+overrides the \code{labels} argument (but unnamed breaks will still use \code{labels}).
+This feature is \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}.
 
 If \code{labels} is \code{NULL}, then integer codes will be returned instead of a
 factor.
@@ -198,6 +197,9 @@ chop(1:7, c(Lowest = 1, Low = 2, Mid = 4, High = 6))
 chop(1:7, c(2, 4, 6), labels = c("Lowest", "Low", "Mid", "High"))
 
 chop(1:7, c(2, 4, 6), labels = lbl_dash())
+
+# Mixing names and other labels:
+chop(1:7, c("<2" = 1, 2, 4, ">=6" = 6), labels = lbl_dash())
 
 # -- Non-standard types --
 

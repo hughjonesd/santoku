@@ -6,13 +6,7 @@
 \alias{tab_proportions}
 \title{Chop into proportions of the range of x}
 \usage{
-chop_proportions(
-  x,
-  proportions,
-  ...,
-  labels = default_labels(proportions),
-  raw = TRUE
-)
+chop_proportions(x, proportions, ..., raw = TRUE)
 
 brk_proportions(proportions)
 
@@ -25,8 +19,6 @@ tab_proportions(x, proportions, ..., raw = TRUE)
 If \code{proportions} has names, these will be used for labels.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
-
-\item{labels}{A character vector of labels or a function to create labels.}
 
 \item{raw}{Logical. Use raw values in labels?}
 }

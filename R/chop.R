@@ -95,11 +95,10 @@ NULL
 #' (possibly extended) number of intervals. Alternatively, `labels` may be a
 #' `lbl_*` function such as [lbl_seq()].
 #'
-#' If `breaks` is a named vector, and no `labels` argument is explicitly
-#' given, then non-zero-length names of `breaks` will be used as labels for
-#' the interval starting at the corresponding element. Other intervals will
-#' be labelled using [lbl_intervals()]. This feature is
-#' `r lifecycle::badge("experimental")`.
+#' If `breaks` is a named vector, then non-zero-length names of `breaks` will be
+#' used as labels for the interval starting at the corresponding element. This
+#' overrides the `labels` argument (but unnamed breaks will still use `labels`).
+#' This feature is `r lifecycle::badge("experimental")`.
 #'
 #' If `labels` is `NULL`, then integer codes will be returned instead of a
 #' factor.
@@ -168,6 +167,9 @@ NULL
 #'
 #' chop(1:7, c(2, 4, 6), labels = lbl_dash())
 #'
+#' # Mixing names and other labels:
+#' chop(1:7, c("<2" = 1, 2, 4, ">=6" = 6), labels = lbl_dash())
+#'
 #' # -- Non-standard types --
 #'
 #' chop(as.Date("2001-01-01") + 1:7, as.Date("2001-01-04"))
@@ -176,7 +178,7 @@ NULL
 #'
 #'
 chop <- function (x, breaks,
-          labels    = default_labels(breaks),
+          labels    = lbl_intervals(),
           extend    = NULL,
           left      = TRUE,
           close_end = TRUE,
@@ -204,6 +206,7 @@ chop <- function (x, breaks,
   } else {
     labels
   }
+  lbls <- add_break_names(lbls, breaks)
   stopifnot(length(lbls) == length(breaks) - 1)
 
   real_codes <- if (drop) unique(codes[! is.na(codes)]) else TRUE
@@ -259,8 +262,8 @@ fillet <- function (
 #' `chop_quantiles()` chops data by quantiles.
 #' `chop_deciles()` is a convenience shortcut and chops into deciles.
 #'
-#' @param probs A vector of probabilities for the quantiles. If `probs` has names,
-#'   these will be used for labels.
+#' @param probs A vector of probabilities for the quantiles. If `probs` has
+#'   names, these will be used for labels.
 #' @param ... Passed to [chop()], or for `brk_quantiles()` to
 #'   [stats::quantile()].
 #' @inheritParams chop
@@ -292,11 +295,10 @@ chop_quantiles <- function(
                     x,
                     probs,
                     ...,
-                    labels    = default_labels(probs),
                     left      = is.numeric(x),
                     raw       = FALSE
                   ) {
-  chop(x, brk_quantiles(probs), ..., labels = labels, left = left, raw = raw)
+  chop(x, brk_quantiles(probs), ..., left = left, raw = raw)
 }
 
 
@@ -498,10 +500,9 @@ chop_proportions <- function (
                       x,
                       proportions,
                       ...,
-                      labels = default_labels(proportions),
                       raw    = TRUE
                     ) {
-  chop(x, brk_proportions(proportions), ..., labels = labels, raw = raw)
+  chop(x, brk_proportions(proportions), ..., raw = raw)
 }
 
 #' Chop into fixed-sized groups

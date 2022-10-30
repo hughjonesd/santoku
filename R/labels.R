@@ -585,6 +585,23 @@ lbl_manual <- function (sequence, fmt = "%s") {
 }
 
 
+add_break_names <- function(labels, breaks) {
+  if (is.null(names(breaks))) return(labels)
+
+  is_named <- nzchar(names(breaks))
+  # These are extended breaks; last break is the rightmost endpoint and
+  # any name is ignored.
+  is_named[length(is_named)] <- FALSE
+  break_names_for_labels <- names(breaks)[is_named]
+
+  # length(labels) == length(breaks) - 1
+  is_named <- is_named[-length(is_named)]
+  labels[is_named] <- break_names_for_labels
+
+  return(labels)
+}
+
+
 lbl_by_names <- function (break_vec) {
   is_named <- nzchar(names(break_vec))
   break_vec <- break_vec[is_named]
@@ -603,14 +620,5 @@ lbl_by_names <- function (break_vec) {
     labels[has_match] <- names(break_vec)[matched_breaks]
 
     return(labels)
-  }
-}
-
-
-default_labels <- function (breaks) {
-  if (! is.null(names(breaks))) {
-    lbl_by_names(breaks)
-  } else {
-    lbl_intervals()
   }
 }
