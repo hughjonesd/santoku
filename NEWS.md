@@ -47,7 +47,7 @@ version 1.0. If it causes problems for you, please file an issue.
 * `lbl_manual()` is deprecated. Just use a vector argument to `labels` instead.
 
 ## Other changes
-* New `brk_fn()` breaks wrap an arbitrary function.
+* New `chop_fn()`, `brk_fn()` and `tab_fn()` chop using an arbitrary function.
 * Added section on non-standard objects to vignette.
 
 

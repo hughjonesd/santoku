@@ -458,10 +458,9 @@ chop_evenly <- function (
 #' @inheritParams chop
 #' @inherit chop-doc params return
 #'
-#' @family chopping functions
-#'
 #' @export
 #' @order 1
+#' @family chopping functions
 #' @examples
 #' chop_proportions(0:10, c(0.2, 0.8))
 #'
@@ -495,9 +494,7 @@ chop_proportions <- function (
 #'
 #' @export
 #' @order 1
-#'
 #' @family chopping functions
-#'
 #' @examples
 #' chop_n(1:10, 5)
 #'
@@ -517,4 +514,40 @@ chop_n <- function (
   }
 
   res
+}
+
+#' Chop using an existing function
+#'
+#' `chop_fn()` is a convenience wrapper: `chop_fn(x, foo, ...)`
+#' is the same as `chop(x, foo(x, ...))`.
+#'
+#' @param fn A function which returns a numeric vector of breaks.
+#' @param ... Further arguments to `fn`
+#' @inheritParams chop
+#' @inherit chop-doc params return
+#'
+#' @export
+#' @order 1
+#' @family chopping functions
+#' @examples
+#'
+#' if (requireNamespace("scales")) {
+#'   chop_fn(rlnorm(10), scales::breaks_log(5))
+#'   # same as
+#'   # x <- rlnorm(10)
+#'   # chop(x, scales::breaks_log(5)(x))
+#' }
+#'
+chop_fn <- function (
+             x,
+             fn,
+             ...,
+             extend = NULL,
+             left = TRUE,
+             close_end = TRUE,
+             raw = NULL,
+             drop = TRUE
+) {
+  chop(x, brk_fn(fn, ...), extend = extend, left = left, close_end = close_end,
+         raw = raw, drop = drop)
 }

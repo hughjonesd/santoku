@@ -167,6 +167,26 @@ tab_equally <- function (
 }
 
 
+#' @rdname chop_fn
+#' @export
+#' @order 3
+tab_fn <- function (
+            x,
+            fn,
+            ...,
+            extend = NULL,
+            left = TRUE,
+            close_end = TRUE,
+            raw = NULL,
+            drop = TRUE
+          ) {
+  default_table(
+    chop_fn(x = x, fn = fn, ..., extend = extend, left = left,
+              close_end = close_end, raw = raw, drop = drop)
+  )
+}
+
+
 default_table <- function (x) {
   table(x, useNA = "ifany", dnn = NULL)
 }

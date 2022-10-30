@@ -59,6 +59,7 @@ tab_n(1:10, 4)
 Other chopping functions: 
 \code{\link{chop_equally}()},
 \code{\link{chop_evenly}()},
+\code{\link{chop_fn}()},
 \code{\link{chop_mean_sd}()},
 \code{\link{chop_proportions}()},
 \code{\link{chop_quantiles}()},

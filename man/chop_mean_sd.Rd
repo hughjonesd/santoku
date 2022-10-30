@@ -51,6 +51,7 @@ tab_mean_sd(1:10)
 Other chopping functions: 
 \code{\link{chop_equally}()},
 \code{\link{chop_evenly}()},
+\code{\link{chop_fn}()},
 \code{\link{chop_n}()},
 \code{\link{chop_proportions}()},
 \code{\link{chop_quantiles}()},

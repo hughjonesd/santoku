@@ -348,27 +348,9 @@ brk_manual <- function (breaks, left_vec) {
   }
 }
 
-
-#' Create breaks using an existing function
-#'
-#' `brk_fn()` is a convenience wrapper: `chop(x, brk_fn(foo, ...))`
-#' is the same as `chop(x, foo(x, ...))`.
-#'
-#' @param fn A function which returns a numeric vector of breaks.
-#' @param ... Further arguments to `fn`
-#'
-#' @inherit breaks-doc return
+#' @rdname chop_fn
 #' @export
-#'
-#' @examples
-#'
-#' if (requireNamespace("scales")) {
-#'   chop(rlnorm(10), brk_fn(scales::breaks_log(5)))
-#'   # same as
-#'   # x <- rlnorm(10)
-#'   # chop(x, scales::breaks_log(5)(x))
-#' }
-#'
+#' @order 2
 brk_fn <- function (fn, ...) {
   assert_that(is.function(fn))
 
