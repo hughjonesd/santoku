@@ -122,7 +122,7 @@ data.frame(x, chopped)
 
 You can think of these six functions as logically arranged in a table.
 
-To chop into...                | sizing intervals by...    |   
+To chop into...                | Sizing intervals by...    |   
 :------------------------------|:--------------------------|:----------------------
 &nbsp;                         | number of elements:       | interval width:
 a specific number of equal intervals... | `chop_equally()`   | `chop_evenly()`
