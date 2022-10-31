@@ -1,6 +1,8 @@
 ---
 title: "Introduction to santoku"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{Introduction to santoku}
   %\VignetteEngine{knitr::rmarkdown}
@@ -21,10 +23,9 @@ options(digits = 4)
 
 ## Introduction
 
-Santoku is a package for cutting data into intervals. It provides a replacement
-for base R's `cut()` function.
-
-## Installation
+Santoku is a package for cutting data into intervals. It provides `chop()`, 
+a replacement for base R's `cut()` function, as well as several convenience
+functions to cut different kinds of intervals.
 
 To install santoku, run:
 
@@ -81,7 +82,8 @@ chopped <- chop_width(x, 2)
 data.frame(x, chopped)
 ```
 
-To chop into exactly `intervals` fixed-with intervals, use `chop_evenly()`:
+To chop into a fixed number of intervals, each with the same width, 
+use `chop_evenly()`:
 
 ```{r}
 chopped <- chop_evenly(x, intervals = 3)
@@ -96,7 +98,8 @@ table(chopped)
 ```
 
 
-To chop into a fixed number of equal-sized groups, use `chop_equally()`:
+To chop into a fixed number of groups, each with the same number of elements,
+use `chop_equally()`:
 
 ```{r}
 chopped <- chop_equally(x, groups = 5)
@@ -109,6 +112,24 @@ To chop data up by quantiles, use `chop_quantiles()`:
 chopped <- chop_quantiles(x, c(0.25, 0.5, 0.75))
 data.frame(x, chopped)
 ```
+
+To chop data up by proportions of the data range, use `chop_proportions()`:
+
+```{r}
+chopped <- chop_proportions(x, c(0.25, 0.5, 0.75))
+data.frame(x, chopped)
+```
+
+You can think of these six functions as logically arranged in a table.
+
+To chop into...                | sizing intervals by...    |   
+:------------------------------|:--------------------------|:----------------------
+&nbsp;                         | number of elements:       | interval width:
+a specific number of equal intervals... | `chop_equally()`   | `chop_evenly()`
+intervals of one specific size...          | `chop_n()`         | `chop_width()`
+intervals of different specific sizes...   | `chop_quantiles()` | `chop_proportions()`
+
+: Different ways to chop by size
 
 To chop data by standard deviations around the mean, use `chop_mean_sd()`:
 
