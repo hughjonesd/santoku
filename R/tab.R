@@ -128,7 +128,7 @@ tab_pretty <- function (x, n = 5, ...) {
 #' @order 3
 #' @examples
 #' set.seed(42)
-#' tab_quantiles(rnorm(100), probs = 1:3/4, label = lbl_intervals(raw = TRUE))
+#' tab_quantiles(rnorm(100), probs = 1:3/4, raw = TRUE)
 #'
 tab_quantiles <- function (
                    x,

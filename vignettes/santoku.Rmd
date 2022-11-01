@@ -158,7 +158,7 @@ tab_mean_sd(x)
 ```
 
 
-# Advanced usage
+## Specifying labels
 
 By default, santoku labels intervals using mathematical notation:
 
@@ -169,7 +169,15 @@ By default, santoku labels intervals using mathematical notation:
 * `(0, 1]` means all numbers between 0 and 1, including 1 but not 0.
 * `{0}` means just the number 0.
 
-You can change factor labels with the `labels` argument:
+
+To override these labels, provide names to the `breaks` argument:
+
+```{r}
+chopped <- chop(x, c(Lowest = 1, Low = 2, Higher = 5, Highest = 8))
+data.frame(x, chopped)
+```
+
+Or, you can specify factor labels with the `labels` argument:
 
 ```{r}
 chopped <- chop(x, c(2, 5, 8), labels = c("Lowest", "Low", "Higher", "Highest"))
@@ -223,6 +231,8 @@ Other labelling functions include:
 * `lbl_endpoints()` - use left endpoints as labels
 * `lbl_midpoints()` - use interval midpoints as labels
 * `lbl_glue()` - specify labels flexibly with the `{glue}` package
+
+## Specifying breaks
 
 By default, `chop()` extends `breaks` if necessary. If you don't want
 that, set `extend = FALSE`:

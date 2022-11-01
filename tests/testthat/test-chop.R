@@ -83,14 +83,33 @@ test_that("labels", {
 })
 
 
-test_that("extend", {
-  x <- c(1, 4)
+test_that("break names as labels", {
   expect_equivalent(
-          chop(x, 2:3, labels = lbl_seq("1"), extend = TRUE),
+    chop(1:4, c(Low = 1, High = 3, 4)),
+    factor(c("Low", "Low", "High", "High"))
+  )
+  expect_equivalent(
+    chop(1:5, c(Low = 1, Mid = 3, High = 4)),
+    factor(c("Low", "Low", "Mid", "High", "High"))
+  )
+  expect_equivalent(
+    chop(0:4, c(Low = 1, High = 3)),
+    factor(c("[0, 1)", "Low", "Low", "High", "High"))
+  )
+  expect_equivalent(
+    chop(1:4, c(Low = 1, Mid = 2, 3, 4), labels = lbl_endpoints()),
+    factor(c("Low", "Mid", "3", "3"))
+  )
+})
+
+
+test_that("extend", {
+  expect_equivalent(
+          chop(c(1, 4), 2:3, labels = lbl_seq("1"), extend = TRUE),
           factor(c(1, 3))
         )
   expect_equivalent(
-          chop(x, 2:3, labels = lbl_seq("1"), extend = FALSE),
+          chop(c(1, 4), 2:3, labels = lbl_seq("1"), extend = FALSE),
           factor(c(NA, NA))
         )
 })
@@ -198,31 +217,40 @@ test_that("chop_evenly", {
 
 
 test_that("chop_proportions", {
-  x <- 0:10
   expect_equivalent(
-    chop_proportions(x, c(0.2, 0.8), labels = lbl_seq("1")),
+    chop_proportions(0:10, c(0.2, 0.8), labels = lbl_seq("1")),
     factor(rep(1:3, c(2, 6, 3)))
   )
 
   expect_equivalent(
-    chop_proportions(x, c(0.2, 0.8), labels = lbl_intervals(), raw = FALSE),
-    chop_proportions(x, c(0.2, 0.8), labels = lbl_intervals(raw = FALSE),
+    chop_proportions(0:10, c(Low = 0, Mid = 0.2, High = 0.8)),
+    factor(c(rep("Low", 2), rep("Mid", 6), rep("High", 3)))
+  )
+
+  withr::local_options(lifecycle_verbosity = "quiet")
+  expect_equivalent(
+    chop_proportions(0:10, c(0.2, 0.8), labels = lbl_intervals(), raw = FALSE),
+    chop_proportions(0:10, c(0.2, 0.8), labels = lbl_intervals(raw = FALSE),
                        raw = NULL)
   )
 })
 
 
 test_that("chop_quantiles", {
-  x <- 1:6
   expect_equivalent(
-          chop_quantiles(x, c(.25, .5, .75), labels = lbl_seq("1")),
-          as.factor(c(1, 1, 2, 3, 4, 4))
-        )
+    chop_quantiles(1:6, c(.25, .5, .75), labels = lbl_seq("1")),
+    as.factor(c(1, 1, 2, 3, 4, 4))
+  )
+
+  expect_equivalent(
+    chop_quantiles(1:6, c(Q1 = 0, Q2 = 0.25, Q3 = 0.5, Q4 = 0.75)),
+    factor(c("Q1", "Q1", "Q2", "Q3", "Q4", "Q4"))
+  )
 
   withr::local_options(lifecycle_verbosity = "quiet")
   expect_equivalent(
-    chop_quantiles(x, c(.25, .5, .75), raw = TRUE),
-    chop_quantiles(x, c(.25, .5, .75), labels = lbl_intervals(raw = TRUE),
+    chop_quantiles(1:6, c(.25, .5, .75), raw = TRUE),
+    chop_quantiles(1:6, c(.25, .5, .75), labels = lbl_intervals(raw = TRUE),
                      raw = NULL)
   )
 })

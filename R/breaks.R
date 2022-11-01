@@ -35,6 +35,7 @@ brk_quantiles <- function (probs, ...) {
 
     class(breaks) <- c("quantileBreaks", class(breaks))
     attr(breaks, "scaled_endpoints") <- probs
+    names(breaks) <- names(probs)
 
     breaks
   }
@@ -236,7 +237,9 @@ brk_proportions <- function(proportions) {
     if ((needs & LEFT) > 0) scaled_endpoints <- c(0, scaled_endpoints)
     if ((needs & RIGHT) > 0) scaled_endpoints <- c(scaled_endpoints, 1)
     breaks <- extend_and_close(breaks, x, extend, left, close_end)
+
     attr(breaks, "scaled_endpoints") <- scaled_endpoints
+    names(breaks) <- names(scaled_endpoints)
 
     breaks
   }
@@ -356,6 +359,9 @@ brk_fn <- function (fn, ...) {
 
   function (x, extend, left, close_end) {
     breaks <- fn(x, ...)
+    # some functions (e.g. quantile()) return a named vector
+    # which might create surprise labels:
+    breaks <- unname(breaks)
     assert_that(is.numeric(breaks))
     if (length(breaks) == 0) {
       return(empty_breaks())

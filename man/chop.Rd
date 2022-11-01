@@ -88,6 +88,8 @@ intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
 If \code{breaks} is a function, it is called with the \code{x}, \code{extend}, \code{left} and
 \code{close_end} arguments, and should return an object of class \code{breaks}.
 Use \verb{brk_*} functions to create a variety of data-dependent breaks.
+
+Names of \code{breaks} may be used for labels. See "Labels" below.
 }
 
 \subsection{Options for breaks}{
@@ -135,8 +137,13 @@ if breaks are extended, then the extended break is always closed anyway.
 \subsection{Labels}{
 
 \code{labels} may be a character vector. It should have the same length as the
-number of intervals. Alternatively, use a \verb{lbl_*} function such as
-\code{\link[=lbl_seq]{lbl_seq()}}.
+(possibly extended) number of intervals. Alternatively, \code{labels} may be a
+\verb{lbl_*} function such as \code{\link[=lbl_seq]{lbl_seq()}}.
+
+If \code{breaks} is a named vector, then non-zero-length names of \code{breaks} will be
+used as labels for the interval starting at the corresponding element. This
+overrides the \code{labels} argument (but unnamed breaks will still use \code{labels}).
+This feature is \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}.
 
 If \code{labels} is \code{NULL}, then integer codes will be returned instead of a
 factor.
@@ -170,6 +177,7 @@ chop(1:7, c(2, 4, 6))
 
 chop(1:7, c(2, 4, 6), extend = FALSE)
 
+# Repeat a number for a singleton break:
 chop(1:7, c(2, 4, 4, 6))
 
 chop(1:7, c(2, 4, 6), left = FALSE)
@@ -178,13 +186,29 @@ chop(1:7, c(2, 4, 6), close_end = FALSE)
 
 chop(1:7, brk_quantiles(c(0.25, 0.75)))
 
-chop(1:7, c(2, 4, 6), labels = lbl_dash())
-
 # A single break is fine if `extend` is not `FALSE`:
 chop(1:7, 4)
 
 # Floating point inaccuracy:
 chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
+
+# -- Labels --
+
+chop(1:7, c(Lowest = 1, Low = 2, Mid = 4, High = 6))
+
+chop(1:7, c(2, 4, 6), labels = c("Lowest", "Low", "Mid", "High"))
+
+chop(1:7, c(2, 4, 6), labels = lbl_dash())
+
+# Mixing names and other labels:
+chop(1:7, c("<2" = 1, 2, 4, ">=6" = 6), labels = lbl_dash())
+
+# -- Non-standard types --
+
+chop(as.Date("2001-01-01") + 1:7, as.Date("2001-01-04"))
+
+suppressWarnings(chop(LETTERS[1:7], "D"))
+
 
 tab(1:10, c(2, 5, 8))
 
