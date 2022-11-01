@@ -1,0 +1,142 @@
+---
+title: "What's new in santoku 0.9.0"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{What's new in santoku 0.9.0}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+set.seed(42)
+```
+
+
+Santoku 0.9.0 has a few changes.
+
+## You can use break names for labels
+
+On the command line, sometimes you'd like to quickly add labels to your breaks.
+Now, you can do this simply by adding names to the `breaks` vector:
+
+```{r}
+library(santoku)
+
+chop(1:5, c(1,3,5))
+
+chop(1:5, c(Low = 1, High = 3, 5))
+```
+
+Break names override the `labels` argument, but you can still use this for
+unnamed breaks:
+
+```{r}
+
+ages <- sample(12:80, 20)
+tab(ages, 
+      c("Under 16" = 0, 16, 25, 35, 45, 55, "65 and over" = 65), 
+      labels = lbl_discrete()
+    )
+
+```
+
+Names can also be used for labels in `chop_quantiles()` and
+`chop_proportions()`:
+
+```{r}
+x <- rnorm(10)
+chopped <- chop_quantiles(x, 
+                            c("Lower tail" = 0, 0.025, "Upper tail" = 0.975)
+                          )
+data.frame(x, chopped)
+```
+
+This feature is experimental for now. 
+
+
+## `close_end` works differently
+
+The `close_end` parameter is used to right-close the last break. This used to be
+applied before breaks were extended to cover items beyond the explicitly given
+breaks. We think this was confusing for users. So now, `close_end` is applied
+only after the breaks have been extended - i.e. to the very last break.
+
+In 0.8.0:
+
+```r
+chop(1:4, 2:3, close_end = TRUE)
+#> [1] [1, 2) [2, 3] [2, 3] (3, 4]
+#> Levels: [1, 2) [2, 3] (3, 4]
+```
+
+Notice how the central break `[2, 3]` is right-closed. (The extended break `[3, 4]`
+is right-closed too, because extended breaks are always closed at the "outer"
+end.)
+
+In 0.9.0:
+
+```r
+chop(1:4, 2:3, close_end = TRUE)
+#> [1] [1, 2) [2, 3) [3, 4] [3, 4]
+#> Levels: [1, 2) [2, 3) [3, 4]
+```
+
+Now, `close_end` is applied to the final, extended break `[3, 4]`, not to the 
+explicit break `[2, 3)`.
+
+
+## `close_end` is `TRUE` by default
+
+We think that for exploratory work, users typically want to include all the 
+data between the lowest and highest break, inclusive. So,
+`close_end` is now `TRUE` by default. 
+
+In 0.8.0:
+
+```r
+chop(1:3, 2:3)
+#> [1] [1, 2) [2, 3) {3}   
+#> Levels: [1, 2) [2, 3) {3}
+```
+
+In 0.9.0:
+
+```r
+chop(1:3, 2:3)
+#> [1] [1, 2) [2, 3] [2, 3]
+#> Levels: [1, 2) [2, 3]
+```
+
+## New `raw` parameter for `chop()`
+
+`lbl_*` functions have a `raw` parameter to use the raw interval endpoints in 
+labels, rather than e.g. percentiles or standard deviations. We've moved this
+into the main `chop()` function. This makes it easier to use:
+
+```{r}
+
+chop_mean_sd(x)
+
+chop_mean_sd(x, raw = TRUE)
+```
+
+The `raw` parameter to `lbl_*` functions is deprecated.
+
+
+## Other changes
+
+The NEWS file lists other changes, including a new `chop_fn()` function
+which creates breaks using any arbitrary function.
+
+
+## Feedback
+
+We expect this to be the last release before 1.0, when we'll stabilize the
+interface and move santoku from "experimental" to "stable". So, if you
+have problems or suggestions regarding any of these changes, please 
+[file an issue](https://github.com/hughjonesd/santoku/issues).
+
