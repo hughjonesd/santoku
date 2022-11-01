@@ -56,11 +56,12 @@ We changed this behaviour to be more in line with user expectations.
   
 * `lbl_manual()` is deprecated. Just use a vector argument to `labels` instead.
 
+* A `labels` argument to `chop_quantiles()` now needs to be explicitly named.
+
 I expect these to be the last important breaking changes before we release 
 version 1.0 and mark the package as "stable". If they cause problems for you,
 please file an issue.
 
-* A `labels` argument to `chop_quantiles()` now needs to be explicitly named.
 
 ## Other changes
 * New `brk_fn()` breaks wrap an arbitrary function.

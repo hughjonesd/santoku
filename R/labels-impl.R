@@ -1,4 +1,34 @@
 
+
+#' Replaces labels with names from the breaks vector
+#'
+#' Only non-zero-char names are used.
+#'
+#' @param labels Passed in from chop, possibly via a `lbl_*` function
+#' @param breaks Breaks object created via a `brk_*` function. Some of
+#'   these preserve names of a given argument (`brk_default()`,
+#'   `brk_proportions()`, `brk_quantiles()`)
+#'
+#' @return The altered labels
+#' @noRd
+#'
+add_break_names <- function(labels, breaks) {
+  if (is.null(names(breaks))) return(labels)
+
+  is_named <- nzchar(names(breaks))
+  # These are possibly-extended breaks; last break is the rightmost endpoint
+  # and any name is ignored:
+  is_named[length(is_named)] <- FALSE
+  break_names_for_labels <- names(breaks)[is_named]
+
+  # length(labels) == length(breaks) - 1
+  is_named <- is_named[-length(is_named)]
+  labels[is_named] <- break_names_for_labels
+
+  return(labels)
+}
+
+
 #' Return formatted strings for endpoints
 #'
 #' Methods will pick up a `scaled_endpoints`
@@ -234,4 +264,3 @@ unique_truncation <- function (num) {
 em_dash <- function() {
   if (l10n_info()[["UTF-8"]]) "\u2014" else "-"
 }
-
