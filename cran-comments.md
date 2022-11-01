@@ -1,16 +1,12 @@
 
-A new version with new functionality and one function becoming
-deprecated.
-
-Resubmission: remove revdep folder from the package. 
-
+A new version with new functionality and changes to the API.
 
 ## Test environments
 
 * local (macOS), R 4.2.0
-* appveyor (windows), R 4.2.0-patched
 * github (windows, macOS, Ubuntu), devel and release
 * win-builder (windows), devel and release
+* various others
 
 
 ## R CMD check results
@@ -20,7 +16,7 @@ Resubmission: remove revdep folder from the package.
 
 ## Reverse dependencies
 
-* ggblanket and simplevis: both pass R CMD check OK.
+* simplevis: OK.
 
 
 

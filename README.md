@@ -25,25 +25,25 @@ replacement for `base::cut()`.
 
 Here are some advantages of santoku:
 
-  - By default, `chop()` always covers the whole range of the data, so
+-   By default, `chop()` always covers the whole range of the data, so
     you won’t get unexpected `NA` values.
 
-  - `chop()` can handle single values as well as intervals. For example,
+-   `chop()` can handle single values as well as intervals. For example,
     `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor
     level for values exactly equal to 2.
 
-  - `chop()` can handle many kinds of data, including numbers, dates and
+-   `chop()` can handle many kinds of data, including numbers, dates and
     times.
 
-  - `chop_*` functions create intervals in many ways, using quantiles of
+-   `chop_*` functions create intervals in many ways, using quantiles of
     the data, standard deviations, fixed-width intervals, equal-sized
     groups, or pretty intervals for use in graphs.
 
-  - `lbl_*` functions make it easy to label intervals: use interval
+-   `lbl_*` functions make it easy to label intervals: use interval
     notation like `[1, 2)`, dash notation like `1-2`, or arbitrary
     styles using `glue::glue()`.
 
-  - `tab_*` functions quickly chop data, then tabulate it.
+-   `tab_*` functions quickly chop data, then tabulate it.
 
 These advantages make santoku especially useful for exploratory
 analysis, where you may not know the range of your data in advance.
@@ -70,7 +70,15 @@ chop(1:5, c(2, 2, 4))
 #> Levels: [1, 2) {2} (2, 4) [4, 5]
 ```
 
-Customize output with `lbl_*` functions:
+Use names in breaks for labels:
+
+``` r
+chop(1:5, c(Low = 1, Mid = 2, High = 4))
+#> [1] Low  Mid  Mid  High High
+#> Levels: Low Mid High
+```
+
+Or use `lbl_*` functions:
 
 ``` r
 chop(1:5, c(2, 4), labels = lbl_dash())
@@ -82,10 +90,10 @@ Chop into fixed-width intervals:
 
 ``` r
 chop_width(runif(10), 0.1)
-#>  [1] [0.863, 0.963)   [0.763, 0.863)   [0.463, 0.563)   [0.363, 0.463)  
-#>  [5] [0.06295, 0.163) [0.963, 1.063]   [0.563, 0.663)   [0.363, 0.463)  
-#>  [9] [0.563, 0.663)   [0.563, 0.663)  
-#> 7 Levels: [0.06295, 0.163) [0.363, 0.463) [0.463, 0.563) ... [0.963, 1.063]
+#>  [1] [0.58, 0.68)    [0.18, 0.28)    [0.68, 0.78)    [0.78, 0.88)   
+#>  [5] [0.18, 0.28)    [0.88, 0.98]    [0.28, 0.38)    [0.08001, 0.18)
+#>  [9] [0.08001, 0.18) [0.08001, 0.18)
+#> 7 Levels: [0.08001, 0.18) [0.18, 0.28) [0.28, 0.38) ... [0.88, 0.98]
 ```
 
 Or into fixed-size groups:

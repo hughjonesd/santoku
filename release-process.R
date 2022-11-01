@@ -6,6 +6,7 @@ devtools::check_win_devel()
 devtools::check_win_release()
 devtools::check()
 devtools::spell_check()
+revdepcheck::revdep_check()
 # make sure you've put comments in cran-comments.md
 
 # install the new version

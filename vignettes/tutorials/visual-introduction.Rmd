@@ -75,7 +75,7 @@ plot_the_fish <- function (cols = "peachpuff4") {
 
 
 demo_chop <- function (breaks, labels = lbl_intervals(), extend = NULL, 
-      ..., close_end = FALSE, left = TRUE, 
+      ..., close_end = TRUE, left = TRUE, 
       lines = TRUE, swoosh = FALSE, lty = 1, cex_labels = 0.7,
       skip_lines = numeric(0)) {
   chopped <- chop(pts$x, breaks, labels = labels, 
@@ -403,7 +403,7 @@ demo_chop(c(200, 500, 800), left = FALSE, swoosh = TRUE)
 
 ![chopping fail](https://media.giphy.com/media/2zom27Xqp7PVe/giphy.gif)
 
-## Errors {.smallfont .reveal .left}
+## Errors 
 
 <div style="text-align: left;">
 <small>Sometimes it's impossible to create the breaks you want.</small>

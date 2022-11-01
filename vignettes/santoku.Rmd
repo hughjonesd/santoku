@@ -163,7 +163,7 @@ tab_mean_sd(x)
 By default, santoku labels intervals using mathematical notation:
 
 * `[0, 1]` means all numbers between 0 and 1 inclusive.
-* `(0, 1)` means all numbers _stricly_ between 0 and 1, not including the
+* `(0, 1)` means all numbers _strictly_ between 0 and 1, not including the
   endpoints.
 * `[0, 1)` means all numbers between 0 and 1, including 0 but not 1.
 * `(0, 1]` means all numbers between 0 and 1, including 1 but not 0.

@@ -48,7 +48,13 @@ Include a number twice to match it exactly:
 chop(1:5, c(2, 2, 4))
 ```
 
-Customize output with `lbl_*` functions:
+Use names in breaks for labels:
+
+```{r}
+chop(1:5, c(Low = 1, Mid = 2, High = 4))
+```
+
+Or use `lbl_*` functions:
 
 ```{r}
 chop(1:5, c(2, 4), labels = lbl_dash())
