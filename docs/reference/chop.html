@@ -16,7 +16,7 @@ tab() calls chop() and returns a contingency table() from the result."><meta pro
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,6 +34,7 @@ tab() calls chop() and returns a contingency table() from the result."><meta pro
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/website-articles/performance.html">Performance</a>
+    <a class="dropdown-item" href="../articles/whats-new-in-0-9-0.html">What's new in santoku 0.9.0</a>
   </div>
 </li>
 <li class="nav-item dropdown">
@@ -126,11 +127,13 @@ cut-points from <code>x</code>.</p></dd>
 
 
 <dt>extend</dt>
-<dd><p>Logical. Extend breaks to <code>+/-Inf</code>?</p></dd>
+<dd><p>Logical. If <code>TRUE</code>, always extend breaks to <code>+/-Inf</code>. If <code>NULL</code>,
+extend breaks to <code>min(x)</code> and/or <code>max(x)</code> only if necessary. If <code>NULL</code>, never
+extend.</p></dd>
 
 
 <dt>left</dt>
-<dd><p>Logical. Left-closed breaks?</p></dd>
+<dd><p>Logical. Left-closed or right-closed breaks?</p></dd>
 
 
 <dt>close_end</dt>
@@ -181,19 +184,19 @@ Use <code>brk_*</code> functions to create a variety of data-dependent breaks.</
 
 <p>By default, left-closed intervals are created. If <code>left</code> is <code>FALSE</code>,
 right-closed intervals are created.</p>
-<p>If <code>close_end</code> is <code>TRUE</code> the end break will be closed at both ends, ensuring
-that all values <code>x</code> with <code>min(breaks) &lt;= x &lt;= max(breaks)</code> are included in
-the default intervals.</p>
+<p>If <code>close_end</code> is <code>TRUE</code> the final break (or first break if <code>left</code> is <code>FALSE</code>)
+will be closed at both ends. This guarantees that all values <code>x</code> with
+<code>min(breaks) &lt;= x &lt;= max(breaks)</code> are included in the intervals.</p>
 <p>Before version 0.9.0, <code>close_end</code> was <code>FALSE</code> by default, and also behaved
 differently with respect to extended breaks: see "Extending intervals" below.</p>
 <p>Using <a href="lbl_intervals.html">mathematical set notation</a>:</p><ul><li><p>If <code>left</code> is <code>TRUE</code> and <code>close_end</code> is <code>TRUE</code>, breaks will look like
-<code>[x1, x2), [x2, x3) ... [x_n-1, x_n]</code>.</p></li>
+<code>[b1, b2), [b2, b3) ... [b_n-1, b_n]</code>.</p></li>
 <li><p>If <code>left</code> is <code>FALSE</code> and <code>close_end</code> is <code>TRUE</code>, breaks will look like
-<code>[x1, x2], (x2, x3] ... (x_n-1, x_n]</code>.</p></li>
+<code>[b1, b2], (b2, b3] ... (b_n-1, b_n]</code>.</p></li>
 <li><p>If <code>left</code> is <code>TRUE</code> and <code>close_end</code> is <code>FALSE</code>, all breaks will look like
-<code>...[x1, x2) ...</code>.</p></li>
+<code>...[b1, b2) ...</code>.</p></li>
 <li><p>If <code>left</code> is <code>FALSE</code> and <code>close_end</code> is <code>FALSE</code>, all breaks will look like
-<code>...(x1, x2] ...</code>.</p></li>
+<code>...(b1, b2] ...</code>.</p></li>
 </ul></div>
 
 <div class="section">
@@ -204,8 +207,8 @@ differently with respect to extended breaks: see "Extending intervals" below.</p
 min(breaks))</code> and <code>(max(breaks), Inf]</code>.</p>
 <p>If <code>extend</code> is <code>NULL</code> (the default), intervals will be extended to
 <code>[min(x), min(breaks))</code> and <code>(max(breaks), max(x)]</code>, <em>only</em> if
-necessary -- i.e. if <code>min(x) &lt; min(breaks)</code> and <code>max(x) &gt; max(breaks)</code>
-respectively.</p>
+necessary -- i.e. if elements of <code>x</code> would be below or above the unextended
+breaks.</p>
 <p><code>close_end</code> is applied after breaks are extended, i.e. always to the very last
 or very first break. This is a change from
 previous behaviour. Up to version 0.8.0, <code>close_end</code> was applied to the
@@ -256,6 +259,7 @@ aren't numbers.</p>
 <p>Other chopping functions: 
 <code><a href="chop_equally.html">chop_equally</a>()</code>,
 <code><a href="chop_evenly.html">chop_evenly</a>()</code>,
+<code><a href="chop_fn.html">chop_fn</a>()</code>,
 <code><a href="chop_mean_sd.html">chop_mean_sd</a>()</code>,
 <code><a href="chop_n.html">chop_n</a>()</code>,
 <code><a href="chop_proportions.html">chop_proportions</a>()</code>,

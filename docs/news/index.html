@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,6 +28,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../articles/website-articles/performance.html">Performance</a>
+    <a class="dropdown-item" href="../articles/whats-new-in-0-9-0.html">What's new in santoku 0.9.0</a>
   </div>
 </li>
 <li class="nav-item dropdown">
@@ -61,9 +62,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="development version" id="santoku-development-version">santoku (development version)<a class="anchor" aria-label="anchor" href="#santoku-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.9.0" id="santoku-090">santoku 0.9.0<a class="anchor" aria-label="anchor" href="#santoku-090"></a></h2>
 <div class="section level3">
-<h3 id="breaking-changes-development-version">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-development-version"></a></h3>
+<h3 id="breaking-changes-0-9-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-9-0"></a></h3>
 <p>There are important changes to <code>close_end</code>.</p>
 <ul><li>
 <p><code>close_end</code> is now <code>TRUE</code> by default in <code><a href="../reference/chop.html">chop()</a></code> and <code><a href="../reference/fillet.html">fillet()</a></code>. In previous versions:</p>
@@ -105,12 +106,12 @@
 </li>
 <li><p>There is a new <code>raw</code> parameter to <code><a href="../reference/chop.html">chop()</a></code>. This replaces the parameter <code>raw</code> in <code>lbl_*</code> functions, which is now soft-deprecated.</p></li>
 <li><p><code><a href="../reference/lbl_manual.html">lbl_manual()</a></code> is deprecated. Just use a vector argument to <code>labels</code> instead.</p></li>
+<li><p>A <code>labels</code> argument to <code><a href="../reference/chop_quantiles.html">chop_quantiles()</a></code> now needs to be explicitly named.</p></li>
 </ul><p>I expect these to be the last important breaking changes before we release version 1.0 and mark the package as “stable”. If they cause problems for you, please file an issue.</p>
-<ul><li>A <code>labels</code> argument to <code><a href="../reference/chop_quantiles.html">chop_quantiles()</a></code> now needs to be explicitly named.</li>
-</ul></div>
+</div>
 <div class="section level3">
-<h3 id="other-changes-development-version">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-development-version"></a></h3>
-<ul><li>New <code><a href="../reference/brk_fn.html">brk_fn()</a></code> breaks wrap an arbitrary function.</li>
+<h3 id="other-changes-0-9-0">Other changes<a class="anchor" aria-label="anchor" href="#other-changes-0-9-0"></a></h3>
+<ul><li>New <code><a href="../reference/chop_fn.html">chop_fn()</a></code>, <code><a href="../reference/chop_fn.html">brk_fn()</a></code> and <code><a href="../reference/chop_fn.html">tab_fn()</a></code> chop using an arbitrary function.</li>
 <li>Added section on non-standard objects to vignette.</li>
 </ul></div>
 </div>

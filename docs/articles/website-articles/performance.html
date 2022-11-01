@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.8.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,6 +53,7 @@
   <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
   <div class="dropdown-menu" aria-labelledby="dropdown-articles">
     <a class="dropdown-item" href="../../articles/website-articles/performance.html">Performance</a>
+    <a class="dropdown-item" href="../../articles/whats-new-in-0-9-0.html">What's new in santoku 0.9.0</a>
   </div>
 </li>
 <li class="nav-item dropdown">
@@ -93,7 +94,7 @@
                         <h4 data-toc-skip class="author">David
 Hugh-Jones</h4>
             
-            <h4 data-toc-skip class="date">2022-10-30</h4>
+            <h4 data-toc-skip class="date">2022-11-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hughjonesd/santoku/blob/HEAD/vignettes/website-articles/performance.Rmd" class="external-link"><code>vignettes/website-articles/performance.Rmd</code></a></small>
       <div class="d-none name"><code>performance.Rmd</code></div>
@@ -108,7 +109,7 @@ Hugh-Jones</h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"santoku"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] '0.8.0.9000'</span></span>
+<span><span class="co">#&gt; [1] '0.9.0'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">27101975</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="http://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
@@ -122,9 +123,9 @@ Hugh-Jones</h4>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                             min   median `itr/sec` mem_al…¹ gc/se…²</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:by&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(rnorm(1e+05), -2:2)   29.9ms   41.2ms      23.9  14.83MB    9.77</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base::cut(rnorm(1e+05), -2:2)       16.7ms   22.5ms      43.9   3.49MB    3.81</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Hmisc::cut2(rnorm(1e+05), -2:2)     48.2ms   59.8ms      15.6  92.32MB   21.0 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(rnorm(1e+05), -2:2)   29.7ms   35.2ms      27.2  14.83MB   11.1 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base::cut(rnorm(1e+05), -2:2)       16.5ms   21.2ms      43.6   3.49MB    3.79</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Hmisc::cut2(rnorm(1e+05), -2:2)     45.5ms     55ms      17.3  92.32MB   24.9 </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​mem_alloc, ²​`gc/sec`</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></span>
@@ -151,9 +152,9 @@ Hugh-Jones</h4>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                             min   median `itr/sec` mem_al…¹ gc/se…²</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:by&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(dates, break_dates)   20.1ms   26.6ms      36.9   10.6MB   14.3 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base::cut(dates, break_dates)       8.03ms     11ms      86.6    3.9MB    7.53</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Hmisc::cut2(dates, break_dates)    19.74ms   26.8ms      34.1   15.3MB   16.1 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(dates, break_dates)  19.87ms     24ms      35.8   10.6MB   13.9 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base::cut(dates, break_dates)       9.14ms   12.3ms      77.0    3.9MB    6.70</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Hmisc::cut2(dates, break_dates)     19.2ms   25.8ms      35.1   15.3MB   18.1 </span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​mem_alloc, ²​`gc/sec`</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb_dates</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></span></code></pre></div>
@@ -180,8 +181,8 @@ Hugh-Jones</h4>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                                         min  median itr/s…¹ mem_a…²</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                                    <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:b&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(lipsum, letters)                  3.19ms  4.34ms    219. 135.5KB</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> santoku::chop(seq(1, 26, length = 100), 1:26)   1.75ms  2.06ms    428.  39.4KB</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(lipsum, letters)                   3.2ms  4.87ms    177. 135.4KB</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> santoku::chop(seq(1, 26, length = 100), 1:26)   1.75ms  2.24ms    405.  39.4KB</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: `gc/sec` &lt;dbl&gt;, and abbreviated variable names</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   ¹​`itr/sec`, ²​mem_alloc</span></span></span>
 <span></span>
@@ -209,9 +210,9 @@ Hugh-Jones</h4>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                                  min median itr/s…¹ mem_a…² gc/se…³</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                               <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:b&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(rnorm(10000), many_breaks) 43.1ms 48.9ms    18.1  5.12MB    2.02</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base::cut(rnorm(10000), many_breaks)       12ms 14.4ms    66.4  1.54MB    2.05</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Hmisc::cut2(rnorm(10000), many_breaks)   33.4ms 36.9ms    25.9   6.2MB    3.88</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(rnorm(10000), many_breaks) 43.3ms   46ms    21.0  5.12MB    2.59</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base::cut(rnorm(10000), many_breaks)     11.8ms 12.6ms    75.0  1.54MB    2.32</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Hmisc::cut2(rnorm(10000), many_breaks)   34.2ms 38.5ms    25.3   6.2MB    3.78</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​`itr/sec`, ²​mem_alloc, ³​`gc/sec`</span></span></span></code></pre></div>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb_breaks</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></span></code></pre></div>

@@ -22,6 +22,9 @@
     <loc>/articles/website-articles/performance.html</loc>
   </url>
   <url>
+    <loc>/articles/whats-new-in-0-9-0.html</loc>
+  </url>
+  <url>
     <loc>/authors.html</loc>
   </url>
   <url>
@@ -56,6 +59,9 @@
   </url>
   <url>
     <loc>/reference/chop_evenly.html</loc>
+  </url>
+  <url>
+    <loc>/reference/chop_fn.html</loc>
   </url>
   <url>
     <loc>/reference/chop_mean_sd.html</loc>
