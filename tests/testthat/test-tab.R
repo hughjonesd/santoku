@@ -86,3 +86,10 @@ test_that("tab_equally", {
           dnn = NULL)
   )
 })
+
+test_that("tab_fn", {
+  expect_equivalent(
+    tab_fn(1:5, median),
+    table(factor(c(rep("[1, 3)", 2), rep("[3, 5]", 3))))
+  )
+})

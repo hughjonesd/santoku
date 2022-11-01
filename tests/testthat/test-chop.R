@@ -322,6 +322,20 @@ test_that("chop_pretty", {
 })
 
 
+test_that("chop_fn", {
+  expect_silent(res <- chop_fn(1:10, pretty))
+  expect_silent(res <- chop_fn(1:10, quantile, c(.2, .8)))
+  expect_equivalent(
+    chop_fn(1:5, median),
+    factor(c("[1, 3)", "[1, 3)", "[3, 5]", "[3, 5]", "[3, 5]"))
+  )
+  expect_equivalent(
+    chop_fn(1:5, median, left = FALSE),
+    factor(c("[1, 3]", "[1, 3]", "[1, 3]", "(3, 5]", "(3, 5]"))
+  )
+})
+
+
 test_that("fillet", {
   x <- -2:2
   expect_silent(sole <- fillet(x, -1:1))
