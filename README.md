@@ -25,25 +25,25 @@ replacement for `base::cut()`.
 
 Here are some advantages of santoku:
 
--   By default, `chop()` always covers the whole range of the data, so
+  - By default, `chop()` always covers the whole range of the data, so
     you won’t get unexpected `NA` values.
 
--   `chop()` can handle single values as well as intervals. For example,
+  - `chop()` can handle single values as well as intervals. For example,
     `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor
     level for values exactly equal to 2.
 
--   `chop()` can handle many kinds of data, including numbers, dates and
-    times.
+  - `chop()` can handle many kinds of data, including numbers, dates and
+    times, and [units](https://r-quantities.github.io/units/).
 
--   `chop_*` functions create intervals in many ways, using quantiles of
+  - `chop_*` functions create intervals in many ways, using quantiles of
     the data, standard deviations, fixed-width intervals, equal-sized
     groups, or pretty intervals for use in graphs.
 
--   `lbl_*` functions make it easy to label intervals: use interval
+  - `lbl_*` functions make it easy to label intervals: use interval
     notation like `[1, 2)`, dash notation like `1-2`, or arbitrary
     styles using `glue::glue()`.
 
--   `tab_*` functions quickly chop data, then tabulate it.
+  - `tab_*` functions quickly chop data, then tabulate it.
 
 These advantages make santoku especially useful for exploratory
 analysis, where you may not know the range of your data in advance.
@@ -90,10 +90,10 @@ Chop into fixed-width intervals:
 
 ``` r
 chop_width(runif(10), 0.1)
-#>  [1] [0.58, 0.68)    [0.18, 0.28)    [0.68, 0.78)    [0.78, 0.88)   
-#>  [5] [0.18, 0.28)    [0.88, 0.98]    [0.28, 0.38)    [0.08001, 0.18)
-#>  [9] [0.08001, 0.18) [0.08001, 0.18)
-#> 7 Levels: [0.08001, 0.18) [0.18, 0.28) [0.28, 0.38) ... [0.88, 0.98]
+#>  [1] [0.1518, 0.2518) [0.3518, 0.4518) [0.8518, 0.9518] [0.0518, 0.1518)
+#>  [5] [0.7518, 0.8518) [0.7518, 0.8518) [0.5518, 0.6518) [0.6518, 0.7518)
+#>  [9] [0.0518, 0.1518) [0.4518, 0.5518)
+#> 8 Levels: [0.0518, 0.1518) [0.1518, 0.2518) ... [0.8518, 0.9518]
 ```
 
 Or into fixed-size groups:

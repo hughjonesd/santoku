@@ -15,14 +15,15 @@ for `base::cut()`.
    values exactly equal to 2.
 
  * `chop()` can handle many kinds of data, including numbers, dates and 
-   times.
+   times, and [units](https://r-quantities.github.io/units/).
 
  * `chop_*` functions create intervals in many ways, using quantiles of the data, 
    standard deviations, fixed-width intervals, equal-sized groups, or
    pretty intervals for use in graphs.
  
-* `lbl_*` functions make it easy to label intervals: use interval notation 
-   like `[1, 2)`, dash notation like `1-2`, or arbitrary styles using `glue::glue()`.
+*  It's easy to label intervals: use names for your breaks vector, or
+   use a `lbl_*` function to create interval notation like `[1, 2)`, dash 
+   notation like `1-2`, or arbitrary styles using `glue::glue()`.
 
  * `tab_*` functions quickly chop data, then tabulate it.
 
