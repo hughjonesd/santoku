@@ -88,10 +88,18 @@ test_that("systematic tests", {
 
   should_fail(names(test_df$x) == "char")
 
-  # but if we break by quantities, OK:
-  should_warn(names(test_df$x) == "char" &
+  # but if we break by quantities, OK...
+  char_by_quantities <- names(test_df$x) == "char" &
           test_df$brk_fun %in% c("brk_equally", "brk_quantiles", "brk_n")
-        )
+  # so long as we aren't trying raw midpoints
+  raw <- ! is.na(test_df$raw) & test_df$raw
+  should_warn(char_by_quantities & !
+                (test_df$lbl_fun == "lbl_midpoints" & raw)
+  )
+  # ... or midpoints with brk_n()
+  should_fail(char_by_quantities & test_df$lbl_fun == "lbl_midpoints"
+              & test_df$brk_fun == "brk_n")
+
 
   # all quantiles will be the same here, so no way to create
   # intervals if extend is FALSE
@@ -148,7 +156,15 @@ test_that("systematic tests", {
                    left == TRUE & is.na(extend)
                  ))
 
-  # brk_default2 has breaks 1,2,2,3
+  # quantiles here likely to create duplicate endpoints
+  dont_care(with(test_df,
+                 names(x) == "char" &
+                 lbl_fun == "lbl_endpoints" &
+                 brk_fun == "brk_quantiles" &
+                 extend == TRUE & raw == TRUE
+               ))
+
+  # brk_default has breaks 1,2,2,3
   # with lbl_endpoints, this may create duplicate left endpoints
   # ie the user asked for something we can't do
   dont_care(with(test_df,
@@ -174,8 +190,8 @@ test_that("systematic tests", {
           lbl_fun == "lbl_midpoints"
         ))
 
-  should_either(names(test_df$x) == "complex")
-browser()
+  should_fail(names(test_df$x) == "complex")
+
   # we sample the same 10000 rows every day
   seed <- as.numeric(Sys.Date())
   set.seed(seed)
@@ -191,6 +207,10 @@ browser()
   for (r in sample_rows) {
     tdata <- test_df[r, ]
     if (is.na(tdata$expect)) next
+
+    # v basic debugging interactively:
+    # cat(r, "\n")
+    # if (r==1486) browser()
     if (is.na(tdata$extend)) tdata$extend <- NULL
     if (is.na(tdata$raw)) tdata$raw <- NULL
 
@@ -209,10 +229,11 @@ browser()
     err_class <- switch(tdata$expect, "warn" = "warning", "either" = NULL, "error")
     exp_fn <- if (tdata$expect == "error") expect_error else expect_condition
     # suppressWarnings or we drown in them:
+
     suppressWarnings(exp_fn(
             chop(!!x,
-              breaks    = !!eval(brk_funs[[tdata$brk_fun]]),
-              labels    = !!eval(lbl_funs[[tdata$lbl_fun]]),
+              breaks    = eval(brk_funs[[!!tdata$brk_fun]]),
+              labels    = eval(lbl_funs[[!!tdata$lbl_fun]]),
               extend    = !!tdata$extend,
               left      = !!tdata$left,
               close_end = !!tdata$close_end,
