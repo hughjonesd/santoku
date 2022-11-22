@@ -45,5 +45,4 @@ chop_pretty(1:10)
 chop(1:10, brk_pretty(n = 5, high.u.bias = 0))
 
 tab_pretty(1:10)
-
 }

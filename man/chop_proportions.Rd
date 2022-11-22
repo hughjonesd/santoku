@@ -37,11 +37,6 @@ infinite values.
 By default, labels show the raw numeric endpoints. To label intervals by
 the proportions, use \code{raw = FALSE}.
 }
-\examples{
-chop_proportions(0:10, c(0.2, 0.8))
-chop_proportions(0:10, c(Low = 0, Mid = 0.2, High = 0.8))
-
-}
 \seealso{
 Other chopping functions: 
 \code{\link{chop_equally}()},
@@ -55,3 +50,7 @@ Other chopping functions:
 \code{\link{fillet}()}
 }
 \concept{chopping functions}
+\examples{
+chop_proportions(0:10, c(0.2, 0.8))
+chop_proportions(0:10, c(Low = 0, Mid = 0.2, High = 0.8))
+}

@@ -175,7 +175,7 @@ test_that("systematic tests", {
         ))
 
   should_either(names(test_df$x) == "complex")
-
+browser()
   # we sample the same 10000 rows every day
   seed <- as.numeric(Sys.Date())
   set.seed(seed)
@@ -210,14 +210,14 @@ test_that("systematic tests", {
     exp_fn <- if (tdata$expect == "error") expect_error else expect_condition
     # suppressWarnings or we drown in them:
     suppressWarnings(exp_fn(
-            chop(x,
-              breaks    = eval(brk_funs[[tdata$brk_fun]]),
-              labels    = eval(lbl_funs[[tdata$lbl_fun]]),
-              extend    = tdata$extend,
-              left      = tdata$left,
-              close_end = tdata$close_end,
-              raw       = tdata$raw,
-              drop      = tdata$drop
+            chop(!!x,
+              breaks    = !!eval(brk_funs[[tdata$brk_fun]]),
+              labels    = !!eval(lbl_funs[[tdata$lbl_fun]]),
+              extend    = !!tdata$extend,
+              left      = !!tdata$left,
+              close_end = !!tdata$close_end,
+              raw       = !!tdata$raw,
+              drop      = !!tdata$drop
             ),
             regexp = regexp,
             class  = err_class,

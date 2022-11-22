@@ -1,4 +1,7 @@
 
+testthat::local_edition(2)
+
+
 test_that("brk_manual", {
   expect_silent(brk_res(brk_manual(1:3, c(TRUE, TRUE, TRUE))))
   expect_silent(brk_res(brk_manual(c(1, 2, 2, 3), c(TRUE, TRUE, FALSE, TRUE))))

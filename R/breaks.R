@@ -135,12 +135,13 @@ brk_pretty <- function (n = 5, ...) {
 #' If `width` is a Period, [`lubridate::add_with_rollback()`][`lubridate::m+`]
 #' is used to calculate the widths. This can be useful for e.g. calendar months.
 #'
-#' @examples
+#' @doctest
 #'
 #' if (requireNamespace("lubridate")) {
 #'   year2001 <- as.Date("2001-01-01") + 0:364
+#' @expect match(names(.), "31 Jan", all = FALSE)
 #'   tab_width(year2001, months(1),
-#'         labels = lbl_discrete(" to ", fmt = "%e %b %y"))
+#'         labels = lbl_discrete(" to ", fmt = "%e %b"))
 #' }
 #'
 #' @name brk_width-for-datetime
@@ -322,6 +323,7 @@ brk_default <- function (breaks) {
 #'
 #' @examples
 #' lbrks <- brk_manual(1:3, rep(TRUE, 3))
+#'
 #' chop(1:3, lbrks, extend = FALSE)
 #'
 #' rbrks <- brk_manual(1:3, rep(FALSE, 3))

@@ -1,4 +1,7 @@
 
+testthat::local_edition(2)
+
+
 test_that("basic functionality", {
   x <- 1:3
   lbrks <- brk_manual(1:3, rep(TRUE, 3))

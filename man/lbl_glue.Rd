@@ -65,20 +65,6 @@ that can be used as breaks) and return a character vector. It may be helpful
 to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_number]{scales::label_comma()}}.
 }
 
-\examples{
-tab(1:10, c(1, 3, 3, 7),
-    label = lbl_glue("{l} to {r}", single = "Exactly {l}"))
-
-tab(1:10 * 1000, c(1, 3, 5, 7) * 1000,
-    label = lbl_glue("{l}-{r}", fmt = function(x) prettyNum(x, big.mark=',')))
-
-# reproducing lbl_intervals():
-interval_left <- "{ifelse(l_closed, '[', '(')}"
-interval_right <- "{ifelse(r_closed, ']', ')')}"
-glue_string <- paste0(interval_left, "{l}", ", ", "{r}", interval_right)
-tab(1:10, c(1, 3, 3, 7), label = lbl_glue(glue_string, single = "{{{l}}}"))
-
-}
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
@@ -90,3 +76,15 @@ Other labelling functions:
 \code{\link{lbl_seq}()}
 }
 \concept{labelling functions}
+\examples{
+tab(1:10, c(1, 3, 3, 7),
+    label = lbl_glue("{l} to {r}", single = "Exactly {l}"))
+tab(1:10 * 1000, c(1, 3, 5, 7) * 1000,
+    label = lbl_glue("{l}-{r}", fmt = function(x) prettyNum(x, big.mark=',')))
+
+# reproducing lbl_intervals():
+interval_left <- "{ifelse(l_closed, '[', '(')}"
+interval_right <- "{ifelse(r_closed, ']', ')')}"
+glue_string <- paste0(interval_left, "{l}", ", ", "{r}", interval_right)
+tab(1:10, c(1, 3, 3, 7), label = lbl_glue(glue_string, single = "{{{l}}}"))
+}

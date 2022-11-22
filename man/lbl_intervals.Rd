@@ -58,15 +58,6 @@ that can be used as breaks) and return a character vector. It may be helpful
 to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_number]{scales::label_comma()}}.
 }
 
-\examples{
-
-tab(-10:10, c(-3, 0, 0, 3),
-      labels = lbl_intervals())
-
-tab_evenly(runif(20), 10,
-      labels = lbl_intervals(fmt = percent))
-
-}
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
@@ -78,3 +69,11 @@ Other labelling functions:
 \code{\link{lbl_seq}()}
 }
 \concept{labelling functions}
+\examples{
+tab(-10:10, c(-3, 0, 0, 3),
+      labels = lbl_intervals())
+
+set.seed(42)
+tab_evenly(runif(20), 10,
+      labels = lbl_intervals(fmt = percent))
+}

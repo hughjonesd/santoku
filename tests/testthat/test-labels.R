@@ -1,4 +1,7 @@
 
+testthat::local_edition(2)
+
+
 brackets <- function (x) paste0("(", x, ")")
 
 

@@ -2,7 +2,9 @@
 
 #' @rdname chop
 #' @export
-#' @examples
+#' @doctest
+#'
+#' @expect snapshot()
 #' tab(1:10, c(2, 5, 8))
 #'
 tab <- function (
@@ -33,7 +35,9 @@ tab <- function (
 #' @rdname chop_width
 #' @export
 #' @order 3
-#' @examples
+#' @doctest
+#'
+#' @expect snapshot()
 #' tab_width(1:10, 2, start = 0)
 #'
 tab_width <- function (
@@ -81,7 +85,9 @@ tab_proportions <- function (
 #' @rdname chop_n
 #' @export
 #' @order 3
-#' @examples
+#' @doctest
+#'
+#' @expect snapshot()
 #' tab_n(1:10, 5)
 #'
 #' # fewer elements in one group
@@ -99,7 +105,8 @@ tab_n <- function (
 #' @rdname chop_mean_sd
 #' @export
 #' @order 3
-#' @examples
+#' @doctest
+#' @expect snapshot()
 #' tab_mean_sd(1:10)
 #'
 tab_mean_sd <- function (
@@ -115,7 +122,9 @@ tab_mean_sd <- function (
 #' @rdname chop_pretty
 #' @export
 #' @order 3
-#' @examples
+#' @doctest
+#'
+#' @expect snapshot()
 #' tab_pretty(1:10)
 #'
 tab_pretty <- function (x, n = 5, ...) {
@@ -126,8 +135,10 @@ tab_pretty <- function (x, n = 5, ...) {
 #' @rdname chop_quantiles
 #' @export
 #' @order 3
-#' @examples
+#' @doctest
+#'
 #' set.seed(42)
+#' @expect snapshot()
 #' tab_quantiles(rnorm(100), probs = 1:3/4, raw = TRUE)
 #'
 tab_quantiles <- function (

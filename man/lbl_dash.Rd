@@ -55,16 +55,6 @@ that can be used as breaks) and return a character vector. It may be helpful
 to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_number]{scales::label_comma()}}.
 }
 
-\examples{
-chop(1:10, c(2, 5, 8), lbl_dash())
-
-chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "\%.1f"))
-
-chop(1:10, c(2, 5, 8), lbl_dash(first = "<{r}"))
-
-pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
-chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
-}
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_discrete}()},
@@ -76,3 +66,11 @@ Other labelling functions:
 \code{\link{lbl_seq}()}
 }
 \concept{labelling functions}
+\examples{
+chop(1:10, c(2, 5, 8), lbl_dash())
+chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "\%.1f"))
+chop(1:10, c(2, 5, 8), lbl_dash(first = "<{r}"))
+
+pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
+chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
+}

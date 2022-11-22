@@ -35,6 +35,7 @@ at indices \code{i}, \code{i+1}, \code{left[i]} \emph{must} be \code{TRUE} and \
 }
 \examples{
 lbrks <- brk_manual(1:3, rep(TRUE, 3))
+
 chop(1:3, lbrks, extend = FALSE)
 
 rbrks <- brk_manual(1:3, rep(FALSE, 3))

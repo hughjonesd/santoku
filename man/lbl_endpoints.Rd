@@ -57,6 +57,17 @@ that can be used as breaks) and return a character vector. It may be helpful
 to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_number]{scales::label_comma()}}.
 }
 
+\seealso{
+Other labelling functions: 
+\code{\link{lbl_dash}()},
+\code{\link{lbl_discrete}()},
+\code{\link{lbl_glue}()},
+\code{\link{lbl_intervals}()},
+\code{\link{lbl_manual}()},
+\code{\link{lbl_midpoints}()},
+\code{\link{lbl_seq}()}
+}
+\concept{labelling functions}
 \examples{
 chop(1:10, c(2, 5, 8), lbl_endpoints(left = TRUE))
 chop(1:10, c(2, 5, 8), lbl_endpoints(left = FALSE))
@@ -74,14 +85,3 @@ if (requireNamespace("lubridate")) {
   chop(1:3, 1:3, lbl_endpoints(left = FALSE))
 }
 }
-\seealso{
-Other labelling functions: 
-\code{\link{lbl_dash}()},
-\code{\link{lbl_discrete}()},
-\code{\link{lbl_glue}()},
-\code{\link{lbl_intervals}()},
-\code{\link{lbl_manual}()},
-\code{\link{lbl_midpoints}()},
-\code{\link{lbl_seq}()}
-}
-\concept{labelling functions}

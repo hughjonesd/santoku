@@ -59,17 +59,6 @@ that can be used as breaks) and return a character vector. It may be helpful
 to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_number]{scales::label_comma()}}.
 }
 
-\examples{
-tab(1:7, c(1, 3, 5), lbl_discrete())
-
-tab(1:7, c(3, 5), lbl_discrete(first = "<= {r}"))
-
-tab(1:7 * 1000, c(1, 3, 5) * 1000, lbl_discrete(unit = 1000))
-
-# Misleading labels for non-integer data
-chop(2.5, c(1, 3, 5), lbl_discrete())
-
-}
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
@@ -81,3 +70,11 @@ Other labelling functions:
 \code{\link{lbl_seq}()}
 }
 \concept{labelling functions}
+\examples{
+tab(1:7, c(1, 3, 5), lbl_discrete())
+tab(1:7, c(3, 5), lbl_discrete(first = "<= {r}"))
+tab(1:7 * 1000, c(1, 3, 5) * 1000, lbl_discrete(unit = 1000))
+
+# Misleading labels for non-integer data
+chop(2.5, c(1, 3, 5), lbl_discrete())
+}

@@ -1,4 +1,7 @@
 
+testthat::local_edition(2)
+
+
 d1 <- seq(as.Date("1975-10-27"), as.Date("1975-11-27"), by = "day")
 
 db1 <- as.Date(c("1975-11-01", "1975-11-15"))

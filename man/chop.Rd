@@ -171,48 +171,6 @@ not be exactly equal to what you think they should be. There is an example
 below.
 }
 }
-\examples{
-
-chop(1:7, c(2, 4, 6))
-
-chop(1:7, c(2, 4, 6), extend = FALSE)
-
-# Repeat a number for a singleton break:
-chop(1:7, c(2, 4, 4, 6))
-
-chop(1:7, c(2, 4, 6), left = FALSE)
-
-chop(1:7, c(2, 4, 6), close_end = FALSE)
-
-chop(1:7, brk_quantiles(c(0.25, 0.75)))
-
-# A single break is fine if `extend` is not `FALSE`:
-chop(1:7, 4)
-
-# Floating point inaccuracy:
-chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
-
-# -- Labels --
-
-chop(1:7, c(Lowest = 1, Low = 2, Mid = 4, High = 6))
-
-chop(1:7, c(2, 4, 6), labels = c("Lowest", "Low", "Mid", "High"))
-
-chop(1:7, c(2, 4, 6), labels = lbl_dash())
-
-# Mixing names and other labels:
-chop(1:7, c("<2" = 1, 2, 4, ">=6" = 6), labels = lbl_dash())
-
-# -- Non-standard types --
-
-chop(as.Date("2001-01-01") + 1:7, as.Date("2001-01-04"))
-
-suppressWarnings(chop(LETTERS[1:7], "D"))
-
-
-tab(1:10, c(2, 5, 8))
-
-}
 \seealso{
 \code{\link[base:cut]{base::cut()}}, \code{\link{non-standard-types}} for chopping objects that
 aren't numbers.
@@ -229,3 +187,35 @@ Other chopping functions:
 \code{\link{fillet}()}
 }
 \concept{chopping functions}
+\examples{
+chop(1:7, c(2, 4, 6))
+chop(1:7, c(2, 4, 6), extend = FALSE)
+
+# Repeat a number for a singleton break:
+chop(1:7, c(2, 4, 4, 6))
+chop(1:7, c(2, 4, 6), left = FALSE)
+chop(1:7, c(2, 4, 6), close_end = FALSE)
+
+chop(1:7, brk_quantiles(c(0.25, 0.75)))
+
+# A single break is fine if `extend` is not `FALSE`:
+chop(1:7, 4)
+
+# Floating point inaccuracy:
+chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
+# -- Labels --
+chop(1:7, c(Lowest = 1, Low = 2, Mid = 4, High = 6))
+chop(1:7, c(2, 4, 6), labels = c("Lowest", "Low", "Mid", "High"))
+chop(1:7, c(2, 4, 6), labels = lbl_dash())
+
+# Mixing names and other labels:
+chop(1:7, c("<2" = 1, 2, 4, ">=6" = 6), labels = lbl_dash())
+
+# -- Non-standard types --
+
+chop(as.Date("2001-01-01") + 1:7, as.Date("2001-01-04"))
+suppressWarnings(chop(LETTERS[1:7], "D"))
+
+
+tab(1:10, c(2, 5, 8))
+}

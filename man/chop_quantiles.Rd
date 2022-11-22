@@ -47,6 +47,19 @@ For non-numeric \code{x}, \code{left} is set to \code{FALSE} by default. This wo
 for calculating "type 1" quantiles, since they round down. See
 \code{\link[stats:quantile]{stats::quantile()}}.
 }
+\seealso{
+Other chopping functions: 
+\code{\link{chop_equally}()},
+\code{\link{chop_evenly}()},
+\code{\link{chop_fn}()},
+\code{\link{chop_mean_sd}()},
+\code{\link{chop_n}()},
+\code{\link{chop_proportions}()},
+\code{\link{chop_width}()},
+\code{\link{chop}()},
+\code{\link{fillet}()}
+}
+\concept{chopping functions}
 \examples{
 chop_quantiles(1:10, 1:3/4)
 
@@ -61,18 +74,4 @@ chop_quantiles(1:10, 1:3/4, raw = TRUE)
 
 set.seed(42)
 tab_quantiles(rnorm(100), probs = 1:3/4, raw = TRUE)
-
 }
-\seealso{
-Other chopping functions: 
-\code{\link{chop_equally}()},
-\code{\link{chop_evenly}()},
-\code{\link{chop_fn}()},
-\code{\link{chop_mean_sd}()},
-\code{\link{chop_n}()},
-\code{\link{chop_proportions}()},
-\code{\link{chop_width}()},
-\code{\link{chop}()},
-\code{\link{fillet}()}
-}
-\concept{chopping functions}

@@ -23,11 +23,9 @@ If \code{width} is a Period, \code{\link[lubridate:mplus]{lubridate::add_with_ro
 is used to calculate the widths. This can be useful for e.g. calendar months.
 }
 \examples{
-
 if (requireNamespace("lubridate")) {
   year2001 <- as.Date("2001-01-01") + 0:364
   tab_width(year2001, months(1),
-        labels = lbl_discrete(" to ", fmt = "\%e \%b \%y"))
+        labels = lbl_discrete(" to ", fmt = "\%e \%b"))
 }
-
 }

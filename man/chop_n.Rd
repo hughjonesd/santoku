@@ -42,19 +42,6 @@ the first interval otherwise.
 Groups may be larger than \code{n}, if there are too many duplicated elements
 in \code{x}. If so, a warning is given.
 }
-\examples{
-chop_n(1:10, 5)
-
-# too many duplicates
-x <- rep(1:2, each = 3)
-chop_n(x, 2)
-
-tab_n(1:10, 5)
-
-# fewer elements in one group
-tab_n(1:10, 4)
-
-}
 \seealso{
 Other chopping functions: 
 \code{\link{chop_equally}()},
@@ -68,3 +55,15 @@ Other chopping functions:
 \code{\link{fillet}()}
 }
 \concept{chopping functions}
+\examples{
+chop_n(1:10, 5)
+
+# too many duplicates
+x <- rep(1:2, each = 3)
+chop_n(x, 2)
+
+tab_n(1:10, 5)
+
+# fewer elements in one group
+tab_n(1:10, 4)
+}

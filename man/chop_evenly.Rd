@@ -35,10 +35,6 @@ close first break at left?)}
 \details{
 \code{chop_evenly()} sets \code{close_end = TRUE} by default.
 }
-\examples{
-chop_evenly(0:10, 5)
-
-}
 \seealso{
 Other chopping functions: 
 \code{\link{chop_equally}()},
@@ -52,3 +48,6 @@ Other chopping functions:
 \code{\link{fillet}()}
 }
 \concept{chopping functions}
+\examples{
+chop_evenly(0:10, 5)
+}

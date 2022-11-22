@@ -28,13 +28,6 @@ character out of the set "a", "A", "i", "I" or "1". For later elements:
 
 Other characters will be retained as-is.
 }
-\examples{
-chop(1:10, c(2, 5, 8), lbl_seq())
-
-chop(1:10, c(2, 5, 8), lbl_seq("i."))
-
-chop(1:10, c(2, 5, 8), lbl_seq("(A)"))
-}
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
@@ -46,3 +39,8 @@ Other labelling functions:
 \code{\link{lbl_midpoints}()}
 }
 \concept{labelling functions}
+\examples{
+chop(1:10, c(2, 5, 8), lbl_seq())
+chop(1:10, c(2, 5, 8), lbl_seq("i."))
+chop(1:10, c(2, 5, 8), lbl_seq("(A)"))
+}

@@ -1,4 +1,5 @@
 
+testthat::local_edition(2)
 
 test_that("brk_manual", {
   for (l in c(TRUE, FALSE)) for (r in c(TRUE, FALSE)) {

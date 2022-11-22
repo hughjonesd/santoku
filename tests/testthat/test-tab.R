@@ -1,3 +1,7 @@
+
+testthat::local_edition(2)
+
+
 test_that("tab", {
   expect_identical(
     tab(1:5, c(2, 4), letters[1:3]),

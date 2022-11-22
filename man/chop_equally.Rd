@@ -46,10 +46,6 @@ close first break at left?)}
 \description{
 \code{chop_equally()} chops \code{x} into groups with an equal number of elements.
 }
-\examples{
-chop_equally(1:10, 5)
-
-}
 \seealso{
 Other chopping functions: 
 \code{\link{chop_evenly}()},
@@ -63,3 +59,6 @@ Other chopping functions:
 \code{\link{fillet}()}
 }
 \concept{chopping functions}
+\examples{
+chop_equally(1:10, 5)
+}

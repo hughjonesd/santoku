@@ -48,9 +48,6 @@ that can be used as breaks) and return a character vector. It may be helpful
 to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_number]{scales::label_comma()}}.
 }
 
-\examples{
-chop(1:10, c(2, 5, 8), lbl_midpoints())
-}
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
@@ -62,3 +59,6 @@ Other labelling functions:
 \code{\link{lbl_seq}()}
 }
 \concept{labelling functions}
+\examples{
+chop(1:10, c(2, 5, 8), lbl_midpoints())
+}

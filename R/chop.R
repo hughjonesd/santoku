@@ -140,17 +140,20 @@ NULL
 #' @seealso [base::cut()], [`non-standard-types`] for chopping objects that
 #'   aren't numbers.
 #'
-#' @examples
+#' @doctest
 #'
+#' @expect snapshot()
 #' chop(1:7, c(2, 4, 6))
 #'
+#' @expect true(is.na(.[1]))
 #' chop(1:7, c(2, 4, 6), extend = FALSE)
 #'
 #' # Repeat a number for a singleton break:
+#' @expect match(levels(.), "{4}")
 #' chop(1:7, c(2, 4, 4, 6))
 #'
+#' @skipTest
 #' chop(1:7, c(2, 4, 6), left = FALSE)
-#'
 #' chop(1:7, c(2, 4, 6), close_end = FALSE)
 #'
 #' chop(1:7, brk_quantiles(c(0.25, 0.75)))
@@ -160,22 +163,26 @@ NULL
 #'
 #' # Floating point inaccuracy:
 #' chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
-#'
+#' @resumeTest
 #' # -- Labels --
-#'
+#' @expect setequal(levels(.), c("Lowest", "Low", "Mid", "High"))
 #' chop(1:7, c(Lowest = 1, Low = 2, Mid = 4, High = 6))
 #'
+#' @expect setequal(levels(.), c("Lowest", "Low", "Mid", "High"))
 #' chop(1:7, c(2, 4, 6), labels = c("Lowest", "Low", "Mid", "High"))
 #'
+#' @expect match(levels(.), em_dash())
 #' chop(1:7, c(2, 4, 6), labels = lbl_dash())
 #'
 #' # Mixing names and other labels:
+#' @expect equal(levels(.)[1], "<2")
 #' chop(1:7, c("<2" = 1, 2, 4, ">=6" = 6), labels = lbl_dash())
 #'
 #' # -- Non-standard types --
 #'
 #' chop(as.Date("2001-01-01") + 1:7, as.Date("2001-01-04"))
 #'
+#' @expect match(levels(.), "A.*D", all = FALSE)
 #' suppressWarnings(chop(LETTERS[1:7], "D"))
 #'
 #'
@@ -244,7 +251,8 @@ kiru <- chop
 #'
 #' @export
 #'
-#' @examples
+#' @doctest
+#' @expect snapshot()
 #' fillet(1:10, c(2, 5, 8))
 fillet <- function (
             x,
@@ -281,7 +289,8 @@ fillet <- function (
 #' @export
 #' @order 1
 #'
-#' @examples
+#' @doctest
+#' @expect snapshot()
 #' chop_quantiles(1:10, 1:3/4)
 #'
 #' chop_quantiles(1:10, c(Q1 = 0, Q2 = 0.25, Q3 = 0.5, Q4 = 0.75))
@@ -324,7 +333,8 @@ chop_deciles <- function(x, ...) {
 #'
 #' @export
 #' @order 1
-#' @examples
+#' @doctest
+#' @expect length(unique(.), 5)
 #' chop_equally(1:10, 5)
 #'
 chop_equally <- function (
@@ -361,7 +371,8 @@ chop_equally <- function (
 #' @export
 #' @order 1
 #'
-#' @examples
+#' @doctest
+#' @expect snapshot()
 #' chop_mean_sd(1:10)
 #'
 #' chop(1:10, brk_mean_sd())
@@ -400,7 +411,8 @@ chop_mean_sd <- function (
 #' @export
 #' @order 1
 #'
-#' @examples
+#' @doctest
+#' @expect snapshot()
 #' chop_pretty(1:10)
 #'
 #' chop(1:10, brk_pretty(n = 5, high.u.bias = 0))
@@ -430,11 +442,14 @@ chop_pretty <- function (x, n = 5, ...) {
 #' @export
 #' @order 1
 #'
-#' @examples
+#' @doctest
+#' @expect snapshot()
 #' chop_width(1:10, 2)
 #'
+#' @expect match(levels(.), "[0, 2)", fixed = TRUE, all = FALSE)
 #' chop_width(1:10, 2, start = 0)
 #'
+#' @expect match(levels(.), "(7, 9]", fixed = TRUE, all = FALSE)
 #' chop_width(1:9, -2)
 #'
 #' chop(1:10, brk_width(2, 0))
@@ -464,7 +479,8 @@ chop_width <- function (
 #'
 #' @export
 #' @order 1
-#' @examples
+#' @doctest
+#' @expect length(unique(.), 5)
 #' chop_evenly(0:10, 5)
 #'
 chop_evenly <- function (
@@ -493,7 +509,8 @@ chop_evenly <- function (
 #' @export
 #' @order 1
 #' @family chopping functions
-#' @examples
+#' @doctest
+#' @expect match(as.character(.), "[0, 2)", fixed = TRUE, all = FALSE)
 #' chop_proportions(0:10, c(0.2, 0.8))
 #' chop_proportions(0:10, c(Low = 0, Mid = 0.2, High = 0.8))
 #'
@@ -527,11 +544,13 @@ chop_proportions <- function (
 #' @export
 #' @order 1
 #' @family chopping functions
-#' @examples
+#' @doctest
+#' @expect length(unique(.), 2)
 #' chop_n(1:10, 5)
 #'
 #' # too many duplicates
 #' x <- rep(1:2, each = 3)
+#' @expect warning()
 #' chop_n(x, 2)
 #'
 chop_n <- function (
@@ -561,9 +580,10 @@ chop_n <- function (
 #' @export
 #' @order 1
 #' @family chopping functions
-#' @examples
-#'
+#' @doctest
 #' if (requireNamespace("scales")) {
+#'   set.seed(42)
+#' @expect snapshot()
 #'   chop_fn(rlnorm(10), scales::breaks_log(5))
 #'   # same as
 #'   # x <- rlnorm(10)

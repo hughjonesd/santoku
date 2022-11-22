@@ -41,18 +41,6 @@ finite \code{x} (largest if \code{width} is negative).}
 If \code{width} is negative, \code{chop_width()} sets \code{left = FALSE} and intervals will
 go downwards from \code{start}.
 }
-\examples{
-chop_width(1:10, 2)
-
-chop_width(1:10, 2, start = 0)
-
-chop_width(1:9, -2)
-
-chop(1:10, brk_width(2, 0))
-
-tab_width(1:10, 2, start = 0)
-
-}
 \seealso{
 \link{brk_width-for-datetime}
 
@@ -68,3 +56,12 @@ Other chopping functions:
 \code{\link{fillet}()}
 }
 \concept{chopping functions}
+\examples{
+chop_width(1:10, 2)
+chop_width(1:10, 2, start = 0)
+chop_width(1:9, -2)
+
+chop(1:10, brk_width(2, 0))
+
+tab_width(1:10, 2, start = 0)
+}

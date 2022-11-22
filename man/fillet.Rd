@@ -37,9 +37,6 @@ the intervals containing the value of \code{x}.
 ensures that you get only the \code{breaks} and \code{labels} you ask for. When
 programming, consider using \code{fillet()} instead of \code{chop()}.
 }
-\examples{
-fillet(1:10, c(2, 5, 8))
-}
 \seealso{
 Other chopping functions: 
 \code{\link{chop_equally}()},
@@ -53,3 +50,6 @@ Other chopping functions:
 \code{\link{chop}()}
 }
 \concept{chopping functions}
+\examples{
+fillet(1:10, c(2, 5, 8))
+}

@@ -61,16 +61,6 @@ close first break at left?)}
 \code{chop_fn()} is a convenience wrapper: \code{chop_fn(x, foo, ...)}
 is the same as \code{chop(x, foo(x, ...))}.
 }
-\examples{
-
-if (requireNamespace("scales")) {
-  chop_fn(rlnorm(10), scales::breaks_log(5))
-  # same as
-  # x <- rlnorm(10)
-  # chop(x, scales::breaks_log(5)(x))
-}
-
-}
 \seealso{
 Other chopping functions: 
 \code{\link{chop_equally}()},
@@ -84,3 +74,12 @@ Other chopping functions:
 \code{\link{fillet}()}
 }
 \concept{chopping functions}
+\examples{
+if (requireNamespace("scales")) {
+  set.seed(42)
+  chop_fn(rlnorm(10), scales::breaks_log(5))
+  # same as
+  # x <- rlnorm(10)
+  # chop(x, scales::breaks_log(5)(x))
+}
+}

@@ -39,12 +39,6 @@ In version 0.7.0, these functions changed to specifying \code{sds} as a vector.
 To chop 1, 2 and 3 standard deviations around the mean, write
 \code{chop_mean_sd(x, sds = 1:3)} instead of \code{chop_mean_sd(x, sd = 3)}.
 }
-\examples{
-chop_mean_sd(1:10)
-
-chop(1:10, brk_mean_sd())
-
-}
 \seealso{
 Other chopping functions: 
 \code{\link{chop_equally}()},
@@ -59,5 +53,8 @@ Other chopping functions:
 }
 \concept{chopping functions}
 \examples{
+chop_mean_sd(1:10)
+
+chop(1:10, brk_mean_sd())
 tab_mean_sd(1:10)
 }

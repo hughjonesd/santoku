@@ -53,11 +53,14 @@ NULL
 #'
 #' @export
 #'
-#' @examples
+#' @doctest
 #'
+#' @expect snapshot()
 #' tab(-10:10, c(-3, 0, 0, 3),
 #'       labels = lbl_intervals())
 #'
+#' set.seed(42)
+#' @expect snapshot()
 #' tab_evenly(runif(20), 10,
 #'       labels = lbl_intervals(fmt = percent))
 #'
@@ -92,14 +95,19 @@ lbl_intervals <- function (
 #'
 #' @export
 #'
-#' @examples
+#' @doctest
+#'
+#' @expect snapshot()
 #' chop(1:10, c(2, 5, 8), lbl_dash())
 #'
+#' @expect snapshot()
 #' chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "%.1f"))
 #'
+#' @expect snapshot()
 #' chop(1:10, c(2, 5, 8), lbl_dash(first = "<{r}"))
 #'
 #' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
+#' @expect snapshot()
 #' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
 lbl_dash <- function (
               symbol = em_dash(),
@@ -131,7 +139,8 @@ lbl_dash <- function (
 #'
 #' @export
 #'
-#' @examples
+#' @doctest
+#' @expect snapshot()
 #' chop(1:10, c(2, 5, 8), lbl_midpoints())
 lbl_midpoints <- function (
                    fmt    = NULL,
@@ -191,10 +200,12 @@ lbl_midpoints <- function (
 #'
 #' @export
 #'
-#' @examples
+#' @doctest
+#' @expect snapshot()
 #' tab(1:10, c(1, 3, 3, 7),
 #'     label = lbl_glue("{l} to {r}", single = "Exactly {l}"))
 #'
+#' @expect snapshot()
 #' tab(1:10 * 1000, c(1, 3, 5, 7) * 1000,
 #'     label = lbl_glue("{l}-{r}", fmt = function(x) prettyNum(x, big.mark=',')))
 #'
@@ -202,6 +213,7 @@ lbl_midpoints <- function (
 #' interval_left <- "{ifelse(l_closed, '[', '(')}"
 #' interval_right <- "{ifelse(r_closed, ']', ')')}"
 #' glue_string <- paste0(interval_left, "{l}", ", ", "{r}", interval_right)
+#' @expect snapshot()
 #' tab(1:10, c(1, 3, 3, 7), label = lbl_glue(glue_string, single = "{{{l}}}"))
 #'
 lbl_glue <- function (
@@ -317,10 +329,13 @@ lbl_glue <- function (
 #'
 #' @export
 #'
-#' @examples
+#' @doctest
+#' @expect snapshot()
 #' chop(1:10, c(2, 5, 8), lbl_endpoints(left = TRUE))
+#' @expect snapshot()
 #' chop(1:10, c(2, 5, 8), lbl_endpoints(left = FALSE))
 #' if (requireNamespace("lubridate")) {
+#' @expect snapshot()
 #'   tab_width(
 #'           as.Date("2000-01-01") + 0:365,
 #'          months(1),
@@ -331,6 +346,7 @@ lbl_glue <- function (
 #' \dontrun{
 #'   # This gives breaks `[1, 2) [2, 3) {3}` which lead to
 #'   # duplicate labels `"2", "3", "3"`:
+#' @expect length(levels(.), 2)
 #'   chop(1:3, 1:3, lbl_endpoints(left = FALSE))
 #' }
 lbl_endpoints <- function (
@@ -388,11 +404,14 @@ lbl_endpoint <- function (
 #'
 #' @export
 #'
-#' @examples
+#' @doctest
+#' @expect match(names(.), "1(-|\u2014)2", all = FALSE)
 #' tab(1:7, c(1, 3, 5), lbl_discrete())
 #'
+#' @expect snapshot()
 #' tab(1:7, c(3, 5), lbl_discrete(first = "<= {r}"))
 #'
+#' @skipTest
 #' tab(1:7 * 1000, c(1, 3, 5) * 1000, lbl_discrete(unit = 1000))
 #'
 #' # Misleading labels for non-integer data
@@ -498,11 +517,14 @@ lbl_discrete <- function (
 #'
 #' @export
 #'
-#' @examples
+#' @doctest
+#' @expect match(levels(.), "a", all = FALSE)
 #' chop(1:10, c(2, 5, 8), lbl_seq())
 #'
+#' @expect match(levels(.), "i.", all = FALSE, fixed = TRUE)
 #' chop(1:10, c(2, 5, 8), lbl_seq("i."))
 #'
+#' @expect match(levels(.), "(A)", all = FALSE, fixed = TRUE)
 #' chop(1:10, c(2, 5, 8), lbl_seq("(A)"))
 lbl_seq <- function(start = "a") {
   assert_that(is.string(start))
