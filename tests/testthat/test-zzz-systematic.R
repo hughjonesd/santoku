@@ -190,11 +190,7 @@ test_that("systematic tests", {
           lbl_fun == "lbl_midpoints"
         ))
 
-<<<<<<< HEAD
-  should_either(names(test_df$x) == "complex")
-=======
   should_fail(names(test_df$x) == "complex")
->>>>>>> 3a9dd1e... Patch up interactive tests
 
   # we sample the same 10000 rows every day
   seed <- as.numeric(Sys.Date())
