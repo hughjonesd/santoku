@@ -44,8 +44,6 @@ chop_mean_sd(1:10)
 
 chop(1:10, brk_mean_sd())
 
-tab_mean_sd(1:10)
-
 }
 \seealso{
 Other chopping functions: 
@@ -60,3 +58,6 @@ Other chopping functions:
 \code{\link{fillet}()}
 }
 \concept{chopping functions}
+\examples{
+tab_mean_sd(1:10)
+}
