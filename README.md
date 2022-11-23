@@ -11,6 +11,7 @@ status](https://www.r-pkg.org/badges/version/santoku)](https://CRAN.R-project.or
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN Downloads Per
 Month](http://cranlogs.r-pkg.org/badges/santoku)](https://CRAN.R-project.org/package=santoku)
+[![R-universe](https://hughjonesd.r-universe.dev/badges/santoku)](https://hughjonesd.r-universe.dev/ui#package:santoku)
 [![R-CMD-check](https://github.com/hughjonesd/santoku/workflows/R-CMD-check/badge.svg)](https://github.com/hughjonesd/santoku/actions)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/hughjonesd/santoku?branch=master&svg=true)](https://ci.appveyor.com/project/hughjonesd/santoku)
@@ -39,9 +40,9 @@ Here are some advantages of santoku:
     the data, standard deviations, fixed-width intervals, equal-sized
     groups, or pretty intervals for use in graphs.
 
-  - `lbl_*` functions make it easy to label intervals: use interval
-    notation like `[1, 2)`, dash notation like `1-2`, or arbitrary
-    styles using `glue::glue()`.
+  - It’s easy to label intervals: use names for your breaks vector, or
+    use a `lbl_*` function to create interval notation like `[1, 2)`,
+    dash notation like `1-2`, or arbitrary styles using `glue::glue()`.
 
   - `tab_*` functions quickly chop data, then tabulate it.
 
@@ -90,10 +91,10 @@ Chop into fixed-width intervals:
 
 ``` r
 chop_width(runif(10), 0.1)
-#>  [1] [0.1518, 0.2518) [0.3518, 0.4518) [0.8518, 0.9518] [0.0518, 0.1518)
-#>  [5] [0.7518, 0.8518) [0.7518, 0.8518) [0.5518, 0.6518) [0.6518, 0.7518)
-#>  [9] [0.0518, 0.1518) [0.4518, 0.5518)
-#> 8 Levels: [0.0518, 0.1518) [0.1518, 0.2518) ... [0.8518, 0.9518]
+#>  [1] [0.8136, 0.9136]  [0.01358, 0.1136) [0.1136, 0.2136)  [0.01358, 0.1136)
+#>  [5] [0.8136, 0.9136]  [0.1136, 0.2136)  [0.2136, 0.3136)  [0.3136, 0.4136) 
+#>  [9] [0.1136, 0.2136)  [0.7136, 0.8136) 
+#> 6 Levels: [0.01358, 0.1136) [0.1136, 0.2136) ... [0.8136, 0.9136]
 ```
 
 Or into fixed-size groups:
@@ -109,6 +110,7 @@ Chop dates by calendar month, then tabulate:
 
 ``` r
 library(lubridate)
+#> Loading required package: timechange
 #> 
 #> Attaching package: 'lubridate'
 #> The following objects are masked from 'package:base':
