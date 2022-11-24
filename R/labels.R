@@ -411,7 +411,7 @@ lbl_endpoint <- function (
 #' @expect snapshot()
 #' tab(1:7, c(3, 5), lbl_discrete(first = "<= {r}"))
 #'
-#' @skipTest
+#' @pause
 #' tab(1:7 * 1000, c(1, 3, 5) * 1000, lbl_discrete(unit = 1000))
 #'
 #' # Misleading labels for non-integer data

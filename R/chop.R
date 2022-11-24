@@ -152,7 +152,7 @@ NULL
 #' @expect match(levels(.), "{4}")
 #' chop(1:7, c(2, 4, 4, 6))
 #'
-#' @skipTest
+#' @pause
 #' chop(1:7, c(2, 4, 6), left = FALSE)
 #' chop(1:7, c(2, 4, 6), close_end = FALSE)
 #'
@@ -163,7 +163,7 @@ NULL
 #'
 #' # Floating point inaccuracy:
 #' chop(0.3/3, c(0, 0.1, 0.1, 1), labels = c("< 0.1", "0.1", "> 0.1"))
-#' @resumeTest
+#' @resume
 #' # -- Labels --
 #' @expect setequal(levels(.), c("Lowest", "Low", "Mid", "High"))
 #' chop(1:7, c(Lowest = 1, Low = 2, Mid = 4, High = 6))
