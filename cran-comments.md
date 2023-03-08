@@ -7,7 +7,7 @@ Updated methods to ensure generic/method consistency, fixing a CRAN check.
 * github (windows, macOS, Ubuntu), devel and release
 * win-builder (windows), devel and release
 * mac-builder release
-* r-hub (windows, Ubuntu), devel and release
+* r-hub (windows), devel
 
 ## R CMD check results
 
