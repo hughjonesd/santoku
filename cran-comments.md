@@ -18,6 +18,3 @@ Updated methods to ensure generic/method consistency, fixing a CRAN check.
 ## Reverse dependencies
 
 * None.
-
-
-
