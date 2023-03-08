@@ -1,7 +1,7 @@
 
 # ensure version is correct, then:
 # run line by line (some commands require command line input)
-rhc <- rhub::check(platforms = "windows-x86_64-devel", show_status = FALSE)
+rhc <- rhub::check_on_windows(show_status = FALSE)
 devtools::check_win_devel()
 devtools::check_win_release()
 devtools::check_mac_release()
