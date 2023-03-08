@@ -44,7 +44,7 @@ add_break_names <- function(labels, breaks) {
 #' @param breaks Either a breaks object, or a numeric vector
 #' @param raw Report raw numbers instead of e.g. quantiles?
 #' @param fmt Format string or function
-#' @param ...
+#' @param ... Not used
 #'
 #' @return A character vector of break endpoints.
 #' @noRd
@@ -90,7 +90,7 @@ endpoint_labels.default <- function (breaks, raw, fmt = NULL, ...) {
 
 
 #' @export
-endpoint_labels.Date <- function (breaks, raw, fmt = NULL) {
+endpoint_labels.Date <- function (breaks, raw, fmt = NULL, ...) {
   elabels <- scaled_endpoints(breaks, raw = raw)
   # this could be a number. If so, a `fmt` for `sprintf`
   # will work fine:
@@ -110,7 +110,7 @@ endpoint_labels.Date <- function (breaks, raw, fmt = NULL) {
 
 
 #' @export
-endpoint_labels.POSIXt <- function (breaks, raw, fmt = NULL) {
+endpoint_labels.POSIXt <- function (breaks, raw, fmt = NULL, ...) {
   elabels <- scaled_endpoints(breaks, raw = raw)
   # same comment as endpoint_labels.Date above:
   if (! inherits(elabels, "POSIXt")) return(NextMethod())
@@ -129,7 +129,7 @@ endpoint_labels.POSIXt <- function (breaks, raw, fmt = NULL) {
 
 
 #' @export
-endpoint_labels.quantileBreaks <- function (breaks, raw, fmt = NULL) {
+endpoint_labels.quantileBreaks <- function (breaks, raw, fmt = NULL, ...) {
   if (raw) return(NextMethod())
 
   # set default format
@@ -143,7 +143,7 @@ endpoint_labels.quantileBreaks <- function (breaks, raw, fmt = NULL) {
 
 
 #' @export
-endpoint_labels.sdBreaks <- function (breaks, raw, fmt = NULL) {
+endpoint_labels.sdBreaks <- function (breaks, raw, fmt = NULL, ...) {
   if (raw) return(NextMethod())
 
   # set default format
