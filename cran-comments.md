@@ -1,22 +1,23 @@
 
-A new version with new functionality and changes to the API.
+Updated methods to ensure generic/method consistency, fixing a CRAN check.
 
 ## Test environments
 
 * local (macOS), R 4.2.0
 * github (windows, macOS, Ubuntu), devel and release
 * win-builder (windows), devel and release
-* various others
-
+* mac-builder release
+* r-hub (windows, Ubuntu), devel and release
 
 ## R CMD check results
 
-* All OK.
-
+* One NOTE about a link to r-universe in the README on win-builder. Fixed.
+* One NOTE about 'lastMiKTeXException' in temp directory on r-hub builder for
+  windows. Not reproducible, probably a one-off.
 
 ## Reverse dependencies
 
-* simplevis: OK.
+* None.
 
 
 

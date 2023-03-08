@@ -4,6 +4,7 @@
 rhc <- rhub::check_for_cran(show_status = FALSE)
 devtools::check_win_devel()
 devtools::check_win_release()
+devtools::check_mac_release()
 devtools::check()
 devtools::spell_check()
 revdepcheck::revdep_check()
