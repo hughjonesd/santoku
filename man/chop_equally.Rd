@@ -46,9 +46,17 @@ close first break at left?)}
 \description{
 \code{chop_equally()} chops \code{x} into groups with an equal number of elements.
 }
+\details{
+\code{chop_equally()} uses \code{\link[=chop_quantiles]{chop_quantiles()}} under the hood. If \code{x} has duplicate
+elements, you are not guaranteed to get \code{groups}. See the examples.
+}
 \examples{
 chop_equally(1:10, 5)
 
+# You can't always guarantee `groups` groups:
+dupes <- c(1, 1, 1, 2, 3, 4, 4, 4)
+quantile(dupes, 0:4/4)
+chop_equally(dupes, 4)
 }
 \seealso{
 Other chopping functions: 

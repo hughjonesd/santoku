@@ -48,7 +48,18 @@ brk_quantiles <- function (probs, ...) {
 #' @order 2
 brk_equally <- function (groups) {
   assert_that(is.count(groups))
-  brk_quantiles(seq(0L, groups)/groups)
+
+  brq <- brk_quantiles(seq(0L, groups)/groups)
+
+  function (x, extend, left, close_end) {
+    breaks <- brq(x = x, extend = extend, left = left, close_end = close_end)
+
+    if (length(breaks) < groups + 1) {
+      warning("Fewer than ", groups, " intervals created")
+    }
+
+    breaks
+  }
 }
 
 

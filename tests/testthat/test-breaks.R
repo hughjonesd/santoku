@@ -142,6 +142,12 @@ test_that("brk_equally", {
 })
 
 
+test_that("brk_equally warns when too few breaks created", {
+  dupes <- c(1, 1, 1, 2, 3, 4, 4, 4)
+  expect_warning(brk_res(brk_equally(4), x = dupes))
+})
+
+
 test_that("brk_pretty", {
   expect_silent(brks <- brk_res(brk_pretty(5), x = 1:10))
   expect_equivalent(brks, brk_res(brk_default(pretty(1:10)), x = 1:10))

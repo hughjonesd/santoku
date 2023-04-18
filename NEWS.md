@@ -1,3 +1,8 @@
+# santoku (development version)
+
+* `chop_equally()` may return fewer than `groups` groups when there are 
+  duplicate elements. We now warn when this happens.
+
 # santoku 0.9.1
 
 * `endpoint_labels()` methods gain an unused `...` argument to satisfy R CMD CHECK.
