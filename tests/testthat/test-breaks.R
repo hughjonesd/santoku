@@ -46,6 +46,13 @@ test_that("bugfix: brk_n shouldn't error with too many non-unique values", {
 })
 
 
+test_that("bugfix: brk_n shouldn't take too few elems after non-unique values", {
+  x <- c(1, 1, 1, 1, 2, 3, 4)
+  r <- brk_res(brk_n(3), x = x)
+  expect_equal(as.vector(tab(x, r)), c(4,3))
+})
+
+
 test_that("brk_width", {
   b <- brk_res(brk_width(1), 0.5:1.5)
   expect_equal(diff(as.vector(b)), 1)

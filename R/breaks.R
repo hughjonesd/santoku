@@ -267,12 +267,32 @@ brk_n <- function (n) {
     xs <- sort(x, decreasing = ! left, na.last = NA) # remove NAs
     if (length(xs) < 1L) return(empty_breaks())
 
-    breaks <-  xs[c(seq(1L, length(xs), n), length(xs))]
+    # breaks <-  xs[c(seq(1L, length(xs), n), length(xs))]
+    # if (! left) breaks <- rev(breaks)
+    # s1tons <- singletons(breaks)
+    # # gets rid of the first of every "triplet", including overlapping triplets:
+    # illegal <- which(s1tons[-1] & s1tons[-length(s1tons)])
+    # if (length(illegal) > 0) breaks <- breaks[-illegal]
+
+    idx <- 1
+    breaks <- xs[0] # this ensures we retain the class of x
+    while (TRUE) {
+      new_break <- xs[idx]
+      breaks <- c(breaks, new_break)
+      idx <- idx + n
+      if (idx > length(xs)) break # we have to do this twice due to the if
+                                  # condition below
+      # if we have duplicates, move the break to the next non-duplicated element
+      # and continue taking nth elements from there
+      if (xs[idx] == new_break) {
+        # nb this formulation works also if xs is sorted descending (left = F)
+        idx <- max(which(xs == new_break)) + 1
+      }
+      if (idx > length(xs)) break
+    }
+    breaks <- c(breaks, xs[length(xs)])
+
     if (! left) breaks <- rev(breaks)
-    s1tons <- singletons(breaks)
-    # gets rid of the first of every "triplet", including overlapping triplets:
-    illegal <- which(s1tons[-1] & s1tons[-length(s1tons)])
-    if (length(illegal) > 0) breaks <- breaks[-illegal]
     breaks <- create_extended_breaks(breaks, x, extend, left, close_end)
 
     breaks
