@@ -3,7 +3,8 @@
 * `chop_equally()` may return fewer than `groups` groups when there are 
   duplicate elements. We now warn when this happens.
 * Bugfix: `chop_n()` could return intervals with fewer than `n` elements 
-  when there were duplicate elements.
+  when there were duplicate elements. The new algorithm avoids this, but
+  may be slower when there are duplicated elements.
 
 # santoku 0.9.1
 
