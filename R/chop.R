@@ -532,7 +532,8 @@ chop_proportions <- function (
 #' the first interval otherwise.
 #'
 #' Groups may be larger than `n`, if there are too many duplicated elements
-#' in `x`. If so, a warning is given.
+#' in `x`. If so, a warning is given. Groups should never be smaller than
+#' `n`, except possibly the first/last interval.
 #'
 #' @export
 #' @order 1

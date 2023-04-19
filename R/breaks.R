@@ -280,15 +280,18 @@ brk_n <- function (n) {
       new_break <- xs[idx]
       breaks <- c(breaks, new_break)
       idx <- idx + n
-      if (idx > length(xs)) break # we have to do this twice due to the if
-                                  # condition below
-      # if we have duplicates, move the break to the next non-duplicated element
-      # and continue taking nth elements from there
-      if (xs[idx] == new_break) {
-        # nb this formulation works also if xs is sorted descending (left = F)
-        idx <- max(which(xs == new_break)) + 1
-      }
       if (idx > length(xs)) break
+      # if we have duplicates, move the break to the final duplicate
+      # nb this formulation works also if xs is sorted descending (left = F)
+      idx <- max(which(xs == xs[idx]))
+      # if this is true, this interval would get too few elements,
+      # because xs[idx-1] would be on the closed edge of the next interval.
+      # So we move up 1 to the next unique value:
+      if (xs[idx] == xs[idx - 1]) {
+        idx <- idx + 1
+        # we have to check again
+        if (idx > length(xs)) break
+      }
     }
     breaks <- c(breaks, xs[length(xs)])
 

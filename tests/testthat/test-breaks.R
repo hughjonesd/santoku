@@ -48,8 +48,12 @@ test_that("bugfix: brk_n shouldn't error with too many non-unique values", {
 
 test_that("bugfix: brk_n shouldn't take too few elems after non-unique values", {
   x <- c(1, 1, 1, 1, 2, 3, 4)
-  r <- brk_res(brk_n(3), x = x)
-  expect_equal(as.vector(tab(x, r)), c(4,3))
+  res <- brk_res(brk_n(3), x = x)
+  expect_equal(as.vector(tab(x, res)), c(4,3))
+
+  x <- c(1, 2, 3, 3, 4, 5, 6)
+  res <- brk_res(brk_n(3), x = x)
+  expect_equal(as.vector(tab(x, res)), c(4,3))
 })
 
 

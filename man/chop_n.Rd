@@ -40,7 +40,8 @@ than \code{n} elements. This will be the last interval if \code{left} is \code{T
 the first interval otherwise.
 
 Groups may be larger than \code{n}, if there are too many duplicated elements
-in \code{x}. If so, a warning is given.
+in \code{x}. If so, a warning is given. Groups should never be smaller than
+\code{n}, except possibly the first/last interval.
 }
 \examples{
 chop_n(1:10, 5)
