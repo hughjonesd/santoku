@@ -287,6 +287,19 @@ brk_n <- function (n) {
     breaks <- xs[0]
     last_x <- xs[length(xs)]
 
+    # Idea of the algorithm:
+    # Loop:
+    # if there are no remaining dupes, just take a sequence of each
+    #   nth element starting at 1, and exit
+    # if there are dupes, then take the first element
+    # set m to the (n+1)th element which would normally be next
+    # if element m a dupe:
+    #   - we need to go up, otherwise elements to the
+    #     left will be shifted to the next interval, and this interval
+    #     will be too small
+    #   - so set m to the next non-dupe element
+    # now delete the first m-1 elements
+    # And repeat the loop
     while (TRUE) {
       if (! any(dupes)) {
         breaks <- c(breaks, xs[seq(1L, length(xs), n)])
