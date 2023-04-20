@@ -260,57 +260,47 @@ brk_proportions <- function(proportions) {
 #' @rdname chop_n
 #' @export
 #' @order 2
-brk_n <- function (n) {
-  assert_that(is.count(n))
+brk_n <- function (n, tail = "split") {
+  assert_that(is.count(n), tail == "split" || tail == "merge")
 
   function (x, extend, left, close_end) {
     xs <- sort(x, decreasing = ! left, na.last = NA) # remove NAs
     if (length(xs) < 1L) return(empty_breaks())
 
-
-    # loop:
-    # check if elements of xs have dupes
-    # if not, take seq(1, n, length = length(xs)) as breaks and exit loop
-    # if so:
-    # take the first element of xs as a break
-    # set m=n
-    #
-    # if xs[m] == xs[m-1], set m to the index of the next element not equal
-    #   to xs[n]
-    # delete xs[1:(m-1)] and dupes[1:(m-1)]
-    # if there are less than n elements left, exit the loop
-    # repeat the loop
-
-    # now add the last element of xs and if nec. reverse
-    #
     dupes <- duplicated(xs)
-    breaks <- xs[0]
+    breaks <- xs[0] # ensures breaks has type of xs
     last_x <- xs[length(xs)]
 
     # Idea of the algorithm:
     # Loop:
-    # if there are no remaining dupes, just take a sequence of each
-    #   nth element starting at 1, and exit
-    # if there are dupes, then take the first element
+    # if there are no dupes, just take a sequence of each nth element
+    #   starting at 1, and exit
+    # if there are remaining dupes, then take the first element
     # set m to the (n+1)th element which would normally be next
-    # if element m a dupe:
-    #   - we need to go up, otherwise elements to the
-    #     left will be shifted to the next interval, and this interval
-    #     will be too small
-    #   - so set m to the next non-dupe element
+    # if element m is a dupe:
+    #   - we need to go up, otherwise elements to the left will be in the next
+    #     interval, and this interval will be too small
+    #   - so set m to the next non-dupe (i.e. strictly larger) element
     # now delete the first m-1 elements
-    # And repeat the loop
+    # And repeat
     while (TRUE) {
       if (! any(dupes)) {
         breaks <- c(breaks, xs[seq(1L, length(xs), n)])
+        if (tail == "merge") {
+          if (length(xs) %% n > 0) breaks <- breaks[-length(breaks)]
+        }
         break
       } else {
         breaks <- c(breaks, xs[1])
-        if (length(xs) <= n) break
         m <- n + 1
+        if (length(xs) <= n || all(dupes[-(1:m-1)])) {
+          if (tail == "merge") {
+            if (length(xs) < n) breaks <- breaks[-length(breaks)]
+          }
+          break
+        }
         if (dupes[m]) {
           m <- m + match(FALSE, dupes[-(1:m)])
-          if (is.na(m)) break
         }
         xs <- xs[-(1:(m-1))]
         dupes <- dupes[-(1:(m-1))]

@@ -522,24 +522,33 @@ chop_proportions <- function (
 #'
 #' @param n Integer: number of elements in each interval.
 #' @inheritParams chop
+#' @param tail What to do if the final interval has fewer than `n` elements?
+#'   `"split"` to keep it separate. `"merge"` to merge it with the neighbouring
+#'   interval.
 #' @inherit chop-doc params return
 #'
+#'
 #' @details
+#'
+#' The algorithm guarantees that intervals contain no more than `n` elements, so
+#' long as there are no duplicates in `x` and `tail = "split"`. It also
+#' guarantees that intervals contain no fewer than `n` elements, except possibly
+#' the last interval (or first interval if `left` is `FALSE`). To ensure that
+#' all intervals contain at least `n` elements, set `tail = "merge"`.
+#'
+#' If `tail = "split"` and there are intervals containing duplicates with more
+#' than `n` elements, a warning is given.
+#'
 #' Note that `chop_n()` sets `close_end = TRUE` by default.
-#'
-#' If `length(x)` is not divided exactly by `n`, one interval will have fewer
-#' than `n` elements. This will be the last interval if `left` is `TRUE`, and
-#' the first interval otherwise.
-#'
-#' Groups may be larger than `n`, if there are too many duplicated elements
-#' in `x`. If so, a warning is given. Groups should never be smaller than
-#' `n`, except possibly the first/last interval.
 #'
 #' @export
 #' @order 1
 #' @family chopping functions
 #' @examples
 #' chop_n(1:10, 5)
+#'
+#' chop_n(1:5, 2)
+#' chop_n(1:5, 2, tail = "merge")
 #'
 #' # too many duplicates
 #' x <- rep(1:2, each = 3)
@@ -549,10 +558,11 @@ chop_n <- function (
             x,
             n,
             ...,
-            close_end = TRUE
+            close_end = TRUE,
+            tail = "split"
           ) {
-  res <- chop(x, brk_n(n), ..., close_end = close_end)
-  if (max(tabulate(res)) > n) {
+  res <- chop(x, brk_n(n, tail = tail), ..., close_end = close_end)
+  if (tail == "split" && max(tabulate(res)) > n) {
     warning("Some intervals contain more than ", n, " elements")
   }
 

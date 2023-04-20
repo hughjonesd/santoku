@@ -52,6 +52,33 @@ test_that("brk_n", {
 })
 
 
+test_that("brk_n, tail = 'merge'", {
+  x <- 1:5
+  res <- brk_res(brk_n(3, tail = "merge"), x = x)
+  expect_equal(as.vector(tab(x, res)), 5)
+
+  x <- 1:6
+  res <- brk_res(brk_n(3, tail = "merge"), x = x)
+  expect_equal(as.vector(tab(x, res)), c(3, 3))
+
+  x <- 1:7
+  res <- brk_res(brk_n(3, tail = "merge"), x = x)
+  expect_equal(as.vector(tab(x, res)), c(3, 4))
+
+  x <- c(1, 1, 1, 2, 2)
+  res <- brk_res(brk_n(3, tail = "merge"), x = x)
+  expect_equal(as.vector(tab(x, res)), 5)
+
+  x <- c(1, 1, 1, 2, 2, 2)
+  res <- brk_res(brk_n(3, tail = "merge"), x = x)
+  expect_equal(as.vector(tab(x, res)), c(3, 3))
+
+  x <- c(1, 1, 1, 2, 2, 2, 2)
+  res <- brk_res(brk_n(3, tail = "merge"), x = x)
+  expect_equal(as.vector(tab(x, res)), c(3, 4))
+})
+
+
 test_that("bugfix: brk_n shouldn't error with too many non-unique values", {
   expect_error(
     brk_res(brk_n(2), x = c(1, 1, 1, 1, 5, 5, 5, 5)),
