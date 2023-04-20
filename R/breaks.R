@@ -294,51 +294,18 @@ brk_n <- function (n) {
       } else {
         breaks <- c(breaks, xs[1])
         if (length(xs) <= n) break
-        m <- n
+        m <- n + 1
         if (dupes[m]) {
-          m <- m + match(FALSE, dupes[-(1:m)]) - 1
+          m <- m + match(FALSE, dupes[-(1:m)])
+          if (is.na(m)) break
         }
-        if (is.na(m)) break
-        xs <- xs[-(1:m)]
-        dupes <- dupes[-(1:m)]
+        xs <- xs[-(1:(m-1))]
+        dupes <- dupes[-(1:(m-1))]
       }
     }
 
     breaks <- c(breaks, last_x)
     if (! left) breaks <- rev(breaks)
-
-    # if there are no duplicates, we use a quick simple algorithm...
-    # if (! anyDuplicated(xs)) {
-    #   breaks <-  xs[c(seq(1L, length(xs), n), length(xs))]
-    #   if (! left) breaks <- rev(breaks)
-    #   s1tons <- singletons(breaks)
-    #   # gets rid of the first of every "triplet", including overlapping triplets:
-    #   illegal <- which(s1tons[-1] & s1tons[-length(s1tons)])
-    #   if (length(illegal) > 0) breaks <- breaks[-illegal]
-    # # ... otherwise we are slower and more careful
-    # } else {
-    #   idx <- 1
-    #   breaks <- xs[0] # this ensures we retain the class of x
-    #   while (TRUE) {
-    #     new_break <- xs[idx]
-    #     breaks <- c(breaks, new_break)
-    #     idx <- idx + n
-    #     if (idx > length(xs)) break
-    #     # if this is true, this interval would get too few elements,
-    #     # because xs[idx-1] would be on the closed edge of the next interval.
-    #     # So we move up to the next unique value:
-    #     if (xs[idx] == xs[idx - 1]) {
-    #       # find first index where xs is different. If there are none,
-    #       # give up.
-    #       remaining_xs <- xs[-(1:idx)]
-    #       idx <- idx + match(TRUE, remaining_xs != xs[idx])
-    #       if (is.na(idx)) break # no remaining match
-    #     }
-    #   }
-    #   breaks <- c(breaks, xs[length(xs)])
-    #   if (! left) breaks <- rev(breaks)
-    # }
-
     breaks <- create_extended_breaks(breaks, x, extend, left, close_end)
 
     breaks

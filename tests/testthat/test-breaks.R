@@ -35,6 +35,20 @@ test_that("brk_n", {
                 info = sprintf("length(x) %s b %s left = FALSE", length(x), b))
   }
 
+  # test with duplicates in x
+  for (i in 1:10) {
+    x <- rnorm(10)
+    x <- sample(x, replace = TRUE)
+    b <- sample(5L, 1L)
+    tbl <- tab(x, brk_n(b), drop = TRUE)
+    # all but the last category should have size >= b
+    expect_true(all(tbl[-length(tbl)] >= b),
+          info = sprintf("length(x) %s b %s", length(x), b))
+    # right-closed breaks
+    tbl <- tab(x, brk_n(b), drop = TRUE, left = FALSE)
+    expect_true(all(tbl[-1] >= b),
+          info = sprintf("length(x) %s b %s", length(x), b))
+  }
 })
 
 
