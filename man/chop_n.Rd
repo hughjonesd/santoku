@@ -15,14 +15,14 @@ tab_n(x, n, ..., tail = "split")
 \arguments{
 \item{x}{A vector.}
 
-\item{n}{Integer: number of elements in each interval.}
+\item{n}{Integer. Number of elements in each interval.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
 
 \item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
 close first break at left?)}
 
-\item{tail}{What to do if the final interval has fewer than \code{n} elements?
+\item{tail}{String. What to do if the final interval has fewer than \code{n} elements?
 \code{"split"} to keep it separate. \code{"merge"} to merge it with the neighbouring
 interval.}
 }
@@ -45,8 +45,6 @@ all intervals contain at least \code{n} elements, set \code{tail = "merge"}.
 
 If \code{tail = "split"} and there are intervals containing duplicates with more
 than \code{n} elements, a warning is given.
-
-Note that \code{chop_n()} sets \code{close_end = TRUE} by default.
 }
 \examples{
 chop_n(1:10, 5)

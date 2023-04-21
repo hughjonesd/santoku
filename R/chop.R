@@ -520,9 +520,9 @@ chop_proportions <- function (
 #'
 #' `chop_n()` creates intervals containing a fixed number of elements.
 #'
-#' @param n Integer: number of elements in each interval.
+#' @param n Integer. Number of elements in each interval.
 #' @inheritParams chop
-#' @param tail What to do if the final interval has fewer than `n` elements?
+#' @param tail String. What to do if the final interval has fewer than `n` elements?
 #'   `"split"` to keep it separate. `"merge"` to merge it with the neighbouring
 #'   interval.
 #' @inherit chop-doc params return
@@ -538,8 +538,6 @@ chop_proportions <- function (
 #'
 #' If `tail = "split"` and there are intervals containing duplicates with more
 #' than `n` elements, a warning is given.
-#'
-#' Note that `chop_n()` sets `close_end = TRUE` by default.
 #'
 #' @export
 #' @order 1
