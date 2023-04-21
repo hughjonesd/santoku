@@ -90,9 +90,10 @@ tab_proportions <- function (
 tab_n <- function (
            x,
            n,
-           ...
+           ...,
+           tail = "split"
          ) {
-  default_table(chop_n(x = x, n = n, ...))
+  default_table(chop_n(x = x, n = n, ..., tail = tail))
 }
 
 

@@ -10,7 +10,7 @@ chop_n(x, n, ..., close_end = TRUE, tail = "split")
 
 brk_n(n, tail = "split")
 
-tab_n(x, n, ...)
+tab_n(x, n, ..., tail = "split")
 }
 \arguments{
 \item{x}{A vector.}
