@@ -286,25 +286,25 @@ brk_n <- function (n, tail = "split") {
     while (TRUE) {
       if (! any(dupes)) {
         breaks <- c(breaks, xs[seq(1L, length(xs), n)])
-        if (tail == "merge") {
-          if (length(xs) %% n > 0) breaks <- breaks[-length(breaks)]
+        if (tail == "merge" && length(xs) %% n > 0) {
+          breaks <- breaks[-length(breaks)]
         }
         break
-      } else {
-        breaks <- c(breaks, xs[1])
-        m <- n + 1
-        if (length(xs) <= n || all(dupes[-(1:m-1)])) {
-          if (tail == "merge") {
-            if (length(xs) < n) breaks <- breaks[-length(breaks)]
-          }
-          break
-        }
-        if (dupes[m]) {
-          m <- m + match(FALSE, dupes[-(1:m)])
-        }
-        xs <- xs[-(1:(m-1))]
-        dupes <- dupes[-(1:(m-1))]
       }
+      breaks <- c(breaks, xs[1])
+      m <- n + 1
+      if (length(xs) <= n || all(dupes[-seq_len(m - 1)])) {
+        if (tail == "merge" && length(xs) < n) {
+          breaks <- breaks[-length(breaks)]
+        }
+        break
+      }
+      if (dupes[m]) {
+        m <- m + match(FALSE, dupes[-(1:m)])
+      }
+      discard <- seq_len(m - 1)
+      xs <- xs[-discard]
+      dupes <- dupes[-discard]
     }
 
     breaks <- c(breaks, last_x)
