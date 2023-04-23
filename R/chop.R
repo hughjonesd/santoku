@@ -534,8 +534,10 @@ chop_proportions <- function (
 #' The algorithm guarantees that intervals contain no more than `n` elements, so
 #' long as there are no duplicates in `x` and `tail = "split"`. It also
 #' guarantees that intervals contain no fewer than `n` elements, except possibly
-#' the last interval (or first interval if `left` is `FALSE`). To ensure that
-#' all intervals contain at least `n` elements, set `tail = "merge"`.
+#' the last interval (or first interval if `left` is `FALSE`).
+#'
+#' To ensure that all intervals contain at least `n` elements (so long as there
+#' are at least `n` elements in `x`!) set `tail = "merge"`.
 #'
 #' If `tail = "split"` and there are intervals containing duplicates with more
 #' than `n` elements, a warning is given.

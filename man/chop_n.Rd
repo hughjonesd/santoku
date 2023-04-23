@@ -40,8 +40,10 @@ interval.}
 The algorithm guarantees that intervals contain no more than \code{n} elements, so
 long as there are no duplicates in \code{x} and \code{tail = "split"}. It also
 guarantees that intervals contain no fewer than \code{n} elements, except possibly
-the last interval (or first interval if \code{left} is \code{FALSE}). To ensure that
-all intervals contain at least \code{n} elements, set \code{tail = "merge"}.
+the last interval (or first interval if \code{left} is \code{FALSE}).
+
+To ensure that all intervals contain at least \code{n} elements (so long as there
+are at least \code{n} elements in \code{x}!) set \code{tail = "merge"}.
 
 If \code{tail = "split"} and there are intervals containing duplicates with more
 than \code{n} elements, a warning is given.
