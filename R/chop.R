@@ -322,7 +322,8 @@ chop_deciles <- function(x, ...) {
 #'
 #' @details
 #' `chop_equally()` uses [chop_quantiles()] under the hood. If `x` has duplicate
-#' elements, you are not guaranteed to get `groups`. See the examples.
+#' elements, you may get fewer `groups` than requested. If so, a warning will
+#' be emitted. See the examples.
 #'
 #'
 #'

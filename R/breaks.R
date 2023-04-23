@@ -300,6 +300,8 @@ brk_n <- function (n, tail = "split") {
         break
       }
       if (dupes[m]) {
+        # the first non-dupe will be the next element that is different
+        # we know there is one, because we checked above
         m <- m + match(FALSE, dupes[-(1:m)])
       }
       discard <- seq_len(m - 1)

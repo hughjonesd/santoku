@@ -273,6 +273,11 @@ test_that("chop_equally", {
     chop_equally(x, 2, labels = lbl_intervals(raw = TRUE)),
     chop_equally(x, 2, raw = TRUE)
   )
+
+  expect_warning(
+    chop_equally(c(1, 1, 2, 2), 4),
+    "Fewer"
+  )
 })
 
 

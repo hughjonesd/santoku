@@ -48,7 +48,8 @@ close first break at left?)}
 }
 \details{
 \code{chop_equally()} uses \code{\link[=chop_quantiles]{chop_quantiles()}} under the hood. If \code{x} has duplicate
-elements, you are not guaranteed to get \code{groups}. See the examples.
+elements, you may get fewer \code{groups} than requested. If so, a warning will
+be emitted. See the examples.
 }
 \examples{
 chop_equally(1:10, 5)
