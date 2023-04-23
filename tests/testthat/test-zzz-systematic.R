@@ -24,6 +24,7 @@ test_that("systematic tests", {
     brk_mean_sd     = expression(brk_mean_sd()),
     brk_pretty      = expression(brk_pretty()),
     brk_n           = expression(brk_n(5)),
+    brk_n_merge     = expression(brk_n(5, tail = "merge")),
     brk_quantiles   = expression(brk_quantiles(1:3/4)),
     brk_default     = expression(brk_default(1:3)),
     brk_default2    = expression(brk_default(c(1, 2, 2, 3))),
@@ -90,7 +91,8 @@ test_that("systematic tests", {
 
   # but if we break by quantities, OK...
   char_by_quantities <- names(test_df$x) == "char" &
-          test_df$brk_fun %in% c("brk_equally", "brk_quantiles", "brk_n")
+          test_df$brk_fun %in% c("brk_equally", "brk_quantiles", "brk_n",
+                                 "brk_n_merge")
   # so long as we aren't trying raw midpoints
   raw <- ! is.na(test_df$raw) & test_df$raw
   should_warn(char_by_quantities & !
@@ -98,7 +100,7 @@ test_that("systematic tests", {
   )
   # ... or midpoints with brk_n()
   should_fail(char_by_quantities & test_df$lbl_fun == "lbl_midpoints"
-              & test_df$brk_fun == "brk_n")
+              & test_df$brk_fun %in% c("brk_n", "brk_n_merge"))
 
 
   # all quantiles will be the same here, so no way to create
@@ -186,7 +188,7 @@ test_that("systematic tests", {
   # lbl_midpoints struggles with Inf for obvious reasons
   dont_care(with(test_df,
           names(x) %in% c("inf", "inf_lo", "inf_hi") &
-          brk_fun == "brk_n" &
+          brk_fun %in% c("brk_n", "brk_n_merge") &
           lbl_fun == "lbl_midpoints"
         ))
 
@@ -208,9 +210,9 @@ test_that("systematic tests", {
     tdata <- test_df[r, ]
     if (is.na(tdata$expect)) next
 
-    # v basic debugging interactively:
+    # v basic debugging interactively. Replace r by the row that gives a test failure
     # cat(r, "\n")
-    # if (r==1486) browser()
+    # if (r==63194) browser()
     if (is.na(tdata$extend)) tdata$extend <- NULL
     if (is.na(tdata$raw)) tdata$raw <- NULL
 
