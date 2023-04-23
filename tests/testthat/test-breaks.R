@@ -237,10 +237,10 @@ test_that("brk_fn", {
 
 
 test_that("printing", {
-  b <- brk_default(1:3)
+  b <- brk_res(brk_default(1:3))
   expect_output(print(b))
   expect_silent(format(b))
-  b_empty <- brk_default(1)
+  b_empty <- brk_res(brk_default(1))
   expect_output(print(b_empty))
 })
 

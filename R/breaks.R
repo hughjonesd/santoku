@@ -272,7 +272,7 @@ brk_n <- function (n, tail = "split") {
     last_x <- xs[length(xs)]
 
     maybe_merge_tail <- function (breaks, tail) {
-      if (tail == "merge" && length(breaks) > 2) {
+      if (tail == "merge" && length(breaks) > 1) {
         breaks <- breaks[-length(breaks)]
       }
       breaks
