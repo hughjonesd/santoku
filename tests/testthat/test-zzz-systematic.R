@@ -181,7 +181,7 @@ test_that("systematic tests", {
           drop == FALSE
         ))
   dont_care(with(test_df,
-          brk_fun == "brk_n" &
+          brk_fun %in% c("brk_n", "brk_n_merge") &
           lbl_fun == "lbl_endpoints"
         ))
 
