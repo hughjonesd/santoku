@@ -271,6 +271,13 @@ brk_n <- function (n, tail = "split") {
     breaks <- xs[0] # ensures breaks has type of xs
     last_x <- xs[length(xs)]
 
+    maybe_merge_tail <- function (breaks, tail) {
+      if (tail == "merge" && length(breaks) > 2) {
+        breaks <- breaks[-length(breaks)]
+      }
+      breaks
+    }
+
     # Idea of the algorithm:
     # Loop:
     # if there are no dupes, just take a sequence of each nth element
@@ -286,16 +293,16 @@ brk_n <- function (n, tail = "split") {
     while (TRUE) {
       if (! any(dupes)) {
         breaks <- c(breaks, xs[seq(1L, length(xs), n)])
-        if (tail == "merge" && length(xs) %% n > 0) {
-          breaks <- breaks[-length(breaks)]
+        if (length(xs) %% n > 0) {
+          breaks <- maybe_merge_tail(breaks, tail)
         }
         break
       }
       breaks <- c(breaks, xs[1])
       m <- n + 1
       if (length(xs) <= n || all(dupes[-seq_len(m - 1)])) {
-        if (tail == "merge" && length(xs) < n) {
-          breaks <- breaks[-length(breaks)]
+        if (length(xs) < n) {
+          breaks <- maybe_merge_tail(breaks, tail)
         }
         break
       }

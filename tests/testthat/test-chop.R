@@ -302,6 +302,13 @@ test_that("chop_n", {
 })
 
 
+test_that("Bugfix: chop_n(tail = 'merge') works with n > length(x)", {
+  expect_silent(
+    chop_n(1:3, 4, tail = "merge", extend = FALSE)
+  )
+})
+
+
 test_that("chop_mean_sd", {
   x <- -1:1 # mean 0, sd 1
   expect_silent(res <- chop_mean_sd(x))
