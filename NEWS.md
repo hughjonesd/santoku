@@ -1,5 +1,8 @@
 # santoku (development version)
 
+* List arguments to `fmt` in `lbl_*` functions will be taken as arguments to
+  `base::format`. This gives more flexibility in formatting, e.g., `units`
+  breaks.
 * `chop_n()` gains a `tail` argument, to deal with a last interval containing
   less than `n` elements. Set `tail = "merge"` to merge it with
   the previous interval. This guarantees that all intervals contain at least

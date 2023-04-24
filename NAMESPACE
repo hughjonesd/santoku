@@ -2,9 +2,11 @@
 
 S3method(apply_format,"function")
 S3method(apply_format,character)
+S3method(apply_format,list)
 S3method(apply_format.character,character)
 S3method(apply_format.character,default)
 S3method(apply_format.character,numeric)
+S3method(apply_format.list,default)
 S3method(brk_width,Duration)
 S3method(brk_width,default)
 S3method(class_bounds,Date)

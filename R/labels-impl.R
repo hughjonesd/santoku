@@ -235,10 +235,24 @@ apply_format.character.character <- function (fmt, endpoint, ...) {
 }
 
 
-is_format <- function (fmt) is.string(fmt) || is.function(fmt)
+#' @export
+#' @method apply_format list
+apply_format.list <- function (fmt, endpoint, ...) {
+  UseMethod("apply_format.list", endpoint)
+}
+
+
+#' @export
+#' @method apply_format.list default
+apply_format.list.default <- function (fmt, endpoint, ...) {
+  do.call(base::format, c(list(x = endpoint), fmt))
+}
+
+
+is_format <- function (fmt) is.string(fmt) || is.function(fmt) || is.list(fmt)
 
 on_failure(is_format) <- function(call, env) {
-  paste0(deparse(call$fmt), " is not a valid format (a string or function)")
+  paste0(deparse(call$fmt), " is not a valid format (a string, list or function)")
 }
 
 

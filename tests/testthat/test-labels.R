@@ -56,6 +56,16 @@ test_that("lbl_dash arguments", {
   expect_equivalent(lbl_dash("-", first = "< {r}")(brk), c("< 2", "2-3"))
   expect_equivalent(lbl_dash("-", last = "> {l}")(brk), c("1-2", "> 2"))
 
+  expect_equivalent(
+    lbl_dash("-", fmt = brackets)(brk),
+    c("(1)-(2)", "(2)-(3)")
+  )
+
+  expect_equivalent(
+    lbl_dash("-", fmt = list(width = 2))(brk),
+    c(" 1- 2", " 2- 3")
+  )
+
   brk2 <- brk_res(brk_default(c(1, 2, 2, 3)), 1:2)
   expect_equivalent(
     lbl_dash("-", single = "Just {l}")(brk2),
@@ -68,7 +78,7 @@ test_that("lbl_dash arguments", {
     lbl_dash("-", fmt = "%.3f")(qbrk),
     c("0.000-0.500", "0.500-1.000")
   )
-  expect_equivalent(lbl_dash("-", fmt = brackets)(brk), c("(1)-(2)", "(2)-(3)"))
+
 
   lifecycle::expect_deprecated(lbl_dash(raw = TRUE))
   withr::local_options(lifecycle_verbosity = "quiet")
@@ -105,6 +115,16 @@ test_that("lbl_glue arguments", {
   expect_equivalent(
     lbl_glue("<{l} to {r}>", fmt = "%.1f")(brk),
     c("<1.0 to 2.0>", "<2.0 to 3.0>")
+  )
+
+  expect_equivalent(
+    lbl_glue("{l} to {r}", fmt = percent)(brk),
+    c("100% to 200%", "200% to 300%")
+  )
+
+  expect_equivalent(
+    lbl_glue("{l}/{r}", fmt = list(width = 2))(brk),
+    c(" 1/ 2", " 2/ 3")
   )
 
   brk2 <- brk_res(brk_manual(c(1,2,2,3), c(TRUE, TRUE, FALSE, TRUE)))
@@ -172,6 +192,10 @@ test_that("lbl_endpoints arguments", {
     lbl_endpoints(fmt = percent)(lbrk),
     c("100%", "300%")
   )
+  expect_equivalent(
+    lbl_endpoints(fmt = list(nsmall = 2, decimal.mark = ","))(lbrk),
+    c("1,00", "3,00")
+  )
 
   lifecycle::expect_deprecated(lbl_endpoint()(lbrk))
 })
@@ -202,6 +226,10 @@ test_that("lbl_midpoints arguments", {
 
   qbrk <- brk_res(brk_quantiles(c(0, 0.5, 1)), x = 0:10)
   expect_equivalent(lbl_midpoints(fmt = percent)(qbrk), c("25%", "75%"))
+  expect_equivalent(
+    lbl_midpoints(fmt = list(decimal.mark = ","))(qbrk),
+    c("0,25", "0,75")
+  )
 
   lifecycle::expect_deprecated(lbl_midpoints(raw = TRUE))
 
@@ -236,6 +264,11 @@ test_that("lbl_intervals arguments", {
     c("[1.50, 2.50)", "{2.50}",  "(2.50, 3.50)")
   )
 
+  expect_equivalent(
+    lbl_intervals(fmt = list(digits = 2))(lbrk),
+    c("[1.5, 2.5)", "{2.5}",  "(2.5, 3.5)")
+  )
+
   lbrk <- brk_res(brk_default(1:3 * 10000))
   expect_equivalent(
     lbl_intervals(fmt = "%2g")(lbrk),
@@ -255,6 +288,10 @@ test_that("lbl_intervals arguments", {
   expect_equivalent(
     lbl_intervals(fmt = percent)(qbrk),
     c("[0%, 50%)", "[50%, 100%)")
+  )
+  expect_equivalent(
+    lbl_intervals(fmt = list(digits = 2))(qbrk),
+    c("[0.0, 0.5)", "[0.5, 1.0)")
   )
 
   lbrk <- brk_res(brk_default(c(1, 2, 2, 3)))
@@ -318,6 +355,11 @@ test_that("lbl_discrete arguments", {
   expect_equivalent(
     lbl_discrete("-", fmt = brackets)(lbrk),
     c("(1)-(2)", "(3)-(4)")
+  )
+
+  expect_equivalent(
+    lbl_discrete("-", fmt = list(nsmall = 1))(lbrk),
+    c("1.0-2.0", "3.0-4.0")
   )
 
   expect_equivalent(

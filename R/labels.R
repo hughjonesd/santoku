@@ -1,6 +1,6 @@
 
 #' @name label-doc
-#' @param fmt String or function. A format for break endpoints.
+#' @param fmt String, list or function. A format for break endpoints.
 #' @param raw `r lifecycle::badge("deprecated")`. Use the `raw` argument to [chop()]
 #'   instead.
 #' @param symbol String: symbol to use for the dash.
@@ -8,14 +8,17 @@
 #'
 #' @section Formatting endpoints:
 #'
-#' If `fmt` is not `NULL` then it is used to format the endpoints. If `fmt` is a
-#' string then numeric endpoints will be formatted by `sprintf(fmt, breaks)`;
-#' other endpoints, e.g. Date objects, will be formatted by `format(breaks,
-#' fmt)`.
+#' If `fmt` is not `NULL` then it is used to format the endpoints.
 #'
-#' If `fmt` is a function, it should take a vector of numbers (or other objects
-#' that can be used as breaks) and return a character vector. It may be helpful
-#' to use functions from the `{scales}` package, e.g. [scales::label_comma()].
+#' * If `fmt` is a string, then numeric endpoints will be formatted by
+#'   `sprintf(fmt, breaks)`; other endpoints, e.g. [Date] objects, will be
+#'   formatted by `format(breaks, fmt)`.
+#'
+#' * If `fmt` is a list, then it will be used as arguments to [format].
+#'
+#' * If `fmt` is a function, it should take a vector of numbers (or other objects
+#'   that can be used as breaks) and return a character vector. It may be helpful
+#'   to use functions from the `{scales}` package, e.g. [scales::label_comma()].
 #'
 #' @return A function that creates a vector of labels.
 NULL
@@ -57,6 +60,9 @@ NULL
 #'
 #' tab(-10:10, c(-3, 0, 0, 3),
 #'       labels = lbl_intervals())
+#'
+#' tab(-10:10, c(-3, 0, 0, 3),
+#'       labels = lbl_intervals(fmt = list(nsmall = 1)))
 #'
 #' tab_evenly(runif(20), 10,
 #'       labels = lbl_intervals(fmt = percent))
