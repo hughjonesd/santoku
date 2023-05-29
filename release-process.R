@@ -39,3 +39,4 @@ devtools::release()
 # - push hughjonesd.github.io
 # - git tag -a -m "Version x.y.z successfully submitted to CRAN" cran-x.y.z
 # - git push --tags
+# - create a "release" on github with title x.y.z to update r-universe
