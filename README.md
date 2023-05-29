@@ -19,6 +19,29 @@ status](https://ci.appveyor.com/api/projects/status/github/hughjonesd/santoku?br
 coverage](https://codecov.io/gh/hughjonesd/santoku/branch/master/graph/badge.svg)](https://app.codecov.io/gh/hughjonesd/santoku?branch=master)
 <!-- badges: end -->
 
+## Installation
+
+Install from
+[r-universe](https://r-universe.dev):
+
+``` r
+install.packages("santoku", repos = c("https://hughjonesd.r-universe.dev", 
+                                      "https://cloud.r-project.org"))
+```
+
+Or from CRAN:
+
+``` r
+install.packages("santoku")
+```
+
+Or get the development version from github:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("hughjonesd/santoku")
+```
+
 santoku is a versatile cutting tool for R. It provides `chop()`, a
 replacement for `base::cut()`.
 
@@ -26,25 +49,25 @@ replacement for `base::cut()`.
 
 Here are some advantages of santoku:
 
-- By default, `chop()` always covers the whole range of the data, so you
-  won’t get unexpected `NA` values.
+  - By default, `chop()` always covers the whole range of the data, so
+    you won’t get unexpected `NA` values.
 
-- `chop()` can handle single values as well as intervals. For example,
-  `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor level
-  for values exactly equal to 2.
+  - `chop()` can handle single values as well as intervals. For example,
+    `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor
+    level for values exactly equal to 2.
 
-- `chop()` can handle many kinds of data, including numbers, dates and
-  times, and [units](https://r-quantities.github.io/units/).
+  - `chop()` can handle many kinds of data, including numbers, dates and
+    times, and [units](https://r-quantities.github.io/units/).
 
-- `chop_*` functions create intervals in many ways, using quantiles of
-  the data, standard deviations, fixed-width intervals, equal-sized
-  groups, or pretty intervals for use in graphs.
+  - `chop_*` functions create intervals in many ways, using quantiles of
+    the data, standard deviations, fixed-width intervals, equal-sized
+    groups, or pretty intervals for use in graphs.
 
-- It’s easy to label intervals: use names for your breaks vector, or use
-  a `lbl_*` function to create interval notation like `[1, 2)`, dash
-  notation like `1-2`, or arbitrary styles using `glue::glue()`.
+  - It’s easy to label intervals: use names for your breaks vector, or
+    use a `lbl_*` function to create interval notation like `[1, 2)`,
+    dash notation like `1-2`, or arbitrary styles using `glue::glue()`.
 
-- `tab_*` functions quickly chop data, then tabulate it.
+  - `tab_*` functions quickly chop data, then tabulate it.
 
 These advantages make santoku especially useful for exploratory
 analysis, where you may not know the range of your data in advance.
@@ -91,10 +114,10 @@ Chop into fixed-width intervals:
 
 ``` r
 chop_width(runif(10), 0.1)
-#>  [1] [0.1405, 0.2405)  [0.3405, 0.4405)  [0.5405, 0.6405)  [0.4405, 0.5405) 
-#>  [5] [0.04047, 0.1405) [0.04047, 0.1405) [0.3405, 0.4405)  [0.8405, 0.9405] 
-#>  [9] [0.6405, 0.7405)  [0.4405, 0.5405) 
-#> 7 Levels: [0.04047, 0.1405) [0.1405, 0.2405) ... [0.8405, 0.9405]
+#>  [1] [0.3934, 0.4934)  [0.5934, 0.6934)  [0.6934, 0.7934]  [0.4934, 0.5934) 
+#>  [5] [0.09337, 0.1934) [0.3934, 0.4934)  [0.4934, 0.5934)  [0.2934, 0.3934) 
+#>  [9] [0.4934, 0.5934)  [0.6934, 0.7934] 
+#> 6 Levels: [0.09337, 0.1934) [0.2934, 0.3934) ... [0.6934, 0.7934]
 ```
 
 Or into fixed-size groups:
@@ -110,7 +133,6 @@ Chop dates by calendar month, then tabulate:
 
 ``` r
 library(lubridate)
-#> Loading required package: timechange
 #> 
 #> Attaching package: 'lubridate'
 #> The following objects are masked from 'package:base':
