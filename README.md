@@ -19,6 +19,9 @@ status](https://ci.appveyor.com/api/projects/status/github/hughjonesd/santoku?br
 coverage](https://codecov.io/gh/hughjonesd/santoku/branch/master/graph/badge.svg)](https://app.codecov.io/gh/hughjonesd/santoku?branch=master)
 <!-- badges: end -->
 
+santoku is a versatile cutting tool for R. It provides `chop()`, a
+replacement for `base::cut()`.
+
 ## Installation
 
 Install from
@@ -41,9 +44,6 @@ Or get the development version from github:
 # install.packages("remotes")
 remotes::install_github("hughjonesd/santoku")
 ```
-
-santoku is a versatile cutting tool for R. It provides `chop()`, a
-replacement for `base::cut()`.
 
 ## Advantages
 
@@ -114,10 +114,10 @@ Chop into fixed-width intervals:
 
 ``` r
 chop_width(runif(10), 0.1)
-#>  [1] [0.3934, 0.4934)  [0.5934, 0.6934)  [0.6934, 0.7934]  [0.4934, 0.5934) 
-#>  [5] [0.09337, 0.1934) [0.3934, 0.4934)  [0.4934, 0.5934)  [0.2934, 0.3934) 
-#>  [9] [0.4934, 0.5934)  [0.6934, 0.7934] 
-#> 6 Levels: [0.09337, 0.1934) [0.2934, 0.3934) ... [0.6934, 0.7934]
+#>  [1] [0.1468, 0.2468)  [0.3468, 0.4468)  [0.04679, 0.1468) [0.04679, 0.1468)
+#>  [5] [0.04679, 0.1468) [0.3468, 0.4468)  [0.6468, 0.7468)  [0.7468, 0.8468] 
+#>  [9] [0.5468, 0.6468)  [0.7468, 0.8468] 
+#> 6 Levels: [0.04679, 0.1468) [0.1468, 0.2468) ... [0.7468, 0.8468]
 ```
 
 Or into fixed-size groups:

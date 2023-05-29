@@ -26,6 +26,8 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/hughjonesd/santoku/branch/master/graph/badge.svg)](https://app.codecov.io/gh/hughjonesd/santoku?branch=master)
 <!-- badges: end -->
 
+santoku is a versatile cutting tool for R. It provides `chop()`, a replacement 
+for `base::cut()`.
 
 ## Installation
 

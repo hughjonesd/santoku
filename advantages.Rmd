@@ -1,8 +1,4 @@
 
-
-santoku is a versatile cutting tool for R. It provides `chop()`, a replacement
-for `base::cut()`.
-
 ## Advantages
 
  Here are some advantages of santoku:
