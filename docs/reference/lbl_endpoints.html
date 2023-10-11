@@ -12,7 +12,7 @@ interval. In other cases it may give errors due to duplicate labels."><meta prop
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -90,7 +90,7 @@ interval. In other cases it may give errors due to duplicate labels.</p>
 
 
 <dt>fmt</dt>
-<dd><p>String or function. A format for break endpoints.</p></dd>
+<dd><p>String, list or function. A format for break endpoints.</p></dd>
 
 
 <dt>single</dt>
@@ -130,13 +130,14 @@ instead.</p></dd>
     
 
 
-<p>If <code>fmt</code> is not <code>NULL</code> then it is used to format the endpoints. If <code>fmt</code> is a
-string then numeric endpoints will be formatted by <code>sprintf(fmt, breaks)</code>;
-other endpoints, e.g. Date objects, will be formatted by <code>format(breaks, fmt)</code>.</p>
-<p>If <code>fmt</code> is a function, it should take a vector of numbers (or other objects
+<p>If <code>fmt</code> is not <code>NULL</code> then it is used to format the endpoints.</p><ul><li><p>If <code>fmt</code> is a string, then numeric endpoints will be formatted by
+<code>sprintf(fmt, breaks)</code>; other endpoints, e.g. <a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">Date</a> objects, will be
+formatted by <code>format(breaks, fmt)</code>.</p></li>
+<li><p>If <code>fmt</code> is a list, then it will be used as arguments to <a href="https://rdrr.io/r/base/format.html" class="external-link">format</a>.</p></li>
+<li><p>If <code>fmt</code> is a function, it should take a vector of numbers (or other objects
 that can be used as breaks) and return a character vector. It may be helpful
-to use functions from the <code>{scales}</code> package, e.g. <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code>.</p>
-    </div>
+to use functions from the <code>{scales}</code> package, e.g. <code><a href="https://scales.r-lib.org/reference/label_number.html" class="external-link">scales::label_comma()</a></code>.</p></li>
+</ul></div>
     <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other labelling functions: 

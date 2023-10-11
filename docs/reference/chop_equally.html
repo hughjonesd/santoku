@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -127,6 +127,12 @@ close first break at left?)</p></dd>
 <p><code>tab_*</code> functions return a contingency <code><a href="https://rdrr.io/r/base/table.html" class="external-link">table()</a></code>.</p>
     </div>
     <div class="section level2">
+    <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
+    <p><code>chop_equally()</code> uses <code><a href="chop_quantiles.html">chop_quantiles()</a></code> under the hood. If <code>x</code> has duplicate
+elements, you may get fewer <code>groups</code> than requested. If so, a warning will
+be emitted. See the examples.</p>
+    </div>
+    <div class="section level2">
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other chopping functions: 
 <code><a href="chop_evenly.html">chop_evenly</a>()</code>,
@@ -147,6 +153,15 @@ close first break at left?)</p></dd>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [7] [6.4, 8.2) [6.4, 8.2) [8.2, 10]  [8.2, 10] </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: [1, 2.8) [2.8, 4.6) [4.6, 6.4) [6.4, 8.2) [8.2, 10]</span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># You can't always guarantee `groups` groups:</span></span></span>
+<span class="r-in"><span><span class="va">dupes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">4</span>, <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html" class="external-link">quantile</a></span><span class="op">(</span><span class="va">dupes</span>, <span class="fl">0</span><span class="op">:</span><span class="fl">4</span><span class="op">/</span><span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0%  25%  50%  75% 100% </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.0  1.0  2.5  4.0  4.0 </span>
+<span class="r-in"><span><span class="fu">chop_equally</span><span class="op">(</span><span class="va">dupes</span>, <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Fewer than 4 intervals created</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] [1, 2.5) [1, 2.5) [1, 2.5) [1, 2.5) [2.5, 4] [2.5, 4] [2.5, 4] [2.5, 4]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Levels: [1, 2.5) [2.5, 4]</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

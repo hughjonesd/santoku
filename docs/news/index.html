@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,7 +62,16 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.9.1" id="santoku-091">santoku 0.9.1<a class="anchor" aria-label="anchor" href="#santoku-091"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.10.0" id="santoku-0100">santoku 0.10.0<a class="anchor" aria-label="anchor" href="#santoku-0100"></a></h2>
+<ul><li>List arguments to <code>fmt</code> in <code>lbl_*</code> functions will be taken as arguments to <code><a href="https://rdrr.io/r/base/format.html" class="external-link">base::format</a></code>. This gives more flexibility in formatting, e.g., <code>units</code> breaks.</li>
+<li>
+<code><a href="../reference/chop_n.html">chop_n()</a></code> gains a <code>tail</code> argument, to deal with a last interval containing less than <code>n</code> elements. Set <code>tail = "merge"</code> to merge it with the previous interval. This guarantees that all intervals contain at least <code>n</code> elements.</li>
+<li>
+<code><a href="../reference/chop_equally.html">chop_equally()</a></code> may return fewer than <code>groups</code> groups when there are duplicate elements. We now warn when this happens.</li>
+<li>Bugfix: <code><a href="../reference/chop_n.html">chop_n()</a></code> could return intervals with fewer than <code>n</code> elements when there were duplicate elements. The new algorithm avoids this, but may be slower in this case.</li>
+</ul></div>
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.9.1" id="santoku-091">santoku 0.9.1<a class="anchor" aria-label="anchor" href="#santoku-091"></a></h2><p class="text-muted">CRAN release: 2023-03-08</p>
 <ul><li>
 <code>endpoint_labels()</code> methods gain an unused <code>...</code> argument to satisfy R CMD CHECK.</li>
 </ul></div>

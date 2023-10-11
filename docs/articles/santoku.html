@@ -34,7 +34,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.9.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.10.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -572,9 +572,9 @@ objects…</p>
 <span>  chopped <span class="op">=</span> <span class="fu"><a href="../reference/chop.html">chop</a></span><span class="op">(</span><span class="va">crew_dragon</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">liftoff</span>, <span class="va">dock</span><span class="op">)</span>, </span>
 <span>                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pre-flight"</span>, <span class="st">"flight"</span>, <span class="st">"docked"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in check_tzones(e1, e2): 'tzone' attributes are inconsistent</span></span>
+<span><span class="co">#&gt; Warning in .check_tzones(e1, e2): 'tzone' attributes are inconsistent</span></span>
 <span></span>
-<span><span class="co">#&gt; Warning in check_tzones(e1, e2): 'tzone' attributes are inconsistent</span></span>
+<span><span class="co">#&gt; Warning in .check_tzones(e1, e2): 'tzone' attributes are inconsistent</span></span>
 <span><span class="co">#&gt;            crew_dragon    chopped</span></span>
 <span><span class="co">#&gt; 1  2020-05-30 18:00:00 pre-flight</span></span>
 <span><span class="co">#&gt; 2  2020-05-30 19:00:00 pre-flight</span></span>
@@ -606,7 +606,6 @@ objects…</p>
 months:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required package: timechange</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'lubridate'</span></span>
 <span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
@@ -650,11 +649,11 @@ months:</p>
 <p>You can also chop vectors with units, using the <code>units</code>
 package:</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-quantities/units" class="external-link">units</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; udunits database from /usr/local/share/udunits/udunits2.xml</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-quantities.github.io/units/" class="external-link">units</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; udunits database from /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/library/units/share/udunits/udunits2.xml</span></span>
 <span></span>
-<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="fl">10</span>, <span class="va">cm</span><span class="op">)</span></span>
-<span><span class="va">br</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/units/man/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">ft</span><span class="op">)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-quantities.github.io/units/reference/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="fl">10</span>, <span class="va">cm</span><span class="op">)</span></span>
+<span><span class="va">br</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-quantities.github.io/units/reference/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">ft</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  x <span class="op">=</span> <span class="va">x</span>,</span>
 <span>  chopped <span class="op">=</span> <span class="fu"><a href="../reference/chop.html">chop</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">br</span><span class="op">)</span></span>
@@ -676,8 +675,8 @@ santoku emits a warning in this case, to avoid accidentally
 misinterpreting results:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/chop.html">chop</a></span><span class="op">(</span><span class="va">letters</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"d"</span>, <span class="st">"f"</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in categorize_non_numeric(x, breaks, left): `x` or `breaks` is</span></span>
-<span><span class="co">#&gt; of type character, using lexical sorting. To turn off this warning, run:</span></span>
+<span><span class="co">#&gt; Warning in categorize_non_numeric(x, breaks, left): `x` or `breaks` is of type</span></span>
+<span><span class="co">#&gt; character, using lexical sorting. To turn off this warning, run:</span></span>
 <span><span class="co">#&gt; options(santoku.warn_character = FALSE)</span></span>
 <span><span class="co">#&gt;  [1] [a, d) [a, d) [a, d) [d, f) [d, f) [f, j] [f, j] [f, j] [f, j] [f, j]</span></span>
 <span><span class="co">#&gt; Levels: [a, d) [d, f) [f, j]</span></span></code></pre></div>

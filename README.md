@@ -24,8 +24,7 @@ replacement for `base::cut()`.
 
 ## Installation
 
-Install from
-[r-universe](https://r-universe.dev):
+Install from [r-universe](https://r-universe.dev):
 
 ``` r
 install.packages("santoku", repos = c("https://hughjonesd.r-universe.dev", 
@@ -49,25 +48,25 @@ remotes::install_github("hughjonesd/santoku")
 
 Here are some advantages of santoku:
 
-  - By default, `chop()` always covers the whole range of the data, so
-    you won’t get unexpected `NA` values.
+- By default, `chop()` always covers the whole range of the data, so you
+  won’t get unexpected `NA` values.
 
-  - `chop()` can handle single values as well as intervals. For example,
-    `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor
-    level for values exactly equal to 2.
+- `chop()` can handle single values as well as intervals. For example,
+  `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor level
+  for values exactly equal to 2.
 
-  - `chop()` can handle many kinds of data, including numbers, dates and
-    times, and [units](https://r-quantities.github.io/units/).
+- `chop()` can handle many kinds of data, including numbers, dates and
+  times, and [units](https://r-quantities.github.io/units/).
 
-  - `chop_*` functions create intervals in many ways, using quantiles of
-    the data, standard deviations, fixed-width intervals, equal-sized
-    groups, or pretty intervals for use in graphs.
+- `chop_*` functions create intervals in many ways, using quantiles of
+  the data, standard deviations, fixed-width intervals, equal-sized
+  groups, or pretty intervals for use in graphs.
 
-  - It’s easy to label intervals: use names for your breaks vector, or
-    use a `lbl_*` function to create interval notation like `[1, 2)`,
-    dash notation like `1-2`, or arbitrary styles using `glue::glue()`.
+- It’s easy to label intervals: use names for your breaks vector, or use
+  a `lbl_*` function to create interval notation like `[1, 2)`, dash
+  notation like `1-2`, or arbitrary styles using `glue::glue()`.
 
-  - `tab_*` functions quickly chop data, then tabulate it.
+- `tab_*` functions quickly chop data, then tabulate it.
 
 These advantages make santoku especially useful for exploratory
 analysis, where you may not know the range of your data in advance.
@@ -114,10 +113,10 @@ Chop into fixed-width intervals:
 
 ``` r
 chop_width(runif(10), 0.1)
-#>  [1] [0.1468, 0.2468)  [0.3468, 0.4468)  [0.04679, 0.1468) [0.04679, 0.1468)
-#>  [5] [0.04679, 0.1468) [0.3468, 0.4468)  [0.6468, 0.7468)  [0.7468, 0.8468] 
-#>  [9] [0.5468, 0.6468)  [0.7468, 0.8468] 
-#> 6 Levels: [0.04679, 0.1468) [0.1468, 0.2468) ... [0.7468, 0.8468]
+#>  [1] [0.2059, 0.3059) [0.3059, 0.4059) [0.5059, 0.6059) [0.4059, 0.5059)
+#>  [5] [0.1059, 0.2059) [0.9059, 1.006]  [0.1059, 0.2059) [0.5059, 0.6059)
+#>  [9] [0.3059, 0.4059) [0.8059, 0.9059)
+#> 7 Levels: [0.1059, 0.2059) [0.2059, 0.3059) ... [0.9059, 1.006]
 ```
 
 Or into fixed-size groups:
