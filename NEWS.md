@@ -1,4 +1,4 @@
-# santoku (development version)
+# santoku 0.10.0
 
 * List arguments to `fmt` in `lbl_*` functions will be taken as arguments to
   `base::format`. This gives more flexibility in formatting, e.g., `units`
