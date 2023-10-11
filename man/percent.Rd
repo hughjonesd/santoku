@@ -14,7 +14,7 @@ percent(x)
 }
 \description{
 \code{percent()} formats \code{x} as a percentage.
-For a wider range of formatters, consider the \href{https://cran.r-project.org/package=scales}{{scales} package}.
+For a wider range of formatters, consider the \href{https://cran.r-project.org/package=scales}{\code{scales} package}.
 }
 \examples{
 percent(0.5)

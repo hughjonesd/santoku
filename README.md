@@ -11,7 +11,7 @@ status](https://www.r-pkg.org/badges/version/santoku)](https://CRAN.R-project.or
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN Downloads Per
 Month](http://cranlogs.r-pkg.org/badges/santoku)](https://CRAN.R-project.org/package=santoku)
-[![R-universe](https://hughjonesd.r-universe.dev/badges/santoku)](https://hughjonesd.r-universe.dev/ui/#package:santoku)
+[![R-universe](https://hughjonesd.r-universe.dev/badges/santoku)](https://hughjonesd.r-universe.dev/santoku)
 [![R-CMD-check](https://github.com/hughjonesd/santoku/workflows/R-CMD-check/badge.svg)](https://github.com/hughjonesd/santoku/actions)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/hughjonesd/santoku?branch=master&svg=true)](https://ci.appveyor.com/project/hughjonesd/santoku)
@@ -113,10 +113,10 @@ Chop into fixed-width intervals:
 
 ``` r
 chop_width(runif(10), 0.1)
-#>  [1] [0.2059, 0.3059) [0.3059, 0.4059) [0.5059, 0.6059) [0.4059, 0.5059)
-#>  [5] [0.1059, 0.2059) [0.9059, 1.006]  [0.1059, 0.2059) [0.5059, 0.6059)
-#>  [9] [0.3059, 0.4059) [0.8059, 0.9059)
-#> 7 Levels: [0.1059, 0.2059) [0.2059, 0.3059) ... [0.9059, 1.006]
+#>  [1] [0.1399, 0.2399) [0.5399, 0.6399) [0.5399, 0.6399) [0.5399, 0.6399)
+#>  [5] [0.6399, 0.7399) [0.3399, 0.4399) [0.8399, 0.9399] [0.8399, 0.9399]
+#>  [9] [0.5399, 0.6399) [0.1399, 0.2399)
+#> 5 Levels: [0.1399, 0.2399) [0.3399, 0.4399) ... [0.8399, 0.9399]
 ```
 
 Or into fixed-size groups:

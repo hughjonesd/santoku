@@ -13,23 +13,23 @@
 \alias{santoku_cast_common.octmode}
 \title{Internal functions}
 \usage{
-santoku_cast_common.default(x, y)
+\method{santoku_cast_common}{default}(x, y)
 
-santoku_cast_common.double(x, y)
+\method{santoku_cast_common}{double}(x, y)
 
-santoku_cast_common.Date(x, y)
+\method{santoku_cast_common}{Date}(x, y)
 
-santoku_cast_common.POSIXct(x, y)
+\method{santoku_cast_common}{POSIXct}(x, y)
 
-santoku_cast_common.ts(x, y)
+\method{santoku_cast_common}{ts}(x, y)
 
-santoku_cast_common.zoo(x, y)
+\method{santoku_cast_common}{zoo}(x, y)
 
-santoku_cast_common.integer64(x, y)
+\method{santoku_cast_common}{integer64}(x, y)
 
-santoku_cast_common.hexmode(x, y)
+\method{santoku_cast_common}{hexmode}(x, y)
 
-santoku_cast_common.octmode(x, y)
+\method{santoku_cast_common}{octmode}(x, y)
 }
 \arguments{
 \item{x, y}{Vectors to cast.}

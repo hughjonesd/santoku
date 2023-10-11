@@ -2,7 +2,7 @@
 % Please edit documentation in R/labels.R
 \name{lbl_glue}
 \alias{lbl_glue}
-\title{Label chopped intervals using the {glue} package}
+\title{Label chopped intervals using the \code{glue} package}
 \usage{
 lbl_glue(
   label,

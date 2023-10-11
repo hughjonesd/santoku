@@ -34,8 +34,13 @@ santoku_cast_common <- function (x, y) {
 NULL
 
 
+# The rawNamespace below means NAMESPACE gets both the S3method() and the
+# export() tag.
+
 #' @export
 #' @rdname santoku-cast
+#' @method santoku_cast_common default
+#' @rawNamespace export(santoku_cast_common.default)
 santoku_cast_common.default <- function (x, y) {
   UseMethod("santoku_cast_common.default", object = y)
 }
@@ -55,6 +60,8 @@ santoku_cast_common.default.default <- function (x, y) {
 
 #' @export
 #' @rdname santoku-cast
+#' @method santoku_cast_common double
+#' @rawNamespace export(santoku_cast_common.double)
 santoku_cast_common.double <- function (x, y) {
   UseMethod("santoku_cast_common.double", object = y)
 }
@@ -84,6 +91,8 @@ santoku_cast_common.double.integer64 <- function (x, y) {
 
 #' @export
 #' @rdname santoku-cast
+#' @method santoku_cast_common Date
+#' @rawNamespace export(santoku_cast_common.Date)
 santoku_cast_common.Date <- function (x, y) {
   UseMethod("santoku_cast_common.Date", object = y)
 }
@@ -107,6 +116,8 @@ santoku_cast_common.Date.POSIXct <- function (x, y) {
 
 #' @export
 #' @rdname santoku-cast
+#' @method santoku_cast_common POSIXct
+#' @rawNamespace export(santoku_cast_common.POSIXct)
 santoku_cast_common.POSIXct <- function (x, y) {
   UseMethod("santoku_cast_common.POSIXct", object = y)
 }
@@ -128,6 +139,8 @@ santoku_cast_common.POSIXct.Date <- function (x, y) {
 
 #' @export
 #' @rdname santoku-cast
+#' @method santoku_cast_common ts
+#' @rawNamespace export(santoku_cast_common.ts)
 santoku_cast_common.ts <- function (x, y) {
   UseMethod("santoku_cast_common.ts", object = y)
 }
@@ -151,6 +164,8 @@ santoku_cast_common.default.ts <- function (x, y) {
 
 #' @export
 #' @rdname santoku-cast
+#' @method santoku_cast_common zoo
+#' @rawNamespace export(santoku_cast_common.zoo)
 santoku_cast_common.zoo <- function (x, y) {
   UseMethod("santoku_cast_common.zoo", object = y)
 }
@@ -177,6 +192,8 @@ santoku_cast_common.default.zoo <- function (x, y) {
 
 #' @export
 #' @rdname santoku-cast
+#' @method santoku_cast_common integer64
+#' @rawNamespace export(santoku_cast_common.integer64)
 santoku_cast_common.integer64 <- function (x, y) {
   UseMethod("santoku_cast_common.integer64", object = y)
 }
@@ -218,6 +235,8 @@ santoku_cast_common.default.integer64 <- function (x, y) {
 
 #' @export
 #' @rdname santoku-cast
+#' @method santoku_cast_common hexmode
+#' @rawNamespace export(santoku_cast_common.hexmode)
 santoku_cast_common.hexmode <- function (x, y) {
   UseMethod("santoku_cast_common.hexmode", object = y)
 }
@@ -246,6 +265,8 @@ santoku_cast_common.default.hexmode <- function (x, y) {
 
 #' @export
 #' @rdname santoku-cast
+#' @method santoku_cast_common octmode
+#' @rawNamespace export(santoku_cast_common.octmode)
 santoku_cast_common.octmode <- function (x, y) {
   UseMethod("santoku_cast_common.octmode", object = y)
 }

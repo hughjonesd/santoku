@@ -172,7 +172,7 @@ lbl_midpoints <- function (
 }
 
 
-#' Label chopped intervals using the {glue} package
+#' Label chopped intervals using the `glue` package
 #'
 #' Use `"{l}"` and `"{r}"` to show the left and right endpoints of the intervals.
 #'
