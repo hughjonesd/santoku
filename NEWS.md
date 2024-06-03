@@ -1,3 +1,8 @@
+# santoku (development version)
+
+* `chop_quantiles()` and `brk_quantiles()` gain a new `weights` argument, 
+  letting you chop by weighted quantiles using `Hmisc::wtd.quantile()`.
+  
 # santoku 0.10.0
 
 * List arguments to `fmt` in `lbl_*` functions will be taken as arguments to
