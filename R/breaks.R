@@ -3,7 +3,7 @@
 #'
 #' @export
 #' @order 2
-brk_quantiles <- function (probs, ...) {
+brk_quantiles <- function (probs, ..., weights = NULL) {
   assert_that(
           is.numeric(probs),
           noNA(probs),
@@ -18,7 +18,15 @@ brk_quantiles <- function (probs, ...) {
     if (! is.numeric(x) && ! "type" %in% names(dots)) dots$type <- 1
     dots$probs <- probs
     dots$na.rm <- TRUE
-    qs <- do.call(stats::quantile, dots)
+
+    qs <- if (is.null(weights)) {
+      do.call(stats::quantile, dots)
+    } else {
+      rlang::check_installed("Hmisc",
+                             reason = "to use `weights` in brk_quantiles()")
+      dots$weights <- weights
+      do.call(Hmisc::wtd.quantile, dots)
+    }
 
     if (anyNA(qs)) return(empty_breaks()) # data was all NA
 

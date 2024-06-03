@@ -186,6 +186,10 @@ test_that("brk_quantiles", {
   x <- rep(1, 5)
   brks <- brk_quantiles(1:3/4)(x, FALSE, TRUE, FALSE)
   expect_equivalent(c(brks), unique(quantile(x, 1:3/4)))
+
+  x <- 1:10
+  brks <- brk_quantiles(1:3/4, weights = 1:10)(x, FALSE, TRUE, FALSE)
+  expect_equivalent(c(brks), Hmisc::wtd.quantile(x, weights = 1:10, probs = 1:3/4))
 })
 
 

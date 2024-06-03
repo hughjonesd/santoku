@@ -73,6 +73,7 @@ if (requireNamespace("scales")) {
 }
 \seealso{
 Other chopping functions: 
+\code{\link{chop}()},
 \code{\link{chop_equally}()},
 \code{\link{chop_evenly}()},
 \code{\link{chop_mean_sd}()},
@@ -80,7 +81,6 @@ Other chopping functions:
 \code{\link{chop_proportions}()},
 \code{\link{chop_quantiles}()},
 \code{\link{chop_width}()},
-\code{\link{chop}()},
 \code{\link{fillet}()}
 }
 \concept{chopping functions}

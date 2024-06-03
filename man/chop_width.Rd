@@ -57,6 +57,7 @@ tab_width(1:10, 2, start = 0)
 \link{brk_width-for-datetime}
 
 Other chopping functions: 
+\code{\link{chop}()},
 \code{\link{chop_equally}()},
 \code{\link{chop_evenly}()},
 \code{\link{chop_fn}()},
@@ -64,7 +65,6 @@ Other chopping functions:
 \code{\link{chop_n}()},
 \code{\link{chop_proportions}()},
 \code{\link{chop_quantiles}()},
-\code{\link{chop}()},
 \code{\link{fillet}()}
 }
 \concept{chopping functions}

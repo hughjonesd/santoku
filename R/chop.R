@@ -262,12 +262,15 @@ fillet <- function (
 #' Chop by quantiles
 #'
 #' `chop_quantiles()` chops data by quantiles.
-#' `chop_deciles()` is a convenience shortcut and chops into deciles.
+#' `chop_deciles()` is a convenience function which chops into deciles.
 #'
 #' @param probs A vector of probabilities for the quantiles. If `probs` has
 #'   names, these will be used for labels.
-#' @param ... Passed to [chop()], or for `brk_quantiles()` to
-#'   [stats::quantile()].
+#' @param ... For `chop_quantiles`, passed to [chop()]. For `brk_quantiles()`,
+#'   passed to [stats::quantile()] or [Hmisc::wtd.quantile()].
+#' @param weights `NULL` or numeric vector of same length as `x`. If not
+#'   `NULL`, [Hmisc::wtd.quantile()] is used to calculate weighted quantiles.
+#'
 #' @inheritParams chop
 #' @inherit chop-doc params return
 #'
@@ -298,9 +301,10 @@ chop_quantiles <- function(
                     probs,
                     ...,
                     left      = is.numeric(x),
-                    raw       = FALSE
+                    raw       = FALSE,
+                    weights   = NULL
                   ) {
-  chop(x, brk_quantiles(probs), ..., left = left, raw = raw)
+  chop(x, brk_quantiles(probs, weights = weights), ..., left = left, raw = raw)
 }
 
 
@@ -321,7 +325,7 @@ chop_deciles <- function(x, ...) {
 #' @inherit chop-doc params return
 #'
 #' @details
-#' `chop_equally()` uses [chop_quantiles()] under the hood. If `x` has duplicate
+#' `chop_equally()` uses [brk_quantiles()] under the hood. If `x` has duplicate
 #' elements, you may get fewer `groups` than requested. If so, a warning will
 #' be emitted. See the examples.
 #'

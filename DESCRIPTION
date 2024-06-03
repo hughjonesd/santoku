@@ -21,12 +21,13 @@ Description: A tool for cutting data into intervals. Allows singleton intervals.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Suggests: 
     bench,
     bit64,
     covr,
     haven,
+    Hmisc,
     hms,
     knitr,
     lubridate,

@@ -44,6 +44,7 @@ chop_proportions(0:10, c(Low = 0, Mid = 0.2, High = 0.8))
 }
 \seealso{
 Other chopping functions: 
+\code{\link{chop}()},
 \code{\link{chop_equally}()},
 \code{\link{chop_evenly}()},
 \code{\link{chop_fn}()},
@@ -51,7 +52,6 @@ Other chopping functions:
 \code{\link{chop_n}()},
 \code{\link{chop_quantiles}()},
 \code{\link{chop_width}()},
-\code{\link{chop}()},
 \code{\link{fillet}()}
 }
 \concept{chopping functions}
