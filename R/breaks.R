@@ -8,7 +8,8 @@ brk_quantiles <- function (probs, ..., weights = NULL) {
           is.numeric(probs),
           noNA(probs),
           all(probs >= 0),
-          all(probs <= 1)
+          all(probs <= 1),
+          is.null(weights) || is.numeric(weights)
         )
   probs <- sort(probs)
 
