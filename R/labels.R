@@ -26,7 +26,8 @@ NULL
 
 #' @name first-last-doc
 #' @param single Glue string: label for singleton intervals. See [lbl_glue()]
-#'   for details.
+#'   for details. If `NULL`, singleton intervals will be labelled the same way
+#'   as other intervals.
 #' @param first Glue string: override label for the first category. Write e.g.
 #'   `first = "<{r}"` to create a label like `"<18"`. See [lbl_glue()]
 #'   for details.

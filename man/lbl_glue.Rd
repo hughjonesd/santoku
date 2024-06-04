@@ -20,7 +20,8 @@ lbl_glue(
 \item{fmt}{String, list or function. A format for break endpoints.}
 
 \item{single}{Glue string: label for singleton intervals. See \code{\link[=lbl_glue]{lbl_glue()}}
-for details.}
+for details. If \code{NULL}, singleton intervals will be labelled the same way
+as other intervals.}
 
 \item{first}{Glue string: override label for the first category. Write e.g.
 \code{first = "<{r}"} to create a label like \code{"<18"}. See \code{\link[=lbl_glue]{lbl_glue()}}

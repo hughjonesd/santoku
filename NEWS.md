@@ -1,5 +1,10 @@
 # santoku (development version)
 
+* Singleton breaks are not labelled specially by default in 
+  `chop_quantiles(..., raw = FALSE)`. This means that e.g. if the 10th and 20th
+  percentiles are both the same number, the label will still be `[10%, 20%]`.
+* Document `single = NULL` explicitly in `lbl_*` functions.
+
 # santoku 1.0.0
 
 * santoku is now considered stable.

@@ -12,6 +12,7 @@ chop_quantiles(
   x,
   probs,
   ...,
+  labels = if (raw) lbl_intervals() else lbl_intervals(single = NULL),
   left = is.numeric(x),
   raw = FALSE,
   weights = NULL
@@ -33,6 +34,8 @@ names, these will be used for labels.}
 
 \item{...}{For \code{chop_quantiles}, passed to \code{\link[=chop]{chop()}}. For \code{brk_quantiles()},
 passed to \code{\link[stats:quantile]{stats::quantile()}} or \code{\link[Hmisc:wtd.stats]{Hmisc::wtd.quantile()}}.}
+
+\item{labels}{A character vector of labels or a function to create labels.}
 
 \item{left}{Logical. Left-closed or right-closed breaks?}
 

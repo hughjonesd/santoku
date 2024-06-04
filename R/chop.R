@@ -306,11 +306,14 @@ chop_quantiles <- function(
                     x,
                     probs,
                     ...,
+                    labels    = if (raw) lbl_intervals() else
+                                         lbl_intervals(single = NULL),
                     left      = is.numeric(x),
                     raw       = FALSE,
                     weights   = NULL
                   ) {
-  chop(x, brk_quantiles(probs, weights = weights), ..., left = left, raw = raw)
+  chop(x, brk_quantiles(probs, weights = weights), labels = labels, ...,
+       left = left, raw = raw)
 }
 
 
