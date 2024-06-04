@@ -399,7 +399,6 @@ chop_mean_sd <- function (
 }
 
 
-
 #' Chop using pretty breakpoints
 #'
 #' `chop_pretty()` uses [base::pretty()] to calculate breakpoints

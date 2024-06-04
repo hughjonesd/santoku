@@ -75,7 +75,7 @@ lbl_intervals <- function (
                    raw    = FALSE
                  ) {
   if (! isFALSE(raw)) {
-    lifecycle::deprecate_soft("0.9.0", "lbl_intervals(raw)", "chop(raw)")
+    lifecycle::deprecate_warn("0.9.0", "lbl_intervals(raw)", "chop(raw)")
   }
   interval_glue <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
   lbl_glue(label = interval_glue, single = single, fmt = fmt, first = first,
@@ -116,7 +116,7 @@ lbl_dash <- function (
               raw    = FALSE
             ) {
   if (! isFALSE(raw)) {
-    lifecycle::deprecate_soft("0.9.0", "lbl_dash(raw)", "chop(raw)")
+    lifecycle::deprecate_warn("0.9.0", "lbl_dash(raw)", "chop(raw)")
   }
 
   label_glue <- paste0("{l}", symbol, "{r}")
@@ -147,7 +147,7 @@ lbl_midpoints <- function (
                    raw    = FALSE
                  ) {
   if (! isFALSE(raw)) {
-    lifecycle::deprecate_soft("0.9.0", "lbl_midpoints(raw)", "chop(raw)")
+    lifecycle::deprecate_warn("0.9.0", "lbl_midpoints(raw)", "chop(raw)")
   }
 
   RAW <- raw # avoid "recursive default argument reference"
@@ -229,7 +229,7 @@ lbl_glue <- function (
   )
 
   if (! isFALSE(raw)) {
-    lifecycle::deprecate_soft("0.9.0", "lbl_glue(raw)", "chop(raw)")
+    lifecycle::deprecate_warn("0.9.0", "lbl_glue(raw)", "chop(raw)")
   }
 
   RAW <- raw # avoid "recursive default argument reference"
@@ -314,7 +314,8 @@ lbl_glue <- function (
 #' This is useful when the left endpoint unambiguously indicates the
 #' interval. In other cases it may give errors due to duplicate labels.
 #'
-#' `lbl_endpoint()` is `r lifecycle::badge("deprecated")`. Do not use it.
+#' `lbl_endpoint()` is `r lifecycle::badge("defunct")` and gives an
+#' error since santoku 1.0.0.
 #'
 #' @inherit label-doc
 #' @inherit first-last-doc
@@ -351,7 +352,7 @@ lbl_endpoints <- function (
   assert_that(is.flag(left))
 
   if (! isFALSE(raw)) {
-    lifecycle::deprecate_soft("0.9.0", "lbl_endpoints(raw)", "chop(raw)")
+    lifecycle::deprecate_warn("0.9.0", "lbl_endpoints(raw)", "chop(raw)")
   }
 
   label <- if (left) "{l}" else "{r}"
@@ -367,9 +368,8 @@ lbl_endpoint <- function (
                   raw  = FALSE,
                   left = TRUE
                 ) {
-  lifecycle::deprecate_warn(when = "0.8.0", what = "lbl_endpoint()",
+  lifecycle::deprecate_stop(when = "0.8.0", what = "lbl_endpoint()",
                               with = "lbl_endpoints()")
-   lbl_endpoints(fmt = fmt, raw = raw, left = left)
 }
 
 
@@ -549,17 +549,14 @@ lbl_seq <- function(start = "a") {
 }
 
 
-#' Label chopped intervals in a user-defined sequence
+#' Defunct: label chopped intervals in a user-defined sequence
 #'
-#' `r lifecycle::badge("deprecated")`
+#' `r lifecycle::badge("defunct")`
 #'
-#' `lbl_manual()` is deprecated because it is little used and is not closely
-#' related to the rest of the package. It also risks mislabelling intervals, e.g.
-#' if intervals are extended.
-#'
-#' `lbl_manual()` uses an arbitrary sequence to label
-#' intervals. If the sequence is too short, it will be pasted with itself and
-#' repeated.
+#' `lbl_manual()` is defunct since santoku 1.0.0. It is little used and is not
+#' closely related to the rest of the package. It also risks mislabelling
+#' intervals, e.g. if intervals are extended. Use of `lbl_manual()` will give
+#' an error.
 #'
 #' @param sequence A character vector of labels.
 #' @inherit label-doc
@@ -571,22 +568,12 @@ lbl_seq <- function(start = "a") {
 #' @keywords internal
 #'
 #' @examples
+#' \dontrun{
 #' chop(1:10, c(2, 5, 8), lbl_manual(c("w", "x", "y", "z")))
 #' # ->
 #' chop(1:10, c(2, 5, 8), labels = c("w", "x", "y", "z"))
+#' }
 lbl_manual <- function (sequence, fmt = "%s") {
-  lifecycle::deprecate_warn("0.9.0", "lbl_manual()",
+  lifecycle::deprecate_stop("0.9.0", "lbl_manual()",
                             details = "Just specify `labels = sequence` instead.")
-  assert_that(is_format(fmt))
-
-  if (anyDuplicated(sequence) > 0L) stop("`sequence` contains duplicate items")
-  function (breaks, raw = NULL) {
-    ls <- sequence
-    latest <- ls
-    while (length(breaks) - 1 > length(ls)) {
-      latest <- paste0(latest, sequence)
-      ls <- c(ls, latest)
-    }
-    apply_format(fmt, ls[seq(1L, length(breaks) - 1)])
-  }
 }

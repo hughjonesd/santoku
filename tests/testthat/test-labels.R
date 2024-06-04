@@ -2,15 +2,9 @@
 brackets <- function (x) paste0("(", x, ")")
 
 
-test_that("lbl_manual", {
-  brk <- brk_res(brk_manual(1:3, rep(TRUE, 3)))
-
-  lifecycle::expect_deprecated(lbl_manual(letters))
-
-  withr::local_options(lifecycle_verbosity = "quiet")
-
-  expect_error(lbl_manual(c("a", "a")))
-  expect_equivalent(lbl_manual(letters[1])(brk), c("a", "aa"))
+test_that("lbl_manual and lbl_endpoint are defunct", {
+  lifecycle::expect_defunct(lbl_manual(letters))
+  lifecycle::expect_defunct(lbl_endpoint()(lbrk))
 })
 
 
@@ -196,8 +190,6 @@ test_that("lbl_endpoints arguments", {
     lbl_endpoints(fmt = list(nsmall = 2, decimal.mark = ","))(lbrk),
     c("1,00", "3,00")
   )
-
-  lifecycle::expect_deprecated(lbl_endpoint()(lbrk))
 })
 
 

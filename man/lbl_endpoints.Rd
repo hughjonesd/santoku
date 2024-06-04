@@ -43,7 +43,8 @@ This is useful when the left endpoint unambiguously indicates the
 interval. In other cases it may give errors due to duplicate labels.
 }
 \details{
-\code{lbl_endpoint()} is \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}. Do not use it.
+\code{lbl_endpoint()} is \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#defunct}{\figure{lifecycle-defunct.svg}{options: alt='[Defunct]'}}}{\strong{[Defunct]}} and gives an
+error since santoku 1.0.0.
 }
 \section{Formatting endpoints}{
 

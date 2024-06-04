@@ -1,9 +1,13 @@
-# santoku (development version)
+# santoku 1.0.0
 
+* santoku is now considered stable.
 * `chop_quantiles()` and `brk_quantiles()` gain a new `weights` argument, 
   letting you chop by weighted quantiles using `Hmisc::wtd.quantile()`.
 * `brk_quantiles()` may now return singleton breaks, producing more
   accurate results when `x` has duplicate elements.
+* Some deprecated functions have been removed, and the `raw` argument to 
+  `lbl_*` functions now always gives a deprecation warning.
+  
   
 # santoku 0.10.0
 

@@ -78,7 +78,7 @@ brk_equally <- function (groups) {
 #' @importFrom lifecycle deprecated
 brk_mean_sd <- function (sds = 1:3, sd = deprecated()) {
   if (lifecycle::is_present(sd)) {
-    lifecycle::deprecate_soft(
+    lifecycle::deprecate_warn(
             when = "0.7.0",
             what = "brk_mean_sd(sd)",
             with = "brk_mean_sd(sds = 'vector of sds')"
