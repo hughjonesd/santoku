@@ -56,6 +56,9 @@ passed to \code{\link[stats:quantile]{stats::quantile()}} or \code{\link[Hmisc:w
 For non-numeric \code{x}, \code{left} is set to \code{FALSE} by default. This works better
 for calculating "type 1" quantiles, since they round down. See
 \code{\link[stats:quantile]{stats::quantile()}}.
+
+If \code{x} contains duplicates, consecutive quantiles may be the same number
+so that some intervals get merged.
 }
 \examples{
 chop_quantiles(1:10, 1:3/4)
@@ -68,6 +71,9 @@ chop_deciles(1:10)
 
 # to label by the quantiles themselves:
 chop_quantiles(1:10, 1:3/4, raw = TRUE)
+
+# duplicates:
+tab_quantiles(c(1, 1, 1, 2, 3), 1:5/5)
 
 set.seed(42)
 tab_quantiles(rnorm(100), probs = 1:3/4, raw = TRUE)

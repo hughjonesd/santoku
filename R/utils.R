@@ -60,6 +60,28 @@ singletons <- function (breaks) {
 }
 
 
+#' Find middle numbers in runs of 3 or more duplicates.
+#'
+#' You can use this to find "illegal" breaks.
+#'
+#' @param x
+#'
+#' @return A logical vector of length(x), TRUE if the corresponding element
+#'   is in the middle of 3 or more duplicates
+#' @noRd
+#'
+#' @examples
+#' find_duplicated_middles(c(1, 2, 2, 3, 3, 3, 4))
+find_duplicated_middles <- function (x) {
+  if (length(x) == 0) return(logical(0))
+  dupes <- duplicated(x)
+  # If element n is duplicated, and element n+1 is duplicated, then you
+  # are a duplicated middle.
+  # The last element is never a duplicated middle.
+  c(dupes[-length(dupes)] & dupes[-1], FALSE)
+}
+
+
 `%||%` <- function (x, y) if (is.null(x)) y else x
 
 

@@ -275,7 +275,7 @@ test_that("chop_equally", {
   )
 
   expect_warning(
-    chop_equally(c(1, 1, 2, 2), 4),
+    chop_equally(c(1, 1, 1, 1), 4),
     "Fewer"
   )
 })

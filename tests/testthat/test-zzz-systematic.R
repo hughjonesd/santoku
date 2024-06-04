@@ -103,14 +103,6 @@ test_that("systematic tests", {
               & test_df$brk_fun %in% c("brk_n", "brk_n_merge"))
 
 
-  # all quantiles will be the same here, so no way to create
-  # intervals if extend is FALSE
-  should_fail(with(test_df,
-          names(x) %in% c("same", "one") &
-          brk_fun == "brk_quantiles" &
-          extend == FALSE
-        ))
-
   # brk_default_hi and _lo have a single break, so if you can't
   # extend it, there are no possible intervals:
   should_fail(with(test_df,
@@ -160,7 +152,7 @@ test_that("systematic tests", {
 
   # quantiles here likely to create duplicate endpoints
   dont_care(with(test_df,
-                 names(x) == "char" &
+                 names(x) %in% c("one", "same", "char") &
                  lbl_fun == "lbl_endpoints" &
                  brk_fun == "brk_quantiles" &
                  extend == TRUE & raw == TRUE

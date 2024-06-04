@@ -31,9 +31,9 @@ brk_quantiles <- function (probs, ..., weights = NULL) {
 
     if (anyNA(qs)) return(empty_breaks()) # data was all NA
 
-    non_dupes <- ! duplicated(qs)
-    qs <- qs[non_dupes]
-    probs <- probs[non_dupes]
+    dupe_middles <- find_duplicated_middles(qs)
+    qs <- qs[! dupe_middles]
+    probs <- probs[! dupe_middles]
 
     breaks <- create_lr_breaks(qs, left)
 

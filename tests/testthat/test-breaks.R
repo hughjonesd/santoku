@@ -185,11 +185,22 @@ test_that("brk_quantiles", {
 
   x <- rep(1, 5)
   brks <- brk_quantiles(1:3/4)(x, FALSE, TRUE, FALSE)
-  expect_equivalent(c(brks), unique(quantile(x, 1:3/4)))
+  expect_equivalent(c(brks), c(1, 1))
 
   x <- 1:10
   brks <- brk_quantiles(1:3/4, weights = 1:10)(x, FALSE, TRUE, FALSE)
   expect_equivalent(c(brks), Hmisc::wtd.quantile(x, weights = 1:10, probs = 1:3/4))
+})
+
+
+test_that("bugfix #49: brk_quantiles() shouldn't ignore duplicate quantiles", {
+  x <- c(1, 1, 2, 3, 4)
+  brks <- brk_quantiles(0:5/5)(x, FALSE, TRUE, FALSE)
+  expect_equivalent(c(brks), c(1.0, 1.0, 1.6, 2.4, 3.2, 4.0))
+
+  x <- c(1, 1, 1, 2, 3)
+  brks <- brk_quantiles(0:5/5)(x, FALSE, TRUE, FALSE)
+  expect_equivalent(c(brks), c(1.0, 1.0, 1.4, 2.2, 3.0))
 })
 
 
@@ -203,7 +214,7 @@ test_that("brk_equally", {
 
 
 test_that("brk_equally warns when too few breaks created", {
-  dupes <- c(1, 1, 1, 2, 3, 4, 4, 4)
+  dupes <- rep(1, 4)
   expect_warning(brk_res(brk_equally(4), x = dupes))
 })
 
