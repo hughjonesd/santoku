@@ -1,9 +1,9 @@
-pandoc: 3.1.10
-pkgdown: 2.0.7
+pandoc: 3.1.11
+pkgdown: 2.0.9
 pkgdown_sha: ~
 articles:
-  santoku: santoku.html
   performance: website-articles/performance.html
+  santoku: santoku.html
   whats-new-in-0-9-0: whats-new-in-0-9-0.html
-last_built: 2024-01-02T11:37Z
+last_built: 2024-06-04T18:54Z
 
