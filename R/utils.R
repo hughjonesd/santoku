@@ -62,7 +62,7 @@ singletons <- function (breaks) {
 
 #' Find middle numbers in runs of 3 or more duplicates.
 #'
-#' You can use this to find "illegal" breaks.
+#' You can use this to test for "illegal" breaks.
 #'
 #' @param x
 #'

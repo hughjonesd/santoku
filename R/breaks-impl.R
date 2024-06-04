@@ -15,11 +15,11 @@ create_breaks <- function (obj, left) {
   stopifnot(is.logical(left))
   stopifnot(length(left) == length(obj))
 
-  singletons <- singletons(obj)
-  if (any(singletons[-1] & singletons[-length(singletons)])) {
+  if (any(find_duplicated_middles(obj))) {
     stop("breaks contained more than two consecutive equal values")
   }
 
+  singletons <- singletons(obj)
   l_singletons <- c(singletons, FALSE)
   r_singletons <- c(FALSE, singletons)
   stopifnot(all(left[l_singletons]))
