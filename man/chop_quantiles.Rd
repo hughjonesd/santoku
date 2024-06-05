@@ -60,8 +60,8 @@ For non-numeric \code{x}, \code{left} is set to \code{FALSE} by default. This wo
 for calculating "type 1" quantiles, since they round down. See
 \code{\link[stats:quantile]{stats::quantile()}}.
 
-If \code{x} contains duplicates, consecutive quantiles may be the same number
-so that some intervals get merged.
+If \code{x} contains duplicates, consecutive quantiles may be the same number. If
+so, quantile labels may be misleading and a warning is emitted.
 }
 \examples{
 chop_quantiles(1:10, 1:3/4)
@@ -75,7 +75,7 @@ chop_deciles(1:10)
 # to label by the quantiles themselves:
 chop_quantiles(1:10, 1:3/4, raw = TRUE)
 
-# duplicates:
+# duplicate quantiles:
 tab_quantiles(c(1, 1, 1, 2, 3), 1:5/5)
 
 set.seed(42)

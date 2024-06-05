@@ -48,7 +48,7 @@ cut-points from \code{x}.}
 \item{labels}{A character vector of labels or a function to create labels.}
 
 \item{extend}{Logical. If \code{TRUE}, always extend breaks to \verb{+/-Inf}. If \code{NULL},
-extend breaks to \code{min(x)} and/or \code{max(x)} only if necessary. If \code{NULL}, never
+extend breaks to \code{min(x)} and/or \code{max(x)} only if necessary. If \code{FALSE}, never
 extend.}
 
 \item{left}{Logical. Left-closed or right-closed breaks?}
@@ -124,7 +124,7 @@ min(breaks))} and \code{(max(breaks), Inf]}.
 
 If \code{extend} is \code{NULL} (the default), intervals will be extended to
 \code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, \emph{only} if
-necessary -- i.e. if elements of \code{x} would be below or above the unextended
+necessary - i.e. if elements of \code{x} would be below or above the unextended
 breaks.
 
 \code{close_end} is applied after breaks are extended, i.e. always to the very last
@@ -154,7 +154,7 @@ as quantiles for \code{\link[=chop_quantiles]{chop_quantiles()}} and friends, pr
 \code{\link[=chop_proportions]{chop_proportions()}}, or standard deviations for \code{\link[=chop_mean_sd]{chop_mean_sd()}}.
 
 If \code{raw} is \code{NULL} then \verb{lbl_*} functions will use their default (usually
-\code{FALSE}). Otherwise, \code{raw} argument to \code{chop()} overrides \code{raw} arguments
+\code{FALSE}). Otherwise, the \code{raw} argument to \code{chop()} overrides \code{raw} arguments
 passed into \verb{lbl_*} functions directly.
 }
 

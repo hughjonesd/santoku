@@ -82,7 +82,7 @@ NULL
 #'
 #' If `extend` is `NULL` (the default), intervals will be extended to
 #' \code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, *only* if
-#' necessary -- i.e. if elements of `x` would be below or above the unextended
+#' necessary - i.e. if elements of `x` would be below or above the unextended
 #' breaks.
 #'
 #' `close_end` is applied after breaks are extended, i.e. always to the very last
@@ -111,7 +111,7 @@ NULL
 #'  [chop_proportions()], or standard deviations for [chop_mean_sd()].
 #'
 #'  If `raw` is `NULL` then `lbl_*` functions will use their default (usually
-#'  `FALSE`). Otherwise, `raw` argument to `chop()` overrides `raw` arguments
+#'  `FALSE`). Otherwise, the `raw` argument to `chop()` overrides `raw` arguments
 #'  passed into `lbl_*` functions directly.
 #'
 #'
@@ -279,8 +279,8 @@ fillet <- function (
 #' for calculating "type 1" quantiles, since they round down. See
 #' [stats::quantile()].
 #'
-#' If `x` contains duplicates, consecutive quantiles may be the same number
-#' so that some intervals get merged.
+#' If `x` contains duplicates, consecutive quantiles may be the same number. If
+#' so, quantile labels may be misleading and a warning is emitted.
 #'
 #' @family chopping functions
 #'
@@ -299,7 +299,7 @@ fillet <- function (
 #' # to label by the quantiles themselves:
 #' chop_quantiles(1:10, 1:3/4, raw = TRUE)
 #'
-#' # duplicates:
+#' # duplicate quantiles:
 #' tab_quantiles(c(1, 1, 1, 2, 3), 1:5/5)
 #'
 chop_quantiles <- function(

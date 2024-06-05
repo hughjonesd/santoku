@@ -102,7 +102,6 @@ test_that("systematic tests", {
   should_fail(char_by_quantities & test_df$lbl_fun == "lbl_midpoints"
               & test_df$brk_fun %in% c("brk_n", "brk_n_merge"))
 
-
   # brk_default_hi and _lo have a single break, so if you can't
   # extend it, there are no possible intervals:
   should_fail(with(test_df,
@@ -156,6 +155,12 @@ test_that("systematic tests", {
                  lbl_fun == "lbl_endpoints" &
                  brk_fun == "brk_quantiles" &
                  extend == TRUE & raw == TRUE
+               ))
+
+  # brk_quantiles() should warn on duplicate quantiles
+  should_warn(with(test_df,
+                 names(x) %in% c("one", "same") &
+                 brk_fun == "brk_quantiles"
                ))
 
   # brk_default has breaks 1,2,2,3

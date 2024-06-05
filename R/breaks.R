@@ -31,9 +31,12 @@ brk_quantiles <- function (probs, ..., weights = NULL) {
 
     if (anyNA(qs)) return(empty_breaks()) # data was all NA
 
-    dupe_middles <- find_duplicated_middles(qs)
-    qs <- qs[! dupe_middles]
-    probs <- probs[! dupe_middles]
+    if (any(duplicated(qs))) {
+      warning("`x` has non-unique quantiles: break labels may be misleading")
+      dupe_middles <- find_duplicated_middles(qs)
+      qs <- qs[! dupe_middles]
+      probs <- probs[! dupe_middles]
+    }
 
     breaks <- create_lr_breaks(qs, left)
 

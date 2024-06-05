@@ -183,23 +183,23 @@ test_that("brk_quantiles", {
   expect_silent(brks <- brk_quantiles(numeric(0))(x, TRUE, TRUE, FALSE))
   expect_equivalent(c(brks), c(-Inf, Inf))
 
-  x <- rep(1, 5)
-  brks <- brk_quantiles(1:3/4)(x, FALSE, TRUE, FALSE)
-  expect_equivalent(c(brks), c(1, 1))
-
   x <- 1:10
   brks <- brk_quantiles(1:3/4, weights = 1:10)(x, FALSE, TRUE, FALSE)
   expect_equivalent(c(brks), Hmisc::wtd.quantile(x, weights = 1:10, probs = 1:3/4))
 })
 
 
-test_that("bugfix #49: brk_quantiles() shouldn't ignore duplicate quantiles", {
+test_that("brk_quantiles() should warn on duplicate quantiles", {
+  x <- rep(1, 5)
+  expect_warning(brks <- brk_quantiles(1:3/4)(x, FALSE, TRUE, FALSE))
+  expect_equivalent(c(brks), c(1, 1))
+
   x <- c(1, 1, 2, 3, 4)
-  brks <- brk_quantiles(0:5/5)(x, FALSE, TRUE, FALSE)
+  expect_warning(brks <- brk_quantiles(0:5/5)(x, FALSE, TRUE, FALSE))
   expect_equivalent(c(brks), c(1.0, 1.0, 1.6, 2.4, 3.2, 4.0))
 
   x <- c(1, 1, 1, 2, 3)
-  brks <- brk_quantiles(0:5/5)(x, FALSE, TRUE, FALSE)
+  expect_warning(brks <- brk_quantiles(0:5/5)(x, FALSE, TRUE, FALSE))
   expect_equivalent(c(brks), c(1.0, 1.0, 1.4, 2.2, 3.0))
 })
 
