@@ -23,7 +23,7 @@ NULL
 #'   cut-points from `x`.
 #' @param labels A character vector of labels or a function to create labels.
 #' @param extend Logical. If `TRUE`, always extend breaks to `+/-Inf`. If `NULL`,
-#'   extend breaks to `min(x)` and/or `max(x)` only if necessary. If `NULL`, never
+#'   extend breaks to `min(x)` and/or `max(x)` only if necessary. If `FALSE`, never
 #'   extend.
 #' @param left Logical. Left-closed or right-closed breaks?
 #' @param close_end Logical. Close last break at right? (If `left` is `FALSE`,
