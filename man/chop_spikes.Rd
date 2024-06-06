@@ -36,6 +36,9 @@ often will get their own singleton break.}
 \code{chop_spikes()} lets you isolate common values of \code{x} in their own
 singleton intervals. This can help make unusual values visible.
 }
+\details{
+This function is \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}.
+}
 \examples{
 x <- c(1:4, rep(5, 5, ), 6:10)
 chop_spikes(x, c(2, 7), n = 5)

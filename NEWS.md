@@ -1,6 +1,6 @@
 # santoku (development version)
 
-* The new `chop_spikes()` function gives common values of `x` their own
+* Experimental: the new `chop_spikes()` function gives common values of `x` their own
   singleton break.
 * Singleton breaks are not labelled specially by default in 
   `chop_quantiles(..., raw = FALSE)`. This means that e.g. if the 10th and 20th
