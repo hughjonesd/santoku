@@ -1,13 +1,14 @@
 # santoku (development version)
 
-* Experimental: the new `chop_spikes()` function gives common values of `x` their own
-  singleton break.
+* The experimental `chop_spikes()` function gives common values of `x` 
+  their own singleton intervals.
+* On Unicode platforms, infinity will be represented as ∞ in breaks. Set
+  `options(santoku.infinity = "Inf")` to use the old behaviour.
 * Singleton breaks are not labelled specially by default in 
   `chop_quantiles(..., raw = FALSE)`. This means that e.g. if the 10th and 20th
   percentiles are both the same number, the label will still be `[10%, 20%]`.
 * `single = NULL` has been documented explicitly in `lbl_*` functions.
-* On Unicode platforms, infinity will be represented as ∞ in breaks. Set
-  `options(santoku.infinity="Inf")` to use the old behaviour.
+
 
 # santoku 1.0.0
 
