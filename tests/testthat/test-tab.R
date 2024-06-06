@@ -69,6 +69,7 @@ test_that("tab_quantiles", {
   )
 })
 
+
 test_that("tab_deciles", {
   expect_identical(
     tab_deciles(0:9),
@@ -79,6 +80,7 @@ test_that("tab_deciles", {
   )
 })
 
+
 test_that("tab_equally", {
   expect_identical(
     tab_equally(1:4, 4),
@@ -87,9 +89,21 @@ test_that("tab_equally", {
   )
 })
 
+
 test_that("tab_fn", {
   expect_equivalent(
     tab_fn(1:5, median),
     table(factor(c(rep("[1, 3)", 2), rep("[3, 5]", 3))))
+  )
+})
+
+
+test_that("tab_spikes", {
+  expect_equivalent(
+    tab_spikes(c(1:5, rep(3, 2)), breaks = c(2, 4), n = 3),
+    table(factor(
+      c("[1, 2)", "[2, 3)", rep("{3}", 3), rep("[4, 5]", 2)),
+      levels = c("[1, 2)", "[2, 3)", "{3}", "[4, 5]")
+    ))
   )
 })
