@@ -348,6 +348,26 @@ test_that("chop_fn", {
 })
 
 
+test_that("chop_spikes", {
+  x <- c(1:2, rep(3, 3), 4:5)
+
+  expect_silent(res <- chop_spikes(x, breaks = 2, n = 2))
+  expect_equivalent(
+    res,
+    factor(c("[1, 2)", "[2, 3)", rep("{3}", 3), rep("(3, 5]", 2)))
+  )
+
+  expect_silent(res2 <- chop_spikes(x, breaks = 2, prop = 0.3))
+  expect_equivalent(res, res2)
+
+  expect_silent(res3 <- chop_spikes(x, breaks = brk_width(4), n = 2))
+  expect_equivalent(
+    res3,
+    factor(c(rep("[1, 3)", 2), rep("{3}", 3), rep("(3, 5]", 2)))
+  )
+})
+
+
 test_that("fillet", {
   x <- -2:2
   expect_silent(sole <- fillet(x, -1:1))

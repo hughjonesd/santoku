@@ -189,7 +189,7 @@ test_that("brk_quantiles", {
 })
 
 
-test_that("brk_quantiles() should warn on duplicate quantiles", {
+test_that("brk_quantiles should warn on duplicate quantiles", {
   x <- rep(1, 5)
   expect_warning(brks <- brk_quantiles(1:3/4)(x, FALSE, TRUE, FALSE))
   expect_equivalent(c(brks), c(1, 1))
@@ -247,6 +247,59 @@ test_that("brk_fn", {
   expect_equivalent(
     brks2,
     brk_res(brk_default(pretty(x, n = 10)), x = x)
+  )
+})
+
+
+test_that("brk_spikes", {
+  x <- c(rep(5, 5), 1:10)
+
+  expect_silent(
+    brks <- brk_res(brk_spikes(c(2, 8), n = 5), x = x)
+  )
+  expect_equivalent(
+    c(brks),
+    c(2, 5, 5, 8)
+  )
+
+  expect_silent(
+    brks2 <- brk_res(brk_spikes(c(2, 5, 8), n = 5), x = x)
+  )
+  expect_equivalent(
+    c(brks2),
+    c(2, 5, 5, 8)
+  )
+
+  expect_silent(
+    brks3 <- brk_res(brk_spikes(c(2, 5, 5, 8), n = 5), x = x)
+  )
+  expect_equivalent(
+    c(brks3),
+    c(2, 5, 5, 8)
+  )
+
+  expect_silent(
+    brks4 <- brk_res(brk_spikes(brk_width(5), n = 5), x = x)
+  )
+  expect_equivalent(
+    c(brks4),
+    c(1, 5, 5, 6, 11)
+  )
+
+  expect_silent(
+    brks5 <- brk_res(brk_spikes(c(2, 8), prop = 0.4), x = x)
+  )
+  expect_equivalent(
+    c(brks5),
+    c(2, 5, 5, 8)
+  )
+
+  expect_error(
+    brk_spikes(c(2, 8), n = 5, prop = 0.5)
+  )
+
+  expect_error(
+    brk_spikes(c(2, 8))
   )
 })
 

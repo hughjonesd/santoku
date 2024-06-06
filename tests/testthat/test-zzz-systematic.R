@@ -32,6 +32,7 @@ test_that("systematic tests", {
     brk_default_hi  = expression(brk_default(5)),
     brk_width       = expression(brk_width(1)),
     brk_width2      = expression(brk_width(1, 0)),
+    brk_spikes  = expression(brk_spikes(1:3, n = 2)),
     brk_w_difft_day = expression(brk_width(as.difftime(5, units = "days"))),
     brk_w_difft_sec = expression(brk_width(as.difftime(5, units = "secs"))),
     brk_def_Date    = expression(brk_default(as.Date("1950-01-05") + c(0, 5))),
@@ -174,6 +175,11 @@ test_that("systematic tests", {
         ))
   dont_care(with(test_df,
           brk_fun == "brk_default2" &
+          lbl_fun == "lbl_endpoints" &
+          drop == FALSE
+        ))
+  dont_care(with(test_df,
+          brk_fun == "brk_spikes" &
           lbl_fun == "lbl_endpoints" &
           drop == FALSE
         ))

@@ -228,6 +228,18 @@ test_that("chop_evenly", {
 })
 
 
+test_that("brk_spikes", {
+  d_reps <- c(rep(d1[3], 5), d1[-3])
+
+  expect_silent(
+    res <- chop(d_reps, brk_spikes(db1, n = 5))
+  )
+
+  expect_in("{1975-10-29}", levels(res))
+  expect_equal(sum(res == "{1975-10-29}"), 5)
+})
+
+
 test_that("chop timezones", {
   dt_z1 <- seq(as.POSIXct("2000-01-01 09:00:00", tz = "GMT"),
         by = "hour", length.out = 24)
