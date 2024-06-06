@@ -4,7 +4,7 @@
 \alias{chop_spikes}
 \alias{brk_spikes}
 \alias{tab_spikes}
-\title{Chop, isolating common values}
+\title{Chop common values into separate categories}
 \usage{
 chop_spikes(x, breaks, n = NULL, prop = NULL, ...)
 

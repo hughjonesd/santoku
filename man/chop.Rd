@@ -42,7 +42,7 @@ tab(
 \arguments{
 \item{x}{A vector.}
 
-\item{breaks}{A numeric vector of cut-points or a function to create
+\item{breaks}{A numeric vector of cut-points, or a function to create
 cut-points from \code{x}.}
 
 \item{labels}{A character vector of labels or a function to create labels.}
@@ -81,9 +81,10 @@ are supported with a warning.
 
 \code{breaks} may be a vector or a function.
 
-If it is a vector, \code{breaks} gives the break endpoints. Repeated values create
-singleton intervals. For example \code{breaks = c(1, 3, 3, 5)} creates 3
-intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
+If it is a vector, \code{breaks} gives the interval endpoints. Repeating a value
+creates a "singleton" interval, which contains only that value.
+For example \code{breaks = c(1, 3, 3, 5)} creates 3 intervals:
+\code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
 
 If \code{breaks} is a function, it is called with the \code{x}, \code{extend}, \code{left} and
 \code{close_end} arguments, and should return an object of class \code{breaks}.
@@ -107,13 +108,13 @@ differently with respect to extended breaks: see "Extending intervals" below.
 Using \link[=lbl_intervals]{mathematical set notation}:
 \itemize{
 \item If \code{left} is \code{TRUE} and \code{close_end} is \code{TRUE}, breaks will look like
-\code{[b1, b2), [b2, b3) ... [b_n-1, b_n]}.
+\code{[b1, b2), [b2, b3) ... [b_(n-1), b_n]}.
 \item If \code{left} is \code{FALSE} and \code{close_end} is \code{TRUE}, breaks will look like
-\code{[b1, b2], (b2, b3] ... (b_n-1, b_n]}.
+\code{[b1, b2], (b2, b3] ... (b_(n-1), b_n]}.
 \item If \code{left} is \code{TRUE} and \code{close_end} is \code{FALSE}, all breaks will look like
-\code{...[b1, b2) ...}.
+\code{... [b1, b2) ...}.
 \item If \code{left} is \code{FALSE} and \code{close_end} is \code{FALSE}, all breaks will look like
-\code{...(b1, b2] ...}.
+\code{... (b1, b2] ...}.
 }
 }
 
@@ -123,24 +124,23 @@ If \code{extend} is \code{TRUE}, intervals will be extended to \code{[-Inf,
 min(breaks))} and \code{(max(breaks), Inf]}.
 
 If \code{extend} is \code{NULL} (the default), intervals will be extended to
-\code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, \emph{only} if
-necessary - i.e. if elements of \code{x} would be below or above the unextended
+\code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, only if
+necessary, i.e. only if elements of \code{x} would be outside the unextended
 breaks.
 
-\code{close_end} is applied after breaks are extended, i.e. always to the very last
-or very first break. This is a change from
+\code{close_end} is only relevant if intervals are not extended;
+extended intervals are always closed on the outside. This is a change from
 previous behaviour. Up to version 0.8.0, \code{close_end} was applied to the
-user-specified intervals, then \code{extend} was applied. Note that
-if breaks are extended, then the extended break is always closed anyway.
+last user-specified interval, before any extended intervals were created.
 }
 
 \subsection{Labels}{
 
 \code{labels} may be a character vector. It should have the same length as the
 (possibly extended) number of intervals. Alternatively, \code{labels} may be a
-\verb{lbl_*} function such as \code{\link[=lbl_seq]{lbl_seq()}}.
+\verb{lbl_*} function such as \code{\link[=lbl_dash]{lbl_dash()}}.
 
-If \code{breaks} is a named vector, then non-zero-length names of \code{breaks} will be
+If \code{breaks} is a named vector, then names of \code{breaks} will be
 used as labels for the interval starting at the corresponding element. This
 overrides the \code{labels} argument (but unnamed breaks will still use \code{labels}).
 This feature is \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}.
@@ -148,8 +148,8 @@ This feature is \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.
 If \code{labels} is \code{NULL}, then integer codes will be returned instead of a
 factor.
 
-If \code{raw} is \code{TRUE}, labels will show the actual numbers calculated by breaks.
-If \code{raw} is \code{FALSE} then labels may show other objects, such
+If \code{raw} is \code{TRUE}, labels will show the actual interval endpoints, usually
+numbers. If \code{raw} is \code{FALSE} then labels may show other objects, such
 as quantiles for \code{\link[=chop_quantiles]{chop_quantiles()}} and friends, proportions of the range for
 \code{\link[=chop_proportions]{chop_proportions()}}, or standard deviations for \code{\link[=chop_mean_sd]{chop_mean_sd()}}.
 

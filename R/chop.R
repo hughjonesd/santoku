@@ -19,7 +19,7 @@ NULL
 #' `tab()` calls `chop()` and returns a contingency [table()] from the result.
 #'
 #' @param x A vector.
-#' @param breaks A numeric vector of cut-points or a function to create
+#' @param breaks A numeric vector of cut-points, or a function to create
 #'   cut-points from `x`.
 #' @param labels A character vector of labels or a function to create labels.
 #' @param extend Logical. If `TRUE`, always extend breaks to `+/-Inf`. If `NULL`,
@@ -42,9 +42,10 @@ NULL
 #'
 #' `breaks` may be a vector or a function.
 #'
-#' If it is a vector, `breaks` gives the break endpoints. Repeated values create
-#' singleton intervals. For example `breaks = c(1, 3, 3, 5)` creates 3
-#' intervals: \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
+#' If it is a vector, `breaks` gives the interval endpoints. Repeating a value
+#' creates a "singleton" interval, which contains only that value.
+#' For example `breaks = c(1, 3, 3, 5)` creates 3 intervals:
+#' \code{[1, 3)}, \code{{3}} and \code{(3, 5]}.
 #'
 #' If `breaks` is a function, it is called with the `x`, `extend`, `left` and
 #' `close_end` arguments, and should return an object of class `breaks`.
@@ -67,13 +68,13 @@ NULL
 #' Using [mathematical set notation][lbl_intervals()]:
 #'
 #' * If `left` is `TRUE` and `close_end` is `TRUE`, breaks will look like
-#'   \code{[b1, b2), [b2, b3) ... [b_n-1, b_n]}.
+#'   \code{[b1, b2), [b2, b3) ... [b_(n-1), b_n]}.
 #' * If `left` is `FALSE` and `close_end` is `TRUE`, breaks will look like
-#'    \code{[b1, b2], (b2, b3] ... (b_n-1, b_n]}.
+#'    \code{[b1, b2], (b2, b3] ... (b_(n-1), b_n]}.
 #' * If `left` is `TRUE` and `close_end` is `FALSE`, all breaks will look like
-#'   \code{...[b1, b2) ...}.
+#'   \code{... [b1, b2) ...}.
 #' * If `left` is `FALSE` and `close_end` is `FALSE`, all breaks will look like
-#'   \code{...(b1, b2] ...}.
+#'   \code{... (b1, b2] ...}.
 #'
 #' ## Extending intervals
 #'
@@ -81,23 +82,22 @@ NULL
 #' min(breaks))} and \code{(max(breaks), Inf]}.
 #'
 #' If `extend` is `NULL` (the default), intervals will be extended to
-#' \code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, *only* if
-#' necessary - i.e. if elements of `x` would be below or above the unextended
+#' \code{[min(x), min(breaks))} and \code{(max(breaks), max(x)]}, only if
+#' necessary, i.e. only if elements of `x` would be outside the unextended
 #' breaks.
 #'
-#' `close_end` is applied after breaks are extended, i.e. always to the very last
-#' or very first break. This is a change from
+#' `close_end` is only relevant if intervals are not extended;
+#' extended intervals are always closed on the outside. This is a change from
 #' previous behaviour. Up to version 0.8.0, `close_end` was applied to the
-#' user-specified intervals, then `extend` was applied. Note that
-#' if breaks are extended, then the extended break is always closed anyway.
+#' last user-specified interval, before any extended intervals were created.
 #'
 #' ## Labels
 #'
 #' `labels` may be a character vector. It should have the same length as the
 #' (possibly extended) number of intervals. Alternatively, `labels` may be a
-#' `lbl_*` function such as [lbl_seq()].
+#' `lbl_*` function such as [lbl_dash()].
 #'
-#' If `breaks` is a named vector, then non-zero-length names of `breaks` will be
+#' If `breaks` is a named vector, then names of `breaks` will be
 #' used as labels for the interval starting at the corresponding element. This
 #' overrides the `labels` argument (but unnamed breaks will still use `labels`).
 #' This feature is `r lifecycle::badge("experimental")`.
@@ -105,10 +105,10 @@ NULL
 #' If `labels` is `NULL`, then integer codes will be returned instead of a
 #' factor.
 #'
-#' If `raw` is `TRUE`, labels will show the actual numbers calculated by breaks.
-#' If `raw` is `FALSE` then labels may show other objects, such
+#' If `raw` is `TRUE`, labels will show the actual interval endpoints, usually
+#' numbers. If `raw` is `FALSE` then labels may show other objects, such
 #' as quantiles for [chop_quantiles()] and friends, proportions of the range for
-#'  [chop_proportions()], or standard deviations for [chop_mean_sd()].
+#' [chop_proportions()], or standard deviations for [chop_mean_sd()].
 #'
 #'  If `raw` is `NULL` then `lbl_*` functions will use their default (usually
 #'  `FALSE`). Otherwise, the `raw` argument to `chop()` overrides `raw` arguments
@@ -619,7 +619,7 @@ chop_fn <- function (
 }
 
 
-#' Chop, isolating common values
+#' Chop common values into separate categories
 #'
 #' `chop_spikes()` lets you isolate common values of `x` in their own
 #' singleton intervals. This can help make unusual values visible.

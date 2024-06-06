@@ -16,7 +16,7 @@ fillet(
 \arguments{
 \item{x}{A vector.}
 
-\item{breaks}{A numeric vector of cut-points or a function to create
+\item{breaks}{A numeric vector of cut-points, or a function to create
 cut-points from \code{x}.}
 
 \item{labels}{A character vector of labels or a function to create labels.}
