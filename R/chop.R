@@ -627,7 +627,7 @@ chop_fn <- function (
 #' This function is `r lifecycle::badge("experimental")`.
 #'
 #' @param breaks A numeric vector of cut-points or a call to a `brk_*` function.
-#'   The resulting [breaks][`breaks-class`] object will be modified to add
+#'   The resulting [`breaks`][breaks-class] object will be modified to add
 #'   singleton breaks.
 #' @param n,prop Scalar. Provide either `n`, a number of values, or `prop`,
 #'   a proportion of `length(x)`. Values of `x` which occur at least this
