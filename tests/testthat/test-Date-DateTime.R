@@ -260,6 +260,7 @@ test_that("Date labels", {
     li(b), "[1975-11-01, 1975-11-15)"
   )
 
+  withr::local_options(santoku.infinity = "Inf")
   b2 <- brk_res(brk_default(db1), x = as.Date("1975-01-01"), extend = TRUE)
   expect_equivalent(
     li(b2), c("[-Inf, 1975-11-01)", "[1975-11-01, 1975-11-15)", "[1975-11-15, Inf]")
@@ -289,6 +290,7 @@ test_that("POSIXct labels", {
     li(b), "[2000-01-01 15:04:00, 2000-01-01 15:14:00)"
   )
 
+  withr::local_options(santoku.infinity = "Inf")
   b2 <- brk_res(brk_default(dtb1), x = as.POSIXct("2000-01-01 15:00:00"), extend = TRUE)
   expect_equivalent(
     li(b2), c("[-Inf, 2000-01-01 15:04:00)",

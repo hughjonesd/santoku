@@ -91,6 +91,9 @@ NULL
 #' previous behaviour. Up to version 0.8.0, `close_end` was applied to the
 #' last user-specified interval, before any extended intervals were created.
 #'
+#' Since 1.1.0, infinity is represented as `r "\u221e"` in breaks on unicode
+#' platforms. Set  `options(santoku.infinity = "Inf")` to get the old behaviour.
+#'
 #' ## Labels
 #'
 #' `labels` may be a character vector. It should have the same length as the
@@ -627,7 +630,7 @@ chop_fn <- function (
 #' This function is `r lifecycle::badge("experimental")`.
 #'
 #' @param breaks A numeric vector of cut-points or a call to a `brk_*` function.
-#'   The resulting [breaks][`breaks-class`] object will be modified to add
+#'   The resulting [`breaks`][breaks-class] object will be modified to add
 #'   singleton breaks.
 #' @param n,prop Scalar. Provide either `n`, a number of values, or `prop`,
 #'   a proportion of `length(x)`. Values of `x` which occur at least this

@@ -56,13 +56,16 @@ endpoint_labels <- function (breaks, raw, fmt = NULL, ...) {
 
 #' @export
 endpoint_labels.numeric <- function (breaks, raw, fmt = NULL, ...) {
-  elabels <- scaled_endpoints(breaks, raw = raw)
+  endpoints <- scaled_endpoints(breaks, raw = raw)
 
   elabels <- if (! is.null(fmt)) {
-    apply_format(fmt, elabels)
+    apply_format(fmt, endpoints)
   } else {
-    unique_truncation(elabels)
+    unique_truncation(endpoints)
   }
+
+  elabels[is.infinite(endpoints)] <- sub("Inf ?", symbol_infinity(),
+                                         elabels[is.infinite(endpoints)])
 
   return(elabels)
 }
@@ -77,12 +80,12 @@ endpoint_labels.double <- endpoint_labels.numeric
 
 #' @export
 endpoint_labels.default <- function (breaks, raw, fmt = NULL, ...) {
-  elabels <- scaled_endpoints(breaks, raw = raw)
+  endpoints <- scaled_endpoints(breaks, raw = raw)
 
   elabels <- if (! is.null(fmt)) {
-    apply_format(fmt, elabels)
+    apply_format(fmt, endpoints)
   } else {
-    base::format(elabels)
+    base::format(endpoints)
   }
 
   return(elabels)
@@ -97,13 +100,13 @@ endpoint_labels.Date <- function (breaks, raw, fmt = NULL, ...) {
   if (! inherits(elabels, "Date")) return(NextMethod())
 
   # set default format
-  if (is.null(fmt)) fmt <- "%F"
+  fmt <- fmt %||% "%F"
 
   elabels_chr <- apply_format(fmt, elabels)
   minus_inf <- is.infinite(elabels) & elabels < as.Date("1970-01-01")
   plus_inf  <- is.infinite(elabels) & elabels > as.Date("1970-01-01")
-  elabels_chr[minus_inf] <- "-Inf"
-  elabels_chr[plus_inf]  <- "Inf"
+  elabels_chr[minus_inf] <- symbol_infinity(minus = TRUE)
+  elabels_chr[plus_inf]  <- symbol_infinity()
 
   elabels_chr
 }
@@ -116,13 +119,13 @@ endpoint_labels.POSIXt <- function (breaks, raw, fmt = NULL, ...) {
   if (! inherits(elabels, "POSIXt")) return(NextMethod())
 
   # set default format
-  if (is.null(fmt)) fmt <- "%F %H:%M:%S"
+  fmt <- fmt %||% "%F %H:%M:%S"
 
   elabels_chr <- apply_format(fmt, elabels)
   minus_inf <- is.infinite(elabels) & elabels < as.POSIXct("1970-01-01")
   plus_inf  <- is.infinite(elabels) & elabels > as.POSIXct("1970-01-01")
-  elabels_chr[minus_inf] <- "-Inf"
-  elabels_chr[plus_inf]  <- "Inf"
+  elabels_chr[minus_inf] <- symbol_infinity(minus = TRUE)
+  elabels_chr[plus_inf]  <- symbol_infinity()
 
   elabels_chr
 }
@@ -133,7 +136,7 @@ endpoint_labels.quantileBreaks <- function (breaks, raw, fmt = NULL, ...) {
   if (raw) return(NextMethod())
 
   # set default format
-  if (is.null(fmt)) fmt <- percent
+  fmt <- fmt %||% percent
 
   elabels <- scaled_endpoints(breaks, raw = FALSE)
   elabels <- apply_format(fmt, elabels)
@@ -147,7 +150,7 @@ endpoint_labels.sdBreaks <- function (breaks, raw, fmt = NULL, ...) {
   if (raw) return(NextMethod())
 
   # set default format
-  if (is.null(fmt)) fmt <- "%.3g sd"
+  fmt <- fmt %||% "%.3g sd"
 
   elabels <- scaled_endpoints(breaks, raw = FALSE)
   elabels <- apply_format(fmt, elabels)
@@ -275,6 +278,13 @@ unique_truncation <- function (num) {
 }
 
 
-em_dash <- function() {
+em_dash <- function () {
   if (l10n_info()[["UTF-8"]]) "\u2014" else "-"
+}
+
+
+symbol_infinity <- function (minus = FALSE) {
+  infty <- if (l10n_info()[["UTF-8"]]) "\u221e" else "Inf"
+  infty <- getOption("santoku.infinity", infty)
+  if (minus) paste0("-", infty) else infty
 }

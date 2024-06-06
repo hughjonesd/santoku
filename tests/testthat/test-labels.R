@@ -378,6 +378,21 @@ test_that("lbl_discrete arguments", {
 })
 
 
+test_that("santoku.infinity", {
+  withr::local_options(santoku.infinity = NULL)
+  brk12 <- brk_res(brk_default(1:2), extend = TRUE)
+
+  if (l10n_info()[["UTF-8"]]) {
+    expect_match(format(brk12), "\u221e")
+  } else {
+    expect_match(format(brk12), "Inf")
+  }
+
+  withr::with_options(list(santoku.infinity = "oo"), {
+    expect_match(format(brk12), "oo")
+  })
+})
+
 test_that("bug: breaks labels don't produce duplicates", {
   brk <- brk_res(brk_default(c(1.333333335, 1.333333336, 1.333333337, 5)))
   lbls <- lbl_intervals()(brk)
