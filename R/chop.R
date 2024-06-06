@@ -617,3 +617,39 @@ chop_fn <- function (
   chop(x, brk_fn(fn, ...), extend = extend, left = left, close_end = close_end,
          raw = raw, drop = drop)
 }
+
+
+#' Chop, isolating common values
+#'
+#' `chop_spikes()` lets you isolate common values of `x` in their own
+#' singleton intervals. This can help make unusual values visible.
+#'
+#' @param breaks A numeric vector of cut-points or a call to a `brk_*` function.
+#'   The resulting [breaks][`breaks-class`] object will be modified to add
+#'   singleton breaks.
+#' @param n,prop Scalar. Provide either `n`, a number of values, or `prop`,
+#'   a proportion of `length(x)`. Values of `x` which occur at least this
+#'   often will get their own singleton break.
+#' @inheritParams chop
+#' @inherit chop-doc params return
+#'
+#' @export
+#' @order 1
+#' @family chopping functions
+#' @examples
+#' x <- c(1:4, rep(5, 5, ), 6:10)
+#' chop_spikes(x, c(2, 7), n = 5)
+#' chop_spikes(x, brk_width(5), n = 5)
+#'
+#' set.seed(42)
+#' x <- c(rep(0, 100), rnorm(100))
+#' tab_spikes(x, brk_mean_sd(), prop = 0.1)
+chop_spikes <- function (
+    x,
+    breaks,
+    n = NULL,
+    prop = NULL,
+    ...
+) {
+  chop(x, brk_spikes(breaks, n = n, prop = prop), ...)
+}

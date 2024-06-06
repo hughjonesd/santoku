@@ -188,6 +188,22 @@ tab_fn <- function (
 }
 
 
+#' @rdname chop_spikes
+#' @export
+#' @order 3
+tab_spikes <- function (
+                     x,
+                     breaks,
+                     n = NULL,
+                     prop = NULL,
+                     ...
+                   ) {
+  default_table(
+    chop_spikes(x = x, breaks = breaks, n = n, prop = prop, ...)
+  )
+}
+
+
 default_table <- function (x) {
   table(x, useNA = "ifany", dnn = NULL)
 }

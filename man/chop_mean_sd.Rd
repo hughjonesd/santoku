@@ -56,6 +56,7 @@ Other chopping functions:
 \code{\link{chop_n}()},
 \code{\link{chop_proportions}()},
 \code{\link{chop_quantiles}()},
+\code{\link{chop_spikes}()},
 \code{\link{chop_width}()},
 \code{\link{fillet}()}
 }
