@@ -639,13 +639,15 @@ chop_fn <- function (
 #' @order 1
 #' @family chopping functions
 #' @examples
-#' x <- c(1:4, rep(5, 5, ), 6:10)
+#' x <- c(1:4, rep(5, 5), 6:10)
 #' chop_spikes(x, c(2, 7), n = 5)
+#' chop_spikes(x, c(2, 7), prop = 0.25)
 #' chop_spikes(x, brk_width(5), n = 5)
 #'
 #' set.seed(42)
-#' x <- c(rep(0, 100), rnorm(100))
-#' tab_spikes(x, brk_mean_sd(), prop = 0.1)
+#' x <- runif(40, 0, 10)
+#' x <- sample(x, 200, replace = TRUE)
+#' tab_spikes(x, brk_width(2, 0), prop = 0.05)
 chop_spikes <- function (
     x,
     breaks,
