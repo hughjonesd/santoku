@@ -16,7 +16,7 @@ tab_spikes(x, breaks, n = NULL, prop = NULL, ...)
 \item{x}{A vector.}
 
 \item{breaks}{A numeric vector of cut-points or a call to a \verb{brk_*} function.
-The resulting \link[=`breaks-class`]{breaks} object will be modified to add
+The resulting \code{\link[=breaks-class]{breaks}} object will be modified to add
 singleton breaks.}
 
 \item{n, prop}{Scalar. Provide either \code{n}, a number of values, or \code{prop},

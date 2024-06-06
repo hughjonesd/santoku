@@ -6,6 +6,8 @@
   `chop_quantiles(..., raw = FALSE)`. This means that e.g. if the 10th and 20th
   percentiles are both the same number, the label will still be `[10%, 20%]`.
 * `single = NULL` has been documented explicitly in `lbl_*` functions.
+* On Unicode platforms, infinity will be represented as ∞ in breaks. Set
+  `options(santoku.infinity="Inf")` to use the old behaviour.
 
 # santoku 1.0.0
 
