@@ -278,6 +278,15 @@ test_that("brk_spikes", {
     c(2, 5, 5, 8)
   )
 
+  x2 <- c(1, 1, 1, 2, 3, 3, 4, 4, 4, 4, 5, 6, 7, 8, 8, 8, 9)
+  expect_silent(
+    brks3.1 <- brk_res(brk_spikes(c(2, 8), n = 3), x = x2)
+  )
+  expect_equivalent(
+    c(brks3.1),
+    c(1, 1, 2, 4, 4, 8, 8)
+  )
+
   expect_silent(
     brks4 <- brk_res(brk_spikes(brk_width(5), n = 5), x = x)
   )
