@@ -51,6 +51,8 @@ x <- sample(x, 200, replace = TRUE)
 tab_spikes(x, brk_width(2, 0), prop = 0.05)
 }
 \seealso{
+\code{\link[=isolate_chop]{isolate_chop()}} for a different approach.
+
 Other chopping functions: 
 \code{\link{chop}()},
 \code{\link{chop_equally}()},

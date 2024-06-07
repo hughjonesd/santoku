@@ -1,7 +1,7 @@
 # santoku (development version)
 
-* The experimental `chop_spikes()` function gives common values of `x` 
-  their own singleton intervals.
+* The experimental `chop_spikes()` and `isolate_chop()` functions give 
+  common values of `x` their own singleton intervals.
 * On Unicode platforms, infinity will be represented as ∞ in breaks. Set
   `options(santoku.infinity = "Inf")` to use the old behaviour.
 * Singleton breaks are not labelled specially by default in 

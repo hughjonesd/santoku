@@ -455,18 +455,15 @@ brk_spikes <- function (breaks, n = NULL, prop = NULL) {
   if (! is.function(breaks)) breaks <- brk_default(breaks)
 
   function (x, extend, left, close_end) {
-    n <- n %||% (length(x) * prop)
-    unique_x <- unique(x)
-    x_counts <- tabulate(match(x, unique_x))
-    spikes <- unique_x[x_counts >= n]
-
     breaks <- breaks(x, extend, left, close_end)
     break_elements <- unclass_breaks(breaks)
     left_vec <- attr(breaks, "left")
 
+    spikes <- find_spikes(x, n, prop)
     # We sort spikes in decreasing order so that when we add elements,
     # earlier elements remain in place.
     spikes <- sort(spikes, decreasing = TRUE)
+
     for (spike in spikes) {
       # We could use match() here to go faster, or even put it outside the loop.
       match_location <- which(spike == break_elements)

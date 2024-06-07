@@ -114,6 +114,29 @@ strict_as_numeric <- function (x) {
 }
 
 
+
+#' Find common elements in `x`
+#'
+#' @param x A vector
+#' @param n Number of elements that counts as common. Specify exactly one of `n`
+#'   and `prop`.
+#' @param prop Proportion of `length(x)` that counts as common
+#'
+#' @return The common elements, not necessarily in order. NA values are never
+#' considered as common.
+#' @noRd
+find_spikes <- function (x, n, prop) {
+  n <- n %||% (length(x) * prop)
+  unique_x <- unique(x)
+  x_counts <- tabulate(match(x, unique_x))
+  spikes <- unique_x[x_counts >= n]
+  spikes <- spikes[! is.na(spikes)]
+
+  spikes
+}
+
+
+
 #' Test a break
 #'
 #' @param brk_fun A call to a `brk_` function

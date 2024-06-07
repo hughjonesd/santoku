@@ -641,6 +641,7 @@ chop_fn <- function (
 #' @export
 #' @order 1
 #' @family chopping functions
+#' @seealso [isolate_chop()] for a different approach.
 #' @examples
 #' x <- c(1:4, rep(5, 5), 6:10)
 #' chop_spikes(x, c(2, 7), n = 5)
@@ -659,4 +660,83 @@ chop_spikes <- function (
     ...
 ) {
   chop(x, brk_spikes(breaks, n = n, prop = prop), ...)
+}
+
+
+#' Cut data into intervals, isolating common elements
+#'
+#' Sometimes it's useful to separate out common elements of `x`.
+#' `isolate_chop()` first chops `x`, then puts common elements of `x` ("spikes")
+#' into separate categories.
+#'
+#' Unlike [chop_spikes()], `isolate_chop()` doesn't break up
+#' intervals which contain a spike. As a result, unlike other `chop_*` functions,
+#' `isolate_chop()` does not typically chop `x` into disjoint intervals. See
+#' the examples.
+#'
+#' Levels of the result are ordered by the minimum element in each level. As
+#' a result, if `drop = FALSE`, empty levels will be placed last.
+#'
+#' This function is `r lifecycle::badge("experimental")`.
+#'
+#' @param x,breaks,... Passed to [chop()].
+#' @inheritParams chop_spikes
+#' @param spike_labels Glue string for spike labels. Use `"{l}"` for the spike
+#'   value.
+#'
+#' @return
+#' The result of [chop()], but with common values given their own factor levels.
+#'
+#' @seealso [chop_spikes()] for a different approach.
+#' @export
+#'
+#' @examples
+#' x <- c(2, 3, 3, 3, 4)
+#' isolate_chop(x, c(2, 4), n = 3)
+#' isolate_chop(x, brk_width(2), prop = 0.5)
+#'
+#' set.seed(42)
+#' x <- runif(40, 0, 10)
+#' x <- sample(x, 200, replace = TRUE)
+#' # Compare:
+#' table(isolate_chop(x, brk_width(2, 0), prop = 0.05))
+#' # Versus:
+#' tab_spikes(x, brk_width(2, 0), prop = 0.05)
+isolate_chop <- function (x,
+                          breaks,
+                          ...,
+                          n = NULL,
+                          prop = NULL,
+                          spike_labels = "{{{l}}}") {
+  assert_that(
+    is.number(n) || is.number(prop),
+    is.null(n) || is.null(prop),
+    msg = "exactly one of `n` and `prop` must be specified as a scalar numeric"
+  )
+
+  chopped <- chop(x, breaks, ...)
+
+  spikes <- find_spikes(x, n, prop)
+
+  elabels <- endpoint_labels(spikes, raw = TRUE)
+  glue_env <- new.env()
+  assign("l", elabels, envir = glue_env)
+  spike_labels <- glue::glue(spike_labels, .envir = glue_env)
+
+  new_levels <- c(levels(chopped), spike_labels)
+  levels(chopped) <- new_levels
+
+  x_spikes <- match(x, spikes)
+  is_spike <- ! is.na(x_spikes)
+  x_spikes <- x_spikes[is_spike]
+  chopped[is_spike] <- spike_labels[x_spikes]
+
+  # We reorder the levels of chopped in order of their smallest elements.
+  # Note that if `drop = FALSE`, empty intervals will be at the end.
+  # The alternative would be to call `breaks` again and get the left endpoints
+  # but this is complex.
+  chopped <- reorder(chopped, x, FUN = quiet_min)
+  attr(chopped, "scores") <- NULL # remove leftover from reorder()
+
+  chopped
 }
