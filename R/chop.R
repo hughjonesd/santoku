@@ -674,6 +674,9 @@ chop_spikes <- function (
 #' `isolate_chop()` does not typically chop `x` into disjoint intervals. See
 #' the examples.
 #'
+#' If breaks are data-dependent, their labels may be misleading after common
+#' elements have been removed. See the example below.
+#'
 #' Levels of the result are ordered by the minimum element in each level. As
 #' a result, if `drop = FALSE`, empty levels will be placed last.
 #'
@@ -702,6 +705,13 @@ chop_spikes <- function (
 #' table(isolate_chop(x, brk_width(2, 0), prop = 0.05))
 #' # Versus:
 #' tab_spikes(x, brk_width(2, 0), prop = 0.05)
+#'
+#' # Misleading data-dependent breaks:
+#' set.seed(42)
+#' x <- rnorm(99)
+#' x[1:10] <- x[1]
+#' tab_quantiles(x, 1:2/3)
+#' table(isolate_chop(x, brk_quantiles(1:2/3), prop = 0.1))
 isolate_chop <- function (x,
                           breaks,
                           ...,

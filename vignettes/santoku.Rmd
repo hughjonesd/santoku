@@ -72,7 +72,7 @@ To quickly produce a table of chopped data, use `tab()`:
 tab(1:10, c(2, 5, 8))
 ```
 
-## More ways to chop
+## Chopping by width and number of elements
 
 To chop into fixed-width intervals, starting at the minimum value, use
 `chop_width()`:
@@ -90,7 +90,7 @@ chopped <- chop_evenly(x, intervals = 3)
 data.frame(x, chopped)
 ```
 
-To chop into groups with a fixed number of members, use `chop_n()`:
+To chop into groups with a fixed number of elements, use `chop_n()`:
 
 ```{r}
 chopped <- chop_n(x, 4)
@@ -131,6 +131,8 @@ intervals of different specific sizes...   | `chop_quantiles()` | `chop_proporti
 
 : Different ways to chop by size
 
+## Even more ways to chop
+
 To chop data by standard deviations around the mean, use `chop_mean_sd()`:
 
 ```{r}
@@ -146,6 +148,41 @@ bar plots.
 chopped <- chop_pretty(x)
 data.frame(x, chopped)
 ```
+
+
+## Isolating common values
+
+In exploratory work, it's sometimes useful to find common values and
+treat them differently. You can use `isolate_chop()` to do this:
+
+```{r}
+x_spike <- rnorm(100)
+x_spike[1:50] <- x_spike[1]
+
+chopped <- isolate_chop(x_spike, -3:3, prop = 0.1)
+table(chopped)
+
+```
+
+`prop = 0.2` will put any unique value of `x` into its own separate
+category if it makes up at least 20% of the data.
+
+Note that unlike all the other `chop_*` functions, `isolate_chop()`
+doesn't always categorize `x` into ordered, connected intervals. 
+To remind you of this, it is named differently. If you want to create
+separate intervals on the left and right of common elements, use
+`chop_spikes()`:
+
+```{r}
+chopped <- chop_spikes(x_spike, -3:3, prop = 0.1)
+table(chopped)
+```
+
+Compare this to the table before. There are two intervals on either
+side of the common value, instead of one interval surrounding it.
+
+
+## Quick tables
 
 `tab_n()`, `tab_width()`, and friends act similarly to
 `tab()`, calling the related `chop_*` function and then `table()` on the result.
