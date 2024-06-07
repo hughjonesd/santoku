@@ -735,7 +735,7 @@ isolate_chop <- function (x,
   # Note that if `drop = FALSE`, empty intervals will be at the end.
   # The alternative would be to call `breaks` again and get the left endpoints
   # but this is complex.
-  chopped <- reorder(chopped, x, FUN = quiet_min)
+  chopped <- stats::reorder(chopped, x, FUN = quiet_min)
   attr(chopped, "scores") <- NULL # remove leftover from reorder()
 
   chopped
