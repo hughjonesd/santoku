@@ -18,7 +18,7 @@
 #' @export
 #' @order 1
 #' @family chopping functions
-#' @seealso [isolate_chop()] for a different approach.
+#' @seealso [dissect()] for a different approach.
 #' @examples
 #' x <- c(1:4, rep(5, 5), 6:10)
 #' chop_spikes(x, c(2, 7), n = 5)
@@ -43,12 +43,12 @@ chop_spikes <- function (
 #' Cut data into intervals, isolating common elements
 #'
 #' Sometimes it's useful to separate out common elements of `x`.
-#' `isolate_chop()` first chops `x`, then puts common elements of `x` ("spikes")
+#' `dissect()` first chops `x`, then puts common elements of `x` ("spikes")
 #' into separate categories.
 #'
-#' Unlike [chop_spikes()], `isolate_chop()` doesn't break up
+#' Unlike [chop_spikes()], `dissect()` doesn't break up
 #' intervals which contain a spike. As a result, unlike other `chop_*` functions,
-#' `isolate_chop()` does not typically chop `x` into disjoint intervals. See
+#' `dissect()` does not typically chop `x` into disjoint intervals. See
 #' the examples.
 #'
 #' If breaks are data-dependent, their labels may be misleading after common
@@ -72,14 +72,14 @@ chop_spikes <- function (
 #'
 #' @examples
 #' x <- c(2, 3, 3, 3, 4)
-#' isolate_chop(x, c(2, 4), n = 3)
-#' isolate_chop(x, brk_width(2), prop = 0.5)
+#' dissect(x, c(2, 4), n = 3)
+#' dissect(x, brk_width(2), prop = 0.5)
 #'
 #' set.seed(42)
 #' x <- runif(40, 0, 10)
 #' x <- sample(x, 200, replace = TRUE)
 #' # Compare:
-#' table(isolate_chop(x, brk_width(2, 0), prop = 0.05))
+#' table(dissect(x, brk_width(2, 0), prop = 0.05))
 #' # Versus:
 #' tab_spikes(x, brk_width(2, 0), prop = 0.05)
 #'
@@ -88,8 +88,8 @@ chop_spikes <- function (
 #' x <- rnorm(99)
 #' x[1:10] <- x[1]
 #' tab_quantiles(x, 1:2/3)
-#' table(isolate_chop(x, brk_quantiles(1:2/3), prop = 0.1))
-isolate_chop <- function (x,
+#' table(dissect(x, brk_quantiles(1:2/3), prop = 0.1))
+dissect <- function (x,
                           breaks,
                           ...,
                           n = NULL,

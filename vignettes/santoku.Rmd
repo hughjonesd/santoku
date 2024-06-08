@@ -153,13 +153,13 @@ data.frame(x, chopped)
 ## Isolating common values
 
 In exploratory work, it's sometimes useful to find common values and
-treat them differently. You can use `isolate_chop()` to do this:
+treat them differently. You can use `dissect()` to do this:
 
 ```{r}
 x_spike <- rnorm(100)
 x_spike[1:50] <- x_spike[1]
 
-chopped <- isolate_chop(x_spike, -3:3, prop = 0.1)
+chopped <- dissect(x_spike, -3:3, prop = 0.1)
 table(chopped)
 
 ```
@@ -167,7 +167,7 @@ table(chopped)
 `prop = 0.2` will put any unique value of `x` into its own separate
 category if it makes up at least 20% of the data.
 
-Note that unlike all the other `chop_*` functions, `isolate_chop()`
+Note that unlike all the other `chop_*` functions, `dissect()`
 doesn't always categorize `x` into ordered, connected intervals. 
 To remind you of this, it is named differently. If you want to create
 separate intervals on the left and right of common elements, use

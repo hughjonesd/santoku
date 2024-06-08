@@ -6,7 +6,7 @@
 \usage{
 lbl_discrete(
   symbol = em_dash(),
-  unit = 1,
+  unit = 1L,
   fmt = NULL,
   single = NULL,
   first = NULL,

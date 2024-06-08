@@ -368,16 +368,16 @@ test_that("chop_spikes", {
 })
 
 
-test_that("isolate_chop", {
+test_that("dissect", {
   x <- c(1:2, rep(3, 3), 4:6)
 
-  expect_silent(res <- isolate_chop(x, breaks = c(2, 5), n = 2))
+  expect_silent(res <- dissect(x, breaks = c(2, 5), n = 2))
   expect_equivalent(
     res,
     factor(c("[1, 2)", "[2, 5)", rep("{3}", 3), "[2, 5)", "[5, 6]", "[5, 6]"))
   )
 
-  expect_silent(res2 <- isolate_chop(x, breaks = c(2, 5), prop = 0.25))
+  expect_silent(res2 <- dissect(x, breaks = c(2, 5), prop = 0.25))
   expect_equivalent(res, res2)
 })
 
