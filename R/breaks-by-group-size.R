@@ -33,9 +33,13 @@ brk_quantiles <- function (probs, ..., weights = NULL) {
 
     if (any(duplicated(qs))) {
       warning("`x` has non-unique quantiles: break labels may be misleading")
-      dupe_middles <- find_duplicated_middles(qs)
-      qs <- qs[! dupe_middles]
-      probs <- probs[! dupe_middles]
+      # We use the left-most probabilities, so e.g. if 0%, 20% and 40% quantiles
+      # are all the same number, we'll use the category [0%, 20%).
+      # This means we always return intervals that the user asked for, though
+      # they may be more misleading than e.g. [0%, 40%).
+      illegal_dupes <- find_illegal_duplicates(qs)
+      qs <- qs[! illegal_dupes]
+      probs <- probs[! illegal_dupes]
     }
 
     breaks <- create_lr_breaks(qs, left)

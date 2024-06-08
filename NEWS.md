@@ -7,6 +7,9 @@
 * Singleton breaks are not labelled specially by default in 
   `chop_quantiles(..., raw = FALSE)`. This means that e.g. if the 10th and 20th
   percentiles are both the same number, the label will still be `[10%, 20%]`.
+* When multiple quantiles are the same, santoku warns and returns the leftmost
+  quantile interval. Before it would merge the intervals, creating labels that
+  might be different to what the user asked for.
 * `single = NULL` has been documented explicitly in `lbl_*` functions.
 
 

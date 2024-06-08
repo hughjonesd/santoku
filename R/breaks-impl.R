@@ -15,7 +15,7 @@ create_breaks <- function (obj, left) {
   stopifnot(is.logical(left))
   stopifnot(length(left) == length(obj))
 
-  if (any(find_duplicated_middles(obj))) {
+  if (any(find_illegal_duplicates(obj))) {
     stop("breaks contained more than two consecutive equal values")
   }
 

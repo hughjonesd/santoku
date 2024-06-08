@@ -60,25 +60,23 @@ singletons <- function (breaks) {
 }
 
 
-#' Find middle numbers in runs of 3 or more duplicates.
+#' Find duplicates that would be illegal breaks
 #'
-#' You can use this to test for "illegal" breaks.
-#'
-#' @param x
+#' @param x A vector, which should be sorted
 #'
 #' @return A logical vector of length(x), TRUE if the corresponding element
-#'   is in the middle of 3 or more duplicates
+#'   is the second duplicate in a row.
 #' @noRd
 #'
 #' @examples
-#' find_duplicated_middles(c(1, 2, 2, 3, 3, 3, 4))
-find_duplicated_middles <- function (x) {
+#' find_illegal_duplicates(c(1, 2, 2, 3, 3, 3, 4))
+find_illegal_duplicates <- function (x) {
   if (length(x) == 0) return(logical(0))
   dupes <- duplicated(x)
-  # If element n is duplicated, and element n+1 is duplicated, then you
-  # are a duplicated middle.
-  # The last element is never a duplicated middle.
-  c(dupes[-length(dupes)] & dupes[-1], FALSE)
+  # If element n is duplicated, and element n+1 is duplicated, then n + 1
+  # is illegal.
+  # The first element is never a duplicated middle.
+  c(FALSE, dupes[-length(dupes)] & dupes[-1])
 }
 
 
