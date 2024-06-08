@@ -128,6 +128,11 @@ If \code{extend} is \code{NULL} (the default), intervals will be extended to
 necessary, i.e. only if elements of \code{x} would be outside the unextended
 breaks.
 
+If \code{extend} is \code{FALSE}, intervals are never extended.
+
+Note that even when \code{extend = TRUE}, extended intervals will be
+dropped from the factor levels if they contain no elements and \code{drop = TRUE}.
+
 \code{close_end} is only relevant if intervals are not extended;
 extended intervals are always closed on the outside. This is a change from
 previous behaviour. Up to version 0.8.0, \code{close_end} was applied to the

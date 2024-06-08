@@ -86,6 +86,11 @@ NULL
 #' necessary, i.e. only if elements of `x` would be outside the unextended
 #' breaks.
 #'
+#' If `extend` is `FALSE`, intervals are never extended.
+#'
+#' Note that even when `extend = TRUE`, extended intervals will be
+#' dropped from the factor levels if they contain no elements and `drop = TRUE`.
+#'
 #' `close_end` is only relevant if intervals are not extended;
 #' extended intervals are always closed on the outside. This is a change from
 #' previous behaviour. Up to version 0.8.0, `close_end` was applied to the
