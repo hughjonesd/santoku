@@ -84,296 +84,6 @@ lbl_intervals <- function (
 }
 
 
-#' Label chopped intervals like 1-4, 4-5, ...
-#'
-#' This label style is user-friendly, but doesn't distinguish between
-#' left- and right-closed intervals. It's good for continuous data
-#' where you don't expect points to be exactly on the breaks.
-#'
-#' If you don't want unicode output, use `lbl_dash("-")`.
-#'
-#' @inherit label-doc
-#' @inherit first-last-doc
-#'
-#' @family labelling functions
-#'
-#' @export
-#'
-#' @examples
-#' chop(1:10, c(2, 5, 8), lbl_dash())
-#'
-#' chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "%.1f"))
-#'
-#' chop(1:10, c(2, 5, 8), lbl_dash(first = "<{r}"))
-#'
-#' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
-#' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
-lbl_dash <- function (
-              symbol = em_dash(),
-              fmt    = NULL,
-              single = "{l}",
-              first  = NULL,
-              last   = NULL,
-              raw    = FALSE
-            ) {
-  if (! isFALSE(raw)) {
-    lifecycle::deprecate_warn("0.9.0", "lbl_dash(raw)", "chop(raw)")
-  }
-
-  label_glue <- paste0("{l}", symbol, "{r}")
-  lbl_glue(label = label_glue, fmt = fmt, single = single, first = first,
-           last = last, raw = raw)
-}
-
-
-#' Label chopped intervals by their midpoints
-#'
-#' This uses the midpoint of each interval for
-#' its label.
-#'
-#' @inherit label-doc
-#' @inherit first-last-doc
-#'
-#' @family labelling functions
-#'
-#' @export
-#'
-#' @examples
-#' chop(1:10, c(2, 5, 8), lbl_midpoints())
-lbl_midpoints <- function (
-                   fmt    = NULL,
-                   single = NULL,
-                   first  = NULL,
-                   last   = NULL,
-                   raw    = FALSE
-                 ) {
-  if (! isFALSE(raw)) {
-    lifecycle::deprecate_warn("0.9.0", "lbl_midpoints(raw)", "chop(raw)")
-  }
-
-  RAW <- raw # avoid "recursive default argument reference"
-  function (breaks, raw = RAW) {
-    assert_that(is.breaks(breaks))
-
-    break_nums <- scaled_endpoints(breaks, raw = raw)
-    l_nums <- break_nums[-length(break_nums)]
-    r_nums <- break_nums[-1]
-    # doing this, rather than (l_nums + r_nums)/2, works for e.g. Date objects:
-    midpoints <- l_nums + (r_nums - l_nums)/2
-
-    # we've applied raw already (anyway, midpoints is just a numeric)
-    midpoints <- endpoint_labels(midpoints, raw = TRUE, fmt = fmt)
-
-    gluer <- lbl_glue(label = "{m}", fmt = fmt, single = single, first = first,
-                        last = last, m = midpoints)
-    labels <- gluer(breaks, raw = raw)
-
-    labels
-  }
-}
-
-
-#' Label chopped intervals using the `glue` package
-#'
-#' Use `"{l}"` and `"{r}"` to show the left and right endpoints of the intervals.
-#'
-#' @inherit label-doc
-#' @inherit first-last-doc params
-#' @param label A glue string passed to [glue::glue()].
-#' @param ... Further arguments passed to [glue::glue()].
-#'
-#' @details
-#'
-#' The following variables are available in the glue string:
-#'
-#' * `l` is a character vector of left endpoints of intervals.
-#' * `r` is a character vector of right endpoints of intervals.
-#' * `l_closed` is a logical vector. Elements are `TRUE` when the left
-#'   endpoint is closed.
-#' * `r_closed` is a logical vector, `TRUE` when the right endpoint is closed.
-#'
-#' Endpoints will be formatted by `fmt` before being passed to `glue()`.
-#'
-#' @family labelling functions
-#'
-#' @export
-#'
-#' @examples
-#' tab(1:10, c(1, 3, 3, 7),
-#'     labels = lbl_glue("{l} to {r}", single = "Exactly {l}"))
-#'
-#' tab(1:10 * 1000, c(1, 3, 5, 7) * 1000,
-#'     labels = lbl_glue("{l}-{r}",
-#'                       fmt = function(x) prettyNum(x, big.mark=',')))
-#'
-#' # reproducing lbl_intervals():
-#' interval_left <- "{ifelse(l_closed, '[', '(')}"
-#' interval_right <- "{ifelse(r_closed, ']', ')')}"
-#' glue_string <- paste0(interval_left, "{l}", ", ", "{r}", interval_right)
-#' tab(1:10, c(1, 3, 3, 7), labels = lbl_glue(glue_string, single = "{{{l}}}"))
-#'
-lbl_glue <- function (
-              label,
-              fmt    = NULL,
-              single = NULL,
-              first  = NULL,
-              last   = NULL,
-              raw    = FALSE,
-              ...
-            ) {
-  assert_that(
-    is.string(label),
-    is.null(fmt) || is_format(fmt),
-    is.string(first) || is.null(first),
-    is.string(last) || is.null(last),
-    is.flag(raw)
-  )
-
-  if (! isFALSE(raw)) {
-    lifecycle::deprecate_warn("0.9.0", "lbl_glue(raw)", "chop(raw)")
-  }
-
-  RAW <- raw # avoid "recursive default argument reference"
-  function (breaks, raw = RAW) {
-    assert_that(is.breaks(breaks))
-
-    len_breaks <- length(breaks)
-
-    labels <- character(len_breaks - 1)
-
-    elabels <- endpoint_labels(breaks, raw = raw, fmt = fmt)
-
-    l <- elabels[-len_breaks]
-    r <- elabels[-1]
-
-    left <- attr(breaks, "left")
-    # Breaks like [1, 2) [2, 3] have
-    # left TRUE, TRUE, FALSE for breaks 1,2,3
-    # The first two TRUEs say that the left brackets are closed
-    # The last two TRUE & FALSE say that the right brackets are open
-    # and closed respectively. So:
-    l_closed <- left[-len_breaks]
-    r_closed <- ! left[-1]
-
-    # check ... for anything not in glue::glue args
-    # effectively, we move any user-supplied arguments into
-    # an environment specifically for glue
-    # this is mostly to make the lbl_midpoints() hack
-    # of passing in `m` work
-    dots <- rlang::enexprs(...)
-    glue_env <- new.env()
-    not_glue_args <- setdiff(names(dots), names(formals(glue::glue)))
-    for (nm in not_glue_args) {
-      assign(deparse(dots[[nm]]),
-               eval(dots[[nm]], parent.frame()),
-               glue_env
-             )
-    }
-    labels <- glue::glue(label, l = l, r = r, l_closed = l_closed,
-                         r_closed = r_closed, ..., .envir = glue_env)
-
-    if (! is.null(single)) {
-      # which breaks are singletons?
-      singletons <- singletons(breaks)
-
-      labels[singletons] <- glue::glue(single,
-                                         l = l[singletons],
-                                         r = r[singletons],
-                                         l_closed = l_closed[singletons],
-                                         r_closed = r_closed[singletons],
-                                         ...,
-                                         .envir = glue_env
-                                       )
-    }
-
-    if (! is.null(first)) {
-      labels[1] <- glue::glue(first, l = l[1], r = r[1],
-                                l_closed = l_closed[1],
-                                r_closed = r_closed[1],
-                                ...,
-                                .envir = glue_env
-                              )
-    }
-
-    if (! is.null(last)) {
-      ll <- len_breaks - 1
-      labels[ll] <- glue::glue(last, l = l[ll], r = r[ll],
-                                 l_closed = l_closed[ll],
-                                 r_closed = r_closed[ll],
-                                 ...,
-                                 .envir = glue_env
-                               )
-    }
-
-    return(labels)
-  }
-}
-
-
-#' Label chopped intervals by their left or right endpoints
-#'
-#' This is useful when the left endpoint unambiguously indicates the
-#' interval. In other cases it may give errors due to duplicate labels.
-#'
-#' `lbl_endpoint()` is `r lifecycle::badge("defunct")` and gives an
-#' error since santoku 1.0.0.
-#'
-#' @inherit label-doc
-#' @inherit first-last-doc
-#' @param left Flag. Use left endpoint or right endpoint?
-#'
-#' @family labelling functions
-#'
-#' @export
-#'
-#' @examples
-#' chop(1:10, c(2, 5, 8), lbl_endpoints(left = TRUE))
-#' chop(1:10, c(2, 5, 8), lbl_endpoints(left = FALSE))
-#' if (requireNamespace("lubridate")) {
-#'   tab_width(
-#'           as.Date("2000-01-01") + 0:365,
-#'          months(1),
-#'          labels = lbl_endpoints(fmt = "%b")
-#'        )
-#' }
-#'
-#' \dontrun{
-#'   # This gives breaks `[1, 2) [2, 3) {3}` which lead to
-#'   # duplicate labels `"2", "3", "3"`:
-#'   chop(1:3, 1:3, lbl_endpoints(left = FALSE))
-#' }
-lbl_endpoints <- function (
-                   left   = TRUE,
-                   fmt    = NULL,
-                   single = NULL,
-                   first  = NULL,
-                   last   = NULL,
-                   raw    = FALSE
-                 ) {
-  assert_that(is.flag(left))
-
-  if (! isFALSE(raw)) {
-    lifecycle::deprecate_warn("0.9.0", "lbl_endpoints(raw)", "chop(raw)")
-  }
-
-  label <- if (left) "{l}" else "{r}"
-  lbl_glue(label, fmt = fmt, single = single, first = first, last = last,
-             raw = raw)
-}
-
-
-#' @rdname lbl_endpoints
-#' @export
-lbl_endpoint <- function (
-                  fmt  = NULL,
-                  raw  = FALSE,
-                  left = TRUE
-                ) {
-  lifecycle::deprecate_stop(when = "0.8.0", what = "lbl_endpoint()",
-                              with = "lbl_endpoints()")
-}
-
-
 #' Label discrete data
 #'
 #' `lbl_discrete()` creates labels for discrete data, such as integers.
@@ -408,7 +118,7 @@ lbl_endpoint <- function (
 #'
 lbl_discrete <- function (
                   symbol = em_dash(),
-                  unit = 1,
+                  unit = 1L,
                   fmt = NULL,
                   single = NULL,
                   first = NULL,
@@ -483,98 +193,43 @@ lbl_discrete <- function (
 }
 
 
-#' Label chopped intervals in sequence
+#' Label chopped intervals like 1-4, 4-5, ...
 #'
-#' `lbl_seq()` labels intervals sequentially, using numbers or letters.
+#' This label style is user-friendly, but doesn't distinguish between
+#' left- and right-closed intervals. It's good for continuous data
+#' where you don't expect points to be exactly on the breaks.
 #'
-#' @param start String. A template for the sequence. See below.
+#' If you don't want unicode output, use `lbl_dash("-")`.
 #'
-#' @details
-#'`start` shows the first element of the sequence. It must contain exactly *one*
-#' character out of the set "a", "A", "i", "I" or "1". For later elements:
-#'
-#' * "a" will be replaced by "a", "b", "c", ...
-#' * "A" will be replaced by "A", "B", "C", ...
-#' * "i" will be replaced by lower-case Roman numerals "i", "ii", "iii", ...
-#' * "I" will be replaced by upper-case Roman numerals "I", "II", "III", ...
-#' * "1" will be replaced by numbers "1", "2", "3", ...
-#'
-#' Other characters will be retained as-is.
-#'
-#' @family labelling functions
-#' @inherit label-doc return
-#'
-#' @export
-#'
-#' @examples
-#' chop(1:10, c(2, 5, 8), lbl_seq())
-#'
-#' chop(1:10, c(2, 5, 8), lbl_seq("i."))
-#'
-#' chop(1:10, c(2, 5, 8), lbl_seq("(A)"))
-lbl_seq <- function(start = "a") {
-  assert_that(is.string(start))
-  # check like contains just one of a, A, i, I, 1
-  match <- gregexpr("(a|A|i|I|1)", start)[[1]]
-  if (length(match) > 1) stop("More than one a/A/i/I/1 found in `start`: ", start)
-  if (match == -1) stop("No a/A/i/I/1 found in `start`: ", start)
-  # replace that with the format-string and call lbl_manual appropriately
-  key <- substr(start, match, match)
-  fmt <- sub("(a|A|i|I|1)", "%s", start)
-
-  res <- switch(key,
-    "a" = function (breaks, raw = NULL) {
-            if (length(breaks) > 27L) {
-              stop("Can't use more than 26 intervals with lbl_seq(\"a\")")
-            }
-            sprintf(fmt, letters[seq_len(length(breaks) - 1L)])
-          },
-    "A" = function (breaks, raw = NULL) {
-            if (length(breaks) > 27L) {
-              stop("Can't use more than 26 intervals with lbl_seq(\"A\")")
-            }
-            sprintf(fmt, LETTERS[seq_len(length(breaks) - 1L)])
-          },
-    "i" = function (breaks, raw = NULL) {
-           sprintf(fmt, tolower(utils::as.roman(seq_len(length(breaks) - 1L))))
-         },
-    "I" = function (breaks, raw = NULL) {
-           sprintf(fmt, utils::as.roman(seq_len(length(breaks) - 1L)))
-         },
-    "1" = function (breaks, raw = NULL) {
-            sprintf(fmt, seq_len(length(breaks) - 1L))
-          }
-    )
-
-  return(res)
-}
-
-
-#' Defunct: label chopped intervals in a user-defined sequence
-#'
-#' `r lifecycle::badge("defunct")`
-#'
-#' `lbl_manual()` is defunct since santoku 1.0.0. It is little used and is not
-#' closely related to the rest of the package. It also risks mislabelling
-#' intervals, e.g. if intervals are extended. Use of `lbl_manual()` will give
-#' an error.
-#'
-#' @param sequence A character vector of labels.
 #' @inherit label-doc
+#' @inherit first-last-doc
 #'
 #' @family labelling functions
 #'
 #' @export
 #'
-#' @keywords internal
-#'
 #' @examples
-#' \dontrun{
-#' chop(1:10, c(2, 5, 8), lbl_manual(c("w", "x", "y", "z")))
-#' # ->
-#' chop(1:10, c(2, 5, 8), labels = c("w", "x", "y", "z"))
-#' }
-lbl_manual <- function (sequence, fmt = "%s") {
-  lifecycle::deprecate_stop("0.9.0", "lbl_manual()",
-                            details = "Just specify `labels = sequence` instead.")
+#' chop(1:10, c(2, 5, 8), lbl_dash())
+#'
+#' chop(1:10, c(2, 5, 8), lbl_dash(" to ", fmt = "%.1f"))
+#'
+#' chop(1:10, c(2, 5, 8), lbl_dash(first = "<{r}"))
+#'
+#' pretty <- function (x) prettyNum(x, big.mark = ",", digits = 1)
+#' chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
+lbl_dash <- function (
+              symbol = em_dash(),
+              fmt    = NULL,
+              single = "{l}",
+              first  = NULL,
+              last   = NULL,
+              raw    = FALSE
+            ) {
+  if (! isFALSE(raw)) {
+    lifecycle::deprecate_warn("0.9.0", "lbl_dash(raw)", "chop(raw)")
+  }
+
+  label_glue <- paste0("{l}", symbol, "{r}")
+  lbl_glue(label = label_glue, fmt = fmt, single = single, first = first,
+           last = last, raw = raw)
 }
