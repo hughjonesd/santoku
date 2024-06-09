@@ -10,6 +10,8 @@
 #'   passed to [stats::quantile()] or [Hmisc::wtd.quantile()].
 #' @param weights `NULL` or numeric vector of same length as `x`. If not
 #'   `NULL`, [Hmisc::wtd.quantile()] is used to calculate weighted quantiles.
+#' @param use_ecdf Logical. Recalculate probabilities of quantiles using
+#'   [`ecdf(x)`][stats::ecdf()]? See below.
 #'
 #' @inheritParams chop
 #' @inherit chop-doc params return
@@ -19,8 +21,15 @@
 #' for calculating "type 1" quantiles, since they round down. See
 #' [stats::quantile()].
 #'
-#' If `x` contains duplicates, consecutive quantiles may be the same number. If
-#' so, quantile labels may be misleading and a warning is emitted.
+#' By default, `chop_quantiles()` shows the requested probabilities in the
+#' labels. To show the numeric quantiles themselves, set `raw = TRUE`.
+#'
+#' When `x` contains duplicates, consecutive quantiles may be the same number. If
+#' so, interval labels may be misleading, and if `use_ecdf = FALSE` a warning is
+#' emitted. Set `use_ecdf = TRUE` to recalculate the probabilities of the quantiles
+#' using the [empirical cumulative distribution function][stats::ecdf()] of `x`.
+#' Doing so may give you different labels from what you expect, and will
+#' remove any names from `probs`. See the example below.
 #'
 #' @family chopping functions
 #'
@@ -40,8 +49,10 @@
 #' chop_quantiles(1:10, 1:3/4, raw = TRUE)
 #'
 #' # duplicate quantiles:
-#' tab_quantiles(c(1, 1, 1, 2, 3), 1:5/5)
-#'
+#' x <- c(1, 1, 1, 2, 3)
+#' quantile(x, 1:5/5)
+#' tab_quantiles(x, 1:5/5)
+#' tab_quantiles(x, 1:5/5, use_ecdf = TRUE)
 chop_quantiles <- function(
                     x,
                     probs,
@@ -50,10 +61,11 @@ chop_quantiles <- function(
                                          lbl_intervals(single = NULL),
                     left      = is.numeric(x),
                     raw       = FALSE,
-                    weights   = NULL
+                    weights   = NULL,
+                    use_ecdf  = FALSE
                   ) {
-  chop(x, brk_quantiles(probs, weights = weights), labels = labels, ...,
-       left = left, raw = raw)
+  chop(x, brk_quantiles(probs, weights = weights, use_ecdf = use_ecdf),
+       labels = labels, ..., left = left, raw = raw)
 }
 
 

@@ -3,13 +3,14 @@
 #'
 #' @export
 #' @order 2
-brk_quantiles <- function (probs, ..., weights = NULL) {
+brk_quantiles <- function (probs, ..., weights = NULL, use_ecdf = FALSE) {
   assert_that(
           is.numeric(probs),
           noNA(probs),
           all(probs >= 0),
           all(probs <= 1),
-          is.null(weights) || is.numeric(weights)
+          is.null(weights) || is.numeric(weights),
+          is.flag(use_ecdf)
         )
   probs <- sort(probs)
 
@@ -32,7 +33,9 @@ brk_quantiles <- function (probs, ..., weights = NULL) {
     if (anyNA(qs)) return(empty_breaks()) # data was all NA
 
     if (any(duplicated(qs))) {
-      warning("`x` has non-unique quantiles: break labels may be misleading")
+      if (! use_ecdf) {
+        warning("`x` has duplicate quantiles: break labels may be misleading")
+      }
       # We use the left-most probabilities, so e.g. if 0%, 20% and 40% quantiles
       # are all the same number, we'll use the category [0%, 20%).
       # This means we always return intervals that the user asked for, though
@@ -50,11 +53,50 @@ brk_quantiles <- function (probs, ..., weights = NULL) {
     breaks <- extend_and_close(breaks, x, extend, left, close_end)
 
     class(breaks) <- c("quantileBreaks", class(breaks))
+
+    if (use_ecdf) {
+      probs <- calculate_ecdf_probs(x, breaks, weights)
+    }
+
     attr(breaks, "scaled_endpoints") <- probs
     names(breaks) <- names(probs)
 
     breaks
   }
+}
+
+
+#' Calculate the proportions of `x` that is strictly/weakly less than
+#' each break
+#'
+#' @param x A numeric vector
+#' @param breaks A breaks object
+#' @param weights A vector of weights. Non-NULL weights are unimplemented
+#'
+#' @return A vector of proportions of `x` that are strictly less than
+#' left-closed breaks, and weakly less than right-closed breaks.
+#'
+#' @noRd
+calculate_ecdf_probs <- function (x, breaks, weights) {
+  if (! is.numeric(x)) {
+    stop("`use_ecdf = TRUE` can only be used with numeric `x`")
+  }
+  if (! is.null(weights)) {
+    stop("`use_ecdf = TRUE` cannot be used with non-null `weights`")
+  }
+
+  brk_vec <- unclass_breaks(breaks)
+  left_vec <- attr(breaks, "left")
+
+  # proportion of x that is weakly less than x
+  prop_lte_brk <- stats::ecdf(x)(brk_vec)
+  # proportion of x that is strictly less than x
+  prop_lt_brk <- 1 - stats::ecdf(-x)(-brk_vec)
+  probs <- ifelse(left_vec, prop_lt_brk, prop_lte_brk)
+
+  # Suppose your breaks are [a, b].
+  # You want to expand this?
+  probs
 }
 
 

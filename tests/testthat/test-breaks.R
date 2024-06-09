@@ -189,7 +189,7 @@ test_that("brk_quantiles", {
 })
 
 
-test_that("brk_quantiles should warn on duplicate quantiles", {
+test_that("brk_quantiles with duplicate quantiles", {
   x <- rep(1, 5)
   expect_warning(brks <- brk_quantiles(1:3/4)(x, FALSE, TRUE, FALSE))
   expect_equivalent(c(brks), c(1, 1))
@@ -200,6 +200,11 @@ test_that("brk_quantiles should warn on duplicate quantiles", {
 
   x <- c(1, 1, 1, 2, 3)
   expect_warning(brks <- brk_quantiles(0:5/5)(x, FALSE, TRUE, FALSE))
+  expect_equivalent(c(brks), c(1.0, 1.0, 1.4, 2.2, 3.0))
+
+  expect_silent(
+    brks <- brk_quantiles(0:5/5, use_ecdf = TRUE)(x, FALSE, TRUE, FALSE)
+  )
   expect_equivalent(c(brks), c(1.0, 1.0, 1.4, 2.2, 3.0))
 })
 
