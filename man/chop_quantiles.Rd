@@ -16,12 +16,13 @@ chop_quantiles(
   labels = if (raw) lbl_intervals() else lbl_intervals(single = NULL),
   left = is.numeric(x),
   raw = FALSE,
-  weights = NULL
+  weights = NULL,
+  use_ecdf = FALSE
 )
 
 chop_deciles(x, ...)
 
-brk_quantiles(probs, ..., weights = NULL)
+brk_quantiles(probs, ..., weights = NULL, use_ecdf = FALSE)
 
 tab_quantiles(x, probs, ..., left = is.numeric(x), raw = FALSE)
 
@@ -44,6 +45,9 @@ passed to \code{\link[stats:quantile]{stats::quantile()}} or \code{\link[Hmisc:w
 
 \item{weights}{\code{NULL} or numeric vector of same length as \code{x}. If not
 \code{NULL}, \code{\link[Hmisc:wtd.stats]{Hmisc::wtd.quantile()}} is used to calculate weighted quantiles.}
+
+\item{use_ecdf}{Logical. Recalculate probabilities of quantiles using
+\code{\link[stats:ecdf]{ecdf(x)}}? See below.}
 }
 \value{
 \verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
@@ -61,8 +65,15 @@ For non-numeric \code{x}, \code{left} is set to \code{FALSE} by default. This wo
 for calculating "type 1" quantiles, since they round down. See
 \code{\link[stats:quantile]{stats::quantile()}}.
 
-If \code{x} contains duplicates, consecutive quantiles may be the same number. If
-so, quantile labels may be misleading and a warning is emitted.
+By default, \code{chop_quantiles()} shows the requested probabilities in the
+labels. To show the numeric quantiles themselves, set \code{raw = TRUE}.
+
+When \code{x} contains duplicates, consecutive quantiles may be the same number. If
+so, interval labels may be misleading, and if \code{use_ecdf = FALSE} a warning is
+emitted. Set \code{use_ecdf = TRUE} to recalculate the probabilities of the quantiles
+using the \link[stats:ecdf]{empirical cumulative distribution function} of \code{x}.
+Doing so may give you different labels from what you expect, and will
+remove any names from \code{probs}. See the example below.
 }
 \examples{
 chop_quantiles(1:10, 1:3/4)
@@ -77,8 +88,10 @@ chop_deciles(1:10)
 chop_quantiles(1:10, 1:3/4, raw = TRUE)
 
 # duplicate quantiles:
-tab_quantiles(c(1, 1, 1, 2, 3), 1:5/5)
-
+x <- c(1, 1, 1, 2, 3)
+quantile(x, 1:5/5)
+tab_quantiles(x, 1:5/5)
+tab_quantiles(x, 1:5/5, use_ecdf = TRUE)
 set.seed(42)
 tab_quantiles(rnorm(100), probs = 1:3/4, raw = TRUE)
 

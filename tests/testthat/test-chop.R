@@ -247,6 +247,12 @@ test_that("chop_quantiles", {
     factor(c("Q1", "Q1", "Q2", "Q3", "Q4", "Q4"))
   )
 
+  x <- c(1, 1, 1, 2, 3)
+  expect_equivalent(
+    chop_quantiles(x, 1:4/5, use_ecdf = TRUE),
+    factor(c("[0%, 60%]", "[0%, 60%]", "[0%, 60%]", "[60%, 80%)", "[80%, 100%]"))
+  )
+
   withr::local_options(lifecycle_verbosity = "quiet")
   expect_equivalent(
     chop_quantiles(1:6, c(.25, .5, .75), raw = TRUE),
