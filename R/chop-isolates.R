@@ -1,7 +1,7 @@
 
-#' Chop common values into separate categories
+#' Chop common values into singleton intervals
 #'
-#' `chop_spikes()` lets you isolate common values of `x` in their own
+#' `chop_spikes()` lets you chop common values of `x` into their own
 #' singleton intervals. This can help make unusual values visible.
 #'
 #' This function is `r lifecycle::badge("experimental")`.
@@ -40,7 +40,7 @@ chop_spikes <- function (
 }
 
 
-#' Cut data into intervals, isolating common elements
+#' Cut data into intervals, then separate out common values
 #'
 #' Sometimes it's useful to separate out common elements of `x`.
 #' `dissect()` first chops `x`, then puts common elements of `x` ("spikes")
@@ -48,8 +48,7 @@ chop_spikes <- function (
 #'
 #' Unlike [chop_spikes()], `dissect()` doesn't break up
 #' intervals which contain a spike. As a result, unlike other `chop_*` functions,
-#' `dissect()` does not typically chop `x` into disjoint intervals. See
-#' the examples.
+#' `dissect()` does not chop `x` into disjoint intervals. See the examples.
 #'
 #' If breaks are data-dependent, their labels may be misleading after common
 #' elements have been removed. See the example below.

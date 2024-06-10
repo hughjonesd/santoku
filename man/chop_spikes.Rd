@@ -4,7 +4,7 @@
 \alias{chop_spikes}
 \alias{brk_spikes}
 \alias{tab_spikes}
-\title{Chop common values into separate categories}
+\title{Chop common values into singleton intervals}
 \usage{
 chop_spikes(x, breaks, ..., n = NULL, prop = NULL)
 
@@ -33,7 +33,7 @@ often will get their own singleton break.}
 \verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
 }
 \description{
-\code{chop_spikes()} lets you isolate common values of \code{x} in their own
+\code{chop_spikes()} lets you chop common values of \code{x} into their own
 singleton intervals. This can help make unusual values visible.
 }
 \details{

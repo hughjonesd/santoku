@@ -73,7 +73,8 @@ so, interval labels may be misleading, and if \code{recalc_probs = FALSE} a warn
 emitted. Set \code{recalc_probs = TRUE} to recalculate the probabilities of the quantiles
 using the \link[stats:ecdf]{empirical cumulative distribution function} of \code{x}.
 Doing so may give you different labels from what you expect, and will
-remove any names from \code{probs}. See the example below.
+remove any names from \code{probs}. At present, \code{recalc_probs = TRUE} is incompatible
+with non-null \code{weights}. See the example below.
 }
 \examples{
 chop_quantiles(1:10, 1:3/4)

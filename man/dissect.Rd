@@ -3,7 +3,7 @@
 \name{dissect}
 \alias{dissect}
 \alias{tab_dissect}
-\title{Cut data into intervals, isolating common elements}
+\title{Cut data into intervals, then separate out common values}
 \usage{
 dissect(x, breaks, ..., n = NULL, prop = NULL, spike_labels = "{{{l}}}")
 
@@ -33,8 +33,7 @@ into separate categories.
 \details{
 Unlike \code{\link[=chop_spikes]{chop_spikes()}}, \code{dissect()} doesn't break up
 intervals which contain a spike. As a result, unlike other \verb{chop_*} functions,
-\code{dissect()} does not typically chop \code{x} into disjoint intervals. See
-the examples.
+\code{dissect()} does not chop \code{x} into disjoint intervals. See the examples.
 
 If breaks are data-dependent, their labels may be misleading after common
 elements have been removed. See the example below.
