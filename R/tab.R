@@ -192,14 +192,14 @@ tab_fn <- function (
 #' @export
 #' @order 3
 tab_spikes <- function (
-                     x,
-                     breaks,
-                     n = NULL,
-                     prop = NULL,
-                     ...
-                   ) {
+                x,
+                breaks,
+                ...,
+                n = NULL,
+                prop = NULL
+              ) {
   default_table(
-    chop_spikes(x = x, breaks = breaks, n = n, prop = prop, ...)
+    chop_spikes(x = x, breaks = breaks, ..., n = n, prop = prop)
   )
 }
 
@@ -207,12 +207,12 @@ tab_spikes <- function (
 #' @export
 #' @order 2
 tab_dissect <- function (
-    x,
-    breaks,
-    ...,
-    n = NULL,
-    prop = NULL
-) {
+                   x,
+                   breaks,
+                   ...,
+                   n = NULL,
+                   prop = NULL
+               ) {
   default_table(
     dissect(x = x, breaks = breaks, ..., n = n, prop = prop)
   )

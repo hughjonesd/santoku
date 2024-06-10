@@ -32,9 +32,9 @@
 chop_spikes <- function (
     x,
     breaks,
+    ...,
     n = NULL,
-    prop = NULL,
-    ...
+    prop = NULL
 ) {
   chop(x, brk_spikes(breaks, n = n, prop = prop), ...)
 }

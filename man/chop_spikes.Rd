@@ -6,11 +6,11 @@
 \alias{tab_spikes}
 \title{Chop common values into separate categories}
 \usage{
-chop_spikes(x, breaks, n = NULL, prop = NULL, ...)
+chop_spikes(x, breaks, ..., n = NULL, prop = NULL)
 
 brk_spikes(breaks, n = NULL, prop = NULL)
 
-tab_spikes(x, breaks, n = NULL, prop = NULL, ...)
+tab_spikes(x, breaks, ..., n = NULL, prop = NULL)
 }
 \arguments{
 \item{x}{A vector.}
@@ -19,11 +19,11 @@ tab_spikes(x, breaks, n = NULL, prop = NULL, ...)
 The resulting \code{\link[=breaks-class]{breaks}} object will be modified to add
 singleton breaks.}
 
+\item{...}{Passed to \code{\link[=chop]{chop()}}.}
+
 \item{n, prop}{Scalar. Provide either \code{n}, a number of values, or \code{prop},
 a proportion of \code{length(x)}. Values of \code{x} which occur at least this
 often will get their own singleton break.}
-
-\item{...}{Passed to \code{\link[=chop]{chop()}}.}
 }
 \value{
 \verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
