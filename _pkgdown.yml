@@ -42,7 +42,7 @@ reference:
   - ends_with("quantiles")
   - ends_with("equally")
 - title: Chopping and separating
-  desc:  Cut a vector into intervals, separating out common elements
+  desc:  Cut a vector into intervals, separating out common values
 - contents:
   - ends_with("spikes")
   - ends_with("dissect")
