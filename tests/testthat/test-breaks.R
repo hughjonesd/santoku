@@ -21,6 +21,9 @@ test_that("brk_manual", {
 
   expect_error(brk_res(brk_manual(c(1, 2, 2, 2, 3), rep(TRUE, 5))),
         regexp = "equal")
+
+  expect_warning(brk_res(brk_manual(1:3, rep(TRUE, 3)), left = FALSE))
+  expect_warning(brk_res(brk_manual(1:3, rep(TRUE, 3)), close_end = FALSE))
 })
 
 

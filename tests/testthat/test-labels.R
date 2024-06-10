@@ -1,7 +1,4 @@
 
-brackets <- function (x) paste0("(", x, ")")
-
-
 test_that("lbl_manual and lbl_endpoint are defunct", {
   lifecycle::expect_defunct(lbl_manual(letters))
   lifecycle::expect_defunct(lbl_endpoint()(lbrk))
@@ -50,6 +47,7 @@ test_that("lbl_dash arguments", {
   expect_equivalent(lbl_dash("-", first = "< {r}")(brk), c("< 2", "2-3"))
   expect_equivalent(lbl_dash("-", last = "> {l}")(brk), c("1-2", "> 2"))
 
+  brackets <- function (x) paste0("(", x, ")")
   expect_equivalent(
     lbl_dash("-", fmt = brackets)(brk),
     c("(1)-(2)", "(2)-(3)")
@@ -344,6 +342,7 @@ test_that("lbl_discrete arguments", {
     c("(1)-(2)", "(3)-(5)")
   )
 
+  brackets <- function (x) paste0("(", x, ")")
   expect_equivalent(
     lbl_discrete("-", fmt = brackets)(lbrk),
     c("(1)-(2)", "(3)-(5)")

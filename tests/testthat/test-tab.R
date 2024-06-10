@@ -107,3 +107,14 @@ test_that("tab_spikes", {
     ))
   )
 })
+
+
+test_that("tab_dissect", {
+  expect_equivalent(
+    tab_dissect(c(1:5, rep(3, 2)), breaks = c(2, 4), n = 3),
+    table(factor(
+      c("[1, 2)", "[2, 4)", rep("{3}", 3), rep("[4, 5]", 2)),
+      levels = c("[1, 2)", "[2, 4)", "{3}", "[4, 5]")
+    ))
+  )
+})
