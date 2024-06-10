@@ -6,15 +6,15 @@ test_that("basic functionality", {
   rc_brks <- brk_manual(1:3, c(TRUE, TRUE, FALSE))
 
   expect_equivalent(
-    chop(x, lbrks, lbl_seq("1"), extend = FALSE, close_end = FALSE),
+    chop(x, lbrks, lbl_seq("1"), extend = FALSE),
     factor(c(1, 2, NA))
   )
   expect_equivalent(
-    chop(x, rbrks, lbl_seq("1"), extend = FALSE, close_end = FALSE),
+    chop(x, rbrks, lbl_seq("1"), extend = FALSE),
     factor(c(NA, 1, 2))
   )
   expect_equivalent(
-    chop(x, rc_brks, lbl_seq("1"), extend = FALSE, close_end = FALSE),
+    chop(x, rc_brks, lbl_seq("1"), extend = FALSE),
     factor(c(1, 2, 2))
   )
 

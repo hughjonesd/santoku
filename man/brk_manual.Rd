@@ -32,6 +32,10 @@ Singleton breaks are created by repeating a number in \code{breaks}. Singletons
 must be closed on both sides, so if there is a repeated number
 at indices \code{i}, \code{i+1}, \code{left[i]} \emph{must} be \code{TRUE} and \code{left[i+1]} must be
 \code{FALSE}.
+
+\code{brk_manual()} ignores \code{left} and \code{close_end} arguments passed in
+from \code{\link[=chop]{chop()}}, since \code{left_vec} sets these manually.
+\code{extend} and \code{drop} arguments are respected as usual.
 }
 \examples{
 lbrks <- brk_manual(1:3, rep(TRUE, 3))

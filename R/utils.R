@@ -128,7 +128,7 @@ brk_res <- function (
   x         = 1:2,
   extend    = FALSE,
   left      = TRUE,
-  close_end = FALSE
+  close_end = TRUE
 ) {
   brk_fun(x, extend = extend, left = left, close_end = close_end)
 }

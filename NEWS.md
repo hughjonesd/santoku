@@ -14,6 +14,7 @@
   recalculates probabilities using `ecdf(x)`, which may give more accurate 
   interval labels.
 * `single = NULL` has been documented explicitly in `lbl_*` functions.
+* Bugfix: `brk_manual()` no longer warns if `close_end = TRUE` (the default).
 
 
 # santoku 1.0.0

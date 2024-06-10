@@ -23,6 +23,10 @@
 #' at indices `i`, `i+1`, `left[i]` *must* be `TRUE` and `left[i+1]` must be
 #' `FALSE`.
 #'
+#' `brk_manual()` ignores `left` and `close_end` arguments passed in
+#' from [chop()], since `left_vec` sets these manually.
+#' `extend` and `drop` arguments are respected as usual.
+#'
 #' @export
 #'
 #' @examples
@@ -50,9 +54,9 @@ brk_manual <- function (breaks, left_vec) {
 
   function (x, extend, left, close_end) {
     if (! left) warning("Ignoring `left` with `brk_manual()`")
-    if (close_end) warning("Ignoring `close_end` with `brk_manual()`")
+    if (! close_end) warning("Ignoring `close_end` with `brk_manual()`")
     breaks <- create_breaks(breaks, left_vec)
-    breaks <- extend_and_close(breaks, x, extend, left, close_end)
+    breaks <- extend_and_close(breaks, x, extend, left = TRUE, close_end = FALSE)
   }
 }
 

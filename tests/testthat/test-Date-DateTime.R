@@ -255,13 +255,14 @@ test_that("chop timezones", {
 
 test_that("Date labels", {
   li <- lbl_intervals()
-  b <- brk_res(brk_default(db1))
+  b <- brk_res(brk_default(db1), close_end = FALSE)
   expect_equivalent(
     li(b), "[1975-11-01, 1975-11-15)"
   )
 
   withr::local_options(santoku.infinity = "Inf")
-  b2 <- brk_res(brk_default(db1), x = as.Date("1975-01-01"), extend = TRUE)
+  b2 <- brk_res(brk_default(db1), x = as.Date("1975-01-01"), extend = TRUE,
+                close_end = FALSE)
   expect_equivalent(
     li(b2), c("[-Inf, 1975-11-01)", "[1975-11-01, 1975-11-15)", "[1975-11-15, Inf]")
   )
@@ -285,7 +286,7 @@ test_that("Date labels", {
 
 test_that("POSIXct labels", {
   li <- lbl_intervals()
-  b <- brk_res(brk_default(dtb1))
+  b <- brk_res(brk_default(dtb1), close_end = FALSE)
   expect_equivalent(
     li(b), "[2000-01-01 15:04:00, 2000-01-01 15:14:00)"
   )

@@ -68,7 +68,7 @@ test_that("systematic tests", {
   }
 
   skip_test(! left & brk_fun == "brk_manual")
-  skip_test(close_end & brk_fun == "brk_manual")
+  skip_test(! close_end & brk_fun == "brk_manual")
 
   POSIXct_breaks <- c("brk_def_POSIXct", "brk_w_difft_sec")
   Date_breaks <- c("brk_def_Date", "brk_w_difft_day")
