@@ -29,7 +29,8 @@
 #' emitted. Set `recalc_probs = TRUE` to recalculate the probabilities of the quantiles
 #' using the [empirical cumulative distribution function][stats::ecdf()] of `x`.
 #' Doing so may give you different labels from what you expect, and will
-#' remove any names from `probs`. At present, `recalc_probs = TRUE` is incompatible 
+#' remove any names from `probs`, but it never changes the actual
+#' quantiles used for breaks. At present, `recalc_probs = TRUE` is incompatible 
 #' with non-null `weights`. See the example below.
 #'
 #' @family chopping functions
