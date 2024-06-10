@@ -65,10 +65,14 @@ chop_spikes <- function (
 #'   value.
 #'
 #' @return
-#' The result of [chop()], but with common values given their own factor levels.
+#' `dissect()` returns the result of [chop()], but with common values put into
+#' separate factor levels.
+#'
+#' `tab_dissect()` returns a contingency [table()].
 #'
 #' @seealso [chop_spikes()] for a different approach.
 #' @export
+#' @order 1
 #'
 #' @examples
 #' x <- c(2, 3, 3, 3, 4)
@@ -88,7 +92,7 @@ chop_spikes <- function (
 #' x <- rnorm(99)
 #' x[1:10] <- x[1]
 #' tab_quantiles(x, 1:2/3)
-#' table(dissect(x, brk_quantiles(1:2/3), prop = 0.1))
+#' tab_dissect(x, brk_quantiles(1:2/3), prop = 0.1)
 dissect <- function (x,
                           breaks,
                           ...,

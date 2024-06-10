@@ -203,6 +203,21 @@ tab_spikes <- function (
   )
 }
 
+#' @rdname dissect
+#' @export
+#' @order 2
+tab_dissect <- function (
+    x,
+    breaks,
+    ...,
+    n = NULL,
+    prop = NULL
+) {
+  default_table(
+    dissect(x = x, breaks = breaks, ..., n = n, prop = prop)
+  )
+}
+
 
 default_table <- function (x) {
   table(x, useNA = "ifany", dnn = NULL)
