@@ -17,7 +17,8 @@ knitr::opts_chunk$set(
   cache = FALSE
 )
 requireNamespace("bench", quietly = TRUE)
-requireNamespace("stringi", quietly = TRUE)
+requireNamespace("Hmisc", quietly = TRUE)
+library(santoku)
 library(ggplot2)
 theme_set(theme_light())
 ```
@@ -33,72 +34,17 @@ The core of santoku is written in C++. It is reasonably fast:
 packageVersion("santoku")
 set.seed(27101975)
 
-mb <- bench::mark(
+mb <- bench::mark(min_iterations = 100, check = FALSE,
         santoku::chop(rnorm(1e5), -2:2),
         base::cut(rnorm(1e5), -2:2),
-        Hmisc::cut2(rnorm(1e5), -2:2),
-        min_iterations = 100,
-        check = FALSE
+        Hmisc::cut2(rnorm(1e5), -2:2)
       )
 mb
 ```
 
 
-```{r, fig.width = 6}
+```{r, fig.width = 7, fig.height = 6}
 autoplot(mb, type = "violin")
-```
-
-
-## Dates
-
-
-```{r dates}
-
-dates <- sample(as.Date("2000-01-01") + 0:364, 1e5, replace = TRUE)
-break_dates <- as.Date("2000-01-01") + c(60, 120, 180)
-
-mb_dates <- bench::mark(
-              santoku::chop(dates, break_dates),
-              base::cut(dates, break_dates),
-              Hmisc::cut2(dates, break_dates),
-              min_iterations = 100,
-              check = FALSE
-            )
-
-mb_dates
-```
-
-
-```{r, fig.width = 6}
-autoplot(mb_dates, type = "violin")
-```
-
-
-## Cutting characters (pure R implementation)
-
-
-```{r pure-r}
-
-oo <- options(santoku.warn_character = FALSE)
-
-
-lipsum <- stringi::stri_rand_lipsum(100)
-
-mb_pure_r <- bench::mark(
-               santoku::chop(lipsum, letters),
-               santoku::chop(seq(1, 26, length = 100), 1:26),
-               min_iterations = 100,
-               check = FALSE
-             )
-
-mb_pure_r
-
-options(oo)
-```
-
-
-```{r, fig.width = 6}
-autoplot(mb_pure_r, type = "violin")
 ```
 
 
@@ -109,18 +55,46 @@ autoplot(mb_pure_r, type = "violin")
 
 many_breaks <- seq(-2, 2, 0.001)
 
-mb_breaks <- bench::mark(
+mb_breaks <- bench::mark(min_iterations = 100, check = FALSE,
         santoku::chop(rnorm(1e4), many_breaks),
         base::cut(rnorm(1e4), many_breaks),
-        Hmisc::cut2(rnorm(1e4), many_breaks),
-        min_iterations = 100,
-        check = FALSE
+        Hmisc::cut2(rnorm(1e4), many_breaks)
       )
 
 mb_breaks
 ```
 
 
-```{r, fig.width = 6}
+```{r, fig.width = 7, fig.height = 6}
 autoplot(mb_breaks, type = "violin")
+```
+
+
+## Various chops
+
+```{r various-chops}
+
+x <- c(rnorm(9e4), sample(-2:2, 1e4, replace = TRUE))
+
+mb_various <- bench::mark(min_iterations = 100, check = FALSE,
+        chop(x, -2:2),
+        chop_equally(x, groups = 20),
+        chop_n(x, n = 2e4),
+        chop_quantiles(x, c(0.05, 0.25, 0.5, 0.75, 0.95)),
+        chop_evenly(x, intervals = 20),
+        chop_width(x, width = 0.25),
+        chop_proportions(x, proportions = c(0.05, 0.25, 0.5, 0.75, 0.95)),
+        chop_mean_sd(x, sds = 1:4),
+        chop_fn(x, scales::breaks_extended(10)),
+        chop_pretty(x, n = 10),
+        chop_spikes(x, -2:2, prop = 0.01),
+        dissect(x, -2:2, prop = 0.01)
+      )
+      
+mb_various
+```
+
+
+```{r, fig.width = 7, fig.height = 6}
+autoplot(mb_various, type = "violin")
 ```
