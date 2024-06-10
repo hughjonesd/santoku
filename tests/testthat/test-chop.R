@@ -17,8 +17,6 @@ test_that("basic functionality", {
     chop(x, rc_brks, lbl_seq("1"), extend = FALSE),
     factor(c(1, 2, 2))
   )
-
-
 })
 
 

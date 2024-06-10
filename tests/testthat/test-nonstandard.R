@@ -7,11 +7,10 @@ test_that("character", {
     chop(x, br)
   )
 
-  oo <- options(santoku.warn_character = FALSE)
-  on.exit(options(oo))
-
-  expect_silent(
-    chop(x, br)
+  withr::with_options(list(santoku.warn_character = FALSE),
+    expect_silent(
+      chop(x, br)
+    )
   )
 
   # here, we think there should *always* be a warning
