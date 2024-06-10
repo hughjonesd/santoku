@@ -2,7 +2,7 @@
 #' @import assertthat
 NULL
 
-#' A versatile cutting tool for R
+#' A versatile cutting tool for R: package overview and options
 #'
 #' santoku is a tool for cutting data into intervals. It provides
 #' the function [chop()], which is similar to base R's [cut()] or `Hmisc::cut2()`.
@@ -35,7 +35,19 @@ NULL
 #' ```r
 #' vignette("santoku")
 #' ```
+#' 
 #' For more details, start with the documentation for [chop()].
+#'
+#' # Options
+#'
+#' Santoku has two options:
+#'
+#' * `options("santoku.infinity")` sets the symbol for infinity in breaks. The default is
+#'   `NULL`, in which case the infinity symbol is used on platforms that support it, otherwise
+#'   `"Inf"` is used.
+#'
+#' * `options("santoku.warn_character")` warns if you try to chop a character vector. Set to
+#'   `FALSE` to turn off this warning.
 "_PACKAGE"
 
 # The following block is used by usethis to automatically manage

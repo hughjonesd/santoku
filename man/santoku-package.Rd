@@ -4,7 +4,7 @@
 \name{santoku-package}
 \alias{santoku}
 \alias{santoku-package}
-\title{A versatile cutting tool for R}
+\title{A versatile cutting tool for R: package overview and options}
 \description{
 santoku is a tool for cutting data into intervals. It provides
 the function \code{\link[=chop]{chop()}}, which is similar to base R's \code{\link[=cut]{cut()}} or \code{Hmisc::cut2()}.
@@ -36,6 +36,17 @@ To get started, read the vignette:
 
 For more details, start with the documentation for \code{\link[=chop]{chop()}}.
 }
+\section{Options}{
+Santoku has two options:
+\itemize{
+\item \code{options("santoku.infinity")} sets the symbol for infinity in breaks. The default is
+\code{NULL}, in which case the infinity symbol is used on platforms that support it, otherwise
+\code{"Inf"} is used.
+\item \code{options("santoku.warn_character")} warns if you try to chop a character vector. Set to
+\code{FALSE} to turn off this warning.
+}
+}
+
 \seealso{
 Useful links:
 \itemize{
