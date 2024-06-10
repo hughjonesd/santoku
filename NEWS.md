@@ -10,8 +10,9 @@
 * When multiple quantiles are the same, santoku warns and returns the leftmost
   quantile interval. Before it would merge the intervals, creating labels that
   might be different to what the user asked for.
-* `chop_quantiles()` gains a `use_ecdf` argument. `use_ecdf = TRUE` recalculates 
-  probabilities using `ecdf(x)`, which may give more accurate interval labels.
+* `chop_quantiles()` gains a `recalc_probs` argument. `recalc_probs = TRUE`
+  recalculates probabilities using `ecdf(x)`, which may give more accurate 
+  interval labels.
 * `single = NULL` has been documented explicitly in `lbl_*` functions.
 
 

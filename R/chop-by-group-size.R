@@ -10,7 +10,7 @@
 #'   passed to [stats::quantile()] or [Hmisc::wtd.quantile()].
 #' @param weights `NULL` or numeric vector of same length as `x`. If not
 #'   `NULL`, [Hmisc::wtd.quantile()] is used to calculate weighted quantiles.
-#' @param use_ecdf Logical. Recalculate probabilities of quantiles using
+#' @param recalc_probs Logical. Recalculate probabilities of quantiles using
 #'   [`ecdf(x)`][stats::ecdf()]? See below.
 #'
 #' @inheritParams chop
@@ -25,8 +25,8 @@
 #' labels. To show the numeric quantiles themselves, set `raw = TRUE`.
 #'
 #' When `x` contains duplicates, consecutive quantiles may be the same number. If
-#' so, interval labels may be misleading, and if `use_ecdf = FALSE` a warning is
-#' emitted. Set `use_ecdf = TRUE` to recalculate the probabilities of the quantiles
+#' so, interval labels may be misleading, and if `recalc_probs = FALSE` a warning is
+#' emitted. Set `recalc_probs = TRUE` to recalculate the probabilities of the quantiles
 #' using the [empirical cumulative distribution function][stats::ecdf()] of `x`.
 #' Doing so may give you different labels from what you expect, and will
 #' remove any names from `probs`. See the example below.
@@ -52,7 +52,7 @@
 #' x <- c(1, 1, 1, 2, 3)
 #' quantile(x, 1:5/5)
 #' tab_quantiles(x, 1:5/5)
-#' tab_quantiles(x, 1:5/5, use_ecdf = TRUE)
+#' tab_quantiles(x, 1:5/5, recalc_probs = TRUE)
 chop_quantiles <- function(
                     x,
                     probs,
@@ -62,9 +62,9 @@ chop_quantiles <- function(
                     left      = is.numeric(x),
                     raw       = FALSE,
                     weights   = NULL,
-                    use_ecdf  = FALSE
+                    recalc_probs  = FALSE
                   ) {
-  chop(x, brk_quantiles(probs, weights = weights, use_ecdf = use_ecdf),
+  chop(x, brk_quantiles(probs, weights = weights, recalc_probs = recalc_probs),
        labels = labels, ..., left = left, raw = raw)
 }
 

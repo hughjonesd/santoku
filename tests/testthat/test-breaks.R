@@ -203,7 +203,7 @@ test_that("brk_quantiles with duplicate quantiles", {
   expect_equivalent(c(brks), c(1.0, 1.0, 1.4, 2.2, 3.0))
 
   expect_silent(
-    brks <- brk_quantiles(0:5/5, use_ecdf = TRUE)(x, FALSE, TRUE, FALSE)
+    brks <- brk_quantiles(0:5/5, recalc_probs = TRUE)(x, FALSE, TRUE, FALSE)
   )
   expect_equivalent(c(brks), c(1.0, 1.0, 1.4, 2.2, 3.0))
 })

@@ -17,12 +17,12 @@ chop_quantiles(
   left = is.numeric(x),
   raw = FALSE,
   weights = NULL,
-  use_ecdf = FALSE
+  recalc_probs = FALSE
 )
 
 chop_deciles(x, ...)
 
-brk_quantiles(probs, ..., weights = NULL, use_ecdf = FALSE)
+brk_quantiles(probs, ..., weights = NULL, recalc_probs = FALSE)
 
 tab_quantiles(x, probs, ..., left = is.numeric(x), raw = FALSE)
 
@@ -46,7 +46,7 @@ passed to \code{\link[stats:quantile]{stats::quantile()}} or \code{\link[Hmisc:w
 \item{weights}{\code{NULL} or numeric vector of same length as \code{x}. If not
 \code{NULL}, \code{\link[Hmisc:wtd.stats]{Hmisc::wtd.quantile()}} is used to calculate weighted quantiles.}
 
-\item{use_ecdf}{Logical. Recalculate probabilities of quantiles using
+\item{recalc_probs}{Logical. Recalculate probabilities of quantiles using
 \code{\link[stats:ecdf]{ecdf(x)}}? See below.}
 }
 \value{
@@ -69,8 +69,8 @@ By default, \code{chop_quantiles()} shows the requested probabilities in the
 labels. To show the numeric quantiles themselves, set \code{raw = TRUE}.
 
 When \code{x} contains duplicates, consecutive quantiles may be the same number. If
-so, interval labels may be misleading, and if \code{use_ecdf = FALSE} a warning is
-emitted. Set \code{use_ecdf = TRUE} to recalculate the probabilities of the quantiles
+so, interval labels may be misleading, and if \code{recalc_probs = FALSE} a warning is
+emitted. Set \code{recalc_probs = TRUE} to recalculate the probabilities of the quantiles
 using the \link[stats:ecdf]{empirical cumulative distribution function} of \code{x}.
 Doing so may give you different labels from what you expect, and will
 remove any names from \code{probs}. See the example below.
@@ -91,7 +91,7 @@ chop_quantiles(1:10, 1:3/4, raw = TRUE)
 x <- c(1, 1, 1, 2, 3)
 quantile(x, 1:5/5)
 tab_quantiles(x, 1:5/5)
-tab_quantiles(x, 1:5/5, use_ecdf = TRUE)
+tab_quantiles(x, 1:5/5, recalc_probs = TRUE)
 set.seed(42)
 tab_quantiles(rnorm(100), probs = 1:3/4, raw = TRUE)
 

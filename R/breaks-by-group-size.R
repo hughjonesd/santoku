@@ -3,14 +3,14 @@
 #'
 #' @export
 #' @order 2
-brk_quantiles <- function (probs, ..., weights = NULL, use_ecdf = FALSE) {
+brk_quantiles <- function (probs, ..., weights = NULL, recalc_probs = FALSE) {
   assert_that(
           is.numeric(probs),
           noNA(probs),
           all(probs >= 0),
           all(probs <= 1),
           is.null(weights) || is.numeric(weights),
-          is.flag(use_ecdf)
+          is.flag(recalc_probs)
         )
   probs <- sort(probs)
 
@@ -33,7 +33,7 @@ brk_quantiles <- function (probs, ..., weights = NULL, use_ecdf = FALSE) {
     if (anyNA(qs)) return(empty_breaks()) # data was all NA
 
     if (any(duplicated(qs))) {
-      if (! use_ecdf) {
+      if (! recalc_probs) {
         warning("`x` has duplicate quantiles: break labels may be misleading")
       }
       # We use the left-most probabilities, so e.g. if 0%, 20% and 40% quantiles
@@ -54,7 +54,7 @@ brk_quantiles <- function (probs, ..., weights = NULL, use_ecdf = FALSE) {
 
     class(breaks) <- c("quantileBreaks", class(breaks))
 
-    if (use_ecdf) {
+    if (recalc_probs) {
       probs <- calculate_ecdf_probs(x, breaks, weights)
     }
 
@@ -79,10 +79,10 @@ brk_quantiles <- function (probs, ..., weights = NULL, use_ecdf = FALSE) {
 #' @noRd
 calculate_ecdf_probs <- function (x, breaks, weights) {
   if (! is.numeric(x)) {
-    stop("`use_ecdf = TRUE` can only be used with numeric `x`")
+    stop("`recalc_probs = TRUE` can only be used with numeric `x`")
   }
   if (! is.null(weights)) {
-    stop("`use_ecdf = TRUE` cannot be used with non-null `weights`")
+    stop("`recalc_probs = TRUE` cannot be used with non-null `weights`")
   }
 
   brk_vec <- unclass_breaks(breaks)

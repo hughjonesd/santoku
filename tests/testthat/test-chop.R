@@ -249,7 +249,7 @@ test_that("chop_quantiles", {
 
   x <- c(1, 1, 1, 2, 3)
   expect_equivalent(
-    chop_quantiles(x, 1:4/5, use_ecdf = TRUE),
+    chop_quantiles(x, 1:4/5, recalc_probs = TRUE),
     factor(c("[0%, 60%]", "[0%, 60%]", "[0%, 60%]", "[60%, 80%)", "[80%, 100%]"))
   )
 
