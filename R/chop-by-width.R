@@ -47,8 +47,6 @@ chop_width <- function (
 #' @inheritParams chop
 #' @inherit chop-doc params return
 #'
-#' @details `chop_evenly()` sets `close_end = TRUE` by default.
-#'
 #' @family chopping functions
 #'
 #' @export
@@ -59,10 +57,9 @@ chop_width <- function (
 chop_evenly <- function (
                  x,
                  intervals,
-                 ...,
-                 close_end = TRUE
+                 ...
                ) {
-  chop(x, brk_evenly(intervals), ..., close_end = close_end)
+  chop(x, brk_evenly(intervals), ...)
 }
 
 

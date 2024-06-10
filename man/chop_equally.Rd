@@ -13,7 +13,6 @@ chop_equally(
   ...,
   labels = lbl_intervals(),
   left = is.numeric(x),
-  close_end = TRUE,
   raw = TRUE
 )
 
@@ -31,9 +30,6 @@ tab_equally(x, groups, ..., left = is.numeric(x), raw = TRUE)
 \item{labels}{A character vector of labels or a function to create labels.}
 
 \item{left}{Logical. Left-closed or right-closed breaks?}
-
-\item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
-close first break at left?)}
 
 \item{raw}{Logical. Use raw values in labels?}
 }
@@ -55,10 +51,12 @@ be emitted. See the examples.
 \examples{
 chop_equally(1:10, 5)
 
-# You can't always guarantee `groups` groups:
+# You can't always guarantee equal-sized groups:
 dupes <- c(1, 1, 1, 2, 3, 4, 4, 4)
 quantile(dupes, 0:4/4)
 chop_equally(dupes, 4)
+# Or as many groups as you ask for:
+chop_equally(c(1, 1, 2, 2), 3)
 }
 \seealso{
 Other chopping functions: 

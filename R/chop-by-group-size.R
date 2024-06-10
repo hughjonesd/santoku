@@ -90,8 +90,6 @@ chop_deciles <- function(x, ...) {
 #' elements, you may get fewer `groups` than requested. If so, a warning will
 #' be emitted. See the examples.
 #'
-#'
-#'
 #' @family chopping functions
 #'
 #' @export
@@ -99,21 +97,21 @@ chop_deciles <- function(x, ...) {
 #' @examples
 #' chop_equally(1:10, 5)
 #'
-#' # You can't always guarantee `groups` groups:
+#' # You can't always guarantee equal-sized groups:
 #' dupes <- c(1, 1, 1, 2, 3, 4, 4, 4)
 #' quantile(dupes, 0:4/4)
 #' chop_equally(dupes, 4)
+#' # Or as many groups as you ask for:
+#' chop_equally(c(1, 1, 2, 2), 3)
 chop_equally <- function (
                   x,
                   groups,
                   ...,
                   labels    = lbl_intervals(),
                   left      = is.numeric(x),
-                  close_end = TRUE,
                   raw       = TRUE
                 ) {
-  chop(x, brk_equally(groups), ..., labels = labels, left = left,
-         close_end = close_end, raw = raw)
+  chop(x, brk_equally(groups), ..., labels = labels, left = left, raw = raw)
 }
 
 
@@ -159,10 +157,9 @@ chop_n <- function (
             x,
             n,
             ...,
-            close_end = TRUE,
             tail = "split"
           ) {
-  res <- chop(x, brk_n(n, tail = tail), ..., close_end = close_end)
+  res <- chop(x, brk_n(n, tail = tail), ...)
   if (tail == "split" && max(tabulate(res)) > n) {
     warning("Some intervals contain more than ", n, " elements")
   }

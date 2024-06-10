@@ -6,7 +6,7 @@
 \alias{tab_evenly}
 \title{Chop into equal-width intervals}
 \usage{
-chop_evenly(x, intervals, ..., close_end = TRUE)
+chop_evenly(x, intervals, ...)
 
 brk_evenly(intervals)
 
@@ -18,9 +18,6 @@ tab_evenly(x, intervals, ...)
 \item{intervals}{Integer: number of intervals to create.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
-
-\item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
-close first break at left?)}
 }
 \value{
 \verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
@@ -31,9 +28,6 @@ close first break at left?)}
 }
 \description{
 \code{chop_evenly()} chops \code{x} into \code{intervals} intervals of equal width.
-}
-\details{
-\code{chop_evenly()} sets \code{close_end = TRUE} by default.
 }
 \examples{
 chop_evenly(0:10, 5)

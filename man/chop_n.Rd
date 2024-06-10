@@ -7,7 +7,7 @@
 \alias{tab_n}
 \title{Chop into fixed-sized groups}
 \usage{
-chop_n(x, n, ..., close_end = TRUE, tail = "split")
+chop_n(x, n, ..., tail = "split")
 
 brk_n(n, tail = "split")
 
@@ -19,9 +19,6 @@ tab_n(x, n, ..., tail = "split")
 \item{n}{Integer. Number of elements in each interval.}
 
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
-
-\item{close_end}{Logical. Close last break at right? (If \code{left} is \code{FALSE},
-close first break at left?)}
 
 \item{tail}{String. What to do if the final interval has fewer than \code{n} elements?
 \code{"split"} to keep it separate. \code{"merge"} to merge it with the neighbouring
