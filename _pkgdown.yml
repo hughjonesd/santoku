@@ -22,19 +22,45 @@ reference:
 - title: Package overview
 - contents:
   - "`santoku-package`"
-- title: Chopping functions
+- title: Basic chop functions
   desc:  Cut a vector into intervals
 - contents:
-  - starts_with("chop")
-  - starts_with("brk")
-  - starts_with("tab")
-  - dissect
+  - chop
+  - kiru
   - fillet
+  - tab
+- title: Chopping by width
+  desc:  Cut a vector into intervals defined by width
+- contents:
+  - matches("width")
+  - ends_with("proportions")
+  - ends_with("evenly")
+- title: Chopping by n
+  desc:  Cut a vector into intervals defined by number of elements
+- contents:
+  - ends_with("_n")
+  - ends_with("quantiles")
+  - ends_with("equally")
+- title: Chopping and separating
+  desc:  Cut a vector into intervals, separating out common elements
+- contents:
+  - ends_with("spikes")
+  - ends_with("dissect")
+- title: Other chop functions
+  desc:  Miscellaneous ways to cut a vector into intervals
+- contents:
+  - ends_with("mean_sd")
+  - ends_with("pretty")
+  - ends_with("fn")
+  - brk_default
+  - brk_manual
 - title: Label functions
   desc: Specify how to label the chopped intervals
 - contents:
   - starts_with("lbl")
 - title: Miscellaneous
-  desc: Miscellaneous documentation
+  desc: Other helper functions
 - contents:
   - -starts_with("chop|brk|lbl|santoku")
+  - -ends_with("dissect")
+  - -fillet
