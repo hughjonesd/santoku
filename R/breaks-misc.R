@@ -51,12 +51,13 @@ brk_manual <- function (breaks, left_vec) {
           length(left_vec) == length(breaks)
         )
 
-
   function (x, extend, left, close_end) {
     if (! left) warning("Ignoring `left` with `brk_manual()`")
     if (! close_end) warning("Ignoring `close_end` with `brk_manual()`")
     breaks <- create_breaks(breaks, left_vec)
     breaks <- extend_and_close(breaks, x, extend, left = TRUE, close_end = FALSE)
+
+    breaks
   }
 }
 
