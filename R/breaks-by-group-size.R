@@ -32,7 +32,7 @@ brk_quantiles <- function (probs, ..., weights = NULL, recalc_probs = FALSE) {
 
     if (anyNA(qs)) return(empty_breaks()) # data was all NA
 
-    if (any(duplicated(qs))) {
+    if (anyDuplicated(qs) > 0L) {
       if (! recalc_probs) {
         warning("`x` has duplicate quantiles: break labels may be misleading")
       }

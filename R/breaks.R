@@ -31,8 +31,13 @@ brk_spikes <- function (breaks, n = NULL, prop = NULL) {
   assert_that(
     is.number(n) || is.number(prop),
     is.null(n) || is.null(prop),
-    msg = "exactly one of `n` and `prop` must be specified as a scalar numeric"
+    msg = "exactly one of `n` and `prop` must be a scalar numeric"
   )
+  assert_that(
+    # it's ok for one of these to be null
+    n >= 0 || prop >= 0
+  )
+
   if (! is.function(breaks)) breaks <- brk_default(breaks)
 
   function (x, extend, left, close_end) {
