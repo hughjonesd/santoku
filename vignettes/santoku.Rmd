@@ -182,7 +182,7 @@ Compare this to the table before. There are two intervals on either
 side of the common value, instead of one interval surrounding it.
 
 
-## Quick tables
+## Quick tables and displays
 
 `tab_n()`, `tab_width()`, and friends act similarly to
 `tab()`, calling the related `chop_*` function and then `table()` on the result.
@@ -192,6 +192,15 @@ tab_n(x, 4)
 tab_width(x, 2)
 tab_evenly(x, 5)
 tab_mean_sd(x)
+```
+
+`tbar()` is a convenience function to print a barplot of data
+in the terminal.
+
+```{r}
+normals <- rnorm(100) 
+chopped <- chop_mean_sd(normals)
+tbar(chopped)
 ```
 
 

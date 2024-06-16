@@ -1,7 +1,9 @@
 # santoku (development version)
 
-* The experimental `chop_spikes()` and `dissect()` functions give 
+* New, experimental `chop_spikes()` and `dissect()` functions give 
   common values of `x` their own singleton intervals.
+* New, experimental `tbar()` is a convenience function to print a barplot
+  of data in the terminal window.
 * On Unicode platforms, infinity will be represented as ∞ in breaks. Set
   `options(santoku.infinity = "Inf")` to use the old behaviour.
 * Singleton breaks are not labelled specially by default in 
