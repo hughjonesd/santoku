@@ -69,7 +69,7 @@ table(dissect(x, brk_width(2, 0), prop = 0.05))
 # Versus:
 tab_spikes(x, brk_width(2, 0), prop = 0.05)
 
-# Misleading data-dependent breaks:
+# Potentially confusing data-dependent breaks:
 set.seed(42)
 x <- rnorm(99)
 x[1:9] <- x[1]
