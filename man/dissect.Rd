@@ -3,9 +3,17 @@
 \name{dissect}
 \alias{dissect}
 \alias{tab_dissect}
-\title{Cut data into intervals, then separate out common values}
+\title{Cut data into intervals, separating out common values}
 \usage{
-dissect(x, breaks, ..., n = NULL, prop = NULL, spike_labels = "{{{l}}}")
+dissect(
+  x,
+  breaks,
+  ...,
+  n = NULL,
+  prop = NULL,
+  spike_labels = "{{{l}}}",
+  exclude_spikes = FALSE
+)
 
 tab_dissect(x, breaks, ..., n = NULL, prop = NULL)
 }
@@ -16,8 +24,11 @@ tab_dissect(x, breaks, ..., n = NULL, prop = NULL)
 a proportion of \code{length(x)}. Values of \code{x} which occur at least this
 often will get their own singleton break.}
 
-\item{spike_labels}{Glue string for spike labels. Use \code{"{l}"} for the spike
-value.}
+\item{spike_labels}{\link[glue:glue]{Glue} string for spike labels. Use \code{"{l}"}
+for the spike value.}
+
+\item{exclude_spikes}{Logical. Exclude spikes before chopping \code{x}? This
+can affect the location of data-dependent breaks.}
 }
 \value{
 \code{dissect()} returns the result of \code{\link[=chop]{chop()}}, but with common values put into
@@ -27,16 +38,18 @@ separate factor levels.
 }
 \description{
 Sometimes it's useful to separate out common elements of \code{x}.
-\code{dissect()} first chops \code{x}, then puts common elements of \code{x} ("spikes")
+\code{dissect()} chops \code{x}, but puts common elements of \code{x} ("spikes")
 into separate categories.
 }
 \details{
 Unlike \code{\link[=chop_spikes]{chop_spikes()}}, \code{dissect()} doesn't break up
-intervals which contain a spike. As a result, unlike other \verb{chop_*} functions,
+intervals which contain a spike. As a result, unlike \verb{chop_*} functions,
 \code{dissect()} does not chop \code{x} into disjoint intervals. See the examples.
 
 If breaks are data-dependent, their labels may be misleading after common
-elements have been removed. See the example below.
+elements have been removed. See the example below. To get round this,
+set \code{exclude_spikes} to \code{TRUE}. Then breaks will be calculated after
+removing spikes from the data.
 
 Levels of the result are ordered by the minimum element in each level. As
 a result, if \code{drop = FALSE}, empty levels will be placed last.
@@ -59,9 +72,11 @@ tab_spikes(x, brk_width(2, 0), prop = 0.05)
 # Misleading data-dependent breaks:
 set.seed(42)
 x <- rnorm(99)
-x[1:10] <- x[1]
+x[1:9] <- x[1]
 tab_quantiles(x, 1:2/3)
-tab_dissect(x, brk_quantiles(1:2/3), prop = 0.1)
+tab_dissect(x, brk_quantiles(1:2/3), n = 9)
+# Calculate quantiles excluding spikes:
+tab_dissect(x, brk_quantiles(1:2/3), n = 9, exclude_spikes = TRUE)
 }
 \seealso{
 \code{\link[=chop_spikes]{chop_spikes()}} for a different approach.

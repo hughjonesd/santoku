@@ -383,6 +383,15 @@ test_that("dissect", {
 
   expect_silent(res2 <- dissect(x, breaks = c(2, 5), prop = 0.25))
   expect_equivalent(res, res2)
+
+  x <- c(1, 2, 3, 4, 5, 5, 5, 5)
+  expect_silent(res3 <- dissect(x, breaks = brk_equally(2), n = 2,
+                                exclude_spikes = TRUE))
+  expect_equivalent(
+    res3,
+    factor(c("[0%, 50%)", "[0%, 50%)", "[50%, 100%]", "[50%, 100%]",
+             rep("{5}", 4)))
+  )
 })
 
 

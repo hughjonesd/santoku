@@ -40,18 +40,20 @@ chop_spikes <- function (
 }
 
 
-#' Cut data into intervals, then separate out common values
+#' Cut data into intervals, separating out common values
 #'
 #' Sometimes it's useful to separate out common elements of `x`.
-#' `dissect()` first chops `x`, then puts common elements of `x` ("spikes")
+#' `dissect()` chops `x`, but puts common elements of `x` ("spikes")
 #' into separate categories.
 #'
 #' Unlike [chop_spikes()], `dissect()` doesn't break up
-#' intervals which contain a spike. As a result, unlike other `chop_*` functions,
+#' intervals which contain a spike. As a result, unlike `chop_*` functions,
 #' `dissect()` does not chop `x` into disjoint intervals. See the examples.
 #'
 #' If breaks are data-dependent, their labels may be misleading after common
-#' elements have been removed. See the example below.
+#' elements have been removed. See the example below. To get round this,
+#' set `exclude_spikes` to `TRUE`. Then breaks will be calculated after
+#' removing spikes from the data.
 #'
 #' Levels of the result are ordered by the minimum element in each level. As
 #' a result, if `drop = FALSE`, empty levels will be placed last.
@@ -60,8 +62,10 @@ chop_spikes <- function (
 #'
 #' @param x,breaks,... Passed to [chop()].
 #' @inheritParams chop_spikes
-#' @param spike_labels Glue string for spike labels. Use `"{l}"` for the spike
-#'   value.
+#' @param spike_labels [Glue][glue::glue()] string for spike labels. Use `"{l}"`
+#' for the spike value.
+#' @param exclude_spikes Logical. Exclude spikes before chopping `x`? This
+#'   can affect the location of data-dependent breaks.
 #'
 #' @return
 #' `dissect()` returns the result of [chop()], but with common values put into
@@ -89,18 +93,23 @@ chop_spikes <- function (
 #' # Misleading data-dependent breaks:
 #' set.seed(42)
 #' x <- rnorm(99)
-#' x[1:10] <- x[1]
+#' x[1:9] <- x[1]
 #' tab_quantiles(x, 1:2/3)
-#' tab_dissect(x, brk_quantiles(1:2/3), prop = 0.1)
+#' tab_dissect(x, brk_quantiles(1:2/3), n = 9)
+#' # Calculate quantiles excluding spikes:
+#' tab_dissect(x, brk_quantiles(1:2/3), n = 9, exclude_spikes = TRUE)
 dissect <- function (x,
-                          breaks,
-                          ...,
-                          n = NULL,
-                          prop = NULL,
-                          spike_labels = "{{{l}}}") {
+                     breaks,
+                     ...,
+                     n = NULL,
+                     prop = NULL,
+                     spike_labels = "{{{l}}}",
+                     exclude_spikes = FALSE) {
   assert_that(
     is.number(n) || is.number(prop),
     is.null(n) || is.null(prop),
+    is.string(spike_labels),
+    is.flag(exclude_spikes),
     msg = "exactly one of `n` and `prop` must be a scalar numeric"
   )
   assert_that(
@@ -108,9 +117,20 @@ dissect <- function (x,
     n >= 0 || prop >= 0
   )
 
-  chopped <- chop(x, breaks, ...)
-
   spikes <- find_spikes(x, n, prop)
+  x_spikes <- match(x, spikes)
+  is_spike <- ! is.na(x_spikes)
+  x_spikes <- x_spikes[is_spike]
+
+  if (exclude_spikes) {
+    x_not_spikes <- x[! is_spike]
+    chopped_not_spikes <- chop(x_not_spikes, breaks, ...)
+    chopped <- factor(rep(NA_integer_, length(x)),
+                      levels = levels(chopped_not_spikes))
+    chopped[! is_spike] <- chopped_not_spikes
+  } else {
+    chopped <- chop(x, breaks, ...)
+  }
 
   elabels <- endpoint_labels(spikes, raw = TRUE)
   glue_env <- new.env()
@@ -120,9 +140,6 @@ dissect <- function (x,
   new_levels <- c(levels(chopped), spike_labels)
   levels(chopped) <- new_levels
 
-  x_spikes <- match(x, spikes)
-  is_spike <- ! is.na(x_spikes)
-  x_spikes <- x_spikes[is_spike]
   chopped[is_spike] <- spike_labels[x_spikes]
 
   # We reorder the levels of chopped in order of their smallest elements.
