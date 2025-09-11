@@ -1,5 +1,7 @@
 # santoku (development version)
 
+* Core logic has been speeded up using raw pointers. This was vibe-coded by me
+  and Claude Code. If it breaks, please file a bug report.
 * The experimental `chop_spikes()` and `dissect()` functions give 
   common values of `x` their own singleton intervals.
 * On Unicode platforms, infinity will be represented as ∞ in breaks. Set
