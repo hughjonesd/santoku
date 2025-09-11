@@ -1,4 +1,4 @@
-# santoku (development version)
+# santoku 1.1.0
 
 * Core logic has been speeded up using raw pointers. This was vibe-coded by me
   and Claude Code. If it breaks, please file a bug report.
