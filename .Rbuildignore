@@ -3,6 +3,7 @@
 ^LICENSE\.md$
 ^TODO\.md$
 ^README\.Rmd$
+^CLAUDE\.md$
 ^index\.Rmd$
 ^advantages\.Rmd$
 ^release-process\.R$
