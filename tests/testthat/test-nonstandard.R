@@ -298,7 +298,7 @@ test_that("bit64", {
   expect_silent(
     chopped <- chop(x64, b64, extend = TRUE)
   )
-  expect_equivalent(
+  expect_equal(
     as.numeric(chopped),
     c(1, 1, 2, 2, 3, 4, 5, 5, 5, 5)
   )
@@ -319,7 +319,7 @@ test_that("bit64", {
     chop(c(1, 3, 5, 7), b64)
   )
 
-  expect_equivalent(
+  expect_equal(
     chop(x64, c(2.5, 7.5), labels = letters[1:3]),
     factor(c(1, 1, 2, 2, 2, 2, 2, 3, 3, 3), labels = letters[1:3])
   )

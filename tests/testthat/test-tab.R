@@ -49,7 +49,7 @@ test_that("tab_mean_sd", {
   expect_silent(
     tb <- tab_mean_sd(rnorm(100), sds = 1:3, extend = TRUE, drop = FALSE)
   )
-  expect_equivalent(length(tb), 8)
+  expect_equal(length(tb), 8)
 })
 
 
@@ -57,7 +57,7 @@ test_that("tab_pretty", {
   expect_silent(
     tb <- tab_pretty(1:9)
   )
-  expect_equivalent(length(tb), 5)
+  expect_equal(length(tb), 5)
 })
 
 
@@ -91,30 +91,33 @@ test_that("tab_equally", {
 
 
 test_that("tab_fn", {
-  expect_equivalent(
+  expect_equal(
     tab_fn(1:5, median),
-    table(factor(c(rep("[1, 3)", 2), rep("[3, 5]", 3))))
+    table(factor(c(rep("[1, 3)", 2), rep("[3, 5]", 3)))),
+    ignore_attr = TRUE
   )
 })
 
 
 test_that("tab_spikes", {
-  expect_equivalent(
+  expect_equal(
     tab_spikes(c(1:5, rep(3, 2)), breaks = c(2, 4), n = 3),
     table(factor(
       c("[1, 2)", "[2, 3)", rep("{3}", 3), rep("[4, 5]", 2)),
       levels = c("[1, 2)", "[2, 3)", "{3}", "[4, 5]")
-    ))
+    )),
+    ignore_attr = TRUE
   )
 })
 
 
 test_that("tab_dissect", {
-  expect_equivalent(
+  expect_equal(
     tab_dissect(c(1:5, rep(3, 2)), breaks = c(2, 4), n = 3),
     table(factor(
       c("[1, 2)", "[2, 4)", rep("{3}", 3), rep("[4, 5]", 2)),
       levels = c("[1, 2)", "[2, 4)", "{3}", "[4, 5]")
-    ))
+    )),
+    ignore_attr = TRUE
   )
 })

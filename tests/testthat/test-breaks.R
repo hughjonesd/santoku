@@ -170,7 +170,7 @@ test_that("brk_mean_sd", {
   expect_silent(brk_res(brk_mean_sd(1:3), x = 1))
 
   lifecycle::expect_deprecated(res <- brk_res(brk_mean_sd(sd = 3)))
-  expect_equivalent(
+  expect_equal(
     res, brk_res(brk_mean_sd(1:3))
   )
 })
@@ -181,34 +181,38 @@ test_that("brk_quantiles", {
 
   x <- 1:10
   brks <- brk_quantiles(1:3/4)(x, FALSE, TRUE, FALSE)
-  expect_equivalent(c(brks), quantile(x, 1:3/4))
+  expect_equal(c(brks), quantile(x, 1:3/4), ignore_attr = TRUE)
 
   expect_silent(brks <- brk_quantiles(numeric(0))(x, TRUE, TRUE, FALSE))
-  expect_equivalent(c(brks), c(-Inf, Inf))
+  expect_equal(c(brks), c(-Inf, Inf))
 
   x <- 1:10
   brks <- brk_quantiles(1:3/4, weights = 1:10)(x, FALSE, TRUE, FALSE)
-  expect_equivalent(c(brks), Hmisc::wtd.quantile(x, weights = 1:10, probs = 1:3/4))
+  expect_equal(
+    c(brks),
+    Hmisc::wtd.quantile(x, weights = 1:10, probs = 1:3/4),
+    ignore_attr = TRUE
+  )
 })
 
 
 test_that("brk_quantiles with duplicate quantiles", {
   x <- rep(1, 5)
   expect_warning(brks <- brk_quantiles(1:3/4)(x, FALSE, TRUE, FALSE))
-  expect_equivalent(c(brks), c(1, 1))
+  expect_equal(c(brks), c(1, 1))
 
   x <- c(1, 1, 2, 3, 4)
   expect_warning(brks <- brk_quantiles(0:5/5)(x, FALSE, TRUE, FALSE))
-  expect_equivalent(c(brks), c(1.0, 1.0, 1.6, 2.4, 3.2, 4.0))
+  expect_equal(c(brks), c(1.0, 1.0, 1.6, 2.4, 3.2, 4.0))
 
   x <- c(1, 1, 1, 2, 3)
   expect_warning(brks <- brk_quantiles(0:5/5)(x, FALSE, TRUE, FALSE))
-  expect_equivalent(c(brks), c(1.0, 1.0, 1.4, 2.2, 3.0))
+  expect_equal(c(brks), c(1.0, 1.0, 1.4, 2.2, 3.0))
 
   expect_silent(
     brks <- brk_quantiles(0:5/5, recalc_probs = TRUE)(x, FALSE, TRUE, FALSE)
   )
-  expect_equivalent(c(brks), c(1.0, 1.0, 1.4, 2.2, 3.0))
+  expect_equal(c(brks), c(1.0, 1.0, 1.4, 2.2, 3.0))
 })
 
 
@@ -217,7 +221,7 @@ test_that("brk_equally", {
   expect_error(brk_equally(4.5))
 
   brks <- brk_res(brk_equally(3))
-  expect_equivalent(brks, brk_res(brk_quantiles(0:3/3)))
+  expect_equal(brks, brk_res(brk_quantiles(0:3/3)))
 })
 
 
@@ -229,10 +233,10 @@ test_that("brk_equally warns when too few breaks created", {
 
 test_that("brk_pretty", {
   expect_silent(brks <- brk_res(brk_pretty(5), x = 1:10))
-  expect_equivalent(brks, brk_res(brk_default(pretty(1:10)), x = 1:10))
+  expect_equal(brks, brk_res(brk_default(pretty(1:10)), x = 1:10))
 
   expect_silent(brks2 <- brk_res(brk_pretty(5, high.u.bias = 0), x = 1:10))
-  expect_equivalent(
+  expect_equal(
     brks2,
     brk_res(brk_default(pretty(1:10, high.u.bias = 0)), x = 1:10)
   )
@@ -244,7 +248,7 @@ test_that("brk_fn", {
   expect_silent(
     brks <- brk_res(brk_fn(scales::breaks_extended(5)), x = x)
   )
-  expect_equivalent(
+  expect_equal(
     brks,
     brk_res(brk_default(scales::breaks_extended(5)(x)))
   )
@@ -252,7 +256,7 @@ test_that("brk_fn", {
   expect_silent(
     brks2 <- brk_res(brk_fn(pretty, n = 10), x = x)
   )
-  expect_equivalent(
+  expect_equal(
     brks2,
     brk_res(brk_default(pretty(x, n = 10)), x = x)
   )
@@ -265,7 +269,7 @@ test_that("brk_spikes", {
   expect_silent(
     brks <- brk_res(brk_spikes(c(2, 8), n = 5), x = x)
   )
-  expect_equivalent(
+  expect_equal(
     c(brks),
     c(2, 5, 5, 8)
   )
@@ -273,7 +277,7 @@ test_that("brk_spikes", {
   expect_silent(
     brks2 <- brk_res(brk_spikes(c(2, 5, 8), n = 5), x = x)
   )
-  expect_equivalent(
+  expect_equal(
     c(brks2),
     c(2, 5, 5, 8)
   )
@@ -281,7 +285,7 @@ test_that("brk_spikes", {
   expect_silent(
     brks3 <- brk_res(brk_spikes(c(2, 5, 5, 8), n = 5), x = x)
   )
-  expect_equivalent(
+  expect_equal(
     c(brks3),
     c(2, 5, 5, 8)
   )
@@ -290,7 +294,7 @@ test_that("brk_spikes", {
   expect_silent(
     brks3.1 <- brk_res(brk_spikes(c(2, 8), n = 3), x = x2)
   )
-  expect_equivalent(
+  expect_equal(
     c(brks3.1),
     c(1, 1, 2, 4, 4, 8, 8)
   )
@@ -298,7 +302,7 @@ test_that("brk_spikes", {
   expect_silent(
     brks4 <- brk_res(brk_spikes(brk_width(5), n = 5), x = x)
   )
-  expect_equivalent(
+  expect_equal(
     c(brks4),
     c(1, 5, 5, 6, 11)
   )
@@ -306,7 +310,7 @@ test_that("brk_spikes", {
   expect_silent(
     brks5 <- brk_res(brk_spikes(c(2, 8), prop = 0.4), x = x)
   )
-  expect_equivalent(
+  expect_equal(
     c(brks5),
     c(2, 5, 5, 8)
   )
@@ -328,4 +332,3 @@ test_that("printing", {
   b_empty <- brk_res(brk_default(1))
   expect_output(print(b_empty))
 })
-

@@ -35,11 +35,12 @@ Suggests:
     rmarkdown,
     scales,
     stringi,
-    testthat (>= 2.1.0),
+    testthat (>= 3.2.0),
     units,
     withr,
     xts,
     zoo
+Config/testthat/edition: 3
 LinkingTo: 
     Rcpp
 Depends:

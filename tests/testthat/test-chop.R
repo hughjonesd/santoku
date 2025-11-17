@@ -5,15 +5,15 @@ test_that("basic functionality", {
   rbrks <- brk_manual(1:3, rep(FALSE, 3))
   rc_brks <- brk_manual(1:3, c(TRUE, TRUE, FALSE))
 
-  expect_equivalent(
+  expect_equal(
     chop(x, lbrks, lbl_seq("1"), extend = FALSE),
     factor(c(1, 2, NA))
   )
-  expect_equivalent(
+  expect_equal(
     chop(x, rbrks, lbl_seq("1"), extend = FALSE),
     factor(c(NA, 1, 2))
   )
-  expect_equivalent(
+  expect_equal(
     chop(x, rc_brks, lbl_seq("1"), extend = FALSE),
     factor(c(1, 2, 2))
   )
@@ -22,28 +22,37 @@ test_that("basic functionality", {
 
 test_that("NA, NaN and Inf", {
   y <- c(1:3, NA, NaN)
-  expect_equivalent(
+  expect_equal(
     chop(y, 1:3, lbl_seq("1"), extend = FALSE, close_end = FALSE),
-    factor(c(1, 2, NA, NA, NA))
+    factor(c(1, 2, NA, NA, NA)),
+    ignore_attr = TRUE
   )
 
   x <- c(-Inf, 1, Inf)
   r <- chop(x, 1:2, labels = letters[1:3])
-  expect_equivalent(r, factor(c("a", "b", "c"), levels = letters[1:3]))
+  expect_equal(
+    r,
+    factor(c("a", "b", "c"), levels = letters[1:3], ordered = FALSE),
+    ignore_attr = TRUE
+  )
 
   x <- c(-Inf, 1, Inf)
   # if extend is NULL, we should ensure even Inf is included
   r <- chop(x, -Inf, left = FALSE, labels = c("-Inf", "a"), close_end = FALSE)
-  expect_equivalent(r, factor(c("-Inf", "a", "a")))
+  expect_equal(r, factor(c("-Inf", "a", "a"), levels = c("-Inf", "a")),
+               ignore_attr = TRUE)
   r <- chop(x, Inf, labels = c("a", "Inf"), close_end = FALSE)
-  expect_equivalent(r, factor(c("a", "a", "Inf")))
+  expect_equal(r, factor(c("a", "a", "Inf"), levels = c("a", "Inf")),
+               ignore_attr = TRUE)
 
   # otherwise, we respect close_end = FALSE
   r <- chop(x, brk_default(c(-Inf, Inf)), labels = "a",
         extend = FALSE, left = FALSE, close_end = FALSE)
-  expect_equivalent(r, factor(c(NA, "a", "a")))
+  expect_equal(r, factor(c(NA, "a", "a"), levels = c("a")),
+               ignore_attr = TRUE)
   r <- chop(x, c(-Inf, Inf), labels = "a", extend = FALSE, close_end = FALSE)
-  expect_equivalent(r, factor(c("a", "a", NA)))
+  expect_equal(r, factor(c("a", "a", NA), levels = c("a")),
+               ignore_attr = TRUE)
 
   all_na <- rep(NA_real_, 5)
   expect_silent(chop(all_na, 1:2))
@@ -66,7 +75,7 @@ test_that("singleton breaks", {
 
 test_that("labels", {
   x <- seq(0.5, 2.5, 0.5)
-  expect_equivalent(
+  expect_equal(
           chop(x, 1:2, labels = letters[1:3]),
           factor(c("a", "b", "b", "c", "c"), levels = letters[1:3])
         )
@@ -74,7 +83,7 @@ test_that("labels", {
   expect_error(chop(1:10, 3:4, labels = c("a", "b")))
   expect_error(chop(1:10, 3:4, labels = c("a", "b", "c", "d")))
 
-  expect_equivalent(
+  expect_equal(
           chop(x, 1:2, labels = NULL),
           c(1, 2, 2, 3, 3)
         )
@@ -82,31 +91,37 @@ test_that("labels", {
 
 
 test_that("break names as labels", {
-  expect_equivalent(
+  expect_equal(
     chop(1:4, c(Low = 1, High = 3, 4)),
-    factor(c("Low", "Low", "High", "High"))
+    factor(c("Low", "Low", "High", "High"), levels = c("Low", "High")),
+    ignore_attr = TRUE
   )
-  expect_equivalent(
+  expect_equal(
     chop(1:5, c(Low = 1, Mid = 3, High = 4)),
-    factor(c("Low", "Low", "Mid", "High", "High"))
+    factor(c("Low", "Low", "Mid", "High", "High"),
+           levels = c("Low", "Mid", "High")),
+    ignore_attr = TRUE
   )
-  expect_equivalent(
+  expect_equal(
     chop(0:4, c(Low = 1, High = 3)),
-    factor(c("[0, 1)", "Low", "Low", "High", "High"))
+    factor(c("[0, 1)", "Low", "Low", "High", "High"),
+           levels = c("[0, 1)", "Low", "High")),
+    ignore_attr = TRUE
   )
-  expect_equivalent(
+  expect_equal(
     chop(1:4, c(Low = 1, Mid = 2, 3, 4), labels = lbl_endpoints()),
-    factor(c("Low", "Mid", "3", "3"))
+    factor(c("Low", "Mid", "3", "3"), levels = c("Low", "Mid", "3")),
+    ignore_attr = TRUE
   )
 })
 
 
 test_that("extend", {
-  expect_equivalent(
+  expect_equal(
           chop(c(1, 4), 2:3, labels = lbl_seq("1"), extend = TRUE),
           factor(c(1, 3))
         )
-  expect_equivalent(
+  expect_equal(
           chop(c(1, 4), 2:3, labels = lbl_seq("1"), extend = FALSE),
           factor(c(NA, NA))
         )
@@ -115,19 +130,19 @@ test_that("extend", {
 
 test_that("close_end", {
   res <- chop(1:4, 2:3, close_end = TRUE, drop = FALSE)
-  expect_equivalent(
+  expect_equal(
     levels(res),
     c("[1, 2)", "[2, 3)", "[3, 4]")
   )
 
   res <- chop(1:4, 2:3, close_end = FALSE, extend = FALSE, drop = FALSE)
-  expect_equivalent(
+  expect_equal(
     levels(res),
     c("[2, 3)")
   )
 
   res <- chop(1:4, 2:3, close_end = TRUE, extend = FALSE, drop = FALSE)
-  expect_equivalent(
+  expect_equal(
     levels(res),
     c("[2, 3]")
   )
@@ -140,7 +155,7 @@ test_that("raw", {
   expect_silent(
     res <- chop(x, brk_quantiles(c(0.25, 0.75)), raw = TRUE)
   )
-  expect_equivalent(
+  expect_equal(
     levels(res),
     c("[1, 3.25)", "[3.25, 7.75)", "[7.75, 10]")
   )
@@ -148,7 +163,7 @@ test_that("raw", {
   expect_silent(
     res <- chop(x, brk_quantiles(c(0.25, 0.75)), raw = FALSE)
   )
-  expect_equivalent(
+  expect_equal(
     levels(res),
     c("[0%, 25%)", "[25%, 75%)", "[75%, 100%]")
   )
@@ -160,7 +175,7 @@ test_that("raw", {
     res <- chop(x, brk_quantiles(c(0.25, 0.75)),
                   labels = lbl_intervals(raw = FALSE), raw = TRUE)
   )
-  expect_equivalent(
+  expect_equal(
     levels(res),
     c("[1, 3.25)", "[3.25, 7.75)", "[7.75, 10]")
   )
@@ -169,7 +184,7 @@ test_that("raw", {
     res <- chop(x, brk_quantiles(c(0.25, 0.75)),
                   labels = lbl_intervals(raw = TRUE), raw = FALSE)
   )
-  expect_equivalent(
+  expect_equal(
     levels(res),
     c("[0%, 25%)", "[25%, 75%)", "[75%, 100%]")
   )
@@ -178,12 +193,12 @@ test_that("raw", {
 
 test_that("drop", {
   x <- c(1, 3)
-  expect_equivalent(
+  expect_equal(
           levels(chop(x, 1:3, labels = lbl_seq("1"), extend = TRUE,
             drop = TRUE)),
           as.character(c(2, 4))
         )
-  expect_equivalent(
+  expect_equal(
           levels(chop(x, 1:3, labels = lbl_seq("1"), extend = TRUE,
             drop = FALSE)),
           as.character(1:4)
@@ -193,11 +208,11 @@ test_that("drop", {
 
 test_that("chop_width", {
   x <- 1:10
-  expect_equivalent(
+  expect_equal(
     chop_width(x, 2, labels = lbl_seq("1")),
     factor(rep(1:5, each = 2))
   )
-  expect_equivalent(
+  expect_equal(
     chop_width(x, 2, 0, labels = lbl_seq("1")),
     factor(c(1, rep(2:4, each = 2), 5, 5, 5))
   )
@@ -206,7 +221,7 @@ test_that("chop_width", {
 
 test_that("chop_evenly", {
   x <- 1:10
-  expect_equivalent(
+  expect_equal(
     chop_evenly(x, 2, labels = lbl_seq("1")),
     factor(rep(1:2, each = 5))
   )
@@ -215,18 +230,20 @@ test_that("chop_evenly", {
 
 
 test_that("chop_proportions", {
-  expect_equivalent(
+  expect_equal(
     chop_proportions(0:10, c(0.2, 0.8), labels = lbl_seq("1")),
     factor(rep(1:3, c(2, 6, 3)))
   )
 
-  expect_equivalent(
+  expect_equal(
     chop_proportions(0:10, c(Low = 0, Mid = 0.2, High = 0.8)),
-    factor(c(rep("Low", 2), rep("Mid", 6), rep("High", 3)))
+    factor(c(rep("Low", 2), rep("Mid", 6), rep("High", 3)),
+           levels = c("Low", "Mid", "High")),
+    ignore_attr = TRUE
   )
 
   withr::local_options(lifecycle_verbosity = "quiet")
-  expect_equivalent(
+  expect_equal(
     chop_proportions(0:10, c(0.2, 0.8), labels = lbl_intervals(), raw = FALSE),
     chop_proportions(0:10, c(0.2, 0.8), labels = lbl_intervals(raw = FALSE),
                        raw = NULL)
@@ -235,24 +252,24 @@ test_that("chop_proportions", {
 
 
 test_that("chop_quantiles", {
-  expect_equivalent(
+  expect_equal(
     chop_quantiles(1:6, c(.25, .5, .75), labels = lbl_seq("1")),
     as.factor(c(1, 1, 2, 3, 4, 4))
   )
 
-  expect_equivalent(
+  expect_equal(
     chop_quantiles(1:6, c(Q1 = 0, Q2 = 0.25, Q3 = 0.5, Q4 = 0.75)),
     factor(c("Q1", "Q1", "Q2", "Q3", "Q4", "Q4"))
   )
 
   x <- c(1, 1, 1, 2, 3)
-  expect_equivalent(
+  expect_equal(
     chop_quantiles(x, 1:4/5, recalc_probs = TRUE),
     factor(c("[0%, 60%]", "[0%, 60%]", "[0%, 60%]", "[60%, 80%)", "[80%, 100%]"))
   )
 
   withr::local_options(lifecycle_verbosity = "quiet")
-  expect_equivalent(
+  expect_equal(
     chop_quantiles(1:6, c(.25, .5, .75), raw = TRUE),
     chop_quantiles(1:6, c(.25, .5, .75), labels = lbl_intervals(raw = TRUE),
                      raw = NULL)
@@ -262,18 +279,18 @@ test_that("chop_quantiles", {
 
 test_that("chop_equally", {
   x <- 1:6
-  expect_equivalent(
+  expect_equal(
     chop_equally(x, 2, labels = lbl_seq("1")),
     as.factor(rep(1:2, each = 3))
   )
 
   withr::local_options(lifecycle_verbosity = "quiet")
-  expect_equivalent(
+  expect_equal(
     chop_equally(x, 2, labels = lbl_intervals(raw = FALSE), raw = NULL),
     chop_equally(x, 2, raw = FALSE)
   )
 
-  expect_equivalent(
+  expect_equal(
     chop_equally(x, 2, labels = lbl_intervals(raw = TRUE)),
     chop_equally(x, 2, raw = TRUE)
   )
@@ -296,11 +313,11 @@ test_that("chop_deciles", {
 
 test_that("chop_n", {
   expect_silent(res <- chop_n(rnorm(100), 10))
-  expect_equivalent(as.vector(table(res)), rep(10, 10))
+  expect_equal(as.vector(table(res)), rep(10, 10))
 
   # chop_n should give accurate answers even when left = FALSE
   res <- chop_n(1:4, 2, left = FALSE)
-  expect_equivalent(as.vector(table(res)), rep(2, 2))
+  expect_equal(as.vector(table(res)), rep(2, 2))
 
   expect_warning(chop_n(rep(1:3, each = 3), 2))
 })
@@ -316,15 +333,15 @@ test_that("Bugfix: chop_n(tail = 'merge') works with n > length(x)", {
 test_that("chop_mean_sd", {
   x <- -1:1 # mean 0, sd 1
   expect_silent(res <- chop_mean_sd(x))
-  expect_equivalent(as.vector(table(res)), c(1, 1, 1))
+  expect_equal(as.vector(table(res)), c(1, 1, 1))
   expect_silent(res2 <- chop_mean_sd(x, sds = 1:2))
   expect_silent(chop_mean_sd(x, sds = c(1, 1.96)))
 
   lifecycle::expect_deprecated(res3 <- chop_mean_sd(x, sd = 2))
-  expect_equivalent(res2, res3)
+  expect_equal(res2, res3)
 
   withr::local_options(lifecycle_verbosity = "quiet")
-  expect_equivalent(
+  expect_equal(
     chop_mean_sd(x, raw = TRUE),
     chop_mean_sd(x, labels = lbl_intervals(raw = TRUE), raw = NULL),
   )
@@ -341,13 +358,15 @@ test_that("chop_pretty", {
 test_that("chop_fn", {
   expect_silent(res <- chop_fn(1:10, pretty))
   expect_silent(res <- chop_fn(1:10, quantile, c(.2, .8)))
-  expect_equivalent(
+  expect_equal(
     chop_fn(1:5, median),
     factor(c("[1, 3)", "[1, 3)", "[3, 5]", "[3, 5]", "[3, 5]"))
   )
-  expect_equivalent(
+  expect_equal(
     chop_fn(1:5, median, left = FALSE),
-    factor(c("[1, 3]", "[1, 3]", "[1, 3]", "(3, 5]", "(3, 5]"))
+    factor(c("[1, 3]", "[1, 3]", "[1, 3]", "(3, 5]", "(3, 5]"),
+           levels = c("[1, 3]", "(3, 5]")),
+    ignore_attr = TRUE
   )
 })
 
@@ -356,18 +375,22 @@ test_that("chop_spikes", {
   x <- c(1:2, rep(3, 3), 4:5)
 
   expect_silent(res <- chop_spikes(x, breaks = 2, n = 2))
-  expect_equivalent(
+  expect_equal(
     res,
-    factor(c("[1, 2)", "[2, 3)", rep("{3}", 3), rep("(3, 5]", 2)))
+    factor(c("[1, 2)", "[2, 3)", rep("{3}", 3), rep("(3, 5]", 2)),
+           levels = c("[1, 2)", "[2, 3)", "{3}", "(3, 5]")),
+    ignore_attr = TRUE
   )
 
   expect_silent(res2 <- chop_spikes(x, breaks = 2, prop = 0.3))
-  expect_equivalent(res, res2)
+  expect_equal(res, res2)
 
   expect_silent(res3 <- chop_spikes(x, breaks = brk_width(4), n = 2))
-  expect_equivalent(
+  expect_equal(
     res3,
-    factor(c(rep("[1, 3)", 2), rep("{3}", 3), rep("(3, 5]", 2)))
+    factor(c(rep("[1, 3)", 2), rep("{3}", 3), rep("(3, 5]", 2)),
+           levels = c("[1, 3)", "{3}", "(3, 5]")),
+    ignore_attr = TRUE
   )
 })
 
@@ -376,18 +399,20 @@ test_that("dissect", {
   x <- c(1:2, rep(3, 3), 4:6)
 
   expect_silent(res <- dissect(x, breaks = c(2, 5), n = 2))
-  expect_equivalent(
+  expect_equal(
     res,
-    factor(c("[1, 2)", "[2, 5)", rep("{3}", 3), "[2, 5)", "[5, 6]", "[5, 6]"))
+    factor(c("[1, 2)", "[2, 5)", rep("{3}", 3), "[2, 5)", "[5, 6]", "[5, 6]"),
+           levels = c("[1, 2)", "[2, 5)", "{3}", "[5, 6]")),
+    ignore_attr = TRUE
   )
 
   expect_silent(res2 <- dissect(x, breaks = c(2, 5), prop = 0.25))
-  expect_equivalent(res, res2)
+  expect_equal(res, res2)
 
   x <- c(1, 2, 3, 4, 5, 5, 5, 5)
   expect_silent(res3 <- dissect(x, breaks = brk_equally(2), n = 2,
                                 exclude_spikes = TRUE))
-  expect_equivalent(
+  expect_equal(
     res3,
     factor(c("[0%, 50%)", "[0%, 50%)", "[50%, 100%]", "[50%, 100%]",
              rep("{5}", 4)))

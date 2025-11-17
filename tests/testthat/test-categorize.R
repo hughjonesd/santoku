@@ -17,20 +17,20 @@ test_that("categorize works", {
 
   breaks <- brk_res(brk_manual(1:3, c(TRUE, TRUE, TRUE)))
   r <- categorize(x, breaks)
-  expect_equivalent(r, c(NA, 1, 1, 2, 2, NA, NA))
+  expect_equal(r, c(NA, 1, 1, 2, 2, NA, NA))
 
   breaks <- brk_res(brk_manual(1:3, c(TRUE, TRUE, FALSE)))
   r <- categorize(x, breaks)
-  expect_equivalent(r, c(NA, 1, 1, 2, 2, 2, NA))
+  expect_equal(r, c(NA, 1, 1, 2, 2, 2, NA))
 
   breaks <- brk_res(brk_manual(c(1, 2, 2, 3), c(TRUE, TRUE, FALSE, TRUE)))
   r <- categorize(x, breaks)
-  expect_equivalent(r, c(NA, 1, 1, 2, 3, NA, NA))
+  expect_equal(r, c(NA, 1, 1, 2, 3, NA, NA))
 
   x <- c(Inf, 1, -Inf, NA, NaN)
   breaks <- brk_res(brk_manual(1:3, c(TRUE, TRUE, TRUE)))
   r <- categorize(x, breaks)
-  expect_equivalent(r, c(NA, 1, NA, NA, NA))
+  expect_equal(r, c(NA, 1, NA, NA, NA))
 })
 
 
