@@ -1,0 +1,34 @@
+# Tips for chopping non-standard types
+
+Santoku can handle many non-standard types.
+
+## Details
+
+- If objects can be compared using `<`, `==` etc. then they should be
+  choppable.
+
+- Objects which can't be converted to numeric are handled within R code,
+  which may be slower.
+
+- Character `x` and `breaks` are chopped with a warning.
+
+- If `x` and `breaks` are not the same type, they should be able to be
+  cast to the same type, usually using
+  [`vctrs::vec_cast_common()`](https://vctrs.r-lib.org/reference/vec_cast.html).
+
+- Not all chopping operations make sense, for example,
+  [`chop_mean_sd()`](https://hughjonesd.github.io/santoku/reference/chop_mean_sd.md)
+  on a character vector.
+
+- For indexed objects such as
+  [`stats::ts()`](https://rdrr.io/r/stats/ts.html) objects, indices will
+  be dropped from the result.
+
+- If you get errors, try setting `extend = FALSE` (but also file a bug
+  report).
+
+- To request support for a type, open an issue on Github.
+
+## See also
+
+brk-width-for-Datetime

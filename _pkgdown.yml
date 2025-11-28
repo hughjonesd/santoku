@@ -1,5 +1,6 @@
 destination: docs
 
+url: https://hughjonesd.github.io/santoku
 template:
   bootstrap: 5
   bootswatch: darkly

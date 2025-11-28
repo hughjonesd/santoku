@@ -1,0 +1,285 @@
+# santoku
+
+santoku is a versatile cutting tool for R. It provides
+[`chop()`](https://hughjonesd.github.io/santoku/reference/chop.md), a
+replacement for [`base::cut()`](https://rdrr.io/r/base/cut.html).
+
+## Installation
+
+Install from [r-universe](https://r-universe.dev):
+
+``` r
+install.packages("santoku", repos = c("https://hughjonesd.r-universe.dev", 
+                                      "https://cloud.r-project.org"))
+```
+
+Or from CRAN:
+
+``` r
+install.packages("santoku")
+```
+
+Or get the development version from github:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("hughjonesd/santoku")
+```
+
+## Advantages
+
+Here are some advantages of santoku:
+
+- By default,
+  [`chop()`](https://hughjonesd.github.io/santoku/reference/chop.md)
+  always covers the whole range of the data, so you won’t get unexpected
+  `NA` values.
+
+- [`chop()`](https://hughjonesd.github.io/santoku/reference/chop.md) can
+  handle single values as well as intervals. For example,
+  `chop(x, breaks = c(1, 2, 2, 3))` will create a separate factor level
+  for values exactly equal to 2.
+
+- [`chop()`](https://hughjonesd.github.io/santoku/reference/chop.md) can
+  handle many kinds of data, including numbers, dates and times, and
+  [units](https://r-quantities.github.io/units/).
+
+- `chop_*` functions create intervals in many ways, using quantiles of
+  the data, standard deviations, fixed-width intervals, equal-sized
+  groups, or pretty intervals for use in graphs.
+
+- It’s easy to label intervals: use names for your breaks vector, or use
+  a `lbl_*` function to create interval notation like `[1, 2)`, dash
+  notation like `1-2`, or arbitrary styles using
+  [`glue::glue()`](https://glue.tidyverse.org/reference/glue.html).
+
+- `tab_*` functions quickly chop data, then tabulate it.
+
+These advantages make santoku especially useful for exploratory
+analysis, where you may not know the range of your data in advance.
+
+## Examples
+
+``` r
+library(santoku)
+```
+
+`chop` returns a factor:
+
+``` r
+chop(1:5, c(2, 4))
+#> [1] [1, 2) [2, 4) [2, 4) [4, 5] [4, 5]
+#> Levels: [1, 2) [2, 4) [4, 5]
+```
+
+Include a number twice to match it exactly:
+
+``` r
+chop(1:5, c(2, 2, 4))
+#> [1] [1, 2) {2}    (2, 4) [4, 5] [4, 5]
+#> Levels: [1, 2) {2} (2, 4) [4, 5]
+```
+
+Use names in breaks for labels:
+
+``` r
+chop(1:5, c(Low = 1, Mid = 2, High = 4))
+#> [1] Low  Mid  Mid  High High
+#> Levels: Low Mid High
+```
+
+Or use `lbl_*` functions:
+
+``` r
+chop(1:5, c(2, 4), labels = lbl_dash())
+#> [1] 1—2 2—4 2—4 4—5 4—5
+#> Levels: 1—2 2—4 4—5
+```
+
+Chop into fixed-width intervals:
+
+``` r
+chop_width(runif(10), 0.1)
+#>  [1] [0.368, 0.468)   [0.268, 0.368)   [0.768, 0.868]   [0.568, 0.668)  
+#>  [5] [0.668, 0.768)   [0.768, 0.868]   [0.06801, 0.168) [0.668, 0.768)  
+#>  [9] [0.06801, 0.168) [0.468, 0.568)  
+#> 7 Levels: [0.06801, 0.168) [0.268, 0.368) [0.368, 0.468) ... [0.768, 0.868]
+```
+
+Or into fixed-size groups:
+
+``` r
+chop_n(1:10, 5)
+#>  [1] [1, 6)  [1, 6)  [1, 6)  [1, 6)  [1, 6)  [6, 10] [6, 10] [6, 10] [6, 10]
+#> [10] [6, 10]
+#> Levels: [1, 6) [6, 10]
+```
+
+Chop dates by calendar month, then tabulate:
+
+``` r
+library(lubridate)
+#> 
+#> Attaching package: 'lubridate'
+#> The following objects are masked from 'package:base':
+#> 
+#>     date, intersect, setdiff, union
+
+dates <- as.Date("2021-12-31") + 1:90
+
+tab_width(dates, months(1), labels = lbl_discrete(fmt = "%d %b"))
+#> 01 Jan—31 Jan 01 Feb—28 Feb 01 Mar—31 Mar 
+#>            31            28            31
+```
+
+For more information, see the
+[vignette](https://hughjonesd.github.io/santoku/articles/santoku.html).
+
+# Package index
+
+## Package overview
+
+- [`santoku`](https://hughjonesd.github.io/santoku/reference/santoku-package.md)
+  [`santoku-package`](https://hughjonesd.github.io/santoku/reference/santoku-package.md)
+  : A versatile cutting tool for R: package overview and options
+
+## Basic chop functions
+
+Cut a vector into intervals
+
+- [`chop()`](https://hughjonesd.github.io/santoku/reference/chop.md)
+  [`kiru()`](https://hughjonesd.github.io/santoku/reference/chop.md)
+  [`tab()`](https://hughjonesd.github.io/santoku/reference/chop.md) :
+  Cut data into intervals
+- [`fillet()`](https://hughjonesd.github.io/santoku/reference/fillet.md)
+  : Chop data precisely (for programmers)
+
+## Chopping by width
+
+Cut a vector into intervals defined by width
+
+- [`brk_width(`*`<Duration>`*`)`](https://hughjonesd.github.io/santoku/reference/brk_width-for-datetime.md)
+  : Equal-width intervals for dates or datetimes
+- [`chop_width()`](https://hughjonesd.github.io/santoku/reference/chop_width.md)
+  [`brk_width()`](https://hughjonesd.github.io/santoku/reference/chop_width.md)
+  [`tab_width()`](https://hughjonesd.github.io/santoku/reference/chop_width.md)
+  : Chop into fixed-width intervals
+- [`chop_proportions()`](https://hughjonesd.github.io/santoku/reference/chop_proportions.md)
+  [`brk_proportions()`](https://hughjonesd.github.io/santoku/reference/chop_proportions.md)
+  [`tab_proportions()`](https://hughjonesd.github.io/santoku/reference/chop_proportions.md)
+  : Chop into proportions of the range of x
+- [`chop_evenly()`](https://hughjonesd.github.io/santoku/reference/chop_evenly.md)
+  [`brk_evenly()`](https://hughjonesd.github.io/santoku/reference/chop_evenly.md)
+  [`tab_evenly()`](https://hughjonesd.github.io/santoku/reference/chop_evenly.md)
+  : Chop into equal-width intervals
+
+## Chopping by n
+
+Cut a vector into intervals defined by number of elements
+
+- [`chop_n()`](https://hughjonesd.github.io/santoku/reference/chop_n.md)
+  [`brk_n()`](https://hughjonesd.github.io/santoku/reference/chop_n.md)
+  [`tab_n()`](https://hughjonesd.github.io/santoku/reference/chop_n.md)
+  : Chop into fixed-sized groups
+- [`chop_quantiles()`](https://hughjonesd.github.io/santoku/reference/chop_quantiles.md)
+  [`chop_deciles()`](https://hughjonesd.github.io/santoku/reference/chop_quantiles.md)
+  [`brk_quantiles()`](https://hughjonesd.github.io/santoku/reference/chop_quantiles.md)
+  [`tab_quantiles()`](https://hughjonesd.github.io/santoku/reference/chop_quantiles.md)
+  [`tab_deciles()`](https://hughjonesd.github.io/santoku/reference/chop_quantiles.md)
+  : Chop by quantiles
+- [`chop_equally()`](https://hughjonesd.github.io/santoku/reference/chop_equally.md)
+  [`brk_equally()`](https://hughjonesd.github.io/santoku/reference/chop_equally.md)
+  [`tab_equally()`](https://hughjonesd.github.io/santoku/reference/chop_equally.md)
+  : Chop equal-sized groups
+
+## Chopping and separating
+
+Cut a vector into intervals, separating out common values
+
+- [`chop_spikes()`](https://hughjonesd.github.io/santoku/reference/chop_spikes.md)
+  [`brk_spikes()`](https://hughjonesd.github.io/santoku/reference/chop_spikes.md)
+  [`tab_spikes()`](https://hughjonesd.github.io/santoku/reference/chop_spikes.md)
+  : Chop common values into singleton intervals
+- [`dissect()`](https://hughjonesd.github.io/santoku/reference/dissect.md)
+  [`tab_dissect()`](https://hughjonesd.github.io/santoku/reference/dissect.md)
+  : Cut data into intervals, separating out common values
+
+## Other chop functions
+
+Miscellaneous ways to cut a vector into intervals
+
+- [`chop_mean_sd()`](https://hughjonesd.github.io/santoku/reference/chop_mean_sd.md)
+  [`brk_mean_sd()`](https://hughjonesd.github.io/santoku/reference/chop_mean_sd.md)
+  [`tab_mean_sd()`](https://hughjonesd.github.io/santoku/reference/chop_mean_sd.md)
+  : Chop by standard deviations
+
+- [`chop_pretty()`](https://hughjonesd.github.io/santoku/reference/chop_pretty.md)
+  [`brk_pretty()`](https://hughjonesd.github.io/santoku/reference/chop_pretty.md)
+  [`tab_pretty()`](https://hughjonesd.github.io/santoku/reference/chop_pretty.md)
+  : Chop using pretty breakpoints
+
+- [`chop_fn()`](https://hughjonesd.github.io/santoku/reference/chop_fn.md)
+  [`brk_fn()`](https://hughjonesd.github.io/santoku/reference/chop_fn.md)
+  [`tab_fn()`](https://hughjonesd.github.io/santoku/reference/chop_fn.md)
+  : Chop using an existing function
+
+- [`brk_default()`](https://hughjonesd.github.io/santoku/reference/brk_default.md)
+  : Create a standard set of breaks
+
+- [`brk_manual()`](https://hughjonesd.github.io/santoku/reference/brk_manual.md)
+  :
+
+  Create a `breaks` object manually
+
+## Label functions
+
+Specify how to label the chopped intervals
+
+- [`lbl_dash()`](https://hughjonesd.github.io/santoku/reference/lbl_dash.md)
+  : Label chopped intervals like 1-4, 4-5, ...
+
+- [`lbl_discrete()`](https://hughjonesd.github.io/santoku/reference/lbl_discrete.md)
+  : Label discrete data
+
+- [`lbl_endpoints()`](https://hughjonesd.github.io/santoku/reference/lbl_endpoints.md)
+  [`lbl_endpoint()`](https://hughjonesd.github.io/santoku/reference/lbl_endpoints.md)
+  : Label chopped intervals by their left or right endpoints
+
+- [`lbl_glue()`](https://hughjonesd.github.io/santoku/reference/lbl_glue.md)
+  :
+
+  Label chopped intervals using the `glue` package
+
+- [`lbl_intervals()`](https://hughjonesd.github.io/santoku/reference/lbl_intervals.md)
+  : Label chopped intervals using set notation
+
+- [`lbl_midpoints()`](https://hughjonesd.github.io/santoku/reference/lbl_midpoints.md)
+  : Label chopped intervals by their midpoints
+
+- [`lbl_seq()`](https://hughjonesd.github.io/santoku/reference/lbl_seq.md)
+  : Label chopped intervals in sequence
+
+## Miscellaneous
+
+Other helper functions
+
+- [`format(`*`<breaks>`*`)`](https://hughjonesd.github.io/santoku/reference/breaks-class.md)
+  [`print(`*`<breaks>`*`)`](https://hughjonesd.github.io/santoku/reference/breaks-class.md)
+  [`is.breaks()`](https://hughjonesd.github.io/santoku/reference/breaks-class.md)
+  : Class representing a set of intervals
+- [`exactly()`](https://hughjonesd.github.io/santoku/reference/exactly.md)
+  : Define singleton intervals explicitly
+- [`non-standard-types`](https://hughjonesd.github.io/santoku/reference/non-standard-types.md)
+  : Tips for chopping non-standard types
+- [`percent()`](https://hughjonesd.github.io/santoku/reference/percent.md)
+  : Simple percentage formatter
+
+# Articles
+
+### All vignettes
+
+- [Performance](https://hughjonesd.github.io/santoku/articles/website-articles/performance.md):
+- [Introduction to
+  santoku](https://hughjonesd.github.io/santoku/articles/santoku.md):
+- [What's new in santoku
+  0.9.0](https://hughjonesd.github.io/santoku/articles/whats-new-in-0-9-0.md):
