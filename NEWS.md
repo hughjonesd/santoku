@@ -1,3 +1,9 @@
+
+# santoku (development version)
+
+* Bugfix: extended breaks were failing on `haven::labelled` objects.
+
+
 # santoku 1.1.0
 
 * Core logic has been speeded up using raw pointers. This was vibe-coded by me
