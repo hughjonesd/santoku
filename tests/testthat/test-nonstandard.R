@@ -377,3 +377,14 @@ test_that("haven::labelled", {
     chop(x, br, extend = TRUE)
   )
 })
+
+
+test_that("haven::labelled works with lbl_discrete() when breaks are extended", {
+  skip_if_not_installed("haven")
+
+  x <- haven::labelled(1:5)
+
+  expect_silent(
+    chop(x, 2:3, labels = lbl_discrete())
+  )
+})

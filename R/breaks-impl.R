@@ -348,6 +348,12 @@ unclass_breaks <- function (breaks) {
 }
 
 
+#' @export
+as.double.breaks <- function (x, ...) {
+  as.double(unclass_breaks(x), ...)
+}
+
+
 #' Return a sequence of width `width`
 #'
 #' @param width An object representing a width
