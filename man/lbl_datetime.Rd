@@ -55,6 +55,11 @@ to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label
 }
 }
 
+\examples{
+new_year <- as.POSIXct("2025-12-31 23:00") + 0:120 * 60
+tab(new_year, as.POSIXct(c("2025-12-31 23:59", "2026-01-01 00:05")),
+    labels = lbl_datetime())
+}
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
