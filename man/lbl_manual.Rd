@@ -48,6 +48,8 @@ chop(1:10, c(2, 5, 8), labels = c("w", "x", "y", "z"))
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
+\code{\link{lbl_date}()},
+\code{\link{lbl_datetime}()},
 \code{\link{lbl_discrete}()},
 \code{\link{lbl_endpoints}()},
 \code{\link{lbl_glue}()},

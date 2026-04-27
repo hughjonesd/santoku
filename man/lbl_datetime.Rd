@@ -11,8 +11,7 @@ lbl_datetime(
   unit = NULL,
   single = "{l}",
   first = NULL,
-  last = NULL,
-  raw = FALSE
+  last = NULL
 )
 }
 \arguments{
@@ -38,9 +37,6 @@ for details.}
 \item{last}{String: override label for the last category. Write e.g.
 \code{last = ">{l}"} to create a label like \code{">65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
-
-\item{raw}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}. Use the \code{raw} argument to \code{\link[=chop]{chop()}}
-instead.}
 }
 \value{
 A function that creates a vector of labels.
@@ -54,12 +50,12 @@ Label datetime ranges with collapsed shared components
 If \code{fmt} is not \code{NULL} then it is used to format the endpoints.
 \itemize{
 \item If \code{fmt} is a string, then numeric endpoints will be formatted by
-\code{sprintf(fmt, breaks)}; other endpoints, e.g. \link{Date} objects, will be
+\code{sprintf(fmt, breaks)}; other endpoints, e.g. \link[lubridate:date_utils]{lubridate::Date} objects, will be
 formatted by \code{format(breaks, fmt)}.
 \item If \code{fmt} is a list, then it will be used as arguments to \link{format}.
 \item If \code{fmt} is a function, it should take a vector of numbers (or other objects
 that can be used as breaks) and return a character vector. It may be helpful
-to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_comma]{scales::label_comma()}}.
+to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_number]{scales::label_comma()}}.
 }
 }
 

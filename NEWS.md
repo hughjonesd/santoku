@@ -1,6 +1,9 @@
 
 # santoku (development version)
 
+* New `lbl_date()` and `lbl_datetime()` functions provide
+  readable labels for dates and date-times, e.g. "12-15 Nov 2025", 
+  "12 Nov-11 Dec 2025", "12 Nov 2025-3 Jan 2026".
 * Bugfix: extended breaks were failing on `haven::labelled` objects.
 
 

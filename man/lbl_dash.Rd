@@ -71,6 +71,8 @@ chop(runif(10) * 10000, c(3000, 7000), lbl_dash(" to ", fmt = pretty))
 }
 \seealso{
 Other labelling functions: 
+\code{\link{lbl_date}()},
+\code{\link{lbl_datetime}()},
 \code{\link{lbl_discrete}()},
 \code{\link{lbl_endpoints}()},
 \code{\link{lbl_glue}()},

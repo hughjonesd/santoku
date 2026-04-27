@@ -87,6 +87,8 @@ tab(1:10, c(1, 3, 3, 7), labels = lbl_glue(glue_string, single = "{{{l}}}"))
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
+\code{\link{lbl_date}()},
+\code{\link{lbl_datetime}()},
 \code{\link{lbl_discrete}()},
 \code{\link{lbl_endpoints}()},
 \code{\link{lbl_intervals}()},
