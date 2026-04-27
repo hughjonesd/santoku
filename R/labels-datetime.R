@@ -200,28 +200,20 @@ lbl_datetime <- function(
 
     len_breaks <- length(breaks)
     endpoints <- scaled_endpoints(breaks, raw = raw)
-    left <- attr(breaks, "left")
+    pieces <- discrete_interval_endpoints(
+      breaks = breaks,
+      unit = unit,
+      endpoints = endpoints
+    )
+    l <- pieces$l
+    r <- pieces$r
+    is_singleton <- pieces$singletons
+    too_small <- pieces$too_small
+    l_closed <- pieces$l_closed
+    r_closed <- pieces$r_closed
 
-    l <- endpoints[-len_breaks]
-    r <- endpoints[-1]
-    l_closed <- left[-len_breaks]
-    r_closed <- !left[-1]
-    is_singleton <- singletons(breaks)
-
-    if (!is.null(unit)) {
-      left_l <- left[-len_breaks]
-      left_r <- left[-1]
-
-      l[!left_l] <- l[!left_l] + unit
-      r[left_r] <- r[left_r] - unit
-
-      is_singleton <- is_singleton | (r == l)
-      too_small <- r < l
-      if (any(too_small)) {
-        warning("Intervals smaller than `unit` are labelled as \"--\"")
-      }
-    } else {
-      too_small <- rep(FALSE, len_breaks - 1L)
+    if (any(too_small)) {
+      warning("Intervals smaller than `unit` are labelled as \"--\"")
     }
 
     l_tokens <- format_strftime_tokens(l, fmt = fmt)

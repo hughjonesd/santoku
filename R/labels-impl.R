@@ -259,6 +259,57 @@ on_failure(is_format) <- function(call, env) {
 }
 
 
+#' Build interval endpoints for discrete-style labels
+#'
+#' Shared implementation for labelers that make open intervals non-overlapping
+#' by shifting open endpoints inward by `unit`.
+#'
+#' @param breaks A breaks object.
+#' @param unit Optional scalar unit. If `NULL`, no endpoint adjustment is made.
+#' @param endpoints Optional endpoints vector. Defaults to `unclass_breaks(breaks)`.
+#' @param singleton_mask Logical mask of singleton intervals.
+#'
+#' @return A list with `l`, `r`, `singletons`, `too_small`, `l_closed`,
+#'   and `r_closed`.
+#' @noRd
+discrete_interval_endpoints <- function(
+    breaks,
+    unit = NULL,
+    endpoints = NULL,
+    singleton_mask = singletons(breaks)
+) {
+  assert_that(is.breaks(breaks))
+
+  len_breaks <- length(breaks)
+  endpoints <- endpoints %||% unclass_breaks(breaks)
+  left <- attr(breaks, "left")
+
+  l <- endpoints[-len_breaks]
+  r <- endpoints[-1]
+
+  left_l <- left[-len_breaks]
+  left_r <- left[-1]
+
+  if (!is.null(unit)) {
+    l[!left_l] <- l[!left_l] + unit
+    r[left_r] <- r[left_r] - unit
+    singleton_mask <- singleton_mask | (r == l)
+    too_small <- r < l
+  } else {
+    too_small <- rep(FALSE, len_breaks - 1L)
+  }
+
+  list(
+    l = l,
+    r = r,
+    singletons = singleton_mask,
+    too_small = too_small,
+    l_closed = left_l,
+    r_closed = !left_r
+  )
+}
+
+
 #' Truncates `num` to look nice, while preserving uniqueness
 #'
 #' @param num A numeric vector.
