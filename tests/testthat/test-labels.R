@@ -415,3 +415,37 @@ test_that("bug: lbl_endpoints() works with no format and non-standard breaks", {
     chop_mean_sd(0:10, labels = lbl_endpoints())
     , NA)
 })
+
+
+test_that("lbl_date collapses shared date components", {
+  brk_same_month <- brk_res(brk_default(as.Date(c("2000-01-13", "2000-01-15"))))
+  expect_equal(
+    lbl_date(fmt = "%d %b %Y")(brk_same_month),
+    "13-15 Jan 2000"
+  )
+
+  brk_same_year <- brk_res(brk_default(as.Date(c("2000-01-13", "2000-02-15"))))
+  expect_equal(
+    lbl_date(fmt = "%d %b %Y")(brk_same_year),
+    "13 Jan - 15 Feb 2000"
+  )
+
+  brk_diff_year <- brk_res(brk_default(as.Date(c("2000-01-13", "2001-01-15"))))
+  expect_equal(
+    lbl_date(fmt = "%d %b %Y")(brk_diff_year),
+    "13 Jan 2000 - 15 Jan 2001"
+  )
+})
+
+
+test_that("lbl_datetime collapses shared datetime components", {
+  brk_same_day <- brk_res(brk_default(as.POSIXlt(c(
+    "2000-01-12 11:15:00",
+    "2000-01-12 11:45:00"
+  ), tz = "UTC")))
+
+  expect_equal(
+    lbl_datetime(fmt = "%I.%M %p %b %d %Y")(brk_same_day),
+    "11.15-11.45 AM Jan 12 2000"
+  )
+})
