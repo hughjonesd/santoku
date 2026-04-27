@@ -106,6 +106,11 @@ collapse_datetime_label <- function(
                   paste0(r_tokens, collapse = "")))
   }
 
+  if (!grepl("^\\s", suffix)) {
+    return(paste0(paste0(l_tokens, collapse = ""), symbol,
+                  paste0(r_tokens, collapse = "")))
+  }
+
   joiner <- if (grepl("\\s", l_head) || grepl("\\s", r_head)) symbol else collapsed_symbol
 
   paste0(l_head, joiner, r_head, suffix)
@@ -119,6 +124,9 @@ collapse_datetime_label <- function(
 #' @param symbol String: separator to use for full ranges.
 #' @param collapsed_symbol String: separator to use when shared date suffixes are
 #'   collapsed.
+#' @param unit Optional interval unit for non-overlapping labels. If `NULL`, no
+#'   discrete adjustment is applied. If not `NULL`, open endpoints are adjusted
+#'   inward by `unit`, in the style of [lbl_discrete()].
 #'
 #' @family labelling functions
 #'
@@ -127,6 +135,7 @@ lbl_date <- function(
     fmt = "%e %b %Y",
     symbol = " - ",
     collapsed_symbol = "-",
+    unit = as.difftime(1, units = "days"),
     single = "{l}",
     first = NULL,
     last = NULL
@@ -135,6 +144,7 @@ lbl_date <- function(
     fmt = fmt,
     symbol = symbol,
     collapsed_symbol = collapsed_symbol,
+    unit = unit,
     single = single,
     first = first,
     last = last
@@ -149,6 +159,9 @@ lbl_date <- function(
 #' @param symbol String: separator to use for full ranges.
 #' @param collapsed_symbol String: separator to use when shared date/time suffixes
 #'   are collapsed.
+#' @param unit Optional interval unit for non-overlapping labels. If `NULL`, no
+#'   discrete adjustment is applied. If not `NULL`, open endpoints are adjusted
+#'   inward by `unit`, in the style of [lbl_discrete()].
 #'
 #' @family labelling functions
 #'
@@ -157,6 +170,7 @@ lbl_datetime <- function(
     fmt = "%l.%M %P %b %e %Y",
     symbol = " - ",
     collapsed_symbol = "-",
+    unit = NULL,
     single = "{l}",
     first = NULL,
     last = NULL
@@ -165,6 +179,7 @@ lbl_datetime <- function(
     is.string(fmt),
     is.string(symbol),
     is.string(collapsed_symbol),
+    length(unit) <= 1L,
     is.string(single) || is.null(single),
     is.string(first) || is.null(first),
     is.string(last) || is.null(last)
@@ -175,26 +190,40 @@ lbl_datetime <- function(
 
     len_breaks <- length(breaks)
     endpoints <- scaled_endpoints(breaks, raw = raw)
-    token_matrix <- format_strftime_tokens(endpoints, fmt = fmt)
+    pieces <- discrete_interval_endpoints(
+      breaks = breaks,
+      unit = unit,
+      endpoints = endpoints
+    )
+    l <- pieces$l
+    r <- pieces$r
+    is_singleton <- pieces$singletons
+    too_small <- pieces$too_small
+    l_closed <- pieces$l_closed
+    r_closed <- pieces$r_closed
+
+    if (any(too_small)) {
+      warning("Intervals smaller than `unit` are labelled as \"--\"")
+    }
+
+    l_tokens <- format_strftime_tokens(l, fmt = fmt)
+    r_tokens <- format_strftime_tokens(r, fmt = fmt)
 
     labels <- vapply(seq_len(len_breaks - 1L), function(i) {
       collapse_datetime_label(
-        l_tokens = token_matrix[i, ],
-        r_tokens = token_matrix[i + 1L, ],
+        l_tokens = l_tokens[i, ],
+        r_tokens = r_tokens[i, ],
         symbol = symbol,
         collapsed_symbol = collapsed_symbol
       )
     }, FUN.VALUE = character(1))
 
-    l <- apply(token_matrix[-len_breaks, , drop = FALSE], 1, paste0, collapse = "")
-    r <- apply(token_matrix[-1, , drop = FALSE], 1, paste0, collapse = "")
+    l <- apply(l_tokens, 1, paste0, collapse = "")
+    r <- apply(r_tokens, 1, paste0, collapse = "")
 
-    left <- attr(breaks, "left")
-    l_closed <- left[-len_breaks]
-    r_closed <- !left[-1]
+    labels[too_small] <- "--"
 
     if (!is.null(single)) {
-      is_singleton <- singletons(breaks)
       labels[is_singleton] <- glue::glue(single,
         l = l[is_singleton],
         r = r[is_singleton],

@@ -8,6 +8,7 @@ lbl_date(
   fmt = "\%e \%b \%Y",
   symbol = " - ",
   collapsed_symbol = "-",
+  unit = as.difftime(1, units = "days"),
   single = "{l}",
   first = NULL,
   last = NULL,
@@ -21,6 +22,10 @@ lbl_date(
 
 \item{collapsed_symbol}{String: separator to use when shared date suffixes are
 collapsed.}
+
+\item{unit}{Optional interval unit for non-overlapping labels. If \code{NULL}, no
+discrete adjustment is applied. If not \code{NULL}, open endpoints are adjusted
+inward by \code{unit}, in the style of \code{\link[=lbl_discrete]{lbl_discrete()}}.}
 
 \item{single}{Glue string: label for singleton intervals. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details. If \code{NULL}, singleton intervals will be labelled the same way
