@@ -74,16 +74,14 @@ format_strftime_tokens <- function(x, fmt) {
 #'
 #' @param l_tokens Left endpoint tokens.
 #' @param r_tokens Right endpoint tokens.
-#' @param symbol Separator for full ranges.
-#' @param collapsed_symbol Separator when suffix is collapsed.
+#' @param symbol Separator for endpoints.
 #'
 #' @return A single collapsed range label.
 #' @noRd
 collapse_datetime_label <- function(
     l_tokens,
     r_tokens,
-    symbol = " - ",
-    collapsed_symbol = "-"
+    symbol
 ) {
   n <- length(l_tokens)
   shared <- 0L
@@ -111,9 +109,7 @@ collapse_datetime_label <- function(
                   paste0(r_tokens, collapse = "")))
   }
 
-  joiner <- if (grepl("\\s", l_head) || grepl("\\s", r_head)) symbol else collapsed_symbol
-
-  paste0(l_head, joiner, r_head, suffix)
+  paste0(l_head, symbol, r_head, suffix)
 }
 
 
@@ -122,8 +118,6 @@ collapse_datetime_label <- function(
 #' @inherit label-doc
 #' @inherit first-last-doc
 #' @param symbol String: separator to use for full ranges.
-#' @param collapsed_symbol String: separator to use when shared date suffixes are
-#'   collapsed.
 #' @param unit Optional interval unit for non-overlapping labels. If `NULL`, no
 #'   discrete adjustment is applied. If not `NULL`, open endpoints are adjusted
 #'   inward by `unit`, in the style of [lbl_discrete()].
@@ -131,10 +125,16 @@ collapse_datetime_label <- function(
 #' @family labelling functions
 #'
 #' @export
+#'
+#' @examples
+#' if (requireNamespace("lubridate")) {
+#'     winter <- as.Date("2025-12-01") + 0:89
+#'     tab(winter, as.Date(c("2025-12-25", "2026-01-06")),
+#'         labels = lbl_date())
+#' }
 lbl_date <- function(
     fmt = "%e %b %Y",
-    symbol = " - ",
-    collapsed_symbol = "-",
+    symbol = "-",
     unit = as.difftime(1, units = "days"),
     single = "{l}",
     first = NULL,
@@ -143,7 +143,6 @@ lbl_date <- function(
   lbl_datetime(
     fmt = fmt,
     symbol = symbol,
-    collapsed_symbol = collapsed_symbol,
     unit = unit,
     single = single,
     first = first,
@@ -156,9 +155,7 @@ lbl_date <- function(
 #'
 #' @inherit label-doc
 #' @inherit first-last-doc
-#' @param symbol String: separator to use for full ranges.
-#' @param collapsed_symbol String: separator to use when shared date/time suffixes
-#'   are collapsed.
+#' @param symbol String: separator to use between datetime range endpoints.
 #' @param unit Optional interval unit for non-overlapping labels. If `NULL`, no
 #'   discrete adjustment is applied. If not `NULL`, open endpoints are adjusted
 #'   inward by `unit`, in the style of [lbl_discrete()].
@@ -166,10 +163,16 @@ lbl_date <- function(
 #' @family labelling functions
 #'
 #' @export
+#'
+#' @examples
+#' if (requireNamespace("lubridate")) {
+#'     new_year <- as.POSIXct("2025-12-31 23:00") + 0:120 * 60
+#'     tab(new_year, as.POSIXct("2025-12-31 23:59", "2026-01-01 00:05"),
+#'         labels = lbl_datetime())
+#' }
 lbl_datetime <- function(
-    fmt = "%l.%M %P %b %e %Y",
-    symbol = " - ",
-    collapsed_symbol = "-",
+    fmt = "%I.%M %P %b %e %Y",
+    symbol = "-",
     unit = NULL,
     single = "{l}",
     first = NULL,
@@ -178,7 +181,6 @@ lbl_datetime <- function(
   assert_that(
     is.string(fmt),
     is.string(symbol),
-    is.string(collapsed_symbol),
     length(unit) <= 1L,
     is.string(single) || is.null(single),
     is.string(first) || is.null(first),
@@ -213,8 +215,7 @@ lbl_datetime <- function(
       collapse_datetime_label(
         l_tokens = l_tokens[i, ],
         r_tokens = r_tokens[i, ],
-        symbol = symbol,
-        collapsed_symbol = collapsed_symbol
+        symbol = symbol
       )
     }, FUN.VALUE = character(1))
 

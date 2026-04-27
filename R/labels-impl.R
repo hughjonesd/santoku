@@ -266,8 +266,7 @@ on_failure(is_format) <- function(call, env) {
 #'
 #' @param breaks A breaks object.
 #' @param unit Optional scalar unit. If `NULL`, no endpoint adjustment is made.
-#' @param endpoints Optional endpoints vector. Defaults to `unclass_breaks(breaks)`.
-#' @param singleton_mask Logical mask of singleton intervals.
+#' @param endpoints endpoints vector.
 #'
 #' @return A list with `l`, `r`, `singletons`, `too_small`, `l_closed`,
 #'   and `r_closed`.
@@ -275,13 +274,11 @@ on_failure(is_format) <- function(call, env) {
 discrete_interval_endpoints <- function(
     breaks,
     unit = NULL,
-    endpoints = NULL,
-    singleton_mask = singletons(breaks)
+    endpoints
 ) {
   assert_that(is.breaks(breaks))
 
   len_breaks <- length(breaks)
-  endpoints <- endpoints %||% unclass_breaks(breaks)
   left <- attr(breaks, "left")
 
   l <- endpoints[-len_breaks]
@@ -290,10 +287,15 @@ discrete_interval_endpoints <- function(
   left_l <- left[-len_breaks]
   left_r <- left[-1]
 
+  singletons <- singletons(breaks)
+
   if (!is.null(unit)) {
+    # right-closed breaks add 1 unit to their left endpoint
     l[!left_l] <- l[!left_l] + unit
+    # left-closed breaks deduct 1 unit from their right endpoint
     r[left_r] <- r[left_r] - unit
-    singleton_mask <- singleton_mask | (r == l)
+    # we may have now got new singletons
+    singletons <- singletons | (r == l)
     too_small <- r < l
   } else {
     too_small <- rep(FALSE, len_breaks - 1L)
@@ -302,7 +304,7 @@ discrete_interval_endpoints <- function(
   list(
     l = l,
     r = r,
-    singletons = singleton_mask,
+    singletons = singletons,
     too_small = too_small,
     l_closed = left_l,
     r_closed = !left_r

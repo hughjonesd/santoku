@@ -6,8 +6,7 @@
 \usage{
 lbl_date(
   fmt = "\%e \%b \%Y",
-  symbol = " - ",
-  collapsed_symbol = "-",
+  symbol = "-",
   unit = as.difftime(1, units = "days"),
   single = "{l}",
   first = NULL,
@@ -18,9 +17,6 @@ lbl_date(
 \item{fmt}{String, list or function. A format for break endpoints.}
 
 \item{symbol}{String: separator to use for full ranges.}
-
-\item{collapsed_symbol}{String: separator to use when shared date suffixes are
-collapsed.}
 
 \item{unit}{Optional interval unit for non-overlapping labels. If \code{NULL}, no
 discrete adjustment is applied. If not \code{NULL}, open endpoints are adjusted
@@ -59,6 +55,13 @@ to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label
 }
 }
 
+\examples{
+if (requireNamespace("lubridate")) {
+    winter <- as.Date("2025-12-01") + 0:89
+    tab(winter, as.Date(c("2025-12-25", "2026-01-06")),
+        labels = lbl_date())
+}
+}
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},

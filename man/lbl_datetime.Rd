@@ -5,9 +5,8 @@
 \title{Label datetime ranges with collapsed shared components}
 \usage{
 lbl_datetime(
-  fmt = "\%l.\%M \%P \%b \%e \%Y",
-  symbol = " - ",
-  collapsed_symbol = "-",
+  fmt = "\%I.\%M \%P \%b \%e \%Y",
+  symbol = "-",
   unit = NULL,
   single = "{l}",
   first = NULL,
@@ -17,10 +16,7 @@ lbl_datetime(
 \arguments{
 \item{fmt}{String, list or function. A format for break endpoints.}
 
-\item{symbol}{String: separator to use for full ranges.}
-
-\item{collapsed_symbol}{String: separator to use when shared date/time suffixes
-are collapsed.}
+\item{symbol}{String: separator to use between datetime range endpoints.}
 
 \item{unit}{Optional interval unit for non-overlapping labels. If \code{NULL}, no
 discrete adjustment is applied. If not \code{NULL}, open endpoints are adjusted
