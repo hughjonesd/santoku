@@ -449,3 +449,37 @@ test_that("lbl_datetime collapses shared datetime components", {
     "11.15-11.45 AM Jan 12 2000"
   )
 })
+
+
+test_that("lbl_date can apply discrete non-overlapping labels", {
+  brk <- brk_res(brk_default(as.Date(c("2000-01-13", "2000-01-15", "2000-01-17"))))
+
+  expect_equal(
+    lbl_date(fmt = "%d %b %Y")(brk),
+    c("13-14 Jan 2000", "15-17 Jan 2000")
+  )
+
+  expect_equal(
+    lbl_date(fmt = "%d %b %Y", unit = NULL)(brk),
+    c("13-15 Jan 2000", "15-17 Jan 2000")
+  )
+})
+
+
+test_that("lbl_datetime can apply discrete non-overlapping labels", {
+  brk <- brk_res(brk_default(as.POSIXct(c(
+    "2000-01-12 11:00:00",
+    "2000-01-12 12:00:00",
+    "2000-01-12 13:00:00"
+  ), tz = "UTC")))
+
+  expect_equal(
+    lbl_datetime(fmt = "%H:%M", unit = as.difftime(1, units = "mins"))(brk),
+    c("11:00 - 11:59", "12:00 - 13:00")
+  )
+
+  expect_equal(
+    lbl_datetime(fmt = "%H:%M")(brk),
+    c("11:00 - 12:00", "12:00 - 13:00")
+  )
+})
