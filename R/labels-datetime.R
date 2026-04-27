@@ -129,8 +129,7 @@ lbl_date <- function(
     collapsed_symbol = "-",
     single = "{l}",
     first = NULL,
-    last = NULL,
-    raw = FALSE
+    last = NULL
 ) {
   lbl_datetime(
     fmt = fmt,
@@ -138,8 +137,7 @@ lbl_date <- function(
     collapsed_symbol = collapsed_symbol,
     single = single,
     first = first,
-    last = last,
-    raw = raw
+    last = last
   )
 }
 
@@ -161,8 +159,7 @@ lbl_datetime <- function(
     collapsed_symbol = "-",
     single = "{l}",
     first = NULL,
-    last = NULL,
-    raw = FALSE
+    last = NULL
 ) {
   assert_that(
     is.string(fmt),
@@ -170,17 +167,10 @@ lbl_datetime <- function(
     is.string(collapsed_symbol),
     is.string(single) || is.null(single),
     is.string(first) || is.null(first),
-    is.string(last) || is.null(last),
-    is.flag(raw)
+    is.string(last) || is.null(last)
   )
 
-  if (!isFALSE(raw)) {
-    lifecycle::deprecate_warn("0.9.0", "lbl_datetime(raw)", "chop(raw)")
-  }
-
-  RAW <- raw
-
-  function(breaks, raw = RAW) {
+  function(breaks, raw = FALSE) {
     assert_that(is.breaks(breaks))
 
     len_breaks <- length(breaks)
