@@ -106,7 +106,6 @@ collapse_datetime_label <- function(
 ) {
   n <- length(l_tokens)
   full <- paste0(paste0(l_tokens, collapse = ""), symbol, paste0(r_tokens, collapse = ""))
-  has_inner_space <- function(x) grepl("\\S\\s+\\S", trimws(x))
 
   ranks <- vapply(spec$token, strftime_rank, FUN.VALUE = numeric(1))
   is_directive <- spec$type == "directive"
@@ -115,24 +114,18 @@ collapse_datetime_label <- function(
 
   if (any(differs)) {
     diff_rank <- min(ranks[differs])
-    shared_idx <- which(comparable & ranks < diff_rank & (l_tokens == r_tokens))
-    core_idx <- which(!seq_len(n) %in% shared_idx & is_directive)
+    higher_differs <- comparable & (ranks < diff_rank) & (l_tokens != r_tokens)
+    active_components <- which(comparable & (ranks >= diff_rank))
 
-    if (length(shared_idx) > 0 && length(core_idx) > 0) {
-      first_core <- min(core_idx)
-      last_core <- max(core_idx)
+    if (!any(higher_differs) && length(active_components) > 0 && diff_rank > 1) {
+      left_end <- max(active_components)
+      right_start <- min(active_components)
+      left_part <- paste0(l_tokens[seq_len(left_end)], collapse = "")
+      right_part <- paste0(r_tokens[right_start:n], collapse = "")
 
-      # keep implementation simple: if shared directives appear inside the
-      # differing region, fall back to suffix-based collapse.
-      shared_in_core <- shared_idx > first_core & shared_idx < last_core
-      if (!any(shared_in_core)) {
-        prefix <- if (first_core > 1L) paste0(l_tokens[seq_len(first_core - 1L)], collapse = "") else ""
-        suffix <- if (last_core < n) paste0(l_tokens[(last_core + 1L):n], collapse = "") else ""
-        l_core <- paste0(l_tokens[first_core:last_core], collapse = "")
-        r_core <- paste0(r_tokens[first_core:last_core], collapse = "")
-
-        joiner <- if (has_inner_space(l_core) || has_inner_space(r_core)) symbol else collapsed_symbol
-        return(paste0(prefix, l_core, joiner, r_core, suffix))
+      if (nzchar(left_part) && nzchar(right_part)) {
+        joiner <- if (diff_rank == 3) collapsed_symbol else symbol
+        return(paste0(left_part, joiner, right_part))
       }
     }
   }

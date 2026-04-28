@@ -495,3 +495,18 @@ test_that("lbl_date collapses shared greater components even when they are prefi
     c("May  1-14", "May 15-28", "May 29 - Jun 13")
   )
 })
+
+
+test_that("lbl_date collapses around first differing component", {
+  brk <- brk_res(brk_default(as.Date(c("2006-05-13", "2006-05-14"))))
+
+  expect_equal(
+    lbl_date(fmt = "%d %b", unit = NULL)(brk),
+    "13-14 May"
+  )
+
+  expect_equal(
+    lbl_date(fmt = "%b %d, %Y", unit = NULL)(brk),
+    "May 13-14, 2006"
+  )
+})
