@@ -34,11 +34,11 @@ tab_equally(x, groups, ..., left = is.numeric(x), raw = TRUE)
 \item{raw}{Logical. Use raw values in labels?}
 }
 \value{
-\verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
+\verb{chop_*} functions return a \code{\link[base:factor]{factor}} of the same length as \code{x}.
 
 \verb{brk_*} functions return a \code{\link{function}} to create \code{breaks}.
 
-\verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
+\verb{tab_*} functions return a contingency \code{\link[base:table]{table}}.
 }
 \description{
 \code{chop_equally()} chops \code{x} into groups with an equal number of elements.

@@ -61,22 +61,23 @@ close first break at left?)}
 \item{drop}{Logical. Drop unused levels from the result?}
 }
 \value{
-\code{chop()} returns a \code{\link{factor}} of the same length as \code{x}, representing the
-intervals containing the value of \code{x}.
+\code{chop()} returns a \code{\link[base:factor]{factor}} of the same length as \code{x},
+representing the intervals containing the value of \code{x}.
 
-\code{tab()} returns a contingency \code{\link[=table]{table()}}.
+\code{tab()} returns a contingency \code{\link[base:table]{table}}.
 }
 \description{
-\code{chop()} cuts \code{x} into intervals. It returns a \code{\link{factor}} of the same length as
-\code{x}, representing which interval contains each element of \code{x}.
+\code{chop()} cuts \code{x} into intervals. It returns a \code{\link[base:factor]{factor}} of
+the same length as \code{x}, representing which interval contains each element of \code{x}.
 \code{kiru()} is an alias for \code{chop}.
-\code{tab()} calls \code{chop()} and returns a contingency \code{\link[=table]{table()}} from the result.
+\code{tab()} calls \code{chop()} and returns a contingency \code{\link[base:table]{table}} from
+the result.
 }
 \details{
 \code{x} may be a numeric vector, or more generally, any vector which can be
-compared with \code{<} and \code{==} (see \link[=groupGeneric]{Ops}). In particular \link{Date}
-and \link[=DateTimeClasses]{date-time} objects are supported. Character vectors
-are supported with a warning.
+compared with \code{<} and \code{==} (see \link[=groupGeneric]{Ops}). In particular
+\link[base:Dates]{Date} and \link[=DateTimeClasses]{date-time} objects are supported.
+Character vectors are supported with a warning.
 \subsection{Breaks}{
 
 \code{breaks} may be a vector or a function.

@@ -29,8 +29,8 @@ close first break at left?)}
 \item{raw}{Logical. Use raw values in labels?}
 }
 \value{
-\code{fillet()} returns a \code{\link{factor}} of the same length as \code{x}, representing
-the intervals containing the value of \code{x}.
+\code{fillet()} returns a \code{\link[base:factor]{factor}} of the same length as
+\code{x}, representing the intervals containing the value of \code{x}.
 }
 \description{
 \code{fillet()} calls \code{\link[=chop]{chop()}} with \code{extend = FALSE} and \code{drop = FALSE}. This

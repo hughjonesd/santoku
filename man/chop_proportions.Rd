@@ -23,11 +23,11 @@ If \code{proportions} has names, these will be used for labels.}
 \item{raw}{Logical. Use raw values in labels?}
 }
 \value{
-\verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
+\verb{chop_*} functions return a \code{\link[base:factor]{factor}} of the same length as \code{x}.
 
 \verb{brk_*} functions return a \code{\link{function}} to create \code{breaks}.
 
-\verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
+\verb{tab_*} functions return a contingency \code{\link[base:table]{table}}.
 }
 \description{
 \code{chop_proportions()} chops \code{x} into \code{proportions} of its range, excluding

@@ -26,11 +26,11 @@ a proportion of \code{length(x)}. Values of \code{x} which occur at least this
 often will get their own singleton break.}
 }
 \value{
-\verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
+\verb{chop_*} functions return a \code{\link[base:factor]{factor}} of the same length as \code{x}.
 
 \verb{brk_*} functions return a \code{\link{function}} to create \code{breaks}.
 
-\verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
+\verb{tab_*} functions return a contingency \code{\link[base:table]{table}}.
 }
 \description{
 \code{chop_spikes()} lets you chop common values of \code{x} into their own

@@ -16,7 +16,6 @@ revdepcheck::revdep_check()
 # OTHERWISE, JUST DO THIS ON MASTER
 pkgdown::build_site()
 
-
 my_home <- "~/hughjonesd.github.io/"
 rmarkdown::render("vignettes/tutorials/visual-introduction.Rmd",
       output_dir = my_home)

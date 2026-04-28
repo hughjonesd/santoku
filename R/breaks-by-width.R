@@ -7,7 +7,7 @@
 #' @param width A scalar [difftime], [Period][lubridate::Period-class] or
 #'   [Duration][lubridate::Duration-class] object.
 #'
-#' @param start A scalar of class [Date] or [POSIXct][DateTimeClasses].
+#' @param start A scalar of class [Date][base::Dates] or [POSIXct][DateTimeClasses].
 #'   Can be omitted.
 #'
 #' @details

@@ -24,11 +24,11 @@ tab_mean_sd(x, sds = 1:3, ..., raw = FALSE)
 \item{sd}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
 \value{
-\verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
+\verb{chop_*} functions return a \code{\link[base:factor]{factor}} of the same length as \code{x}.
 
 \verb{brk_*} functions return a \code{\link{function}} to create \code{breaks}.
 
-\verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
+\verb{tab_*} functions return a contingency \code{\link[base:table]{table}}.
 }
 \description{
 Intervals are measured in standard deviations on either side of the

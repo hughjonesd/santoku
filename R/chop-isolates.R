@@ -71,7 +71,7 @@ chop_spikes <- function (
 #' `dissect()` returns the result of [chop()], but with common values put into
 #' separate factor levels.
 #'
-#' `tab_dissect()` returns a contingency [table()].
+#' `tab_dissect()` returns a contingency [table()][base::table].
 #'
 #' @seealso [chop_spikes()] for a different approach.
 #' @export

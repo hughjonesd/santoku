@@ -11,8 +11,8 @@
 #' If `fmt` is not `NULL` then it is used to format the endpoints.
 #'
 #' * If `fmt` is a string, then numeric endpoints will be formatted by
-#'   `sprintf(fmt, breaks)`; other endpoints, e.g. [Date] objects, will be
-#'   formatted by `format(breaks, fmt)`.
+#'   `sprintf(fmt, breaks)`; other endpoints, e.g. [Date][base::Dates] objects,
+#'   will be formatted by `format(breaks, fmt)`.
 #'
 #' * If `fmt` is a list, then it will be used as arguments to [format].
 #'
@@ -100,7 +100,8 @@ lbl_intervals <- function (
 #' these labels may be misleading. Here, discrete-valued means that if
 #' `x < y`, then `x <= y - unit`.
 #'
-#' Be aware that Date objects may have non-integer values. See [Date].
+#' Be aware that Date objects may have non-integer values. See
+#' [Date][base::Dates].
 #'
 #' @family labelling functions
 #'

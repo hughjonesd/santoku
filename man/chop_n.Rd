@@ -25,11 +25,11 @@ tab_n(x, n, ..., tail = "split")
 interval.}
 }
 \value{
-\verb{chop_*} functions return a \code{\link{factor}} of the same length as \code{x}.
+\verb{chop_*} functions return a \code{\link[base:factor]{factor}} of the same length as \code{x}.
 
 \verb{brk_*} functions return a \code{\link{function}} to create \code{breaks}.
 
-\verb{tab_*} functions return a contingency \code{\link[=table]{table()}}.
+\verb{tab_*} functions return a contingency \code{\link[base:table]{table}}.
 }
 \description{
 \code{chop_n()} creates intervals containing a fixed number of elements.

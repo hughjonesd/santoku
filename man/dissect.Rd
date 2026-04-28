@@ -34,7 +34,7 @@ can affect the location of data-dependent breaks.}
 \code{dissect()} returns the result of \code{\link[=chop]{chop()}}, but with common values put into
 separate factor levels.
 
-\code{tab_dissect()} returns a contingency \code{\link[=table]{table()}}.
+\code{tab_dissect()} returns a contingency \link[base:table]{table()}.
 }
 \description{
 Sometimes it's useful to separate out common elements of \code{x}.

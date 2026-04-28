@@ -3,20 +3,21 @@
 #' @name chop-doc
 #' @param ... Passed to [chop()].
 #' @return
-#' `chop_*` functions return a [`factor`] of the same length as `x`.
+#' `chop_*` functions return a [`factor`][base::factor] of the same length as `x`.
 #'
 #' `brk_*` functions return a [`function`] to create `breaks`.
 #'
-#' `tab_*` functions return a contingency [table()].
+#' `tab_*` functions return a contingency [`table`][base::table].
 NULL
 
 
 #' Cut data into intervals
 #'
-#' `chop()` cuts `x` into intervals. It returns a [`factor`] of the same length as
-#' `x`, representing which interval contains each element of `x`.
+#' `chop()` cuts `x` into intervals. It returns a [`factor`][base::factor] of
+#' the same length as `x`, representing which interval contains each element of `x`.
 #' `kiru()` is an alias for `chop`.
-#' `tab()` calls `chop()` and returns a contingency [table()] from the result.
+#' `tab()` calls `chop()` and returns a contingency [`table`][base::table] from
+#' the result.
 #'
 #' @param x A vector.
 #' @param breaks A numeric vector of cut-points, or a function to create
@@ -34,9 +35,9 @@ NULL
 #' @details
 #'
 #' `x` may be a numeric vector, or more generally, any vector which can be
-#' compared with `<` and `==` (see [Ops][groupGeneric]). In particular [Date]
-#' and [date-time][DateTimeClasses] objects are supported. Character vectors
-#' are supported with a warning.
+#' compared with `<` and `==` (see [Ops][groupGeneric]). In particular
+#' [Date][base::Dates] and [date-time][DateTimeClasses] objects are supported.
+#' Character vectors are supported with a warning.
 #'
 #' ## Breaks
 #'
@@ -96,8 +97,8 @@ NULL
 #' previous behaviour. Up to version 0.8.0, `close_end` was applied to the
 #' last user-specified interval, before any extended intervals were created.
 #'
-#' Since 1.1.0, infinity is represented as \eqn{\infty}{the infinity symbol} 
-#' in breaks on unicode platforms. Set  `options(santoku.infinity = "Inf")` 
+#' Since 1.1.0, infinity is represented as \eqn{\infty}{the infinity symbol}
+#' in breaks on unicode platforms. Set  `options(santoku.infinity = "Inf")`
 #' to get the old behaviour.
 #'
 #' ## Labels
@@ -137,10 +138,10 @@ NULL
 #' below.
 #'
 #' @return
-#' `chop()` returns a [`factor`] of the same length as `x`, representing the
-#' intervals containing the value of `x`.
+#' `chop()` returns a [`factor`][base::factor] of the same length as `x`,
+#' representing the intervals containing the value of `x`.
 #'
-#' `tab()` returns a contingency [table()].
+#' `tab()` returns a contingency [`table`][base::table].
 #'
 #' @export
 #'
@@ -246,8 +247,8 @@ kiru <- chop
 #'
 #' @inheritParams chop
 #'
-#' @return `fillet()` returns a [`factor`] of the same length as `x`, representing
-#'   the intervals containing the value of `x`.
+#' @return `fillet()` returns a [`factor`][base::factor] of the same length as
+#' `x`, representing the intervals containing the value of `x`.
 #'
 #' @family chopping functions
 #'

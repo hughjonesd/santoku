@@ -11,7 +11,7 @@
 \item{width}{A scalar \link{difftime}, \link[lubridate:Period-class]{Period} or
 \link[lubridate:Duration-class]{Duration} object.}
 
-\item{start}{A scalar of class \link{Date} or \link[=DateTimeClasses]{POSIXct}.
+\item{start}{A scalar of class \link[base:Dates]{Date} or \link[=DateTimeClasses]{POSIXct}.
 Can be omitted.}
 }
 \description{

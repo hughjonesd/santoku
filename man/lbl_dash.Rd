@@ -50,8 +50,8 @@ If you don't want unicode output, use \code{lbl_dash("-")}.
 If \code{fmt} is not \code{NULL} then it is used to format the endpoints.
 \itemize{
 \item If \code{fmt} is a string, then numeric endpoints will be formatted by
-\code{sprintf(fmt, breaks)}; other endpoints, e.g. \link{Date} objects, will be
-formatted by \code{format(breaks, fmt)}.
+\code{sprintf(fmt, breaks)}; other endpoints, e.g. \link[base:Dates]{Date} objects,
+will be formatted by \code{format(breaks, fmt)}.
 \item If \code{fmt} is a list, then it will be used as arguments to \link{format}.
 \item If \code{fmt} is a function, it should take a vector of numbers (or other objects
 that can be used as breaks) and return a character vector. It may be helpful
