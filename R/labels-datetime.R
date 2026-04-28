@@ -115,8 +115,16 @@ collapse_datetime_label <- function(
   if (!any(differs)) return(full)
 
   diff_rank <- min(ranks[differs])
+  collapse_rank <- diff_rank
+
+  # If both day and time differ, keep month with both endpoints so that
+  # day labels remain anchored to a month (issue #58).
+  if (diff_rank == 3 && any(differs & ranks > diff_rank)) {
+    collapse_rank <- 2
+  }
+
   higher_differs <- comparable & (ranks < diff_rank) & (l_tokens != r_tokens)
-  active_components <- which(comparable & (ranks >= diff_rank))
+  active_components <- which(comparable & (ranks >= collapse_rank))
 
   if (any(higher_differs) || length(active_components) == 0 || diff_rank == 1) {
     return(full)

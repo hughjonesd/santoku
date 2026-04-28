@@ -518,3 +518,15 @@ test_that("lbl_date collapses around first differing component", {
   )
 })
 
+
+test_that("lbl_datetime keeps month when both day and time differ", {
+  brk <- brk_res(brk_default(as.POSIXct(c(
+    "2020-05-30 22:00:00",
+    "2020-05-31 02:00:00"
+  ), tz = "UTC")))
+
+  expect_equal(
+    lbl_datetime(fmt = "%H:%M %d %b", unit = NULL)(brk),
+    "22:00 30 May-02:00 31 May"
+  )
+})
