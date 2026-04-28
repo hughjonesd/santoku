@@ -186,6 +186,7 @@ test_that("brk_quantiles", {
   expect_silent(brks <- brk_quantiles(numeric(0))(x, TRUE, TRUE, FALSE))
   expect_equal(c(brks), c(-Inf, Inf))
 
+  skip_if_not_installed("Hmisc")
   x <- 1:10
   brks <- brk_quantiles(1:3/4, weights = 1:10)(x, FALSE, TRUE, FALSE)
   expect_equal(
@@ -244,6 +245,7 @@ test_that("brk_pretty", {
 
 
 test_that("brk_fn", {
+  skip_if_not_installed("scales")
   x <- 1:10
   expect_silent(
     brks <- brk_res(brk_fn(scales::breaks_extended(5)), x = x)

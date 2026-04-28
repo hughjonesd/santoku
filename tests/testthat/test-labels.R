@@ -415,3 +415,104 @@ test_that("bug: lbl_endpoints() works with no format and non-standard breaks", {
     chop_mean_sd(0:10, labels = lbl_endpoints())
     , NA)
 })
+
+
+test_that("lbl_date collapses shared date components", {
+  brk_same_month <- brk_res(brk_default(as.Date(c("2000-01-13", "2000-01-15"))))
+  expect_equal(
+    lbl_date(fmt = "%d %b %Y")(brk_same_month),
+    "13-15 Jan 2000"
+  )
+
+  brk_same_year <- brk_res(brk_default(as.Date(c("2000-01-13", "2000-02-15"))))
+  expect_equal(
+    lbl_date(fmt = "%d %b %Y")(brk_same_year),
+    "13 Jan - 15 Feb 2000"
+  )
+
+  brk_diff_year <- brk_res(brk_default(as.Date(c("2000-01-13", "2001-01-15"))))
+  expect_equal(
+    lbl_date(fmt = "%d %b %Y")(brk_diff_year),
+    "13 Jan 2000 - 15 Jan 2001"
+  )
+})
+
+
+test_that("lbl_datetime collapses shared datetime components", {
+  brk_same_day <- brk_res(brk_default(as.POSIXlt(c(
+    "2000-01-12 11:15:00",
+    "2000-01-12 11:45:00"
+  ), tz = "UTC")))
+
+  expect_equal(
+    lbl_datetime(fmt = "%I.%M %p %b %d %Y")(brk_same_day),
+    "11.15-11.45 AM Jan 12 2000"
+  )
+})
+
+
+test_that("lbl_date can apply discrete non-overlapping labels", {
+  brk <- brk_res(brk_default(as.Date(c("2000-01-13", "2000-01-15", "2000-01-17"))))
+
+  expect_equal(
+    lbl_date(fmt = "%d %b %Y")(brk),
+    c("13-14 Jan 2000", "15-17 Jan 2000")
+  )
+
+  expect_equal(
+    lbl_date(fmt = "%d %b %Y", unit = NULL)(brk),
+    c("13-15 Jan 2000", "15-17 Jan 2000")
+  )
+})
+
+
+test_that("lbl_datetime can apply discrete non-overlapping labels", {
+  brk <- brk_res(brk_default(as.POSIXct(c(
+    "2000-01-12 11:00:00",
+    "2000-01-12 12:00:00",
+    "2000-01-12 13:00:00"
+  ), tz = "UTC")))
+
+  expect_equal(
+    lbl_datetime(fmt = "%H:%M", unit = as.difftime(1, units = "mins"))(brk),
+    c("11:00 - 11:59", "12:00 - 13:00")
+  )
+
+  expect_equal(
+    lbl_datetime(fmt = "%H:%M")(brk),
+    c("11:00 - 12:00", "12:00 - 13:00")
+  )
+})
+
+
+test_that("lbl_date collapses shared greater components even when they are prefixes", {
+  brk <- brk_res(brk_default(as.Date(c(
+    "2026-05-01", "2026-05-15", "2026-05-29", "2026-06-13"
+  ))))
+
+  expect_equal(
+    lbl_date(fmt = "%b %e", unit = as.difftime(1, units = "days"))(brk),
+    c("May  1-14", "May 15-28", "May 29 - Jun 13")
+  )
+})
+
+
+test_that("lbl_date collapses around first differing component", {
+  brk <- brk_res(brk_default(as.Date(c("2006-05-13", "2006-05-14"))))
+
+  expect_equal(
+    lbl_date(fmt = "%d %b", unit = NULL)(brk),
+    "13-14 May"
+  )
+
+  expect_equal(
+    lbl_date(fmt = "%b %d, %Y", unit = NULL)(brk),
+    "May 13-14, 2006"
+  )
+})
+
+
+test_that("lbl_date/lbl_datetime no longer accept raw argument", {
+  expect_error(lbl_date(raw = TRUE))
+  expect_error(lbl_datetime(raw = TRUE))
+})

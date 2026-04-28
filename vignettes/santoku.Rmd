@@ -342,27 +342,26 @@ Note how santoku correctly handles the different timezones.
 You can use `chop_width()` with objects from the `lubridate` package, 
 to chop by irregular periods such as months:
 
-```{r}
-library(lubridate)
+```{r, eval = requireNamespace("lubridate", quietly = TRUE)}
 data.frame(
   y2k = y2k,
-  chopped = chop_width(y2k, months(1))
+  chopped = chop_width(y2k, lubridate::months(1))
 )
 ```
 
 You can format labels using format strings from `strptime()`.
 `lbl_discrete()` is useful here:
 
-```{r}
+```{r, eval = requireNamespace("lubridate", quietly = TRUE)}
 data.frame(
   y2k = y2k,
-  chopped = chop_width(y2k, months(1), labels = lbl_discrete(fmt = "%e %b"))
+  chopped = chop_width(y2k, lubridate::months(1), labels = lbl_discrete(fmt = "%e %b"))
 )
 ```
 
 You can also chop vectors with units, using the `units` package:
 
-```{r}
+```{r, eval = requireNamespace("units", quietly = TRUE)}
 library(units)
 
 x <- set_units(1:10 * 10, cm)

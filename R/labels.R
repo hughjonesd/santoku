@@ -136,25 +136,21 @@ lbl_discrete <- function (
   function (breaks, raw = NULL) {
     assert_that(all(ceiling(as.numeric(breaks)) == floor(as.numeric(breaks))),
           msg = "Non-integer breaks")
-
     len_breaks <- length(breaks)
-    singletons <- singletons(breaks)
-    left <- attr(breaks, "left")
-    breaks <- unclass_breaks(breaks)
 
-    l <- breaks[-len_breaks]
-    r <- breaks[-1]
-    left_l <- left[-len_breaks]
-    left_r <- left[-1]
+    pieces <- discrete_interval_endpoints(
+      breaks = breaks,
+      unit = unit,
+      endpoints = unclass_breaks(breaks)
+    )
 
-    # if you're right-closed we add `unit` to your left endpoint:
-    l[! left_l] <- l[! left_l] + unit
-    # if you're left-closed we deduct `unit` from your right endpoint:
-    r[left_r] <- r[left_r] - unit
-    # sometimes this makes the two endpoints the same:
-    singletons <- singletons | r == l
+    l <- pieces$l
+    r <- pieces$r
+    singletons <- pieces$singletons
+    too_small <- pieces$too_small
+    l_closed <- pieces$l_closed
+    r_closed <- pieces$r_closed
 
-    too_small <- r < l
     if (any(too_small)) {
       warning("Intervals smaller than `unit` are labelled as \"--\"")
     }
@@ -165,10 +161,6 @@ lbl_discrete <- function (
     labels <- paste0(labels_l, symbol, labels_r)
     labels[singletons] <- labels_l[singletons]
     labels[too_small] <- "--"
-
-    l_closed <- left_l
-    # r_closed is used for "]" in labels so need to switch it here:
-    r_closed <- ! left_r
 
     if (! is.null(single)) {
       labels[singletons] <- glue::glue(single, l = labels_l[singletons],
