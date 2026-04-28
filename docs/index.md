@@ -9,6 +9,7 @@ replacement for [`base::cut()`](https://rdrr.io/r/base/cut.html).
 Install from [r-universe](https://r-universe.dev):
 
 ``` r
+
 install.packages("santoku", repos = c("https://hughjonesd.r-universe.dev", 
                                       "https://cloud.r-project.org"))
 ```
@@ -16,12 +17,14 @@ install.packages("santoku", repos = c("https://hughjonesd.r-universe.dev",
 Or from CRAN:
 
 ``` r
+
 install.packages("santoku")
 ```
 
 Or get the development version from github:
 
 ``` r
+
 # install.packages("remotes")
 remotes::install_github("hughjonesd/santoku")
 ```
@@ -61,12 +64,14 @@ analysis, where you may not know the range of your data in advance.
 ## Examples
 
 ``` r
+
 library(santoku)
 ```
 
 `chop` returns a factor:
 
 ``` r
+
 chop(1:5, c(2, 4))
 #> [1] [1, 2) [2, 4) [2, 4) [4, 5] [4, 5]
 #> Levels: [1, 2) [2, 4) [4, 5]
@@ -75,6 +80,7 @@ chop(1:5, c(2, 4))
 Include a number twice to match it exactly:
 
 ``` r
+
 chop(1:5, c(2, 2, 4))
 #> [1] [1, 2) {2}    (2, 4) [4, 5] [4, 5]
 #> Levels: [1, 2) {2} (2, 4) [4, 5]
@@ -83,6 +89,7 @@ chop(1:5, c(2, 2, 4))
 Use names in breaks for labels:
 
 ``` r
+
 chop(1:5, c(Low = 1, Mid = 2, High = 4))
 #> [1] Low  Mid  Mid  High High
 #> Levels: Low Mid High
@@ -91,6 +98,7 @@ chop(1:5, c(Low = 1, Mid = 2, High = 4))
 Or use `lbl_*` functions:
 
 ``` r
+
 chop(1:5, c(2, 4), labels = lbl_dash())
 #> [1] 1—2 2—4 2—4 4—5 4—5
 #> Levels: 1—2 2—4 4—5
@@ -99,6 +107,7 @@ chop(1:5, c(2, 4), labels = lbl_dash())
 Chop into fixed-width intervals:
 
 ``` r
+
 chop_width(runif(10), 0.1)
 #>  [1] [0.368, 0.468)   [0.268, 0.368)   [0.768, 0.868]   [0.568, 0.668)  
 #>  [5] [0.668, 0.768)   [0.768, 0.868]   [0.06801, 0.168) [0.668, 0.768)  
@@ -109,6 +118,7 @@ chop_width(runif(10), 0.1)
 Or into fixed-size groups:
 
 ``` r
+
 chop_n(1:10, 5)
 #>  [1] [1, 6)  [1, 6)  [1, 6)  [1, 6)  [1, 6)  [6, 10] [6, 10] [6, 10] [6, 10]
 #> [10] [6, 10]
@@ -118,6 +128,7 @@ chop_n(1:10, 5)
 Chop dates by calendar month, then tabulate:
 
 ``` r
+
 library(lubridate)
 #> 
 #> Attaching package: 'lubridate'

@@ -37,7 +37,7 @@ tab_evenly(x, intervals, ...)
 [`function`](https://rdrr.io/r/base/function.html) to create `breaks`.
 
 `tab_*` functions return a contingency
-[`table()`](https://rdrr.io/r/base/table.html).
+[`table`](https://rdrr.io/r/base/table.html).
 
 ## See also
 

@@ -50,7 +50,7 @@ tab_dissect(x, breaks, ..., n = NULL, prop = NULL)
 with common values put into separate factor levels.
 
 `tab_dissect()` returns a contingency
-[`table()`](https://rdrr.io/r/base/table.html).
+[table()](https://rdrr.io/r/base/table.html).
 
 ## Details
 

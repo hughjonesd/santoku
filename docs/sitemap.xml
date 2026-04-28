@@ -1,5 +1,6 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://hughjonesd.github.io/santoku/404.html</loc></url>
+<url><loc>https://hughjonesd.github.io/santoku/AGENTS.html</loc></url>
 <url><loc>https://hughjonesd.github.io/santoku/CLAUDE.html</loc></url>
 <url><loc>https://hughjonesd.github.io/santoku/LICENSE-text.html</loc></url>
 <url><loc>https://hughjonesd.github.io/santoku/LICENSE.html</loc></url>
@@ -33,6 +34,7 @@
 <url><loc>https://hughjonesd.github.io/santoku/reference/index.html</loc></url>
 <url><loc>https://hughjonesd.github.io/santoku/reference/knife.html</loc></url>
 <url><loc>https://hughjonesd.github.io/santoku/reference/lbl_dash.html</loc></url>
+<url><loc>https://hughjonesd.github.io/santoku/reference/lbl_datetime.html</loc></url>
 <url><loc>https://hughjonesd.github.io/santoku/reference/lbl_discrete.html</loc></url>
 <url><loc>https://hughjonesd.github.io/santoku/reference/lbl_endpoints.html</loc></url>
 <url><loc>https://hughjonesd.github.io/santoku/reference/lbl_format.html</loc></url>

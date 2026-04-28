@@ -21,6 +21,7 @@ A function which returns an object of class `breaks`.
 ## Examples
 
 ``` r
+
 chop(1:10, c(2, 5, 8))
 #>  [1] [1, 2)  [2, 5)  [2, 5)  [2, 5)  [5, 8)  [5, 8)  [5, 8)  [8, 10] [8, 10]
 #> [10] [8, 10]

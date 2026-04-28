@@ -11,7 +11,7 @@ lbl_intervals(
   single = "{{{l}}}",
   first = NULL,
   last = NULL,
-  raw = FALSE
+  raw = deprecated()
 )
 ```
 
@@ -44,7 +44,7 @@ lbl_intervals(
 
 - raw:
 
-  **\[deprecated\]**. Use the `raw` argument to
+  **\[deprecated\]**. Throws an error. Use the `raw` argument to
   [`chop()`](https://hughjonesd.github.io/santoku/reference/chop.md)
   instead.
 
@@ -72,8 +72,8 @@ If `fmt` is not `NULL` then it is used to format the endpoints.
 
 - If `fmt` is a string, then numeric endpoints will be formatted by
   `sprintf(fmt, breaks)`; other endpoints, e.g.
-  [Date](https://lubridate.tidyverse.org/reference/date_utils.html)
-  objects, will be formatted by `format(breaks, fmt)`.
+  [Date](https://rdrr.io/r/base/Dates.html) objects, will be formatted
+  by `format(breaks, fmt)`.
 
 - If `fmt` is a list, then it will be used as arguments to
   [format](https://rdrr.io/r/base/format.html).
@@ -87,6 +87,7 @@ If `fmt` is not `NULL` then it is used to format the endpoints.
 
 Other labelling functions:
 [`lbl_dash()`](https://hughjonesd.github.io/santoku/reference/lbl_dash.md),
+[`lbl_date()`](https://hughjonesd.github.io/santoku/reference/lbl_datetime.md),
 [`lbl_discrete()`](https://hughjonesd.github.io/santoku/reference/lbl_discrete.md),
 [`lbl_endpoints()`](https://hughjonesd.github.io/santoku/reference/lbl_endpoints.md),
 [`lbl_glue()`](https://hughjonesd.github.io/santoku/reference/lbl_glue.md),
@@ -97,6 +98,7 @@ Other labelling functions:
 ## Examples
 
 ``` r
+
 tab(-10:10, c(-3, 0, 0, 3),
       labels = lbl_intervals())
 #> [-10, -3)   [-3, 0)       {0}    (0, 3)   [3, 10] 

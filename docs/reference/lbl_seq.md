@@ -42,6 +42,7 @@ Other characters will be retained as-is.
 
 Other labelling functions:
 [`lbl_dash()`](https://hughjonesd.github.io/santoku/reference/lbl_dash.md),
+[`lbl_date()`](https://hughjonesd.github.io/santoku/reference/lbl_datetime.md),
 [`lbl_discrete()`](https://hughjonesd.github.io/santoku/reference/lbl_discrete.md),
 [`lbl_endpoints()`](https://hughjonesd.github.io/santoku/reference/lbl_endpoints.md),
 [`lbl_glue()`](https://hughjonesd.github.io/santoku/reference/lbl_glue.md),

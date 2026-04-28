@@ -1,5 +1,18 @@
 # Changelog
 
+## santoku 1.2.0
+
+- New experimental
+  [`lbl_date()`](https://hughjonesd.github.io/santoku/reference/lbl_datetime.md)
+  and
+  [`lbl_datetime()`](https://hughjonesd.github.io/santoku/reference/lbl_datetime.md)
+  functions for pretty formatting of dates and date-times.
+- Bugfix: extended breaks were failing on
+  [`haven::labelled`](https://haven.tidyverse.org/reference/labelled.html)
+  objects.
+- The `raw` argument to `lbl_*` functions, deprecated since 0.9.0, now
+  throws an error.
+
 ## santoku 1.1.0
 
 CRAN release: 2025-09-11
@@ -88,6 +101,7 @@ There are important changes to `close_end`.
   In previous versions:
 
   ``` r
+
   chop(1:2, 1:2)
   ## [1] [1, 2) {2}   
   ## Levels: [1, 2) {2}  
@@ -96,6 +110,7 @@ There are important changes to `close_end`.
   Whereas now:
 
   ``` r
+
   chop(1:2, 1:2)
   ## [1] [1, 2] [1, 2]
   ## Levels: [1, 2]
@@ -105,6 +120,7 @@ There are important changes to `close_end`.
   previous versions:
 
   ``` r
+
   chop(1:4, 2:3, close_end = TRUE)
   ## [1] [1, 2) [2, 3] [2, 3] (3, 4]
   ## Levels: [1, 2) [2, 3] (3, 4]
@@ -113,6 +129,7 @@ There are important changes to `close_end`.
   Whereas now:
 
   ``` r
+
   chop(1:4, 2:3, close_end = TRUE)
   ## [1] [1, 2) [2, 3) [3, 4] [3, 4]
   ## Levels: [1, 2) [2, 3) [3, 4]
@@ -123,6 +140,7 @@ We changed this behaviour to be more in line with user expectations.
 - If `breaks` has names, they will be used as labels:
 
   ``` r
+
   chop(1:5, c(Low = 1, Mid = 2, High = 4))
   ## [1] Low  Mid  Mid  High High
   ## Levels: Low Mid High  
@@ -207,7 +225,7 @@ CRAN release: 2022-06-08
 - [`chop()`](https://hughjonesd.github.io/santoku/reference/chop.md) is
   more forgiving when mixing different types, e.g.:
   - `Date` objects with `POSIXct` breaks, and vice versa
-  - [`bit64::integer64`](https://rdrr.io/pkg/bit64/man/bit64-package.html)
+  - [`bit64::integer64`](https://bit64.r-lib.org/reference/bit64-package.html)
     and `double`s
 - Bugfix:
   [`lbl_discrete()`](https://hughjonesd.github.io/santoku/reference/lbl_discrete.md)

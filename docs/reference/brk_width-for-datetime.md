@@ -23,8 +23,7 @@ brk_width(width, start)
 
 - start:
 
-  A scalar of class
-  [Date](https://lubridate.tidyverse.org/reference/date_utils.html) or
+  A scalar of class [Date](https://rdrr.io/r/base/Dates.html) or
   [POSIXct](https://rdrr.io/r/base/DateTimeClasses.html). Can be
   omitted.
 
@@ -38,6 +37,7 @@ months.
 ## Examples
 
 ``` r
+
 if (requireNamespace("lubridate")) {
   year2001 <- as.Date("2001-01-01") + 0:364
   tab_width(year2001, months(1),

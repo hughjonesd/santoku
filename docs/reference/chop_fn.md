@@ -78,7 +78,7 @@ tab_fn(
 [`function`](https://rdrr.io/r/base/function.html) to create `breaks`.
 
 `tab_*` functions return a contingency
-[`table()`](https://rdrr.io/r/base/table.html).
+[`table`](https://rdrr.io/r/base/table.html).
 
 ## See also
 
@@ -97,6 +97,7 @@ Other chopping functions:
 ## Examples
 
 ``` r
+
 if (requireNamespace("scales")) {
   chop_fn(rlnorm(10), scales::breaks_log(5))
   # same as

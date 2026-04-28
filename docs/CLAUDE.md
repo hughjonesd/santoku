@@ -31,6 +31,7 @@ testthat::test_file("tests/testthat/test-chop.R")
 ### Development workflow
 
 ``` r
+
 # Build package
 devtools::build()
 
@@ -47,6 +48,7 @@ devtools::load_all()
 ### Documentation
 
 ``` r
+
 # Update documentation
 devtools::document()
 

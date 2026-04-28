@@ -23,7 +23,7 @@
     `categorize_impl` (or the R version). In particular,
     e.g. `integer64` doesn’t like `Inf` or `-Inf` but it does have very
     large numbers in
-    [`bit64::lim.integer64`](https://rdrr.io/pkg/bit64/man/sum.integer64.html)
+    [`bit64::lim.integer64`](https://bit64.r-lib.org/reference/sum.integer64.html)
     which look ugly and which only exist to be lower/higher than
     everything else anyway…
     - But NB this requires a new way to create the labels, and that
@@ -93,6 +93,7 @@
     vs. something readable in `tab_*`. E.g.
 
     ``` r
+
     tab_size(1:9, 3, lbl_seq()) 
     ```
 

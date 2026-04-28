@@ -9,6 +9,7 @@ breaks. Now, you can do this simply by adding names to the `breaks`
 vector:
 
 ``` r
+
 library(santoku)
 
 chop(1:5, c(1,3,5))
@@ -24,6 +25,7 @@ Break names override the `labels` argument, but you can still use this
 for unnamed breaks:
 
 ``` r
+
 
 ages <- sample(12:80, 20)
 tab(ages, 
@@ -42,6 +44,7 @@ and
 [`chop_proportions()`](https://hughjonesd.github.io/santoku/reference/chop_proportions.md):
 
 ``` r
+
 x <- rnorm(10)
 chopped <- chop_quantiles(x, 
                             c("Lower tail" = 0, 0.025, "Upper tail" = 0.975)
@@ -73,6 +76,7 @@ i.e. to the very last break.
 In 0.8.0:
 
 ``` r
+
 chop(1:4, 2:3, close_end = TRUE)
 #> [1] [1, 2) [2, 3] [2, 3] (3, 4]
 #> Levels: [1, 2) [2, 3] (3, 4]
@@ -85,6 +89,7 @@ closed at the “outer” end.)
 In 0.9.0:
 
 ``` r
+
 chop(1:4, 2:3, close_end = TRUE)
 #> [1] [1, 2) [2, 3) [3, 4] [3, 4]
 #> Levels: [1, 2) [2, 3) [3, 4]
@@ -102,6 +107,7 @@ the data between the lowest and highest break, inclusive. So,
 In 0.8.0:
 
 ``` r
+
 chop(1:3, 2:3)
 #> [1] [1, 2) [2, 3) {3}   
 #> Levels: [1, 2) [2, 3) {3}
@@ -110,6 +116,7 @@ chop(1:3, 2:3)
 In 0.9.0:
 
 ``` r
+
 chop(1:3, 2:3)
 #> [1] [1, 2) [2, 3] [2, 3]
 #> Levels: [1, 2) [2, 3]
@@ -124,6 +131,7 @@ deviations. We’ve moved this into the main
 function. This makes it easier to use:
 
 ``` r
+
 
 chop_mean_sd(x)
 #>  [1] [-1 sd, 0 sd)  [0 sd, 1 sd)   [0 sd, 1 sd)   [1 sd, 2 sd)   [0 sd, 1 sd)  

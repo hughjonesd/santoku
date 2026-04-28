@@ -11,6 +11,7 @@ kinds of intervals.
 To install santoku, run:
 
 ``` r
+
 install.packages("santoku")
 ```
 
@@ -21,6 +22,7 @@ like [`cut()`](https://rdrr.io/r/base/cut.html), to cut numeric data
 into intervals between a set of `breaks`.
 
 ``` r
+
 library(santoku)
 
 x <- runif(10, 0, 10)
@@ -49,6 +51,7 @@ If data is beyond the limits of `breaks`, they will be extended
 automatically:
 
 ``` r
+
 chopped <- chop(x, breaks = 3:7)
 data.frame(x, chopped)
 #>        x    chopped
@@ -68,6 +71,7 @@ To chop a single number into a separate category, put the number twice
 in `breaks`:
 
 ``` r
+
 x_fives <- x
 x_fives[1:5] <- 5
 chopped <- chop(x_fives, c(2, 5, 5, 8))
@@ -89,6 +93,7 @@ To quickly produce a table of chopped data, use
 [`tab()`](https://hughjonesd.github.io/santoku/reference/chop.md):
 
 ``` r
+
 tab(1:10, c(2, 5, 8))
 #>  [1, 2)  [2, 5)  [5, 8) [8, 10] 
 #>       1       3       3       3
@@ -100,6 +105,7 @@ To chop into fixed-width intervals, starting at the minimum value, use
 [`chop_width()`](https://hughjonesd.github.io/santoku/reference/chop_width.md):
 
 ``` r
+
 chopped <- chop_width(x, 2)
 data.frame(x, chopped)
 #>        x        chopped
@@ -119,6 +125,7 @@ To chop into a fixed number of intervals, each with the same width, use
 [`chop_evenly()`](https://hughjonesd.github.io/santoku/reference/chop_evenly.md):
 
 ``` r
+
 chopped <- chop_evenly(x, intervals = 3)
 data.frame(x, chopped)
 #>        x        chopped
@@ -138,6 +145,7 @@ To chop into groups with a fixed number of elements, use
 [`chop_n()`](https://hughjonesd.github.io/santoku/reference/chop_n.md):
 
 ``` r
+
 chopped <- chop_n(x, 4)
 table(chopped)
 #> chopped
@@ -150,6 +158,7 @@ elements, use
 [`chop_equally()`](https://hughjonesd.github.io/santoku/reference/chop_equally.md):
 
 ``` r
+
 chopped <- chop_equally(x, groups = 5)
 table(chopped)
 #> chopped
@@ -161,6 +170,7 @@ To chop data up by quantiles, use
 [`chop_quantiles()`](https://hughjonesd.github.io/santoku/reference/chop_quantiles.md):
 
 ``` r
+
 chopped <- chop_quantiles(x, c(0.25, 0.5, 0.75))
 data.frame(x, chopped)
 #>        x     chopped
@@ -180,6 +190,7 @@ To chop data up by proportions of the data range, use
 [`chop_proportions()`](https://hughjonesd.github.io/santoku/reference/chop_proportions.md):
 
 ``` r
+
 chopped <- chop_proportions(x, c(0.25, 0.5, 0.75))
 data.frame(x, chopped)
 #>        x        chopped
@@ -204,7 +215,7 @@ You can think of these six functions as logically arranged in a table.
 | intervals of one specific size… | [`chop_n()`](https://hughjonesd.github.io/santoku/reference/chop_n.md) | [`chop_width()`](https://hughjonesd.github.io/santoku/reference/chop_width.md) |
 | intervals of different specific sizes… | [`chop_quantiles()`](https://hughjonesd.github.io/santoku/reference/chop_quantiles.md) | [`chop_proportions()`](https://hughjonesd.github.io/santoku/reference/chop_proportions.md) |
 
-Different ways to chop by size
+Different ways to chop by size {.table}
 
 ### Even more ways to chop
 
@@ -212,6 +223,7 @@ To chop data by standard deviations around the mean, use
 [`chop_mean_sd()`](https://hughjonesd.github.io/santoku/reference/chop_mean_sd.md):
 
 ``` r
+
 chopped <- chop_mean_sd(x)
 data.frame(x, chopped)
 #>        x        chopped
@@ -233,6 +245,7 @@ This selects intervals which are a multiple of 2, 5 or 10. It’s useful
 for producing bar plots.
 
 ``` r
+
 chopped <- chop_pretty(x)
 data.frame(x, chopped)
 #>        x chopped
@@ -256,6 +269,7 @@ treat them differently. You can use
 to do this:
 
 ``` r
+
 x_spike <- rnorm(100)
 x_spike[1:50] <- x_spike[1]
 
@@ -277,6 +291,7 @@ separate intervals on the left and right of common elements, use
 [`chop_spikes()`](https://hughjonesd.github.io/santoku/reference/chop_spikes.md):
 
 ``` r
+
 chopped <- chop_spikes(x_spike, -3:3, prop = 0.1)
 table(chopped)
 #> chopped
@@ -299,6 +314,7 @@ calling the related `chop_*` function and then
 [`table()`](https://rdrr.io/r/base/table.html) on the result.
 
 ``` r
+
 tab_n(x, 4)
 #> [1.086, 4.978)  [4.978, 8.97)  [8.97, 9.708] 
 #>              4              4              2
@@ -327,6 +343,7 @@ By default, santoku labels intervals using mathematical notation:
 To override these labels, provide names to the `breaks` argument:
 
 ``` r
+
 chopped <- chop(x, c(Lowest = 1, Low = 2, Higher = 5, Highest = 8))
 data.frame(x, chopped)
 #>        x chopped
@@ -345,6 +362,7 @@ data.frame(x, chopped)
 Or, you can specify factor labels with the `labels` argument:
 
 ``` r
+
 chopped <- chop(x, c(2, 5, 8), labels = c("Lowest", "Low", "Higher", "Highest"))
 data.frame(x, chopped)
 #>        x chopped
@@ -368,6 +386,7 @@ To label intervals with a dash, use
 [`lbl_dash()`](https://hughjonesd.github.io/santoku/reference/lbl_dash.md):
 
 ``` r
+
 chopped <- chop(x, c(2, 5, 8), labels = lbl_dash())
 data.frame(x, chopped)
 #>        x chopped
@@ -388,6 +407,7 @@ To label integer data, use
 It uses more informative right endpoints:
 
 ``` r
+
 chopped  <- chop(1:10, c(2, 5, 8), labels = lbl_discrete())
 chopped2 <- chop(1:10, c(2, 5, 8), labels = lbl_dash())
 data.frame(x = 1:10, lbl_discrete = chopped, lbl_dash = chopped2)
@@ -407,6 +427,7 @@ data.frame(x = 1:10, lbl_discrete = chopped, lbl_dash = chopped2)
 You can customize the first or last labels:
 
 ``` r
+
 chopped <- chop(x, c(2, 5, 8), labels = lbl_dash(first = "< 2", last = "8+"))
 data.frame(x, chopped)
 #>        x chopped
@@ -426,6 +447,7 @@ To label intervals in order use
 [`lbl_seq()`](https://hughjonesd.github.io/santoku/reference/lbl_seq.md):
 
 ``` r
+
 chopped <- chop(x, c(2, 5, 8), labels = lbl_seq())
 data.frame(x, chopped)
 #>        x chopped
@@ -444,6 +466,7 @@ data.frame(x, chopped)
 You can use numerals or even roman numerals:
 
 ``` r
+
 chop(x, c(2, 5, 8), labels = lbl_seq("(1)"))
 #>  [1] (2) (4) (2) (2) (3) (4) (3) (4) (1) (2)
 #> Levels: (1) (2) (3) (4)
@@ -470,6 +493,7 @@ extends `breaks` if necessary. If you don’t want that, set
 `extend = FALSE`:
 
 ``` r
+
 chopped <- chop(x, c(3, 5, 7), extend = FALSE)
 data.frame(x, chopped)
 #>        x chopped
@@ -491,6 +515,7 @@ By default, intervals are closed on the left, i.e. they include their
 left endpoints. If you want right-closed intervals, set `left = FALSE`:
 
 ``` r
+
 y <- 1:5
 data.frame(
         y = y, 
@@ -509,6 +534,7 @@ By default, the last interval is closed on both ends. If you want to
 keep the last interval open at the end, set `close_end = FALSE`:
 
 ``` r
+
 data.frame(
   y = y,
   end_closed = chop(y, 1:5),
@@ -527,6 +553,7 @@ data.frame(
 You can chop many kinds of vectors with santoku, including Date objects…
 
 ``` r
+
 y2k <- as.Date("2000-01-01") + 0:10 * 7
 data.frame(
   y2k = y2k,
@@ -549,6 +576,7 @@ data.frame(
 … and POSIXct (date-time) objects:
 
 ``` r
+
 # hours of the 2020 Crew Dragon flight:
 crew_dragon <- seq(as.POSIXct("2020-05-30 18:00", tz = "GMT"), 
                      length.out = 24, by = "hours")
@@ -597,6 +625,7 @@ with objects from the `lubridate` package, to chop by irregular periods
 such as months:
 
 ``` r
+
 library(lubridate)
 #> 
 #> Attaching package: 'lubridate'
@@ -621,35 +650,35 @@ data.frame(
 #> 11 2000-03-11 [2000-03-01, 2000-04-01)
 ```
 
-You can format labels using format strings from
-[`strptime()`](https://rdrr.io/r/base/strptime.html).
-[`lbl_discrete()`](https://hughjonesd.github.io/santoku/reference/lbl_discrete.md)
-is useful here:
+[`lbl_date()`](https://hughjonesd.github.io/santoku/reference/lbl_datetime.md)
+produces nicely formatted dates:
 
 ``` r
+
 data.frame(
   y2k = y2k,
-  chopped = chop_width(y2k, months(1), labels = lbl_discrete(fmt = "%e %b"))
+  chopped = chop_width(y2k, days(28), labels = lbl_date())
 )
-#>           y2k       chopped
-#> 1  2000-01-01  1 Jan—31 Jan
-#> 2  2000-01-08  1 Jan—31 Jan
-#> 3  2000-01-15  1 Jan—31 Jan
-#> 4  2000-01-22  1 Jan—31 Jan
-#> 5  2000-01-29  1 Jan—31 Jan
-#> 6  2000-02-05  1 Feb—29 Feb
-#> 7  2000-02-12  1 Feb—29 Feb
-#> 8  2000-02-19  1 Feb—29 Feb
-#> 9  2000-02-26  1 Feb—29 Feb
-#> 10 2000-03-04  1 Mar—31 Mar
-#> 11 2000-03-11  1 Mar—31 Mar
+#>           y2k              chopped
+#> 1  2000-01-01        1-28 Jan 2000
+#> 2  2000-01-08        1-28 Jan 2000
+#> 3  2000-01-15        1-28 Jan 2000
+#> 4  2000-01-22        1-28 Jan 2000
+#> 5  2000-01-29 29 Jan - 25 Feb 2000
+#> 6  2000-02-05 29 Jan - 25 Feb 2000
+#> 7  2000-02-12 29 Jan - 25 Feb 2000
+#> 8  2000-02-19 29 Jan - 25 Feb 2000
+#> 9  2000-02-26 26 Feb - 24 Mar 2000
+#> 10 2000-03-04 26 Feb - 24 Mar 2000
+#> 11 2000-03-11 26 Feb - 24 Mar 2000
 ```
 
 You can also chop vectors with units, using the `units` package:
 
 ``` r
+
 library(units)
-#> udunits database from /Users/davidhugh-jones/Library/R/arm64/4.5/library/units/share/udunits/udunits2.xml
+#> udunits database from /Users/davidhugh-jones/Library/R/arm64/4.6/library/units/share/udunits/udunits2.xml
 
 x <- set_units(1:10 * 10, cm)
 br <- set_units(1:3, ft)
@@ -676,6 +705,7 @@ emits a warning in this case, to avoid accidentally misinterpreting
 results:
 
 ``` r
+
 chop(letters[1:10], c("d", "f"))
 #> Warning in categorize_non_numeric(x, breaks, left): `x` or `breaks` is of type
 #> character, using lexical sorting. To turn off this warning, run:

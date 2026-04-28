@@ -9,7 +9,7 @@ its label."><meta property="og:image" content="https://hughjonesd.github.io/sant
 
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@ its label.</p>
 <span>  single <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  first <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  last <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  raw <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  raw <span class="op">=</span> <span class="fu">deprecated</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -88,8 +88,8 @@ for details.</p></dd>
 
 
 <dt id="arg-raw">raw<a class="anchor" aria-label="anchor" href="#arg-raw"></a></dt>
-<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>. Use the <code>raw</code> argument to <code><a href="chop.html">chop()</a></code>
-instead.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>. Throws an error.
+Use the <code>raw</code> argument to <code><a href="chop.html">chop()</a></code> instead.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -102,8 +102,8 @@ instead.</p></dd>
 
 
 <p>If <code>fmt</code> is not <code>NULL</code> then it is used to format the endpoints.</p><ul><li><p>If <code>fmt</code> is a string, then numeric endpoints will be formatted by
-<code>sprintf(fmt, breaks)</code>; other endpoints, e.g. <a href="https://lubridate.tidyverse.org/reference/date_utils.html" class="external-link">Date</a> objects, will be
-formatted by <code>format(breaks, fmt)</code>.</p></li>
+<code>sprintf(fmt, breaks)</code>; other endpoints, e.g. <a href="https://rdrr.io/r/base/Dates.html" class="external-link">Date</a> objects,
+will be formatted by <code>format(breaks, fmt)</code>.</p></li>
 <li><p>If <code>fmt</code> is a list, then it will be used as arguments to <a href="https://rdrr.io/r/base/format.html" class="external-link">format</a>.</p></li>
 <li><p>If <code>fmt</code> is a function, it should take a vector of numbers (or other objects
 that can be used as breaks) and return a character vector. It may be helpful
@@ -113,6 +113,7 @@ to use functions from the <code>{scales}</code> package, e.g. <code><a href="htt
     <h2 id="see-also">See also<a class="anchor" aria-label="anchor" href="#see-also"></a></h2>
     <div class="dont-index"><p>Other labelling functions:
 <code><a href="lbl_dash.html">lbl_dash()</a></code>,
+<code><a href="lbl_datetime.html">lbl_date()</a></code>,
 <code><a href="lbl_discrete.html">lbl_discrete()</a></code>,
 <code><a href="lbl_endpoints.html">lbl_endpoints()</a></code>,
 <code><a href="lbl_glue.html">lbl_glue()</a></code>,

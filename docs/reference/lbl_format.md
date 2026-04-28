@@ -61,6 +61,7 @@ Other labelling functions:
 ## Examples
 
 ``` r
+
 tab(1:10, c(1,3, 3, 7),
       label = lbl_format("%.3g to %.3g"))
 #>  1 to 3       3  3 to 7 7 to 10 

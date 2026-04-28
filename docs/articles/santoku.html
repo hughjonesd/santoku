@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -648,30 +648,29 @@ months:</p>
 <span><span class="co">#&gt; 9  2000-02-26 [2000-02-01, 2000-03-01)</span></span>
 <span><span class="co">#&gt; 10 2000-03-04 [2000-03-01, 2000-04-01)</span></span>
 <span><span class="co">#&gt; 11 2000-03-11 [2000-03-01, 2000-04-01)</span></span></code></pre></div>
-<p>You can format labels using format strings from
-<code><a href="https://rdrr.io/r/base/strptime.html" class="external-link">strptime()</a></code>. <code><a href="../reference/lbl_discrete.html">lbl_discrete()</a></code> is useful here:</p>
+<p><code><a href="../reference/lbl_datetime.html">lbl_date()</a></code> produces nicely formatted dates:</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span></span>
 <span>  y2k <span class="op">=</span> <span class="va">y2k</span>,</span>
-<span>  chopped <span class="op">=</span> <span class="fu"><a href="../reference/chop_width.html">chop_width</a></span><span class="op">(</span><span class="va">y2k</span>, <span class="fu"><a href="https://rdrr.io/r/base/weekday.POSIXt.html" class="external-link">months</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="../reference/lbl_discrete.html">lbl_discrete</a></span><span class="op">(</span>fmt <span class="op">=</span> <span class="st">"%e %b"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  chopped <span class="op">=</span> <span class="fu"><a href="../reference/chop_width.html">chop_width</a></span><span class="op">(</span><span class="va">y2k</span>, <span class="fu"><a href="https://lubridate.tidyverse.org/reference/period.html" class="external-link">days</a></span><span class="op">(</span><span class="fl">28</span><span class="op">)</span>, labels <span class="op">=</span> <span class="fu"><a href="../reference/lbl_datetime.html">lbl_date</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt;           y2k       chopped</span></span>
-<span><span class="co">#&gt; 1  2000-01-01  1 Jan—31 Jan</span></span>
-<span><span class="co">#&gt; 2  2000-01-08  1 Jan—31 Jan</span></span>
-<span><span class="co">#&gt; 3  2000-01-15  1 Jan—31 Jan</span></span>
-<span><span class="co">#&gt; 4  2000-01-22  1 Jan—31 Jan</span></span>
-<span><span class="co">#&gt; 5  2000-01-29  1 Jan—31 Jan</span></span>
-<span><span class="co">#&gt; 6  2000-02-05  1 Feb—29 Feb</span></span>
-<span><span class="co">#&gt; 7  2000-02-12  1 Feb—29 Feb</span></span>
-<span><span class="co">#&gt; 8  2000-02-19  1 Feb—29 Feb</span></span>
-<span><span class="co">#&gt; 9  2000-02-26  1 Feb—29 Feb</span></span>
-<span><span class="co">#&gt; 10 2000-03-04  1 Mar—31 Mar</span></span>
-<span><span class="co">#&gt; 11 2000-03-11  1 Mar—31 Mar</span></span></code></pre></div>
+<span><span class="co">#&gt;           y2k              chopped</span></span>
+<span><span class="co">#&gt; 1  2000-01-01        1-28 Jan 2000</span></span>
+<span><span class="co">#&gt; 2  2000-01-08        1-28 Jan 2000</span></span>
+<span><span class="co">#&gt; 3  2000-01-15        1-28 Jan 2000</span></span>
+<span><span class="co">#&gt; 4  2000-01-22        1-28 Jan 2000</span></span>
+<span><span class="co">#&gt; 5  2000-01-29 29 Jan - 25 Feb 2000</span></span>
+<span><span class="co">#&gt; 6  2000-02-05 29 Jan - 25 Feb 2000</span></span>
+<span><span class="co">#&gt; 7  2000-02-12 29 Jan - 25 Feb 2000</span></span>
+<span><span class="co">#&gt; 8  2000-02-19 29 Jan - 25 Feb 2000</span></span>
+<span><span class="co">#&gt; 9  2000-02-26 26 Feb - 24 Mar 2000</span></span>
+<span><span class="co">#&gt; 10 2000-03-04 26 Feb - 24 Mar 2000</span></span>
+<span><span class="co">#&gt; 11 2000-03-11 26 Feb - 24 Mar 2000</span></span></code></pre></div>
 <p>You can also chop vectors with units, using the <code>units</code>
 package:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-quantities.github.io/units/" class="external-link">units</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; udunits database from /Users/davidhugh-jones/Library/R/arm64/4.5/library/units/share/udunits/udunits2.xml</span></span>
+<span><span class="co">#&gt; udunits database from /Users/davidhugh-jones/Library/R/arm64/4.6/library/units/share/udunits/udunits2.xml</span></span>
 <span></span>
 <span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-quantities.github.io/units/reference/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">*</span> <span class="fl">10</span>, <span class="va">cm</span><span class="op">)</span></span>
 <span><span class="va">br</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-quantities.github.io/units/reference/units.html" class="external-link">set_units</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="va">ft</span><span class="op">)</span></span>

@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -42,6 +42,12 @@
       <small>Source: <a href="https://github.com/hughjonesd/santoku/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="1.2.0" id="santoku-120">santoku 1.2.0<a class="anchor" aria-label="anchor" href="#santoku-120"></a></h2>
+<ul><li>New experimental <code><a href="../reference/lbl_datetime.html">lbl_date()</a></code> and <code><a href="../reference/lbl_datetime.html">lbl_datetime()</a></code> functions for pretty formatting of dates and date-times.</li>
+<li>Bugfix: extended breaks were failing on <code><a href="https://haven.tidyverse.org/reference/labelled.html" class="external-link">haven::labelled</a></code> objects.</li>
+<li>The <code>raw</code> argument to <code>lbl_*</code> functions, deprecated since 0.9.0, now throws an error.</li>
+</ul></div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="1.1.0" id="santoku-110">santoku 1.1.0<a class="anchor" aria-label="anchor" href="#santoku-110"></a></h2><p class="text-muted">CRAN release: 2025-09-11</p>
 <ul><li>Core logic has been speeded up using raw pointers. This was vibe-coded by me and Claude Code. If it breaks, please file a bug report.</li>
@@ -149,7 +155,7 @@
 <ul><li>
 <code>Date</code> objects with <code>POSIXct</code> breaks, and vice versa</li>
 <li>
-<code><a href="https://rdrr.io/pkg/bit64/man/bit64-package.html" class="external-link">bit64::integer64</a></code> and <code>double</code>s</li>
+<code><a href="https://bit64.r-lib.org/reference/bit64-package.html" class="external-link">bit64::integer64</a></code> and <code>double</code>s</li>
 </ul></li>
 <li>Bugfix: <code><a href="../reference/lbl_discrete.html">lbl_discrete()</a></code> sometimes had ugly label formatting.</li>
 </ul></div>

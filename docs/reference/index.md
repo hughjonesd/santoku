@@ -101,6 +101,10 @@ Specify how to label the chopped intervals
 - [`lbl_dash()`](https://hughjonesd.github.io/santoku/reference/lbl_dash.md)
   : Label chopped intervals like 1-4, 4-5, ...
 
+- [`lbl_date()`](https://hughjonesd.github.io/santoku/reference/lbl_datetime.md)
+  [`lbl_datetime()`](https://hughjonesd.github.io/santoku/reference/lbl_datetime.md)
+  **\[experimental\]** : Label dates and datetimes
+
 - [`lbl_discrete()`](https://hughjonesd.github.io/santoku/reference/lbl_discrete.md)
   : Label discrete data
 

@@ -49,7 +49,7 @@ tab_width(x, width, start, ..., left = sign(width) > 0)
 [`function`](https://rdrr.io/r/base/function.html) to create `breaks`.
 
 `tab_*` functions return a contingency
-[`table()`](https://rdrr.io/r/base/table.html).
+[`table`](https://rdrr.io/r/base/table.html).
 
 ## Details
 

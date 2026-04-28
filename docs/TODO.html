@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@
 <li>Implement a simple <code>Infinity</code> class that automatically casts to any other class and is always &gt; or &lt; than any other element? Then replace the <code>class_bounds()</code> complexity?
 <ul><li>The problem at the moment is that <code>vec_cast()</code> is highly unreliable and you never know if a particular class will accept <code>Inf</code>.</li>
 <li>An infinity class would be fine, but how does that go into the existing <code>breaks</code> object which has its own underlying class?</li>
-<li>Might be more reasonable just not to add <code>Inf</code> or <code>-Inf</code> elements. Instead, record whether the breaks have left and right “infinity” set. Then just add numeric infinity to the breaks before you call <code>categorize_impl</code> (or the R version). In particular, e.g. <code>integer64</code> doesn’t like <code>Inf</code> or <code>-Inf</code> but it does have very large numbers in <code><a href="https://rdrr.io/pkg/bit64/man/sum.integer64.html" class="external-link">bit64::lim.integer64</a></code> which look ugly and which only exist to be lower/higher than everything else anyway…
+<li>Might be more reasonable just not to add <code>Inf</code> or <code>-Inf</code> elements. Instead, record whether the breaks have left and right “infinity” set. Then just add numeric infinity to the breaks before you call <code>categorize_impl</code> (or the R version). In particular, e.g. <code>integer64</code> doesn’t like <code>Inf</code> or <code>-Inf</code> but it does have very large numbers in <code><a href="https://bit64.r-lib.org/reference/sum.integer64.html" class="external-link">bit64::lim.integer64</a></code> which look ugly and which only exist to be lower/higher than everything else anyway…
 <ul><li>But NB this requires a new way to create the labels, and that kinda sucks….</li>
 </ul></li>
 </ul></li>

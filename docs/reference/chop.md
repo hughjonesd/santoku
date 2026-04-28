@@ -4,7 +4,7 @@
 [`factor`](https://rdrr.io/r/base/factor.html) of the same length as
 `x`, representing which interval contains each element of `x`. `kiru()`
 is an alias for `chop`. `tab()` calls `chop()` and returns a contingency
-[`table()`](https://rdrr.io/r/base/table.html) from the result.
+[`table`](https://rdrr.io/r/base/table.html) from the result.
 
 ## Usage
 
@@ -88,14 +88,14 @@ same length as `x`, representing the intervals containing the value of
 `x`.
 
 `tab()` returns a contingency
-[`table()`](https://rdrr.io/r/base/table.html).
+[`table`](https://rdrr.io/r/base/table.html).
 
 ## Details
 
 `x` may be a numeric vector, or more generally, any vector which can be
 compared with `<` and `==` (see
 [Ops](https://rdrr.io/r/base/groupGeneric.html)). In particular
-[Date](https://lubridate.tidyverse.org/reference/date_utils.html) and
+[Date](https://rdrr.io/r/base/Dates.html) and
 [date-time](https://rdrr.io/r/base/DateTimeClasses.html) objects are
 supported. Character vectors are supported with a warning.
 
@@ -230,6 +230,7 @@ Other chopping functions:
 ## Examples
 
 ``` r
+
 chop(1:7, c(2, 4, 6))
 #> [1] [1, 2) [2, 4) [2, 4) [4, 6) [4, 6) [6, 7] [6, 7]
 #> Levels: [1, 2) [2, 4) [4, 6) [6, 7]
