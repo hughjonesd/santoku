@@ -1,8 +1,8 @@
 
 #' @name label-doc
 #' @param fmt String, list or function. A format for break endpoints.
-#' @param raw `r lifecycle::badge("deprecated")`. Use the `raw` argument to [chop()]
-#'   instead.
+#' @param raw `r lifecycle::badge("deprecated")`. Throws an error.
+#'   Use the `raw` argument to [chop()] instead.
 #' @param symbol String: symbol to use for the dash.
 #' @param ... Arguments passed to format methods.
 #'
@@ -73,14 +73,14 @@ lbl_intervals <- function (
                    single = "{{{l}}}",
                    first  = NULL,
                    last   = NULL,
-                   raw    = FALSE
+                   raw    = deprecated()
                  ) {
-  if (! isFALSE(raw)) {
-    lifecycle::deprecate_warn("0.9.0", "lbl_intervals(raw)", "chop(raw)")
+  if (lifecycle::is_present(raw)) {
+    lifecycle::deprecate_stop("0.9.0", "lbl_intervals(raw)", "chop(raw)")
   }
   interval_glue <- "{ifelse(l_closed, '[', '(')}{l}, {r}{ifelse(r_closed, ']', ')')}"
   lbl_glue(label = interval_glue, single = single, fmt = fmt, first = first,
-             last = last, raw = raw)
+             last = last)
 }
 
 
@@ -215,10 +215,10 @@ lbl_dash <- function (
               single = "{l}",
               first  = NULL,
               last   = NULL,
-              raw    = FALSE
+              raw    = deprecated()
             ) {
-  if (! isFALSE(raw)) {
-    lifecycle::deprecate_warn("0.9.0", "lbl_dash(raw)", "chop(raw)")
+  if (lifecycle::is_present(raw)) {
+    lifecycle::deprecate_stop("0.9.0", "lbl_dash(raw)", "chop(raw)")
   }
 
   label_glue <- paste0("{l}", symbol, "{r}")

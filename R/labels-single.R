@@ -18,14 +18,13 @@ lbl_midpoints <- function (
                    single = NULL,
                    first  = NULL,
                    last   = NULL,
-                   raw    = FALSE
+                   raw    = deprecated()
                  ) {
-  if (! isFALSE(raw)) {
-    lifecycle::deprecate_warn("0.9.0", "lbl_midpoints(raw)", "chop(raw)")
+  if (lifecycle::is_present(raw)) {
+    lifecycle::deprecate_stop("0.9.0", "lbl_midpoints(raw)", "chop(raw)")
   }
 
-  RAW <- raw # avoid "recursive default argument reference"
-  function (breaks, raw = RAW) {
+  function (breaks, raw = FALSE) {
     assert_that(is.breaks(breaks))
 
     break_nums <- scaled_endpoints(breaks, raw = raw)
@@ -84,17 +83,16 @@ lbl_endpoints <- function (
                    single = NULL,
                    first  = NULL,
                    last   = NULL,
-                   raw    = FALSE
+                   raw    = deprecated()
                  ) {
   assert_that(is.flag(left))
 
-  if (! isFALSE(raw)) {
-    lifecycle::deprecate_warn("0.9.0", "lbl_endpoints(raw)", "chop(raw)")
+  if (lifecycle::is_present(raw)) {
+    lifecycle::deprecate_stop("0.9.0", "lbl_endpoints(raw)", "chop(raw)")
   }
 
   label <- if (left) "{l}" else "{r}"
-  lbl_glue(label, fmt = fmt, single = single, first = first, last = last,
-             raw = raw)
+  lbl_glue(label, fmt = fmt, single = single, first = first, last = last)
 }
 
 

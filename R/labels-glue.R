@@ -44,23 +44,21 @@ lbl_glue <- function (
               single = NULL,
               first  = NULL,
               last   = NULL,
-              raw    = FALSE,
+              raw    = deprecated(),
               ...
             ) {
   assert_that(
     is.string(label),
     is.null(fmt) || is_format(fmt),
     is.string(first) || is.null(first),
-    is.string(last) || is.null(last),
-    is.flag(raw)
+    is.string(last) || is.null(last)
   )
 
-  if (! isFALSE(raw)) {
-    lifecycle::deprecate_warn("0.9.0", "lbl_glue(raw)", "chop(raw)")
+  if (lifecycle::is_present(raw)) {
+    lifecycle::deprecate_stop("0.9.0", "lbl_glue(raw)", "chop(raw)")
   }
 
-  RAW <- raw # avoid "recursive default argument reference"
-  function (breaks, raw = RAW) {
+  function (breaks, raw = FALSE) {
     assert_that(is.breaks(breaks))
 
     len_breaks <- length(breaks)

@@ -167,27 +167,6 @@ test_that("raw", {
     levels(res),
     c("[0%, 25%)", "[25%, 75%)", "[75%, 100%]")
   )
-
-  # raw overrides raw in labels
-  withr::local_options(lifecycle_verbosity = "quiet")
-
-  expect_silent(
-    res <- chop(x, brk_quantiles(c(0.25, 0.75)),
-                  labels = lbl_intervals(raw = FALSE), raw = TRUE)
-  )
-  expect_equal(
-    levels(res),
-    c("[1, 3.25)", "[3.25, 7.75)", "[7.75, 10]")
-  )
-
-  expect_silent(
-    res <- chop(x, brk_quantiles(c(0.25, 0.75)),
-                  labels = lbl_intervals(raw = TRUE), raw = FALSE)
-  )
-  expect_equal(
-    levels(res),
-    c("[0%, 25%)", "[25%, 75%)", "[75%, 100%]")
-  )
 })
 
 
@@ -242,11 +221,10 @@ test_that("chop_proportions", {
     ignore_attr = TRUE
   )
 
-  withr::local_options(lifecycle_verbosity = "quiet")
   expect_equal(
     chop_proportions(0:10, c(0.2, 0.8), labels = lbl_intervals(), raw = FALSE),
-    chop_proportions(0:10, c(0.2, 0.8), labels = lbl_intervals(raw = FALSE),
-                       raw = NULL)
+    factor(c(1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3),
+           labels = c("[0, 0.2)", "[0.2, 0.8)", "[0.8, 1]"))
   )
 })
 
@@ -271,8 +249,8 @@ test_that("chop_quantiles", {
   withr::local_options(lifecycle_verbosity = "quiet")
   expect_equal(
     chop_quantiles(1:6, c(.25, .5, .75), raw = TRUE),
-    chop_quantiles(1:6, c(.25, .5, .75), labels = lbl_intervals(raw = TRUE),
-                     raw = NULL)
+    factor(c(1, 1, 2, 3, 4, 4),
+           labels = c("[1, 2.25)", "[2.25, 3.5)", "[3.5, 4.75)", "[4.75, 6]"))
   )
 })
 
@@ -284,15 +262,14 @@ test_that("chop_equally", {
     as.factor(rep(1:2, each = 3))
   )
 
-  withr::local_options(lifecycle_verbosity = "quiet")
   expect_equal(
-    chop_equally(x, 2, labels = lbl_intervals(raw = FALSE), raw = NULL),
-    chop_equally(x, 2, raw = FALSE)
+    chop_equally(x, 2, raw = FALSE),
+    factor(c(1, 1, 1, 2, 2, 2), labels = c("[0%, 50%)", "[50%, 100%]"))
   )
 
   expect_equal(
-    chop_equally(x, 2, labels = lbl_intervals(raw = TRUE)),
-    chop_equally(x, 2, raw = TRUE)
+    chop_equally(x, 2, raw = TRUE),
+    factor(c(1, 1, 1, 2, 2, 2), labels = c("[1, 3.5)", "[3.5, 6]"))
   )
 
   expect_warning(
@@ -340,10 +317,10 @@ test_that("chop_mean_sd", {
   lifecycle::expect_deprecated(res3 <- chop_mean_sd(x, sd = 2))
   expect_equal(res2, res3)
 
-  withr::local_options(lifecycle_verbosity = "quiet")
   expect_equal(
     chop_mean_sd(x, raw = TRUE),
-    chop_mean_sd(x, labels = lbl_intervals(raw = TRUE), raw = NULL),
+    factor(c("[-1, 0)", "[0, 1)", "[1, 2)"),
+           levels = c("[-1, 0)", "[0, 1)", "[1, 2)"))
   )
 })
 

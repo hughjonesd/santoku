@@ -71,15 +71,7 @@ test_that("lbl_dash arguments", {
     c("0.000-0.500", "0.500-1.000")
   )
 
-
-  lifecycle::expect_deprecated(lbl_dash(raw = TRUE))
-  withr::local_options(lifecycle_verbosity = "quiet")
-
-  expect_equal(lbl_dash("-", raw = TRUE)(qbrk), c("0-5", "5-10"))
-  expect_equal(
-    lbl_dash("-", raw = TRUE, fmt = "%.2f")(qbrk),
-    c("0.00-5.00", "5.00-10.00")
-  )
+  lifecycle::expect_defunct(lbl_dash(raw = TRUE))
 })
 
 
@@ -142,15 +134,8 @@ test_that("lbl_glue arguments", {
 
   qbrk <- brk_res(brk_quantiles(c(0, .5, 1)), x = 0:10)
 
-  lifecycle::expect_deprecated(lbl_glue("{l} / {r}", raw = TRUE))
-
-  withr::local_options(lifecycle_verbosity = "quiet")
-  expect_equal(
-    lbl_glue("{l} / {r}", raw = TRUE)(qbrk),
-    c("0 / 5", "5 / 10")
-  )
+  lifecycle::expect_defunct(lbl_glue("{l} / {r}", raw = TRUE))
 })
-
 
 
 test_that("lbl_endpoints", {
@@ -221,10 +206,7 @@ test_that("lbl_midpoints arguments", {
     c("0,25", "0,75")
   )
 
-  lifecycle::expect_deprecated(lbl_midpoints(raw = TRUE))
-
-  withr::local_options(lifecycle_verbosity = "quiet")
-  expect_equal(lbl_midpoints(raw = TRUE)(qbrk), c("2.5", "7.5"))
+  lifecycle::expect_defunct(lbl_midpoints(raw = TRUE))
 })
 
 
@@ -298,18 +280,7 @@ test_that("lbl_intervals arguments", {
     c("[1, 2)", "[2]", "(2, 3]")
   )
 
-  lifecycle::expect_deprecated(lbl_intervals(raw = TRUE))
-
-  withr::local_options(lifecycle_verbosity = "quiet")
-
-  expect_equal(
-    lbl_intervals(raw = TRUE)(qbrk),
-    c("[0, 5)", "[5, 10]")
-  )
-  expect_equal(
-    lbl_intervals(raw = TRUE, fmt = "%.2f")(qbrk),
-    c("[0.00, 5.00)", "[5.00, 10.00]")
-  )
+  lifecycle::expect_defunct(lbl_intervals(raw = TRUE))
 })
 
 

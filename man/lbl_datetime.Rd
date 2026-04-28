@@ -47,6 +47,8 @@ for details.}
 A function that creates a vector of labels.
 }
 \description{
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
+
 \code{lbl_date()} and \code{lbl_datetime()} produce nice labels for dates
 and datetimes. Where possible ranges are simplified, like
 like "13-14 Jul 2026" or "11:15-12:15 1 Dec 2025".

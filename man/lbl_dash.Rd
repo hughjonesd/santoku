@@ -10,7 +10,7 @@ lbl_dash(
   single = "{l}",
   first = NULL,
   last = NULL,
-  raw = FALSE
+  raw = deprecated()
 )
 }
 \arguments{
@@ -30,8 +30,8 @@ for details.}
 \code{last = ">{l}"} to create a label like \code{">65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
 
-\item{raw}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}. Use the \code{raw} argument to \code{\link[=chop]{chop()}}
-instead.}
+\item{raw}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}. Throws an error.
+Use the \code{raw} argument to \code{\link[=chop]{chop()}} instead.}
 }
 \value{
 A function that creates a vector of labels.
