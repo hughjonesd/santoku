@@ -1,10 +1,13 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to agents when working with code in this repository.
 
 ## Project Overview
 
-santoku is an R package that provides `chop()`, a versatile replacement for `base::cut()` for cutting data into intervals. The package handles numeric vectors, dates, times, and other comparable objects, with support for singleton intervals and flexible labeling.
+santoku is an R package that provides `chop()`, a versatile replacement for 
+`base::cut()` for cutting data into intervals. The package handles numeric 
+vectors, dates, times, and other comparable objects, with support for singleton 
+intervals and flexible labeling.
 
 ## Common Commands
 
