@@ -6,22 +6,17 @@
 \usage{
 lbl_date(
   fmt = "\%e \%b \%Y",
-  symbol = " - ",
-  collapsed_symbol = "-",
+  symbol = "-",
   unit = as.difftime(1, units = "days"),
   single = "{l}",
   first = NULL,
-  last = NULL,
-  raw = FALSE
+  last = NULL
 )
 }
 \arguments{
 \item{fmt}{String, list or function. A format for break endpoints.}
 
 \item{symbol}{String: separator to use for full ranges.}
-
-\item{collapsed_symbol}{String: separator to use when shared date suffixes are
-collapsed.}
 
 \item{unit}{Optional interval unit for non-overlapping labels. If \code{NULL}, no
 discrete adjustment is applied. If not \code{NULL}, open endpoints are adjusted
@@ -38,9 +33,6 @@ for details.}
 \item{last}{String: override label for the last category. Write e.g.
 \code{last = ">{l}"} to create a label like \code{">65"}. See \code{\link[=lbl_glue]{lbl_glue()}}
 for details.}
-
-\item{raw}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}. Use the \code{raw} argument to \code{\link[=chop]{chop()}}
-instead.}
 }
 \value{
 A function that creates a vector of labels.

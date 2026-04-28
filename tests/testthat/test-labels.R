@@ -510,3 +510,9 @@ test_that("lbl_date collapses around first differing component", {
     "May 13-14, 2006"
   )
 })
+
+
+test_that("lbl_date/lbl_datetime no longer accept raw argument", {
+  expect_error(lbl_date(raw = TRUE))
+  expect_error(lbl_datetime(raw = TRUE))
+})

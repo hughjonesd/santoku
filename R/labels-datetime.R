@@ -60,6 +60,7 @@ strftime_rank <- function(token) {
   if (code %in% c("Y", "y", "C", "G", "g")) return(1)
   if (code %in% c("m", "b", "B", "h")) return(2)
   if (code %in% c("d", "e", "j", "a", "A", "u", "w")) return(3)
+  if (code %in% c("H", "I", "k", "l", "p", "P", "M", "S", "OS")) return(4)
 
   NA_real_
 }
@@ -93,7 +94,6 @@ format_strftime_tokens <- function(x, fmt = NULL, spec = parse_strftime(fmt)) {
 #' @param l_tokens Left endpoint tokens.
 #' @param r_tokens Right endpoint tokens.
 #' @param symbol Separator for full ranges.
-#' @param collapsed_symbol Separator when suffix is collapsed.
 #'
 #' @return A single collapsed range label.
 #' @noRd
@@ -101,11 +101,12 @@ collapse_datetime_label <- function(
     l_tokens,
     r_tokens,
     spec,
-    symbol = " - ",
-    collapsed_symbol = "-"
+    symbol = "-"
 ) {
   n <- length(l_tokens)
-  full <- paste0(paste0(l_tokens, collapse = ""), symbol, paste0(r_tokens, collapse = ""))
+  spaced_symbol <- paste0(" ", symbol, " ")
+  full <- paste0(paste0(l_tokens, collapse = ""), spaced_symbol,
+                 paste0(r_tokens, collapse = ""))
 
   ranks <- vapply(spec$token, strftime_rank, FUN.VALUE = numeric(1))
   is_directive <- spec$type == "directive"
@@ -117,14 +118,14 @@ collapse_datetime_label <- function(
     higher_differs <- comparable & (ranks < diff_rank) & (l_tokens != r_tokens)
     active_components <- which(comparable & (ranks >= diff_rank))
 
-    if (!any(higher_differs) && length(active_components) > 0 && diff_rank > 1) {
+    if (!any(higher_differs) && length(active_components) > 0 && diff_rank %in% c(2, 3)) {
       left_end <- max(active_components)
       right_start <- min(active_components)
       left_part <- paste0(l_tokens[seq_len(left_end)], collapse = "")
       right_part <- paste0(r_tokens[right_start:n], collapse = "")
 
       if (nzchar(left_part) && nzchar(right_part)) {
-        joiner <- if (diff_rank == 3) collapsed_symbol else symbol
+        joiner <- if (diff_rank == 3) symbol else spaced_symbol
         return(paste0(left_part, joiner, right_part))
       }
     }
@@ -152,7 +153,7 @@ collapse_datetime_label <- function(
     return(full)
   }
 
-  joiner <- if (grepl("\\s", l_head) || grepl("\\s", r_head)) symbol else collapsed_symbol
+  joiner <- if (grepl("\\s", l_head) || grepl("\\s", r_head)) spaced_symbol else symbol
 
   paste0(l_head, joiner, r_head, suffix)
 }
@@ -163,8 +164,6 @@ collapse_datetime_label <- function(
 #' @inherit label-doc
 #' @inherit first-last-doc
 #' @param symbol String: separator to use for full ranges.
-#' @param collapsed_symbol String: separator to use when shared date suffixes are
-#'   collapsed.
 #' @param unit Optional interval unit for non-overlapping labels. If `NULL`, no
 #'   discrete adjustment is applied. If not `NULL`, open endpoints are adjusted
 #'   inward by `unit`, in the style of [lbl_discrete()].
@@ -174,23 +173,19 @@ collapse_datetime_label <- function(
 #' @export
 lbl_date <- function(
     fmt = "%e %b %Y",
-    symbol = " - ",
-    collapsed_symbol = "-",
+    symbol = "-",
     unit = as.difftime(1, units = "days"),
     single = "{l}",
     first = NULL,
-    last = NULL,
-    raw = FALSE
+    last = NULL
 ) {
   lbl_datetime(
     fmt = fmt,
     symbol = symbol,
-    collapsed_symbol = collapsed_symbol,
     unit = unit,
     single = single,
     first = first,
-    last = last,
-    raw = raw
+    last = last
   )
 }
 
@@ -200,8 +195,6 @@ lbl_date <- function(
 #' @inherit label-doc
 #' @inherit first-last-doc
 #' @param symbol String: separator to use for full ranges.
-#' @param collapsed_symbol String: separator to use when shared date/time suffixes
-#'   are collapsed.
 #' @param unit Optional interval unit for non-overlapping labels. If `NULL`, no
 #'   discrete adjustment is applied. If not `NULL`, open endpoints are adjusted
 #'   inward by `unit`, in the style of [lbl_discrete()].
@@ -210,37 +203,27 @@ lbl_date <- function(
 #'
 #' @export
 lbl_datetime <- function(
-    fmt = "%l.%M %P %b %e %Y",
-    symbol = " - ",
-    collapsed_symbol = "-",
+    fmt = "%H:%M %b %e %Y",
+    symbol = "-",
     unit = NULL,
     single = "{l}",
     first = NULL,
-    last = NULL,
-    raw = FALSE
+    last = NULL
 ) {
   assert_that(
     is.string(fmt),
     is.string(symbol),
-    is.string(collapsed_symbol),
     length(unit) <= 1L,
     is.string(single) || is.null(single),
     is.string(first) || is.null(first),
-    is.string(last) || is.null(last),
-    is.flag(raw)
+    is.string(last) || is.null(last)
   )
 
-  if (!isFALSE(raw)) {
-    lifecycle::deprecate_warn("0.9.0", "lbl_datetime(raw)", "chop(raw)")
-  }
-
-  RAW <- raw
-
-  function(breaks, raw = RAW) {
+  function(breaks, raw = NULL) {
     assert_that(is.breaks(breaks))
 
     len_breaks <- length(breaks)
-    endpoints <- scaled_endpoints(breaks, raw = raw)
+    endpoints <- scaled_endpoints(breaks, raw = FALSE)
     pieces <- discrete_interval_endpoints(
       breaks = breaks,
       unit = unit,
@@ -266,8 +249,7 @@ lbl_datetime <- function(
         l_tokens = l_tokens[i, ],
         r_tokens = r_tokens[i, ],
         spec = spec,
-        symbol = symbol,
-        collapsed_symbol = collapsed_symbol
+        symbol = symbol
       )
     }, FUN.VALUE = character(1))
 
