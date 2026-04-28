@@ -77,6 +77,7 @@ chop(2.5, c(1, 3, 5), lbl_discrete())
 \seealso{
 Other labelling functions: 
 \code{\link{lbl_dash}()},
+\code{\link{lbl_date}()},
 \code{\link{lbl_endpoints}()},
 \code{\link{lbl_glue}()},
 \code{\link{lbl_intervals}()},

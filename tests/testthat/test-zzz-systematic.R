@@ -43,8 +43,17 @@ test_that("systematic tests", {
     lbl_intervals     = expression(lbl_intervals()),
     lbl_seq           = expression(lbl_seq("a")),
     lbl_endpoints     = expression(lbl_endpoints()),
-    lbl_midpoints     = expression(lbl_midpoints())
+    lbl_midpoints     = expression(lbl_midpoints()),
+    lbl_date          = expression(lbl_date()),
+    lbl_datetime      = expression(lbl_datetime())
   )
+
+  # how to investigate a failure:
+  # 1. Note the seed and row.
+  # 2. Manually run from here to END TEST DATA CREATION below
+  # 3. Look at test_df[row,] or test_df[test_df$row == row, ]
+  # 4. Go to the for loop below, set r to the row and seed to the seed
+  #    and run relevant lines.
 
   test_df <- expand.grid(
     x         = x_vals,
@@ -79,8 +88,12 @@ test_that("systematic tests", {
   # don't try to break dates by 1 second width (very slow!)
   skip_test(names(x) != "POSIXct" & brk_fun == "brk_w_difft_sec")
 
+  skip_test(names(x) != "Date" & lbl_fun == "lbl_date")
+  skip_test(names(x) != "POSIXct" & lbl_fun == "lbl_datetime")
+
   test_df$expect <- "succeed"
   test_df$row <- seq_len(nrow(test_df))
+  # END TEST DATA CREATION
 
   # some things should fail
   should_fail <-   function (cond) test_df$expect[cond] <<- "error"
@@ -210,12 +223,10 @@ test_that("systematic tests", {
                  }
 
   for (r in sample_rows) {
+    # start manual debugging here with r and seed set
     tdata <- test_df[r, ]
     if (is.na(tdata$expect)) next
 
-    # v basic debugging interactively. Replace r by the row that gives a test failure
-    # cat(r, "\n")
-    # if (r==63194) browser()
     if (is.na(tdata$extend)) tdata$extend <- NULL
     if (is.na(tdata$raw)) tdata$raw <- NULL
 

@@ -1,6 +1,8 @@
 
 # santoku (development version)
 
+* New `lbl_date()` and `lbl_datetime()` functions for pretty formatting
+  of dates and date-times.
 * Bugfix: extended breaks were failing on `haven::labelled` objects.
 
 
