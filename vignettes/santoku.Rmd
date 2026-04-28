@@ -350,13 +350,13 @@ data.frame(
 )
 ```
 
-You can format labels using format strings from `strptime()`.
-`lbl_discrete()` is useful here:
+
+`lbl_date()` produces nicely formatted dates:
 
 ```{r}
 data.frame(
   y2k = y2k,
-  chopped = chop_width(y2k, months(1), labels = lbl_discrete(fmt = "%e %b"))
+  chopped = chop_width(y2k, days(28), labels = lbl_date())
 )
 ```
 

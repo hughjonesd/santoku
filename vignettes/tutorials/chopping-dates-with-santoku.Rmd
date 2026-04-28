@@ -21,7 +21,7 @@ class: center, middle
 }
 </style>
 
-# Chopping dates with santoku 0.4.0
+# Chopping dates with santoku
 ## David Hugh-Jones
 
 <img src="figures/logo.png" style="width: 250px" />
@@ -94,9 +94,9 @@ class: inverse, middle
 ```{r, results = "hide"}
 y2k <- as.Date("2000-01-01") + 0:365
 y2k_sample <- sample(y2k, 60)
-apr_aug_1 <- as.Date(c("2000-04-01", "2000-08-01"))
+brk_dates <- as.Date(c("2000-01-15", "2000-04-01", "2000-08-01"))
 
-chopped <- chop(y2k_sample, apr_aug_1)
+chopped <- chop(y2k_sample, brk_dates)
 ```
 
 ```{r, echo = FALSE}
@@ -119,11 +119,12 @@ date_plot(y2k_sample, quartile)
 ---
 class: inverse
 
-# Nice labels are important.
+# `lbl_date()` produces nice labels.
 
 ```{r}
-# like table(chop(...)):
-tab(y2k_sample, apr_aug_1, labels = lbl_discrete(fmt = "%b"))
+x <- chop(y2k_sample, brk_dates, labels = lbl_date())
+
+table(x)
 ```
 
 
@@ -185,6 +186,17 @@ date_plot(uk_times, stage)
 ```
 
 ---
+class: inverse
+
+# `lbl_datetime()` labels datetimes.
+
+  ```{r}
+  x <- chop_width(uk_times, hours(4), 
+                  labels = lbl_datetime(fmt = "%H:%M %b %d"))
+  table(x)
+  ```
+---
+
 class: middle center
 
 # Happy chopping!
