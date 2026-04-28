@@ -527,6 +527,6 @@ test_that("lbl_datetime keeps month when both day and time differ", {
 
   expect_equal(
     lbl_datetime(fmt = "%H:%M %d %b", unit = NULL)(brk),
-    "22:00 30 May-02:00 31 May"
+    "22:00 30 May - 02:00 31 May"
   )
 })

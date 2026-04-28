@@ -137,7 +137,8 @@ collapse_datetime_label <- function(
 
   if (!nzchar(left_part) || !nzchar(right_part)) return(full)
 
-  joiner <- if (diff_rank %in% 3:4) symbol else spaced_symbol
+  # joiner <- if (diff_rank %in% 3:4) symbol else spaced_symbol
+  joiner <- if (ranks[right_start] == ranks[left_end]) symbol else spaced_symbol
   paste0(left_part, joiner, right_part)
 }
 
@@ -164,6 +165,9 @@ lbl_date <- function(
 
 
 #' Label dates and datetimes
+#'
+#' @description
+#' `r lifecycle::badge("experimental")`
 #'
 #' `lbl_date()` and `lbl_datetime()` produce nice labels for dates
 #' and datetimes. Where possible ranges are simplified, like
@@ -206,11 +210,11 @@ lbl_datetime <- function(
     is.string(last) || is.null(last)
   )
 
-  function(breaks, raw = NULL) {
+  function(breaks, raw = FALSE) {
     assert_that(is.breaks(breaks))
 
     len_breaks <- length(breaks)
-    endpoints <- scaled_endpoints(breaks, raw = FALSE)
+    endpoints <- scaled_endpoints(breaks, raw = raw)
     pieces <- discrete_interval_endpoints(
       breaks = breaks,
       unit = unit,
