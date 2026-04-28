@@ -1,5 +1,5 @@
 
-# santoku (development version)
+# santoku 1.2.0
 
 * New experimental `lbl_date()` and `lbl_datetime()` functions for pretty 
   formatting of dates and date-times.
