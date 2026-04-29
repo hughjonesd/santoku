@@ -389,6 +389,7 @@ test_that("bug: lbl_endpoints() works with no format and non-standard breaks", {
 
 
 test_that("lbl_date collapses shared date components", {
+  withr::local_locale(c(LC_TIME = "C"))
   brk_same_month <- brk_res(brk_default(as.Date(c("2000-01-13", "2000-01-15"))))
   expect_equal(
     lbl_date(fmt = "%d %b %Y")(brk_same_month),
@@ -410,19 +411,21 @@ test_that("lbl_date collapses shared date components", {
 
 
 test_that("lbl_datetime collapses shared datetime components", {
+  withr::local_locale(c(LC_TIME = "C"))
   brk_same_day <- brk_res(brk_default(as.POSIXlt(c(
     "2000-01-12 11:15:00",
     "2000-01-12 11:45:00"
   ), tz = "UTC")))
 
   expect_equal(
-    lbl_datetime(fmt = "%I.%M %p %b %d %Y")(brk_same_day),
-    "11.15-11.45 AM Jan 12 2000"
+    lbl_datetime(fmt = "%I.%M %b %d %Y")(brk_same_day),
+    "11.15-11.45 Jan 12 2000"
   )
 })
 
 
 test_that("lbl_date can apply discrete non-overlapping labels", {
+  withr::local_locale(c(LC_TIME = "C"))
   brk <- brk_res(brk_default(as.Date(c("2000-01-13", "2000-01-15", "2000-01-17"))))
 
   expect_equal(
@@ -438,6 +441,7 @@ test_that("lbl_date can apply discrete non-overlapping labels", {
 
 
 test_that("lbl_datetime can apply discrete non-overlapping labels", {
+  withr::local_locale(c(LC_TIME = "C"))
   brk <- brk_res(brk_default(as.POSIXct(c(
     "2000-01-12 11:00:00",
     "2000-01-12 12:00:00",
@@ -457,6 +461,7 @@ test_that("lbl_datetime can apply discrete non-overlapping labels", {
 
 
 test_that("lbl_date collapses shared greater components even when they are prefixes", {
+  withr::local_locale(c(LC_TIME = "C"))
   brk <- brk_res(brk_default(as.Date(c(
     "2026-05-01", "2026-05-15", "2026-05-29", "2026-06-13"
   ))))
@@ -469,6 +474,7 @@ test_that("lbl_date collapses shared greater components even when they are prefi
 
 
 test_that("lbl_date collapses around first differing component", {
+  withr::local_locale(c(LC_TIME = "C"))
   brk <- brk_res(brk_default(as.Date(c("2006-05-13", "2006-05-14"))))
 
   expect_equal(
@@ -491,6 +497,7 @@ test_that("lbl_date collapses around first differing component", {
 
 
 test_that("lbl_datetime keeps month when both day and time differ", {
+  withr::local_locale(c(LC_TIME = "C"))
   brk <- brk_res(brk_default(as.POSIXct(c(
     "2020-05-30 22:00:00",
     "2020-05-31 02:00:00"
