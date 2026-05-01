@@ -1,4 +1,6 @@
-# santoku (development version)
+# santoku 1.2.1
+
+* Fixed a test bug.
 
 
 # santoku 1.2.0
