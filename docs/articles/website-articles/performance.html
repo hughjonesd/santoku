@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../../index.html">santoku</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.2.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,7 +74,7 @@
                         <h4 data-toc-skip class="author">David
 Hugh-Jones</h4>
             
-            <h4 data-toc-skip class="date">2026-04-28</h4>
+            <h4 data-toc-skip class="date">2026-05-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/hughjonesd/santoku/blob/HEAD/vignettes/website-articles/performance.Rmd" class="external-link"><code>vignettes/website-articles/performance.Rmd</code></a></small>
       <div class="d-none name"><code>performance.Rmd</code></div>
@@ -89,7 +89,7 @@ Hugh-Jones</h4>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/packageDescription.html" class="external-link">packageVersion</a></span><span class="op">(</span><span class="st">"santoku"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] '1.2.0'</span></span>
+<span><span class="co">#&gt; [1] '1.2.1'</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">27101975</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span>min_iterations <span class="op">=</span> <span class="fl">100</span>, check <span class="op">=</span> <span class="cn">FALSE</span>,</span>
@@ -101,9 +101,9 @@ Hugh-Jones</h4>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                             min median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;bch:tm&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(rnorm(1e+05), -2:2)   6.34ms 6.54ms      150.   10.21MB     64.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base::cut(rnorm(1e+05), -2:2)       2.73ms 2.78ms      357.    2.35MB     31.5</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Hmisc::cut2(rnorm(1e+05), -2:2)     9.74ms 9.88ms      101.    19.5MB    223.</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(rnorm(1e+05), -2:2)    6.3ms 6.53ms      151.   10.21MB     64.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base::cut(rnorm(1e+05), -2:2)       2.73ms 2.77ms      358.    2.35MB     31.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Hmisc::cut2(rnorm(1e+05), -2:2)     9.67ms 9.85ms      101.    19.5MB    224.</span></span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="performance_files/figure-html/unnamed-chunk-1-1.png" class="r-plt" alt="" width="672"></p>
@@ -125,9 +125,9 @@ Hugh-Jones</h4>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
 <span><span class="co">#&gt;   expression                            min  median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                        <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(rnorm(10000), many… 20.95ms 21.28ms      46.2    5.14MB     8.81</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base::cut(rnorm(10000), many_bre…  2.35ms  2.43ms     409.     1.39MB    17.7 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Hmisc::cut2(rnorm(10000), many_b…  7.03ms   7.2ms     138.      5.7MB    32.5</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> santoku::chop(rnorm(10000), many… 20.88ms 21.22ms      46.9    5.14MB     8.93</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> base::cut(rnorm(10000), many_bre…  2.36ms  2.45ms     407.     1.39MB    17.7 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Hmisc::cut2(rnorm(10000), many_b…  7.03ms  7.21ms     138.      5.7MB    32.5</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb_breaks</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="performance_files/figure-html/unnamed-chunk-2-1.png" class="r-plt" alt="" width="672"></p>
@@ -158,18 +158,18 @@ Hugh-Jones</h4>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 6</span></span></span>
 <span><span class="co">#&gt;    expression                           min  median `itr/sec` mem_alloc `gc/sec`</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;bch:expr&gt;</span>                       <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:t&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;bch:byt&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> chop(x, -2:2)                     4.23ms  4.33ms     229.     8.63MB    118. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> chop_equally(x, groups = 20)     11.04ms  11.2ms      88.5   12.18MB     72.4</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> chop_n(x, n = 20000)              7.65ms  8.11ms     124.     23.5MB    507. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> chop_quantiles(x, c(0.05, 0.25,…  6.63ms  6.75ms     147.    12.08MB    125. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> chop_evenly(x, intervals = 20)    5.43ms  5.57ms     178.    12.48MB    152. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> chop_width(x, width = 0.25)       5.96ms  6.08ms     163.    12.53MB    139. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> chop_proportions(x, proportions…  4.75ms  5.37ms     190.    12.48MB    162. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> chop_mean_sd(x, sds = 1:4)         4.9ms     5ms     198.    11.36MB    150. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> chop_fn(x, scales::breaks_exten…  5.33ms   5.5ms     177.    11.47MB    123. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> chop_pretty(x, n = 10)            4.87ms  5.02ms     197.    10.58MB    142. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> chop_spikes(x, -2:2, prop = 0.0…  8.14ms  8.41ms     119.    14.62MB    137. </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> dissect(x, -2:2, prop = 0.01)    11.42ms 11.61ms      85.6   22.27MB    257.</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> chop(x, -2:2)                     4.59ms  4.73ms     209.     8.63MB     93.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> chop_equally(x, groups = 20)     10.84ms 11.02ms      90.2   12.18MB     76.8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> chop_n(x, n = 20000)              7.87ms  8.03ms     124.     23.5MB    541. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> chop_quantiles(x, c(0.05, 0.25,…   6.8ms  6.97ms     143.    12.08MB    122. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> chop_evenly(x, intervals = 20)    5.25ms  5.36ms     185.    12.48MB    158. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> chop_width(x, width = 0.25)        5.9ms  6.07ms     164.    12.54MB    134. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> chop_proportions(x, proportions…  4.71ms  4.84ms     206.    12.48MB    176. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> chop_mean_sd(x, sds = 1:4)           5ms  5.14ms     194.    11.36MB    147. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> chop_fn(x, scales::breaks_exten…  4.86ms  5.14ms     191.    11.47MB    144. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> chop_pretty(x, n = 10)            4.53ms  4.68ms     213.    10.58MB    148. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> chop_spikes(x, -2:2, prop = 0.0…  8.03ms  8.17ms     122.    14.62MB    132. </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> dissect(x, -2:2, prop = 0.01)    11.71ms 11.87ms      84.0   22.27MB    269.</span></span></code></pre></div>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">autoplot</span><span class="op">(</span><span class="va">mb_various</span>, type <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="performance_files/figure-html/unnamed-chunk-3-1.png" class="r-plt" alt="" width="672"></p>

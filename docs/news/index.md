@@ -1,6 +1,12 @@
 # Changelog
 
+## santoku 1.2.1
+
+- Fixed a test bug.
+
 ## santoku 1.2.0
+
+CRAN release: 2026-04-28
 
 - New experimental
   [`lbl_date()`](https://hughjonesd.github.io/santoku/reference/lbl_datetime.md)
