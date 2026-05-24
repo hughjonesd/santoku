@@ -1,4 +1,7 @@
 
+# this is outdated. New version should do similar checks before running
+# use_github_release().
+
 # ensure version is correct, then:
 # run line by line (some commands require command line input)
 devtools::check_win_devel()
