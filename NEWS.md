@@ -1,6 +1,9 @@
 # santoku 1.2.1
 
 * Fixed a test bug.
+* CRAN rejected the fix and didn't reply to my emails querying what they wanted. 
+  I see little value in jumping through hoops, so from now on santoku versions 
+  will be released on r-universe.dev exclusively.
 
 
 # santoku 1.2.0
