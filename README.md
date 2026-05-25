@@ -5,12 +5,8 @@
 
 <!-- badges: start -->
 
-[![CRAN
-status](https://www.r-pkg.org/badges/version/santoku)](https://CRAN.R-project.org/package=santoku)
 [![Lifecycle:
 stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![CRAN Downloads Per
-Month](http://cranlogs.r-pkg.org/badges/santoku)](https://CRAN.R-project.org/package=santoku)
 [![R-universe](https://hughjonesd.r-universe.dev/badges/santoku)](https://hughjonesd.r-universe.dev/santoku)
 [![R-CMD-check](https://github.com/hughjonesd/santoku/workflows/R-CMD-check/badge.svg)](https://github.com/hughjonesd/santoku/actions)
 [![Codecov test
@@ -36,7 +32,7 @@ Or get the development version from github:
 remotes::install_github("hughjonesd/santoku")
 ```
 
-Santoku is no longer on CRAN, though old versions are still available 
+santoku is no longer on CRAN, though old versions are still available
 from their archive. I have no plans to change this.
 
 ## Advantages
@@ -108,10 +104,10 @@ Chop into fixed-width intervals:
 
 ``` r
 chop_width(runif(10), 0.1)
-#>  [1] [0.368, 0.468)   [0.268, 0.368)   [0.768, 0.868]   [0.568, 0.668)  
-#>  [5] [0.668, 0.768)   [0.768, 0.868]   [0.06801, 0.168) [0.668, 0.768)  
-#>  [9] [0.06801, 0.168) [0.468, 0.568)  
-#> 7 Levels: [0.06801, 0.168) [0.268, 0.368) [0.368, 0.468) ... [0.768, 0.868]
+#>  [1] [0.5822, 0.6822)  [0.8822, 0.9822]  [0.7822, 0.8822)  [0.08223, 0.1822)
+#>  [5] [0.2822, 0.3822)  [0.7822, 0.8822)  [0.08223, 0.1822) [0.3822, 0.4822) 
+#>  [9] [0.5822, 0.6822)  [0.6822, 0.7822) 
+#> 7 Levels: [0.08223, 0.1822) [0.2822, 0.3822) ... [0.8822, 0.9822]
 ```
 
 Or into fixed-size groups:

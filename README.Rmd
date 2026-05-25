@@ -17,9 +17,7 @@ knitr::opts_chunk$set(
 # santoku <img src="man/figures/logo.png" align="right" alt="santoku logo" width="120" />
 
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/santoku)](https://CRAN.R-project.org/package=santoku)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![CRAN Downloads Per Month](http://cranlogs.r-pkg.org/badges/santoku)](https://CRAN.R-project.org/package=santoku)
 [![R-universe](https://hughjonesd.r-universe.dev/badges/santoku)](https://hughjonesd.r-universe.dev/santoku)
 [![R-CMD-check](https://github.com/hughjonesd/santoku/workflows/R-CMD-check/badge.svg)](https://github.com/hughjonesd/santoku/actions)
 [![Codecov test coverage](https://codecov.io/gh/hughjonesd/santoku/branch/master/graph/badge.svg)](https://app.codecov.io/gh/hughjonesd/santoku?branch=master)
@@ -37,18 +35,15 @@ install.packages("santoku", repos = c("https://hughjonesd.r-universe.dev",
                                       "https://cloud.r-project.org"))
 ```
 
-Or from CRAN:
-
-``` r
-install.packages("santoku")
-```
-
 Or get the development version from github:
 
 ``` r
 # install.packages("remotes")
 remotes::install_github("hughjonesd/santoku")
 ```
+
+santoku is no longer on CRAN, though old versions are still available 
+from their archive. I have no plans to change this.
 
 
 ```{r, child = 'advantages.Rmd'}
