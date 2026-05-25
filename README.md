@@ -29,18 +29,15 @@ install.packages("santoku", repos = c("https://hughjonesd.r-universe.dev",
                                       "https://cloud.r-project.org"))
 ```
 
-Or from CRAN:
-
-``` r
-install.packages("santoku")
-```
-
 Or get the development version from github:
 
 ``` r
 # install.packages("remotes")
 remotes::install_github("hughjonesd/santoku")
 ```
+
+Santoku is no longer on CRAN, though old versions are still available 
+from their archive. I have no plans to change this.
 
 ## Advantages
 
