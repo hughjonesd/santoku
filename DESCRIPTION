@@ -21,7 +21,6 @@ Description: A tool for cutting data into intervals. Allows singleton intervals.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
 Suggests: 
     bench,
     bit64,
@@ -56,3 +55,4 @@ URL: https://github.com/hughjonesd/santoku, https://hughjonesd.github.io/santoku
 BugReports: https://github.com/hughjonesd/santoku/issues
 VignetteBuilder: knitr
 RdMacros: lifecycle
+Config/roxygen2/version: 8.0.0

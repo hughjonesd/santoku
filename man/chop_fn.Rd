@@ -72,16 +72,16 @@ if (requireNamespace("scales")) {
 
 }
 \seealso{
-Other chopping functions: 
-\code{\link{chop}()},
-\code{\link{chop_equally}()},
-\code{\link{chop_evenly}()},
-\code{\link{chop_mean_sd}()},
-\code{\link{chop_n}()},
-\code{\link{chop_proportions}()},
-\code{\link{chop_quantiles}()},
-\code{\link{chop_spikes}()},
-\code{\link{chop_width}()},
-\code{\link{fillet}()}
+Other chopping functions:
+\code{\link[=chop]{chop()}},
+\code{\link[=chop_equally]{chop_equally()}},
+\code{\link[=chop_evenly]{chop_evenly()}},
+\code{\link[=chop_mean_sd]{chop_mean_sd()}},
+\code{\link[=chop_n]{chop_n()}},
+\code{\link[=chop_proportions]{chop_proportions()}},
+\code{\link[=chop_quantiles]{chop_quantiles()}},
+\code{\link[=chop_spikes]{chop_spikes()}},
+\code{\link[=chop_width]{chop_width()}},
+\code{\link[=fillet]{fillet()}}
 }
 \concept{chopping functions}

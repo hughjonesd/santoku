@@ -64,7 +64,7 @@ will be formatted by \code{format(breaks, fmt)}.
 \item If \code{fmt} is a list, then it will be used as arguments to \link{format}.
 \item If \code{fmt} is a function, it should take a vector of numbers (or other objects
 that can be used as breaks) and return a character vector. It may be helpful
-to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_number]{scales::label_comma()}}.
+to use functions from the \code{{scales}} package, e.g. \code{\link[scales:label_comma]{scales::label_comma()}}.
 }
 }
 
@@ -80,14 +80,14 @@ tab(new_year, round_midnight,
     labels = lbl_datetime(unit = as.difftime(1, units = "mins")))
 }
 \seealso{
-Other labelling functions: 
-\code{\link{lbl_dash}()},
-\code{\link{lbl_discrete}()},
-\code{\link{lbl_endpoints}()},
-\code{\link{lbl_glue}()},
-\code{\link{lbl_intervals}()},
-\code{\link{lbl_manual}()},
-\code{\link{lbl_midpoints}()},
-\code{\link{lbl_seq}()}
+Other labelling functions:
+\code{\link[=lbl_dash]{lbl_dash()}},
+\code{\link[=lbl_discrete]{lbl_discrete()}},
+\code{\link[=lbl_endpoints]{lbl_endpoints()}},
+\code{\link[=lbl_glue]{lbl_glue()}},
+\code{\link[=lbl_intervals]{lbl_intervals()}},
+\code{\link[=lbl_manual]{lbl_manual()}},
+\code{\link[=lbl_midpoints]{lbl_midpoints()}},
+\code{\link[=lbl_seq]{lbl_seq()}}
 }
 \concept{labelling functions}

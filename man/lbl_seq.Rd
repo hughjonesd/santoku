@@ -36,14 +36,14 @@ chop(1:10, c(2, 5, 8), lbl_seq("i."))
 chop(1:10, c(2, 5, 8), lbl_seq("(A)"))
 }
 \seealso{
-Other labelling functions: 
-\code{\link{lbl_dash}()},
-\code{\link{lbl_date}()},
-\code{\link{lbl_discrete}()},
-\code{\link{lbl_endpoints}()},
-\code{\link{lbl_glue}()},
-\code{\link{lbl_intervals}()},
-\code{\link{lbl_manual}()},
-\code{\link{lbl_midpoints}()}
+Other labelling functions:
+\code{\link[=lbl_dash]{lbl_dash()}},
+\code{\link[=lbl_date]{lbl_date()}},
+\code{\link[=lbl_discrete]{lbl_discrete()}},
+\code{\link[=lbl_endpoints]{lbl_endpoints()}},
+\code{\link[=lbl_glue]{lbl_glue()}},
+\code{\link[=lbl_intervals]{lbl_intervals()}},
+\code{\link[=lbl_manual]{lbl_manual()}},
+\code{\link[=lbl_midpoints]{lbl_midpoints()}}
 }
 \concept{labelling functions}
