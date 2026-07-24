@@ -222,10 +222,7 @@ lbl_datetime <- function(
     )
     l <- pieces$l
     r <- pieces$r
-    is_singleton <- pieces$singletons
     too_small <- pieces$too_small
-    l_closed <- pieces$l_closed
-    r_closed <- pieces$r_closed
 
     if (any(too_small)) {
       warning("Intervals smaller than `unit` are labelled as \"--\"")
@@ -249,28 +246,9 @@ lbl_datetime <- function(
 
     labels[too_small] <- "--"
 
-    if (!is.null(single)) {
-      labels[is_singleton] <- glue::glue(single,
-        l = l[is_singleton],
-        r = r[is_singleton],
-        l_closed = l_closed[is_singleton],
-        r_closed = r_closed[is_singleton]
-      )
-    }
-
-    if (!is.null(first)) {
-      labels[1] <- glue::glue(first, l = l[1], r = r[1],
-        l_closed = l_closed[1], r_closed = r_closed[1]
-      )
-    }
-
-    if (!is.null(last)) {
-      ll <- len_breaks - 1L
-      labels[ll] <- glue::glue(last, l = l[ll], r = r[ll],
-        l_closed = l_closed[ll], r_closed = r_closed[ll]
-      )
-    }
-
-    labels
+    apply_interval_overrides(
+      labels, pieces, l, r,
+      single = single, first = first, last = last
+    )
   }
 }

@@ -137,7 +137,6 @@ lbl_discrete <- function (
   function (breaks, raw = NULL) {
     assert_that(all(ceiling(as.numeric(breaks)) == floor(as.numeric(breaks))),
           msg = "Non-integer breaks")
-    len_breaks <- length(breaks)
 
     pieces <- discrete_interval_endpoints(
       breaks = breaks,
@@ -149,8 +148,6 @@ lbl_discrete <- function (
     r <- pieces$r
     singletons <- pieces$singletons
     too_small <- pieces$too_small
-    l_closed <- pieces$l_closed
-    r_closed <- pieces$r_closed
 
     if (any(too_small)) {
       warning("Intervals smaller than `unit` are labelled as \"--\"")
@@ -163,25 +160,10 @@ lbl_discrete <- function (
     labels[singletons] <- labels_l[singletons]
     labels[too_small] <- "--"
 
-    if (! is.null(single)) {
-      labels[singletons] <- glue::glue(single, l = labels_l[singletons],
-                                         r = labels_r[singletons],
-                                         l_closed = l_closed[singletons],
-                                         r_closed = r_closed[singletons])
-    }
-
-    if (! is.null(first)) {
-      labels[1] <- glue::glue(first, l = labels_l[1], r = labels_r[1],
-                              l_closed = l_closed[1], r_closed = r_closed[1])
-    }
-
-    if (! is.null(last)) {
-      ll <- len_breaks - 1
-      labels[ll] <- glue::glue(last, l = labels_l[ll], r = labels_r[ll],
-                               l_closed = l_closed[ll], r_closed = r_closed[ll])
-    }
-
-    return(labels)
+    apply_interval_overrides(
+      labels, pieces, labels_l, labels_r,
+      single = single, first = first, last = last
+    )
   }
 }
 

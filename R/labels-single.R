@@ -147,31 +147,22 @@ lbl_seq <- function(start = "a") {
   key <- substr(start, match, match)
   fmt <- sub("(a|A|i|I|1)", "%s", start)
 
-  res <- switch(key,
-    "a" = function (breaks, raw = NULL) {
-            if (length(breaks) > 27L) {
-              stop("Can't use more than 26 intervals with lbl_seq(\"a\")")
-            }
-            sprintf(fmt, letters[seq_len(length(breaks) - 1L)])
-          },
-    "A" = function (breaks, raw = NULL) {
-            if (length(breaks) > 27L) {
-              stop("Can't use more than 26 intervals with lbl_seq(\"A\")")
-            }
-            sprintf(fmt, LETTERS[seq_len(length(breaks) - 1L)])
-          },
-    "i" = function (breaks, raw = NULL) {
-           sprintf(fmt, tolower(utils::as.roman(seq_len(length(breaks) - 1L))))
-         },
-    "I" = function (breaks, raw = NULL) {
-           sprintf(fmt, utils::as.roman(seq_len(length(breaks) - 1L)))
-         },
-    "1" = function (breaks, raw = NULL) {
-            sprintf(fmt, seq_len(length(breaks) - 1L))
-          }
-    )
+  function (breaks, raw = NULL) {
+    n <- length(breaks) - 1L
+    if (key %in% c("a", "A") && n > 26L) {
+      stop("Can't use more than 26 intervals with lbl_seq(\"", key, "\")")
+    }
 
-  return(res)
+    sequence <- switch(
+      key,
+      "a" = letters[seq_len(n)],
+      "A" = LETTERS[seq_len(n)],
+      "i" = tolower(utils::as.roman(seq_len(n))),
+      "I" = utils::as.roman(seq_len(n)),
+      "1" = seq_len(n)
+    )
+    sprintf(fmt, sequence)
+  }
 }
 
 
