@@ -1,4 +1,10 @@
-santoku_cast_common_impl <- function(x, y) {
+#' Hacked version of [vctrs::vec_cast_common()]
+#'
+#' This is more relaxed than `vctrs` for classes that santoku only needs to
+#' compare, such as `ts`, `zoo`, `hexmode`, and `octmode`.
+#'
+#' @noRd
+santoku_cast_common <- function(x, y) {
   if (inherits(x, "zoo")) {
     loadNamespace("zoo")
     x <- zoo::coredata(x)
@@ -51,17 +57,6 @@ santoku_cast_common_impl <- function(x, y) {
 }
 
 
-#' Hacked version of [vctrs::vec_cast_common()]
-#'
-#' This is more relaxed than `vctrs` for classes that santoku only needs to
-#' compare, such as `ts`, `zoo`, `hexmode`, and `octmode`.
-#'
-#' @noRd
-santoku_cast_common <- function(x, y) {
-  UseMethod("santoku_cast_common")
-}
-
-
 #' Internal functions
 #'
 #' @name santoku-cast
@@ -74,84 +69,64 @@ santoku_cast_common <- function(x, y) {
 NULL
 
 
-# The rawNamespace tags mean NAMESPACE gets both S3method() and export().
-
 #' @export
 #' @rdname santoku-cast
-#' @method santoku_cast_common default
-#' @rawNamespace export(santoku_cast_common.default)
 santoku_cast_common.default <- function(x, y) {
-  santoku_cast_common_impl(x, y)
+  santoku_cast_common(x, y)
 }
 
 
 #' @export
 #' @rdname santoku-cast
-#' @method santoku_cast_common double
-#' @rawNamespace export(santoku_cast_common.double)
 santoku_cast_common.double <- function(x, y) {
-  santoku_cast_common_impl(x, y)
+  santoku_cast_common(x, y)
 }
 
 
 #' @export
 #' @rdname santoku-cast
-#' @method santoku_cast_common Date
-#' @rawNamespace export(santoku_cast_common.Date)
 santoku_cast_common.Date <- function(x, y) {
-  santoku_cast_common_impl(x, y)
+  santoku_cast_common(x, y)
 }
 
 
 #' @export
 #' @rdname santoku-cast
-#' @method santoku_cast_common POSIXct
-#' @rawNamespace export(santoku_cast_common.POSIXct)
 santoku_cast_common.POSIXct <- function(x, y) {
-  santoku_cast_common_impl(x, y)
+  santoku_cast_common(x, y)
 }
 
 
 #' @export
 #' @rdname santoku-cast
-#' @method santoku_cast_common ts
-#' @rawNamespace export(santoku_cast_common.ts)
 santoku_cast_common.ts <- function(x, y) {
-  santoku_cast_common_impl(x, y)
+  santoku_cast_common(x, y)
 }
 
 
 #' @export
 #' @rdname santoku-cast
-#' @method santoku_cast_common zoo
-#' @rawNamespace export(santoku_cast_common.zoo)
 santoku_cast_common.zoo <- function(x, y) {
-  santoku_cast_common_impl(x, y)
+  santoku_cast_common(x, y)
 }
 
 
 #' @export
 #' @rdname santoku-cast
-#' @method santoku_cast_common integer64
-#' @rawNamespace export(santoku_cast_common.integer64)
 santoku_cast_common.integer64 <- function(x, y) {
-  santoku_cast_common_impl(x, y)
+  santoku_cast_common(x, y)
 }
 
 
 #' @export
 #' @rdname santoku-cast
-#' @method santoku_cast_common hexmode
-#' @rawNamespace export(santoku_cast_common.hexmode)
 santoku_cast_common.hexmode <- function(x, y) {
-  santoku_cast_common_impl(x, y)
+  santoku_cast_common(x, y)
 }
 
 
 #' @export
 #' @rdname santoku-cast
-#' @method santoku_cast_common octmode
-#' @rawNamespace export(santoku_cast_common.octmode)
 santoku_cast_common.octmode <- function(x, y) {
-  santoku_cast_common_impl(x, y)
+  santoku_cast_common(x, y)
 }
