@@ -8,8 +8,8 @@ santoku_cast_common_impl <- function(x, y) {
     y <- zoo::coredata(y)
   }
 
-  if (is.ts(x)) x <- unclass(x)
-  if (is.ts(y)) y <- unclass(y)
+  if (inherits(x, "ts")) x <- unclass(x)
+  if (inherits(y, "ts")) y <- unclass(y)
 
   if (inherits(x, "hexmode") && inherits(y, "hexmode")) return(list(x, y))
   if (inherits(x, "octmode") && inherits(y, "octmode")) return(list(x, y))
