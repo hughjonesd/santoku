@@ -113,8 +113,8 @@ brk_proportions <- function(proportions) {
 
     scaled_endpoints <- proportions
     needs <- needs_extend(breaks, x, extend, left, close_end)
-    if ((needs & LEFT) > 0) scaled_endpoints <- c(0, scaled_endpoints)
-    if ((needs & RIGHT) > 0) scaled_endpoints <- c(scaled_endpoints, 1)
+    if (needs[["left"]]) scaled_endpoints <- c(0, scaled_endpoints)
+    if (needs[["right"]]) scaled_endpoints <- c(scaled_endpoints, 1)
     breaks <- extend_and_close(breaks, x, extend, left, close_end)
 
     attr(breaks, "scaled_endpoints") <- scaled_endpoints

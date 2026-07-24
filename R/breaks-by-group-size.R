@@ -48,8 +48,8 @@ brk_quantiles <- function (probs, ..., weights = NULL, recalc_probs = FALSE) {
     breaks <- create_lr_breaks(qs, left)
 
     needs <- needs_extend(breaks, x, extend, left, close_end)
-    if ((needs & LEFT) > 0)  probs <- c(0, probs)
-    if ((needs & RIGHT) > 0) probs <- c(probs, 1)
+    if (needs[["left"]]) probs <- c(0, probs)
+    if (needs[["right"]]) probs <- c(probs, 1)
     breaks <- extend_and_close(breaks, x, extend, left, close_end)
 
     class(breaks) <- c("quantileBreaks", class(breaks))

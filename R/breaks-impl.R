@@ -67,10 +67,10 @@ empty_breaks <- function () {
 extend_and_close <- function (breaks, x, extend, left, close_end) {
   extend_flags <- needs_extend(breaks, x, extend, left, close_end)
 
-  if ((extend_flags & LEFT) > 0) {
+  if (extend_flags[["left"]]) {
     breaks <- extend_endpoint_left(breaks, x, extend)
   }
-  if ((extend_flags & RIGHT) > 0) {
+  if (extend_flags[["right"]]) {
     breaks <- extend_endpoint_right(breaks, x, extend)
   }
 
@@ -81,36 +81,27 @@ extend_and_close <- function (breaks, x, extend, left, close_end) {
 
 
 
-NEITHER <- as.raw(0)
-LEFT    <- as.raw(1)
-RIGHT   <- as.raw(2)
-BOTH <- LEFT | RIGHT
-
-
 #' Reports if `breaks` will/should be extended.
 #'
 #' @param breaks A breaks object
 #' @param x Data
 #' @param extend,left,close_end Parameters passed into `chop`
 #'
-#' @return Returns LEFT or RIGHT or BOTH only if `breaks` *will*/*must* be
-#' extended i.e. gain an extra break, on the respective sides.
+#' @return A named logical vector indicating whether `breaks` will gain an
+#' extra break on the left and right.
 #'
 #' @details
-#' If `extend` is `FALSE`, always returns `NEITHER`. If `breaks` is length
-#' zero, always returns `BOTH`.
+#' If `extend` is `FALSE`, both values are `FALSE`. If `breaks` is length
+#' zero, both values are `TRUE`.
 #'
 #' If extend is `NULL` then `left` and `close_end` are taken into account.
 #'
-#' To test whether `breaks` will be extended on either side, use
-#' `(needs & LEFT) > 0` or `(needs & RIGHT) > 0`.
-#'
 #' @noRd
 needs_extend <- function (breaks, x, extend, left, close_end) {
-  if (! is.null(extend) && ! extend) return(NEITHER)
-  if (length(breaks) < 1L) return(BOTH)
+  if (!is.null(extend) && !extend) return(c(left = FALSE, right = FALSE))
+  if (length(breaks) < 1L) return(c(left = TRUE, right = TRUE))
 
-  needs <- NEITHER
+  needs <- c(left = FALSE, right = FALSE)
 
   # temporarily close the breaks, to see if unextended closed breaks need
   # extension
@@ -131,7 +122,7 @@ needs_extend <- function (breaks, x, extend, left, close_end) {
         ) {
     # "... and if ..." the first break is finite, or will be left-open
     if (is_gt_minus_inf(breaks[1]) || ! left_vec[1]) {
-      needs <- needs | LEFT
+      needs[["left"]] <- TRUE
     }
   }
 
@@ -142,7 +133,7 @@ needs_extend <- function (breaks, x, extend, left, close_end) {
         ) {
     # "... and if ..." the last break is finite, or will be left-closed (right-open)
     if (is_lt_inf(breaks[length(breaks)]) || left_vec[length(left_vec)]) {
-      needs <- needs | RIGHT
+      needs[["right"]] <- TRUE
     }
   }
 

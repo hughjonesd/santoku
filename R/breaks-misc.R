@@ -140,8 +140,8 @@ brk_mean_sd <- function (sds = 1:3, sd = deprecated()) {
     breaks <- create_lr_breaks(breaks, left)
 
     needs <- needs_extend(breaks, x, extend, left, close_end)
-    if ((needs & LEFT) > 0) sds <- c(-Inf, sds)
-    if ((needs & RIGHT) > 0) sds <- c(sds, Inf)
+    if (needs[["left"]]) sds <- c(-Inf, sds)
+    if (needs[["right"]]) sds <- c(sds, Inf)
     breaks <- extend_and_close(breaks, x, extend, left, close_end)
 
     class(breaks) <- c("sdBreaks", class(breaks))
