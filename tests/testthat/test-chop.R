@@ -322,6 +322,14 @@ test_that("chop_mean_sd", {
     factor(c("[-1, 0)", "[0, 1)", "[1, 2)"),
            levels = c("[-1, 0)", "[0, 1)", "[1, 2)"))
   )
+
+  weights <- 1:3
+  expanded_x <- rep(x, weights)
+  weighted_breaks <- mean(expanded_x) + (-1:1) * stats::sd(expanded_x)
+  expect_equal(
+    chop_mean_sd(x, sds = 1, weights = weights, raw = TRUE),
+    chop(x, weighted_breaks, raw = TRUE)
+  )
 })
 
 

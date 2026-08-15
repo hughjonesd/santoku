@@ -176,6 +176,37 @@ test_that("brk_mean_sd", {
 })
 
 
+test_that("brk_mean_sd supports frequency weights", {
+  x <- 1:4
+  weights <- 1:4
+  expanded_x <- rep(x, weights)
+
+  breaks <- brk_res(brk_mean_sd(1:2, weights = weights), x = x)
+  expected <- mean(expanded_x) + c(-2:-1, 0:2) * stats::sd(expanded_x)
+
+  expect_equal(as.numeric(breaks), expected)
+  expect_equal(
+    brk_res(brk_mean_sd(1:2, weights = rep(1, length(x))), x = x),
+    brk_res(brk_mean_sd(1:2), x = x)
+  )
+
+  missing_weights <- c(1, NA, 0, 2)
+  expanded_x <- rep(x[c(1, 4)], c(1, 2))
+  breaks <- brk_res(brk_mean_sd(1, weights = missing_weights), x = x)
+  expected <- mean(expanded_x) + (-1:1) * stats::sd(expanded_x)
+  expect_equal(as.numeric(breaks), expected)
+
+  expect_silent(
+    empty <- brk_res(brk_mean_sd(weights = rep(0, length(x))), x = x)
+  )
+  expect_equal(as.numeric(empty), c(-Inf, Inf))
+
+  expect_error(brk_res(brk_mean_sd(weights = 1:3), x = x))
+  expect_error(brk_mean_sd(weights = c(1, -1)))
+  expect_error(brk_mean_sd(weights = c(1, Inf)))
+})
+
+
 test_that("brk_quantiles", {
   expect_silent(brk_res(brk_quantiles(1:3/4)))
 

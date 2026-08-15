@@ -109,7 +109,7 @@ brk_pretty <- function (n = 5, ...) {
 #' @export
 #' @order 2
 #' @importFrom lifecycle deprecated
-brk_mean_sd <- function (sds = 1:3, sd = deprecated()) {
+brk_mean_sd <- function (sds = 1:3, sd = deprecated(), weights = NULL) {
   if (lifecycle::is_present(sd)) {
     lifecycle::deprecate_warn(
             when = "0.7.0",
@@ -123,11 +123,37 @@ brk_mean_sd <- function (sds = 1:3, sd = deprecated()) {
     if (! sd %in% sds) sds <- c(sds, sd)
   }
 
-  assert_that(is.numeric(sds), all(sds > 0))
+  assert_that(
+    is.numeric(sds),
+    all(sds > 0),
+    is.null(weights) || is.numeric(weights),
+    is.null(weights) || all(weights >= 0, na.rm = TRUE),
+    is.null(weights) || all(is.finite(weights) | is.na(weights))
+  )
 
   function (x, extend, left, close_end) {
-    x_mean <- mean(x, na.rm = TRUE)
-    x_sd <- stats::sd(x, na.rm = TRUE)
+    if (is.null(weights)) {
+      x_mean <- mean(x, na.rm = TRUE)
+      x_sd <- stats::sd(x, na.rm = TRUE)
+    } else {
+      assert_that(length(weights) == length(x))
+      rlang::check_installed("Hmisc",
+                             reason = "to use `weights` in brk_mean_sd()")
+
+      keep <- ! is.na(x) & ! is.na(weights) & weights > 0
+      x_stats <- x[keep]
+      weights_stats <- weights[keep]
+      x_mean <- stats::weighted.mean(x_stats, weights_stats)
+      x_sd <- if (sum(weights_stats) <= 1) {
+        NA_real_
+      } else {
+        sqrt(Hmisc::wtd.var(
+          strict_as_numeric(x_stats),
+          weights = weights_stats,
+          na.rm = FALSE
+        ))
+      }
+    }
 
     if (is.na(x_mean) || is.na(x_sd) || x_sd == 0) {
       return(empty_breaks())

@@ -10,6 +10,10 @@
 #' `chop_mean_sd(x, sds = 1:3)` instead of `chop_mean_sd(x, sd = 3)`.
 #'
 #' @param sds Positive numeric vector of standard deviations.
+#' @param weights `NULL` or a non-negative numeric vector of the same length as
+#'   `x`. Weights are treated as frequency weights. Missing values in `x` or
+#'   `weights`, and values with zero weight, are omitted when calculating the
+#'   mean and standard deviation.
 #' @param sd  `r lifecycle::badge("deprecated")`
 #'
 #' @inheritParams chop
@@ -23,6 +27,8 @@
 #' @examples
 #' chop_mean_sd(1:10)
 #'
+#' chop_mean_sd(1:4, weights = 1:4)
+#'
 #' chop(1:10, brk_mean_sd())
 #'
 #' @importFrom lifecycle deprecated
@@ -31,9 +37,10 @@ chop_mean_sd <- function (
                   sds = 1:3,
                   ...,
                   raw = FALSE,
+                  weights = NULL,
                   sd  = deprecated()
                 ) {
-  chop(x, brk_mean_sd(sds = sds, sd = sd), ..., raw = raw)
+  chop(x, brk_mean_sd(sds = sds, sd = sd, weights = weights), ..., raw = raw)
 }
 
 
@@ -103,4 +110,3 @@ chop_fn <- function (
   chop(x, brk_fn(fn, ...), extend = extend, left = left, close_end = close_end,
          raw = raw, drop = drop)
 }
-
