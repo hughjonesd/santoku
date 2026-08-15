@@ -123,13 +123,14 @@ brk_mean_sd <- function (sds = 1:3, sd = deprecated(), weights = NULL) {
     if (! sd %in% sds) sds <- c(sds, sd)
   }
 
-  assert_that(
-    is.numeric(sds),
-    all(sds > 0),
-    is.null(weights) || is.numeric(weights),
-    is.null(weights) || all(weights >= 0, na.rm = TRUE),
-    is.null(weights) || all(is.finite(weights) | is.na(weights))
-  )
+  assert_that(is.numeric(sds), all(sds > 0))
+  if (! is.null(weights)) {
+    assert_that(
+      is.numeric(weights),
+      all(weights >= 0, na.rm = TRUE),
+      all(is.finite(weights) | is.na(weights))
+    )
+  }
 
   function (x, extend, left, close_end) {
     if (is.null(weights)) {
@@ -140,17 +141,16 @@ brk_mean_sd <- function (sds = 1:3, sd = deprecated(), weights = NULL) {
       rlang::check_installed("Hmisc",
                              reason = "to use `weights` in brk_mean_sd()")
 
-      keep <- ! is.na(x) & ! is.na(weights) & weights > 0
-      x_stats <- x[keep]
-      weights_stats <- weights[keep]
-      x_mean <- stats::weighted.mean(x_stats, weights_stats)
-      x_sd <- if (sum(weights_stats) <= 1) {
+      x_stats <- x
+      x_stats[is.na(weights) | weights == 0] <- NA
+      x_mean <- stats::weighted.mean(x_stats, weights, na.rm = TRUE)
+      x_sd <- if (sum(weights[! is.na(x_stats)], na.rm = TRUE) <= 1) {
         NA_real_
       } else {
         sqrt(Hmisc::wtd.var(
           strict_as_numeric(x_stats),
-          weights = weights_stats,
-          na.rm = FALSE
+          weights = weights,
+          na.rm = TRUE
         ))
       }
     }
