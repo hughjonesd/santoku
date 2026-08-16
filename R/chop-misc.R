@@ -10,12 +10,8 @@
 #' `chop_mean_sd(x, sds = 1:3)` instead of `chop_mean_sd(x, sd = 3)`.
 #'
 #' @param sds Positive numeric vector of standard deviations.
-#' @param weights `NULL` or a non-negative numeric vector of the same length as
-#'   `x`. Weights are treated as sampling weights and normalized to sum to the
-#'   number of non-missing observations. Multiplying all weights by a constant
-#'   does not affect the result. Missing values in `x` or `weights`, and values
-#'   with zero weight, are omitted when calculating the mean and standard
-#'   deviation.
+#' @param weights Optional weights for the mean/sd calculation. Weights are
+#'   normalized to sum to `length(x)`.
 #' @param sd  `r lifecycle::badge("deprecated")`
 #'
 #' @inheritParams chop
