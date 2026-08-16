@@ -109,7 +109,7 @@ brk_pretty <- function (n = 5, ...) {
 #' @export
 #' @order 2
 #' @importFrom lifecycle deprecated
-brk_mean_sd <- function (sds = 1:3, sd = deprecated(), weights = NULL) {
+brk_mean_sd <- function (sds = 1:3, weights = NULL, sd = deprecated()) {
   if (lifecycle::is_present(sd)) {
     lifecycle::deprecate_warn(
             when = "0.7.0",

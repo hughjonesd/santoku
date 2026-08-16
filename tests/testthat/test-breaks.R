@@ -190,6 +190,7 @@ test_that("brk_mean_sd supports sampling weights", {
   expected <- x_mean + c(-2:-1, 0:2) * x_sd
 
   expect_equal(as.numeric(breaks), expected)
+  expect_equal(brk_res(brk_mean_sd(1:2, weights), x = x), breaks)
   expect_equal(
     brk_res(brk_mean_sd(1:2, weights = weights / sum(weights)), x = x),
     breaks

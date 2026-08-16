@@ -42,7 +42,7 @@ chop_mean_sd <- function (
                   weights = NULL,
                   sd  = deprecated()
                 ) {
-  chop(x, brk_mean_sd(sds = sds, sd = sd, weights = weights), ..., raw = raw)
+  chop(x, brk_mean_sd(sds = sds, weights = weights, sd = sd), ..., raw = raw)
 }
 
 

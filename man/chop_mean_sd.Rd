@@ -8,7 +8,7 @@
 \usage{
 chop_mean_sd(x, sds = 1:3, ..., raw = FALSE, weights = NULL, sd = deprecated())
 
-brk_mean_sd(sds = 1:3, sd = deprecated(), weights = NULL)
+brk_mean_sd(sds = 1:3, weights = NULL, sd = deprecated())
 
 tab_mean_sd(x, sds = 1:3, ..., raw = FALSE)
 }
