@@ -144,12 +144,13 @@ brk_mean_sd <- function (sds = 1:3, sd = deprecated(), weights = NULL) {
       x_stats <- x
       x_stats[is.na(weights) | weights == 0] <- NA
       x_mean <- stats::weighted.mean(x_stats, weights, na.rm = TRUE)
-      x_sd <- if (sum(weights[! is.na(x_stats)], na.rm = TRUE) <= 1) {
+      x_sd <- if (sum(! is.na(x_stats)) <= 1) {
         NA_real_
       } else {
         sqrt(Hmisc::wtd.var(
           strict_as_numeric(x_stats),
           weights = weights,
+          normwt = TRUE,
           na.rm = TRUE
         ))
       }

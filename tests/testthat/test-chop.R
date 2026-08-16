@@ -324,8 +324,9 @@ test_that("chop_mean_sd", {
   )
 
   weights <- 1:3
-  expanded_x <- rep(x, weights)
-  weighted_breaks <- mean(expanded_x) + (-1:1) * stats::sd(expanded_x)
+  weighted_mean <- stats::weighted.mean(x, weights)
+  weighted_sd <- sqrt(Hmisc::wtd.var(x, weights, normwt = TRUE))
+  weighted_breaks <- weighted_mean + (-1:1) * weighted_sd
   expect_equal(
     chop_mean_sd(x, sds = 1, weights = weights, raw = TRUE),
     chop(x, weighted_breaks, raw = TRUE)

@@ -79,11 +79,15 @@ test_that("chop_mean_sd", {
   expect_equal(table_vals(res3), table_vals(cmp3), ignore_attr = TRUE)
 
   weights <- seq_along(d1)
-  expanded_d1 <- rep(d1, weights)
   expect_silent(res4 <- chop_mean_sd(d1, weights = weights))
+  weighted_sd <- sqrt(Hmisc::wtd.var(
+    as.numeric(d1),
+    weights = weights,
+    normwt = TRUE
+  ))
   cmp4 <- cut(
     d1,
-    weighted.mean(d1, weights) + c(-10, -2:2) * sd(expanded_d1),
+    weighted.mean(d1, weights) + c(-10, -2:2) * weighted_sd,
     right = FALSE
   )
   expect_equal(table_vals(res4), table_vals(cmp4), ignore_attr = TRUE)

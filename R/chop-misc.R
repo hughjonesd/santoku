@@ -11,9 +11,11 @@
 #'
 #' @param sds Positive numeric vector of standard deviations.
 #' @param weights `NULL` or a non-negative numeric vector of the same length as
-#'   `x`. Weights are treated as frequency weights. Missing values in `x` or
-#'   `weights`, and values with zero weight, are omitted when calculating the
-#'   mean and standard deviation.
+#'   `x`. Weights are treated as sampling weights and normalized to sum to the
+#'   number of non-missing observations. Multiplying all weights by a constant
+#'   does not affect the result. Missing values in `x` or `weights`, and values
+#'   with zero weight, are omitted when calculating the mean and standard
+#'   deviation.
 #' @param sd  `r lifecycle::badge("deprecated")`
 #'
 #' @inheritParams chop

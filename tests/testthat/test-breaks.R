@@ -176,30 +176,42 @@ test_that("brk_mean_sd", {
 })
 
 
-test_that("brk_mean_sd supports frequency weights", {
+test_that("brk_mean_sd supports sampling weights", {
   x <- 1:4
   weights <- 1:4
-  expanded_x <- rep(x, weights)
 
   breaks <- brk_res(brk_mean_sd(1:2, weights = weights), x = x)
-  expected <- mean(expanded_x) + c(-2:-1, 0:2) * stats::sd(expanded_x)
+  normalized_weights <- weights / sum(weights)
+  x_mean <- sum(normalized_weights * x)
+  x_sd <- sqrt(
+    sum(normalized_weights * (x - x_mean)^2) /
+      (1 - sum(normalized_weights^2))
+  )
+  expected <- x_mean + c(-2:-1, 0:2) * x_sd
 
   expect_equal(as.numeric(breaks), expected)
+  expect_equal(
+    brk_res(brk_mean_sd(1:2, weights = weights / sum(weights)), x = x),
+    breaks
+  )
   expect_equal(
     brk_res(brk_mean_sd(1:2, weights = rep(1, length(x))), x = x),
     brk_res(brk_mean_sd(1:2), x = x)
   )
 
   missing_weights <- c(1, NA, 0, 2)
-  expanded_x <- rep(x[c(1, 4)], c(1, 2))
   breaks <- brk_res(brk_mean_sd(1, weights = missing_weights), x = x)
-  expected <- mean(expanded_x) + (-1:1) * stats::sd(expanded_x)
-  expect_equal(as.numeric(breaks), expected)
+  expected <- brk_res(brk_mean_sd(1, weights = c(1, 2)), x = x[c(1, 4)])
+  expect_equal(breaks, expected)
 
   expect_silent(
     empty <- brk_res(brk_mean_sd(weights = rep(0, length(x))), x = x)
   )
   expect_equal(as.numeric(empty), c(-Inf, Inf))
+  expect_equal(
+    brk_res(brk_mean_sd(weights = c(0, 1, 0, 0)), x = x),
+    empty
+  )
 
   expect_error(brk_res(brk_mean_sd(weights = 1:3), x = x))
   expect_error(brk_mean_sd(weights = c(1, -1)))

@@ -22,9 +22,11 @@ tab_mean_sd(x, sds = 1:3, ..., raw = FALSE)
 \item{raw}{Logical. Use raw values in labels?}
 
 \item{weights}{\code{NULL} or a non-negative numeric vector of the same length as
-\code{x}. Weights are treated as frequency weights. Missing values in \code{x} or
-\code{weights}, and values with zero weight, are omitted when calculating the
-mean and standard deviation.}
+\code{x}. Weights are treated as sampling weights and normalized to sum to the
+number of non-missing observations. Multiplying all weights by a constant
+does not affect the result. Missing values in \code{x} or \code{weights}, and values
+with zero weight, are omitted when calculating the mean and standard
+deviation.}
 
 \item{sd}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}}}
 }
