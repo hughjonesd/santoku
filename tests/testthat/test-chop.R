@@ -195,6 +195,18 @@ test_that("chop_width", {
     chop_width(x, 2, 0, labels = lbl_seq("1")),
     factor(c(1, rep(2:4, each = 2), 5, 5, 5))
   )
+  expect_equal(tail(levels(chop_width(1:24, 5)), 1), "[21, 26]")
+  expect_equal(
+    levels(chop_width(1:24, 5, cover_tail = FALSE)),
+    c("[1, 6)", "[6, 11)", "[11, 16)", "[16, 21)", "[21, 24]")
+  )
+  expect_equal(
+    levels(chop_width(1:8, -2, cover_tail = FALSE)),
+    c("[1, 2]", "(2, 4]", "(4, 6]", "(6, 8]")
+  )
+  no_extend <- chop_width(1:24, 5, cover_tail = FALSE, extend = FALSE)
+  expect_true(all(is.na(tail(no_extend, 3))))
+  expect_false(anyNA(chop_width(1:21, 5, cover_tail = FALSE, extend = FALSE)))
 })
 
 

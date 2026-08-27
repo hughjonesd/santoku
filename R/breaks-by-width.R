@@ -29,12 +29,13 @@ NULL
 #' @rdname chop_width
 #' @export
 #' @order 2
-brk_width <- function (width, start) UseMethod("brk_width")
+brk_width <- function (width, start, cover_tail = TRUE) UseMethod("brk_width")
 
 
 #' @rdname brk_width-for-datetime
+#' @inheritParams chop_width
 #' @export
-brk_width.Duration <- function (width, start) {
+brk_width.Duration <- function (width, start, cover_tail = TRUE) {
   loadNamespace("lubridate")
   width <- lubridate::make_difftime(as.numeric(width))
   NextMethod()
@@ -44,8 +45,9 @@ brk_width.Duration <- function (width, start) {
 #' @rdname chop_width
 #' @export
 #' @order 2
-brk_width.default <- function (width, start) {
+brk_width.default <- function (width, start, cover_tail = TRUE) {
   assert_that(is.scalar(width))
+  assert_that(is.flag(cover_tail), ! is.na(cover_tail))
 
   sm <- missing(start)
   if (! sm) assert_that(is.scalar(start))
@@ -66,6 +68,9 @@ brk_width.default <- function (width, start) {
       return(empty_breaks())
     }
 
+    if (! cover_tail && breaks[length(breaks)] != until) {
+      breaks <- breaks[-length(breaks)]
+    }
     if (sign(width) <= 0) breaks <- rev(breaks)
 
     breaks <- create_extended_breaks(breaks, x, extend, left, close_end)

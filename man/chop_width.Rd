@@ -7,13 +7,13 @@
 \alias{tab_width}
 \title{Chop into fixed-width intervals}
 \usage{
-chop_width(x, width, start, ..., left = sign(width) > 0)
+chop_width(x, width, start, ..., left = sign(width) > 0, cover_tail = TRUE)
 
-brk_width(width, start)
+brk_width(width, start, cover_tail = TRUE)
 
-\method{brk_width}{default}(width, start)
+\method{brk_width}{default}(width, start, cover_tail = TRUE)
 
-tab_width(x, width, start, ..., left = sign(width) > 0)
+tab_width(x, width, start, ..., left = sign(width) > 0, cover_tail = TRUE)
 }
 \arguments{
 \item{x}{A vector.}
@@ -26,6 +26,12 @@ finite \code{x} (largest if \code{width} is negative).}
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
 
 \item{left}{Logical. Left-closed or right-closed breaks?}
+
+\item{cover_tail}{Logical. If \code{TRUE}, fixed-width intervals cover all finite
+values in \code{x}. If \code{FALSE}, they go up to the largest \code{x} value or
+just before it, but not beyond it; any "tail" will then be handled
+by the \code{extend} argument. (If \code{width} is negative, the same logic
+applies to the smallest \code{x}.)}
 }
 \value{
 \verb{chop_*} functions return a \code{\link[base:factor]{factor}} of the same length as \code{x}.
@@ -45,6 +51,8 @@ go downwards from \code{start}.
 chop_width(1:10, 2)
 
 chop_width(1:10, 2, start = 0)
+
+chop_width(1:24, 5, cover_tail = FALSE)
 
 chop_width(1:9, -2)
 

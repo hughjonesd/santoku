@@ -41,10 +41,12 @@ tab_width <- function (
                width,
                start,
                ...,
-               left = sign(width) > 0
+               left = sign(width) > 0,
+               cover_tail = TRUE
              ) {
   default_table(
-    chop_width(x = x, width = width, start = start, ..., left = left)
+    chop_width(x = x, width = width, start = start, ..., left = left,
+               cover_tail = cover_tail)
   )
 }
 

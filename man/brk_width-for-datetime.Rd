@@ -5,7 +5,7 @@
 \alias{brk_width.Duration}
 \title{Equal-width intervals for dates or datetimes}
 \usage{
-\method{brk_width}{Duration}(width, start)
+\method{brk_width}{Duration}(width, start, cover_tail = TRUE)
 }
 \arguments{
 \item{width}{A scalar \link{difftime}, \link[lubridate:Period-class]{Period} or
@@ -13,6 +13,12 @@
 
 \item{start}{A scalar of class \link[base:Dates]{Date} or \link[=DateTimeClasses]{POSIXct}.
 Can be omitted.}
+
+\item{cover_tail}{Logical. If \code{TRUE}, fixed-width intervals cover all finite
+values in \code{x}. If \code{FALSE}, they go up to the largest \code{x} value or
+just before it, but not beyond it; any "tail" will then be handled
+by the \code{extend} argument. (If \code{width} is negative, the same logic
+applies to the smallest \code{x}.)}
 }
 \description{
 \code{brk_width()} can be used with time interval classes from base R or the

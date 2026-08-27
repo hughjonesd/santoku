@@ -123,6 +123,17 @@ test_that("brk_width", {
 
   b <- brk_res(brk_width(1), c(NA, 2, 4, NA))
   expect_equal(diff(as.vector(b))[1], 1)
+
+  b <- brk_res(brk_width(2, cover_tail = FALSE), 1:8)
+  expect_identical(as.vector(b), c(1, 3, 5, 7))
+
+  b <- brk_res(brk_width(2, cover_tail = FALSE), 1:8, extend = NULL)
+  expect_identical(as.vector(b), c(1, 3, 5, 7, 8))
+
+  b <- brk_res(brk_width(5, cover_tail = FALSE), 1:21)
+  expect_identical(as.vector(b), c(1, 6, 11, 16, 21))
+
+  expect_error(brk_width(2, cover_tail = NA))
 })
 
 
@@ -138,6 +149,12 @@ test_that("brk_width, negative width", {
 
   b <- brk_res(brk_width(-2, start = 2.5), 0:4)
   expect_identical(as.vector(b), c(-1.5, 0.5, 2.5))
+
+  b <- brk_res(brk_width(-2, cover_tail = FALSE), 1:8)
+  expect_identical(as.vector(b), c(2, 4, 6, 8))
+
+  b <- brk_res(brk_width(-2, cover_tail = FALSE), 1:8, extend = NULL)
+  expect_identical(as.vector(b), c(1, 2, 4, 6, 8))
 })
 
 

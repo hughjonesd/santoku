@@ -1,4 +1,8 @@
 
+# This runs 10,000 tests by default. On CI, or if
+#   options(santoku.test_everything = TRUE)
+# has been set, it runs all the tests
+
 test_that("systematic tests", {
   x_vals <- list(
     ordinary = 4:1,
@@ -32,6 +36,7 @@ test_that("systematic tests", {
     brk_default_hi  = expression(brk_default(5)),
     brk_width       = expression(brk_width(1)),
     brk_width2      = expression(brk_width(1, 0)),
+    brk_width3      = expression(brk_width(2, cover_tail = FALSE)),
     brk_spikes  = expression(brk_spikes(1:3, n = 2)),
     brk_w_difft_day = expression(brk_width(as.difftime(5, units = "days"))),
     brk_w_difft_sec = expression(brk_width(as.difftime(5, units = "secs"))),
@@ -129,6 +134,13 @@ test_that("systematic tests", {
                     brk_fun %in% c("brk_default_hi", "brk_default_lo") &
                     names(x) %in% c("all_NAs", "none") &
                     is.na(extend)
+  ))
+
+  # cover_tail = FALSE leaves one break when all values are the same
+  should_fail(with(test_df,
+                   brk_fun == "brk_width3" &
+                     names(x) %in% c("same", "one") &
+                     extend == FALSE
   ))
 
   # raw endpoints get duplicated if multiple quantiles are infinite:
@@ -262,4 +274,3 @@ test_that("systematic tests", {
           ))
   }
 })
-
