@@ -1,4 +1,8 @@
 
+# This runs 10,000 tests by default. On CI, or if
+#   options(santoku.test_everything = TRUE)
+# has been set, it runs all the tests
+
 test_that("systematic tests", {
   x_vals <- list(
     ordinary = 4:1,
@@ -124,19 +128,19 @@ test_that("systematic tests", {
           extend == FALSE
         ))
 
-  # cover_tail = FALSE leaves one break when all values are the same
-  should_fail(with(test_df,
-          brk_fun == "brk_width3" &
-          names(x) %in% c("same", "one") &
-          extend == FALSE
-        ))
-
   # ditto when extend is NULL and there's no non-NA data
   # here we have to fail even though with some data we'd be OK
   should_fail(with(test_df,
                     brk_fun %in% c("brk_default_hi", "brk_default_lo") &
                     names(x) %in% c("all_NAs", "none") &
                     is.na(extend)
+  ))
+
+  # cover_tail = FALSE leaves one break when all values are the same
+  should_fail(with(test_df,
+                   brk_fun == "brk_width3" &
+                     names(x) %in% c("same", "one") &
+                     extend == FALSE
   ))
 
   # raw endpoints get duplicated if multiple quantiles are infinite:
@@ -270,4 +274,3 @@ test_that("systematic tests", {
           ))
   }
 })
-
