@@ -9,8 +9,9 @@
 #'
 #' @param start A scalar of class [Date][base::Dates] or [POSIXct][DateTimeClasses].
 #'   Can be omitted.
-#' @param shrink_last Logical. If `TRUE`, shrink the last interval to the last
-#'   finite value in `x`.
+#' @param cover_tail Logical. If `TRUE`, fixed-width intervals cover all finite
+#'   values in `x`. If `FALSE`, the possible tail is handled according to
+#'   `extend`.
 #'
 #' @details
 #' If `width` is a Period, [`lubridate::add_with_rollback()`][`lubridate::m+`]
@@ -31,12 +32,12 @@ NULL
 #' @rdname chop_width
 #' @export
 #' @order 2
-brk_width <- function (width, start, shrink_last = FALSE) UseMethod("brk_width")
+brk_width <- function (width, start, cover_tail = TRUE) UseMethod("brk_width")
 
 
 #' @rdname brk_width-for-datetime
 #' @export
-brk_width.Duration <- function (width, start, shrink_last = FALSE) {
+brk_width.Duration <- function (width, start, cover_tail = TRUE) {
   loadNamespace("lubridate")
   width <- lubridate::make_difftime(as.numeric(width))
   NextMethod()
@@ -46,9 +47,9 @@ brk_width.Duration <- function (width, start, shrink_last = FALSE) {
 #' @rdname chop_width
 #' @export
 #' @order 2
-brk_width.default <- function (width, start, shrink_last = FALSE) {
+brk_width.default <- function (width, start, cover_tail = TRUE) {
   assert_that(is.scalar(width))
-  assert_that(is.flag(shrink_last), ! is.na(shrink_last))
+  assert_that(is.flag(cover_tail), ! is.na(cover_tail))
 
   sm <- missing(start)
   if (! sm) assert_that(is.scalar(start))
@@ -69,7 +70,9 @@ brk_width.default <- function (width, start, shrink_last = FALSE) {
       return(empty_breaks())
     }
 
-    if (shrink_last) breaks[length(breaks)] <- until
+    if (! cover_tail && breaks[length(breaks)] != until) {
+      breaks <- breaks[-length(breaks)]
+    }
     if (sign(width) <= 0) breaks <- rev(breaks)
 
     breaks <- create_extended_breaks(breaks, x, extend, left, close_end)

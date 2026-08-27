@@ -6,8 +6,9 @@
 #' @param width Width of intervals.
 #' @param start Starting point for intervals. By default the smallest
 #'   finite `x` (largest if `width` is negative).
-#' @param shrink_last Logical. If `TRUE`, shrink the last interval to the last
-#'   finite value in `x`.
+#' @param cover_tail Logical. If `TRUE`, fixed-width intervals cover all finite
+#'   values in `x`. If `FALSE`, the possible tail is handled according to
+#'   `extend`.
 #' @inheritParams chop
 #' @inherit chop-doc params return
 #'
@@ -26,7 +27,7 @@
 #'
 #' chop_width(1:10, 2, start = 0)
 #'
-#' chop_width(1:8, 2, shrink_last = TRUE)
+#' chop_width(1:24, 5, cover_tail = FALSE)
 #'
 #' chop_width(1:9, -2)
 #'
@@ -38,9 +39,9 @@ chop_width <- function (
                 start,
                 ...,
                 left = sign(width) > 0,
-                shrink_last = FALSE
+                cover_tail = TRUE
               ) {
-  chop(x, brk_width(width, start, shrink_last = shrink_last), ..., left = left)
+  chop(x, brk_width(width, start, cover_tail = cover_tail), ..., left = left)
 }
 
 

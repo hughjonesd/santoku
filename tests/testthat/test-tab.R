@@ -27,7 +27,7 @@ test_that("tab_width", {
   )
 
   expect_identical(
-    names(tab_width(1:8, 2, shrink_last = TRUE)),
+    names(tab_width(1:8, 2, cover_tail = FALSE)),
     c("[1, 3)", "[3, 5)", "[5, 7)", "[7, 8]")
   )
 })

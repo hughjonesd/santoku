@@ -1,7 +1,8 @@
 # santoku (development version)
 
-* `chop_width()`, `brk_width()` and `tab_width()` gain a `shrink_last` argument
-  to shrink the last interval to the last finite data value (#64).
+* `chop_width()`, `brk_width()` and `tab_width()` gain a `cover_tail` argument.
+  Set `cover_tail = FALSE` to handle a final partial interval according to
+  `extend` (#64).
 
 # santoku 2.0.0
 
