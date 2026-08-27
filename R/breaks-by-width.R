@@ -9,9 +9,6 @@
 #'
 #' @param start A scalar of class [Date][base::Dates] or [POSIXct][DateTimeClasses].
 #'   Can be omitted.
-#' @param cover_tail Logical. If `TRUE`, fixed-width intervals cover all finite
-#'   values in `x`. If `FALSE`, the possible tail is handled according to
-#'   `extend`.
 #'
 #' @details
 #' If `width` is a Period, [`lubridate::add_with_rollback()`][`lubridate::m+`]
@@ -36,6 +33,7 @@ brk_width <- function (width, start, cover_tail = TRUE) UseMethod("brk_width")
 
 
 #' @rdname brk_width-for-datetime
+#' @inheritParams chop_width
 #' @export
 brk_width.Duration <- function (width, start, cover_tail = TRUE) {
   loadNamespace("lubridate")
