@@ -28,8 +28,10 @@ finite \code{x} (largest if \code{width} is negative).}
 \item{left}{Logical. Left-closed or right-closed breaks?}
 
 \item{cover_tail}{Logical. If \code{TRUE}, fixed-width intervals cover all finite
-values in \code{x}. If \code{FALSE}, the possible tail is handled according to
-\code{extend}.}
+values in \code{x}. If \code{FALSE}, they go up to the largest \code{x} value or
+just before it, but not beyond it; any "tail" will then be handled
+by the \code{extend} argument. (If \code{width} is negative, the same logic
+applies to the smallest \code{x}.)}
 }
 \value{
 \verb{chop_*} functions return a \code{\link[base:factor]{factor}} of the same length as \code{x}.

@@ -15,8 +15,10 @@
 Can be omitted.}
 
 \item{cover_tail}{Logical. If \code{TRUE}, fixed-width intervals cover all finite
-values in \code{x}. If \code{FALSE}, the possible tail is handled according to
-\code{extend}.}
+values in \code{x}. If \code{FALSE}, they go up to the largest \code{x} value or
+just before it, but not beyond it; any "tail" will then be handled
+by the \code{extend} argument. (If \code{width} is negative, the same logic
+applies to the smallest \code{x}.)}
 }
 \description{
 \code{brk_width()} can be used with time interval classes from base R or the

@@ -1,8 +1,12 @@
 # santoku (development version)
 
 * `chop_width()`, `brk_width()` and `tab_width()` gain a `cover_tail` argument.
-  Set `cover_tail = FALSE` to handle a final partial interval according to
-  `extend` (#64).
+  If `cover_tail = FALSE`, the fixed-width breaks don't extend to the final
+  "tail" of the data. This can give nicer breaks, e.g. 
+  `chop_width(1:7, 2, start = 2, cover_tail = FALSE)` will have breaks 
+  `[1, 2), [2, 4), [4, 6), [6, 7]` where  `chop_width(1:7, 2, start = 2)` 
+  gives `[1, 2), [2, 4), [4, 6), [6, 8]`.
+
 
 # santoku 2.0.0
 
