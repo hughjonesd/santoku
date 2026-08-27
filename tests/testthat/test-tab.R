@@ -25,6 +25,11 @@ test_that("tab_width", {
     table(x = c(rep(c("[0, 2)", "[2, 4)", "[4, 6)", "[6, 8]"), 2)),
             dnn = NULL)
   )
+
+  expect_identical(
+    names(tab_width(1:8, 2, shrink_last = TRUE)),
+    c("[1, 3)", "[3, 5)", "[5, 7)", "[7, 8]")
+  )
 })
 
 

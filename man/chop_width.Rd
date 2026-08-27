@@ -7,13 +7,13 @@
 \alias{tab_width}
 \title{Chop into fixed-width intervals}
 \usage{
-chop_width(x, width, start, ..., left = sign(width) > 0)
+chop_width(x, width, start, ..., left = sign(width) > 0, shrink_last = FALSE)
 
-brk_width(width, start)
+brk_width(width, start, shrink_last = FALSE)
 
-\method{brk_width}{default}(width, start)
+\method{brk_width}{default}(width, start, shrink_last = FALSE)
 
-tab_width(x, width, start, ..., left = sign(width) > 0)
+tab_width(x, width, start, ..., left = sign(width) > 0, shrink_last = FALSE)
 }
 \arguments{
 \item{x}{A vector.}
@@ -26,6 +26,9 @@ finite \code{x} (largest if \code{width} is negative).}
 \item{...}{Passed to \code{\link[=chop]{chop()}}.}
 
 \item{left}{Logical. Left-closed or right-closed breaks?}
+
+\item{shrink_last}{Logical. If \code{TRUE}, shrink the last interval to the last
+finite value in \code{x}.}
 }
 \value{
 \verb{chop_*} functions return a \code{\link[base:factor]{factor}} of the same length as \code{x}.
@@ -45,6 +48,8 @@ go downwards from \code{start}.
 chop_width(1:10, 2)
 
 chop_width(1:10, 2, start = 0)
+
+chop_width(1:8, 2, shrink_last = TRUE)
 
 chop_width(1:9, -2)
 

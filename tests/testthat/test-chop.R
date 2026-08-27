@@ -195,6 +195,14 @@ test_that("chop_width", {
     chop_width(x, 2, 0, labels = lbl_seq("1")),
     factor(c(1, rep(2:4, each = 2), 5, 5, 5))
   )
+  expect_equal(
+    levels(chop_width(1:8, 2, shrink_last = TRUE)),
+    c("[1, 3)", "[3, 5)", "[5, 7)", "[7, 8]")
+  )
+  expect_equal(
+    levels(chop_width(1:8, -2, shrink_last = TRUE)),
+    c("[1, 2]", "(2, 4]", "(4, 6]", "(6, 8]")
+  )
 })
 
 

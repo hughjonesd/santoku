@@ -1,5 +1,8 @@
 # santoku (development version)
 
+* `chop_width()`, `brk_width()` and `tab_width()` gain a `shrink_last` argument
+  to shrink the last interval to the last finite data value (#64).
+
 # santoku 2.0.0
 
 * Breaking change: `chop_quantiles()` with non-null `weights` now normalizes

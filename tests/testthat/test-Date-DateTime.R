@@ -208,6 +208,20 @@ test_that("chop_width: Period", {
 })
 
 
+test_that("chop_width: shrink_last with Period and Duration", {
+  skip_if_not_installed("lubridate")
+
+  x <- as.Date("2001-01-01") + 0:9
+  expected_last <- as.Date("2001-01-10")
+
+  period_breaks <- brk_res(brk_width(lubridate::days(4), shrink_last = TRUE), x)
+  duration_breaks <- brk_res(brk_width(lubridate::ddays(4), shrink_last = TRUE), x)
+
+  expect_identical(tail(as.vector(period_breaks), 1), as.numeric(expected_last))
+  expect_identical(tail(as.vector(duration_breaks), 1), as.numeric(expected_last))
+})
+
+
 test_that("chop_width: Period quirks", {
   skip_if_not_installed("lubridate")
   library(lubridate)

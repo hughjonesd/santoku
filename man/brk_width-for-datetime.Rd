@@ -5,7 +5,7 @@
 \alias{brk_width.Duration}
 \title{Equal-width intervals for dates or datetimes}
 \usage{
-\method{brk_width}{Duration}(width, start)
+\method{brk_width}{Duration}(width, start, shrink_last = FALSE)
 }
 \arguments{
 \item{width}{A scalar \link{difftime}, \link[lubridate:Period-class]{Period} or
@@ -13,6 +13,9 @@
 
 \item{start}{A scalar of class \link[base:Dates]{Date} or \link[=DateTimeClasses]{POSIXct}.
 Can be omitted.}
+
+\item{shrink_last}{Logical. If \code{TRUE}, shrink the last interval to the last
+finite value in \code{x}.}
 }
 \description{
 \code{brk_width()} can be used with time interval classes from base R or the
